@@ -7,6 +7,33 @@
 
 import SwiftUI
 
+struct CustomTextFieldModifier: ViewModifier {
+    var icon: String
+    
+    func body(content: Content) -> some View {
+        HStack {
+            Image(systemName: icon)
+                .foregroundColor(.gray)
+
+            content
+                .foregroundColor(.primary) // 텍스트 색상
+                .padding(.vertical, 12)
+            
+        }
+        .padding(.horizontal)
+        .frame(height: 50)
+        .overlay(
+            RoundedRectangle(cornerRadius: 10)
+                .stroke(Color.gray.opacity(0.5), lineWidth: 1)
+        )
+    }
+}
+extension View {
+    func customTextFieldStyle(icon: String) -> some View {
+        self.modifier(CustomTextFieldModifier(icon: icon))
+    }
+}
+
 struct LoginView: View {
     
     @Environment(\.presentationMode) var presentationMode
@@ -27,7 +54,8 @@ struct LoginView: View {
                     .padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0))
                 TextField("아이디를 입력하세요", text: $viewModel.userId)
                     .frame(height: 56)
-                    .border(Color(hex: "#E5E5E5"), width: 1)
+//                    .border(Color(hex: "#E5E5E5"), width: 1)
+                    .customTextFieldStyle(icon: "person")
                     
                     
                 
@@ -35,7 +63,7 @@ struct LoginView: View {
                     .padding(.top,28)
                 TextField("비밀번호를 입력해주세요", text: $viewModel.userPwd)
                     .frame(height: 56)
-                    .border(Color(hex: "#E5E5E5"), width: 1)
+                    .customTextFieldStyle(icon: "lock")
                 HStack {
                     Spacer()
                     Button(action: {
@@ -66,13 +94,17 @@ struct LoginView: View {
                     }) {
                         Text("비회원으로 이용하기")
                             .font(Font.system(size: 14))
+                            .foregroundStyle(Color(hex: "555555"))
                     }
                     .padding(.leading,97)
+                    Text("|")
+                        .foregroundStyle(Color(hex: "#DADADA"))
                     Button(action: {
                         print("회원가입")
                     }) {
                         Text("회원가입")
                             .font(Font.system(size: 14))
+                            .foregroundStyle(Color(hex: "#2866D3"))
                     }
                 }
                 .padding(.bottom, 56)
