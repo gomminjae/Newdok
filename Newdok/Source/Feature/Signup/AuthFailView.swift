@@ -17,7 +17,7 @@ struct AuthFailView: View {
                 print("Hello")
             }
             .foregroundStyle(Color.white)
-            .background(Color.blue)
+            .background(Color(hex: "2866D3"))
         }
         .background(.white)
     }

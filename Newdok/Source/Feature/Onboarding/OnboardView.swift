@@ -63,14 +63,14 @@ struct OnboardingView: View {
                     
                     HStack {
                         Text("이미 계정이 있나요?")
-                            .font(.system(size: 14))
+                            .font(.hanSansNeo(14,.medium))
                             .foregroundColor(Color(hex: "#555555"))
                         Button(action: {
                             print("로그인 클릭")
                         }) {
                             NavigationLink(destination: LoginView()) {
                                 Text("로그인")
-                                    .font(.system(size: 14, weight: .bold))
+                                    .font(.hanSansNeo(14,.medium))
                                     .foregroundColor(.mainBlue)
                                     .underline()
                             }
@@ -95,12 +95,12 @@ struct OnboardingPageView: View {
         VStack {
             Spacer(minLength: 64)
             Text(title)
-                .font(.system(size: 14, weight: .medium))
+                .font(.hanSansNeo(14, .medium))
                 .foregroundColor(.gray)
                 .fixedSize(horizontal: false, vertical: true)
             
             Text(subtitle)
-                .font(.system(size: 22, weight: .bold))
+                .font(.hanSansNeo(22, .bold))
                 .frame(alignment: .leading)
                 .multilineTextAlignment(.center)
                 .frame(maxWidth: .infinity, alignment: .center)

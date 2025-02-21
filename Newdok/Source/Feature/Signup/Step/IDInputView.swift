@@ -15,19 +15,22 @@ struct IDInputView: View {
     var body: some View {
         VStack(alignment: .leading) {
             Text("아이디를\n입력해주세요.")
-                .font(Font.system(size: 24, weight: .bold))
+                .font(.hanSansNeo(18, .bold))
             Text("아이디")
+                .font(.hanSansNeo(14, .medium))
                 .padding(.top, 32)
             HStack {
                 TextField("6~12자,영문/숫자 조합", text: $id)
+                    .font(.hanSansNeo(14, .medium))
                     .modifier(CustomTextFieldModifier(icon: "person"))
                     .frame(height: 56)
                 Button("중복확인") {
                     print("text")
                 }
                 .frame(width: 96, height: 56)
+                .foregroundStyle(Color(hex: "C0C0C0"))
+                .background(Color(hex: "EBEBEB"))
                 .cornerRadius(12)
-                .background(Color.gray)
             }
                 
         }

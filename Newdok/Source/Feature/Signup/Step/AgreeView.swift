@@ -23,7 +23,7 @@ struct AgreeView: View {
         VStack(alignment: .leading, spacing: 24) {
             // Header Text
             Text("마지막으로\n이용 약관에 동의해주세요.")
-                .font(.title3)
+                .font(.hanSansNeo(12,.bold))
                 .bold()
                 .padding(.top,32)
             

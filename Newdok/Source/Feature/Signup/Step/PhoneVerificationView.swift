@@ -20,16 +20,18 @@ struct PhoneVerificationView: View {
     var body: some View {
         VStack(alignment: .leading) {
             Text("본인 확인을 위해\n휴대폰 번호를 입력해주세요.")
-                .font(.title2)
-                .bold()
+                .font(.hanSansNeo(18, .bold))
+                .padding(.leading, 24)
+                .padding(.top,24)
             Text("휴대폰 번호")
-                .font(Font.system(size: 14))
-                .padding(.top, 48)
+                .font(.hanSansNeo(14,.medium))
+                .padding(.top, 32)
+                .padding(.leading,28)
             HStack {
                 HStack {
-                    Image(systemName: "phone.fill") // 📌 아이콘 추가
+                    Image("phone")
                         .foregroundColor(.gray)
-                    // 🔹 휴대폰 번호 입력 필드
+
                     TextField("-구분 없이 입력", text: $phoneNumber)
                         .keyboardType(.numberPad)
                         .padding()
@@ -40,34 +42,42 @@ struct PhoneVerificationView: View {
                                 self.phoneNumber = formatted
                             }
                         }
-                        .font(Font.system(size: 14))
+                        .font(.hanSansNeo(14,.medium))
                         .disabled(isRequestSent)
                 }
+                .padding(.leading, 27)
                 .padding(.bottom, 5)
                 .overlay(Rectangle().frame(height: 0.5).foregroundColor(Color(hex: "#EBEBEB")), alignment: .bottom)
                 
-                // 🔹 인증 요청 버튼
+               
                 Button(isRequestSent ? "재전송" : "인증 요청") {
                     sendVerificationCode()
                 }
-                .buttonStyle(PrimaryButtonStyle())
                 .disabled(phoneNumber.isEmpty || isRequestSent)
-                .frame(width: 84, height: 36)
-                .cornerRadius(8)
+                .buttonStyle(VerificationButtonStyle(
+                    isRequestSent: isRequestSent,
+                    isDisabled: phoneNumber.isEmpty || isRequestSent
+                ))
+                .padding(.horizontal, 24)
+
+                
             }
 
             if isRequestSent {
-                // 🔹 인증번호 입력 필드
+                
                 VStack(alignment: .leading, spacing: 8) {
                     Text("인증번호")
                         .font(Font.system(size: 16))
+                        .padding(.leading, 24)
+                        .padding(.top, 24)
                     HStack {
-                        TextField("인증번호 입력", text: $verificationCode)
+                        TextField("6자리 숫자 입력", text: $verificationCode)
                             .keyboardType(.numberPad)
-                            .padding()
                             .frame(height: 50)
+                            .padding(.leading, 16)
+                            .font(.hanSansNeo(14, .medium))
                         Text("\(formatTime(timerRemaining))")
-                            .foregroundStyle(showError ? Color.red : Color(hex: "#2866D3"))
+                            .foregroundStyle(showError ? Color.red : .primaryNormal)
                             .font(Font.system(size: 12))
                             .padding(.trailing, 10)
                         
@@ -76,28 +86,44 @@ struct PhoneVerificationView: View {
                     .background(showError ? Color.red.opacity(0.1) : .white)
                     .overlay(
                         RoundedRectangle(cornerRadius: 5)
-                            .stroke(showError ? Color.red : Color(hex: "#EBEBEB"), lineWidth: 1)
+                            .stroke(showError ? Color.red : Color(hex: "EBEBEB"), lineWidth: 2)
+                            .cornerRadius(12)
                     )
+                    .padding(.horizontal,24)
+                   
                     
-                    if showError {
-                        Text("인증번호를 다시 확인해주세요.")
-                            .foregroundStyle(.red)
-                            .font(Font.system(size: 12))
-                    }
+                    Text(showError ? "인증번호를 다시 확인해주세요.":"문자가 오지 않는다면 '재전송'버튼을 눌러주세요.")
+                        .font(.hanSansNeo(11, .regular))
+                        .foregroundStyle(showError ? .red : Color(hex: "555555"))
+                        .padding(.leading,24)
+                        .padding(.top, 6)
+                    
+//                    if showError {
+//                        Text("인증번호를 다시 확인해주세요.")
+//                            .foregroundStyle(.red)
+//                            .font(Font.system(size: 12))
+//                    }
                     
                 }
                 
                 
                 Spacer()
-                // 🔹 "다음" 버튼
+                
                 Button("다음") {
                     verifyCode()
                 }
-                .buttonStyle(PrimaryButtonStyle())
+                .font(.hanSansNeo(16, .bold))
+                .foregroundStyle(Color.captionDisabled)
+                .frame(maxWidth: .infinity)
+                .frame(height: 56)
                 .disabled(verificationCode.count < 6)
+                .background(verificationCode.count < 6 ? Color.lineNeutral : .primaryNormal)
+                .cornerRadius(12)
+                .padding(.horizontal,24)
+                .padding(.bottom,16)
+                
             }
         }
-        .padding(.leading, 24)
         .alert(isPresented: $showAlreadyRegisteredAlert) {
             Alert(title: Text("이미 가입된 계정입니다."),
                   message: Text("이메일을 확인해주세요."),
@@ -108,7 +134,9 @@ struct PhoneVerificationView: View {
                 startTimer()
             }
         }
+
     }
+    
     
     private func formatPhoneNumber(_ number: String) -> String {
         let digits = number.filter { $0.isNumber }
@@ -133,7 +161,6 @@ struct PhoneVerificationView: View {
         
     }
     
-    // 🔹 인증번호 검증
     private func verifyCode() {
         if verificationCode == "123456" {
             print("인증 성공!")
@@ -172,11 +199,11 @@ struct PrimaryButtonStyle: ButtonStyle {
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
             .frame(maxWidth: .infinity)
-            .frame(height: 50)
-            .background(configuration.isPressed ? .gray : Color(hex: "#2866D3"))
+            .background(configuration.isPressed ? .gray : .primaryNormal)
+            .font(.hanSansNeo(14,.medium))
             .foregroundColor(.white)
-            .cornerRadius(10)
-            .padding(.vertical, 5)
+            .cornerRadius(8)
+           
     }
 }
 

@@ -23,10 +23,9 @@ struct SignupView: View {
             
             ScrollViewReader { proxy in
                 ScrollView {
-                    VStack(spacing: 32) {
+                    VStack {
                         PhoneVerificationView()
                     }
-                    .padding()
                 }
                 .onChange(of: currentStep) { newStep in
                     withAnimation {
