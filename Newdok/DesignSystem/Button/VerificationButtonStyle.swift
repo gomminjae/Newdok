@@ -19,32 +19,31 @@ struct VerificationButtonStyle: ButtonStyle {
             .foregroundColor(buttonForeground)
             .overlay(
                 RoundedRectangle(cornerRadius: 8)
-                    .stroke(isRequestSent ? Color.blue : Color.clear, lineWidth: 1) // 재전송일 때만 테두리 표시
+                    .stroke(isRequestSent ? Color.blue : Color.clear, lineWidth: 1)
             )
             .cornerRadius(8)
-            .opacity(configuration.isPressed ? 0.7 : 1.0) // 클릭 시 투명도 효과
+            .opacity(configuration.isPressed ? 0.7 : 1.0)
             .animation(.easeInOut(duration: 0.2), value: configuration.isPressed)
     }
     
-    // 배경색 설정
+
     private var buttonBackground: Color {
         if isDisabled {
-            return Color(UIColor.systemGray5) // 비활성화 상태 (연한 회색)
+            return Color(UIColor.systemGray5)
         } else if isRequestSent {
-            return Color.white // 재전송 버튼 (흰색 배경)
+            return Color.white
         } else {
-            return Color.blue // 활성화 상태 (파란색 배경)
+            return Color.blue
         }
     }
 
-    // 글자색 설정
     private var buttonForeground: Color {
         if isDisabled {
-            return Color(UIColor.systemGray2) // 비활성화 상태 (연한 회색)
+            return Color(UIColor.systemGray2)
         } else if isRequestSent {
-            return Color.blue // 재전송 버튼 (파란색 글씨)
+            return Color.blue
         } else {
-            return Color.white // 활성화 상태 (흰색 글씨)
+            return Color.white
         }
     }
 }
