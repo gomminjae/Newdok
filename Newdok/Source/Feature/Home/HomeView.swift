@@ -8,71 +8,82 @@
 import SwiftUI
 
 struct HomeView: View {
-    let articles: [Article] = [
+    
+    let sampleArticles: [Article] = [
         Article(title: "💰 도커스님의 희망 은퇴 연령은?", source: "머니레터", imageName: "moneyletter", isRead: false),
-        Article(title: "애플, 9년만에 내놓은 신제품은?", source: "Daily Byte", imageName: "dailybyte", isRead: false),
+        Article(title: "애플, 9년 만에 내놓은 신제품은?", source: "Daily Byte", imageName: "dailybyte", isRead: false),
         Article(title: "A-Z, 시민단체 보조금 논란", source: "NEWNEEK", imageName: "newneek", isRead: true),
-        Article(title: "Apple WWDC23 특집, 지금 바로 확인해...", source: "깨달로그", imageName: "kkaedalogue", isRead: true),
-        Article(title: "원운원 그거.. 어떻게 잘하는 건데?", source: "팁스터", imageName: "tipster", isRead: false)
+        Article(title: "Apple WWDC24 특집, 지금 바로 확인해보세요!", source: "깨달로그", imageName: "kkaedalogue", isRead: true),
+        Article(title: "📈 원운원 그거.. 어떻게 잘하는 건데?", source: "팁스터", imageName: "tipster", isRead: false),
+        Article(title: "🧠 ChatGPT는 진짜 사람처럼 생각할까?", source: "AI Insight", imageName: "aiinsight", isRead: false)
     ]
-
+   
     var body: some View {
-        VStack(spacing: 0) {
+        VStack {
             HStack {
                 Image("logo")
-                    .resizable()
-                    .frame(width: 100, height: 24)
-                
+                    .padding(.leading, 20)
                 Spacer()
-                
-                Image(systemName: "bell")
-                    .font(.system(size: 20))
-                
-                Image(systemName: "calendar")
-                    .font(.system(size: 20))
-                    .padding(.leading, 16)
-            }
-            .padding(.horizontal)
-            .padding(.top, 8)
-
-         
-            Text("2024년 5월 23일 수요일")
-                .font(.system(size: 16))
-                .foregroundColor(.gray)
-                .padding(.top, 4)
-
-           
-            HStack {
-                Text("6개의 아티클이 도착했어요.")
-                    .font(.system(size: 18, weight: .bold))
-                
-                Spacer()
-                
                 Button(action: {
-                    print("새로고침 클릭")
+                    print("검색")
                 }) {
-                    Text("새로고침")
-                        .font(.system(size: 14))
-                        .foregroundColor(.blue)
+                    Image("search")
+                        .padding(.trailing,2.4)
+                }
+                Button(action: {
+                    print("알람")
+                }) {
+                    Image("bell")
+                        .padding(.leading, 2.4)
+                        .padding(.trailing,17.8)
                 }
             }
-            .padding(.horizontal)
+            HStack {
+                Text("2024년 5월 23일 수요일")
+                    .font(.hanSansNeo(16,.medium))
+                    .padding(.leading, 20)
+                Spacer()
+                Button(action: {
+                    print("calendar")
+                }) {
+                    Image("calendar_logo")
+                        .padding(.trailing, 17.8)
+                }
+            }
             .padding(.top, 16)
-
-            // 🔹 4. 아티클 리스트
-            ScrollView {
-                LazyVStack(spacing: 12) {
-                    ForEach(articles) { article in
-                        ArticleRow(article: article)
+            
+            VStack {
+                HStack {
+                    Text("6개의 아티클이 도착했어요.")
+                        .font(.hanSansNeo(18,.bold))
+                        .padding(.top, 20)
+                        .padding(.leading, 28)
+                    Spacer()
+                    Button(action: {
+                        print("calendara")
+                    }) {
+                        Image("refresh")
+                        Text("새로고침")
+                            .font(.hanSansNeo(12,.regular))
+                            .foregroundStyle(Color.primaryNormal)
                     }
+                    .padding(.trailing, 28)
+                    .padding(.top, 20)
                 }
-                .padding(.horizontal)
+                ScrollView {
+                    VStack(spacing: 12) {
+                        ForEach(sampleArticles) { article in
+                            ArticleRow(article: article)
+                                .frame(height: 88)
+                                .padding(.horizontal, 24)
+                            
+                        }
+                    }
+                    .padding()
+                }
+                
             }
-            .padding(.top, 8)
-
-            // 🔹 5. 하단 탭 바
-            Spacer()
-            CustomTabBar()
+            .background(Color(hex: "F5F5F7"))
         }
     }
 }
@@ -90,11 +101,11 @@ struct ArticleRow: View {
 
     var body: some View {
         HStack {
-            Image("signup") // 썸네일 이미지
+            Image("signup")
                 .resizable()
-                .frame(width: 40, height: 40)
-                .clipShape(RoundedRectangle(cornerRadius: 8))
+                .frame(width: 56, height: 56)
                 .background(Color.orange)
+                .cornerRadius(12)
             
             VStack(alignment: .leading, spacing: 4) {
                 Text(article.source)
@@ -111,47 +122,11 @@ struct ArticleRow: View {
                 .font(.system(size: 14))
                 .foregroundColor(article.isRead ? .gray : .blue)
         }
-        .padding()
-        .background(Color(.systemGray6))
+        .background(Color.white)
         .cornerRadius(12)
     }
 }
 
-// ✅ 하단 탭 바 (TabView)
-struct CustomTabBar: View {
-    var body: some View {
-        HStack {
-            TabItem(icon: "square.grid.2x2", label: "둘러보기")
-            TabItem(icon: "tray.fill", label: "구독관리")
-            TabItem(icon: "house.fill", label: "홈", isSelected: true)
-            TabItem(icon: "book.fill", label: "북마크함")
-            TabItem(icon: "person.fill", label: "마이페이지")
-        }
-        .padding(.top, 8)
-        .padding(.bottom, 16)
-        .background(Color.white)
-    }
-}
-
-// ✅ 개별 탭 아이템
-struct TabItem: View {
-    let icon: String
-    let label: String
-    var isSelected: Bool = false
-
-    var body: some View {
-        VStack {
-            Image(systemName: icon)
-                .font(.system(size: 22))
-                .foregroundColor(isSelected ? .blue : .gray)
-            
-            Text(label)
-                .font(.system(size: 12))
-                .foregroundColor(isSelected ? .blue : .gray)
-        }
-        .frame(maxWidth: .infinity)
-    }
-}
 
 #Preview {
     HomeView()
