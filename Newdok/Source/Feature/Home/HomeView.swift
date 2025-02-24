@@ -20,13 +20,13 @@ struct HomeView: View {
     
     
     @State private var isRefreshing = false
-    @State private var spinnerScale: CGFloat = 0.5 // 스피너 크기 조절
-    @State private var rotationAngle: Double = 0 // 스피너 회전 효과
+    @State private var spinnerScale: CGFloat = 0.5
+    @State private var rotationAngle: Double = 0
     
     var body: some View {
         VStack {
             HStack {
-                Image("darklogo")
+                Image("logo")
                     .padding(.top, 18)
                     .padding(.leading, 20)
                 Spacer()
@@ -83,12 +83,14 @@ struct HomeView: View {
                                     .font(.hanSansNeo(12,.regular))
                                     .foregroundStyle(Color.primaryNormal)
                             }
+                            .padding(.top, 23)
                             .padding(.trailing, 28)
                         }
                         VStack(spacing: 12) {
                             ForEach(sampleArticles) { article in
                                 ArticleRow(article: article)
                                     .frame(height: 88)
+                                    
                                     
                                 
                             }
@@ -127,4 +129,5 @@ struct Article: Identifiable {
 
 #Preview {
     HomeView()
+    
 }

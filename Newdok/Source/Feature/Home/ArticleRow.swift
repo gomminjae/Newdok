@@ -42,7 +42,7 @@ struct ArticleRow: View {
             }
         }
         .padding(16)
-        .background(Color.white)
+        .background(article.isRead ? Color(hex: "EBEBEB") : Color.white)
         .cornerRadius(12)
         .shadow(color: Color.black.opacity(0.05), radius: 2, x: 0, y: 1) 
     }
