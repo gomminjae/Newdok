@@ -31,7 +31,7 @@ struct ArticleRow: View {
 
                     Text(article.isRead ? "읽음" : "안읽음")
                         .font(.hanSansNeo(11, .regular))
-                        .foregroundColor(article.isRead ? .gray : .blue)
+                        .foregroundColor(article.isRead ? .gray : Color.primaryNormal)
                 }
 
                 Text(article.title)

@@ -18,99 +18,112 @@ struct HomeView: View {
         Article(title: "🧠 ChatGPT는 진짜 사람처럼 생각할까?", source: "AI Insight", imageName: "aiinsight", isRead: false)
     ]
     
+    @State private var showCalendar = false
+    
     
     @State private var isRefreshing = false
     @State private var spinnerScale: CGFloat = 0.5
     @State private var rotationAngle: Double = 0
     
     var body: some View {
-        VStack {
-            HStack {
-                Image("logo")
-                    .padding(.top, 18)
-                    .padding(.leading, 20)
-                Spacer()
-                Button(action: {
-                    print("검색")
-                }) {
-                    Image("search")
-                        .padding(.top, 18)
-                        .padding(.trailing,2.4)
-                }
-                Button(action: {
-                    print("알람")
-                }) {
-                    Image("bell")
-                        .padding(.top, 18)
-                        .padding(.leading, 8)
-                        .padding(.trailing,17.8)
-                }
-            }
-            HStack {
-                Text("2024년 5월 23일 수요일")
-                    .font(.hanSansNeo(16,.medium))
-                    .padding(.top, 16)
-                    .padding(.leading, 20)
-                Spacer()
-                Button(action: {
-                    print("calendar")
-                }) {
-                    Image("calendar_logo")
-                        .padding(.top, 16)
-                        .padding(.trailing, 17.8)
-                }
-            }
-            .padding(.top, 16)
-            
-            
-            
-            VStack {
-                if sampleArticles.isEmpty {
-                    NoDataView(type: .noArticles, buttonAction: {}, loginAction: {})
-                } else {
-                    ScrollView {
-                        HStack {
-                            Text("\(sampleArticles.count)개의 아티클이 도착했어요.")
-                                .font(.hanSansNeo(18,.bold))
-                                .padding(.top, 20)
-                                .padding(.leading, 28)
-                            Spacer()
-                            Button(action: {
-                                print("calendara")
-                            }) {
-                                Image("refresh")
-                                Text("새로고침")
-                                    .font(.hanSansNeo(12,.regular))
-                                    .foregroundStyle(Color.primaryNormal)
-                            }
-                            .padding(.top, 23)
-                            .padding(.trailing, 28)
+        ZStack {
+            Color(hex: "F5F5F7").ignoresSafeArea()
+            ScrollView {
+                VStack {
+                    HStack {
+                        Image("logo")
+                            .padding(.top, 18)
+                            .padding(.leading, 20)
+                        Spacer()
+                        Button(action: {
+                            print("검색")
+                        }) {
+                            Image("search")
+                                .padding(.top, 18)
+                                .padding(.trailing,2.4)
                         }
-                        VStack(spacing: 12) {
-                            ForEach(sampleArticles) { article in
-                                ArticleRow(article: article)
-                                    .frame(height: 88)
-                                    
-                                    
-                                
-                            }
+                        Button(action: {
+                            print("알람")
+                        }) {
+                            Image("bell")
+                                .padding(.top, 18)
+                                .padding(.leading, 8)
+                                .padding(.trailing,17.8)
                         }
-                        .padding()
                     }
-                    .scrollIndicators(.hidden)
-                   
+                    HStack {
+                        Text("2024년 5월 23일 수요일")
+                            .font(.hanSansNeo(16,.medium))
+                            .padding(.top, 16)
+                            .padding(.leading, 20)
+                        Spacer()
+                        Button(action: {
+                            showCalendar.toggle()
+                        }) {
+                            Image("calendar_logo")
+                                .padding(.top, 16)
+                                .padding(.trailing, 24)
+                        }
+                    }
+                    .padding(.top, 16)
+                    
+                    
+                    
+                    
+                    VStack {
+                        if sampleArticles.isEmpty {
+                            NoDataView(type: .noArticles, buttonAction: {}, loginAction: {})
+                        } else {
+                            
+                            HStack {
+                                Text("\(sampleArticles.count)개의 아티클이 도착했어요.")
+                                    .font(.hanSansNeo(18,.bold))
+                                    .padding(.top, 20)
+                                    .padding(.leading, 28)
+                                Spacer()
+                                Button(action: {
+                                    print("calendara")
+                                }) {
+                                    Image("refresh")
+                                    Text("새로고침")
+                                        .font(.hanSansNeo(12,.regular))
+                                        .foregroundStyle(Color.primaryNormal)
+                                }
+                                .padding(.top, 23)
+                                .padding(.trailing, 24)
+                            }
+                            VStack(spacing: 12) {
+                                ForEach(sampleArticles) { article in
+                                    ArticleRow(article: article)
+                                        .frame(height: 88)
+                                    
+                                    
+                                    
+                                }
+                            }
+                            .padding()
+                        }
+                        
+                        
+                    }
+                    Spacer()
+                    
                 }
-                Spacer()
+                .background(Color(hex: "F5F5F7"))
                 
             }
-            .background(Color(hex: "F5F5F7"))
+            .scrollIndicators(.hidden)
+            .popup(isPresented: $showCalendar) {
+                CalendarPopupView(isPresented: $showCalendar)
+            }
             
         }
+        
     }
     private func refreshData() {
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
             withAnimation {
-                isRefreshing = false // 로딩 종료
+                isRefreshing = false
             }
         }
     }
