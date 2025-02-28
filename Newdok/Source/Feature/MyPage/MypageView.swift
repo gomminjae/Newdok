@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct ProfileView: View {
+struct MypageView: View {
     var body: some View {
         // 스크롤 가능하도록 ScrollView 사용
         ScrollView {
@@ -120,6 +120,6 @@ struct ProfileView: View {
 // 미리보기
 #Preview {
     NavigationView {
-        ProfileView()
+        MypageView()
     }
 }
