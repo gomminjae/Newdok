@@ -15,7 +15,7 @@ struct CurationView: View {
                 .padding(.top, 24)
             Text("구독한 뉴스레터는 발행일에 맞춰 홈으로 배달해드려요.\n구독하기를 누르면 구독 이메일이 자동으로 복사돼요.")
                 .font(.hanSansNeo(14, .regular))
-                .padding(.top, 10)
+                .padding(.top, 8)
             ScrollView {
                 VStack(spacing: 12) {
                     CurationRow()
@@ -37,7 +37,7 @@ struct CurationView: View {
             .frame(maxWidth: .infinity)
             .frame(height: 56)
             .background(Color.primaryNormal)
-            .cornerRadius(12)
+            .cornerRadius(4)
             .padding(.bottom, 16)
            
             

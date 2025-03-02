@@ -26,6 +26,7 @@ struct ContentView: View {
             
         } else {
             OnboardingView()
+            
         }
     }
 }
