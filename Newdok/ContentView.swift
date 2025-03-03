@@ -4,7 +4,6 @@
 //
 //  Created by 권민재 on 2/14/25.
 //
-
 import SwiftUI
 
 struct ContentView: View {
@@ -25,7 +24,7 @@ struct ContentView: View {
                 }
             
         } else {
-            OnboardingView()
+            NewDokTabView()
             
         }
     }

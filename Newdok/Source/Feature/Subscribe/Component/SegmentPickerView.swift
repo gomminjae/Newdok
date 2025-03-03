@@ -8,8 +8,23 @@
 import SwiftUI
 
 struct SegmentPickerView: View {
+  @State var selectedTab = "구독 중"
+  var colors = ["구독 중","구독 중지"]
+  
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        
+        VStack {
+            Picker("", selection: $selectedTab) {
+                ForEach(colors, id: \.self) {
+                    Text($0)
+                }
+            }
+            .pickerStyle(.segmented)
+            .background(.white)
+            .cornerRadius(6)
+        
+            
+        }
     }
 }
 
