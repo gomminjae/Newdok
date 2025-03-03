@@ -34,32 +34,38 @@ enum UserAPI {
 
 extension UserAPI: TargetType {
     var baseURL: URL {
-        return URL(string: APIEnvironment.development.baseURL)!
+        switch self {
+        case .authSMS:
+            return URL(string: "\(APIEnvironment.development.self.baseURL)/auth")!
+        default:
+            return URL(string: "\(APIEnvironment.development.self.baseURL)/users")!
+        }
+        
     }
     
     var path: String {
         switch self {
             case .login:
-                return "/users/login"
+                return "/login"
         case .signup:
-            return "/users/signup"
+            return "/signup"
         case .checkPhoneNumber, .checkIDDup:
-            return "/users/check"
+            return "/check"
         case .updateNickname:
-            return "/users/mypage/nickname"
+            return "/mypage/nickname"
         case .updatePassword:
-            return "/users/mypage/password"
+            return "/mypage/password"
         case .updateIndustry:
-            return "/users/mypage/industry"
+            return "/mypage/industry"
         case .updateInterest:
-            return "/users/mypage/interet"
+            return "/mypage/interet"
         case .updatePhoneNumber:
-            return "/users/mypage/phoneNumber"
+            return "/mypage/phoneNumber"
         case .authSMS:
-            return "/auth/SMS"
+            return "/SMS"
             
         case .preInvestigate:
-            return "/users/preInvestigate"
+            return "/preInvestigate"
         }
     }
     
