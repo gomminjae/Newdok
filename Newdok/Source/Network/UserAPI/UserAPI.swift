@@ -65,11 +65,11 @@ extension UserAPI: TargetType {
     
     var method: Moya.Method {
         switch self {
-        case .checkPhoneNumber, .checkIDDup, .updateNickname, .updatePassword, .updateIndustry, .updateInterest, .updatePhoneNumber:
+        case .updatePassword, .updateIndustry, .updateInterest, .updatePhoneNumber, .updateNickname:
             return .patch
         case .login,.signup,.authSMS:
             return .post
-        case .preInvestigate:
+        case .preInvestigate, .checkIDDup, .checkPhoneNumber:
             return .get
         }
    
@@ -91,10 +91,9 @@ extension UserAPI: TargetType {
             ], encoding: JSONEncoding.default)
             
         case let .checkPhoneNumber(phoneNumber):
-            return .requestParameters(parameters: ["phoneNumber": phoneNumber], encoding: JSONEncoding.default)
-            
+            return .requestParameters(parameters: ["phoneNumber": phoneNumber], encoding: URLEncoding.default)
         case let .checkIDDup(loginId):
-            return .requestParameters(parameters: ["loginId": loginId], encoding: JSONEncoding.default)
+            return .requestParameters(parameters: ["loginId": loginId], encoding: URLEncoding.default)
             
         case let .updateNickname(nickname):
             return .requestParameters(parameters: ["nickname": nickname], encoding: JSONEncoding.default)
