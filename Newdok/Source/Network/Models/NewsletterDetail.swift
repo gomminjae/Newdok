@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct NewsLetter: Codable {
+struct NewsletterDetail: Codable {
     let brandId: Int
     let brandName: String
     let briefDescription: String
