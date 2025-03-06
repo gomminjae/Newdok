@@ -32,6 +32,8 @@ struct ProfileInputView: View {
     
     @State private var isValidNickName: NickNameValidationError? = nil
     
+    var nextStep: () -> Void
+    
     
     var body: some View {
         VStack(alignment: .leading, spacing: 16) {
@@ -128,6 +130,6 @@ struct GenderButton: View {
 }
 
 #Preview {
-    ProfileInputView()
+    ProfileInputView(nextStep: {})
 }
 
