@@ -34,11 +34,10 @@ extension View {
 }
 
 
-
-import SwiftUI
-
 struct PasswordFieldModifier: ViewModifier {
+    
     @Binding var isSecure: Bool
+    @State private var isHovering: Bool = false
     
     func body(content: Content) -> some View {
         HStack {
@@ -50,7 +49,9 @@ struct PasswordFieldModifier: ViewModifier {
                 isSecure.toggle()
             }) {
                 Image(isSecure ? "_Line Close Eye" : "Line Eye")
+                    .renderingMode(.template)
                     .foregroundColor(.blue)
+                
             }
         }
         .padding(10)
@@ -61,7 +62,6 @@ struct PasswordFieldModifier: ViewModifier {
     }
 }
 
-// Modifier를 쉽게 적용하기 위한 Extension
 extension View {
     func passwordFieldStyle(isSecure: Binding<Bool>) -> some View {
         self.modifier(PasswordFieldModifier(isSecure: isSecure))

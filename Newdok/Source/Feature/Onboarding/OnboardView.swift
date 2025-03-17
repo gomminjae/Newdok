@@ -55,7 +55,7 @@ struct OnboardingView: View {
                                 .padding()
                                 .background(Color(hex: "#2866D3"))
                                 .foregroundColor(.white)
-                                .cornerRadius(14)
+                                .cornerRadius(4)
                         }
                     }
                     .padding(.horizontal, 31)
