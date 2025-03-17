@@ -9,9 +9,14 @@ import SwiftUI
 
 @main
 struct NewdokApp: App {
+    
+    @StateObject private var loginState = LoginState()
+    
+    
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .environmentObject(loginState)
         }
     }
 }
