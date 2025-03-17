@@ -4,7 +4,8 @@
 target 'Newdok' do
   # Comment the next line if you don't want to use dynamic frameworks
   use_frameworks!
-  pod 'Moya' 
+  pod 'Moya'
+  pod 'Moya/Combine', '~> 15.0'
   # Pods for Newdok
 
   target 'NewdokTests' do

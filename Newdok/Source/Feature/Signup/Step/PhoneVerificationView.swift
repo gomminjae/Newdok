@@ -122,6 +122,8 @@ struct PhoneVerificationView: View {
                 .padding(.horizontal,24)
                 .padding(.bottom,16)
                 
+            } else {
+                Spacer()
             }
         }
         .alert(isPresented: $showAlreadyRegisteredAlert) {
