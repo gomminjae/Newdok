@@ -4,64 +4,62 @@
 //
 //  Created by 권민재 on 2/15/25.
 //
-
 import SwiftUI
 
-struct SignupView: View {
-    @State private var id: String = ""
-    @State private var password: String = ""
-    @State private var phoneNumber: String = ""
+enum SignupStep: Int, CaseIterable {
+    case phoneVerification = 0
+    case idInput
+    case pwInput
+    case enterProfile
+    case agreeTerms
+
     
-    @State private var currentStep: Double = 0.3
-    @Namespace private var scrollNAmeSpace
-    
-    
-    var body: some View {
-        VStack {
-            ProgressView(value: Double(currentStep), total: 3)
-                .progressViewStyle(.linear)
-            
-            ScrollViewReader { proxy in
-                ScrollView {
-                    VStack {
-                        PhoneVerificationView()
-                    }
-                }
-                .onChange(of: currentStep) { newStep in
-                    withAnimation {
-                        proxy.scrollTo(newStep, anchor: .top) // 다음 단계로 스크롤 이동
-                    }
-                }
-            }
-        }
-        .padding(.top, 20)
-        .navigationTitle("회원가입")
-        
-    }
-    private func nextStep() {
-        if currentStep < 2 {
-            currentStep += 1
+    var progressValue: Double {
+        switch self {
+        case .phoneVerification: return 0.2
+        case .idInput: return 0.4
+        case .pwInput: return 0.6
+        case .enterProfile: return 0.8
+        case .agreeTerms: return 1.0
         }
     }
 }
-struct StepView<Content: View>: View {
-    var step: Int
-    var title: String
-    var content: Content
 
-    init(step: Int, title: String, @ViewBuilder content: () -> Content) {
-        self.step = step
-        self.title = title
-        self.content = content()
-    }
+struct SignupView: View {
+    @State private var currentStep: SignupStep = .phoneVerification
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 8) {
-            Text(title)
-                .font(.headline)
-                .foregroundColor(.black)
+        VStack {
+            ProgressView(value: currentStep.progressValue, total: 1.0)
+                .progressViewStyle(.linear)
 
-            content
+            TabView(selection: $currentStep) {
+                PhoneVerificationView(nextStep: nextStep)
+                    .tag(SignupStep.phoneVerification)
+                
+                IDInputView(nextStep: nextStep)
+                    .tag(SignupStep.idInput)
+                
+                PwInputView(nextStep: nextStep)
+                    .tag(SignupStep.pwInput)
+                
+                ProfileInputView(nextStep: nextStep)
+                    .tag(SignupStep.enterProfile)
+
+                AgreeView()
+                    .tag(SignupStep.agreeTerms)
+            }
+            .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
+            .gesture(DragGesture().onChanged { _ in })
+        }
+        .padding(.top, 20)
+        .navigationTitle("회원가입")
+    }
+
+    // ✅ 다음 단계로 이동하는 함수
+    private func nextStep() {
+        if let nextStep = SignupStep(rawValue: currentStep.rawValue + 1) {
+            currentStep = nextStep
         }
     }
 }

@@ -9,8 +9,12 @@ import SwiftUI
 
 struct PwInputView: View {
     
-    @Binding var pwdString: String
-    @Binding var pwdCheckString: String
+    @State var pwdString: String = ""
+    @State var pwdCheckString: String = ""
+    
+    @State var isSecure: Bool = true
+    
+    var nextStep: () -> Void
 
     var body: some View {
         VStack(alignment: .leading, spacing: 16) {
@@ -21,17 +25,20 @@ struct PwInputView: View {
                 .font(.headline)
 
             TextField("8자 이상, 영문/숫자 조합", text: $pwdString)
-                .modifier(CustomTextFieldModifier(icon: "lock"))
+                .modifier(PasswordFieldModifier(isSecure: $isSecure))
                 .frame(maxWidth: .infinity, alignment: .leading)
 
             Text("비밀번호 확인")
                 .font(.headline)
 
             TextField("8자 이상, 영문/숫자 조합", text: $pwdCheckString)
-                .modifier(CustomTextFieldModifier(icon: "lock"))
+                .modifier(PasswordFieldModifier(isSecure: $isSecure))
                 .frame(maxWidth: .infinity, alignment: .leading)
         }
         .padding(.horizontal, 24)
     }
 }
 
+#Preview {
+    PwInputView(nextStep: {})
+}

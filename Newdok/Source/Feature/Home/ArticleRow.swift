@@ -12,7 +12,7 @@ struct ArticleRow: View {
     var body: some View {
         HStack(spacing: 12) {
             // 🔹 뉴스레터 아이콘
-            Image(article.imageName)
+            Image("signup")//article.imageName)
                 .resizable()
                 .frame(width: 56, height: 56)
                 .clipShape(RoundedRectangle(cornerRadius: 12))
@@ -43,6 +43,10 @@ struct ArticleRow: View {
         }
         .padding(16)
         .background(article.isRead ? Color(hex: "EBEBEB") : Color.white)
+        .overlay {
+            RoundedRectangle(cornerRadius: 12)
+                .stroke(Color(hex: "#EBEBEB"), lineWidth: 1)
+        }
         .cornerRadius(12)
         .shadow(color: Color.black.opacity(0.05), radius: 2, x: 0, y: 1) 
     }
