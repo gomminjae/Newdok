@@ -6,6 +6,12 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		414E61F5A77B84485247ACFE /* Pods_NewdokTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 59CA881FFD9740E946DBBD61 /* Pods_NewdokTests.framework */; };
+		7BA020A8FD7C2B8600DC7598 /* Pods_Newdok_NewdokUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 228B6CF1A71EACD28039FA52 /* Pods_Newdok_NewdokUITests.framework */; };
+		AAFA1D1E4968FC23A72C5EEC /* Pods_Newdok.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 70DA08E7E5CBC2D4E6D03FCE /* Pods_Newdok.framework */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXContainerItemProxy section */
 		B5AD78C02D5F568600AE2562 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -24,9 +30,18 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0052D348D1FFAD60B7F1895C /* Pods-NewdokTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NewdokTests.debug.xcconfig"; path = "Target Support Files/Pods-NewdokTests/Pods-NewdokTests.debug.xcconfig"; sourceTree = "<group>"; };
+		1AEB8FAA5C035B2C434D4A29 /* Pods-Newdok.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Newdok.release.xcconfig"; path = "Target Support Files/Pods-Newdok/Pods-Newdok.release.xcconfig"; sourceTree = "<group>"; };
+		228B6CF1A71EACD28039FA52 /* Pods_Newdok_NewdokUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Newdok_NewdokUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		2C32669D58C95997D5909C20 /* Pods-Newdok-NewdokUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Newdok-NewdokUITests.debug.xcconfig"; path = "Target Support Files/Pods-Newdok-NewdokUITests/Pods-Newdok-NewdokUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		477A310BC00680256E44D41E /* Pods-NewdokTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NewdokTests.release.xcconfig"; path = "Target Support Files/Pods-NewdokTests/Pods-NewdokTests.release.xcconfig"; sourceTree = "<group>"; };
+		59CA881FFD9740E946DBBD61 /* Pods_NewdokTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_NewdokTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		70DA08E7E5CBC2D4E6D03FCE /* Pods_Newdok.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Newdok.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B5AD78AF2D5F568300AE2562 /* Newdok.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Newdok.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B5AD78BF2D5F568600AE2562 /* NewdokTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NewdokTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B5AD78C92D5F568600AE2562 /* NewdokUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NewdokUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		BB9CF0E30610A3EF89DD0B7C /* Pods-Newdok-NewdokUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Newdok-NewdokUITests.release.xcconfig"; path = "Target Support Files/Pods-Newdok-NewdokUITests/Pods-Newdok-NewdokUITests.release.xcconfig"; sourceTree = "<group>"; };
+		CEDB8B09AF90BA1DEC04DB60 /* Pods-Newdok.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Newdok.debug.xcconfig"; path = "Target Support Files/Pods-Newdok/Pods-Newdok.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -65,6 +80,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AAFA1D1E4968FC23A72C5EEC /* Pods_Newdok.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -72,6 +88,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				414E61F5A77B84485247ACFE /* Pods_NewdokTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -79,6 +96,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7BA020A8FD7C2B8600DC7598 /* Pods_Newdok_NewdokUITests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -92,6 +110,8 @@
 				B5AD78C22D5F568600AE2562 /* NewdokTests */,
 				B5AD78CC2D5F568600AE2562 /* NewdokUITests */,
 				B5AD78B02D5F568300AE2562 /* Products */,
+				BB23B66CEDB14DC02646EA0C /* Pods */,
+				F0ECC7651F5A97FBA418FBF4 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -105,6 +125,29 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		BB23B66CEDB14DC02646EA0C /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				CEDB8B09AF90BA1DEC04DB60 /* Pods-Newdok.debug.xcconfig */,
+				1AEB8FAA5C035B2C434D4A29 /* Pods-Newdok.release.xcconfig */,
+				2C32669D58C95997D5909C20 /* Pods-Newdok-NewdokUITests.debug.xcconfig */,
+				BB9CF0E30610A3EF89DD0B7C /* Pods-Newdok-NewdokUITests.release.xcconfig */,
+				0052D348D1FFAD60B7F1895C /* Pods-NewdokTests.debug.xcconfig */,
+				477A310BC00680256E44D41E /* Pods-NewdokTests.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		F0ECC7651F5A97FBA418FBF4 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				70DA08E7E5CBC2D4E6D03FCE /* Pods_Newdok.framework */,
+				228B6CF1A71EACD28039FA52 /* Pods_Newdok_NewdokUITests.framework */,
+				59CA881FFD9740E946DBBD61 /* Pods_NewdokTests.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -112,9 +155,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = B5AD78D32D5F568600AE2562 /* Build configuration list for PBXNativeTarget "Newdok" */;
 			buildPhases = (
+				CA8F0FB49B5DEB20EBDCECCC /* [CP] Check Pods Manifest.lock */,
 				B5AD78AB2D5F568300AE2562 /* Sources */,
 				B5AD78AC2D5F568300AE2562 /* Frameworks */,
 				B5AD78AD2D5F568300AE2562 /* Resources */,
+				C0C0E24581E3A65B79C30B92 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -124,8 +169,6 @@
 				B5AD78B12D5F568300AE2562 /* Newdok */,
 			);
 			name = Newdok;
-			packageProductDependencies = (
-			);
 			productName = Newdok;
 			productReference = B5AD78AF2D5F568300AE2562 /* Newdok.app */;
 			productType = "com.apple.product-type.application";
@@ -134,6 +177,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = B5AD78D62D5F568600AE2562 /* Build configuration list for PBXNativeTarget "NewdokTests" */;
 			buildPhases = (
+				FBF9A597B4631928CA9C7B3A /* [CP] Check Pods Manifest.lock */,
 				B5AD78BB2D5F568500AE2562 /* Sources */,
 				B5AD78BC2D5F568500AE2562 /* Frameworks */,
 				B5AD78BD2D5F568500AE2562 /* Resources */,
@@ -147,8 +191,6 @@
 				B5AD78C22D5F568600AE2562 /* NewdokTests */,
 			);
 			name = NewdokTests;
-			packageProductDependencies = (
-			);
 			productName = NewdokTests;
 			productReference = B5AD78BF2D5F568600AE2562 /* NewdokTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
@@ -157,9 +199,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = B5AD78D92D5F568600AE2562 /* Build configuration list for PBXNativeTarget "NewdokUITests" */;
 			buildPhases = (
+				918437F81E084B579A087D3D /* [CP] Check Pods Manifest.lock */,
 				B5AD78C52D5F568600AE2562 /* Sources */,
 				B5AD78C62D5F568600AE2562 /* Frameworks */,
 				B5AD78C72D5F568600AE2562 /* Resources */,
+				2A4F35A7124E30AD6F653231 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -170,8 +214,6 @@
 				B5AD78CC2D5F568600AE2562 /* NewdokUITests */,
 			);
 			name = NewdokUITests;
-			packageProductDependencies = (
-			);
 			productName = NewdokUITests;
 			productReference = B5AD78C92D5F568600AE2562 /* NewdokUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
@@ -243,6 +285,109 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		2A4F35A7124E30AD6F653231 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Newdok-NewdokUITests/Pods-Newdok-NewdokUITests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Newdok-NewdokUITests/Pods-Newdok-NewdokUITests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Newdok-NewdokUITests/Pods-Newdok-NewdokUITests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		918437F81E084B579A087D3D /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Newdok-NewdokUITests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		C0C0E24581E3A65B79C30B92 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Newdok/Pods-Newdok-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Newdok/Pods-Newdok-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Newdok/Pods-Newdok-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		CA8F0FB49B5DEB20EBDCECCC /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Newdok-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		FBF9A597B4631928CA9C7B3A /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-NewdokTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		B5AD78AB2D5F568300AE2562 /* Sources */ = {
@@ -319,7 +464,7 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
-				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -382,7 +527,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -403,6 +548,7 @@
 		};
 		B5AD78D42D5F568600AE2562 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = CEDB8B09AF90BA1DEC04DB60 /* Pods-Newdok.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -433,6 +579,7 @@
 		};
 		B5AD78D52D5F568600AE2562 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1AEB8FAA5C035B2C434D4A29 /* Pods-Newdok.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -463,6 +610,7 @@
 		};
 		B5AD78D72D5F568600AE2562 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 0052D348D1FFAD60B7F1895C /* Pods-NewdokTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
@@ -482,6 +630,7 @@
 		};
 		B5AD78D82D5F568600AE2562 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 477A310BC00680256E44D41E /* Pods-NewdokTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
@@ -501,6 +650,7 @@
 		};
 		B5AD78DA2D5F568600AE2562 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2C32669D58C95997D5909C20 /* Pods-Newdok-NewdokUITests.debug.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -518,6 +668,7 @@
 		};
 		B5AD78DB2D5F568600AE2562 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = BB9CF0E30610A3EF89DD0B7C /* Pods-Newdok-NewdokUITests.release.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;

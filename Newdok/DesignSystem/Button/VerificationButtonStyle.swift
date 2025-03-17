@@ -21,7 +21,7 @@ struct VerificationButtonStyle: ButtonStyle {
                 RoundedRectangle(cornerRadius: 8)
                     .stroke(isRequestSent ? Color.blue : Color.clear, lineWidth: 1)
             )
-            .cornerRadius(8)
+            .cornerRadius(4)
             .opacity(configuration.isPressed ? 0.7 : 1.0)
             .animation(.easeInOut(duration: 0.2), value: configuration.isPressed)
     }

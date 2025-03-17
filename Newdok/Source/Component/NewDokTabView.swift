@@ -15,8 +15,8 @@ struct NewDokTabView: View {
             // ✅ Safe Area 적용
             TabView(selection: $selectedTab) {
                 
-                Text("구독관리 화면")
-                    .tag(NewDokTab.subscription)
+                ExploreView()
+                    .tag(NewDokTab.explore)
                 
                 HomeView()
                     .tag(NewDokTab.home)
@@ -34,37 +34,34 @@ struct NewDokTabView: View {
     }
 }
 
-
-// MARK: - ✅ 2. NewDokTabBar (하단 탭바)
 struct NewDokTabBar: View {
     @Binding var selectedTab: NewDokTab
 
     var body: some View {
         VStack(spacing: 0) {
-            Divider() // 상단 구분선
+            Divider()
             
             HStack {
-                tabItem(.explore, icon: "around", title: "둘러보기")
-                tabItem(.subscription, icon: "mailbox", title: "구독관리")
-                tabItem(.home, icon: "home", title: "홈") // 선택된 탭
-                tabItem(.bookmark, icon: "bookmark", title: "북마크함")
-                tabItem(.mypage, icon: "person", title: "마이페이지")
+                tabItem(.explore, normalIcon: "Line Newsletter", selectedIcon: "Fill Newsletter", title: "둘러보기")
+                tabItem(.subscription, normalIcon: "Line Mailbox", selectedIcon: "Fill Mailbox", title: "구독관리")
+                tabItem(.home, normalIcon: "home", selectedIcon: "Fill Home", title: "홈")
+                tabItem(.bookmark, normalIcon: "Line Bookmark", selectedIcon: "Fill Bookmark", title: "북마크함")
+                tabItem(.mypage, normalIcon: "Line User", selectedIcon: "Fill User", title: "마이페이지")
             }
             .padding(.top, 8)
             .padding(.bottom, 10)
-            
         }
         .background(Color.white)
     }
 
-    private func tabItem(_ tab: NewDokTab, icon: String, title: String) -> some View {
+    private func tabItem(_ tab: NewDokTab, normalIcon: String, selectedIcon: String, title: String) -> some View {
         VStack(spacing: 4) {
-            Image(icon)
-                .font(.system(size: 22))
-                .foregroundColor(selectedTab == tab ? Color.primaryNormal : Color.gray)
-
+            Image(selectedTab == tab ? selectedIcon : normalIcon)
+                
+                
+            
             Text(title)
-                .font(.hanSansNeo(11,.medium))
+                .font(.hanSansNeo(11, .medium))
                 .foregroundColor(selectedTab == tab ? Color.primaryNormal : Color.gray)
         }
         .frame(maxWidth: .infinity)
@@ -73,6 +70,7 @@ struct NewDokTabBar: View {
         }
     }
 }
+
 
 // MARK: - ✅ 3. 탭 Enum
 enum NewDokTab: Int {

@@ -17,6 +17,8 @@ struct PhoneVerificationView: View {
     @State private var showError: Bool = false
     @State private var showAlreadyRegisteredAlert: Bool = false
     
+    var nextStep: () -> Void
+    
     var body: some View {
         VStack(alignment: .leading) {
             Text("본인 확인을 위해\n휴대폰 번호를 입력해주세요.")
@@ -60,11 +62,9 @@ struct PhoneVerificationView: View {
                 ))
                 .padding(.horizontal, 24)
 
-                
             }
 
             if isRequestSent {
-                
                 VStack(alignment: .leading, spacing: 8) {
                     Text("인증번호")
                         .font(Font.system(size: 16))
@@ -98,11 +98,11 @@ struct PhoneVerificationView: View {
                         .padding(.leading,24)
                         .padding(.top, 6)
                     
-//                    if showError {
-//                        Text("인증번호를 다시 확인해주세요.")
-//                            .foregroundStyle(.red)
-//                            .font(Font.system(size: 12))
-//                    }
+                    if showError {
+                        Text("인증번호를 다시 확인해주세요.")
+                            .foregroundStyle(.red)
+                            .font(Font.system(size: 12))
+                    }
                     
                 }
                 
@@ -164,19 +164,17 @@ struct PhoneVerificationView: View {
     private func verifyCode() {
         if verificationCode == "123456" {
             print("인증 성공!")
+            nextStep()
         } else {
             isCodeValid = false
             showError = true
         }
     }
-    
 
     private func resendCode() {
         timerRemaining = 180
         startTimer()
     }
-    
-  
     private func startTimer() {
         Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { timer in
             if timerRemaining > 0 {
@@ -203,10 +201,9 @@ struct PrimaryButtonStyle: ButtonStyle {
             .font(.hanSansNeo(14,.medium))
             .foregroundColor(.white)
             .cornerRadius(8)
-           
     }
 }
 
 #Preview {
-    PhoneVerificationView()
+    PhoneVerificationView(nextStep: {})
 }
