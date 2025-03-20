@@ -55,7 +55,7 @@ struct PasswordFieldModifier: ViewModifier {
             Button(action: {
                 isSecure.toggle()
             }) {
-                Image(isSecure ? "_Line Close Eye" : "Line Eye")
+                Image(isSecure ? "Line Close Eye" : "Line Eye")
                     .renderingMode(.template)
                     .foregroundColor(isFocused ? Color.mainBlue : Color(hex: "#363636"))
                 

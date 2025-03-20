@@ -37,6 +37,8 @@ struct LoginView: View {
                         .padding(.top, 28)
                  
                     TextField("비밀번호를 입력해주세요", text: $viewModel.userPwd)
+                        .font(.hanSansNeo(14, .medium))
+                        .frame(height: 56)
                         .modifier(PasswordFieldModifier(isSecure: $viewModel.isUserPwdValid))
                     
                     HStack {
