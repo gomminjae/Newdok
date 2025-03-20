@@ -7,29 +7,35 @@
 import SwiftUI
 
 struct CustomTextFieldModifier: ViewModifier {
-    var icon: String
+    
+    
+    @FocusState private var isFocused: Bool
+       
     
     func body(content: Content) -> some View {
         HStack {
-            Image(systemName: icon)
+            Image("Line User")
                 .foregroundColor(.gray)
+            
 
             content
                 .foregroundColor(.primary) 
                 .padding(.vertical, 12)
+                .focused($isFocused)
             
         }
         .padding(.horizontal)
         .frame(height: 50)
         .overlay(
             RoundedRectangle(cornerRadius: 4)
-                .stroke(Color.gray.opacity(0.5), lineWidth: 1)
+                .stroke(isFocused ? Color.mainBlue : Color.gray.opacity(0.5), lineWidth: 1)
         )
+        
     }
 }
 extension View {
     func customTextFieldStyle(icon: String) -> some View {
-        self.modifier(CustomTextFieldModifier(icon: icon))
+        self.modifier(CustomTextFieldModifier())
     }
 }
 
@@ -37,28 +43,31 @@ extension View {
 struct PasswordFieldModifier: ViewModifier {
     
     @Binding var isSecure: Bool
-    @State private var isHovering: Bool = false
+    @FocusState private var isFocused: Bool
     
     func body(content: Content) -> some View {
         HStack {
-            Image("lock")
+            Image("Line Lock")
                 .foregroundColor(.gray)
             
             content
+                .focused($isFocused)
             Button(action: {
                 isSecure.toggle()
             }) {
                 Image(isSecure ? "_Line Close Eye" : "Line Eye")
                     .renderingMode(.template)
-                    .foregroundColor(.blue)
+                    .foregroundColor(isFocused ? Color.mainBlue : Color(hex: "#363636"))
                 
             }
         }
-        .padding(10)
-        .overlay(
-            RoundedRectangle(cornerRadius: 8)
-                .stroke(Color(hex: "DADADA"), lineWidth: 1)
-        )
+        .padding(.horizontal)
+        .frame(height: 50)
+        .overlay {
+            RoundedRectangle(cornerRadius: 4)
+                .stroke(isFocused ? Color.mainBlue : Color.gray.opacity(0.5), lineWidth: 1)
+        }
+        
     }
 }
 

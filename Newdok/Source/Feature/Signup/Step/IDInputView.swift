@@ -27,7 +27,7 @@ struct IDInputView: View {
             HStack {
                 TextField("6~12자,영문/숫자 조합", text: $id)
                     .font(.hanSansNeo(14, .medium))
-                    .modifier(CustomTextFieldModifier(icon: "person"))
+                    .modifier(CustomTextFieldModifier())
                     .frame(height: 56)
                 Button("중복확인") {
                     print("text")
