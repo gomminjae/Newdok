@@ -29,7 +29,7 @@ struct VerificationButtonStyle: ButtonStyle {
 
     private var buttonBackground: Color {
         if isDisabled {
-            return Color(UIColor.systemGray5)
+            return Color(UIColor.white)
         } else if isRequestSent {
             return Color.white
         } else {
