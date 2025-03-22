@@ -8,13 +8,5 @@ target 'Newdok' do
   pod 'Moya/Combine', '~> 15.0'
   # Pods for Newdok
 
-  target 'NewdokTests' do
-    inherit! :search_paths
-    # Pods for testing
-  end
-
-  target 'NewdokUITests' do
-    # Pods for testing
-  end
 
 end
