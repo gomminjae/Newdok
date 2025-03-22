@@ -6,7 +6,7 @@
 //
 import SwiftUI
 
-enum SignupStep: Int, CaseIterable {
+public enum SignupStep: Int, CaseIterable {
     case phoneVerification = 0
     case idInput
     case pwInput
@@ -25,7 +25,7 @@ enum SignupStep: Int, CaseIterable {
     }
 }
 
-struct SignupView: View {
+public struct SignupView: View {
     @State private var currentStep: SignupStep = .phoneVerification
 
     var body: some View {

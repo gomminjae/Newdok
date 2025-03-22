@@ -6,7 +6,7 @@
 //
 import SwiftUI
 
-struct HomeView: View {
+public struct HomeView: View {
     let sampleArticles: [Article] = [
         Article(title: "💰 도커스님의 희망 은퇴 연령은?", source: "머니레터", imageName: "moneyletter", isRead: false),
         Article(title: "애플, 9년 만에 내놓은 신제품은?", source: "Daily Byte", imageName: "dailybyte", isRead: false),
@@ -18,14 +18,14 @@ struct HomeView: View {
     
     @State private var showCalendar = false
     
-    var body: some View {
+    public init() {}
+    
+    public var body: some View {
         ZStack {
             Color(hex: "F5F5F7")
                 .ignoresSafeArea()
             
-            // ⬇️ 커스텀 PullToRefreshView로 감싸기
             PullToRefreshView {
-                // 기존 ScrollView 안에 있던 내용들을 그대로 넣으면 됨
                 VStack(spacing: 0) {
                     // 헤더
                     HStack {

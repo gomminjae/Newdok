@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct LoginView: View {
+public struct LoginView: View {
     
     @Environment(\.presentationMode) var presentationMode
     @StateObject private var viewModel = LoginViewModel()

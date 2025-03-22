@@ -6,6 +6,19 @@
 	objectVersion = 55;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		10C2B7D595E7EB29D824CC46 /* UserAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54D15AD05B5F117A5D2E5740 /* UserAPI.swift */; };
+		4742A6684E7EE9545C1B9E84 /* UserVerificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D15D39CE2308A49D90DAF33 /* UserVerificationService.swift */; };
+		663928FEE03D43F7976EB8A2 /* Newsletter.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECB48DF73B47FC0716943539 /* Newsletter.swift */; };
+		7132472F483CC97CA3C07CA0 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98C720213A964DF8522C29CF /* User.swift */; };
+		87B9B30DE3E1025A2765C57F /* NewsletterAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E094F757F3936CB300EB1F5 /* NewsletterAPI.swift */; };
+		914F154986FC953CD03CBBFB /* APIEnvironment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37D20FB3473EE5354A38EDF4 /* APIEnvironment.swift */; };
+		AECBBB447FE9A2ED67703BF9 /* AuthInterceptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39C015A0A4F1E90FBDFFF855 /* AuthInterceptor.swift */; };
+		CC26E8BFB846AE5BDE4E02E2 /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02710873B518137C25531DA1 /* AuthService.swift */; };
+		DAD74F20C546F5C931BF2E9B /* NewsletterDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1287327EC102838756FA9835 /* NewsletterDetail.swift */; };
+		E3AE13732133A23FCD270CEC /* ProfileService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BE3D61BD9689D5C111698FA /* ProfileService.swift */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXCopyFilesBuildPhase section */
 		2A34CD9447D0001C8C98AEF5 /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
@@ -20,8 +33,18 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		02710873B518137C25531DA1 /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
+		1287327EC102838756FA9835 /* NewsletterDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsletterDetail.swift; sourceTree = "<group>"; };
 		26BDD2D3E7FED8CDE9A52F46 /* Core-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "Core-Info.plist"; sourceTree = "<group>"; };
 		2B0FA7F85F3573FB522F9478 /* Core.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Core.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		37D20FB3473EE5354A38EDF4 /* APIEnvironment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIEnvironment.swift; sourceTree = "<group>"; };
+		39C015A0A4F1E90FBDFFF855 /* AuthInterceptor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthInterceptor.swift; sourceTree = "<group>"; };
+		54D15AD05B5F117A5D2E5740 /* UserAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAPI.swift; sourceTree = "<group>"; };
+		6E094F757F3936CB300EB1F5 /* NewsletterAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsletterAPI.swift; sourceTree = "<group>"; };
+		7BE3D61BD9689D5C111698FA /* ProfileService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileService.swift; sourceTree = "<group>"; };
+		8D15D39CE2308A49D90DAF33 /* UserVerificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserVerificationService.swift; sourceTree = "<group>"; };
+		98C720213A964DF8522C29CF /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		ECB48DF73B47FC0716943539 /* Newsletter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Newsletter.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -35,12 +58,30 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		243027A6B4F87BB249CBFE44 /* User */ = {
+			isa = PBXGroup;
+			children = (
+				02710873B518137C25531DA1 /* AuthService.swift */,
+				7BE3D61BD9689D5C111698FA /* ProfileService.swift */,
+				8D15D39CE2308A49D90DAF33 /* UserVerificationService.swift */,
+			);
+			path = User;
+			sourceTree = "<group>";
+		};
 		250C62EE12DB56ECEBB473C3 /* Products */ = {
 			isa = PBXGroup;
 			children = (
 				2B0FA7F85F3573FB522F9478 /* Core.framework */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		4B1834DCC43C3F56D1CEA944 /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				243027A6B4F87BB249CBFE44 /* User */,
+			);
+			path = Service;
 			sourceTree = "<group>";
 		};
 		4B97075397CA6D3C7DEE06A1 /* InfoPlists */ = {
@@ -51,6 +92,14 @@
 			path = InfoPlists;
 			sourceTree = "<group>";
 		};
+		5C475DB9E0AD9001EACCA8B5 /* Interceptor */ = {
+			isa = PBXGroup;
+			children = (
+				39C015A0A4F1E90FBDFFF855 /* AuthInterceptor.swift */,
+			);
+			path = Interceptor;
+			sourceTree = "<group>";
+		};
 		62824534F75515F48E8114A7 = {
 			isa = PBXGroup;
 			children = (
@@ -59,10 +108,58 @@
 			);
 			sourceTree = "<group>";
 		};
+		6CFCA72A152998E3F67F4AFD /* NewsletterAPI */ = {
+			isa = PBXGroup;
+			children = (
+				6E094F757F3936CB300EB1F5 /* NewsletterAPI.swift */,
+			);
+			path = NewsletterAPI;
+			sourceTree = "<group>";
+		};
+		81104ECEC5CD1B0F5111557B /* Sources */ = {
+			isa = PBXGroup;
+			children = (
+				A58C2BCC11B9ECEF52CEEC77 /* Network */,
+				4B1834DCC43C3F56D1CEA944 /* Service */,
+			);
+			path = Sources;
+			sourceTree = "<group>";
+		};
+		856AEED903BD87561661759D /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				ECB48DF73B47FC0716943539 /* Newsletter.swift */,
+				1287327EC102838756FA9835 /* NewsletterDetail.swift */,
+				98C720213A964DF8522C29CF /* User.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		A58C2BCC11B9ECEF52CEEC77 /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				5C475DB9E0AD9001EACCA8B5 /* Interceptor */,
+				856AEED903BD87561661759D /* Models */,
+				6CFCA72A152998E3F67F4AFD /* NewsletterAPI */,
+				D8DC98AA1E3C839F920ED6E7 /* UserAPI */,
+				37D20FB3473EE5354A38EDF4 /* APIEnvironment.swift */,
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
+		D8DC98AA1E3C839F920ED6E7 /* UserAPI */ = {
+			isa = PBXGroup;
+			children = (
+				54D15AD05B5F117A5D2E5740 /* UserAPI.swift */,
+			);
+			path = UserAPI;
+			sourceTree = "<group>";
+		};
 		E12816BA35F79D21E0D77318 /* Project */ = {
 			isa = PBXGroup;
 			children = (
 				F631B3543A0C26BDC2DE72DD /* Derived */,
+				81104ECEC5CD1B0F5111557B /* Sources */,
 			);
 			name = Project;
 			sourceTree = "<group>";
@@ -140,6 +237,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				914F154986FC953CD03CBBFB /* APIEnvironment.swift in Sources */,
+				AECBBB447FE9A2ED67703BF9 /* AuthInterceptor.swift in Sources */,
+				663928FEE03D43F7976EB8A2 /* Newsletter.swift in Sources */,
+				DAD74F20C546F5C931BF2E9B /* NewsletterDetail.swift in Sources */,
+				7132472F483CC97CA3C07CA0 /* User.swift in Sources */,
+				87B9B30DE3E1025A2765C57F /* NewsletterAPI.swift in Sources */,
+				10C2B7D595E7EB29D824CC46 /* UserAPI.swift in Sources */,
+				CC26E8BFB846AE5BDE4E02E2 /* AuthService.swift in Sources */,
+				E3AE13732133A23FCD270CEC /* ProfileService.swift in Sources */,
+				4742A6684E7EE9545C1B9E84 /* UserVerificationService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

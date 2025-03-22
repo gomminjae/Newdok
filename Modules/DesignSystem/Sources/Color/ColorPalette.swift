@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-extension Color {
+public extension Color {
     
     //MARK: Background
     static let normal = Color(hex: "FFFFFF")

@@ -10,7 +10,7 @@ let project = Project(
             product: .app,
             bundleId: "com.minjae.Newdok",
             deploymentTargets: .iOS("17.0"),
-            infoPlist: "Sources/Info.plist",
+            infoPlist: "Resources/Info.plist",
             sources: ["Sources/**"],
             dependencies: [
                 .project(target: "Features", path: "../Features"),
@@ -20,4 +20,5 @@ let project = Project(
         )
     ]
 )
+
 

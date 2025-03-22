@@ -7,11 +7,13 @@
 
 import SwiftUI
 
-struct OnboardingView: View {
+public struct OnboardingView: View {
     @State private var currentPage = 0
     let totalPages = 3
     
-    var body: some View {
+    public init() {}
+    
+    public var body: some View {
         NavigationView {
             VStack {
                 TabView(selection: $currentPage) {

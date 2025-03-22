@@ -9,7 +9,7 @@ import SwiftUI
 
 
 extension Color {
-    init(hex: String) {
+    public init(hex: String) {
         let hexSanitized = hex.trimmingCharacters(in: .whitespacesAndNewlines).uppercased()
         let scanner = Scanner(string: hexSanitized)
         

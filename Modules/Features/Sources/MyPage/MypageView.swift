@@ -7,8 +7,10 @@
 
 import SwiftUI
 
-struct MypageView: View {
-    var body: some View {
+public struct MypageView: View {
+    
+    public init() {}
+    public var body: some View {
         // 스크롤 가능하도록 ScrollView 사용
         ScrollView {
             VStack(spacing: 24) {

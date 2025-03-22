@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct StopSubscribeView: View {
+public struct StopSubscribeView: View {
     
     var onClose: () -> Void
     

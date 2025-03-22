@@ -7,6 +7,7 @@
 
 import SwiftUI
 import Features
+import DesignSystem
 
 struct NewDokTabView: View {
     @State private var selectedTab: NewDokTab = .home
@@ -62,7 +63,7 @@ struct NewDokTabBar: View {
                 
             
             Text(title)
-                .font(.hanSansNeo(11, .medium))
+                .font(DesignSystemFontFamily.SpoqaHanSansNeo.medium.swiftUIFont(size: 14))
                 .foregroundColor(selectedTab == tab ? Color.primaryNormal : Color.gray)
         }
         .frame(maxWidth: .infinity)
