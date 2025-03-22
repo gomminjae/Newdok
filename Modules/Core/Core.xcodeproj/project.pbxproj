@@ -213,6 +213,9 @@
 				en,
 			);
 			mainGroup = 62824534F75515F48E8114A7;
+			packageReferences = (
+				7131A5C637152979051D7283 /* XCRemoteSwiftPackageReference "Moya" */,
+			);
 			productRefGroup = 250C62EE12DB56ECEBB473C3 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -457,6 +460,17 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		7131A5C637152979051D7283 /* XCRemoteSwiftPackageReference "Moya" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Moya/Moya.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 15.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
 	};
 	rootObject = 83ADD9484DDC11E75E9F182F /* Project object */;
 }
