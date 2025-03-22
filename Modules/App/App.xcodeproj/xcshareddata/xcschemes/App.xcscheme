@@ -17,49 +17,7 @@
                BlueprintIdentifier = "93E9E330FC2CE7458D9C925F"
                BuildableName = "App.app"
                BlueprintName = "App"
-               ReferencedContainer = "container:Modules/App/App.xcodeproj">
-            </BuildableReference>
-         </BuildActionEntry>
-         <BuildActionEntry
-            buildForTesting = "YES"
-            buildForRunning = "YES"
-            buildForProfiling = "YES"
-            buildForArchiving = "YES"
-            buildForAnalyzing = "YES">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "B90FCF66245CD7327BEE2CBF"
-               BuildableName = "Core.framework"
-               BlueprintName = "Core"
-               ReferencedContainer = "container:Modules/Core/Core.xcodeproj">
-            </BuildableReference>
-         </BuildActionEntry>
-         <BuildActionEntry
-            buildForTesting = "YES"
-            buildForRunning = "YES"
-            buildForProfiling = "YES"
-            buildForArchiving = "YES"
-            buildForAnalyzing = "YES">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "83C9B5D1938C22907FF6E247"
-               BuildableName = "DesignSystem.framework"
-               BlueprintName = "DesignSystem"
-               ReferencedContainer = "container:Modules/DesignSystem/DesignSystem.xcodeproj">
-            </BuildableReference>
-         </BuildActionEntry>
-         <BuildActionEntry
-            buildForTesting = "YES"
-            buildForRunning = "YES"
-            buildForProfiling = "YES"
-            buildForArchiving = "YES"
-            buildForAnalyzing = "YES">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "C2829F0E3A10F31ED8B78458"
-               BuildableName = "Features.framework"
-               BlueprintName = "Features"
-               ReferencedContainer = "container:Modules/Features/Features.xcodeproj">
+               ReferencedContainer = "container:App.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -68,7 +26,8 @@
       buildConfiguration = "Debug"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
-      shouldUseLaunchSchemeArgsEnv = "YES">
+      shouldUseLaunchSchemeArgsEnv = "YES"
+      disableMainThreadChecker = "YES">
       <Testables>
       </Testables>
    </TestAction>
@@ -89,7 +48,7 @@
             BlueprintIdentifier = "93E9E330FC2CE7458D9C925F"
             BuildableName = "App.app"
             BlueprintName = "App"
-            ReferencedContainer = "container:Modules/App/App.xcodeproj">
+            ReferencedContainer = "container:App.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </LaunchAction>
@@ -106,7 +65,7 @@
             BlueprintIdentifier = "93E9E330FC2CE7458D9C925F"
             BuildableName = "App.app"
             BlueprintName = "App"
-            ReferencedContainer = "container:Modules/App/App.xcodeproj">
+            ReferencedContainer = "container:App.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>
