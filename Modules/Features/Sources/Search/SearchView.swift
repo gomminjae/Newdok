@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct SearchView: View {
+public struct SearchView: View {
     @Environment(\.dismiss) private var dismiss
     @State private var searchText = ""
 

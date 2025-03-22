@@ -6,17 +6,18 @@
 //
 
 import SwiftUI
+import Core
 
 @main
 struct NewdokApp: App {
     
-    @StateObject private var loginState = LoginState()
+    //@StateObject private var loginState = LoginState()
     
     
     var body: some Scene {
         WindowGroup {
             ContentView()
-                .environmentObject(loginState)
+                //.environmentObject(loginState)
         }
     }
 }

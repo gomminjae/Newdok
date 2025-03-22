@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct InterestSelectionView: View {
+public struct InterestSelectionView: View {
     let interests = [
            "경제·시사",
            "비즈니스",

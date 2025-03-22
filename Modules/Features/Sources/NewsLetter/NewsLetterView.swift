@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct NewsLetterView: View {
+public struct NewsLetterView: View {
     var body: some View {
         ScrollView {
             VStack(spacing: 0) {

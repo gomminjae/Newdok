@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct SubscribeView: View {
+public struct SubscribeView: View {
     @State private var selectedTab: Int = 0 // 0: 구독 중, 1: 구독 중지
     
     let subscriptions = [
@@ -17,8 +17,8 @@ struct SubscribeView: View {
         ("다다레터", "격주 목요일 아침", "dada"),
         ("머니레터", "평일 오전 6시", "money")
     ]
-    
-    var body: some View {
+    public init() {}
+    public var body: some View {
         VStack {
             // 상단 헤더
             headerView()

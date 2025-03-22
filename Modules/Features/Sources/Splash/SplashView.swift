@@ -7,8 +7,9 @@
 
 import SwiftUI
 
-struct SplashView: View {
-    var body: some View {
+public struct SplashView: View {
+    public init() {}
+    public var body: some View {
         VStack {
             Spacer()
             Image("logo")

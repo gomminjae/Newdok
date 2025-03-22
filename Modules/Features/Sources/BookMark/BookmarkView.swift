@@ -6,8 +6,11 @@
 //
 import SwiftUI
 
-struct BookmarkView: View {
-    var body: some View {
+public struct BookmarkView: View {
+    
+    public init() {}
+    
+    public var body: some View {
         VStack(alignment: .leading) {
             // 상단 네비게이션 바
             HStack {

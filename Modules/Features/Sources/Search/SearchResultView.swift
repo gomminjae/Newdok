@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct SearchResultView: View {
+public struct SearchResultView: View {
     @Environment(\.dismiss) private var dismiss
     
     var body: some View {

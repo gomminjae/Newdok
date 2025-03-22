@@ -6,14 +6,16 @@
 //
 import SwiftUI
 
-struct ExploreView: View {
+public struct ExploreView: View {
     @State private var selectedTab: Int = 0 // 0: 추천 뉴스레터, 1: 모든 뉴스레터
     @State private var currentPage: Int = 0 // 페이지 컨트롤 인덱스
     
     // 닉네임 예시
     let userName = "닉네임"
     
-    var body: some View {
+    public init() {}
+    
+    public var body: some View {
         VStack(spacing: 0) {
             HStack {
                 Text("둘러보기")

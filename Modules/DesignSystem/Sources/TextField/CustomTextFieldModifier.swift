@@ -6,6 +6,7 @@
 //
 import SwiftUI
 
+
 struct CustomTextFieldModifier: ViewModifier {
     
     
@@ -28,7 +29,7 @@ struct CustomTextFieldModifier: ViewModifier {
         .frame(height: 50)
         .overlay(
             RoundedRectangle(cornerRadius: 4)
-                .stroke(isFocused ? Color.mainBlue : Color.gray.opacity(0.5), lineWidth: 1)
+                .stroke(isFocused ? Color.primary : Color.gray.opacity(0.5), lineWidth: 1)
         )
         
     }
@@ -57,7 +58,7 @@ struct PasswordFieldModifier: ViewModifier {
             }) {
                 Image(isSecure ? "Line Close Eye" : "Line Eye")
                     .renderingMode(.template)
-                    .foregroundColor(isFocused ? Color.mainBlue : Color(hex: "#363636"))
+                    .foregroundColor(isFocused ? Color.primary : Color(hex: "#363636"))
                 
             }
         }
@@ -65,7 +66,7 @@ struct PasswordFieldModifier: ViewModifier {
         .frame(height: 50)
         .overlay {
             RoundedRectangle(cornerRadius: 4)
-                .stroke(isFocused ? Color.mainBlue : Color.gray.opacity(0.5), lineWidth: 1)
+                .stroke(isFocused ? Color.primary : Color.gray.opacity(0.5), lineWidth: 1)
         }
         
     }
