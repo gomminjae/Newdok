@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-extension Font {
+public extension Font {
     static func hanSansNeo(_ size: CGFloat, _ weight: Font.Weight = .regular) -> Font {
         let fontName: String
         switch weight {
