@@ -13,8 +13,24 @@
       <FileRef
          location = "group:DesignSystem/DesignSystem.xcodeproj">
       </FileRef>
-      <FileRef
-         location = "group:Features/Features.xcodeproj">
-      </FileRef>
+      <Group
+         location = "group:Features"
+         name = "Features">
+         <FileRef
+            location = "group:Auth/Auth.xcodeproj">
+         </FileRef>
+         <FileRef
+            location = "group:Home/Home.xcodeproj">
+         </FileRef>
+         <FileRef
+            location = "group:Launch/Launch.xcodeproj">
+         </FileRef>
+         <FileRef
+            location = "group:Signup/Signup.xcodeproj">
+         </FileRef>
+         <FileRef
+            location = "group:Survey/Survey.xcodeproj">
+         </FileRef>
+      </Group>
    </Group>
 </Workspace>

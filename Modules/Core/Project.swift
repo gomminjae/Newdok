@@ -4,7 +4,7 @@ let project = Project(
     name: "Core",
     organizationName: "Your Organization Name",
     packages: [
-  .package(url: "https://github.com/Moya/Moya.git", .upToNextMajor(from: "15.0.0"))
+        .package(url: "https://github.com/Moya/Moya.git", .upToNextMajor(from: "15.0.0")),
     ],
     targets: [
         .target(
@@ -16,6 +16,7 @@ let project = Project(
             infoPlist: .default,
             sources: ["Sources/**"],
             dependencies: [
+                .package(product: "Moya"),
             ]
         )
     ]
