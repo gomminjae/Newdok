@@ -6,13 +6,13 @@
 //
 import SwiftUI
 
-struct BirthYearDropdown: View {
+public struct BirthYearDropdown: View {
     @Namespace private var animationNamespace
     @State private var isExpanded = false
     @State private var selectedYear: String? = nil
     let years = Array(1900...Calendar.current.component(.year, from: Date())).reversed()
 
-    var body: some View {
+    public var body: some View {
         VStack(alignment: .leading, spacing: 8) {
             dropdownButton()
 

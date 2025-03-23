@@ -17,6 +17,7 @@
 		CC26E8BFB846AE5BDE4E02E2 /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02710873B518137C25531DA1 /* AuthService.swift */; };
 		DAD74F20C546F5C931BF2E9B /* NewsletterDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1287327EC102838756FA9835 /* NewsletterDetail.swift */; };
 		E3AE13732133A23FCD270CEC /* ProfileService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BE3D61BD9689D5C111698FA /* ProfileService.swift */; };
+		E7494D59CF3A2D7FFFEE3DA2 /* Moya in Frameworks */ = {isa = PBXBuildFile; productRef = 0400F7B0D167C76542EF41A2 /* Moya */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -52,6 +53,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E7494D59CF3A2D7FFFEE3DA2 /* Moya in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -190,6 +192,7 @@
 			);
 			name = Core;
 			packageProductDependencies = (
+				0400F7B0D167C76542EF41A2 /* Moya */,
 			);
 			productName = Core;
 			productReference = 2B0FA7F85F3573FB522F9478 /* Core.framework */;
@@ -471,6 +474,13 @@
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		0400F7B0D167C76542EF41A2 /* Moya */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = Moya;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 83ADD9484DDC11E75E9F182F /* Project object */;
 }

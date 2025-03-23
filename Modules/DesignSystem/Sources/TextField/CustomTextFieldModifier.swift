@@ -7,13 +7,13 @@
 import SwiftUI
 
 
-struct CustomTextFieldModifier: ViewModifier {
+public struct CustomTextFieldModifier: ViewModifier {
     
     
     @FocusState private var isFocused: Bool
        
     
-    func body(content: Content) -> some View {
+    public func body(content: Content) -> some View {
         HStack {
             Image("Line User")
                 .foregroundColor(.gray)
@@ -34,19 +34,19 @@ struct CustomTextFieldModifier: ViewModifier {
         
     }
 }
-extension View {
-    func customTextFieldStyle(icon: String) -> some View {
+public extension View {
+    func customTextFieldStyle() -> some View {
         self.modifier(CustomTextFieldModifier())
     }
 }
 
 
-struct PasswordFieldModifier: ViewModifier {
+public struct PasswordFieldModifier: ViewModifier {
     
     @Binding var isSecure: Bool
     @FocusState private var isFocused: Bool
     
-    func body(content: Content) -> some View {
+    public func body(content: Content) -> some View {
         HStack {
             Image("Line Lock")
                 .foregroundColor(.gray)
@@ -72,7 +72,7 @@ struct PasswordFieldModifier: ViewModifier {
     }
 }
 
-extension View {
+public extension View {
     func passwordFieldStyle(isSecure: Binding<Bool>) -> some View {
         self.modifier(PasswordFieldModifier(isSecure: isSecure))
     }
