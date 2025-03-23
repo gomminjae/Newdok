@@ -9,12 +9,9 @@ import Combine
 import Foundation
 
 protocol UserVerificationServiceProtocol {
-    func checkPhoneNumber(phoneNumber: String) -> AnyPublisher<Bool,Error>
+    func checkPhoneNumber(phoneNumber: String) -> AnyPublisher<Bool, Error>
     func checkIDDup(loginId: String) -> AnyPublisher<Bool, Error>
-    
 }
-
-
 
 class UserVerificationService: UserVerificationServiceProtocol {
     
@@ -24,32 +21,41 @@ class UserVerificationService: UserVerificationServiceProtocol {
         self.provider = provider
     }
     
-    
-    func checkPhoneNumber(phoneNumber: String) -> AnyPublisher<Bool, any Error> {
-        
-        return provider.requestPublisher(.checkPhoneNumber(phoneNumber: phoneNumber))
-            .tryMap { response in
-                guard(200...299).contains(response.statusCode) else {
-                    throw URLError(.badServerResponse)
+    func checkPhoneNumber(phoneNumber: String) -> AnyPublisher<Bool, Error> {
+        return Future<Bool, Error> { promise in
+            self.provider.request(.checkPhoneNumber(phoneNumber: phoneNumber)) { result in
+                switch result {
+                case .success(let response):
+                    if (200...299).contains(response.statusCode) {
+                        promise(.success(true))
+                    } else {
+                        promise(.failure(URLError(.badServerResponse)))
+                    }
+                case .failure(let error):
+                    promise(.failure(error))
                 }
-                return true
             }
-            .receive(on: DispatchQueue.main)
-            .eraseToAnyPublisher()
-        
+        }
+        .receive(on: DispatchQueue.main)
+        .eraseToAnyPublisher()
     }
     
-    func checkIDDup(loginId: String) -> AnyPublisher<Bool, any Error> {
-        return provider.requestPublisher(.checkIDDup(loginId: loginId))
-            .tryMap { response in
-                guard(200...299).contains(response.statusCode) else {
-                    throw URLError(.badServerResponse)
+    func checkIDDup(loginId: String) -> AnyPublisher<Bool, Error> {
+        return Future<Bool, Error> { promise in
+            self.provider.request(.checkIDDup(loginId: loginId)) { result in
+                switch result {
+                case .success(let response):
+                    if (200...299).contains(response.statusCode) {
+                        promise(.success(true))
+                    } else {
+                        promise(.failure(URLError(.badServerResponse)))
+                    }
+                case .failure(let error):
+                    promise(.failure(error))
                 }
-                return true
             }
-            .receive(on: DispatchQueue.main)
-            .eraseToAnyPublisher()
+        }
+        .receive(on: DispatchQueue.main)
+        .eraseToAnyPublisher()
     }
-    
-    
 }

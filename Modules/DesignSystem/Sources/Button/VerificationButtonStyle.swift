@@ -6,11 +6,11 @@
 //
 import SwiftUI
 
-struct VerificationButtonStyle: ButtonStyle {
+public struct VerificationButtonStyle: ButtonStyle {
     var isRequestSent: Bool
     var isDisabled: Bool
     
-    func makeBody(configuration: Configuration) -> some View {
+    public func makeBody(configuration: Configuration) -> some View {
         configuration.label
             .frame(width: 84)
             .frame(height: 36)

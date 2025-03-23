@@ -19,7 +19,6 @@
 		8A9C0A8F4FB5F65357DC241E /* SubscribeNoticeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 927C881A2F81BA000C05ABEF /* SubscribeNoticeView.swift */; };
 		963BD2E45D7172CE4BF69364 /* VerificationButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DEFF305135085B93F19593 /* VerificationButtonStyle.swift */; };
 		99AD012E16AE91B0DA8273E7 /* SpoqaHanSansNeo-Thin.otf in Resources */ = {isa = PBXBuildFile; fileRef = 1EAA4A417D2996F4DF2DED40 /* SpoqaHanSansNeo-Thin.otf */; };
-		A09A2AD7C6B8A80DAA28B721 /* NewDokTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A678FB9ABB89BEC8EB1796B /* NewDokTabView.swift */; };
 		D077CFC5DD281F26BDA2376F /* AuthFailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41950894E4E9C8FF11201792 /* AuthFailView.swift */; };
 		D35DFD63D8CD70868B230DA2 /* CustomTextFieldModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B4CDA86843A89A3AD229E60 /* CustomTextFieldModifier.swift */; };
 		D748D56D7CAC703E51B32DD4 /* CalendarPopupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 743901F00E06BB210FBD1E5B /* CalendarPopupView.swift */; };
@@ -50,7 +49,6 @@
 		1EAA4A417D2996F4DF2DED40 /* SpoqaHanSansNeo-Thin.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SpoqaHanSansNeo-Thin.otf"; sourceTree = "<group>"; };
 		3A89362609648144517CFE75 /* SpoqaHanSansNeo-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SpoqaHanSansNeo-Medium.otf"; sourceTree = "<group>"; };
 		41950894E4E9C8FF11201792 /* AuthFailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthFailView.swift; sourceTree = "<group>"; };
-		4A678FB9ABB89BEC8EB1796B /* NewDokTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewDokTabView.swift; sourceTree = "<group>"; };
 		4B7519630D4BA8D550F1D471 /* BirthYearPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BirthYearPickerView.swift; sourceTree = "<group>"; };
 		56DFA51B1676775D07DC3DD2 /* SpoqaHanSansNeo-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SpoqaHanSansNeo-Regular.otf"; sourceTree = "<group>"; };
 		69B7BBEAD5472C7195924AC8 /* DesignSystem.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = DesignSystem.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -105,7 +103,6 @@
 			children = (
 				4B7519630D4BA8D550F1D471 /* BirthYearPickerView.swift */,
 				743901F00E06BB210FBD1E5B /* CalendarPopupView.swift */,
-				4A678FB9ABB89BEC8EB1796B /* NewDokTabView.swift */,
 				6AF6A52DBE12C84500829BA2 /* NoDataView.swift */,
 			);
 			path = Component;
@@ -292,7 +289,6 @@
 				EA14ADB3FF1DCA11D8B9D962 /* ColorPalette.swift in Sources */,
 				EBF8A05ADDF1FF48833C370E /* BirthYearPickerView.swift in Sources */,
 				D748D56D7CAC703E51B32DD4 /* CalendarPopupView.swift in Sources */,
-				A09A2AD7C6B8A80DAA28B721 /* NewDokTabView.swift in Sources */,
 				07AB90021A70B1D55E233DDA /* NoDataView.swift in Sources */,
 				72415CF40FB9EA2BE53157FD /* Font.swift in Sources */,
 				D077CFC5DD281F26BDA2376F /* AuthFailView.swift in Sources */,
