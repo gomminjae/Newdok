@@ -6,12 +6,15 @@
 //
 
 import SwiftUI
+import DesignSystem
 
 public struct LoginView: View {
     
     @Environment(\.presentationMode) var presentationMode
     @StateObject private var viewModel = LoginViewModel()
     @State private var showHomeView = false
+    
+    public init() {}
     
     public var body: some View {
         NavigationStack {
@@ -30,7 +33,7 @@ public struct LoginView: View {
                     TextField("아이디를 입력하세요", text: $viewModel.userId)
                         .font(.hanSansNeo(14, .medium))
                         .frame(height: 56)
-                        .customTextFieldStyle(icon: "person")
+                        .customTextFieldStyle()
                     
                     Text("비밀번호")
                         .font(.hanSansNeo(14, .medium))
@@ -95,9 +98,9 @@ public struct LoginView: View {
             .safeAreaInset(edge: .top, spacing: 0) {
                 Color.clear.frame(height: 20)
             }
-            .fullScreenCover(isPresented: $showHomeView) {
-                NewDokTabView()
-            }
+//            .fullScreenCover(isPresented: $showHomeView) {
+//                NewDokTabView()
+//            }
         }
         .navigationBarHidden(true)
     }

@@ -10,6 +10,8 @@ let workspace = Workspace(
         "Modules/Features/Home",
         "Modules/Features/Launch",
         "Modules/Features/Signup",
-        "Modules/Features/Survey"
+        "Modules/Features/Survey",
+        "Modules/QA/A", 
+        "Modules/QA/B",
     ]
 )

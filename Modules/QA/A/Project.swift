@@ -7,12 +7,15 @@ let project = Project(
         .target(
             name: "A",
             destinations: .iOS,
-            product: .staticFramework,
+            product: .app,
             bundleId: "com.newdok.a",
             deploymentTargets: .iOS("17.0"),
             infoPlist: .default,
             sources: ["Sources/**"],
-            resources: ["Resources/**"]
+            resources: ["Resources/**"],
+             dependencies: [
+                 .project(target: "Launch", path: "../../Features/Launch"),
+             ]
         ),
         .target(
             name: "ATests",
@@ -23,7 +26,8 @@ let project = Project(
             infoPlist: .default,
             sources: ["Tests/**"],
             dependencies: [
-                .target(name: "A")
+                .target(name: "A"),
+                .project(target: "Launch", path: "../../Features/Launch"),
             ]
         )
     ]

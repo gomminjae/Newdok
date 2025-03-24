@@ -11,6 +11,9 @@ public struct BirthYearDropdown: View {
     @State private var isExpanded = false
     @State private var selectedYear: String? = nil
     let years = Array(1900...Calendar.current.component(.year, from: Date())).reversed()
+    
+    public init() {}
+    
 
     public var body: some View {
         VStack(alignment: .leading, spacing: 8) {

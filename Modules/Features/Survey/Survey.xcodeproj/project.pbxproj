@@ -7,9 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5DB9D1ECE7941826FD6E377F /* Core.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FD12E525B40E5B3171F7E530 /* Core.framework */; };
 		ADAB00D90C745D1B520C70BD /* SurveyMain.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1957E61D0F92B13C9D06D9C /* SurveyMain.swift */; };
 		B173CF7EDFA0725851501A4D /* SurveyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23A050A6322FE1A422FE3045 /* SurveyTests.swift */; };
 		F28C9E3265EBCF43415D36C3 /* Survey.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8978804A1885621F914F866A /* Survey.framework */; };
+		F5642A981CA4588655D1FC79 /* DesignSystem.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CF891DF34D4455956C2DCD87 /* DesignSystem.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,7 +53,9 @@
 		4FF035E9E7D35EB77233BFDE /* SurveyTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "SurveyTests-Info.plist"; sourceTree = "<group>"; };
 		727F7D83813FA7F64C222B0F /* SurveyTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SurveyTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		8978804A1885621F914F866A /* Survey.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Survey.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		CF891DF34D4455956C2DCD87 /* DesignSystem.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = DesignSystem.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D1957E61D0F92B13C9D06D9C /* SurveyMain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SurveyMain.swift; sourceTree = "<group>"; };
+		FD12E525B40E5B3171F7E530 /* Core.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Core.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -59,6 +63,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5DB9D1ECE7941826FD6E377F /* Core.framework in Frameworks */,
+				F5642A981CA4588655D1FC79 /* DesignSystem.framework in Frameworks */,
 				F28C9E3265EBCF43415D36C3 /* Survey.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -102,6 +108,8 @@
 		586803EF3EEDDB6484551736 /* Products */ = {
 			isa = PBXGroup;
 			children = (
+				FD12E525B40E5B3171F7E530 /* Core.framework */,
+				CF891DF34D4455956C2DCD87 /* DesignSystem.framework */,
 				8978804A1885621F914F866A /* Survey.framework */,
 				727F7D83813FA7F64C222B0F /* SurveyTests.xctest */,
 			);

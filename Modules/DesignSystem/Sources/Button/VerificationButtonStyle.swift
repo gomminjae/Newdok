@@ -10,6 +10,11 @@ public struct VerificationButtonStyle: ButtonStyle {
     var isRequestSent: Bool
     var isDisabled: Bool
     
+    public init(isRequestSent: Bool, isDisabled: Bool) {
+        self.isRequestSent = isRequestSent
+        self.isDisabled = isDisabled
+    }
+    
     public func makeBody(configuration: Configuration) -> some View {
         configuration.label
             .frame(width: 84)

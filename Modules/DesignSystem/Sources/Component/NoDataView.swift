@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-enum NoDataType {
+public enum NoDataType {
     case noArticles        // 도착한 아티클 없음
     case noSubscriptions   // 구독 중인 뉴스레터 없음
     case requireSignUp     // 회원가입 필요
@@ -53,14 +53,24 @@ enum NoDataType {
 }
 
 
-import SwiftUI
-
-struct NoDataView: View {
+public struct NoDataView: View {
     let type: NoDataType
     let buttonAction: () -> Void
     let loginAction: (() -> Void)? // 로그인 버튼이 필요한 경우만 사용
+    
+    
+    public init(
+        type: NoDataType,
+        buttonAction: @escaping () -> Void,
+        loginAction: (() -> Void)? = nil
+    ) {
+        self.type = type
+        self.buttonAction = buttonAction
+        self.loginAction = loginAction
+    }
+    
 
-    var body: some View {
+    public var body: some View {
         VStack {
             // 🔹 새로고침 버튼 (모든 화면에 공통)
             HStack {

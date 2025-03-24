@@ -5,6 +5,7 @@
 //  Created by 권민재 on 2/18/25.
 //
 import SwiftUI
+import DesignSystem
 
 public struct HomeView: View {
     let sampleArticles: [Article] = [

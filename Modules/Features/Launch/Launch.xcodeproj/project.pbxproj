@@ -7,10 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0B55C607E32BA0CA157B3BDA /* DesignSystem.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9229787BA766DFA18583ABFA /* DesignSystem.framework */; };
 		1AEFE7FA6BB5863FD0BA5386 /* LaunchMain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A44DF136146F6B9A83C6AB1 /* LaunchMain.swift */; };
+		36B3EFC6EF9DD7BF9CBB0CF9 /* Core.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7C03280DB77DA22A6B325D20 /* Core.framework */; };
 		988A639C908D85348FA3C893 /* SplashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AB4BC8E5564382493B0CEDB /* SplashView.swift */; };
+		A533EDEA46EBB698509B76BA /* Core.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7C03280DB77DA22A6B325D20 /* Core.framework */; };
 		A7AB08F321F5FB1D2A837467 /* Launch.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CAE9D80105EE847E612B7E64 /* Launch.framework */; };
 		B1F79015784E7B2762AE008B /* LaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C397ED87CA36DDB17BA0A60 /* LaunchTests.swift */; };
+		CF9ECB21B1D8773B817DBEF7 /* DesignSystem.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9229787BA766DFA18583ABFA /* DesignSystem.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -50,6 +54,8 @@
 		0AB4BC8E5564382493B0CEDB /* SplashView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashView.swift; sourceTree = "<group>"; };
 		0C397ED87CA36DDB17BA0A60 /* LaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchTests.swift; sourceTree = "<group>"; };
 		45D9FF020D2DC8F6DABC4415 /* LaunchTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "LaunchTests-Info.plist"; sourceTree = "<group>"; };
+		7C03280DB77DA22A6B325D20 /* Core.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Core.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		9229787BA766DFA18583ABFA /* DesignSystem.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = DesignSystem.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9A44DF136146F6B9A83C6AB1 /* LaunchMain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchMain.swift; sourceTree = "<group>"; };
 		BB93BCF98AEAFC697627D166 /* Launch-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "Launch-Info.plist"; sourceTree = "<group>"; };
 		CAE9D80105EE847E612B7E64 /* Launch.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Launch.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -61,6 +67,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A533EDEA46EBB698509B76BA /* Core.framework in Frameworks */,
+				CF9ECB21B1D8773B817DBEF7 /* DesignSystem.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -68,6 +76,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				36B3EFC6EF9DD7BF9CBB0CF9 /* Core.framework in Frameworks */,
+				0B55C607E32BA0CA157B3BDA /* DesignSystem.framework in Frameworks */,
 				A7AB08F321F5FB1D2A837467 /* Launch.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -129,6 +139,8 @@
 		DAD3AD821D47FA47C1C68E93 /* Products */ = {
 			isa = PBXGroup;
 			children = (
+				7C03280DB77DA22A6B325D20 /* Core.framework */,
+				9229787BA766DFA18583ABFA /* DesignSystem.framework */,
 				CAE9D80105EE847E612B7E64 /* Launch.framework */,
 				F1768C712EE5D323E4A22AF4 /* LaunchTests.xctest */,
 			);

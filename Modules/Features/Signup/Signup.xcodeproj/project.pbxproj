@@ -7,7 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1CB4A32BD2D98E6477F5C0CD /* DesignSystem.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 85C21E5E41B25BF1296FDC62 /* DesignSystem.framework */; };
 		31CAEA710C6520DBB827D541 /* AgreeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67EF4BBEC87D32F0BE736064 /* AgreeView.swift */; };
+		49BF0DA0978157F28EB49E6E /* Core.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08684DEE6B18264EC733E3EA /* Core.framework */; };
 		4ECED101068F670CE60CF6E9 /* PwInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01C558CCDE8D9D55FBBD2BD0 /* PwInputView.swift */; };
 		55DD21004E7ED935F7928BB0 /* SignupMain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AE159452A9D28FDB105234D /* SignupMain.swift */; };
 		56E49B9F6EE5E5967059E38B /* SignupTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E5C89CA9056923E18123563 /* SignupTests.swift */; };
@@ -18,6 +20,8 @@
 		91B18E530369BD455A016A3D /* OnboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 130E40D360A2BC7177784B6A /* OnboardView.swift */; };
 		B4E0568FCA17131599446939 /* ProfileInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B79FCDAD449A29D3F0A535F0 /* ProfileInputView.swift */; };
 		CFE2DF464C54967700865649 /* SignupViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0566089A8FEF046632274744 /* SignupViewModel.swift */; };
+		D8C1273648D92C59C2B10512 /* DesignSystem.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 85C21E5E41B25BF1296FDC62 /* DesignSystem.framework */; };
+		EE3803C42393FF368873D42E /* Core.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08684DEE6B18264EC733E3EA /* Core.framework */; };
 		FB5361C96950EADD04686876 /* SignupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADA3F2B0CCAC12C073E7692A /* SignupView.swift */; };
 /* End PBXBuildFile section */
 
@@ -57,12 +61,14 @@
 /* Begin PBXFileReference section */
 		01C558CCDE8D9D55FBBD2BD0 /* PwInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PwInputView.swift; sourceTree = "<group>"; };
 		0566089A8FEF046632274744 /* SignupViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupViewModel.swift; sourceTree = "<group>"; };
+		08684DEE6B18264EC733E3EA /* Core.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Core.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		0D0B48E48F75055FF32E54AC /* IDInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IDInputView.swift; sourceTree = "<group>"; };
 		0E5C89CA9056923E18123563 /* SignupTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupTests.swift; sourceTree = "<group>"; };
 		130E40D360A2BC7177784B6A /* OnboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardView.swift; sourceTree = "<group>"; };
 		3D1C66CBCE6F6C7CBF91D466 /* CompleteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompleteView.swift; sourceTree = "<group>"; };
 		4EA1AECAA251BAE72F8E1AA1 /* Signup-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "Signup-Info.plist"; sourceTree = "<group>"; };
 		67EF4BBEC87D32F0BE736064 /* AgreeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgreeView.swift; sourceTree = "<group>"; };
+		85C21E5E41B25BF1296FDC62 /* DesignSystem.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = DesignSystem.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8B64B94EDDD988EA78DBF160 /* Signup.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Signup.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		90725C7D56052890B752FF5A /* SignupTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SignupTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		9AE159452A9D28FDB105234D /* SignupMain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupMain.swift; sourceTree = "<group>"; };
@@ -77,6 +83,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EE3803C42393FF368873D42E /* Core.framework in Frameworks */,
+				D8C1273648D92C59C2B10512 /* DesignSystem.framework in Frameworks */,
 				8661A8DA73DBCED6AE7E0EFF /* Signup.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -85,6 +93,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				49BF0DA0978157F28EB49E6E /* Core.framework in Frameworks */,
+				1CB4A32BD2D98E6477F5C0CD /* DesignSystem.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -94,6 +104,8 @@
 		022C3038C4A0CD3383947FEE /* Products */ = {
 			isa = PBXGroup;
 			children = (
+				08684DEE6B18264EC733E3EA /* Core.framework */,
+				85C21E5E41B25BF1296FDC62 /* DesignSystem.framework */,
 				8B64B94EDDD988EA78DBF160 /* Signup.framework */,
 				90725C7D56052890B752FF5A /* SignupTests.xctest */,
 			);

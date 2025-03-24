@@ -23,7 +23,9 @@ let project = Project(
             infoPlist: .default,
             sources: ["Tests/**"],
             dependencies: [
-                .target(name: "Survey")
+                .target(name: "Survey"),
+                .project(target: "Core", path: "../../Core"),
+                 .project(target: "DesignSystem", path: "../../DesignSystem"),
             ]
         )
     ]
