@@ -14,6 +14,34 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
+               BlueprintIdentifier = "34F655DB35320EAC8C1A11A9"
+               BuildableName = "A.framework"
+               BlueprintName = "A"
+               ReferencedContainer = "container:Modules/QA/A/A.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "16E423C05A81C06D73A45C3F"
+               BuildableName = "ATests.xctest"
+               BlueprintName = "ATests"
+               ReferencedContainer = "container:Modules/QA/A/A.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
                BlueprintIdentifier = "93E9E330FC2CE7458D9C925F"
                BuildableName = "App.app"
                BlueprintName = "App"
@@ -46,6 +74,34 @@
                BuildableName = "AuthTests.xctest"
                BlueprintName = "AuthTests"
                ReferencedContainer = "container:Modules/Features/Auth/Auth.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "A62BF33640D01F3BAB6573D6"
+               BuildableName = "B.framework"
+               BlueprintName = "B"
+               ReferencedContainer = "container:Modules/QA/B/B.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "866F3D394B800AE11180AA21"
+               BuildableName = "BTests.xctest"
+               BlueprintName = "BTests"
+               ReferencedContainer = "container:Modules/QA/B/B.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
          <BuildActionEntry
@@ -201,10 +257,32 @@
             parallelizable = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
+               BlueprintIdentifier = "16E423C05A81C06D73A45C3F"
+               BuildableName = "ATests.xctest"
+               BlueprintName = "ATests"
+               ReferencedContainer = "container:Modules/QA/A/A.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO"
+            parallelizable = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
                BlueprintIdentifier = "64266547C98E573BC9E38F40"
                BuildableName = "AuthTests.xctest"
                BlueprintName = "AuthTests"
                ReferencedContainer = "container:Modules/Features/Auth/Auth.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO"
+            parallelizable = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "866F3D394B800AE11180AA21"
+               BuildableName = "BTests.xctest"
+               BlueprintName = "BTests"
+               ReferencedContainer = "container:Modules/QA/B/B.xcodeproj">
             </BuildableReference>
          </TestableReference>
          <TestableReference
@@ -263,16 +341,15 @@
       debugDocumentVersioning = "YES"
       debugServiceExtension = "internal"
       allowLocationSimulation = "YES">
-      <BuildableProductRunnable
-         runnableDebuggingMode = "0">
+      <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "93E9E330FC2CE7458D9C925F"
-            BuildableName = "App.app"
-            BlueprintName = "App"
-            ReferencedContainer = "container:Modules/App/App.xcodeproj">
+            BlueprintIdentifier = "34F655DB35320EAC8C1A11A9"
+            BuildableName = "A.framework"
+            BlueprintName = "A"
+            ReferencedContainer = "container:Modules/QA/A/A.xcodeproj">
          </BuildableReference>
-      </BuildableProductRunnable>
+      </MacroExpansion>
    </LaunchAction>
    <ProfileAction
       buildConfiguration = "Release"
@@ -280,16 +357,15 @@
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
       debugDocumentVersioning = "YES">
-      <BuildableProductRunnable
-         runnableDebuggingMode = "0">
+      <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "93E9E330FC2CE7458D9C925F"
-            BuildableName = "App.app"
-            BlueprintName = "App"
-            ReferencedContainer = "container:Modules/App/App.xcodeproj">
+            BlueprintIdentifier = "34F655DB35320EAC8C1A11A9"
+            BuildableName = "A.framework"
+            BlueprintName = "A"
+            ReferencedContainer = "container:Modules/QA/A/A.xcodeproj">
          </BuildableReference>
-      </BuildableProductRunnable>
+      </MacroExpansion>
    </ProfileAction>
    <AnalyzeAction
       buildConfiguration = "Debug">
