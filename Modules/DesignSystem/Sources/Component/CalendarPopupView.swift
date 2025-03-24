@@ -7,11 +7,11 @@
 
 import SwiftUI
 
-struct PopupViewModifier<Popup: View>: ViewModifier {
+public struct PopupViewModifier<Popup: View>: ViewModifier {
     @Binding var isPresented: Bool
     let popupContent: Popup
     
-    func body(content: Content) -> some View {
+    public func body(content: Content) -> some View {
         ZStack {
             content
             
@@ -32,7 +32,7 @@ struct PopupViewModifier<Popup: View>: ViewModifier {
     }
 }
 
-extension View {
+public extension View {
     func popup<Popup: View>(
         isPresented: Binding<Bool>,
         popupContent: @escaping () -> Popup
@@ -42,7 +42,7 @@ extension View {
 }
 import SwiftUI
 
-struct CalendarPopupView: View {
+public struct CalendarPopupView: View {
     @Binding var isPresented: Bool
     @State private var selectedDate = Date()
     
@@ -52,7 +52,11 @@ struct CalendarPopupView: View {
     // 점이 표시될 날짜 목록 (임시로 설정)
     private let datesWithEvents: [Int] = [1,3,4,9,11,12,13,14,15,16,18,19,20,21,23,25,26,27,28,29,30]
     
-    var body: some View {
+    public init(isPresented: Binding<Bool>) {
+        self._isPresented = isPresented
+    }
+    
+    public var body: some View {
         VStack(spacing: 10) {
             HStack {
                 Spacer()

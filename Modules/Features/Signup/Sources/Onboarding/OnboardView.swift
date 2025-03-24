@@ -6,6 +6,8 @@
 //
 
 import SwiftUI
+import Auth
+import DesignSystem
 
 public struct OnboardingView: View {
     @State private var currentPage = 0
@@ -20,7 +22,7 @@ public struct OnboardingView: View {
                     OnboardingPageView(
                         title: "너무 많은 뉴스레터 브랜드",
                         subtitle: "일일이 찾아볼 필요 없이\n내게 필요한 뉴스레터만 쏙쏙",
-                        imageName: "letter",
+                        imageName: DesignSystemAsset.letter,
                         currentPage: currentPage,
                         totalPages: totalPages
                     )
@@ -29,7 +31,7 @@ public struct OnboardingView: View {
                     OnboardingPageView(
                         title: "복잡하게 쌓여가는 메일함은 안녕!",
                         subtitle: "다른 메일과 섞이지 않고\n오늘 받은 뉴스레터만 한눈에",
-                        imageName: "calendar",
+                        imageName: DesignSystemAsset.calendar,
                         currentPage: currentPage,
                         totalPages: totalPages
                     )
@@ -38,7 +40,7 @@ public struct OnboardingView: View {
                     OnboardingPageView(
                         title: "번거로운 구독 관리도",
                         subtitle: "뉴독에서는 버튼 하나로\n쉽고 빠르게!",
-                        imageName: "post",
+                        imageName: DesignSystemAsset.post,
                         currentPage: currentPage,
                         totalPages: totalPages
                     )
@@ -73,7 +75,7 @@ public struct OnboardingView: View {
                             NavigationLink(destination: LoginView()) {
                                 Text("로그인")
                                     .font(.hanSansNeo(14,.medium))
-                                    .foregroundColor(.mainBlue)
+                                    .foregroundColor(.primaryNormal)
                                     .underline()
                             }
                         }
@@ -89,7 +91,7 @@ public struct OnboardingView: View {
 struct OnboardingPageView: View {
     let title: String
     let subtitle: String
-    let imageName: String
+    let imageName: DesignSystemImages
     let currentPage: Int
     let totalPages: Int
     
@@ -114,12 +116,12 @@ struct OnboardingPageView: View {
                 ForEach(0..<totalPages, id: \.self) { index in
                     Capsule()
                         .frame(width: currentPage == index ? 32 : 32, height: 6)
-                        .foregroundColor(currentPage == index ? Color.mainBlue : Color.blue.opacity(0.2))
+                        .foregroundColor(currentPage == index ? .primary : Color.blue.opacity(0.2))
                 }
             }
             .padding(.top, 34)
             
-            Image(imageName)
+            Image(asset: imageName)
                 .resizable()
                 .scaledToFit()
                 .frame(width: 320, height: 320)

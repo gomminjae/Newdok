@@ -12,7 +12,11 @@ let project = Project(
             deploymentTargets: .iOS("17.0"),
             infoPlist: .default,
             sources: ["Sources/**"],
-            resources: ["Resources/**"]
+            resources: ["Resources/**"],
+            dependencies: [
+                 .project(target: "Core", path: "../../Core"),
+                  .project(target: "DesignSystem", path: "../../DesignSystem"),
+             ]
         ),
         .target(
             name: "SignupTests",
@@ -23,7 +27,9 @@ let project = Project(
             infoPlist: .default,
             sources: ["Tests/**"],
             dependencies: [
-                .target(name: "Signup")
+                .target(name: "Signup"),
+                .project(target: "Core", path: "../../Core"),
+                 .project(target: "DesignSystem", path: "../../DesignSystem"),
             ]
         )
     ]

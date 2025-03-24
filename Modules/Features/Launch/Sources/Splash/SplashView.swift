@@ -6,15 +6,19 @@
 //
 
 import SwiftUI
+import DesignSystem
 
 public struct SplashView: View {
     public init() {}
     public var body: some View {
         VStack {
             Spacer()
-            Image("logo")
+            Image(asset: DesignSystemAsset.logo)
             Spacer()
         }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .background(Color.white)
+        .ignoresSafeArea()
     }
 }
 

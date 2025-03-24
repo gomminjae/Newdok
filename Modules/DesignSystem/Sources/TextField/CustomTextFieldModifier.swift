@@ -11,6 +11,8 @@ public struct CustomTextFieldModifier: ViewModifier {
     
     
     @FocusState private var isFocused: Bool
+    
+    public init() {}
        
     
     public func body(content: Content) -> some View {
@@ -45,6 +47,10 @@ public struct PasswordFieldModifier: ViewModifier {
     
     @Binding var isSecure: Bool
     @FocusState private var isFocused: Bool
+    
+    public init(isSecure: Binding<Bool>) {
+        self._isSecure = isSecure
+    }
     
     public func body(content: Content) -> some View {
         HStack {
