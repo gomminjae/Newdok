@@ -9,11 +9,8 @@
 /* Begin PBXBuildFile section */
 		00D23AC972BA7FAF73626DCD /* DesignSystem.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 830F28D182C69C778C203B14 /* DesignSystem.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		11A9784B9A22CEB5C0ED9B00 /* AMain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 803F3FA851075F83F626452F /* AMain.swift */; };
-		30205DEFF6323D0F277D4258 /* Core.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = E1B8BF9E9A6F7D7ECA102214 /* Core.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		7DF9DAED8E4BD7D5FF8B3B41 /* Core.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E1B8BF9E9A6F7D7ECA102214 /* Core.framework */; };
 		96CEE8366F0FA41EA80555F4 /* DesignSystem.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 830F28D182C69C778C203B14 /* DesignSystem.framework */; };
 		970CBD168BF74249E7F252AF /* Launch.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F1D4D18311B36FB027BF9210 /* Launch.framework */; };
-		A571B7029C503FEFFD54F861 /* Core.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E1B8BF9E9A6F7D7ECA102214 /* Core.framework */; };
 		A88443ED4E8315310AEE74A9 /* DesignSystem.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 830F28D182C69C778C203B14 /* DesignSystem.framework */; };
 		CCF02DB06ED6FAB43EEE9981 /* ATests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41B2C26DC943E9425C827A00 /* ATests.swift */; };
 /* End PBXBuildFile section */
@@ -45,7 +42,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				30205DEFF6323D0F277D4258 /* Core.framework in Embed Frameworks */,
 				00D23AC972BA7FAF73626DCD /* DesignSystem.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
@@ -61,7 +57,6 @@
 		88D5B88928DBE85D6A3096AD /* A.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = A.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A67E858C9EA62982EC2E2B42 /* ATests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "ATests-Info.plist"; sourceTree = "<group>"; };
 		CA494BE03771FE18F32701C1 /* ATests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ATests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		E1B8BF9E9A6F7D7ECA102214 /* Core.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Core.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F1D4D18311B36FB027BF9210 /* Launch.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Launch.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -70,7 +65,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7DF9DAED8E4BD7D5FF8B3B41 /* Core.framework in Frameworks */,
 				96CEE8366F0FA41EA80555F4 /* DesignSystem.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -79,7 +73,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A571B7029C503FEFFD54F861 /* Core.framework in Frameworks */,
 				A88443ED4E8315310AEE74A9 /* DesignSystem.framework in Frameworks */,
 				970CBD168BF74249E7F252AF /* Launch.framework in Frameworks */,
 			);
@@ -109,7 +102,6 @@
 			children = (
 				88D5B88928DBE85D6A3096AD /* A.app */,
 				CA494BE03771FE18F32701C1 /* ATests.xctest */,
-				E1B8BF9E9A6F7D7ECA102214 /* Core.framework */,
 				830F28D182C69C778C203B14 /* DesignSystem.framework */,
 				F1D4D18311B36FB027BF9210 /* Launch.framework */,
 			);

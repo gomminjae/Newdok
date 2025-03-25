@@ -1,14 +1,14 @@
 import ProjectDescription
 
 let project = Project(
-    name: "Core",
+    name: "Network",
     organizationName: "Your Organization Name",
     packages: [
         .package(url: "https://github.com/Moya/Moya.git", .upToNextMajor(from: "15.0.0")),
     ],
     targets: [
         .target(
-            name: "Core",
+            name: "Network",
             destinations: .iOS,
             product: .framework,
             bundleId: "com.minjae.core",

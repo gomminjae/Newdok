@@ -8,10 +8,16 @@
          location = "group:App/App.xcodeproj">
       </FileRef>
       <FileRef
-         location = "group:Core/Core.xcodeproj">
+         location = "group:Data/Data.xcodeproj">
       </FileRef>
       <FileRef
          location = "group:DesignSystem/DesignSystem.xcodeproj">
+      </FileRef>
+      <FileRef
+         location = "group:Domain/Domain.xcodeproj">
+      </FileRef>
+      <FileRef
+         location = "group:Network/Network.xcodeproj">
       </FileRef>
       <Group
          location = "group:Features"

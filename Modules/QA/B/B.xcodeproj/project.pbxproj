@@ -11,10 +11,8 @@
 		447A51F62551251CE6AE60A6 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA035CDBC79B589E2A387B44 /* ContentView.swift */; };
 		508E52E990E3E3BF408A7501 /* DesignSystem.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 42F5E70E54A9D11122495EFF /* DesignSystem.framework */; };
 		603DD422847CD0CC50C2CA68 /* Auth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A8111C9E153F8D084CA5582 /* Auth.framework */; };
-		7F36D8FBE7C77D5E020B84B3 /* Core.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2378C408DCDC0EDC22736EE2 /* Core.framework */; };
 		9D95A440D1F08648A1189B26 /* BMain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D9D8337B8DADC1C73C9B83 /* BMain.swift */; };
 		BC4D17FFCADE9D608BD4F9B1 /* Home.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A3807BBFB2D5C8B2513C5534 /* Home.framework */; };
-		BDE1D020A28F07EA1FDE6B99 /* Core.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 2378C408DCDC0EDC22736EE2 /* Core.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		EBE6591D3B210BA5A77C4BEE /* Signup.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9E10D8055DE91DF89CD9A616 /* Signup.framework */; };
 		ED299898C15F8C9C61934994 /* DesignSystem.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 42F5E70E54A9D11122495EFF /* DesignSystem.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		F0123C5B11FEDB50386CC1BF /* BTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73FD44ED8E632B513BD81837 /* BTests.swift */; };
@@ -47,7 +45,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				BDE1D020A28F07EA1FDE6B99 /* Core.framework in Embed Frameworks */,
 				ED299898C15F8C9C61934994 /* DesignSystem.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
@@ -58,7 +55,6 @@
 /* Begin PBXFileReference section */
 		01D9D8337B8DADC1C73C9B83 /* BMain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BMain.swift; sourceTree = "<group>"; };
 		07F21865B765752721E8465D /* Launch.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Launch.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		2378C408DCDC0EDC22736EE2 /* Core.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Core.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		425857CB3DDB1DFF6EDD7842 /* BTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "BTests-Info.plist"; sourceTree = "<group>"; };
 		42F5E70E54A9D11122495EFF /* DesignSystem.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = DesignSystem.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6EAB1B89B375E80DD021B526 /* B.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = B.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -84,7 +80,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				603DD422847CD0CC50C2CA68 /* Auth.framework in Frameworks */,
-				7F36D8FBE7C77D5E020B84B3 /* Core.framework in Frameworks */,
 				508E52E990E3E3BF408A7501 /* DesignSystem.framework in Frameworks */,
 				BC4D17FFCADE9D608BD4F9B1 /* Home.framework in Frameworks */,
 				3CB1006058EC00097C4F8544 /* Launch.framework in Frameworks */,
@@ -119,7 +114,6 @@
 				9A8111C9E153F8D084CA5582 /* Auth.framework */,
 				6EAB1B89B375E80DD021B526 /* B.app */,
 				D2857F713F5C24040D1DBDA2 /* BTests.xctest */,
-				2378C408DCDC0EDC22736EE2 /* Core.framework */,
 				42F5E70E54A9D11122495EFF /* DesignSystem.framework */,
 				A3807BBFB2D5C8B2513C5534 /* Home.framework */,
 				07F21865B765752721E8465D /* Launch.framework */,

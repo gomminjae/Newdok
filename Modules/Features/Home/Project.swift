@@ -14,7 +14,6 @@ let project = Project(
             sources: ["Sources/**"],
             resources: ["Resources/**"],
             dependencies: [
-                 .project(target: "Core", path: "../../Core"),
                 .project(target: "DesignSystem", path: "../../DesignSystem"),
              ]
         ),
@@ -28,7 +27,6 @@ let project = Project(
             sources: ["Tests/**"],
             dependencies: [
                 .target(name: "Home"), 
-                .project(target: "Core", path: "../../Core"),
                  .project(target: "DesignSystem", path: "../../DesignSystem"),
             ]
         )

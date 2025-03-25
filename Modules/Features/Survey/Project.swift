@@ -24,7 +24,6 @@ let project = Project(
             sources: ["Tests/**"],
             dependencies: [
                 .target(name: "Survey"),
-                .project(target: "Core", path: "../../Core"),
                  .project(target: "DesignSystem", path: "../../DesignSystem"),
             ]
         )
