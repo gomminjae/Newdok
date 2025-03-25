@@ -17,7 +17,7 @@ public struct CustomTextFieldModifier: ViewModifier {
     
     public func body(content: Content) -> some View {
         HStack {
-            Image("Line User")
+            Image(asset: DesignSystemAsset.lineUser)
                 .foregroundColor(.gray)
             
 
@@ -31,7 +31,7 @@ public struct CustomTextFieldModifier: ViewModifier {
         .frame(height: 50)
         .overlay(
             RoundedRectangle(cornerRadius: 4)
-                .stroke(isFocused ? Color.primary : Color.gray.opacity(0.5), lineWidth: 1)
+                .stroke(isFocused ? Color.primaryNormal : Color.gray.opacity(0.5), lineWidth: 1)
         )
         
     }
@@ -54,7 +54,7 @@ public struct PasswordFieldModifier: ViewModifier {
     
     public func body(content: Content) -> some View {
         HStack {
-            Image("Line Lock")
+            Image(asset: DesignSystemAsset.lineLock)
                 .foregroundColor(.gray)
             
             content
@@ -62,9 +62,9 @@ public struct PasswordFieldModifier: ViewModifier {
             Button(action: {
                 isSecure.toggle()
             }) {
-                Image(isSecure ? "Line Close Eye" : "Line Eye")
+                Image(asset: isSecure ? DesignSystemAsset.lineCloseEye: DesignSystemAsset.lineEye)
                     .renderingMode(.template)
-                    .foregroundColor(isFocused ? Color.primary : Color(hex: "#363636"))
+                    .foregroundColor(isFocused ? Color.primaryNormal : Color(hex: "#363636"))
                 
             }
         }
@@ -72,7 +72,7 @@ public struct PasswordFieldModifier: ViewModifier {
         .frame(height: 50)
         .overlay {
             RoundedRectangle(cornerRadius: 4)
-                .stroke(isFocused ? Color.primary : Color.gray.opacity(0.5), lineWidth: 1)
+                .stroke(isFocused ? Color.primaryNormal : Color.gray.opacity(0.5), lineWidth: 1)
         }
         
     }
