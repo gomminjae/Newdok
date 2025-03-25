@@ -54,7 +54,7 @@ public struct OnboardingView: View {
                     }) {
                         NavigationLink(destination: SignupView()) {
                             Text("회원가입")
-                                .font(.system(size: 18, weight: .bold))
+                                .font(.hanSansNeo(18, .bold))
                                 .frame(maxWidth: .infinity)
                                 .padding()
                                 .background(Color(hex: "#2866D3"))
@@ -116,7 +116,7 @@ struct OnboardingPageView: View {
                 ForEach(0..<totalPages, id: \.self) { index in
                     Capsule()
                         .frame(width: currentPage == index ? 32 : 32, height: 6)
-                        .foregroundColor(currentPage == index ? .primary : Color.blue.opacity(0.2))
+                        .foregroundColor(currentPage == index ? .primaryNormal : Color.blue.opacity(0.2))
                 }
             }
             .padding(.top, 34)
