@@ -20,7 +20,7 @@ public struct LoginView: View {
         NavigationStack {
             VStack {
                 HStack {
-                    Image("logo")
+                    Image(asset: DesignSystemAsset.logo)
                         .frame(alignment: .leading)
                         .padding(.leading, 28)
                     Spacer()
