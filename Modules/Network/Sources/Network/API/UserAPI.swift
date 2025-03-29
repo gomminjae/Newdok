@@ -7,7 +7,7 @@
 import Moya
 import Foundation
 
-enum UserAPI {
+public enum UserAPI {
     case login(loginId: String, password: String)
     case signup(loginId: String, password: String, phoneNumber: String, nickname: String, birthYear: String, gender: String)
     
@@ -32,7 +32,7 @@ enum UserAPI {
 }
 
 extension UserAPI: TargetType {
-    var baseURL: URL {
+    public var baseURL: URL {
         switch self {
         case .authSMS:
             return URL(string: "\(APIEnvironment.development.self.baseURL)/auth")!
@@ -42,7 +42,7 @@ extension UserAPI: TargetType {
         
     }
     
-    var path: String {
+    public var path: String {
         switch self {
             case .login:
                 return "/login"
@@ -68,7 +68,7 @@ extension UserAPI: TargetType {
         }
     }
     
-    var method: Moya.Method {
+    public var method: Moya.Method {
         switch self {
         case .updatePassword, .updateIndustry, .updateInterest, .updatePhoneNumber, .updateNickname:
             return .patch
@@ -80,7 +80,7 @@ extension UserAPI: TargetType {
    
     }
     
-    var task: Task {
+    public var task: Task {
         switch self {
         case let .login(loginId, password):
             return .requestParameters(parameters: ["loginId": loginId, "password": password], encoding: JSONEncoding.default)
@@ -134,7 +134,7 @@ extension UserAPI: TargetType {
         }
     }
     
-    var headers: [String: String]? {
+    public var headers: [String: String]? {
         return ["Content-Type": "application/json"]
     }
     

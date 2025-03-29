@@ -21,12 +21,11 @@
 // swiftlint:disable identifier_name line_length type_body_length
 public enum DesignSystemFontFamily: Sendable {
   public enum SpoqaHanSansNeo: Sendable {
-    public static let bold = DesignSystemFontConvertible(name: "SpoqaHanSansNeo-Bold", family: "Spoqa Han Sans Neo", path: "SpoqaHanSansNeo-Bold.otf")
     public static let light = DesignSystemFontConvertible(name: "SpoqaHanSansNeo-Light", family: "Spoqa Han Sans Neo", path: "SpoqaHanSansNeo-Light.otf")
     public static let medium = DesignSystemFontConvertible(name: "SpoqaHanSansNeo-Medium", family: "Spoqa Han Sans Neo", path: "SpoqaHanSansNeo-Medium.otf")
     public static let regular = DesignSystemFontConvertible(name: "SpoqaHanSansNeo-Regular", family: "Spoqa Han Sans Neo", path: "SpoqaHanSansNeo-Regular.otf")
     public static let thin = DesignSystemFontConvertible(name: "SpoqaHanSansNeo-Thin", family: "Spoqa Han Sans Neo", path: "SpoqaHanSansNeo-Thin.otf")
-    public static let all: [DesignSystemFontConvertible] = [bold, light, medium, regular, thin]
+    public static let all: [DesignSystemFontConvertible] = [light, medium, regular, thin]
   }
   public static let allCustomFonts: [DesignSystemFontConvertible] = [SpoqaHanSansNeo.all].flatMap { $0 }
   public static func registerAllCustomFonts() {

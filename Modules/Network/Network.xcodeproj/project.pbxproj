@@ -7,13 +7,17 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0A94558DD07B01C5E238482C /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B27E13C48D44E3809D1A0C9 /* NetworkError.swift */; };
 		14DEF7A4391DA19B5707AA39 /* Moya in Frameworks */ = {isa = PBXBuildFile; productRef = E127E6D0B2614532DDD16C42 /* Moya */; };
+		19E5351B9E5C5B585233232E /* MoyaProvider+Async.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7002ACC396BD56626657BDFB /* MoyaProvider+Async.swift */; };
 		60672E9F0F7E3C2A3477B633 /* AuthInterceptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 064E01048121F86E09D98D09 /* AuthInterceptor.swift */; };
 		6F6561C306B5EF7713993BE6 /* UserVerificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3EFD981605C2AE8A542FE18 /* UserVerificationService.swift */; };
+		806CA44734C5614AE8A1D2CB /* ErrorMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84763B6CEE0D308A8AA7EF6C /* ErrorMapper.swift */; };
 		8154CF0050FFCD9D9892820E /* APIEnvironment.swift in Sources */ = {isa = PBXBuildFile; fileRef = E67F53188188163BFD299BFF /* APIEnvironment.swift */; };
 		9A6B2F093A1444927602C88D /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CE3A770230BF5A933B2D07D /* AuthService.swift */; };
 		9CBBF42037984A08DBD6FD33 /* UserAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40AF9A355AD5E1B8F0FCFEBE /* UserAPI.swift */; };
 		D91F032C770E268C362C00D0 /* ProfileService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92EAD1AE4FC7B241FE2170F5 /* ProfileService.swift */; };
+		D977E69C1F13B5DC95257B35 /* NetworkLoggerPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24BB189C50BF07721127582F /* NetworkLoggerPlugin.swift */; };
 		FBFAFFB0901ABC227E9C04D8 /* NewsletterAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80006806EE8232C3392F8763 /* NewsletterAPI.swift */; };
 /* End PBXBuildFile section */
 
@@ -32,11 +36,15 @@
 
 /* Begin PBXFileReference section */
 		064E01048121F86E09D98D09 /* AuthInterceptor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthInterceptor.swift; sourceTree = "<group>"; };
+		24BB189C50BF07721127582F /* NetworkLoggerPlugin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkLoggerPlugin.swift; sourceTree = "<group>"; };
 		40AF9A355AD5E1B8F0FCFEBE /* UserAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAPI.swift; sourceTree = "<group>"; };
 		4B1D54DB865340F89331FF8C /* Network-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "Network-Info.plist"; sourceTree = "<group>"; };
 		4CE3A770230BF5A933B2D07D /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
+		7002ACC396BD56626657BDFB /* MoyaProvider+Async.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MoyaProvider+Async.swift"; sourceTree = "<group>"; };
 		80006806EE8232C3392F8763 /* NewsletterAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsletterAPI.swift; sourceTree = "<group>"; };
+		84763B6CEE0D308A8AA7EF6C /* ErrorMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorMapper.swift; sourceTree = "<group>"; };
 		92EAD1AE4FC7B241FE2170F5 /* ProfileService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileService.swift; sourceTree = "<group>"; };
+		9B27E13C48D44E3809D1A0C9 /* NetworkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
 		9E27ED4FA2CB56FEC39887EA /* Network.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Network.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E67F53188188163BFD299BFF /* APIEnvironment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIEnvironment.swift; sourceTree = "<group>"; };
 		F3EFD981605C2AE8A542FE18 /* UserVerificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserVerificationService.swift; sourceTree = "<group>"; };
@@ -62,6 +70,14 @@
 			path = Service;
 			sourceTree = "<group>";
 		};
+		11ACDFEAEF1C62234E816C50 /* Plugin */ = {
+			isa = PBXGroup;
+			children = (
+				24BB189C50BF07721127582F /* NetworkLoggerPlugin.swift */,
+			);
+			path = Plugin;
+			sourceTree = "<group>";
+		};
 		25424697649C9F66AF152A0F /* Derived */ = {
 			isa = PBXGroup;
 			children = (
@@ -74,6 +90,7 @@
 			isa = PBXGroup;
 			children = (
 				B90F7A30960B4B3AA89D5A50 /* API */,
+				C3D3EBBB7A869AABD0669C12 /* Core */,
 				C1A95CD6BB902D03AF1E3B81 /* Interceptor */,
 				E67F53188188163BFD299BFF /* APIEnvironment.swift */,
 			);
@@ -94,6 +111,16 @@
 				4B1D54DB865340F89331FF8C /* Network-Info.plist */,
 			);
 			path = InfoPlists;
+			sourceTree = "<group>";
+		};
+		7CD15F5EB8268D126ECDC048 /* Error */ = {
+			isa = PBXGroup;
+			children = (
+				84763B6CEE0D308A8AA7EF6C /* ErrorMapper.swift */,
+				7002ACC396BD56626657BDFB /* MoyaProvider+Async.swift */,
+				9B27E13C48D44E3809D1A0C9 /* NetworkError.swift */,
+			);
+			path = Error;
 			sourceTree = "<group>";
 		};
 		86EE5E83306F6D80F93AB42F /* Sources */ = {
@@ -128,6 +155,15 @@
 				064E01048121F86E09D98D09 /* AuthInterceptor.swift */,
 			);
 			path = Interceptor;
+			sourceTree = "<group>";
+		};
+		C3D3EBBB7A869AABD0669C12 /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				7CD15F5EB8268D126ECDC048 /* Error */,
+				11ACDFEAEF1C62234E816C50 /* Plugin */,
+			);
+			path = Core;
 			sourceTree = "<group>";
 		};
 		DA2A7B178B1FAD113C3DC944 /* Project */ = {
@@ -221,6 +257,10 @@
 				FBFAFFB0901ABC227E9C04D8 /* NewsletterAPI.swift in Sources */,
 				9CBBF42037984A08DBD6FD33 /* UserAPI.swift in Sources */,
 				8154CF0050FFCD9D9892820E /* APIEnvironment.swift in Sources */,
+				806CA44734C5614AE8A1D2CB /* ErrorMapper.swift in Sources */,
+				19E5351B9E5C5B585233232E /* MoyaProvider+Async.swift in Sources */,
+				0A94558DD07B01C5E238482C /* NetworkError.swift in Sources */,
+				D977E69C1F13B5DC95257B35 /* NetworkLoggerPlugin.swift in Sources */,
 				60672E9F0F7E3C2A3477B633 /* AuthInterceptor.swift in Sources */,
 				9A6B2F093A1444927602C88D /* AuthService.swift in Sources */,
 				D91F032C770E268C362C00D0 /* ProfileService.swift in Sources */,
