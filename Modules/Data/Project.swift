@@ -17,6 +17,7 @@ let project = Project(
       resources: [],
       dependencies: [
         .project(target: "Network", path: "../Network"),
+        .project(target: "Domain", path: "../Domain"), 
         .package(product: "Moya"),
       ]
     )

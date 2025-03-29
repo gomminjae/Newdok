@@ -13,7 +13,6 @@
 		2C2A6F1B0843699ACFE53D23 /* TuistFonts+DesignSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1489E7809DA4DADA471C2CDC /* TuistFonts+DesignSystem.swift */; };
 		317C16F03A5E8BF0EA256954 /* SpoqaHanSansNeo-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = 3A89362609648144517CFE75 /* SpoqaHanSansNeo-Medium.otf */; };
 		4B4985AC134925A10B1C3735 /* SignupPopupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1A2713583830112185DA06E /* SignupPopupView.swift */; };
-		4C768B0DAB889891D8E0145C /* SpoqaHanSansNeo-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 1CFCDF29DFB293A9C3F9D6D9 /* SpoqaHanSansNeo-Bold.otf */; };
 		4D1C8FAC5AA3A85D2B2BFAAF /* Color+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B424097EED4FD25BE22C5E1 /* Color+Extension.swift */; };
 		72415CF40FB9EA2BE53157FD /* Font.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0892589FC56FB3A98055F459 /* Font.swift */; };
 		8A9C0A8F4FB5F65357DC241E /* SubscribeNoticeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 927C881A2F81BA000C05ABEF /* SubscribeNoticeView.swift */; };
@@ -47,7 +46,6 @@
 		0B424097EED4FD25BE22C5E1 /* Color+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Extension.swift"; sourceTree = "<group>"; };
 		0B4CDA86843A89A3AD229E60 /* CustomTextFieldModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextFieldModifier.swift; sourceTree = "<group>"; };
 		1489E7809DA4DADA471C2CDC /* TuistFonts+DesignSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TuistFonts+DesignSystem.swift"; sourceTree = "<group>"; };
-		1CFCDF29DFB293A9C3F9D6D9 /* SpoqaHanSansNeo-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SpoqaHanSansNeo-Bold.otf"; sourceTree = "<group>"; };
 		1EAA4A417D2996F4DF2DED40 /* SpoqaHanSansNeo-Thin.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SpoqaHanSansNeo-Thin.otf"; sourceTree = "<group>"; };
 		3A89362609648144517CFE75 /* SpoqaHanSansNeo-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SpoqaHanSansNeo-Medium.otf"; sourceTree = "<group>"; };
 		41950894E4E9C8FF11201792 /* AuthFailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthFailView.swift; sourceTree = "<group>"; };
@@ -167,7 +165,6 @@
 		B26E41B36113DA07FB8E0185 /* Font */ = {
 			isa = PBXGroup;
 			children = (
-				1CFCDF29DFB293A9C3F9D6D9 /* SpoqaHanSansNeo-Bold.otf */,
 				D45E4F8E9B8A1813A5ADE0C1 /* SpoqaHanSansNeo-Light.otf */,
 				3A89362609648144517CFE75 /* SpoqaHanSansNeo-Medium.otf */,
 				56DFA51B1676775D07DC3DD2 /* SpoqaHanSansNeo-Regular.otf */,
@@ -274,7 +271,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				D2E21543F5B3B63472BE98A1 /* Assets.xcassets in Resources */,
-				4C768B0DAB889891D8E0145C /* SpoqaHanSansNeo-Bold.otf in Resources */,
 				0BFDC77A09ED37206E78FD25 /* SpoqaHanSansNeo-Light.otf in Resources */,
 				317C16F03A5E8BF0EA256954 /* SpoqaHanSansNeo-Medium.otf in Resources */,
 				13DF60422EC2F2B2EBA47DB5 /* SpoqaHanSansNeo-Regular.otf in Resources */,

@@ -10,8 +10,10 @@
 		1CB4A32BD2D98E6477F5C0CD /* DesignSystem.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 85C21E5E41B25BF1296FDC62 /* DesignSystem.framework */; };
 		31CAEA710C6520DBB827D541 /* AgreeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67EF4BBEC87D32F0BE736064 /* AgreeView.swift */; };
 		4ECED101068F670CE60CF6E9 /* PwInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01C558CCDE8D9D55FBBD2BD0 /* PwInputView.swift */; };
+		5110DB042195F5E6AAD775B3 /* Auth.framework in Dependencies */ = {isa = PBXBuildFile; fileRef = 766F8951B640B8EBDABB6323 /* Auth.framework */; };
 		55DD21004E7ED935F7928BB0 /* SignupMain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AE159452A9D28FDB105234D /* SignupMain.swift */; };
 		56E49B9F6EE5E5967059E38B /* SignupTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E5C89CA9056923E18123563 /* SignupTests.swift */; };
+		59F8133C2059A078913ADC5A /* Auth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 766F8951B640B8EBDABB6323 /* Auth.framework */; };
 		5EF014595DE654BC71C6732B /* CompleteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D1C66CBCE6F6C7CBF91D466 /* CompleteView.swift */; };
 		80B39D744C986F747FC4B721 /* IDInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D0B48E48F75055FF32E54AC /* IDInputView.swift */; };
 		813F7CE1B63128DE85ECCDC0 /* PhoneVerificationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8362585C58EFC538FE2604A /* PhoneVerificationView.swift */; };
@@ -54,6 +56,16 @@
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		EFFE4844A39C9F15CECBDBCB /* Dependencies */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 8;
+			dstSubfolderSpec = 16;
+			files = (
+				5110DB042195F5E6AAD775B3 /* Auth.framework in Dependencies */,
+			);
+			name = Dependencies;
+			runOnlyForDeploymentPostprocessing = 1;
+		};
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
@@ -65,6 +77,7 @@
 		3D1C66CBCE6F6C7CBF91D466 /* CompleteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompleteView.swift; sourceTree = "<group>"; };
 		4EA1AECAA251BAE72F8E1AA1 /* Signup-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "Signup-Info.plist"; sourceTree = "<group>"; };
 		67EF4BBEC87D32F0BE736064 /* AgreeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgreeView.swift; sourceTree = "<group>"; };
+		766F8951B640B8EBDABB6323 /* Auth.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Auth.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		85C21E5E41B25BF1296FDC62 /* DesignSystem.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = DesignSystem.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8B64B94EDDD988EA78DBF160 /* Signup.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Signup.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		90725C7D56052890B752FF5A /* SignupTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SignupTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -80,6 +93,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				59F8133C2059A078913ADC5A /* Auth.framework in Frameworks */,
 				D8C1273648D92C59C2B10512 /* DesignSystem.framework in Frameworks */,
 				8661A8DA73DBCED6AE7E0EFF /* Signup.framework in Frameworks */,
 			);
@@ -99,6 +113,7 @@
 		022C3038C4A0CD3383947FEE /* Products */ = {
 			isa = PBXGroup;
 			children = (
+				766F8951B640B8EBDABB6323 /* Auth.framework */,
 				85C21E5E41B25BF1296FDC62 /* DesignSystem.framework */,
 				8B64B94EDDD988EA78DBF160 /* Signup.framework */,
 				90725C7D56052890B752FF5A /* SignupTests.xctest */,
@@ -201,6 +216,7 @@
 				F339FD1783245071E97EA8F3 /* Resources */,
 				CC043E36749B9DA327C9633B /* Frameworks */,
 				BB4366183B02C609D71C2505 /* Embed Frameworks */,
+				EFFE4844A39C9F15CECBDBCB /* Dependencies */,
 			);
 			buildRules = (
 			);
