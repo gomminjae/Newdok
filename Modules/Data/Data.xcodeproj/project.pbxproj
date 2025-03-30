@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 55;
+	objectVersion = 56;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -11,10 +11,11 @@
 		2F4A90C76257924820EAEA02 /* UserUseCaseImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = E185C004320D65EFB2DC14D4 /* UserUseCaseImpl.swift */; };
 		31593657382DC5704849BF1D /* Network.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83231A9E43B908A3F74B7D6C /* Network.framework */; };
 		4196AC73C8ABBF529103C4C2 /* Domain.framework in Dependencies */ = {isa = PBXBuildFile; fileRef = 06FAA1459D11CCE724C34195 /* Domain.framework */; };
-		424B37C606F48B32B4A798ED /* Newsletter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 693B63A6AF185D053332E56F /* Newsletter.swift */; };
-		4DA98B9BFEF32E51EF008C77 /* NewsletterDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB632D057D7B33A4DD20B73A /* NewsletterDetail.swift */; };
 		7DA5B8FD00C3BDBDD5E6529C /* Moya in Frameworks */ = {isa = PBXBuildFile; productRef = 750FAC6F5E1B2839B2B0FE92 /* Moya */; };
 		8DBBDCBFD98FA975725F5FFC /* UserDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1E5AF40F37195C6E9D947B7 /* UserDTO.swift */; };
+		B5A585102D985A4B00067DE8 /* NicknameResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5A5850F2D985A4000067DE8 /* NicknameResponseDTO.swift */; };
+		B5A585142D9860A000067DE8 /* BrandListResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5A585132D9860A000067DE8 /* BrandListResponseDTO.swift */; };
+		B5A585182D98D5BA00067DE8 /* SignupResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5A585172D98D5BA00067DE8 /* SignupResponseDTO.swift */; };
 		D06F9C24FF5635F889AF88AB /* SimpleUserDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCCC168A0C8F61DEFC6971E9 /* SimpleUserDTO.swift */; };
 		D86BF22977141E11F7D579F4 /* UserRepositoryImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2D0D4F26DEE2260AF4A6192 /* UserRepositoryImpl.swift */; };
 /* End PBXBuildFile section */
@@ -47,11 +48,12 @@
 		05F2912D64C42A7A2C2E9C23 /* ErrorResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorResponseDTO.swift; sourceTree = "<group>"; };
 		06FAA1459D11CCE724C34195 /* Domain.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Domain.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4E75197C294DE74F5162FAA7 /* Data.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Data.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		693B63A6AF185D053332E56F /* Newsletter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Newsletter.swift; sourceTree = "<group>"; };
 		83231A9E43B908A3F74B7D6C /* Network.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Network.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		B5A5850F2D985A4000067DE8 /* NicknameResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NicknameResponseDTO.swift; sourceTree = "<group>"; };
+		B5A585132D9860A000067DE8 /* BrandListResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrandListResponseDTO.swift; sourceTree = "<group>"; };
+		B5A585172D98D5BA00067DE8 /* SignupResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupResponseDTO.swift; sourceTree = "<group>"; };
 		D1E5AF40F37195C6E9D947B7 /* UserDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDTO.swift; sourceTree = "<group>"; };
 		D2D0D4F26DEE2260AF4A6192 /* UserRepositoryImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRepositoryImpl.swift; sourceTree = "<group>"; };
-		DB632D057D7B33A4DD20B73A /* NewsletterDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsletterDetail.swift; sourceTree = "<group>"; };
 		DCCC168A0C8F61DEFC6971E9 /* SimpleUserDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleUserDTO.swift; sourceTree = "<group>"; };
 		E185C004320D65EFB2DC14D4 /* UserUseCaseImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserUseCaseImpl.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -111,6 +113,19 @@
 			path = InfoPlists;
 			sourceTree = "<group>";
 		};
+		B5A585192D98DB5E00067DE8 /* User */ = {
+			isa = PBXGroup;
+			children = (
+				B5A585172D98D5BA00067DE8 /* SignupResponseDTO.swift */,
+				B5A585132D9860A000067DE8 /* BrandListResponseDTO.swift */,
+				B5A5850F2D985A4000067DE8 /* NicknameResponseDTO.swift */,
+				05F2912D64C42A7A2C2E9C23 /* ErrorResponseDTO.swift */,
+				DCCC168A0C8F61DEFC6971E9 /* SimpleUserDTO.swift */,
+				D1E5AF40F37195C6E9D947B7 /* UserDTO.swift */,
+			);
+			path = User;
+			sourceTree = "<group>";
+		};
 		C25E2D135BFBAC1019949D62 /* Derived */ = {
 			isa = PBXGroup;
 			children = (
@@ -122,23 +137,19 @@
 		C590795A2658F92D49B27E8D /* Sources */ = {
 			isa = PBXGroup;
 			children = (
-				E78A631C77D5AC1506C98313 /* Dto */,
+				E78A631C77D5AC1506C98313 /* DTO */,
 				73F3ED55BFDC2EF15878F5B6 /* Repository */,
 				0ED3985730845B70DC191937 /* UseCase */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
 		};
-		E78A631C77D5AC1506C98313 /* Dto */ = {
+		E78A631C77D5AC1506C98313 /* DTO */ = {
 			isa = PBXGroup;
 			children = (
-				05F2912D64C42A7A2C2E9C23 /* ErrorResponseDTO.swift */,
-				693B63A6AF185D053332E56F /* Newsletter.swift */,
-				DB632D057D7B33A4DD20B73A /* NewsletterDetail.swift */,
-				DCCC168A0C8F61DEFC6971E9 /* SimpleUserDTO.swift */,
-				D1E5AF40F37195C6E9D947B7 /* UserDTO.swift */,
+				B5A585192D98DB5E00067DE8 /* User */,
 			);
-			path = Dto;
+			path = DTO;
 			sourceTree = "<group>";
 		};
 		EF3121301A12FEB266E0B923 /* Project */ = {
@@ -220,11 +231,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				09FA382831A2C05A0FADC50F /* ErrorResponseDTO.swift in Sources */,
-				424B37C606F48B32B4A798ED /* Newsletter.swift in Sources */,
-				4DA98B9BFEF32E51EF008C77 /* NewsletterDetail.swift in Sources */,
+				B5A585142D9860A000067DE8 /* BrandListResponseDTO.swift in Sources */,
 				D06F9C24FF5635F889AF88AB /* SimpleUserDTO.swift in Sources */,
+				B5A585102D985A4B00067DE8 /* NicknameResponseDTO.swift in Sources */,
 				8DBBDCBFD98FA975725F5FFC /* UserDTO.swift in Sources */,
 				D86BF22977141E11F7D579F4 /* UserRepositoryImpl.swift in Sources */,
+				B5A585182D98D5BA00067DE8 /* SignupResponseDTO.swift in Sources */,
 				2F4A90C76257924820EAEA02 /* UserUseCaseImpl.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -257,10 +269,7 @@
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
 				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = (
-					"$(inherited)",
-					DEBUG,
-				);
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) DEBUG";
 				SWIFT_COMPILATION_MODE = singlefile;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;

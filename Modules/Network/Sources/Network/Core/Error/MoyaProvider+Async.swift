@@ -38,4 +38,25 @@ public extension MoyaProvider {
             }
         }
     }
+    
+    
+    func asyncVoidRequest(_ target: Target) async throws {
+            try await withCheckedThrowingContinuation { continuation in
+                self.request(target) { result in
+                    switch result {
+                    case .success(let response):
+                        if (200..<300).contains(response.statusCode) {
+                            continuation.resume()
+                        } else {
+                            let error = ErrorMapper.map(response: response)
+                            continuation.resume(throwing: error)
+                        }
+
+                    case .failure(let moyaError):
+                        let error = ErrorMapper.map(moyaError: moyaError)
+                        continuation.resume(throwing: error)
+                    }
+                }
+            }
+        }
 }
