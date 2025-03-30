@@ -8,7 +8,7 @@
 import Foundation
 import Moya
 
-enum NetworkError: Error, LocalizedError {
+public enum NetworkError: Error, LocalizedError {
     
     case decodeError(underlying: Error)
     case serverError(statusCode: Int, message: String?)
@@ -18,7 +18,7 @@ enum NetworkError: Error, LocalizedError {
     case noInternet
     case cancelled
 
-    var errorDescription: String? {
+    public var errorDescription: String? {
         switch self {
         case .decodeError(let error):
             return "디코딩 실패: \(error.localizedDescription)"
