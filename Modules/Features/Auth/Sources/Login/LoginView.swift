@@ -7,17 +7,14 @@
 
 import SwiftUI
 import DesignSystem
-import Domain
 
 public struct LoginView: View {
     
     @Environment(\.presentationMode) var presentationMode
-    @StateObject private var viewModel: LoginViewModel
+    @StateObject private var viewModel = LoginViewModel()
     @State private var showHomeView = false
     
-    public init(usecase: UserUseCase) {
-        _viewModel = StateObject(wrappedValue: LoginViewModel(userUseCase: usecase))
-    }
+    public init() {}
     
     public var body: some View {
         NavigationStack {
@@ -33,7 +30,7 @@ public struct LoginView: View {
                 VStack(alignment: .leading) {
                     Text("아이디")
                         .font(.hanSansNeo(14, .medium))
-                    TextField("아이디를 입력하세요", text: $viewModel.loginId)
+                    TextField("아이디를 입력하세요", text: $viewModel.userId)
                         .font(.hanSansNeo(14, .medium))
                         .frame(height: 56)
                         .customTextFieldStyle()
@@ -42,7 +39,7 @@ public struct LoginView: View {
                         .font(.hanSansNeo(14, .medium))
                         .padding(.top, 28)
                  
-                    TextField("비밀번호를 입력해주세요", text: $viewModel.password)
+                    TextField("비밀번호를 입력해주세요", text: $viewModel.userPwd)
                         .font(.hanSansNeo(14, .medium))
                         .frame(height: 56)
                         .modifier(PasswordFieldModifier(isSecure: $viewModel.isUserPwdValid))

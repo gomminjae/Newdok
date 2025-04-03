@@ -12,7 +12,6 @@
 		30A760CEBD549F168553106C /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E38436ED8889DC7424B93FD /* ContentView.swift */; };
 		326C0B3CADC173970CDF3EAF /* Auth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 709ECB981BF7FB2A9D697179 /* Auth.framework */; };
 		3BD59442555FBD7257E9AC6A /* Network.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 1AF21D914DAEAEB24E77A223 /* Network.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		4787DFDD71F731243F3587AF /* Domain.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6BEB75E9463ACE494A73BD36 /* Domain.framework */; };
 		618C5A4BDBBDA7F1A2F8DC93 /* Home.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 76E66C32BAE4D2C1EE4C64CB /* Home.framework */; };
 		70F3CF0BB9F240B2A59853E0 /* DesignSystem.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = E9369BFA2C65412102538303 /* DesignSystem.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		79CC342CF73CCAAFEF0E7A8A /* NewdokApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E742829AD9D1D2B50EFB2A0 /* NewdokApp.swift */; };
@@ -20,7 +19,6 @@
 		8F3691F7301E714387485350 /* DesignSystem.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E9369BFA2C65412102538303 /* DesignSystem.framework */; };
 		A6AD7D93BA643DF9F9147116 /* Network.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1AF21D914DAEAEB24E77A223 /* Network.framework */; };
 		CAC34288B9F9A43D57E874D8 /* Signup.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AAE3FEC5495E2E1AF26A4BA3 /* Signup.framework */; };
-		F343BFC34A1F6F392C331803 /* Data.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8AF7E105F5FEC83A7A47F2E7 /* Data.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -44,11 +42,9 @@
 		1AF21D914DAEAEB24E77A223 /* Network.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Network.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		571E08A9083FD4334E4B7D06 /* App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = App.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5E38436ED8889DC7424B93FD /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
-		6BEB75E9463ACE494A73BD36 /* Domain.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Domain.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		709ECB981BF7FB2A9D697179 /* Auth.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Auth.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		76E66C32BAE4D2C1EE4C64CB /* Home.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Home.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7E710496E985656C6B2D0826 /* Launch.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Launch.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		8AF7E105F5FEC83A7A47F2E7 /* Data.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Data.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		AAE3FEC5495E2E1AF26A4BA3 /* Signup.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Signup.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C863CB0D96F66393E87E9112 /* Survey.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Survey.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E9369BFA2C65412102538303 /* DesignSystem.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = DesignSystem.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -61,9 +57,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				326C0B3CADC173970CDF3EAF /* Auth.framework in Frameworks */,
-				F343BFC34A1F6F392C331803 /* Data.framework in Frameworks */,
 				8F3691F7301E714387485350 /* DesignSystem.framework in Frameworks */,
-				4787DFDD71F731243F3587AF /* Domain.framework in Frameworks */,
 				618C5A4BDBBDA7F1A2F8DC93 /* Home.framework in Frameworks */,
 				2DECB327F9E1EFE0AE533114 /* Launch.framework in Frameworks */,
 				A6AD7D93BA643DF9F9147116 /* Network.framework in Frameworks */,
@@ -115,9 +109,7 @@
 			children = (
 				571E08A9083FD4334E4B7D06 /* App.app */,
 				709ECB981BF7FB2A9D697179 /* Auth.framework */,
-				8AF7E105F5FEC83A7A47F2E7 /* Data.framework */,
 				E9369BFA2C65412102538303 /* DesignSystem.framework */,
-				6BEB75E9463ACE494A73BD36 /* Domain.framework */,
 				76E66C32BAE4D2C1EE4C64CB /* Home.framework */,
 				7E710496E985656C6B2D0826 /* Launch.framework */,
 				1AF21D914DAEAEB24E77A223 /* Network.framework */,
