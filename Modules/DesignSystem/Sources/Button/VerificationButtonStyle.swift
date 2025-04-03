@@ -20,35 +20,23 @@ public struct VerificationButtonStyle: ButtonStyle {
             .frame(width: 84)
             .frame(height: 36)
             .font(.system(size: 12, weight: .regular))
-            .background(buttonBackground)
-            .foregroundColor(buttonForeground)
             .overlay(
-                RoundedRectangle(cornerRadius: 8)
-                    .stroke(isRequestSent ? Color.blue : Color.clear, lineWidth: 1)
+                RoundedRectangle(cornerRadius: 4)
+                    .stroke(borderColor, lineWidth: 1)
             )
             .cornerRadius(4)
             .opacity(configuration.isPressed ? 0.7 : 1.0)
             .animation(.easeInOut(duration: 0.2), value: configuration.isPressed)
     }
     
-
-    private var buttonBackground: Color {
+  
+    private var borderColor: Color {
         if isDisabled {
-            return Color(UIColor.white)
-        } else if isRequestSent {
-            return Color.white
-        } else {
-            return Color.blue
-        }
-    }
-
-    private var buttonForeground: Color {
-        if isDisabled {
-            return Color(UIColor.systemGray2)
+            return Color(hex: "#C0C0C0")
         } else if isRequestSent {
             return Color.blue
         } else {
-            return Color.white
+            return Color.clear
         }
     }
 }

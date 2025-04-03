@@ -25,7 +25,7 @@ public final class UserRepositoryImpl: UserRepository {
         let response: UserDTO = try await provider.asyncRequest(.login(loginId: loginId, password: password))
         
         guard let user = response.toDomain() else {
-            throw NetworkError.decode§Error(underlying: NSError(domain: "Invalid userDTO", code: 0))
+            throw NetworkError.decodeError(underlying: NSError(domain: "Invalid userDTO", code: 0))
         }
         
         return user
