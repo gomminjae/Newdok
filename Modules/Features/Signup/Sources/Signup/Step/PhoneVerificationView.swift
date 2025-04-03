@@ -30,15 +30,16 @@ struct PhoneVerificationView: View {
                 .font(.hanSansNeo(14,.medium))
                 .padding(.top, 32)
                 .padding(.leading,28)
-            HStack {
+                .padding(.bottom, 8)
+            HStack(spacing: 8) {
                 HStack {
-                    Image("phone")
+                    Image(asset: DesignSystemAsset.phone)
                         .foregroundColor(.gray)
+                        .padding(.leading,20)
 
                     TextField("-구분 없이 입력", text: $phoneNumber)
                         .keyboardType(.numberPad)
                         .padding()
-                        .frame(height: 36)
                         .onReceive(Just(phoneNumber)) { new in
                             let formatted = formatPhoneNumber(new)
                             if formatted != self.phoneNumber {
@@ -48,22 +49,29 @@ struct PhoneVerificationView: View {
                         .font(.hanSansNeo(14,.medium))
                         .disabled(isRequestSent)
                 }
+                .overlay {
+                    RoundedRectangle(cornerRadius: 4)
+                        .stroke(Color(hex: "#DADADA"),lineWidth: 1)
+                }
+                .frame(height: 48)
                 .padding(.leading, 27)
-                .padding(.bottom, 5)
-                .overlay(Rectangle().frame(height: 0.5).foregroundColor(Color(hex: "#EBEBEB")), alignment: .bottom)
+                
                 
                
                 Button(isRequestSent ? "재전송" : "인증 요청") {
                     sendVerificationCode()
                 }
                 .disabled(phoneNumber.isEmpty || isRequestSent)
-                .buttonStyle(VerificationButtonStyle(
-                    isRequestSent: isRequestSent,
-                    isDisabled: phoneNumber.isEmpty || isRequestSent
-                ))
-                .padding(.horizontal, 24)
+                .frame(height: 48)
+                .overlay {
+                    RoundedRectangle(cornerRadius: 4)
+                        .stroke(Color(hex: "#C0C0C0"),lineWidth: 1)
+                }
+              
+                
 
             }
+            .padding(.trailing, 24)
 
             if isRequestSent {
                 VStack(alignment: .leading, spacing: 8) {

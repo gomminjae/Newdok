@@ -6,17 +6,62 @@
 //
 import SwiftUI
 import Combine
+import Domain
 
-class LoginViewModel: ObservableObject {
-    @Published var userId: String = ""
-    @Published var userPwd: String = ""
+@MainActor
+public protocol LoginViewModelBindable: ObservableObject {
     
-    @Published var isUserIdValid: Bool = false
-    @Published var isUserPwdValid: Bool = false
+    var loginId: String { get set }
+    var password: String  { get set }
     
-    @Published var errorMessage: String? = nil
+    var isUserIdValid: Bool { get set }
+    var isUserPwdValid: Bool { get set }
     
-    private var cancellable = Set<AnyCancellable>()
+    var errorMessage: String? { get }
+    var isLoading: Bool { get }
+    
+    func login() async throws -> User
+}
+
+
+
+@MainActor
+class LoginViewModel: LoginViewModelBindable {
+    
+    private let userUseCase: UserUseCase
+    
+    @Published var loginId: String
+    
+    @Published var password: String
+    
+    @Published var isUserIdValid: Bool
+    
+    @Published var isUserPwdValid: Bool
+    
+    @Published var errorMessage: String?
+    
+    @Published var isLoading: Bool
+    
+    
+    public init(userUserCase: UserUseCase) {
+        self.userUseCase = userUserCase
+        self.loginId = ""
+        self.password = ""
+        self.isUserIdValid = false
+        self.isUserPwdValid = false
+        self.isLoading = false
+        self.errorMessage = nil
+       
+    }
+    
+    
+    func login() async throws -> User {
+        try await userUseCase.login(
+            loginId: loginId,
+            password: password
+        )
+    }
+    
     
     
     

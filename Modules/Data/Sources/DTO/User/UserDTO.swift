@@ -11,9 +11,10 @@ import Domain
 
 public struct InterestDTO: Decodable {
     public let interestId: Int
+    public let name: String
 
     public func toDomain() -> Domain.Interest {
-        return Domain.Interest(interestId: interestId)
+        return Domain.Interest(id: interestId, name: name)
     }
 }
 
