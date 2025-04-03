@@ -32,7 +32,7 @@ struct PhoneVerificationView: View {
                 .padding(.leading,28)
             HStack {
                 HStack {
-                    Image("phone")
+                    Image(asset: DesignSystemAsset.phone)
                         .foregroundColor(.gray)
 
                     TextField("-구분 없이 입력", text: $phoneNumber)
