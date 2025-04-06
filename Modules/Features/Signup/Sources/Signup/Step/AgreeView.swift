@@ -63,6 +63,3 @@ struct AgreementRow: View {
     }
 }
 
-#Preview {
-    AgreeView()
-}

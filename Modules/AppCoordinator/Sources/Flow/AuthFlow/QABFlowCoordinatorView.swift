@@ -15,23 +15,30 @@ struct QABFlowCoordinatorView: View {
     private let container = AuthFeatureContainer()
 
     var body: some View {
-        switch router.onboardingRoute {
-        case .launch:
-            SplashView()
-                .onAppear {
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
-                        router.onboardingRoute = .onboarding
+        NavigationStack {
+            switch router.onboardingRoute {
+            case .launch:
+                SplashView()
+                    .onAppear {
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+                            router.onboardingRoute = .onboarding
+                        }
                     }
-                }
-
-        case .onboarding:
-            OnboardingView(router: router)
-
-        case .signup:
-            OnboardingView(router: router)
-
-        case .login:
-            LoginView(viewModel: LoginViewModel(userUserCase: container.useCase)) // 🔥 해결된 코드
+                
+            case .onboarding:
+                OnboardingView(router: router)
+                    .transition(.opacity)
+                
+            case .signup:
+                
+                SignupView()
+                    .transition(.opacity)
+                
+                
+                
+            case .login:
+                LoginView(viewModel: LoginViewModel(userUserCase: container.useCase)) // 🔥 해결된 코드
+            }
         }
     }
 }

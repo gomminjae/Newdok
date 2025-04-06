@@ -55,7 +55,9 @@ public struct OnboardingView<Router: OnboardingRouting>: View {
 
             VStack {
                 Button(action: {
-                    router.onboardingRoute = .signup
+                    withAnimation {
+                        router.onboardingRoute = .signup
+                    }
                 }) {
                     Text("회원가입")
                         .font(.hanSansNeo(18, .bold))
@@ -74,7 +76,9 @@ public struct OnboardingView<Router: OnboardingRouting>: View {
                         .foregroundColor(Color(hex: "#555555"))
 
                     Button(action: {
-                        router.onboardingRoute = .login
+                    
+                            router.onboardingRoute = .login
+                        
                     }) {
                         Text("로그인")
                             .font(.hanSansNeo(14, .medium))

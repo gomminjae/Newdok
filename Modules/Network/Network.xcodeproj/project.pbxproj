@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 56;
+	objectVersion = 55;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -14,8 +14,8 @@
 		806CA44734C5614AE8A1D2CB /* ErrorMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84763B6CEE0D308A8AA7EF6C /* ErrorMapper.swift */; };
 		8154CF0050FFCD9D9892820E /* APIEnvironment.swift in Sources */ = {isa = PBXBuildFile; fileRef = E67F53188188163BFD299BFF /* APIEnvironment.swift */; };
 		8197984213E7915BA19C7387 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2DF4B5C9DA9CD5CA434B4D23 /* Alamofire.framework */; };
+		96BFD5E8676C0020620AAFEF /* NetworkProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CEECF20EC6F3FF0B1A27AFD /* NetworkProvider.swift */; };
 		9CBBF42037984A08DBD6FD33 /* UserAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40AF9A355AD5E1B8F0FCFEBE /* UserAPI.swift */; };
-		B5A281082DA1ABDC00B6DF86 /* NetworkProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5A281072DA1ABDC00B6DF86 /* NetworkProvider.swift */; };
 		D977E69C1F13B5DC95257B35 /* NetworkLoggerPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24BB189C50BF07721127582F /* NetworkLoggerPlugin.swift */; };
 		F609E875000C75B22757A429 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C887C237152831BB6A08CA6D /* CFNetwork.framework */; };
 		FBFAFFB0901ABC227E9C04D8 /* NewsletterAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80006806EE8232C3392F8763 /* NewsletterAPI.swift */; };
@@ -41,12 +41,12 @@
 		2DF4B5C9DA9CD5CA434B4D23 /* Alamofire.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Alamofire.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		40AF9A355AD5E1B8F0FCFEBE /* UserAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAPI.swift; sourceTree = "<group>"; };
 		4B1D54DB865340F89331FF8C /* Network-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "Network-Info.plist"; sourceTree = "<group>"; };
+		6CEECF20EC6F3FF0B1A27AFD /* NetworkProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkProvider.swift; sourceTree = "<group>"; };
 		7002ACC396BD56626657BDFB /* MoyaProvider+Async.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MoyaProvider+Async.swift"; sourceTree = "<group>"; };
 		80006806EE8232C3392F8763 /* NewsletterAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsletterAPI.swift; sourceTree = "<group>"; };
 		84763B6CEE0D308A8AA7EF6C /* ErrorMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorMapper.swift; sourceTree = "<group>"; };
 		9B27E13C48D44E3809D1A0C9 /* NetworkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
 		9E27ED4FA2CB56FEC39887EA /* Network.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Network.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		B5A281072DA1ABDC00B6DF86 /* NetworkProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkProvider.swift; sourceTree = "<group>"; };
 		C887C237152831BB6A08CA6D /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS.sdk/System/Library/Frameworks/CFNetwork.framework; sourceTree = DEVELOPER_DIR; };
 		E67F53188188163BFD299BFF /* APIEnvironment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIEnvironment.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -84,11 +84,11 @@
 		26AFB935E758EF53D6925D76 /* Network */ = {
 			isa = PBXGroup;
 			children = (
-				B5A281072DA1ABDC00B6DF86 /* NetworkProvider.swift */,
 				B90F7A30960B4B3AA89D5A50 /* API */,
 				C3D3EBBB7A869AABD0669C12 /* Core */,
 				C1A95CD6BB902D03AF1E3B81 /* Interceptor */,
 				E67F53188188163BFD299BFF /* APIEnvironment.swift */,
+				6CEECF20EC6F3FF0B1A27AFD /* NetworkProvider.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -248,13 +248,13 @@
 			files = (
 				FBFAFFB0901ABC227E9C04D8 /* NewsletterAPI.swift in Sources */,
 				9CBBF42037984A08DBD6FD33 /* UserAPI.swift in Sources */,
-				B5A281082DA1ABDC00B6DF86 /* NetworkProvider.swift in Sources */,
 				8154CF0050FFCD9D9892820E /* APIEnvironment.swift in Sources */,
 				806CA44734C5614AE8A1D2CB /* ErrorMapper.swift in Sources */,
 				19E5351B9E5C5B585233232E /* MoyaProvider+Async.swift in Sources */,
 				0A94558DD07B01C5E238482C /* NetworkError.swift in Sources */,
 				D977E69C1F13B5DC95257B35 /* NetworkLoggerPlugin.swift in Sources */,
 				60672E9F0F7E3C2A3477B633 /* AuthInterceptor.swift in Sources */,
+				96BFD5E8676C0020620AAFEF /* NetworkProvider.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -285,7 +285,10 @@
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
 				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) DEBUG";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = (
+					"$(inherited)",
+					DEBUG,
+				);
 				SWIFT_COMPILATION_MODE = singlefile;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;

@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 56;
+	objectVersion = 55;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -12,6 +12,7 @@
 		34A2F59BAF7B9E5834D8DE20 /* AppCoordinatorEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93A25D25F6C1F4D5F26B3F2E /* AppCoordinatorEntry.swift */; };
 		39214A0E40CA0E2F9ECCCA05 /* Signup.framework in Dependencies */ = {isa = PBXBuildFile; fileRef = BF2FEF9CAF1F7732B4FF6B3E /* Signup.framework */; };
 		47A95E00D8121476916FABE8 /* Auth.framework in Dependencies */ = {isa = PBXBuildFile; fileRef = 238DA4510E0083E8A5FFD06E /* Auth.framework */; };
+		49D495033DE0E6D4EB14972B /* QABFlowCoordinatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAF18C459220DE6C55396D1A /* QABFlowCoordinatorView.swift */; };
 		573E2A1315EF4F1DF03421A6 /* Network.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1E35424694F8D99F32985447 /* Network.framework */; };
 		6EF8B1C9BDB04FFEB2F8EE21 /* QABRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8612F847DAD1353A081DE4E6 /* QABRouter.swift */; };
 		7573DBC07AEADB51C4D161F9 /* QAFlowType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06234520F14537E06EE190DC /* QAFlowType.swift */; };
@@ -20,7 +21,6 @@
 		A524CFF502BAE81F113992A9 /* LauchFeatureContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E500F3900705101F0A4E16B /* LauchFeatureContainer.swift */; };
 		AEE48CEB8FA6C433EC3BBF63 /* DesignSystem.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55722F5CCC4201D4184E352D /* DesignSystem.framework */; };
 		B172E4AF5DF3A35FF1ADA1B9 /* Data.framework in Dependencies */ = {isa = PBXBuildFile; fileRef = 389E23A3E1DBC5350510374E /* Data.framework */; };
-		B5A2810A2DA215EC00B6DF86 /* QABFlowCoordinatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5A281092DA215EC00B6DF86 /* QABFlowCoordinatorView.swift */; };
 		C3E350D91B8ECF05EAB5C96F /* Domain.framework in Dependencies */ = {isa = PBXBuildFile; fileRef = 924788B4548B7D433D29F3B4 /* Domain.framework */; };
 		D2BE3155C82F0123F8F418D3 /* AuthFeatureContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E50081E3CF230D0AE78A832 /* AuthFeatureContainer.swift */; };
 		DEF770977A22146AD16904DF /* Shared.framework in Dependencies */ = {isa = PBXBuildFile; fileRef = E8AE92AE3530D16E11F67BC8 /* Shared.framework */; };
@@ -76,11 +76,11 @@
 		93A25D25F6C1F4D5F26B3F2E /* AppCoordinatorEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinatorEntry.swift; sourceTree = "<group>"; };
 		AA278F2074F296122B680809 /* Launch.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Launch.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		AA2C6970F82306BD4F0E6381 /* Survey.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Survey.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		B5A281092DA215EC00B6DF86 /* QABFlowCoordinatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QABFlowCoordinatorView.swift; sourceTree = "<group>"; };
 		BA4BED633C3C5B049DB787ED /* LoginViewFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewFactory.swift; sourceTree = "<group>"; };
 		BA9E9FF54EE20134CCC92D6D /* QABRoute.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QABRoute.swift; sourceTree = "<group>"; };
 		BF2FEF9CAF1F7732B4FF6B3E /* Signup.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Signup.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D3D5EFB473C8C51D1628AEA3 /* QABFlowCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QABFlowCoordinator.swift; sourceTree = "<group>"; };
+		DAF18C459220DE6C55396D1A /* QABFlowCoordinatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QABFlowCoordinatorView.swift; sourceTree = "<group>"; };
 		E8AE92AE3530D16E11F67BC8 /* Shared.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Shared.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		EF56D34F877137E92745D89B /* AppCoordinator.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = AppCoordinator.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -165,10 +165,10 @@
 		95F4FED3D6EAB4EC0630A50C /* AuthFlow */ = {
 			isa = PBXGroup;
 			children = (
-				B5A281092DA215EC00B6DF86 /* QABFlowCoordinatorView.swift */,
 				46F65FFD2E3B81CFB7A6F414 /* Router */,
 				BA4BED633C3C5B049DB787ED /* LoginViewFactory.swift */,
 				D3D5EFB473C8C51D1628AEA3 /* QABFlowCoordinator.swift */,
+				DAF18C459220DE6C55396D1A /* QABFlowCoordinatorView.swift */,
 			);
 			path = AuthFlow;
 			sourceTree = "<group>";
@@ -293,12 +293,12 @@
 				A524CFF502BAE81F113992A9 /* LauchFeatureContainer.swift in Sources */,
 				3336E32B3BFF7992E98DF2B8 /* LoginViewFactory.swift in Sources */,
 				94751DFE87974FEF888F5B99 /* QABFlowCoordinator.swift in Sources */,
+				49D495033DE0E6D4EB14972B /* QABFlowCoordinatorView.swift in Sources */,
 				1714B28E9414724187BC382F /* QABRoute.swift in Sources */,
 				6EF8B1C9BDB04FFEB2F8EE21 /* QABRouter.swift in Sources */,
 				80C7A9D16C6C4DB71726B872 /* AppRoute.swift in Sources */,
 				F9871FA34B43AD7224373E48 /* AppRouter.swift in Sources */,
 				7573DBC07AEADB51C4D161F9 /* QAFlowType.swift in Sources */,
-				B5A2810A2DA215EC00B6DF86 /* QABFlowCoordinatorView.swift in Sources */,
 				E97DECCE2E8CB5105AF29808 /* Test.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -477,7 +477,10 @@
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
 				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) DEBUG";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = (
+					"$(inherited)",
+					DEBUG,
+				);
 				SWIFT_COMPILATION_MODE = singlefile;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
