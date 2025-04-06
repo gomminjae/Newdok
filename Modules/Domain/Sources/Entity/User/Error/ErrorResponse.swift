@@ -8,7 +8,7 @@
 import Foundation
 
 
-public struct ErrorResponse {
+public struct ErrorResponse: Error {
     
     public let statusCode: Int
     public let message: String

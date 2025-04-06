@@ -26,21 +26,21 @@ public protocol LoginViewModelBindable: ObservableObject {
 
 
 @MainActor
-class LoginViewModel: LoginViewModelBindable {
+public final class LoginViewModel: LoginViewModelBindable {
     
     private let userUseCase: UserUseCase
     
-    @Published var loginId: String
+    @Published public var loginId: String
     
-    @Published var password: String
+    @Published public var password: String
     
-    @Published var isUserIdValid: Bool
+    @Published public var isUserIdValid: Bool
     
-    @Published var isUserPwdValid: Bool
+    @Published public var isUserPwdValid: Bool
     
-    @Published var errorMessage: String?
+    @Published public var errorMessage: String?
     
-    @Published var isLoading: Bool
+    @Published public var isLoading: Bool
     
     
     public init(userUserCase: UserUseCase) {
@@ -55,7 +55,7 @@ class LoginViewModel: LoginViewModelBindable {
     }
     
     
-    func login() async throws -> User {
+    public func login() async throws -> User {
         try await userUseCase.login(
             loginId: loginId,
             password: password

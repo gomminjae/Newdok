@@ -7,16 +7,16 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "CF594978-06BC-4FF4-805F-17A1E8841D13"
-            shouldBeEnabled = "Yes"
+            uuid = "9C6C4DD3-7D55-4CD9-B82A-CEFA0F6B7E02"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Modules/Data/Sources/Repository/UserRepositoryImpl.swift"
+            filePath = "Tuist/.build/checkouts/Moya/Sources/Moya/MoyaProvider+Defaults.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "24"
-            endingLineNumber = "24"
-            landmarkName = "login(loginId:password:)"
+            startingLineNumber = "29"
+            endingLineNumber = "29"
+            landmarkName = "defaultAlamofireSession()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		0B55C607E32BA0CA157B3BDA /* DesignSystem.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9229787BA766DFA18583ABFA /* DesignSystem.framework */; };
 		1AEFE7FA6BB5863FD0BA5386 /* LaunchMain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A44DF136146F6B9A83C6AB1 /* LaunchMain.swift */; };
+		43DAFA287C241F9A81F3F9A6 /* Shared.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAD73AE618B7002C6F84BF4C /* Shared.framework */; };
 		988A639C908D85348FA3C893 /* SplashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AB4BC8E5564382493B0CEDB /* SplashView.swift */; };
 		A7AB08F321F5FB1D2A837467 /* Launch.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CAE9D80105EE847E612B7E64 /* Launch.framework */; };
 		B1F79015784E7B2762AE008B /* LaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C397ED87CA36DDB17BA0A60 /* LaunchTests.swift */; };
@@ -57,6 +58,7 @@
 		BB93BCF98AEAFC697627D166 /* Launch-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "Launch-Info.plist"; sourceTree = "<group>"; };
 		CAE9D80105EE847E612B7E64 /* Launch.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Launch.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F1768C712EE5D323E4A22AF4 /* LaunchTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LaunchTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		FAD73AE618B7002C6F84BF4C /* Shared.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Shared.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -74,6 +76,7 @@
 			files = (
 				0B55C607E32BA0CA157B3BDA /* DesignSystem.framework in Frameworks */,
 				A7AB08F321F5FB1D2A837467 /* Launch.framework in Frameworks */,
+				43DAFA287C241F9A81F3F9A6 /* Shared.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -137,6 +140,7 @@
 				9229787BA766DFA18583ABFA /* DesignSystem.framework */,
 				CAE9D80105EE847E612B7E64 /* Launch.framework */,
 				F1768C712EE5D323E4A22AF4 /* LaunchTests.xctest */,
+				FAD73AE618B7002C6F84BF4C /* Shared.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
