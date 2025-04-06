@@ -15,6 +15,8 @@ let project = Project(
             resources: ["Resources/**"],
             dependencies: [
                  .project(target: "DesignSystem", path: "../../DesignSystem"),
+                 .project(target: "Domain", path: "../../Domain"),
+                 .project(target: "Data", path: "../../Data"), 
             ]
         ),
         .target(
@@ -28,6 +30,7 @@ let project = Project(
             dependencies: [
                 .target(name: "Auth"),
                 .project(target: "DesignSystem", path: "../../DesignSystem"),
+                .project(target: "Shared", path: "../../Shared"), 
             ]
         )
     ]

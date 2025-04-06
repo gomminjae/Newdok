@@ -10,14 +10,22 @@ let project = Project(
             product: .app,
             bundleId: "com.newdok.b",
             deploymentTargets: .iOS("17.0"),
-            infoPlist: .default,
+            infoPlist: .extendingDefault(
+                with: [
+                    "UILaunchScreen": [
+                        "UIColorName": "",
+                        "UIImageName": "",
+                    ],
+                    "NSAppTransportSecurity": [
+                        "NSAllowsArbitraryLoads": true
+                    ],
+                    "UIUserInterfaceStyle": "Light",
+                ]
+            ),
             sources: ["Sources/**"],
             resources: ["Resources/**"],
             dependencies: [
-                 .project(target: "Launch", path: "../../Features/Launch"),
-                 .project(target: "Auth", path: "../../Features/Auth"),
-                 .project(target: "Home", path: "../../Features/Home"),
-                 .project(target: "Signup", path: "../../Features/Signup"),
+                 .project(target: "AppCoordinator", path: "../../AppCoordinator"),
             ]
         ),
         .target(

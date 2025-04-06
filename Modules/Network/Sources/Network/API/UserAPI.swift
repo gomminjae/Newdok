@@ -137,6 +137,9 @@ extension UserAPI: TargetType {
     public var headers: [String: String]? {
         return ["Content-Type": "application/json"]
     }
+    public var sampleData: Data {
+        return Data()
+    }
     
     
 }

@@ -13,7 +13,8 @@ let project = Project(
       sources: ["Sources/**"],
       resources: [],
       dependencies: []
-    )
+
+)
   ]
 )
 
