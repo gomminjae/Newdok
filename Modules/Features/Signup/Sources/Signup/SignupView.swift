@@ -27,6 +27,8 @@ public enum SignupStep: Int, CaseIterable {
 
 public struct SignupView: View {
     @State private var currentStep: SignupStep = .phoneVerification
+    
+    public init() {}
 
     public var body: some View {
         VStack {

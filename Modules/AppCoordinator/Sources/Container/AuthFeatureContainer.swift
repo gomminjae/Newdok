@@ -10,6 +10,7 @@ import Data
 import Domain
 import Network
 import Moya
+import Foundation
 
 
 public final class AuthFeatureContainer {
@@ -32,6 +33,21 @@ public final class NetworkProvider {
     public let userProvider: MoyaProvider<UserAPI>
 
     private init() {
-        userProvider = MoyaProvider<UserAPI>()
+        // ✅ 반드시 메인 스레드에서 config 초기화
+        let configuration: URLSessionConfiguration = {
+            if Thread.isMainThread {
+                return URLSessionConfiguration.default
+            } else {
+                var config: URLSessionConfiguration!
+                DispatchQueue.main.sync {
+                    config = URLSessionConfiguration.default
+                }
+                return config
+            }
+        }()
+
+        configuration.headers = .default
+        let session = Session(configuration: configuration)
+        self.userProvider = MoyaProvider<UserAPI>(session: session)
     }
 }
