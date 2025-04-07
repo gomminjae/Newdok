@@ -1,14 +1,21 @@
 
 import SwiftUI
-import Launch
+import AppCoordinator
+import DesignSystem
+
+
 
 
 @main
 struct AApp: App {
+    init() {
+        DesignSystemFontFamily.registerAllCustomFonts()
+    }
+    
+    
     var body: some Scene {
         WindowGroup {
-            SplashView()
-                
+            AppCoordinatorEntry.makeAFlow()
         }
     }
 }

@@ -2,9 +2,6 @@ import ProjectDescription
 
 let project = Project(
   name: "Data",
-  packages: [
-         .package(url: "https://github.com/Moya/Moya.git", .upToNextMajor(from: "15.0.0")),
-  ],
   targets: [
     .target(
       name: "Data",
@@ -18,7 +15,6 @@ let project = Project(
       dependencies: [
         .project(target: "Network", path: "../Network"),
         .project(target: "Domain", path: "../Domain"), 
-        .package(product: "Moya"),
       ]
     )
   ]

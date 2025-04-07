@@ -8,6 +8,9 @@
          location = "group:App/App.xcodeproj">
       </FileRef>
       <FileRef
+         location = "group:AppCoordinator/AppCoordinator.xcodeproj">
+      </FileRef>
+      <FileRef
          location = "group:Data/Data.xcodeproj">
       </FileRef>
       <FileRef
@@ -18,6 +21,9 @@
       </FileRef>
       <FileRef
          location = "group:Network/Network.xcodeproj">
+      </FileRef>
+      <FileRef
+         location = "group:Shared/Shared.xcodeproj">
       </FileRef>
       <Group
          location = "group:Features"
@@ -48,5 +54,18 @@
             location = "group:B/B.xcodeproj">
          </FileRef>
       </Group>
+   </Group>
+   <Group
+      location = "container:"
+      name = "Dependencies">
+      <FileRef
+         location = "group:Tuist/.build/tuist-derived/Alamofire/Alamofire.xcodeproj">
+      </FileRef>
+      <FileRef
+         location = "group:Tuist/.build/tuist-derived/Moya/Moya.xcodeproj">
+      </FileRef>
+      <FileRef
+         location = "group:Tuist/.build/tuist-derived/Swinject/Swinject.xcodeproj">
+      </FileRef>
    </Group>
 </Workspace>

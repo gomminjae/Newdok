@@ -9,7 +9,7 @@ import SwiftUI
 import DesignSystem
 
 
-enum NickNameValidationError: Error {
+public enum NickNameValidationError: Error {
     case tooLong
     case containsSpecialCharacters
     
@@ -25,89 +25,90 @@ enum NickNameValidationError: Error {
 
 
 
-struct ProfileInputView: View {
-    
-    @State private var nickName: String = ""
-    @State private var birthYear: String = ""
-    @State private var selectedGender: String? = nil
-    
-    @State private var isValidNickName: NickNameValidationError? = nil
+public struct ProfileInputView: View {
+    @ObservedObject private var viewModel: SignupViewModel
+    @State private var nicknameError: NickNameValidationError? = nil
     
     var nextStep: () -> Void
-    
-    
-    var body: some View {
-        VStack(alignment: .leading, spacing: 16) {
+
+    public init(viewModel: SignupViewModel, nextStep: @escaping () -> Void) {
+        self.viewModel = viewModel
+        self.nextStep = nextStep
+    }
+
+    public var body: some View {
+        VStack(alignment: .leading) {
             Text("프로필 설정을 위해\n회원 정보를 입력해주세요.")
-                .font(.title3)
-                .bold()
-        
+                .font(.hanSansNeo(20, .bold))
+                .padding(.top, 24)
+
             Text("닉네임")
-                .font(.headline)
-            
-            TextField("12자 이내, 특수문자 사용 불가", text: $nickName)
+                .font(.hanSansNeo(14, .medium))
+                .foregroundStyle(Color(hex: "#565656"))
+                .padding(.top, 42)
+                .padding(.bottom, 8)
+                .padding(.leading, 4)
+
+            TextField("12자 이내, 특수문자 사용 불가", text: $viewModel.nickname)
                 .padding(.leading, 16)
-                .onChange(of: nickName) {
-                    isValidNickName = isValidInput(nickName)
+                .onChange(of: viewModel.nickname) { _ in
+                    nicknameError = viewModel.validateNickname()
                 }
                 .frame(height: 50)
                 .overlay(
                     RoundedRectangle(cornerRadius: 10)
-                        .stroke(Color.gray.opacity(0.5), lineWidth: 1)
+                        .stroke(nicknameError != nil ? Color.red : Color.gray.opacity(0.5), lineWidth: 1)
                 )
-            
-            if let error = isValidNickName {
+
+            if let error = nicknameError {
                 Text(error.message)
                     .font(.footnote)
                     .foregroundStyle(.red)
             }
 
-          
             Text("출생연도")
-                .font(.headline)
+                .font(.hanSansNeo(14, .medium))
+                .foregroundStyle(Color(hex: "#565656"))
+                .padding(.bottom, 8)
+                .padding(.leading, 4)
+                .padding(.top, 32)
+
             BirthYearDropdown()
 
             Text("출생연도는 뉴스레터 추천에 활용돼요.")
-                .font(.footnote)
-                .foregroundColor(.gray)
+                .font(.hanSansNeo(12, .medium))
+                .foregroundStyle(Color(hex: "#565656"))
+                .padding(.top, 8)
 
-         
             Text("성별")
-                .font(.headline)
+                .font(.hanSansNeo(14, .medium))
+                .foregroundStyle(Color(hex: "#565656"))
+                .padding(.top, 32)
+
             HStack(spacing: 8) {
-                GenderButton(title: "남자", isSelected: selectedGender == "남자") {
-                    selectedGender = "남자"
+                GenderButton(title: "남자", isSelected: viewModel.gender == "남자") {
+                    viewModel.gender = "남자"
                 }
-                
-                GenderButton(title: "여자", isSelected: selectedGender == "여자") {
-                    selectedGender = "여자"
+
+                GenderButton(title: "여자", isSelected: viewModel.gender == "여자") {
+                    viewModel.gender = "여자"
                 }
             }
 
             Text("성별은 뉴스레터 추천에 활용돼요.")
-                .font(.footnote)
-                .foregroundColor(.gray)
+                .font(.hanSansNeo(12, .medium))
+                .foregroundStyle(Color(hex: "#565656"))
+                .padding(.top, 8)
 
             Spacer()
         }
         .padding(.horizontal, 24)
-    }
-    
-    
-    
-    func isValidInput(_ nickName: String) -> NickNameValidationError? {
-        if nickName.count > 12 {
-            return .tooLong
-        }
-        let specialCharacterSet = CharacterSet.alphanumerics.inverted
-        if nickName.rangeOfCharacter(from: specialCharacterSet) != nil {
-            return .containsSpecialCharacters
-        }
-        
-        return nil
+        .navigationTitle("회원가입")
+        .navigationBarTitleDisplayMode(.inline)
+        .navigationBarBackButtonHidden(true)
+        .navigationBarItems(leading: BackButton())
     }
 }
-
 
 struct GenderButton: View {
     let title: String
@@ -130,7 +131,7 @@ struct GenderButton: View {
     }
 }
 
-#Preview {
-    ProfileInputView(nextStep: {})
-}
-
+//#Preview {
+//    ProfileInputView(nextStep: {})
+//}
+//

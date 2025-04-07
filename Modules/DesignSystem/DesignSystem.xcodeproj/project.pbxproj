@@ -12,8 +12,9 @@
 		13DF60422EC2F2B2EBA47DB5 /* SpoqaHanSansNeo-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 56DFA51B1676775D07DC3DD2 /* SpoqaHanSansNeo-Regular.otf */; };
 		2C2A6F1B0843699ACFE53D23 /* TuistFonts+DesignSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1489E7809DA4DADA471C2CDC /* TuistFonts+DesignSystem.swift */; };
 		317C16F03A5E8BF0EA256954 /* SpoqaHanSansNeo-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = 3A89362609648144517CFE75 /* SpoqaHanSansNeo-Medium.otf */; };
-		4B4985AC134925A10B1C3735 /* SignupPopupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1A2713583830112185DA06E /* SignupPopupView.swift */; };
+		4C768B0DAB889891D8E0145C /* SpoqaHanSansNeo-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 1CFCDF29DFB293A9C3F9D6D9 /* SpoqaHanSansNeo-Bold.otf */; };
 		4D1C8FAC5AA3A85D2B2BFAAF /* Color+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B424097EED4FD25BE22C5E1 /* Color+Extension.swift */; };
+		6F4DC4FB98D3EF58306E1CDA /* BackButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86103BCC821FCC1FE2B9F3CD /* BackButton.swift */; };
 		72415CF40FB9EA2BE53157FD /* Font.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0892589FC56FB3A98055F459 /* Font.swift */; };
 		8A9C0A8F4FB5F65357DC241E /* SubscribeNoticeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 927C881A2F81BA000C05ABEF /* SubscribeNoticeView.swift */; };
 		963BD2E45D7172CE4BF69364 /* VerificationButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DEFF305135085B93F19593 /* VerificationButtonStyle.swift */; };
@@ -46,6 +47,7 @@
 		0B424097EED4FD25BE22C5E1 /* Color+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Extension.swift"; sourceTree = "<group>"; };
 		0B4CDA86843A89A3AD229E60 /* CustomTextFieldModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextFieldModifier.swift; sourceTree = "<group>"; };
 		1489E7809DA4DADA471C2CDC /* TuistFonts+DesignSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TuistFonts+DesignSystem.swift"; sourceTree = "<group>"; };
+		1CFCDF29DFB293A9C3F9D6D9 /* SpoqaHanSansNeo-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SpoqaHanSansNeo-Bold.otf"; sourceTree = "<group>"; };
 		1EAA4A417D2996F4DF2DED40 /* SpoqaHanSansNeo-Thin.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SpoqaHanSansNeo-Thin.otf"; sourceTree = "<group>"; };
 		3A89362609648144517CFE75 /* SpoqaHanSansNeo-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SpoqaHanSansNeo-Medium.otf"; sourceTree = "<group>"; };
 		41950894E4E9C8FF11201792 /* AuthFailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthFailView.swift; sourceTree = "<group>"; };
@@ -56,13 +58,13 @@
 		6AF6A52DBE12C84500829BA2 /* NoDataView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoDataView.swift; sourceTree = "<group>"; };
 		743901F00E06BB210FBD1E5B /* CalendarPopupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarPopupView.swift; sourceTree = "<group>"; };
 		84DEFF305135085B93F19593 /* VerificationButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerificationButtonStyle.swift; sourceTree = "<group>"; };
+		86103BCC821FCC1FE2B9F3CD /* BackButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackButton.swift; sourceTree = "<group>"; };
 		8937FA9427EEA938B58C5B3E /* DesignSystem-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "DesignSystem-Info.plist"; sourceTree = "<group>"; };
 		927C881A2F81BA000C05ABEF /* SubscribeNoticeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscribeNoticeView.swift; sourceTree = "<group>"; };
 		A5263BC75B281154AC0B5A7B /* TuistAssets+DesignSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TuistAssets+DesignSystem.swift"; sourceTree = "<group>"; };
 		BE4AD9735556ECA8C8008FEC /* TuistBundle+DesignSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TuistBundle+DesignSystem.swift"; sourceTree = "<group>"; };
 		BFD516035027585AFC53F053 /* ColorPalette.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorPalette.swift; sourceTree = "<group>"; };
 		D45E4F8E9B8A1813A5ADE0C1 /* SpoqaHanSansNeo-Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SpoqaHanSansNeo-Light.otf"; sourceTree = "<group>"; };
-		F1A2713583830112185DA06E /* SignupPopupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupPopupView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -94,7 +96,6 @@
 			isa = PBXGroup;
 			children = (
 				41950894E4E9C8FF11201792 /* AuthFailView.swift */,
-				F1A2713583830112185DA06E /* SignupPopupView.swift */,
 				927C881A2F81BA000C05ABEF /* SubscribeNoticeView.swift */,
 			);
 			path = Popup;
@@ -140,6 +141,7 @@
 		8BC136006E1D0234B84A94B8 /* Button */ = {
 			isa = PBXGroup;
 			children = (
+				86103BCC821FCC1FE2B9F3CD /* BackButton.swift */,
 				84DEFF305135085B93F19593 /* VerificationButtonStyle.swift */,
 			);
 			path = Button;
@@ -165,6 +167,7 @@
 		B26E41B36113DA07FB8E0185 /* Font */ = {
 			isa = PBXGroup;
 			children = (
+				1CFCDF29DFB293A9C3F9D6D9 /* SpoqaHanSansNeo-Bold.otf */,
 				D45E4F8E9B8A1813A5ADE0C1 /* SpoqaHanSansNeo-Light.otf */,
 				3A89362609648144517CFE75 /* SpoqaHanSansNeo-Medium.otf */,
 				56DFA51B1676775D07DC3DD2 /* SpoqaHanSansNeo-Regular.otf */,
@@ -271,6 +274,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D2E21543F5B3B63472BE98A1 /* Assets.xcassets in Resources */,
+				4C768B0DAB889891D8E0145C /* SpoqaHanSansNeo-Bold.otf in Resources */,
 				0BFDC77A09ED37206E78FD25 /* SpoqaHanSansNeo-Light.otf in Resources */,
 				317C16F03A5E8BF0EA256954 /* SpoqaHanSansNeo-Medium.otf in Resources */,
 				13DF60422EC2F2B2EBA47DB5 /* SpoqaHanSansNeo-Regular.otf in Resources */,
@@ -288,6 +292,7 @@
 				ABB14811E13F7B1ECCF8B086 /* TuistAssets+DesignSystem.swift in Sources */,
 				F6018B5F7748E322214C52D6 /* TuistBundle+DesignSystem.swift in Sources */,
 				2C2A6F1B0843699ACFE53D23 /* TuistFonts+DesignSystem.swift in Sources */,
+				6F4DC4FB98D3EF58306E1CDA /* BackButton.swift in Sources */,
 				963BD2E45D7172CE4BF69364 /* VerificationButtonStyle.swift in Sources */,
 				4D1C8FAC5AA3A85D2B2BFAAF /* Color+Extension.swift in Sources */,
 				EA14ADB3FF1DCA11D8B9D962 /* ColorPalette.swift in Sources */,
@@ -296,7 +301,6 @@
 				07AB90021A70B1D55E233DDA /* NoDataView.swift in Sources */,
 				72415CF40FB9EA2BE53157FD /* Font.swift in Sources */,
 				D077CFC5DD281F26BDA2376F /* AuthFailView.swift in Sources */,
-				4B4985AC134925A10B1C3735 /* SignupPopupView.swift in Sources */,
 				8A9C0A8F4FB5F65357DC241E /* SubscribeNoticeView.swift in Sources */,
 				D35DFD63D8CD70868B230DA2 /* CustomTextFieldModifier.swift in Sources */,
 			);

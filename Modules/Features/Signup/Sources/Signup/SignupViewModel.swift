@@ -9,96 +9,160 @@ import Foundation
 import Domain
 
 @MainActor
-public protocol SignupViewModelBindable: ObservableObject {
-    
-    var loginId: String { get set }
-    var password: String { get set }
-    var phoneNumber: String { get set }
-    var nickname: String { get set }
-    var birthYear: String { get set }
-    var gender: String { get set }
-    
-    var isLoading: Bool { get }
-    var errorMessage: String? { get }
-    
-    func signup() async
-    func checkPhoneNumber() async
-    func checkIDDup() async
-    func authSMS() async
-    
-}
+final public class SignupViewModel: ObservableObject {
 
-
-@MainActor
-class SignupViewModel:  SignupViewModelBindable {
-    
     private let userUseCase: UserUseCase
+
+    // MARK: - Form
+    @Published public var phoneNumber: String = ""
+    @Published public var enteredVerificationCode: String = ""
+    private var verificationCode: String = ""
     
-    @Published public var loginId: String
-    @Published public var password: String
-    @Published public var phoneNumber: String
-    @Published public var nickname: String
-    @Published public var birthYear: String
-    @Published public var gender: String
-    
-    @Published public var isLoading: Bool
+    //MARK: - id
+    @Published public var loginID: String = ""
+    @Published public var isIDAvailable: Bool? = nil
+
+    // MARK: - State
+    @Published public var isLoading = false
     @Published public var errorMessage: String?
+    @Published public var userList: [SimpleUser] = []
+    @Published public var isShowUserList = false
+    @Published public var isRequestSent = false
+    @Published public var isTimerActive = false
+    @Published public var timerRemaining = 180
+    @Published public var showAlreadyRegisteredAlert = false
+    @Published public var showError = false
     
     
+    @Published public var emails: [String] = []
+    @Published public var isShowPopup: Bool = false
+
+    private var timer: Timer?
+    
+    
+    //MARK: password
+    @Published public var password: String = ""
+    @Published public var checkedPassword: String = ""
+    
+    //MARK: profile
+    @Published public var nickname: String = ""
+    @Published public var birthYear: String = ""
+    @Published public var gender: String = ""
+    
+    
+    @Published public var user: User?
+    
+    
+    
+    
+    
+
     public init(userUseCase: UserUseCase) {
         self.userUseCase = userUseCase
-        self.loginId = ""
-        self.password = ""
-        self.phoneNumber = ""
-        self.nickname = ""
-        self.birthYear = ""
-        self.gender = ""
-        self.isLoading = false
-        self.errorMessage = nil
-        
-        
     }
-    func signup() async {
-        do {
-            let response = try await userUseCase.signup(
-                loginId: loginId,
-                password: password,
-                phoneNumber: phoneNumber,
-                nickname: nickname,
-                birthYear: birthYear,
-                gender: gender
-            )
-            print("회원가입 성공")
-        } catch {
-            errorMessage = error.localizedDescription
+
+    public func sendVerificationCode() {
+        Task {
+            do {
+                isLoading = true
+                userList = []
+                isShowUserList = false
+                showError = false
+                errorMessage = nil
+                
+                let rawPhoneNumber = phoneNumber.replacingOccurrences(of: "-", with: "")
+
+                let users = try await userUseCase.checkPhoneNumber(rawPhoneNumber)
+                if !users.isEmpty {
+                    userList = users
+                    isShowUserList = true
+                    showAlreadyRegisteredAlert = true
+                    return
+                }
+                
+                let result = try await userUseCase.authSMS(phoneNumber: rawPhoneNumber)
+                verificationCode = String(result.code)
+                isRequestSent = true
+                startTimer()
+            } catch {
+                errorMessage = error.localizedDescription
+            }
+            isLoading = false
         }
     }
 
-    func checkPhoneNumber() async {
-        do {
-            let response = try await userUseCase.checkPhoneNumber(phoneNumber)
-            
-        } catch {
-            errorMessage = error.localizedDescription
+    public func verifyCode() -> Bool {
+        if enteredVerificationCode == verificationCode {
+            return true
+        } else {
+            showError = true
+            return false
+        }
+    }
+
+    public func startTimer() {
+        timer?.invalidate()
+        isTimerActive = true
+        timerRemaining = 180
+
+        timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { [weak self] t in
+            guard let self = self else { return t.invalidate() }
+
+            Task { @MainActor in
+                if self.timerRemaining > 0 {
+                    self.timerRemaining -= 1
+                } else {
+                    t.invalidate()
+                    self.isTimerActive = false
+                }
+            }
+        }
+    }
+
+    deinit {
+        timer?.invalidate()
+    }
+    
+    public func checkIDDup() {
+        isIDAvailable = nil
+        Task {
+            do {
+                let result = try await userUseCase.checkIDDup(loginID)
+                
+                switch result {
+                case .exists:
+                    isIDAvailable = false
+                case .notFound:
+                    isIDAvailable = true
+                }
+            } catch {
+                isIDAvailable = nil
+            }
         }
     }
     
-    func checkIDDup() async {
-        do {
-            let response = try await userUseCase.checkIDDup(loginId)
-            
-        } catch {
-            errorMessage = error.localizedDescription
+    public func validateNickname() -> NickNameValidationError? {
+        if nickname.count > 12 {
+            return .tooLong
+        }
+        let specialCharacterSet = CharacterSet(charactersIn: "!@#$%^&*()_+-=~`[]{}|:;\"'<>,.?/")
+        if nickname.rangeOfCharacter(from: specialCharacterSet) != nil {
+            return .containsSpecialCharacters
+        }
+        return nil
+    }
+    
+    public func signIn() {
+        Task {
+            do {
+                let result = try await userUseCase.signup(loginId: loginID, password: password, phoneNumber: phoneNumber, nickname: nickname, birthYear: birthYear, gender: gender)
+                user = result.user
+            } catch {
+                errorMessage = error.localizedDescription
+            }
         }
     }
     
-    func authSMS() async {
-        do {
-            try await userUseCase.authSMS(phoneNumber: phoneNumber)
-        } catch {
-            errorMessage = error.localizedDescription
-        }
-    }
+    
     
 }
- 

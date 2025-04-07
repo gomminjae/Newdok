@@ -3,9 +3,6 @@ import ProjectDescription
 let project = Project(
     name: "Network",
     organizationName: "Your Organization Name",
-    packages: [
-        .package(url: "https://github.com/Moya/Moya.git", .upToNextMajor(from: "15.0.0")),
-    ],
     targets: [
         .target(
             name: "Network",
@@ -16,7 +13,8 @@ let project = Project(
             infoPlist: .default,
             sources: ["Sources/**"],
             dependencies: [
-                .package(product: "Moya"),
+                .external(name: "Moya"),
+                .project(target: "Shared", path: "../Shared"), 
             ]
         )
     ]

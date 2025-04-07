@@ -1,0 +1,83 @@
+digraph {
+  A [fillcolor=deepskyblue penwidth="1.5" shape=box3d style=filled]
+  ATests [fillcolor=limegreen shape=octagon style=filled]
+  Alamofire [fillcolor=coral1 shape=cylinder style=filled]
+  App [fillcolor=deepskyblue penwidth="1.5" shape=box3d style=filled]
+  Auth [fillcolor=coral1 shape=cylinder style=filled]
+  AuthTests [fillcolor=limegreen shape=octagon style=filled]
+  B [fillcolor=deepskyblue penwidth="1.5" shape=box3d style=filled]
+  BTests [fillcolor=limegreen shape=octagon style=filled]
+  CFNetwork [fillcolor=violet shape=rectangle style=filled]
+  CombineMoya [fillcolor=coral1 shape=cylinder style=filled]
+  Data [fillcolor=coral1 shape=cylinder style=filled]
+  DesignSystem [fillcolor=darkgoldenrod1 shape=cylinder style=filled]
+  Domain [fillcolor=coral1 shape=cylinder style=filled]
+  Home [fillcolor=coral1 shape=cylinder style=filled]
+  HomeTests [fillcolor=limegreen shape=octagon style=filled]
+  Launch [fillcolor=coral1 shape=cylinder style=filled]
+  LaunchTests [fillcolor=limegreen shape=octagon style=filled]
+  Moya [fillcolor=coral1 shape=cylinder style=filled]
+  Network [fillcolor=darkgoldenrod1 shape=cylinder style=filled]
+  ReactiveMoya [fillcolor=coral1 shape=cylinder style=filled]
+  ReactiveSwift [fillcolor=coral1 shape=cylinder style=filled]
+  RxBlocking [fillcolor=coral1 shape=cylinder style=filled]
+  RxCocoa [fillcolor=coral1 shape=cylinder style=filled]
+  RxCocoaRuntime [fillcolor=coral1 shape=cylinder style=filled]
+  RxMoya [fillcolor=coral1 shape=cylinder style=filled]
+  RxRelay [fillcolor=coral1 shape=cylinder style=filled]
+  RxSwift [fillcolor=darkgoldenrod1 shape=cylinder style=filled]
+  RxTest [fillcolor=coral1 shape=cylinder style=filled]
+  Signup [fillcolor=coral1 shape=cylinder style=filled]
+  SignupTests [fillcolor=limegreen shape=octagon style=filled]
+  Survey [fillcolor=coral1 shape=cylinder style=filled]
+  SurveyTests [fillcolor=limegreen shape=octagon style=filled]
+  A -> Launch
+  ATests -> A
+  ATests -> Launch
+  Alamofire -> CFNetwork
+  App -> Network
+  App -> DesignSystem
+  App -> Survey
+  App -> Signup
+  App -> Launch
+  App -> Home
+  App -> Auth
+  Auth -> DesignSystem
+  Auth -> Data
+  Auth -> Domain
+  AuthTests -> DesignSystem
+  AuthTests -> Auth
+  B -> Launch
+  B -> Auth
+  B -> Signup
+  BTests -> B
+  CombineMoya -> Moya
+  Data -> Network
+  Data -> Domain
+  Home -> DesignSystem
+  HomeTests -> DesignSystem
+  HomeTests -> Home
+  Launch -> DesignSystem
+  LaunchTests -> Launch
+  LaunchTests -> DesignSystem
+  Moya -> Alamofire
+  Network -> Moya
+  ReactiveMoya -> ReactiveSwift
+  ReactiveMoya -> Moya
+  RxBlocking -> RxSwift
+  RxCocoa -> RxCocoaRuntime
+  RxCocoa -> RxRelay
+  RxCocoa -> RxSwift
+  RxCocoaRuntime -> RxSwift
+  RxMoya -> RxSwift
+  RxMoya -> Moya
+  RxRelay -> RxSwift
+  RxTest -> RxSwift
+  Signup -> Auth
+  Signup -> Domain
+  Signup -> DesignSystem
+  SignupTests -> DesignSystem
+  SignupTests -> Signup
+  SurveyTests -> Survey
+  SurveyTests -> DesignSystem
+}
