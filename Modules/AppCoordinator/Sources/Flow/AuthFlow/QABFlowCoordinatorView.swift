@@ -8,37 +8,37 @@ import SwiftUI
 import Launch
 import Auth
 import Signup
+import Shared
 
 struct QABFlowCoordinatorView: View {
     @StateObject private var router = QABRouter()
     //@StateObject private var coordinator = QABFlowCoordinator()
-    private let container = AuthFeatureContainer()
+    private let coordinator = QABFlowCoordinator()
+    
+    @State private var launched = false
 
     var body: some View {
-        NavigationStack {
-            switch router.onboardingRoute {
-            case .launch:
-                SplashView()
-                    .onAppear {
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
-                            router.onboardingRoute = .onboarding
+        if launched {
+            NavigationStack(path: $router.path) {
+                OnboardingView(router: router)
+                    .navigationDestination(for: OnboardingRoute.self) { route in
+                        switch route {
+                        case .signup:
+                            coordinator.makeSignupView()
+                        case .login:
+                            coordinator.makeLoginView()
+                            
                         }
                     }
-                
-            case .onboarding:
-                OnboardingView(router: router)
-                    .transition(.opacity)
-                
-            case .signup:
-                
-                SignupView()
-                    .transition(.opacity)
-                
-                
-                
-            case .login:
-                LoginView(viewModel: LoginViewModel(userUserCase: container.useCase)) // 🔥 해결된 코드
             }
+        } else {
+            SplashView()
+                .onAppear {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+                        launched = true
+                    }
+                }
         }
     }
+
 }

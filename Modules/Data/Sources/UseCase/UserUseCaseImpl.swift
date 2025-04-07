@@ -7,6 +7,7 @@
 import Foundation
 import Network
 import Domain
+import Shared
 
 
 public final class UserUseCaseImpl: UserUseCase {
@@ -30,7 +31,7 @@ public final class UserUseCaseImpl: UserUseCase {
         return try await userRepository.checkPhoneNumber(phoneNumber)
     }
     
-    public func checkIDDup(_ loginId: String) async throws -> Domain.SimpleUser {
+    public func checkIDDup(_ loginId: String) async throws -> CheckResult<SimpleUser> {
         return try await userRepository.checkIDDup(loginId)
     }
     
@@ -54,7 +55,8 @@ public final class UserUseCaseImpl: UserUseCase {
         return try await userRepository.updatePhoneNumber(phoneNumber)
     }
     
-    public func authSMS(phoneNumber: String) async throws {
+    public func authSMS(phoneNumber: String) async throws -> SMSResponse {
+        print("실행")
         return try await userRepository.authSMS(phoneNumber: phoneNumber)
     }
     

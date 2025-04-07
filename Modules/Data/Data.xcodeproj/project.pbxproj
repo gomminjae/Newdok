@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		09A4E170E18913D79514D2C9 /* SMSResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8371EA1F7B772A246E6CF72A /* SMSResponseDTO.swift */; };
 		2120D23AB81CA806BEDDA337 /* UserDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = C77CDBA5F2AEA7960FD52453 /* UserDTO.swift */; };
 		2F4A90C76257924820EAEA02 /* UserUseCaseImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = E185C004320D65EFB2DC14D4 /* UserUseCaseImpl.swift */; };
 		31593657382DC5704849BF1D /* Network.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83231A9E43B908A3F74B7D6C /* Network.framework */; };
@@ -49,6 +50,7 @@
 		5214DC5CC69DE14A8257DAEC /* SignupResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupResponseDTO.swift; sourceTree = "<group>"; };
 		6E28E018F88597F58569E374 /* SimpleUserDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleUserDTO.swift; sourceTree = "<group>"; };
 		83231A9E43B908A3F74B7D6C /* Network.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Network.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		8371EA1F7B772A246E6CF72A /* SMSResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SMSResponseDTO.swift; sourceTree = "<group>"; };
 		ADDB13B1B8842ABB36E7430B /* NicknameResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NicknameResponseDTO.swift; sourceTree = "<group>"; };
 		C77CDBA5F2AEA7960FD52453 /* UserDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDTO.swift; sourceTree = "<group>"; };
 		C7DE91AC8EE9CAA20178CE0A /* BrandListResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrandListResponseDTO.swift; sourceTree = "<group>"; };
@@ -95,6 +97,7 @@
 				ADDB13B1B8842ABB36E7430B /* NicknameResponseDTO.swift */,
 				5214DC5CC69DE14A8257DAEC /* SignupResponseDTO.swift */,
 				6E28E018F88597F58569E374 /* SimpleUserDTO.swift */,
+				8371EA1F7B772A246E6CF72A /* SMSResponseDTO.swift */,
 				C77CDBA5F2AEA7960FD52453 /* UserDTO.swift */,
 			);
 			path = User;
@@ -235,6 +238,7 @@
 				F6821D6B328FDD11ED010367 /* BrandListResponseDTO.swift in Sources */,
 				E4E489F29D2DEAB48C3B2CB4 /* ErrorResponseDTO.swift in Sources */,
 				685B26DD6D5F090B12797E9B /* NicknameResponseDTO.swift in Sources */,
+				09A4E170E18913D79514D2C9 /* SMSResponseDTO.swift in Sources */,
 				BA9C0868848F9818CEE39F48 /* SignupResponseDTO.swift in Sources */,
 				40EF068D4DC0E9365A1757C3 /* SimpleUserDTO.swift in Sources */,
 				2120D23AB81CA806BEDDA337 /* UserDTO.swift in Sources */,

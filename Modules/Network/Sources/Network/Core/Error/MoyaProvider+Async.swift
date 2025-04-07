@@ -8,6 +8,7 @@
 
 import Foundation
 import Moya
+import Shared
 
 
 public extension MoyaProvider {
@@ -59,4 +60,21 @@ public extension MoyaProvider {
                 }
             }
         }
+    
+    func safeCheckRequest<T: Decodable>(
+        _ target: Target,
+        decodeTo type: T.Type = T.self
+    ) async throws -> CheckResult<T> {
+        do {
+            let decoded: T = try await asyncRequest(target, decodeTo: T.self)
+            return .exists(decoded)
+        } catch let error as NetworkError {
+            if case .serverError(let statusCode, _) = error, statusCode == 400 {
+                return .notFound
+            } else {
+                throw error
+            }
+        }
+    }
+    
 }

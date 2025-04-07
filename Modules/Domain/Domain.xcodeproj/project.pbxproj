@@ -13,12 +13,24 @@
 		5091B95C8FE576742F1D7E91 /* ErrorResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3B959DFAA4C5D6C5848644B /* ErrorResponse.swift */; };
 		5CFDB6BEC6FA65FB81875046 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966379FEE7184717055F5336 /* User.swift */; };
 		7CCA7B41D2B2CAA9A02E0647 /* UserUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 261679B89057804E12EBBCC2 /* UserUseCase.swift */; };
+		82F28B3226CA491D5B9C9DCF /* Shared.framework in Dependencies */ = {isa = PBXBuildFile; fileRef = 88290FF5D0840A64CDD73D68 /* Shared.framework */; };
 		86B791CDC88EF1D6D219DD72 /* SimpleUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88D7FD45351F48C13A58753E /* SimpleUser.swift */; };
 		A0FBB74C23B411ADF6E1022D /* UserRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53F01AB1AE9AA1D26882B92 /* UserRepository.swift */; };
+		E85EA8E9A482F4D3139A379A /* SMSResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22D28BDA51D577B28525253B /* SMSResponse.swift */; };
 		EE440BBB39BA777250D61E56 /* Brand.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBC4968267CD3793D679B664 /* Brand.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
+		1779A4FE8AA46343CD51F8EF /* Dependencies */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 8;
+			dstSubfolderSpec = 16;
+			files = (
+				82F28B3226CA491D5B9C9DCF /* Shared.framework in Dependencies */,
+			);
+			name = Dependencies;
+			runOnlyForDeploymentPostprocessing = 1;
+		};
 		DBA686A82FFC1AB19CC1C76B /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -32,8 +44,10 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		22D28BDA51D577B28525253B /* SMSResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SMSResponse.swift; sourceTree = "<group>"; };
 		261679B89057804E12EBBCC2 /* UserUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserUseCase.swift; sourceTree = "<group>"; };
 		4A2CDBFBB88856904B006234 /* NicknameResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NicknameResponse.swift; sourceTree = "<group>"; };
+		88290FF5D0840A64CDD73D68 /* Shared.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Shared.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		88D7FD45351F48C13A58753E /* SimpleUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleUser.swift; sourceTree = "<group>"; };
 		966379FEE7184717055F5336 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		9F62C33991ABC4ABEB09DDAF /* Gender.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Gender.swift; sourceTree = "<group>"; };
@@ -81,6 +95,7 @@
 				4A2CDBFBB88856904B006234 /* NicknameResponse.swift */,
 				E34BE5FE165914279689ED55 /* SignupResponse.swift */,
 				88D7FD45351F48C13A58753E /* SimpleUser.swift */,
+				22D28BDA51D577B28525253B /* SMSResponse.swift */,
 				966379FEE7184717055F5336 /* User.swift */,
 			);
 			path = User;
@@ -90,6 +105,7 @@
 			isa = PBXGroup;
 			children = (
 				FD49F277B86481D3D105FAC8 /* Domain.framework */,
+				88290FF5D0840A64CDD73D68 /* Shared.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -164,6 +180,7 @@
 				2A71FE6FD8EF88EBB2284866 /* Resources */,
 				2069052369677C3E97D5C897 /* Frameworks */,
 				DBA686A82FFC1AB19CC1C76B /* Embed Frameworks */,
+				1779A4FE8AA46343CD51F8EF /* Dependencies */,
 			);
 			buildRules = (
 			);
@@ -221,6 +238,7 @@
 				5091B95C8FE576742F1D7E91 /* ErrorResponse.swift in Sources */,
 				34A32B84CB0DBAF03564CF2E /* Gender.swift in Sources */,
 				043AB363E24F1C147D028B4E /* NicknameResponse.swift in Sources */,
+				E85EA8E9A482F4D3139A379A /* SMSResponse.swift in Sources */,
 				4A67A3859BAC84FBDA71A447 /* SignupResponse.swift in Sources */,
 				86B791CDC88EF1D6D219DD72 /* SimpleUser.swift in Sources */,
 				5CFDB6BEC6FA65FB81875046 /* User.swift in Sources */,

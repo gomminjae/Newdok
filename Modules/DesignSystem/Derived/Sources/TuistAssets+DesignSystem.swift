@@ -95,6 +95,7 @@ public enum DesignSystemAsset: Sendable {
   public static let lineUnlocked = DesignSystemImages(name: "Line Unlocked")
   public static let lineUp = DesignSystemImages(name: "Line Up")
   public static let lineUser = DesignSystemImages(name: "Line User")
+  public static let lineLeft = DesignSystemImages(name: "Line left")
   public static let lineRight = DesignSystemImages(name: "Line right")
   public static let lineCloseEye = DesignSystemImages(name: "_Line Close Eye")
 }

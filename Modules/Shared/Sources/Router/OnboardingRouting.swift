@@ -6,7 +6,13 @@
 //
 
 import Combine
+import SwiftUI
 
 public protocol OnboardingRouting: ObservableObject {
-    var onboardingRoute: OnboardingRoute { get set }
+    var path: NavigationPath { get set }
+    
+    func push(_ route: OnboardingRoute)
+    func ppop()
+    func reset()
 }
+

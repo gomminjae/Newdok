@@ -9,5 +9,20 @@ import SwiftUI
 import Shared
 
 public final class QABRouter: ObservableObject, OnboardingRouting {
-    @Published public var onboardingRoute: OnboardingRoute = .launch
+    @Published public var path: NavigationPath = NavigationPath()
+    
+    public func push(_ route: Shared.OnboardingRoute) {
+        path.append(route)
+    }
+    
+    public func ppop() {
+        if !path.isEmpty {
+            path.removeLast()
+        }
+    }
+    
+    public func reset() {
+        path = NavigationPath()
+    }
+    
 }

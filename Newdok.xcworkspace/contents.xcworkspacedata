@@ -64,5 +64,8 @@
       <FileRef
          location = "group:Tuist/.build/tuist-derived/Moya/Moya.xcodeproj">
       </FileRef>
+      <FileRef
+         location = "group:Tuist/.build/tuist-derived/Swinject/Swinject.xcodeproj">
+      </FileRef>
    </Group>
 </Workspace>
