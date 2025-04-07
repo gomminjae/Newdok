@@ -31,14 +31,7 @@ public struct UserDTO: Decodable {
     public let industryId: Int
     public let interests: [InterestDTO]
 
-    public func toDomain() -> User? {
-        guard
-            let gender = Gender(rawValue: gender),
-            let birthYearInt = Int(birthYear),
-            let createdDate = ISO8601DateFormatter().date(from: createdAt)
-        else {
-            return nil
-        }
+    public func toDomain() -> User {
 
         return User(
             id: id,
@@ -46,9 +39,9 @@ public struct UserDTO: Decodable {
             phoneNumber: phoneNumber,
             email: subscribeEmail,
             nickname: nickname,
-            birthYear: birthYearInt,
+            birthYear: birthYear,
             gender: gender,
-            createdAt: createdDate,
+            createdAt: createdAt,
             industryId: industryId,
             interests: interests.map { $0.toDomain() }
             

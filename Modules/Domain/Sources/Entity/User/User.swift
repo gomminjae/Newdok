@@ -14,9 +14,9 @@ public struct User {
     public let phoneNumber: String
     public let email: String
     public let nickname: String
-    public let birthYear: Int
-    public let gender: Gender
-    public let createdAt: Date
+    public let birthYear: String
+    public let gender: String
+    public let createdAt: String
     public let industryId: Int
     public let interests: [Interest]
 
@@ -26,9 +26,9 @@ public struct User {
         phoneNumber: String,
         email: String,
         nickname: String,
-        birthYear: Int,
-        gender: Gender,
-        createdAt: Date,
+        birthYear: String,
+        gender: String,
+        createdAt: String,
         industryId: Int,
         interests: [Interest]
     ) {

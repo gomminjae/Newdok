@@ -21,17 +21,8 @@ public final class NetworkProvider: NetworkProviding {
 
     public func makeAuthProvider() -> MoyaProvider<UserAPI> {
         print("⚙️ [CALL] makeAuthProvider 실행됨")
-        let session = makeSession()
         return MoyaProvider<UserAPI>(
-            session: session,
             plugins: [NetworkLoggerPlugin()]
         )
-    }
-
-    private func makeSession() -> Session {
-        print("🧪 [CALL] makeSession 시작됨")
-        let configuration = URLSessionConfiguration.default
-        configuration.headers = .default
-        return Session(configuration: configuration, startRequestsImmediately: false)
     }
 }

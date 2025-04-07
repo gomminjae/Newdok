@@ -20,7 +20,7 @@ public protocol LoginViewModelBindable: ObservableObject {
     var errorMessage: String? { get }
     var isLoading: Bool { get }
     
-    func login() async throws -> User
+    func login()
 }
 
 
@@ -42,6 +42,11 @@ public final class LoginViewModel: LoginViewModelBindable {
     
     @Published public var isLoading: Bool
     
+    @Published public var isSecurePassword: Bool = true
+    
+    @Published public var user: User?
+    
+    
     
     public init(userUserCase: UserUseCase) {
         self.userUseCase = userUserCase
@@ -55,12 +60,20 @@ public final class LoginViewModel: LoginViewModelBindable {
     }
     
     
-    public func login() async throws -> User {
-        try await userUseCase.login(
-            loginId: loginId,
-            password: password
-        )
+    public func login() {
+        Task {
+            do {
+                user = try await userUseCase.login(loginId: loginId, password: password)
+            } catch {
+                errorMessage = error.localizedDescription
+            }
+        }
     }
+    
+    public var isLoginEnabled: Bool {
+        !loginId.isEmpty && !password.isEmpty
+    }
+
     
     
     
