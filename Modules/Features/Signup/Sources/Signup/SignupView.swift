@@ -20,8 +20,8 @@ public enum SignupStep: Int, CaseIterable {
         case .phoneVerification: return 0.2
         case .idInput: return 0.4
         case .pwInput: return 0.6
-        case .enterProfile: return 0.8
-        case .agreeTerms: return 1.0
+        case .enterProfile: return 0.7
+        case .agreeTerms: return 0.9
         }
     }
 }
@@ -47,24 +47,23 @@ public struct SignupView: View {
                 IDInputView(viewModel: viewModel,nextStep: nextStep)
                     .tag(SignupStep.idInput)
                 
-                PwInputView(nextStep: nextStep)
+                PwInputView(viewModel: viewModel, nextStep: nextStep)
                     .tag(SignupStep.pwInput)
                 
-                ProfileInputView(nextStep: nextStep)
+                ProfileInputView(viewModel: viewModel, nextStep: nextStep)
                     .tag(SignupStep.enterProfile)
                 
-                AgreeView()
+                AgreeView(viewModel: viewModel)
                     .tag(SignupStep.agreeTerms)
             }
             .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
             .gesture(DragGesture().onChanged { _ in })
         }
         .padding(.top, 20)
-        //.navigationTitle("회원가입")
         
     }
-
-    // ✅ 다음 단계로 이동하는 함수
+    
+    
     private func nextStep() {
         if let nextStep = SignupStep(rawValue: currentStep.rawValue + 1) {
             currentStep = nextStep

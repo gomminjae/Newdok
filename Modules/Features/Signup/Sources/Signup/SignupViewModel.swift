@@ -34,10 +34,28 @@ final public class SignupViewModel: ObservableObject {
     @Published public var showError = false
     
     
-    @Published var emails: [String] = []
-    @Published var isShowPopup: Bool = false
+    @Published public var emails: [String] = []
+    @Published public var isShowPopup: Bool = false
 
     private var timer: Timer?
+    
+    
+    //MARK: password
+    @Published public var password: String = ""
+    @Published public var checkedPassword: String = ""
+    
+    //MARK: profile
+    @Published public var nickname: String = ""
+    @Published public var birthYear: String = ""
+    @Published public var gender: String = ""
+    
+    
+    @Published public var user: User?
+    
+    
+    
+    
+    
 
     public init(userUseCase: UserUseCase) {
         self.userUseCase = userUseCase
@@ -122,5 +140,29 @@ final public class SignupViewModel: ObservableObject {
             }
         }
     }
+    
+    public func validateNickname() -> NickNameValidationError? {
+        if nickname.count > 12 {
+            return .tooLong
+        }
+        let specialCharacterSet = CharacterSet(charactersIn: "!@#$%^&*()_+-=~`[]{}|:;\"'<>,.?/")
+        if nickname.rangeOfCharacter(from: specialCharacterSet) != nil {
+            return .containsSpecialCharacters
+        }
+        return nil
+    }
+    
+    public func signIn() {
+        Task {
+            do {
+                let result = try await userUseCase.signup(loginId: loginID, password: password, phoneNumber: phoneNumber, nickname: nickname, birthYear: birthYear, gender: gender)
+                user = result.user
+            } catch {
+                errorMessage = error.localizedDescription
+            }
+        }
+    }
+    
+    
     
 }

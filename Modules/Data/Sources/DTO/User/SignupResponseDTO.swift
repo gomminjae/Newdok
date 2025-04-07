@@ -11,7 +11,7 @@ import Domain
 
 
 public struct SignupResponseDTO: Decodable {
-    public let user: SimpleUserDTO
+    public let user: UserDTO
     public let accessToken: String
     
     public func toDomain() -> Domain.SignupResponse {
