@@ -35,9 +35,9 @@ extension UserAPI: TargetType {
     public var baseURL: URL {
         switch self {
         case .authSMS:
-            return URL(string: "\(APIEnvironment.development.self.baseURL)/auth")!
+            return URL(string: "\(APIEnvironment.development.baseURL)/auth")!
         default:
-            return URL(string: "\(APIEnvironment.development.self.baseURL)/users")!
+            return URL(string: "\(APIEnvironment.development.baseURL)/users")!
         }
         
     }
@@ -48,8 +48,10 @@ extension UserAPI: TargetType {
                 return "/login"
         case .signup:
             return "/signup"
-        case .checkPhoneNumber, .checkIDDup:
-            return "/check"
+        case .checkPhoneNumber:
+            return "/check/phoneNumber"
+        case .checkIDDup:
+            return "/check/loginId"
         case .updateNickname:
             return "/mypage/nickname"
         case .updatePassword:
@@ -57,7 +59,7 @@ extension UserAPI: TargetType {
         case .updateIndustry:
             return "/mypage/industry"
         case .updateInterest:
-            return "/mypage/interet"
+            return "/mypage/interest"
         case .updatePhoneNumber:
             return "/mypage/phoneNumber"
         case .authSMS:

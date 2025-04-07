@@ -7,17 +7,22 @@
 
 import SwiftUI
 import DesignSystem
+import Combine
 
-struct IDInputView: View {
+public struct IDInputView: View {
     
-    @State private var id: String = ""
-    @State private var isDuplicated: Bool = false
-    @State private var isCompleted: Bool = false
+    @ObservedObject private var viewModel: SignupViewModel
+    
     
     var nextStep: () -> Void
     
+    public init(viewModel: SignupViewModel, nextStep: @escaping () -> Void) {
+        self.viewModel = viewModel
+        self.nextStep = nextStep
+    }
     
-    var body: some View {
+    
+    public var body: some View {
         VStack(alignment: .leading) {
             Text("아이디를\n입력해주세요.")
                 .font(.hanSansNeo(18, .bold))
@@ -26,33 +31,36 @@ struct IDInputView: View {
                 .font(.hanSansNeo(14, .medium))
                 .padding(.top, 32)
             HStack {
-                TextField("6~12자,영문/숫자 조합", text: $id)
+                TextField("6~12자,영문/숫자 조합", text: $viewModel.loginID)
                     .font(.hanSansNeo(14, .medium))
                     .modifier(CustomTextFieldModifier())
                     .frame(height: 56)
                 Button("중복확인") {
-                    print("text")
+                    viewModel.checkIDDup()
                 }
                 .frame(width: 94, height: 48)
-                .foregroundStyle(validate(id) ? Color.primaryNormal : Color(hex: "C0C0C0"))
+                .foregroundStyle(viewModel.isIDAvailable ?? false ? Color.primaryNormal : Color(hex: "C0C0C0"))
                 .overlay {
                     RoundedRectangle(cornerRadius: 4)
-                        .stroke(validate(id) ? Color.primaryNormal : Color(hex: "C0C0C0"))
+                        .stroke(viewModel.isIDAvailable ?? false ? Color.primaryNormal : Color(hex: "C0C0C0"))
                 }
             }
             Spacer()
                 
         }
+        .navigationTitle("회원가입")
+        .navigationBarTitleDisplayMode(.inline)
+        .navigationBarBackButtonHidden(true)
+        .navigationBarItems(leading: BackButton())
+        
         .padding(.leading, 24)
         .padding(.trailing, 24)
+        .hideKeyboardOnTap()
+        
     }
     
-    func validate(_ id: String) -> Bool {
-        let regex = "^[a-z0-9]{6,12}$"
-        return NSPredicate(format: "SELF MATCHES %@", regex).evaluate(with: id)
-    }
 }
-
-#Preview {
-    IDInputView(nextStep: {})
-}
+//
+//#Preview {
+//    IDInputView(nextStep: {})
+//}

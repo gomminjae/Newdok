@@ -6,8 +6,6 @@
 //
 
 public enum OnboardingRoute {
-    case launch
-    case onboarding
     case signup
     case login
     

@@ -8,6 +8,7 @@ import Domain
 import Network
 import Foundation
 import Moya
+import Shared
 
 
 public final class UserRepositoryImpl: UserRepository {
@@ -42,25 +43,32 @@ public final class UserRepositoryImpl: UserRepository {
     }
     
     public func checkPhoneNumber(_ phoneNumber: String) async throws -> [SimpleUser] {
-        
-        let response: [SimpleUserDTO] = try await provider.asyncRequest(.checkPhoneNumber(phoneNumber: phoneNumber))
-        
-        let users = response.compactMap { $0.toDomain() }
-        
-        if users.isEmpty {
-            throw NetworkError.decodeError(underlying: NSError(domain: "SimpleUserDTO decode failed", code: 0))
+        do {
+            let response: [SimpleUserDTO] = try await provider.asyncRequest(.checkPhoneNumber(phoneNumber: phoneNumber))
+            let users = response.compactMap { $0.toDomain() }
+            return users
+        } catch let error as NetworkError {
+            if case .serverError(let statusCode, _) = error, statusCode == 400 {
+                // 400: 가입된 사용자 없음 빈 배열 반환
+                return []
+            } else {
+                throw error
+            }
+        } catch {
+            throw error
         }
-        
-        
-        return users
-        
-        
     }
     
-    public func checkIDDup(_ loginId: String) async throws -> SimpleUser {
-        let response: SimpleUserDTO = try await provider.asyncRequest(.checkIDDup(loginId: loginId))
-        let user = response.toDomain()
-        return user
+    public func checkIDDup(_ loginId: String) async throws -> CheckResult<SimpleUser> {
+        let result = try await provider.safeCheckRequest(.checkIDDup(loginId: loginId),decodeTo: SimpleUserDTO.self)
+        
+        switch result {
+        case .exists(let dto):
+            return .exists(dto.toDomain())
+        case .notFound:
+            return .notFound
+        }
+        
     }
     
     public func updateNickname(_ nickname: String) async throws -> NicknameResponse {
@@ -87,9 +95,11 @@ public final class UserRepositoryImpl: UserRepository {
         provider.asyncVoidRequest(.updatePhoneNumber(phoneNumber: phoneNumber))
     }
     
-    public func authSMS(phoneNumber: String) async throws {
-        _ = try await
-        provider.asyncVoidRequest(.authSMS(phoneNumber: phoneNumber))
+    public func authSMS(phoneNumber: String) async throws -> SMSResponse {
+        let response: SMSResponseDTO = try await provider.asyncRequest(.authSMS(phoneNumber: phoneNumber))
+        let code = response.toDomain()
+        
+        return code
     }
     
     public func preInvestigate(industryId: Int, interestIds: [Int]) async throws -> [Brand] {

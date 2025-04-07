@@ -12,14 +12,23 @@ import Signup
 import Launch
 
 @MainActor
-final class QABFlowCoordinator: ObservableObject {
-    let container: AuthFeatureContainer
+final class QABFlowCoordinator {
+    let router = QABRouter()
+    private let container: AuthFeatureContainer
 
     init(container: AuthFeatureContainer = AuthFeatureContainer()) {
         self.container = container
     }
 
-    lazy var loginViewModel: LoginViewModel = {
-        LoginViewModel(userUserCase: container.useCase)
-    }()
+    func makeOnboardingView() -> some View {
+        OnboardingView(router: router)
+    }
+
+    func makeSignupView() -> some View {
+        SignupView(viewModel: container.makeSignupViewModel())
+    }
+
+    func makeLoginView() -> some View {
+        LoginView(viewModel: container.makeLoginViewModel())
+    }
 }

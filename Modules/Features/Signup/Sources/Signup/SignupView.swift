@@ -5,6 +5,7 @@
 //  Created by 권민재 on 2/15/25.
 //
 import SwiftUI
+import DesignSystem
 
 public enum SignupStep: Int, CaseIterable {
     case phoneVerification = 0
@@ -27,19 +28,23 @@ public enum SignupStep: Int, CaseIterable {
 
 public struct SignupView: View {
     @State private var currentStep: SignupStep = .phoneVerification
+    @StateObject public var viewModel: SignupViewModel
     
-    public init() {}
+    public init(viewModel: SignupViewModel) {
+        _viewModel = StateObject(wrappedValue: viewModel)
+    }
 
     public var body: some View {
         VStack {
             ProgressView(value: currentStep.progressValue, total: 1.0)
                 .progressViewStyle(.linear)
-
+            
             TabView(selection: $currentStep) {
-                PhoneVerificationView(nextStep: nextStep)
+                PhoneVerificationView(viewModel: viewModel, nextStep: nextStep)
                     .tag(SignupStep.phoneVerification)
                 
-                IDInputView(nextStep: nextStep)
+                
+                IDInputView(viewModel: viewModel,nextStep: nextStep)
                     .tag(SignupStep.idInput)
                 
                 PwInputView(nextStep: nextStep)
@@ -47,7 +52,7 @@ public struct SignupView: View {
                 
                 ProfileInputView(nextStep: nextStep)
                     .tag(SignupStep.enterProfile)
-
+                
                 AgreeView()
                     .tag(SignupStep.agreeTerms)
             }
@@ -55,7 +60,8 @@ public struct SignupView: View {
             .gesture(DragGesture().onChanged { _ in })
         }
         .padding(.top, 20)
-        .navigationTitle("회원가입")
+        //.navigationTitle("회원가입")
+        
     }
 
     // ✅ 다음 단계로 이동하는 함수
@@ -66,6 +72,6 @@ public struct SignupView: View {
     }
 }
 
-#Preview {
-    SignupView()
-}
+//#Preview {
+//    SignupView()
+//}

@@ -36,6 +36,15 @@
           "revision": "5dd1907d64f0d36f158f61a466bab75067224893",
           "version": "6.9.0"
         }
+      },
+      {
+        "package": "Swinject",
+        "repositoryURL": "https://github.com/Swinject/Swinject.git",
+        "state": {
+          "branch": null,
+          "revision": "be9dbcc7b86811bc131539a20c6f9c2d3e56919f",
+          "version": "2.9.1"
+        }
       }
     ]
   },

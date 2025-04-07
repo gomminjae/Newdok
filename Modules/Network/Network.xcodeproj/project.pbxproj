@@ -17,6 +17,7 @@
 		96BFD5E8676C0020620AAFEF /* NetworkProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CEECF20EC6F3FF0B1A27AFD /* NetworkProvider.swift */; };
 		9CBBF42037984A08DBD6FD33 /* UserAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40AF9A355AD5E1B8F0FCFEBE /* UserAPI.swift */; };
 		D977E69C1F13B5DC95257B35 /* NetworkLoggerPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24BB189C50BF07721127582F /* NetworkLoggerPlugin.swift */; };
+		E7E1F566ED8BEFB8F389C7A7 /* Shared.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA6B7652FAC8430E6A0A79CC /* Shared.framework */; };
 		F609E875000C75B22757A429 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C887C237152831BB6A08CA6D /* CFNetwork.framework */; };
 		FBFAFFB0901ABC227E9C04D8 /* NewsletterAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80006806EE8232C3392F8763 /* NewsletterAPI.swift */; };
 /* End PBXBuildFile section */
@@ -47,6 +48,7 @@
 		84763B6CEE0D308A8AA7EF6C /* ErrorMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorMapper.swift; sourceTree = "<group>"; };
 		9B27E13C48D44E3809D1A0C9 /* NetworkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
 		9E27ED4FA2CB56FEC39887EA /* Network.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Network.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		AA6B7652FAC8430E6A0A79CC /* Shared.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Shared.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C887C237152831BB6A08CA6D /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS.sdk/System/Library/Frameworks/CFNetwork.framework; sourceTree = DEVELOPER_DIR; };
 		E67F53188188163BFD299BFF /* APIEnvironment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIEnvironment.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -59,6 +61,7 @@
 				F609E875000C75B22757A429 /* CFNetwork.framework in Frameworks */,
 				8197984213E7915BA19C7387 /* Alamofire.framework in Frameworks */,
 				2FF1D3E5B9D7A2DC4E3C4936 /* Moya.framework in Frameworks */,
+				E7E1F566ED8BEFB8F389C7A7 /* Shared.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -134,6 +137,7 @@
 				2DF4B5C9DA9CD5CA434B4D23 /* Alamofire.framework */,
 				218C224D9514B06A9DABE413 /* Moya.framework */,
 				9E27ED4FA2CB56FEC39887EA /* Network.framework */,
+				AA6B7652FAC8430E6A0A79CC /* Shared.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";

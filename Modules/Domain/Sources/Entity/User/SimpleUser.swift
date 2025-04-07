@@ -12,6 +12,18 @@ public struct SimpleUser {
     public let phoneNumber: String
     public let createdAt: Date
     
+    public var maskedLoginId: String {
+        let prefix = loginId.prefix(4)
+        return "\(prefix)****"
+    }
+    
+    public var formattedCreatedAt: String {
+            let formatter = DateFormatter()
+            formatter.locale = Locale(identifier: "ko_KR")
+            formatter.dateFormat = "yyyy.MM.dd"
+            return formatter.string(from: createdAt) + " 가입"
+        }
+    
     public init(
         id: Int,
         loginId: String,

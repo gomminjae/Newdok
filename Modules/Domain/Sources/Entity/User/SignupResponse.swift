@@ -9,8 +9,8 @@ import Foundation
 
 
 public struct SignupResponse {
-    let user: SimpleUser
-    let accessToken: String
+    public let user: SimpleUser
+    public let accessToken: String
     
     public init(user: SimpleUser, accessToken: String) {
         self.user = user

@@ -21,6 +21,7 @@ let project = Project(
         .project(target: "Network", path: "../Network"),
         .project(target: "DesignSystem", path: "../DesignSystem"),
         .project(target: "Shared", path: "../Shared"),
+        .external(name: "Swinject"),
       ]
     )
   ]

@@ -8,155 +8,179 @@ import SwiftUI
 import Combine
 import DesignSystem
 
-struct PhoneVerificationView: View {
-    @State private var phoneNumber: String = ""
-    @State private var verificationCode: String = ""
-    @State private var isRequestSent: Bool = false
-    @State private var isCodeValid: Bool = true
-    @State private var timerRemaining: Int = 180
-    @State private var isTimerActive: Bool = false
-    @State private var showError: Bool = false
-    @State private var showAlreadyRegisteredAlert: Bool = false
-    
-    var nextStep: () -> Void
-    
-    var body: some View {
-        VStack(alignment: .leading) {
-            Text("본인 확인을 위해\n휴대폰 번호를 입력해주세요.")
-                .font(.hanSansNeo(18, .bold))
-                .padding(.leading, 24)
-                .padding(.top,24)
-            Text("휴대폰 번호")
-                .font(.hanSansNeo(14,.medium))
-                .padding(.top, 32)
-                .padding(.leading,28)
-                .padding(.bottom, 8)
-            HStack(spacing: 8) {
-                HStack {
-                    Image(asset: DesignSystemAsset.phone)
-                        .foregroundColor(.gray)
-                        .padding(.leading, 20)
 
-                    TextField("-구분 없이 입력", text: $phoneNumber)
-                        .keyboardType(.numberPad)
-                        .onReceive(Just(phoneNumber)) { new in
-                            let formatted = formatPhoneNumber(new)
-                            if formatted != self.phoneNumber {
-                                self.phoneNumber = formatted
-                            }
-                        }
-                        .font(.hanSansNeo(14, .medium))
-                        .disabled(isRequestSent)
-                        .padding(.vertical, 12)
-                        .padding(.horizontal, 8)
-                }
-                .frame(height: 48)
-                .background(Color.white)
-                .overlay {
-                    RoundedRectangle(cornerRadius: 4)
-                        .stroke(Color(hex: "#DADADA"), lineWidth: 1)
-                }
-                // 비율 고정
-                .layoutPriority(1)
-
-                Button(action: {
-                    sendVerificationCode()
-                }) {
-                    Text(isRequestSent ? "재전송" : "인증 요청")
-                        .font(.hanSansNeo(14, .bold))
-                        .frame(width: 80, height: 48)
-                }
-                .disabled(phoneNumber.isEmpty || isRequestSent)
-                .overlay {
-                    RoundedRectangle(cornerRadius: 4)
-                        .stroke(Color(hex: "#C0C0C0"), lineWidth: 1)
-                }
-            }
-            .padding(.horizontal, 24)
-
-            if isRequestSent {
-                VStack(alignment: .leading, spacing: 8) {
-                    Text("인증번호")
-                        .font(.hanSansNeo(14,.medium))
-                        .padding(.leading, 24)
-                        .padding(.top, 24)
-                    HStack {
-                        TextField("6자리 숫자 입력", text: $verificationCode)
-                            .keyboardType(.numberPad)
-                            .frame(height: 50)
-                            .padding(.leading, 16)
-                            .font(.hanSansNeo(14, .medium))
-                        Text("\(formatTime(timerRemaining))")
-                            .foregroundStyle(showError ? Color.red : .primaryNormal)
-                            .font(Font.system(size: 12))
-                            .padding(.trailing, 10)
-                        
-                    }
-                    .border(Color(hex: "#EBEBEB"), width: 0.5)
-                    .background(showError ? Color.red.opacity(0.1) : .white)
-                    .overlay(
-                        RoundedRectangle(cornerRadius: 5)
-                            .stroke(showError ? Color.red : Color(hex: "EBEBEB"), lineWidth: 2)
-                            .cornerRadius(12)
-                    )
-                    .padding(.horizontal,24)
-                   
-                    
-                    Text(showError ? "인증번호를 다시 확인해주세요.":"문자가 오지 않는다면 '재전송'버튼을 눌러주세요.")
-                        .font(.hanSansNeo(11, .regular))
-                        .foregroundStyle(showError ? .red : Color(hex: "555555"))
-                        .padding(.leading,24)
-                        .padding(.top, 6)
-                    
-                    if showError {
-                        Text("인증번호를 다시 확인해주세요.")
-                            .foregroundStyle(.red)
-                            .font(Font.system(size: 12))
-                    }
-                    
-                }
-                
-                
-                Spacer()
-                
-                Button("다음") {
-                    verifyCode()
-                }
-                .font(.hanSansNeo(16, .bold))
-                .foregroundStyle(Color.captionDisabled)
-                .frame(maxWidth: .infinity)
-                .frame(height: 56)
-                .disabled(verificationCode.count < 6)
-                .background(verificationCode.count < 6 ? Color.lineNeutral : .primaryNormal)
-                .cornerRadius(12)
-                .padding(.horizontal,24)
-                .padding(.bottom,16)
-                
-            } else {
-                Spacer()
-            }
+extension View {
+    func hideKeyboardOnTap() -> some View {
+        self.onTapGesture {
+            UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
         }
-        .alert(isPresented: $showAlreadyRegisteredAlert) {
-            Alert(title: Text("이미 가입된 계정입니다."),
-                  message: Text("이메일을 확인해주세요."),
-                  dismissButton: .default(Text("계속")))
-        }
-        .onAppear {
-            if isTimerActive {
-                startTimer()
-            }
-        }
-
     }
-    
-    
+}
+
+public struct PhoneVerificationView: View {
+
+    @ObservedObject private var viewModel: SignupViewModel
+    var nextStep: () -> Void
+
+    @FocusState private var isPhoneFieldFocused: Bool
+    @FocusState private var isNumberPadFocused: Bool
+
+    public init(viewModel: SignupViewModel, nextStep: @escaping () -> Void) {
+        self.viewModel = viewModel
+        self.nextStep = nextStep
+    }
+
+    public var body: some View {
+        ZStack {
+            VStack(alignment: .leading) {
+                // 안내 문구
+                Text("본인 확인을 위해\n휴대폰 번호를 입력해주세요.")
+                    .font(.hanSansNeo(18, .bold))
+                    .padding(.leading, 24)
+                    .padding(.top, 24)
+
+                Text("휴대폰 번호")
+                    .font(.hanSansNeo(14, .medium))
+                    .padding(.top, 32)
+                    .padding(.leading, 28)
+                    .padding(.bottom, 8)
+
+                // 번호 입력 필드 + 인증 버튼
+                HStack(spacing: 8) {
+                    HStack {
+                        Image(asset: DesignSystemAsset.phone)
+                            .padding(.leading, 20)
+
+                        TextField("-구분 없이 입력", text: $viewModel.phoneNumber)
+                            .font(.hanSansNeo(14, .medium))
+                            .keyboardType(.numberPad)
+                            .focused($isPhoneFieldFocused)
+                            .focused($isNumberPadFocused)
+                            .padding(.vertical, 12)
+                            .padding(.horizontal, 8)
+                            .onReceive(Just(viewModel.phoneNumber)) { new in
+                                let formatted = formatPhoneNumber(new)
+                                if formatted != viewModel.phoneNumber {
+                                    viewModel.phoneNumber = formatted
+                                }
+                            }
+                    }
+                    .frame(height: 48)
+                    .background(Color.white)
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 4)
+                            .stroke(isPhoneFieldFocused ? Color.primaryNormal : Color(hex: "#DADADA"), lineWidth: 1)
+                    )
+
+                    Button(viewModel.isRequestSent ? "재전송" : "인증 요청") {
+                        viewModel.sendVerificationCode()
+                    }
+                    .font(.hanSansNeo(14, .bold))
+                    .disabled(viewModel.phoneNumber.count < 13 || viewModel.isRequestSent)
+                    .frame(width: 94, height: 48)
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 4)
+                            .stroke(viewModel.phoneNumber.count < 13 ? Color(hex: "#C0C0C0") : Color.primaryNormal, lineWidth: 1)
+                    )
+                }
+                .padding(.horizontal, 24)
+                .toolbar {
+                    ToolbarItemGroup(placement: .keyboard) {
+                        Spacer()
+                        Button("Done") {
+                            isNumberPadFocused = false
+                        }
+                        .foregroundStyle(Color.primaryNormal)
+                        .font(.hanSansNeo(17, .medium))
+                    }
+                }
+
+                // 인증번호 입력
+                if viewModel.isRequestSent {
+                    VStack(alignment: .leading) {
+                        Text("인증번호")
+                            .font(.hanSansNeo(14, .medium))
+                            .padding(.leading, 24)
+                            .padding(.top, 24)
+
+                        HStack {
+                            TextField("6자리 숫자 입력", text: $viewModel.enteredVerificationCode)
+                                .keyboardType(.numberPad)
+                                .padding(.leading, 16)
+                                .frame(height: 50)
+                                .font(.hanSansNeo(14, .medium))
+
+                            Text(formatTime(viewModel.timerRemaining))
+                                .foregroundStyle(viewModel.showError ? .red : .primaryNormal)
+                                .font(.system(size: 12))
+                                .padding(.trailing, 10)
+                        }
+                        .background(viewModel.showError ? Color.red.opacity(0.1) : .white)
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 5)
+                                .stroke(viewModel.showError ? .red : Color(hex: "EBEBEB"), lineWidth: 2)
+                        )
+                        .padding(.horizontal, 24)
+
+                        Text(viewModel.showError ? "인증번호를 다시 확인해주세요." : "문자가 오지 않는다면 '재전송'을 눌러주세요.")
+                            .font(.hanSansNeo(11, .regular))
+                            .foregroundStyle(viewModel.showError ? .red : Color(hex: "555555"))
+                            .padding(.leading, 24)
+                            .padding(.top, 6)
+                    }
+
+                    Spacer()
+
+                    Button("다음") {
+                        if viewModel.verifyCode() {
+                            nextStep()
+                        }
+                    }
+                    .disabled(viewModel.enteredVerificationCode.count < 6)
+                    .frame(height: 56)
+                    .frame(maxWidth: .infinity)
+                    .background(viewModel.enteredVerificationCode.count < 6 ? Color.lineNeutral : .primaryNormal)
+                    .foregroundColor(.white)
+                    .cornerRadius(12)
+                    .padding(.horizontal, 24)
+                    .padding(.bottom, 16)
+                } else {
+                    Spacer()
+                }
+            }
+            .navigationTitle("회원가입")
+            .navigationBarTitleDisplayMode(.inline)
+            .navigationBarBackButtonHidden(true)
+            .navigationBarItems(leading: BackButton())
+            .alert(isPresented: $viewModel.showAlreadyRegisteredAlert) {
+                Alert(title: Text("이미 가입된 계정입니다."),
+                      message: Text("이메일을 확인해주세요."),
+                      dismissButton: .default(Text("확인")))
+            }
+            .hideKeyboardOnTap()
+
+            // ✅ 팝업 오버레이 처리
+            if viewModel.isShowUserList {
+                SignupPopupView(
+                    infos: viewModel.userList,
+                    onClose: {
+                        viewModel.isShowUserList = false
+                    },
+                    onLogin: {
+                        viewModel.isShowUserList = false
+                        // TODO: 로그인 이동 로직 연결
+                    }
+                )
+            }
+        }
+    }
+
     private func formatPhoneNumber(_ number: String) -> String {
         let digits = number.filter { $0.isNumber }
         let maxLength = 11
-        
         var formattedNumber = ""
-        
-        for (index,ch) in digits.prefix(maxLength).enumerated() {
+
+        for (index, ch) in digits.prefix(maxLength).enumerated() {
             if index == 3 || index == 7 {
                 formattedNumber.append("-")
             }
@@ -164,46 +188,12 @@ struct PhoneVerificationView: View {
         }
         return formattedNumber
     }
-    
-  
-    private func sendVerificationCode() {
-        isRequestSent = true
-        isTimerActive = true
-        startTimer()
-        
-    }
-    
-    private func verifyCode() {
-        if verificationCode == "123456" {
-            print("인증 성공!")
-            nextStep()
-        } else {
-            isCodeValid = false
-            showError = true
-        }
-    }
 
-    private func resendCode() {
-        timerRemaining = 180
-        startTimer()
-    }
-    private func startTimer() {
-        Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { timer in
-            if timerRemaining > 0 {
-                timerRemaining -= 1
-            } else {
-                timer.invalidate()
-                isTimerActive = false
-            }
-        }
-    }
-    
     private func formatTime(_ seconds: Int) -> String {
-        let minutes = seconds / 60
-        let seconds = seconds % 60
-        return String(format: "%02d:%02d", minutes, seconds)
+        String(format: "%02d:%02d", seconds / 60, seconds % 60)
     }
 }
+
 
 struct PrimaryButtonStyle: ButtonStyle {
     func makeBody(configuration: Configuration) -> some View {
@@ -216,6 +206,3 @@ struct PrimaryButtonStyle: ButtonStyle {
     }
 }
 
-#Preview {
-    PhoneVerificationView(nextStep: {})
-}

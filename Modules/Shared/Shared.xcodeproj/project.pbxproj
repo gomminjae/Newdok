@@ -3,14 +3,15 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 55;
+	objectVersion = 56;
 	objects = {
 
 /* Begin PBXBuildFile section */
 		23115E0F4AF41E5B628A0438 /* OnboardingRoute.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D97F0766D87C1EC700C1F0B /* OnboardingRoute.swift */; };
 		2C1CDA8644AD0B7DA724DA34 /* OnboardingRouting.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB444607421C965D882833A2 /* OnboardingRouting.swift */; };
-		356B08873CFBC9BBD25E548B /* QABRoute.swift in Sources */ = {isa = PBXBuildFile; fileRef = E39DBBBCA6E628868803771B /* QABRoute.swift */; };
 		7DEA06787C0ED50DC5FD82A5 /* QABRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 668E747E1FD9C904413E047D /* QABRouter.swift */; };
+		96CFE788CBFC80C85178485A /* CheckResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0616F85852A726E9E6A1E31B /* CheckResult.swift */; };
+		FE4BE37EDEAF84CF573CA9F3 /* QABRoute.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29D521FECC9CB49B9DF7B603 /* QABRoute.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -27,12 +28,13 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		0616F85852A726E9E6A1E31B /* CheckResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckResult.swift; sourceTree = "<group>"; };
 		080C58231FCEDC083F899294 /* Shared.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Shared.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		29D521FECC9CB49B9DF7B603 /* QABRoute.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QABRoute.swift; sourceTree = "<group>"; };
 		668E747E1FD9C904413E047D /* QABRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QABRouter.swift; sourceTree = "<group>"; };
 		6D97F0766D87C1EC700C1F0B /* OnboardingRoute.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingRoute.swift; sourceTree = "<group>"; };
 		CB444607421C965D882833A2 /* OnboardingRouting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingRouting.swift; sourceTree = "<group>"; };
 		D72BA6AE8B9AF02B56D8FC04 /* Shared-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "Shared-Info.plist"; sourceTree = "<group>"; };
-		E39DBBBCA6E628868803771B /* QABRoute.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QABRoute.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -75,6 +77,7 @@
 			isa = PBXGroup;
 			children = (
 				B009AEDC1F84E55C19868CE1 /* Router */,
+				0616F85852A726E9E6A1E31B /* CheckResult.swift */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -84,7 +87,7 @@
 			children = (
 				6D97F0766D87C1EC700C1F0B /* OnboardingRoute.swift */,
 				CB444607421C965D882833A2 /* OnboardingRouting.swift */,
-				E39DBBBCA6E628868803771B /* QABRoute.swift */,
+				29D521FECC9CB49B9DF7B603 /* QABRoute.swift */,
 				668E747E1FD9C904413E047D /* QABRouter.swift */,
 			);
 			path = Router;
@@ -170,9 +173,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				96CFE788CBFC80C85178485A /* CheckResult.swift in Sources */,
 				23115E0F4AF41E5B628A0438 /* OnboardingRoute.swift in Sources */,
 				2C1CDA8644AD0B7DA724DA34 /* OnboardingRouting.swift in Sources */,
-				356B08873CFBC9BBD25E548B /* QABRoute.swift in Sources */,
+				FE4BE37EDEAF84CF573CA9F3 /* QABRoute.swift in Sources */,
 				7DEA06787C0ED50DC5FD82A5 /* QABRouter.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -239,10 +243,7 @@
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
 				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = (
-					"$(inherited)",
-					DEBUG,
-				);
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) DEBUG";
 				SWIFT_COMPILATION_MODE = singlefile;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;

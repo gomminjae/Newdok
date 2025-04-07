@@ -6,12 +6,13 @@
 //
 
 import Foundation
+import Shared
 
 public protocol UserUseCase {
     func login(loginId: String, password: String) async throws -> User
     func signup(loginId: String, password: String, phoneNumber: String, nickname: String, birthYear: String, gender: String) async throws -> SignupResponse
     func checkPhoneNumber(_ phoneNumber: String) async throws -> [SimpleUser]
-    func checkIDDup(_ loginId: String) async throws -> SimpleUser
+    func checkIDDup(_ loginId: String) async throws -> CheckResult<SimpleUser>
 
     func updateNickname(_ nickname: String) async throws -> NicknameResponse
     func updatePassword(loginId: String, prevPassword: String, newPassword: String) async throws
@@ -19,6 +20,6 @@ public protocol UserUseCase {
     func updateIndustry(_ industryId: Int) async throws
     func updatePhoneNumber(_ phoneNumber: String) async throws
 
-    func authSMS(phoneNumber: String) async throws
+    func authSMS(phoneNumber: String) async throws -> SMSResponse
     func preInvestigate(industryId: Int, interestIds: [Int]) async throws -> [Brand]
 }

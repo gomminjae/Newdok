@@ -6,12 +6,12 @@
 //
 
 import SwiftUI
-import Shared  // OnboardingRouting, OnboardingRoute가 정의된 모듈
-
-public final class QABRouter: ObservableObject, OnboardingRouting {
-    @Published public var onboardingRoute: OnboardingRoute
-    
-    public init(initial: OnboardingRoute = .launch) {
-        self.onboardingRoute = initial
-    }
-}
+//import Shared  // OnboardingRouting, OnboardingRoute가 정의된 모듈
+//
+//public final class QABRouter: ObservableObject, OnboardingRouting {
+//    @Published public var onboardingRoute: OnboardingRoute
+//    
+//    public init(initial: OnboardingRoute = .launch) {
+//        self.onboardingRoute = initial
+//    }
+//}
