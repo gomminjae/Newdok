@@ -44,7 +44,6 @@ public struct UserDTO: Decodable {
             createdAt: createdAt,
             industryId: industryId,
             interests: interests.map { $0.toDomain() }
-            
         )
     }
 }

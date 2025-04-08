@@ -24,8 +24,16 @@ final class QABFlowCoordinator {
         OnboardingView(router: router)
     }
 
+//    func makeSignupView() -> some View {
+//        SignupView(viewModel: container.makeSignupViewModel())
+//    }
     func makeSignupView() -> some View {
-        SignupView(viewModel: container.makeSignupViewModel())
+        SignupView(
+            viewModel: container.makeSignupViewModel(),
+            onBack: { [weak router] in
+                router?.pop()
+            }
+        )
     }
 
     func makeLoginView() -> some View {

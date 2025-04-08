@@ -12,7 +12,7 @@ public protocol OnboardingRouting: ObservableObject {
     var path: NavigationPath { get set }
     
     func push(_ route: OnboardingRoute)
-    func ppop()
+    func pop()
     func reset()
 }
 

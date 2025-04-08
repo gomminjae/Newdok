@@ -21,7 +21,6 @@ public struct LoginView: View {
     }
 
     public var body: some View {
-        NavigationStack {
             VStack {
                 HStack {
                     Image(asset: DesignSystemAsset.logo)
@@ -101,11 +100,11 @@ public struct LoginView: View {
             .safeAreaInset(edge: .top, spacing: 0) {
                 Color.clear.frame(height: 20)
             }
+            .ignoresSafeArea(.keyboard)
+            
 //            .fullScreenCover(isPresented: $showHomeView) {
 //                NewDokTabView()
 //            }
-        }
-        .navigationBarHidden(true)
     }
 }
 

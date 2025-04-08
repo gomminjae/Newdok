@@ -85,23 +85,24 @@ public struct PwInputView: View {
             .ignoresSafeArea(.keyboard)
             .hideKeyboardOnTap()
 
-            Button("다음") {
+            Button(action: {
                 nextStep()
+            }) {
+                Text("다음")
+                    .font(.hanSansNeo(14,.bold))
+                    .frame(height: 48)
+                    .frame(maxWidth: .infinity)
+                    .background(viewModel.isPasswordValid ? Color.primaryNormal : Color.lineNeutral)
+                    .cornerRadius(4)
+                    .foregroundColor(.white)
+                    .contentShape(Rectangle())
+                
             }
-            .font(.hanSansNeo(14,.bold))
-            .disabled(!viewModel.isPasswordValid)
-            .frame(height: 48)
-            .frame(maxWidth: .infinity)
-            .background(viewModel.isPasswordValid ? Color.primaryNormal : Color.lineNeutral)
-            .foregroundColor(.white)
-            .cornerRadius(4)
-            .padding(.horizontal, 24)
-            .padding(.bottom, 20)
+            disabled(!viewModel.isPasswordValid)
+                .padding(.horizontal, 24)
+                .padding(.bottom, 20)
         }
-        .navigationTitle("회원가입")
-        .navigationBarTitleDisplayMode(.inline)
-        .navigationBarBackButtonHidden(true)
-        .navigationBarItems(leading: BackButton())
+
     }
 }
 

@@ -71,26 +71,28 @@ public struct IDInputView: View {
             .hideKeyboardOnTap()
             .ignoresSafeArea(.keyboard)
             
-            // 하단 "다음" 버튼
-            Button("다음") {
+            Button(action: {
                 nextStep()
+            }) {
+                Text("다음")
+                    .font(.hanSansNeo(14, .bold))
+                    .frame(height: 48)
+                    .frame(maxWidth: .infinity)
+                    .background(viewModel.isIDAvailable ?? true ? Color.primaryNormal : Color.lineNeutral)
+                    .foregroundColor(.white)
+                    .cornerRadius(4)
             }
-            .font(.hanSansNeo(14, .bold))
             .ignoresSafeArea(.keyboard)
             .disabled(!(viewModel.isIDAvailable ?? true))
-            .frame(height: 48)
-            .frame(maxWidth: .infinity)
-            .background(viewModel.isIDAvailable ?? true ? Color.primaryNormal : Color.lineNeutral)
-            .foregroundColor(.white)
-            .cornerRadius(4)
             .padding(.horizontal, 24)
             .padding(.bottom, 20)
+            .contentShape(Rectangle())
         }
         
-        .navigationTitle("회원가입")
-        .navigationBarTitleDisplayMode(.inline)
-        .navigationBarBackButtonHidden(true)
-        .navigationBarItems(leading: BackButton())
+//        .navigationTitle("회원가입")
+//        .navigationBarTitleDisplayMode(.inline)
+//        .navigationBarBackButtonHidden(true)
+//        .navigationBarItems(leading: BackButton())
     }
 
     

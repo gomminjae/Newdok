@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 55;
+	objectVersion = 56;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -16,6 +16,7 @@
 		8197984213E7915BA19C7387 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2DF4B5C9DA9CD5CA434B4D23 /* Alamofire.framework */; };
 		96BFD5E8676C0020620AAFEF /* NetworkProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CEECF20EC6F3FF0B1A27AFD /* NetworkProvider.swift */; };
 		9CBBF42037984A08DBD6FD33 /* UserAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40AF9A355AD5E1B8F0FCFEBE /* UserAPI.swift */; };
+		B5B65E8A2DA4F0EF003459E1 /* AccessTokenPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5B65E892DA4F0EF003459E1 /* AccessTokenPlugin.swift */; };
 		D977E69C1F13B5DC95257B35 /* NetworkLoggerPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24BB189C50BF07721127582F /* NetworkLoggerPlugin.swift */; };
 		E7E1F566ED8BEFB8F389C7A7 /* Shared.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA6B7652FAC8430E6A0A79CC /* Shared.framework */; };
 		F609E875000C75B22757A429 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C887C237152831BB6A08CA6D /* CFNetwork.framework */; };
@@ -49,6 +50,7 @@
 		9B27E13C48D44E3809D1A0C9 /* NetworkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
 		9E27ED4FA2CB56FEC39887EA /* Network.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Network.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		AA6B7652FAC8430E6A0A79CC /* Shared.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Shared.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		B5B65E892DA4F0EF003459E1 /* AccessTokenPlugin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccessTokenPlugin.swift; sourceTree = "<group>"; };
 		C887C237152831BB6A08CA6D /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS.sdk/System/Library/Frameworks/CFNetwork.framework; sourceTree = DEVELOPER_DIR; };
 		E67F53188188163BFD299BFF /* APIEnvironment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIEnvironment.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -71,6 +73,7 @@
 		11ACDFEAEF1C62234E816C50 /* Plugin */ = {
 			isa = PBXGroup;
 			children = (
+				B5B65E892DA4F0EF003459E1 /* AccessTokenPlugin.swift */,
 				24BB189C50BF07721127582F /* NetworkLoggerPlugin.swift */,
 			);
 			path = Plugin;
@@ -252,6 +255,7 @@
 			files = (
 				FBFAFFB0901ABC227E9C04D8 /* NewsletterAPI.swift in Sources */,
 				9CBBF42037984A08DBD6FD33 /* UserAPI.swift in Sources */,
+				B5B65E8A2DA4F0EF003459E1 /* AccessTokenPlugin.swift in Sources */,
 				8154CF0050FFCD9D9892820E /* APIEnvironment.swift in Sources */,
 				806CA44734C5614AE8A1D2CB /* ErrorMapper.swift in Sources */,
 				19E5351B9E5C5B585233232E /* MoyaProvider+Async.swift in Sources */,
@@ -289,10 +293,7 @@
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
 				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = (
-					"$(inherited)",
-					DEBUG,
-				);
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) DEBUG";
 				SWIFT_COMPILATION_MODE = singlefile;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
