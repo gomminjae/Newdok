@@ -15,7 +15,7 @@ public final class QABRouter: ObservableObject, OnboardingRouting {
         path.append(route)
     }
     
-    public func ppop() {
+    public func pop() {
         if !path.isEmpty {
             path.removeLast()
         }

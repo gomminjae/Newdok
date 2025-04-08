@@ -21,7 +21,6 @@ public struct LoginView: View {
     }
 
     public var body: some View {
-        NavigationStack {
             VStack {
                 HStack {
                     Image(asset: DesignSystemAsset.logo)
@@ -104,8 +103,6 @@ public struct LoginView: View {
 //            .fullScreenCover(isPresented: $showHomeView) {
 //                NewDokTabView()
 //            }
-        }
-        .navigationBarHidden(true)
     }
 }
 
