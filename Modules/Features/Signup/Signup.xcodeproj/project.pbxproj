@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 55;
+	objectVersion = 56;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -26,6 +26,7 @@
 		91B18E530369BD455A016A3D /* OnboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 130E40D360A2BC7177784B6A /* OnboardView.swift */; };
 		A4A277FA4721AB8CDE43C338 /* SignupPopupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ABEABE28310CE0292D59F63 /* SignupPopupView.swift */; };
 		B4E0568FCA17131599446939 /* ProfileInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B79FCDAD449A29D3F0A535F0 /* ProfileInputView.swift */; };
+		B5B65E922DA583B7003459E1 /* AuthFailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5B65E912DA583B7003459E1 /* AuthFailView.swift */; };
 		BDA0D54B46073681B1A470D5 /* Alamofire_Alamofire.bundle in Dependencies */ = {isa = PBXBuildFile; fileRef = A8DC766D028A253557F32C96 /* Alamofire_Alamofire.bundle */; };
 		CFE2DF464C54967700865649 /* SignupViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0566089A8FEF046632274744 /* SignupViewModel.swift */; };
 		D8C1273648D92C59C2B10512 /* DesignSystem.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 85C21E5E41B25BF1296FDC62 /* DesignSystem.framework */; };
@@ -110,6 +111,7 @@
 		A8DC766D028A253557F32C96 /* Alamofire_Alamofire.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Alamofire_Alamofire.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
 		AC69F70FBDAD966DA58CD809 /* Network.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Network.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		ADA3F2B0CCAC12C073E7692A /* SignupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupView.swift; sourceTree = "<group>"; };
+		B5B65E912DA583B7003459E1 /* AuthFailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthFailView.swift; sourceTree = "<group>"; };
 		B79FCDAD449A29D3F0A535F0 /* ProfileInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileInputView.swift; sourceTree = "<group>"; };
 		CC008E3C02E47F73CD2CC62C /* SignupTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "SignupTests-Info.plist"; sourceTree = "<group>"; };
 		D8362585C58EFC538FE2604A /* PhoneVerificationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneVerificationView.swift; sourceTree = "<group>"; };
@@ -230,6 +232,7 @@
 			isa = PBXGroup;
 			children = (
 				7ABEABE28310CE0292D59F63 /* SignupPopupView.swift */,
+				B5B65E912DA583B7003459E1 /* AuthFailView.swift */,
 			);
 			path = Popup;
 			sourceTree = "<group>";
@@ -357,6 +360,7 @@
 				813F7CE1B63128DE85ECCDC0 /* PhoneVerificationView.swift in Sources */,
 				B4E0568FCA17131599446939 /* ProfileInputView.swift in Sources */,
 				4ECED101068F670CE60CF6E9 /* PwInputView.swift in Sources */,
+				B5B65E922DA583B7003459E1 /* AuthFailView.swift in Sources */,
 				55DD21004E7ED935F7928BB0 /* SignupMain.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -523,10 +527,7 @@
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
 				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = (
-					"$(inherited)",
-					DEBUG,
-				);
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) DEBUG";
 				SWIFT_COMPILATION_MODE = singlefile;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
@@ -553,10 +554,7 @@
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
 				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = (
-					"$(inherited)",
-					DEBUG,
-				);
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) DEBUG";
 				SWIFT_COMPILATION_MODE = singlefile;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;

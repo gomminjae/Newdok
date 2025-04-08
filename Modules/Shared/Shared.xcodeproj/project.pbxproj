@@ -13,6 +13,7 @@
 		7DEA06787C0ED50DC5FD82A5 /* QABRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 668E747E1FD9C904413E047D /* QABRouter.swift */; };
 		96CFE788CBFC80C85178485A /* CheckResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0616F85852A726E9E6A1E31B /* CheckResult.swift */; };
 		B5B65E8D2DA53ED4003459E1 /* TokenStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5B65E8C2DA53ED4003459E1 /* TokenStorage.swift */; };
+		B5B65E902DA5462F003459E1 /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5B65E8F2DA5462D003459E1 /* AppState.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -34,6 +35,7 @@
 		668E747E1FD9C904413E047D /* QABRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QABRouter.swift; sourceTree = "<group>"; };
 		6D97F0766D87C1EC700C1F0B /* OnboardingRoute.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingRoute.swift; sourceTree = "<group>"; };
 		B5B65E8C2DA53ED4003459E1 /* TokenStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenStorage.swift; sourceTree = "<group>"; };
+		B5B65E8F2DA5462D003459E1 /* AppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
 		CB444607421C965D882833A2 /* OnboardingRouting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingRouting.swift; sourceTree = "<group>"; };
 		D72BA6AE8B9AF02B56D8FC04 /* Shared-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "Shared-Info.plist"; sourceTree = "<group>"; };
 		E39DBBBCA6E628868803771B /* QABRoute.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QABRoute.swift; sourceTree = "<group>"; };
@@ -78,6 +80,7 @@
 		8DBC6BAA6C2105D09B097177 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				B5B65E8E2DA54627003459E1 /* State */,
 				B5B65E8B2DA53ECD003459E1 /* Token */,
 				B009AEDC1F84E55C19868CE1 /* Router */,
 				0616F85852A726E9E6A1E31B /* CheckResult.swift */,
@@ -102,6 +105,14 @@
 				B5B65E8C2DA53ED4003459E1 /* TokenStorage.swift */,
 			);
 			path = Token;
+			sourceTree = "<group>";
+		};
+		B5B65E8E2DA54627003459E1 /* State */ = {
+			isa = PBXGroup;
+			children = (
+				B5B65E8F2DA5462D003459E1 /* AppState.swift */,
+			);
+			path = State;
 			sourceTree = "<group>";
 		};
 		CFF3308B9DD8563D12ABFC25 /* InfoPlists */ = {
@@ -186,6 +197,7 @@
 			files = (
 				96CFE788CBFC80C85178485A /* CheckResult.swift in Sources */,
 				B5B65E8D2DA53ED4003459E1 /* TokenStorage.swift in Sources */,
+				B5B65E902DA5462F003459E1 /* AppState.swift in Sources */,
 				23115E0F4AF41E5B628A0438 /* OnboardingRoute.swift in Sources */,
 				2C1CDA8644AD0B7DA724DA34 /* OnboardingRouting.swift in Sources */,
 				356B08873CFBC9BBD25E548B /* QABRoute.swift in Sources */,

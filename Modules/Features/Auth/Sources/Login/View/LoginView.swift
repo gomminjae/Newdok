@@ -100,6 +100,8 @@ public struct LoginView: View {
             .safeAreaInset(edge: .top, spacing: 0) {
                 Color.clear.frame(height: 20)
             }
+            .ignoresSafeArea(.keyboard)
+            
 //            .fullScreenCover(isPresented: $showHomeView) {
 //                NewDokTabView()
 //            }

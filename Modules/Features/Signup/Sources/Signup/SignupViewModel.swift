@@ -17,6 +17,9 @@ final public class SignupViewModel: ObservableObject {
     @Published public var phoneNumber: String = ""
     @Published public var enteredVerificationCode: String = ""
     private var verificationCode: String = ""
+    @Published public var resendFailureCount: Int = 0
+    
+    
     
     //MARK: - id
     @Published public var loginID: String = ""
@@ -62,6 +65,10 @@ final public class SignupViewModel: ObservableObject {
     }
 
     public func sendVerificationCode() {
+        guard resendFailureCount < 3 else {
+            isShowPopup = true
+            return
+        }
         Task {
             do {
                 isLoading = true
@@ -69,6 +76,7 @@ final public class SignupViewModel: ObservableObject {
                 isShowUserList = false
                 showError = false
                 errorMessage = nil
+                enteredVerificationCode = ""
                 
                 let rawPhoneNumber = phoneNumber.replacingOccurrences(of: "-", with: "")
 
@@ -91,36 +99,41 @@ final public class SignupViewModel: ObservableObject {
         }
     }
 
-    public func verifyCode() -> Bool {
+    func verifyCode() -> Bool {
+        guard isRequestSent else { return false }
+        
+        if timerRemaining <= 0 {
+            showError = true
+            return false
+        }
+        
         if enteredVerificationCode == verificationCode {
+            stopTimer()
             return true
         } else {
             showError = true
             return false
         }
     }
-
-    public func startTimer() {
-        timer?.invalidate()
-        isTimerActive = true
-        timerRemaining = 180
-
-        timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { [weak self] t in
-            guard let self = self else { return t.invalidate() }
-
-            Task { @MainActor in
-                if self.timerRemaining > 0 {
-                    self.timerRemaining -= 1
-                } else {
-                    t.invalidate()
-                    self.isTimerActive = false
+    
+    private func startTimer() {
+        stopTimer()
+        timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { [weak self] _ in
+            guard let self = self else { return }
+            DispatchQueue.main.async {
+                self.timerRemaining -= 1
+                if self.timerRemaining <= 0 {
+                    self.stopTimer()
+                    self.showError = true
+                    self.resendFailureCount += 1
                 }
             }
         }
     }
-
-    deinit {
+    
+    private func stopTimer() {
         timer?.invalidate()
+        timer = nil
     }
     
     public func checkIDDup() {

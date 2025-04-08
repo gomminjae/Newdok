@@ -10,7 +10,7 @@ import DesignSystem
 
 
 extension View {
-    func hideKeyboardOnTap() -> some View {
+    public func hideKeyboardOnTap() -> some View {
         self.onTapGesture {
             UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
         }
@@ -31,7 +31,7 @@ public struct PhoneVerificationView: View {
 
     public var body: some View {
         ZStack(alignment: .bottom) {
-            ScrollView {
+            ScrollView(.vertical, showsIndicators: false) {
                 VStack(alignment: .leading, spacing: 0) {
                     Text("본인 확인을 위해\n휴대폰 번호를 입력해주세요.")
                         .font(.hanSansNeo(20, .bold))
@@ -72,6 +72,8 @@ public struct PhoneVerificationView: View {
                         )
 
                         Button(viewModel.isRequestSent ? "재전송" : "인증 요청") {
+                            viewModel.enteredVerificationCode = ""
+                            viewModel.showError = false
                             viewModel.sendVerificationCode()
                         }
                         .font(.hanSansNeo(14, .bold))
@@ -83,16 +85,6 @@ public struct PhoneVerificationView: View {
                         )
                     }
                     .padding(.horizontal, 24)
-                    .toolbar {
-                        ToolbarItemGroup(placement: .keyboard) {
-                            Spacer()
-                            Button("Done") {
-                                isNumberPadFocused = false
-                            }
-                            .foregroundStyle(Color.primaryNormal)
-                            .font(.hanSansNeo(17, .medium))
-                        }
-                    }
 
                     if viewModel.isRequestSent {
                         VStack(alignment: .leading) {
@@ -107,22 +99,23 @@ public struct PhoneVerificationView: View {
                                     .padding(.leading, 16)
                                     .frame(height: 50)
                                     .font(.hanSansNeo(14, .medium))
+                                    .focused($isNumberPadFocused)
 
-                                Text(formatTime(viewModel.timerRemaining))
-                                    .foregroundStyle(viewModel.showError ? .red : .primaryNormal)
-                                    .font(.system(size: 12))
+                                Text(viewModel.timerRemaining > 0 ? formatTime(viewModel.timerRemaining) : "만료됨")
+                                    .foregroundStyle(Color(hex: "#363636"))
+                                    .font(.hanSansNeo(12, .medium))
                                     .padding(.trailing, 10)
                             }
-                            .background(viewModel.showError ? Color.red.opacity(0.1) : .white)
+                            .background(viewModel.showError || viewModel.timerRemaining <= 0 ? Color.red.opacity(0.1) : .white)
                             .overlay(
                                 RoundedRectangle(cornerRadius: 5)
-                                    .stroke(viewModel.showError ? .red : Color(hex: "EBEBEB"), lineWidth: 2)
+                                    .stroke(viewModel.showError || viewModel.timerRemaining <= 0 ? .red : Color(hex: "EBEBEB"), lineWidth: 2)
                             )
                             .padding(.horizontal, 24)
 
-                            Text(viewModel.showError ? "인증번호를 다시 확인해주세요." : "문자가 오지 않는다면 '재전송'을 눌러주세요.")
-                                .font(.hanSansNeo(11, .regular))
-                                .foregroundStyle(viewModel.showError ? .red : Color(hex: "555555"))
+                            Text(viewModel.timerRemaining <= 0 ? "인증번호가 만료되었습니다. 재전송해주세요." : (viewModel.showError ? "인증번호를 다시 확인해주세요." : "문자가 오지 않는다면 '재전송'을 눌러주세요."))
+                                .font(.hanSansNeo(12, .medium))
+                                .foregroundStyle(viewModel.timerRemaining <= 0 || viewModel.showError ? .red : Color(hex: "555555"))
                                 .padding(.leading, 24)
                                 .padding(.top, 6)
                         }
@@ -130,25 +123,39 @@ public struct PhoneVerificationView: View {
 
                     Spacer().frame(height: 100)
                 }
-                
+            }
+            .toolbar { // 🔧 수정된 위치: ScrollView 외부로 .toolbar 옮김
+                ToolbarItemGroup(placement: .keyboard) {
+                    Spacer()
+                    Button("Done") {
+                        isNumberPadFocused = false
+                    }
+                    .foregroundStyle(Color.primaryNormal)
+                    .font(.hanSansNeo(17, .medium))
+                }
             }
             .hideKeyboardOnTap()
 
             if viewModel.isRequestSent {
-                Button("다음") {
+                Button(action: {
                     if viewModel.verifyCode() {
                         nextStep()
                     }
+                }) {
+                    Text("다음")
+                        .font(.hanSansNeo(14, .bold))
+                        .frame(height: 48)
+                        .frame(maxWidth: .infinity)
+                        .background(viewModel.enteredVerificationCode.count < 6 ? Color.lineNeutral : Color.primaryNormal)
+                        .foregroundColor(.white)
+                        .cornerRadius(4)
                 }
                 .disabled(viewModel.enteredVerificationCode.count < 6)
-                .frame(height: 56)
-                .frame(maxWidth: .infinity)
-                .background(viewModel.enteredVerificationCode.count < 6 ? Color.lineNeutral : .primaryNormal)
-                .foregroundColor(.white)
-                .cornerRadius(12)
                 .padding(.horizontal, 24)
                 .padding(.bottom, 20)
+                .contentShape(Rectangle())
             }
+            
 
             if viewModel.isShowUserList {
                 SignupPopupView(
@@ -158,16 +165,18 @@ public struct PhoneVerificationView: View {
                     },
                     onLogin: {
                         viewModel.isShowUserList = false
-                        // 로그인 이동 처리 위치
                     }
                 )
             }
+
+            if viewModel.resendFailureCount >= 3 {
+                // 재전송 실패 3회 이상 시 팝업
+                AuthFailView(
+                    onClose: {
+                        viewModel.isRequestSent = false
+                })
+            }
         }
-       
-        .navigationTitle("회원가입")
-        .navigationBarTitleDisplayMode(.inline)
-        .navigationBarBackButtonHidden(true)
-        .navigationBarItems(leading: BackButton())
         .ignoresSafeArea(.keyboard)
     }
 
@@ -189,6 +198,7 @@ public struct PhoneVerificationView: View {
         String(format: "%02d:%02d", seconds / 60, seconds % 60)
     }
 }
+
 
 
 struct PrimaryButtonStyle: ButtonStyle {
