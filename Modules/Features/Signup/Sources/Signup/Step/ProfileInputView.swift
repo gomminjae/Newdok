@@ -26,15 +26,17 @@ public enum NickNameValidationError: Error {
 
 
 public struct ProfileInputView: View {
-    @ObservedObject private var viewModel: SignupViewModel
+    
     @State private var nicknameError: NickNameValidationError? = nil
     
     var nextStep: () -> Void
 
+    @ObservedObject private var viewModel: SignupViewModel
+    
     public init(viewModel: SignupViewModel, nextStep: @escaping () -> Void) {
-        self.viewModel = viewModel
-        self.nextStep = nextStep
-    }
+            self.viewModel = viewModel
+            self.nextStep = nextStep
+        }
 
     public var body: some View {
         VStack(alignment: .leading) {
@@ -103,10 +105,6 @@ public struct ProfileInputView: View {
             Spacer()
         }
         .padding(.horizontal, 24)
-//        .navigationTitle("회원가입")
-//        .navigationBarTitleDisplayMode(.inline)
-//        .navigationBarBackButtonHidden(true)
-//        .navigationBarItems(leading: BackButton())
     }
 }
 

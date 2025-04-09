@@ -13,7 +13,7 @@ let project = Project(
             infoPlist: "Resources/Info.plist",
             sources: ["Sources/**"],
             dependencies: [
-                .project(target: "Network", path: "../Network"),
+                .project(target: "Core", path: "../Core"),
                 .project(target: "DesignSystem", path: "../DesignSystem"),
                 .project(target: "Auth", path: "../Features/Auth"),
                 .project(target: "Home", path: "../Features/Home"),

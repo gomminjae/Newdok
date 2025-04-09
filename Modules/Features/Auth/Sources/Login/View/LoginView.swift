@@ -8,12 +8,15 @@
 import SwiftUI
 import DesignSystem
 import Domain
+import Shared
 
 public struct LoginView: View {
     @StateObject private var viewModel: LoginViewModel
     @FocusState private var isIdFocused: Bool
     @FocusState private var isPwdFocused: Bool
     @State private var showHomeView = false
+    
+    @EnvironmentObject private var router: AppRouter
     
 
     public init(viewModel: LoginViewModel) {
@@ -88,7 +91,7 @@ public struct LoginView: View {
                             .foregroundStyle(Color(hex: "#DADADA"))
 
                         Button("회원가입") {
-                            print("회원가입")
+                            router.push(.signup)
                         }
                         .font(.hanSansNeo(14, .medium))
                         .foregroundStyle(Color(hex: "#2866D3"))
@@ -101,16 +104,12 @@ public struct LoginView: View {
                 Color.clear.frame(height: 20)
             }
             .ignoresSafeArea(.keyboard)
+            .navigationBarBackButtonHidden()
+            .navigationBarTitleDisplayMode(.inline)
+            .navigationBarBackButtonHidden(true)
+            .navigationBarItems(leading: BackButton())
             
-//            .fullScreenCover(isPresented: $showHomeView) {
-//                NewDokTabView()
-//            }
+
     }
 }
 
-
-//
-//#Preview {
-//    let container = AuthFeatureContainer()
-//    LoginViewFactory.make(container: container)
-//}

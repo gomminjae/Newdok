@@ -12,6 +12,8 @@ import Domain
 final public class SignupViewModel: ObservableObject {
 
     private let userUseCase: UserUseCase
+    
+    @Published var currentStep: SignupStep = .idInput
 
     // MARK: - Form
     @Published public var phoneNumber: String = ""
@@ -148,6 +150,7 @@ final public class SignupViewModel: ObservableObject {
                 case .notFound:
                     isIDAvailable = true
                 }
+                print("Helloooo: \(isIDAvailable)")
             } catch {
                 isIDAvailable = nil
             }

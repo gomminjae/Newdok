@@ -16,13 +16,15 @@ public struct PwInputView: View {
     @FocusState private var isPasswordFocused: Bool
     @FocusState private var isConfirmPasswordFocused: Bool
 
-    @ObservedObject var viewModel: SignupViewModel
+    
     var nextStep: () -> Void
 
+    @ObservedObject private var viewModel: SignupViewModel
+    
     public init(viewModel: SignupViewModel, nextStep: @escaping () -> Void) {
-        self.viewModel = viewModel
-        self.nextStep = nextStep
-    }
+            self.viewModel = viewModel
+            self.nextStep = nextStep
+        }
 
     public var body: some View {
         ZStack(alignment: .bottom) {

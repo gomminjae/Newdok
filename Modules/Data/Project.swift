@@ -13,7 +13,7 @@ let project = Project(
       sources: ["Sources/**"],
       resources: [],
       dependencies: [
-        .project(target: "Network", path: "../Network"),
+        .project(target: "Core", path: "../Core"),
         .project(target: "Domain", path: "../Domain"), 
       ]
     )

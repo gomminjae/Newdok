@@ -18,7 +18,7 @@ let project = Project(
         .project(target: "Launch", path: "../Features/Launch"),
         .project(target: "Data", path: "../Data"),
         .project(target: "Domain", path: "../Domain"),
-        .project(target: "Network", path: "../Network"),
+        .project(target: "Core", path: "../Core"),
         .project(target: "DesignSystem", path: "../DesignSystem"),
         .project(target: "Shared", path: "../Shared"),
         .external(name: "Swinject"),

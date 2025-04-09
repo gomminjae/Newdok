@@ -7,6 +7,7 @@
 import SwiftUI
 import Combine
 import DesignSystem
+import Shared
 
 
 extension View {
@@ -17,17 +18,23 @@ extension View {
     }
 }
 public struct PhoneVerificationView: View {
+    
+    
 
-    @ObservedObject private var viewModel: SignupViewModel
+    @EnvironmentObject private var router: AppRouter
+    
+    
     var nextStep: () -> Void
 
     @FocusState private var isPhoneFieldFocused: Bool
     @FocusState private var isNumberPadFocused: Bool
 
+    @ObservedObject private var viewModel: SignupViewModel
+    
     public init(viewModel: SignupViewModel, nextStep: @escaping () -> Void) {
-        self.viewModel = viewModel
-        self.nextStep = nextStep
-    }
+            self.viewModel = viewModel
+            self.nextStep = nextStep
+        }
 
     public var body: some View {
         ZStack(alignment: .bottom) {
@@ -173,7 +180,7 @@ public struct PhoneVerificationView: View {
                 // 재전송 실패 3회 이상 시 팝업
                 AuthFailView(
                     onClose: {
-                        viewModel.isRequestSent = false
+                        router.push(.login)
                 })
             }
         }

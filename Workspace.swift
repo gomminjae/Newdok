@@ -4,7 +4,7 @@ let workspace = Workspace(
     name: "Newdok",
     projects: [
         "Modules/App",
-        "Modules/Network",
+        "Modules/Core",
         "Modules/Domain", 
         "Modules/Data",
         "Modules/DesignSystem",

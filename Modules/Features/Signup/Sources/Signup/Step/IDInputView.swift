@@ -11,18 +11,19 @@ import Combine
 
 public struct IDInputView: View {
     
-    @ObservedObject private var viewModel: SignupViewModel
+   
     
     @FocusState private var isIDFocused: Bool
     
     
     var nextStep: () -> Void
     
-    public init(viewModel: SignupViewModel, nextStep: @escaping () -> Void) {
-        self.viewModel = viewModel
-        self.nextStep = nextStep
-    }
+    @ObservedObject private var viewModel: SignupViewModel
     
+    public init(viewModel: SignupViewModel, nextStep: @escaping () -> Void) {
+            self.viewModel = viewModel
+            self.nextStep = nextStep
+        }
     
     public var body: some View {
         ZStack(alignment: .bottom) {
@@ -72,13 +73,15 @@ public struct IDInputView: View {
             .ignoresSafeArea(.keyboard)
             
             Button(action: {
+                print("중복검사")
+                print(viewModel.isIDAvailable)
                 nextStep()
             }) {
                 Text("다음")
                     .font(.hanSansNeo(14, .bold))
                     .frame(height: 48)
                     .frame(maxWidth: .infinity)
-                    .background(viewModel.isIDAvailable ?? true ? Color.primaryNormal : Color.lineNeutral)
+                    .background(viewModel.isIDAvailable ?? false ? Color.primaryNormal : Color(hex: "#EBEBEB"))
                     .foregroundColor(.white)
                     .cornerRadius(4)
             }
@@ -88,16 +91,12 @@ public struct IDInputView: View {
             .padding(.bottom, 20)
             .contentShape(Rectangle())
         }
-        
-//        .navigationTitle("회원가입")
-//        .navigationBarTitleDisplayMode(.inline)
-//        .navigationBarBackButtonHidden(true)
-//        .navigationBarItems(leading: BackButton())
+
     }
 
     
 }
-//
+
 //#Preview {
 //    IDInputView(nextStep: {})
 //}
