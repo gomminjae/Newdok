@@ -5,7 +5,7 @@
 //  Created by 권민재 on 3/27/25.
 //
 import Domain
-import Network
+import Core
 import Foundation
 import Moya
 import Shared

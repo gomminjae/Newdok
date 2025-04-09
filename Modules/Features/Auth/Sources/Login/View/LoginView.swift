@@ -109,15 +109,7 @@ public struct LoginView: View {
             .navigationBarBackButtonHidden(true)
             .navigationBarItems(leading: BackButton())
             
-//            .fullScreenCover(isPresented: $showHomeView) {
-//                NewDokTabView()
-//            }
+
     }
 }
 
-
-//
-//#Preview {
-//    let container = AuthFeatureContainer()
-//    LoginViewFactory.make(container: container)
-//}

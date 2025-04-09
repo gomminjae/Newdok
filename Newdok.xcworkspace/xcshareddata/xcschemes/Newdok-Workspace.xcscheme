@@ -154,6 +154,20 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
+               BlueprintIdentifier = "B90FCF66245CD7327BEE2CBF"
+               BuildableName = "Core.framework"
+               BlueprintName = "Core"
+               ReferencedContainer = "container:Modules/Core/Core.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
                BlueprintIdentifier = "372E276F143AFFAD2448C971"
                BuildableName = "Data.framework"
                BlueprintName = "Data"
@@ -256,20 +270,6 @@
                BuildableName = "Moya.framework"
                BlueprintName = "Moya"
                ReferencedContainer = "container:Tuist/.build/tuist-derived/Moya/Moya.xcodeproj">
-            </BuildableReference>
-         </BuildActionEntry>
-         <BuildActionEntry
-            buildForTesting = "YES"
-            buildForRunning = "YES"
-            buildForProfiling = "YES"
-            buildForArchiving = "YES"
-            buildForAnalyzing = "YES">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "A1AEBE67F28FC7607B2C411E"
-               BuildableName = "Network.framework"
-               BlueprintName = "Network"
-               ReferencedContainer = "container:Modules/Network/Network.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
          <BuildActionEntry

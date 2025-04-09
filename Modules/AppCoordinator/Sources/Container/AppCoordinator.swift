@@ -21,7 +21,9 @@ final class AppCoordinator {
 
     func makeSignupView() -> some View {
         let vm = container.container.resolve(SignupViewModel.self)!
-        return SignupView(viewModel: vm).environmentObject(router)
+        return SignupView(viewModel: vm)
+            .environmentObject(router)
+    
     }
 
     func makeLoginView() -> some View {

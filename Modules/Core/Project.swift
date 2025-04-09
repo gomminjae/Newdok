@@ -1,11 +1,11 @@
 import ProjectDescription
 
 let project = Project(
-    name: "Network",
+    name: "Core",
     organizationName: "Your Organization Name",
     targets: [
         .target(
-            name: "Network",
+            name: "Core",
             destinations: .iOS,
             product: .framework,
             bundleId: "com.minjae.core",

@@ -3,12 +3,11 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 56;
+	objectVersion = 55;
 	objects = {
 
 /* Begin PBXBuildFile section */
 		025798644615AA67790981BD /* Domain.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F2F420D386240A6785E95C2 /* Domain.framework */; };
-		136415049875CD76402E8D38 /* Network.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AC69F70FBDAD966DA58CD809 /* Network.framework */; };
 		1CB4A32BD2D98E6477F5C0CD /* DesignSystem.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 85C21E5E41B25BF1296FDC62 /* DesignSystem.framework */; };
 		20B634E36733005C09AF4EB1 /* Shared.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 31810BC9814938F0F30C9204 /* Shared.framework */; };
 		31CAEA710C6520DBB827D541 /* AgreeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67EF4BBEC87D32F0BE736064 /* AgreeView.swift */; };
@@ -23,16 +22,17 @@
 		80B39D744C986F747FC4B721 /* IDInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D0B48E48F75055FF32E54AC /* IDInputView.swift */; };
 		813F7CE1B63128DE85ECCDC0 /* PhoneVerificationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8362585C58EFC538FE2604A /* PhoneVerificationView.swift */; };
 		8661A8DA73DBCED6AE7E0EFF /* Signup.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8B64B94EDDD988EA78DBF160 /* Signup.framework */; };
+		908C21F7E87D664FDDA5EC4F /* OnboardingPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B12B34A05B2A5D6F8260440F /* OnboardingPageView.swift */; };
 		91B18E530369BD455A016A3D /* OnboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 130E40D360A2BC7177784B6A /* OnboardView.swift */; };
 		A4A277FA4721AB8CDE43C338 /* SignupPopupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ABEABE28310CE0292D59F63 /* SignupPopupView.swift */; };
 		B4E0568FCA17131599446939 /* ProfileInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B79FCDAD449A29D3F0A535F0 /* ProfileInputView.swift */; };
-		B556577A2DA5925D00402133 /* OnboardingPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B55657792DA5925D00402133 /* OnboardingPageView.swift */; };
-		B5B65E922DA583B7003459E1 /* AuthFailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5B65E912DA583B7003459E1 /* AuthFailView.swift */; };
 		BDA0D54B46073681B1A470D5 /* Alamofire_Alamofire.bundle in Dependencies */ = {isa = PBXBuildFile; fileRef = A8DC766D028A253557F32C96 /* Alamofire_Alamofire.bundle */; };
+		C873E2D58FF8D05328EE13FC /* AuthFailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A187A8B863D8C5F16E60F3EA /* AuthFailView.swift */; };
 		CFE2DF464C54967700865649 /* SignupViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0566089A8FEF046632274744 /* SignupViewModel.swift */; };
 		D8C1273648D92C59C2B10512 /* DesignSystem.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 85C21E5E41B25BF1296FDC62 /* DesignSystem.framework */; };
 		E31DE513E6B8218F3304905A /* Domain.framework in Dependencies */ = {isa = PBXBuildFile; fileRef = 7F2F420D386240A6785E95C2 /* Domain.framework */; };
 		E83C73ACC94597238056D7A7 /* Data.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 53086A13DE300ED094DF02EE /* Data.framework */; };
+		EE3803C42393FF368873D42E /* Core.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08684DEE6B18264EC733E3EA /* Core.framework */; };
 		FB5361C96950EADD04686876 /* SignupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADA3F2B0CCAC12C073E7692A /* SignupView.swift */; };
 /* End PBXBuildFile section */
 
@@ -94,6 +94,7 @@
 /* Begin PBXFileReference section */
 		01C558CCDE8D9D55FBBD2BD0 /* PwInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PwInputView.swift; sourceTree = "<group>"; };
 		0566089A8FEF046632274744 /* SignupViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupViewModel.swift; sourceTree = "<group>"; };
+		08684DEE6B18264EC733E3EA /* Core.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Core.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		0D0B48E48F75055FF32E54AC /* IDInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IDInputView.swift; sourceTree = "<group>"; };
 		0E5C89CA9056923E18123563 /* SignupTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupTests.swift; sourceTree = "<group>"; };
 		130E40D360A2BC7177784B6A /* OnboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardView.swift; sourceTree = "<group>"; };
@@ -109,11 +110,10 @@
 		8B64B94EDDD988EA78DBF160 /* Signup.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Signup.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		90725C7D56052890B752FF5A /* SignupTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SignupTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		9AE159452A9D28FDB105234D /* SignupMain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupMain.swift; sourceTree = "<group>"; };
+		A187A8B863D8C5F16E60F3EA /* AuthFailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthFailView.swift; sourceTree = "<group>"; };
 		A8DC766D028A253557F32C96 /* Alamofire_Alamofire.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Alamofire_Alamofire.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
-		AC69F70FBDAD966DA58CD809 /* Network.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Network.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		ADA3F2B0CCAC12C073E7692A /* SignupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupView.swift; sourceTree = "<group>"; };
-		B55657792DA5925D00402133 /* OnboardingPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingPageView.swift; sourceTree = "<group>"; };
-		B5B65E912DA583B7003459E1 /* AuthFailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthFailView.swift; sourceTree = "<group>"; };
+		B12B34A05B2A5D6F8260440F /* OnboardingPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingPageView.swift; sourceTree = "<group>"; };
 		B79FCDAD449A29D3F0A535F0 /* ProfileInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileInputView.swift; sourceTree = "<group>"; };
 		CC008E3C02E47F73CD2CC62C /* SignupTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "SignupTests-Info.plist"; sourceTree = "<group>"; };
 		D8362585C58EFC538FE2604A /* PhoneVerificationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneVerificationView.swift; sourceTree = "<group>"; };
@@ -125,10 +125,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				59F8133C2059A078913ADC5A /* Auth.framework in Frameworks */,
+				EE3803C42393FF368873D42E /* Core.framework in Frameworks */,
 				E83C73ACC94597238056D7A7 /* Data.framework in Frameworks */,
 				D8C1273648D92C59C2B10512 /* DesignSystem.framework in Frameworks */,
 				025798644615AA67790981BD /* Domain.framework in Frameworks */,
-				136415049875CD76402E8D38 /* Network.framework in Frameworks */,
 				20B634E36733005C09AF4EB1 /* Shared.framework in Frameworks */,
 				8661A8DA73DBCED6AE7E0EFF /* Signup.framework in Frameworks */,
 			);
@@ -150,10 +150,10 @@
 			children = (
 				A8DC766D028A253557F32C96 /* Alamofire_Alamofire.bundle */,
 				766F8951B640B8EBDABB6323 /* Auth.framework */,
+				08684DEE6B18264EC733E3EA /* Core.framework */,
 				53086A13DE300ED094DF02EE /* Data.framework */,
 				85C21E5E41B25BF1296FDC62 /* DesignSystem.framework */,
 				7F2F420D386240A6785E95C2 /* Domain.framework */,
-				AC69F70FBDAD966DA58CD809 /* Network.framework */,
 				31810BC9814938F0F30C9204 /* Shared.framework */,
 				8B64B94EDDD988EA78DBF160 /* Signup.framework */,
 				90725C7D56052890B752FF5A /* SignupTests.xctest */,
@@ -233,8 +233,8 @@
 		EE6117D8A4DC00F04D9C760B /* Popup */ = {
 			isa = PBXGroup;
 			children = (
+				A187A8B863D8C5F16E60F3EA /* AuthFailView.swift */,
 				7ABEABE28310CE0292D59F63 /* SignupPopupView.swift */,
-				B5B65E912DA583B7003459E1 /* AuthFailView.swift */,
 			);
 			path = Popup;
 			sourceTree = "<group>";
@@ -250,7 +250,7 @@
 		FFF49CF2609FB6E184DE9B9E /* Onboarding */ = {
 			isa = PBXGroup;
 			children = (
-				B55657792DA5925D00402133 /* OnboardingPageView.swift */,
+				B12B34A05B2A5D6F8260440F /* OnboardingPageView.swift */,
 				130E40D360A2BC7177784B6A /* OnboardView.swift */,
 			);
 			path = Onboarding;
@@ -354,6 +354,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				91B18E530369BD455A016A3D /* OnboardView.swift in Sources */,
+				908C21F7E87D664FDDA5EC4F /* OnboardingPageView.swift in Sources */,
+				C873E2D58FF8D05328EE13FC /* AuthFailView.swift in Sources */,
 				A4A277FA4721AB8CDE43C338 /* SignupPopupView.swift in Sources */,
 				FB5361C96950EADD04686876 /* SignupView.swift in Sources */,
 				CFE2DF464C54967700865649 /* SignupViewModel.swift in Sources */,
@@ -362,9 +364,7 @@
 				80B39D744C986F747FC4B721 /* IDInputView.swift in Sources */,
 				813F7CE1B63128DE85ECCDC0 /* PhoneVerificationView.swift in Sources */,
 				B4E0568FCA17131599446939 /* ProfileInputView.swift in Sources */,
-				B556577A2DA5925D00402133 /* OnboardingPageView.swift in Sources */,
 				4ECED101068F670CE60CF6E9 /* PwInputView.swift in Sources */,
-				B5B65E922DA583B7003459E1 /* AuthFailView.swift in Sources */,
 				55DD21004E7ED935F7928BB0 /* SignupMain.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -531,7 +531,10 @@
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
 				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) DEBUG";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = (
+					"$(inherited)",
+					DEBUG,
+				);
 				SWIFT_COMPILATION_MODE = singlefile;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
@@ -558,7 +561,10 @@
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
 				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) DEBUG";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = (
+					"$(inherited)",
+					DEBUG,
+				);
 				SWIFT_COMPILATION_MODE = singlefile;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;

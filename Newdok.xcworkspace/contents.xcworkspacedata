@@ -11,6 +11,9 @@
          location = "group:AppCoordinator/AppCoordinator.xcodeproj">
       </FileRef>
       <FileRef
+         location = "group:Core/Core.xcodeproj">
+      </FileRef>
+      <FileRef
          location = "group:Data/Data.xcodeproj">
       </FileRef>
       <FileRef
@@ -18,9 +21,6 @@
       </FileRef>
       <FileRef
          location = "group:Domain/Domain.xcodeproj">
-      </FileRef>
-      <FileRef
-         location = "group:Network/Network.xcodeproj">
       </FileRef>
       <FileRef
          location = "group:Shared/Shared.xcodeproj">

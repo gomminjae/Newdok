@@ -10,10 +10,11 @@ import Shared
 
 public enum SignupStep: Int, CaseIterable {
     case phoneVerification = 0
-    case idInput
-    case pwInput
-    case enterProfile
-    case agreeTerms
+    case idInput = 1
+    case pwInput = 2
+    case enterProfile = 3
+    case agreeTerms = 4
+    case complete = 5
 
     
     var progressValue: Double {
@@ -23,12 +24,13 @@ public enum SignupStep: Int, CaseIterable {
         case .pwInput: return 0.6
         case .enterProfile: return 0.7
         case .agreeTerms: return 0.9
+        default: return 1.0
         }
     }
 }
 
 public struct SignupView: View {
-    @State private var currentStep: SignupStep = .phoneVerification
+    @State private var currentStep: SignupStep = .idInput
     @StateObject public var viewModel: SignupViewModel
     
     @EnvironmentObject private var router: AppRouter
@@ -57,7 +59,9 @@ public struct SignupView: View {
                     ProfileInputView(viewModel: viewModel, nextStep: nextStep)
 
                 case .agreeTerms:
-                    AgreeView(viewModel: viewModel)
+                    AgreeView(viewModel: viewModel, nextStep: nextStep)
+                case .complete:
+                    CompleteView()
                 }
             }
             .animation(.easeInOut, value: currentStep)
@@ -122,4 +126,3 @@ public struct SignupView: View {
         .navigationBarHidden(true)
     }
 }
-

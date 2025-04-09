@@ -14,11 +14,15 @@ public struct AgreeView: View {
     @State private var personalInfoAgreement = false
     @State private var marketingAgreement = false
     
+    
+    var nextStep: () -> Void
+    
     @ObservedObject private var viewModel: SignupViewModel
     
-    public init(viewModel: SignupViewModel) {
-        self.viewModel = viewModel
-    }
+    public init(viewModel: SignupViewModel, nextStep: @escaping () -> Void) {
+            self.viewModel = viewModel
+            self.nextStep = nextStep
+        }
 
     var isSignUpEnabled: Bool {
         return isOver14 && serviceAgreement && personalInfoAgreement
@@ -70,6 +74,7 @@ public struct AgreeView: View {
 
             Button("가입완료") {
                 print("회원가입 완료!")
+                nextStep()
             }
             .font(.hanSansNeo(14,.bold))
             .frame(maxWidth: .infinity)

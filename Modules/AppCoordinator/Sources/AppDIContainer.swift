@@ -9,7 +9,7 @@
 import Foundation
 import Swinject
 import Domain
-import Network
+import Core
 import Data
 import Auth
 import Signup
