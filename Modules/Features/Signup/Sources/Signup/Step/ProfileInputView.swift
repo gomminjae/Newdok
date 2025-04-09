@@ -103,10 +103,6 @@ public struct ProfileInputView: View {
             Spacer()
         }
         .padding(.horizontal, 24)
-//        .navigationTitle("회원가입")
-//        .navigationBarTitleDisplayMode(.inline)
-//        .navigationBarBackButtonHidden(true)
-//        .navigationBarItems(leading: BackButton())
     }
 }
 

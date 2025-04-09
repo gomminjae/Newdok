@@ -10,24 +10,35 @@ import Auth
 import Signup
 import Shared
 
-struct QABFlowCoordinatorView: View {
-    @StateObject private var router = QABRouter()
-    //@StateObject private var coordinator = QABFlowCoordinator()
-    private let coordinator = QABFlowCoordinator()
-    
+struct QABRootViewView: View {
+    @StateObject private var router = AppRouter()
+    private var coordinator: AppCoordinator
+
     @State private var launched = false
+
+    init() {
+        let sharedRouter = AppRouter()
+        self._router = StateObject(wrappedValue: sharedRouter)
+        self.coordinator = AppCoordinator(router: sharedRouter)
+    }
 
     var body: some View {
         if launched {
             NavigationStack(path: $router.path) {
-                OnboardingView(router: router)
-                    .navigationDestination(for: OnboardingRoute.self) { route in
+                coordinator.makeOnboardingView()
+                    .navigationDestination(for: AppRoute.self) { route in
                         switch route {
+                        case .onboarding:
+                            coordinator.makeOnboardingView()
+
                         case .signup:
                             coordinator.makeSignupView()
+
                         case .login:
                             coordinator.makeLoginView()
-                            
+
+                        default:
+                            EmptyView()
                         }
                     }
             }
@@ -40,5 +51,4 @@ struct QABFlowCoordinatorView: View {
                 }
         }
     }
-
 }

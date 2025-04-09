@@ -101,6 +101,10 @@ public struct LoginView: View {
                 Color.clear.frame(height: 20)
             }
             .ignoresSafeArea(.keyboard)
+            .navigationBarBackButtonHidden()
+            .navigationBarTitleDisplayMode(.inline)
+            .navigationBarBackButtonHidden(true)
+            .navigationBarItems(leading: BackButton())
             
 //            .fullScreenCover(isPresented: $showHomeView) {
 //                NewDokTabView()
