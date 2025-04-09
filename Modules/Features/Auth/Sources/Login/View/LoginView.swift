@@ -8,12 +8,15 @@
 import SwiftUI
 import DesignSystem
 import Domain
+import Shared
 
 public struct LoginView: View {
     @StateObject private var viewModel: LoginViewModel
     @FocusState private var isIdFocused: Bool
     @FocusState private var isPwdFocused: Bool
     @State private var showHomeView = false
+    
+    @EnvironmentObject private var router: AppRouter
     
 
     public init(viewModel: LoginViewModel) {
@@ -88,7 +91,7 @@ public struct LoginView: View {
                             .foregroundStyle(Color(hex: "#DADADA"))
 
                         Button("회원가입") {
-                            print("회원가입")
+                            router.push(.signup)
                         }
                         .font(.hanSansNeo(14, .medium))
                         .foregroundStyle(Color(hex: "#2866D3"))
