@@ -8,28 +8,21 @@
 import SwiftUI
 
 public struct BackButton: View {
-    @Environment(\.presentationMode) private var presentationMode
+    var action: () -> Void  // 외부에서 전달받은 액션
 
-    public var useRouter: Bool
-    public var routerPop: (() -> Void)?
-
-    // MARK: - Init
-    public init(useRouter: Bool = false, routerPop: (() -> Void)? = nil) {
-        self.useRouter = useRouter
-        self.routerPop = routerPop
+    public init(action: @escaping () -> Void) {
+        self.action = action
     }
 
     public var body: some View {
         Button(action: {
-            if useRouter {
-                routerPop?()
-            } else {
-                presentationMode.wrappedValue.dismiss()
-            }
+            // 액션을 호출
+            action()
         }) {
             HStack(spacing: 4) {
-                Image(asset: DesignSystemAsset.back)
-               
+                Image(asset: DesignSystemAsset.back)  // 뒤로 가기 아이콘
+                    .imageScale(.large)
+                    .foregroundColor(.black)
             }
             .padding(.horizontal, 4)
         }

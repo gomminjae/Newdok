@@ -27,24 +27,41 @@ public enum SignupStep: Int, CaseIterable {
         default: return 1.0
         }
     }
+    
+    var title: String {
+        switch self {
+        case .phoneVerification:
+            return "회원가입"
+        case .idInput:
+            return "회원가입"
+        case .pwInput:
+            return "회원가입"
+        case .enterProfile:
+            return "회원가입"
+        case .agreeTerms:
+            return "회원가입"
+        case .complete:
+            return "회원가입 완료"
+        }
+    }
 }
 
 public struct SignupView: View {
-    @State private var currentStep: SignupStep = .idInput
-    @StateObject public var viewModel: SignupViewModel
+    @State private var currentStep: SignupStep = .complete
+    public let viewModel: SignupViewModel
     
     @EnvironmentObject private var router: AppRouter
 
 
     public init(viewModel: SignupViewModel) {
-        _viewModel = StateObject(wrappedValue: viewModel)
+        self.viewModel = viewModel
     }
 
     public var body: some View {
         VStack(spacing: 0) {
             signupHeaderView
 
-            ZStack {
+            Group {
                 switch currentStep {
                 case .phoneVerification:
                     PhoneVerificationView(viewModel: viewModel, nextStep: nextStep)
@@ -96,7 +113,7 @@ public struct SignupView: View {
 
                 Spacer()
 
-                Text("회원가입")
+                Text(currentStep.title)
                     .font(.hanSansNeo(16, .bold))
                     .foregroundColor(.black)
                     .frame(height: 44)
@@ -125,4 +142,5 @@ public struct SignupView: View {
         }
         .navigationBarHidden(true)
     }
+    
 }

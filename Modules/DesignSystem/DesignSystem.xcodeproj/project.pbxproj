@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		02CC97ABFD780062F1EB4548 /* Shared.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56A7772AA0518B04428BE5C5 /* Shared.framework */; };
 		07AB90021A70B1D55E233DDA /* NoDataView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AF6A52DBE12C84500829BA2 /* NoDataView.swift */; };
 		0BFDC77A09ED37206E78FD25 /* SpoqaHanSansNeo-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = D45E4F8E9B8A1813A5ADE0C1 /* SpoqaHanSansNeo-Light.otf */; };
 		13DF60422EC2F2B2EBA47DB5 /* SpoqaHanSansNeo-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 56DFA51B1676775D07DC3DD2 /* SpoqaHanSansNeo-Regular.otf */; };
@@ -53,6 +54,7 @@
 		41950894E4E9C8FF11201792 /* AuthFailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthFailView.swift; sourceTree = "<group>"; };
 		4B7519630D4BA8D550F1D471 /* BirthYearPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BirthYearPickerView.swift; sourceTree = "<group>"; };
 		4F6AF114A38FDBD9663A6B1B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		56A7772AA0518B04428BE5C5 /* Shared.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Shared.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		56DFA51B1676775D07DC3DD2 /* SpoqaHanSansNeo-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SpoqaHanSansNeo-Regular.otf"; sourceTree = "<group>"; };
 		69B7BBEAD5472C7195924AC8 /* DesignSystem.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = DesignSystem.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6AF6A52DBE12C84500829BA2 /* NoDataView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoDataView.swift; sourceTree = "<group>"; };
@@ -72,6 +74,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				02CC97ABFD780062F1EB4548 /* Shared.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -125,6 +128,7 @@
 			isa = PBXGroup;
 			children = (
 				69B7BBEAD5472C7195924AC8 /* DesignSystem.framework */,
+				56A7772AA0518B04428BE5C5 /* Shared.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";

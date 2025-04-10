@@ -103,6 +103,25 @@ public struct ProfileInputView: View {
                 .padding(.top, 8)
 
             Spacer()
+            Button(action: {
+                print("중복검사")
+                nextStep()
+            }) {
+                Text("다음")
+                    .font(.hanSansNeo(14, .bold))
+                    .frame(height: 48)
+                    .frame(maxWidth: .infinity)
+                    .background(viewModel.isIDAvailable ?? false ? Color.primaryNormal : Color(hex: "#EBEBEB"))
+                    .foregroundColor(.white)
+                    .cornerRadius(4)
+            }
+            .ignoresSafeArea(.keyboard)
+            //.disabled(!(viewModel.isIDAvailable ?? true))
+            .padding(.horizontal, 24)
+            .padding(.bottom, 20)
+            .contentShape(Rectangle())
+            
+            
         }
         .padding(.horizontal, 24)
     }

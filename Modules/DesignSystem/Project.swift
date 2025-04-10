@@ -14,7 +14,9 @@ let project = Project(
             infoPlist: .default,
             sources: ["Sources/**"],
             resources: ["Resources/**"],
-            dependencies: []
+            dependencies: [
+                .project(target: "Shared", path: "../Shared"), 
+            ]
         )
     ]
 )

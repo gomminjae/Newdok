@@ -12,7 +12,7 @@ public struct User {
     public let id: Int
     public let loginId: String
     public let phoneNumber: String
-    public let email: String
+    public let subscribeEmail: String
     public let nickname: String
     public let birthYear: String
     public let gender: String
@@ -24,7 +24,7 @@ public struct User {
         id: Int,
         loginId: String,
         phoneNumber: String,
-        email: String,
+        subscribeEmail: String,
         nickname: String,
         birthYear: String,
         gender: String,
@@ -35,7 +35,7 @@ public struct User {
         self.id = id
         self.loginId = loginId
         self.phoneNumber = phoneNumber
-        self.email = email
+        self.subscribeEmail = subscribeEmail
         self.nickname = nickname
         self.birthYear = birthYear
         self.gender = gender

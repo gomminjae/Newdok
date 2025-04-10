@@ -65,7 +65,7 @@ public final class AppDIContainer {
                 SignupViewModel(userUseCase: useCase)
             }
         }
-
+        
         container.register(LoginViewModel.self) { r in
             print("🧩 [DI] Register: LoginViewModel")
             let useCase = r.resolve(UserUseCase.self)!

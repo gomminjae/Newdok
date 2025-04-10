@@ -37,7 +37,7 @@ public struct UserDTO: Decodable {
             id: id,
             loginId: loginId,
             phoneNumber: phoneNumber,
-            email: subscribeEmail,
+            subscribeEmail: subscribeEmail,
             nickname: nickname,
             birthYear: birthYear,
             gender: gender,

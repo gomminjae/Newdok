@@ -86,10 +86,6 @@ public struct AgreeView: View {
             .padding(.bottom, 20)
             .disabled(!isSignUpEnabled)
         }
-        .navigationTitle("회원가입")
-        .navigationBarTitleDisplayMode(.inline)
-        .navigationBarBackButtonHidden(true)
-        .navigationBarItems(leading: BackButton())
     }
 }
 
