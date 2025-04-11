@@ -74,7 +74,6 @@ public struct IDInputView: View {
             
             Button(action: {
                 print("중복검사")
-                print(viewModel.isIDAvailable)
                 nextStep()
             }) {
                 Text("다음")

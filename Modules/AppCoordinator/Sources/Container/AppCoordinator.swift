@@ -14,6 +14,7 @@ import Foundation
 final class AppCoordinator {
     private let container = AppDIContainer.shared
     private let router: AppRouter
+    
 
     init(router: AppRouter) {
         self.router = router

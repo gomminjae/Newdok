@@ -47,15 +47,15 @@ public enum SignupStep: Int, CaseIterable {
 }
 
 public struct SignupView: View {
-    @State private var currentStep: SignupStep = .complete
-    public let viewModel: SignupViewModel
+    @State private var currentStep: SignupStep = .idInput
+    @StateObject public var viewModel: SignupViewModel
     
     @EnvironmentObject private var router: AppRouter
 
 
     public init(viewModel: SignupViewModel) {
-        self.viewModel = viewModel
-    }
+            _viewModel = StateObject(wrappedValue: viewModel)
+        }
 
     public var body: some View {
         VStack(spacing: 0) {
@@ -66,19 +66,25 @@ public struct SignupView: View {
                 case .phoneVerification:
                     PhoneVerificationView(viewModel: viewModel, nextStep: nextStep)
 
+
                 case .idInput:
                     IDInputView(viewModel: viewModel, nextStep: nextStep)
+                     
 
                 case .pwInput:
                     PwInputView(viewModel: viewModel, nextStep: nextStep)
+                     
 
                 case .enterProfile:
                     ProfileInputView(viewModel: viewModel, nextStep: nextStep)
+                       
 
                 case .agreeTerms:
                     AgreeView(viewModel: viewModel, nextStep: nextStep)
+                       
                 case .complete:
                     CompleteView()
+                       
                 }
             }
             .animation(.easeInOut, value: currentStep)

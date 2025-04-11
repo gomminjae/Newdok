@@ -23,7 +23,7 @@ public struct CustomTextFieldModifier: ViewModifier {
             content
                 .foregroundColor(.primary)
                 .padding(.vertical, 12)
-                .focused($isFocused)
+                //.focused($isFocused)
         }
         .padding(.horizontal)
         .frame(height: 50)

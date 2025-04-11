@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 55;
+	objectVersion = 56;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -81,6 +81,7 @@
 		11B3611D1728B87E7C917C63 /* Entity */ = {
 			isa = PBXGroup;
 			children = (
+				B5D4E0DE2DA8D69000D24202 /* Newsletter */,
 				13F422358481DCCD195F2DDF /* User */,
 			);
 			path = Entity;
@@ -151,6 +152,13 @@
 				F3B959DFAA4C5D6C5848644B /* ErrorResponse.swift */,
 			);
 			path = Error;
+			sourceTree = "<group>";
+		};
+		B5D4E0DE2DA8D69000D24202 /* Newsletter */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Newsletter;
 			sourceTree = "<group>";
 		};
 		BFC9D7B14C1B3B0AB857D8F2 /* InfoPlists */ = {
@@ -421,10 +429,7 @@
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
 				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = (
-					"$(inherited)",
-					DEBUG,
-				);
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) DEBUG";
 				SWIFT_COMPILATION_MODE = singlefile;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;

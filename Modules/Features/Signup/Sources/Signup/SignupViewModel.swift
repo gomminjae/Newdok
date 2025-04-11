@@ -140,7 +140,7 @@ final public class SignupViewModel: ObservableObject {
     
     public func checkIDDup() {
         isIDAvailable = nil
-        Task {
+        Task { @MainActor in 
             do {
                 let result = try await userUseCase.checkIDDup(loginID)
                 
