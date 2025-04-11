@@ -51,14 +51,20 @@ public struct LoginView: View {
                 Group {
                     if viewModel.isSecurePassword {
                         SecureField("비밀번호를 입력해주세요", text: $viewModel.password)
-                            .modifier(PasswordFieldModifier(isSecure: $viewModel.isSecurePassword))
-                            .focused($isPwdFocused)
+                            
                     } else {
                         TextField("비밀번호를 입력해주세요", text: $viewModel.password)
-                            .modifier(PasswordFieldModifier(isSecure: $viewModel.isSecurePassword))
-                            .focused($isPwdFocused)
+                            
                     }
                 }
+                .font(.hanSansNeo(14, .medium))
+                .modifier(
+                    PasswordFieldModifier(
+                        isSecure: $viewModel.isSecurePassword,
+                        isFocused: $isPwdFocused
+                    )
+                )
+                
 
                 HStack {
                     Spacer()

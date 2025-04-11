@@ -61,46 +61,31 @@ public extension View {
 
 public struct PasswordFieldModifier: ViewModifier {
     @Binding var isSecure: Bool
-    @FocusState private var isFocused: Bool
+    @FocusState.Binding var isFocused: Bool   // 포커스 바인딩 주입
 
-    public init(isSecure: Binding<Bool>) {
+    public init(isSecure: Binding<Bool>, isFocused: FocusState<Bool>.Binding) {
         self._isSecure = isSecure
+        self._isFocused = isFocused
     }
 
     public func body(content: Content) -> some View {
         HStack {
             Image(asset: DesignSystemAsset.lineLock)
-            if isSecure {
-                SecureField("", text: Binding(
-                    get: { "" }, // placeholder placeholder
-                    set: { _ in } // override via parent view
-                ))
-                .disabled(true) // prevent editing here
-            } else {
-                content
-                    .focused($isFocused)
-            }
-
+            content
+                .focused($isFocused)
             Button(action: {
                 isSecure.toggle()
             }) {
                 Image(asset: isSecure ? DesignSystemAsset.lineCloseEye : DesignSystemAsset.lineEye)
                     .renderingMode(.template)
-                    .foregroundColor(isFocused ? Color.primaryNormal : Color(hex: "#363636"))
+                    .foregroundColor(Color(hex: "#363636"))
             }
         }
         .padding(.horizontal)
-        .frame(height: 50)
+        .frame(height: 48)
         .overlay(
             RoundedRectangle(cornerRadius: 4)
                 .stroke(isFocused ? Color.primaryNormal : Color.gray.opacity(0.5), lineWidth: 1)
         )
     }
 }
-
-public extension View {
-    func passwordFieldStyle(isSecure: Binding<Bool>) -> some View {
-        self.modifier(PasswordFieldModifier(isSecure: isSecure))
-    }
-}
-
