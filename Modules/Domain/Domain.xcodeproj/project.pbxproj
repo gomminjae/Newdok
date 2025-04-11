@@ -27,6 +27,8 @@
 		B5D4E0F52DA8F9D900D24202 /* BookmarkedArticles.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D4E0F42DA8F9D100D24202 /* BookmarkedArticles.swift */; };
 		B5D4E0F72DA8FA1800D24202 /* MonthlyBookmark.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D4E0F62DA8FA1600D24202 /* MonthlyBookmark.swift */; };
 		B5D4E0F92DA8FCF300D24202 /* ArticleDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D4E0F82DA8FCF300D24202 /* ArticleDetail.swift */; };
+		B5D4E0FB2DA8FDB200D24202 /* ArticleRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D4E0FA2DA8FDAB00D24202 /* ArticleRepository.swift */; };
+		B5D4E0FD2DA8FFA400D24202 /* ArticleUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D4E0FC2DA8FF9E00D24202 /* ArticleUseCase.swift */; };
 		E85EA8E9A482F4D3139A379A /* SMSResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22D28BDA51D577B28525253B /* SMSResponse.swift */; };
 		EE440BBB39BA777250D61E56 /* Brand.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBC4968267CD3793D679B664 /* Brand.swift */; };
 /* End PBXBuildFile section */
@@ -73,6 +75,8 @@
 		B5D4E0F42DA8F9D100D24202 /* BookmarkedArticles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkedArticles.swift; sourceTree = "<group>"; };
 		B5D4E0F62DA8FA1600D24202 /* MonthlyBookmark.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthlyBookmark.swift; sourceTree = "<group>"; };
 		B5D4E0F82DA8FCF300D24202 /* ArticleDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleDetail.swift; sourceTree = "<group>"; };
+		B5D4E0FA2DA8FDAB00D24202 /* ArticleRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleRepository.swift; sourceTree = "<group>"; };
+		B5D4E0FC2DA8FF9E00D24202 /* ArticleUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleUseCase.swift; sourceTree = "<group>"; };
 		BD15A37E85BAE3A36B2CE72C /* Domain-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "Domain-Info.plist"; sourceTree = "<group>"; };
 		E34BE5FE165914279689ED55 /* SignupResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupResponse.swift; sourceTree = "<group>"; };
 		E53F01AB1AE9AA1D26882B92 /* UserRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRepository.swift; sourceTree = "<group>"; };
@@ -147,6 +151,7 @@
 		2BE278B80FDD95404961E580 /* UseCase */ = {
 			isa = PBXGroup;
 			children = (
+				B5D4E0FC2DA8FF9E00D24202 /* ArticleUseCase.swift */,
 				261679B89057804E12EBBCC2 /* UserUseCase.swift */,
 			);
 			path = UseCase;
@@ -213,6 +218,7 @@
 		D77F035CD6F2D3D73A7C0400 /* Repository */ = {
 			isa = PBXGroup;
 			children = (
+				B5D4E0FA2DA8FDAB00D24202 /* ArticleRepository.swift */,
 				E53F01AB1AE9AA1D26882B92 /* UserRepository.swift */,
 			);
 			path = Repository;
@@ -285,12 +291,14 @@
 			files = (
 				EE440BBB39BA777250D61E56 /* Brand.swift in Sources */,
 				B5D4E0E62DA8F2D800D24202 /* Industry.swift in Sources */,
+				B5D4E0FD2DA8FFA400D24202 /* ArticleUseCase.swift in Sources */,
 				B5D4E0E82DA8F30F00D24202 /* RecommendedNewsletter.swift in Sources */,
 				B5D4E0E42DA8F26E00D24202 /* NewsletterDetail.swift in Sources */,
 				B5D4E0E22DA8F1C700D24202 /* Newsletter.swift in Sources */,
 				5091B95C8FE576742F1D7E91 /* ErrorResponse.swift in Sources */,
 				34A32B84CB0DBAF03564CF2E /* Gender.swift in Sources */,
 				043AB363E24F1C147D028B4E /* NicknameResponse.swift in Sources */,
+				B5D4E0FB2DA8FDB200D24202 /* ArticleRepository.swift in Sources */,
 				B5D4E0EC2DA8F40B00D24202 /* SearchedNewsletter.swift in Sources */,
 				E85EA8E9A482F4D3139A379A /* SMSResponse.swift in Sources */,
 				B5D4E0F52DA8F9D900D24202 /* BookmarkedArticles.swift in Sources */,
