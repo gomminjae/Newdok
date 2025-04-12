@@ -42,7 +42,7 @@ extension ArticleAPI: TargetType {
         case .search:
             return "/search"
         case .fetchArticleDetail(let id):
-            return "/id"
+            return "/\(id)"
         
         }
     }

@@ -108,7 +108,6 @@ public struct PwInputView: View {
     }
 }
 
-// In SignupViewModel.swift
 extension SignupViewModel {
     var isPasswordValid: Bool {
         password.count >= 8 && password == checkedPassword

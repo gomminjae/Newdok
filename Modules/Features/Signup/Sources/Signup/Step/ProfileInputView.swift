@@ -53,9 +53,12 @@ public struct ProfileInputView: View {
 
             TextField("12자 이내, 특수문자 사용 불가", text: $viewModel.nickname)
                 .padding(.leading, 16)
-                .onChange(of: viewModel.nickname) { _ in
-                    nicknameError = viewModel.validateNickname()
-                }
+//                .onChange(of: viewModel.nickname) { _ in
+//                    nicknameError = viewModel.validateNickname()
+//                }
+                .onSubmit {
+                        nicknameError = viewModel.validateNickname()
+                    }
                 .frame(height: 50)
                 .overlay(
                     RoundedRectangle(cornerRadius: 10)

@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 56;
+	objectVersion = 55;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -17,10 +17,10 @@
 		4ABE35EBE06A40EB2418C11F /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A672C80AC40AD7ADFD38507 /* Alamofire.framework */; };
 		6060ADA578420B6B6DA0DED2 /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D2C05222F38012E3350EB44 /* NetworkError.swift */; };
 		78DE9E2870EA091066A98F3E /* Moya.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6260F75C087362295DDE52AE /* Moya.framework */; };
+		8DD1D1E967B46FEFBBBE2F8A /* ArticleAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40B6D65FE3D1FF81E0A3B983 /* ArticleAPI.swift */; };
 		914F154986FC953CD03CBBFB /* APIEnvironment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37D20FB3473EE5354A38EDF4 /* APIEnvironment.swift */; };
 		9312E114DDCBE60BDD2DD032 /* NetworkLoggerPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC3BF1DA23727917D472C859 /* NetworkLoggerPlugin.swift */; };
 		AECBBB447FE9A2ED67703BF9 /* AuthInterceptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39C015A0A4F1E90FBDFFF855 /* AuthInterceptor.swift */; };
-		B5D4E0E02DA8EB6500D24202 /* ArticleAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D4E0DF2DA8EB6100D24202 /* ArticleAPI.swift */; };
 		E04A978CAE4A2D7499F40213 /* NetworkProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF091BF7231A5E1E4699673 /* NetworkProvider.swift */; };
 /* End PBXBuildFile section */
 
@@ -45,10 +45,10 @@
 		37D20FB3473EE5354A38EDF4 /* APIEnvironment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIEnvironment.swift; sourceTree = "<group>"; };
 		39C015A0A4F1E90FBDFFF855 /* AuthInterceptor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthInterceptor.swift; sourceTree = "<group>"; };
 		3CB52B1CA1F1B0867255328D /* MoyaProvider+Async.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MoyaProvider+Async.swift"; sourceTree = "<group>"; };
+		40B6D65FE3D1FF81E0A3B983 /* ArticleAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleAPI.swift; sourceTree = "<group>"; };
 		4A672C80AC40AD7ADFD38507 /* Alamofire.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Alamofire.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6260F75C087362295DDE52AE /* Moya.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Moya.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		72703E2E055FAC09CC450CE3 /* ErrorMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorMapper.swift; sourceTree = "<group>"; };
-		B5D4E0DF2DA8EB6100D24202 /* ArticleAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleAPI.swift; sourceTree = "<group>"; };
 		B8E481F76A48C00550F37F55 /* Shared.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Shared.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C637758CB1CB1F6B2EC6B13B /* NewsletterAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsletterAPI.swift; sourceTree = "<group>"; };
 		CA3F13E23B6662B1FDAD4536 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS.sdk/System/Library/Frameworks/CFNetwork.framework; sourceTree = DEVELOPER_DIR; };
@@ -95,7 +95,7 @@
 		2A3D0BE98190220FACADF2FF /* API */ = {
 			isa = PBXGroup;
 			children = (
-				B5D4E0DF2DA8EB6100D24202 /* ArticleAPI.swift */,
+				40B6D65FE3D1FF81E0A3B983 /* ArticleAPI.swift */,
 				C637758CB1CB1F6B2EC6B13B /* NewsletterAPI.swift */,
 				D2F5DFA7A92FC92359736741 /* UserAPI.swift */,
 			);
@@ -256,7 +256,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B5D4E0E02DA8EB6500D24202 /* ArticleAPI.swift in Sources */,
+				8DD1D1E967B46FEFBBBE2F8A /* ArticleAPI.swift in Sources */,
 				35CE2FDD50BA7F137135D3EA /* NewsletterAPI.swift in Sources */,
 				2DA8BE51AA803E3F6E393FF5 /* UserAPI.swift in Sources */,
 				914F154986FC953CD03CBBFB /* APIEnvironment.swift in Sources */,
@@ -409,7 +409,10 @@
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
 				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) DEBUG";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = (
+					"$(inherited)",
+					DEBUG,
+				);
 				SWIFT_COMPILATION_MODE = singlefile;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
