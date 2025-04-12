@@ -6,6 +6,7 @@
 //
 import SwiftUI
 import DesignSystem
+import Shared
 
 public struct HomeView: View {
     let sampleArticles: [Article] = [
@@ -19,6 +20,8 @@ public struct HomeView: View {
     
     @State private var showCalendar = false
     
+    @EnvironmentObject private var router: AppRouter
+    
     public init() {}
     
     public var body: some View {
@@ -30,21 +33,21 @@ public struct HomeView: View {
                 VStack(spacing: 0) {
                     // 헤더
                     HStack {
-                        Image("logo")
+                        Image(asset: DesignSystemAsset.logo)
                             .padding(.top, 18)
                             .padding(.leading, 20)
                         Spacer()
                         Button(action: {
                             print("검색")
                         }) {
-                            Image("search")
+                            Image(asset: DesignSystemAsset.search)
                                 .padding(.top, 18)
                                 .padding(.trailing, 2.4)
                         }
                         Button(action: {
                             print("알람")
                         }) {
-                            Image("bell")
+                            Image(asset: DesignSystemAsset.bell)
                                 .padding(.top, 18)
                                 .padding(.leading, 16)
                                 .padding(.trailing, 17.8)
@@ -62,7 +65,7 @@ public struct HomeView: View {
                         Button(action: {
                             showCalendar.toggle()
                         }) {
-                            Image("calendar_logo")
+                            Image(asset: DesignSystemAsset.lineCalendar)
                                 .padding(.vertical, 15)
                                 .padding(.trailing, 24)
                         }
@@ -125,6 +128,7 @@ public struct HomeView: View {
                 try? await Task.sleep(nanoseconds: 1_500_000_000)
                 // 예: 1.5초 뒤에 데이터 갱신 완료
             }
+            .navigationBarHidden(true)
             .popup(isPresented: $showCalendar) {
                 CalendarPopupView(isPresented: $showCalendar)
             }

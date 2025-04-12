@@ -9,6 +9,7 @@ import SwiftUI
 import Shared
 import Signup
 import Auth
+import Home
 import Foundation
 
 final class AppCoordinator {
@@ -33,6 +34,15 @@ final class AppCoordinator {
     }
 
     func makeOnboardingView() -> some View {
-        OnboardingView().environmentObject(router)
+        return OnboardingView().environmentObject(router)
+    }
+    
+    func makeHomeView() -> some View {
+        
+        return HomeView().environmentObject(router)
+        
+    }
+    func makeTabView() -> some View {
+        return NewDokTabView().environmentObject(router)
     }
 }

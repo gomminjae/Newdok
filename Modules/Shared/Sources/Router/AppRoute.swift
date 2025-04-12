@@ -12,5 +12,5 @@ public enum AppRoute: Hashable {
     case signup
     case home
     case profile(userId: String)
-    // 🔁 필요시 하위 enum으로도 분기 가능
+    case tabbar
 }
