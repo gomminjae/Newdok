@@ -41,8 +41,15 @@ public struct LoginView: View {
                 TextField("아이디를 입력하세요", text: $viewModel.loginId)
                     .font(.hanSansNeo(14, .medium))
                     .frame(height: 56)
-                    .customTextFieldStyle(isError: false, isFocused: $isIdFocused)
+                    .customTextFieldStyle(isError: viewModel.isLoginIdError, isFocused: $isIdFocused)
                     .focused($isIdFocused)
+                if viewModel.isLoginIdError {
+                    Text(viewModel.errorMessage ?? "")
+                        .font(.hanSansNeo(12,.medium))
+                        .foregroundStyle(Color(hex: "#E32727"))
+                        
+                    
+                }
 
                 Text("비밀번호")
                     .font(.hanSansNeo(14, .medium))
@@ -61,9 +68,16 @@ public struct LoginView: View {
                 .modifier(
                     PasswordFieldModifier(
                         isSecure: $viewModel.isSecurePassword,
-                        isFocused: $isPwdFocused
+                        isFocused: $isPwdFocused,
+                        isError: viewModel.isPasswordError
                     )
                 )
+                if viewModel.isPasswordError {
+                    Text(viewModel.errorMessage ?? "")
+                        .font(.hanSansNeo(12,.medium))
+                        .foregroundStyle(Color(hex: "#E32727"))
+                        
+                }
                 
 
                 HStack {

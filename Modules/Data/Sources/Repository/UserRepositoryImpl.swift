@@ -28,6 +28,8 @@ public final class UserRepositoryImpl: UserRepository {
         let user = response.toDomain()
     
         return user
+        
+        
     }
     
     public func signup(loginId: String, password: String, phoneNumber: String, nickname: String, birthYear: String, gender: String) async throws -> Domain.SignupResponse {
@@ -108,6 +110,8 @@ public final class UserRepositoryImpl: UserRepository {
         return brands
         
     }
+    
+    
     
     
 }

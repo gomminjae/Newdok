@@ -61,11 +61,17 @@ public extension View {
 
 public struct PasswordFieldModifier: ViewModifier {
     @Binding var isSecure: Bool
-    @FocusState.Binding var isFocused: Bool   // 포커스 바인딩 주입
+    @FocusState.Binding var isFocused: Bool
+    var isError: Bool   // 에러 상태 주입
 
-    public init(isSecure: Binding<Bool>, isFocused: FocusState<Bool>.Binding) {
+    public init(
+        isSecure: Binding<Bool>,
+        isFocused: FocusState<Bool>.Binding,
+        isError: Bool = false
+    ) {
         self._isSecure = isSecure
         self._isFocused = isFocused
+        self.isError = isError
     }
 
     public func body(content: Content) -> some View {
@@ -83,9 +89,20 @@ public struct PasswordFieldModifier: ViewModifier {
         }
         .padding(.horizontal)
         .frame(height: 48)
+        .background(isError ? Color(hex: "#FEE6E6") : .white)
         .overlay(
             RoundedRectangle(cornerRadius: 4)
-                .stroke(isFocused ? Color.primaryNormal : Color.gray.opacity(0.5), lineWidth: 1)
+                .stroke(borderColor, lineWidth: 1)
         )
+    }
+
+    private var borderColor: Color {
+        if isError {
+            return .red
+        } else if isFocused {
+            return Color.primaryNormal
+        } else {
+            return Color.gray.opacity(0.5)
+        }
     }
 }

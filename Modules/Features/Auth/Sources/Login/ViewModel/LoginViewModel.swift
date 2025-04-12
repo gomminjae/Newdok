@@ -7,6 +7,7 @@
 import SwiftUI
 import Combine
 import Domain
+import Core
 
 @MainActor
 public protocol LoginViewModelBindable: ObservableObject {
@@ -46,6 +47,9 @@ public final class LoginViewModel: LoginViewModelBindable {
     
     @Published public var user: User?
     
+    @Published public var isLoginIdError: Bool = false
+    @Published public var isPasswordError: Bool = false
+    
     
     
     public init(userUserCase: UserUseCase) {
@@ -62,10 +66,31 @@ public final class LoginViewModel: LoginViewModelBindable {
     
     public func login() {
         Task {
+            
             do {
                 user = try await userUseCase.login(loginId: loginId, password: password)
-            } catch {
-                errorMessage = error.localizedDescription
+                errorMessage = nil
+                isLoginIdError = false
+                isPasswordError = false
+            } catch let error as NetworkError {
+                switch error {
+                case .serverError(let statusCode, let message):
+                    if statusCode == 400 {
+                        let newMessage = message ?? ""
+                        if newMessage.contains("비밀번호") {
+                            errorMessage = "비밀번호가 일치하지 않습니다"
+                            isPasswordError = true
+                            isLoginIdError = false
+                        } else if newMessage.contains("계정") {
+                            errorMessage = "등록되지 않은 계정이거나, 아이디를 다시 확인해주세요"
+                            isLoginIdError = true
+                            isPasswordError = false
+                        }
+                    }
+                default:
+                    errorMessage = "이상한 오류 발생"
+                }
+                
             }
         }
     }
