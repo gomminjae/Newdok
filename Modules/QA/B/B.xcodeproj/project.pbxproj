@@ -19,6 +19,7 @@
 		9D95A440D1F08648A1189B26 /* BMain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D9D8337B8DADC1C73C9B83 /* BMain.swift */; };
 		A287073E23F5DFCBE7A7028A /* Data.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A0D3F01D7AE7F92987AA5BEB /* Data.framework */; };
 		AECC421D10C27B6A7DA92E35 /* AppCoordinator.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 53D7F0C40548F755B7A470EE /* AppCoordinator.framework */; };
+		BC4D17FFCADE9D608BD4F9B1 /* Home.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A3807BBFB2D5C8B2513C5534 /* Home.framework */; };
 		BDE1D020A28F07EA1FDE6B99 /* Core.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 2378C408DCDC0EDC22736EE2 /* Core.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C676D0ADA0F76C0916235CD6 /* Shared.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F4FA82F97BD0C253847BEBC3 /* Shared.framework */; };
 		D7F7B41C84B829672F721F53 /* Swinject.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E05AA693C3E4A78793949CF5 /* Swinject.framework */; };
@@ -87,6 +88,7 @@
 		9A8111C9E153F8D084CA5582 /* Auth.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Auth.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9E10D8055DE91DF89CD9A616 /* Signup.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Signup.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A0D3F01D7AE7F92987AA5BEB /* Data.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Data.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		A3807BBFB2D5C8B2513C5534 /* Home.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Home.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CA035CDBC79B589E2A387B44 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		D2857F713F5C24040D1DBDA2 /* BTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		E05AA693C3E4A78793949CF5 /* Swinject.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Swinject.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -112,6 +114,7 @@
 				A287073E23F5DFCBE7A7028A /* Data.framework in Frameworks */,
 				508E52E990E3E3BF408A7501 /* DesignSystem.framework in Frameworks */,
 				2C98BFBD6353B1565A738604 /* Domain.framework in Frameworks */,
+				BC4D17FFCADE9D608BD4F9B1 /* Home.framework in Frameworks */,
 				3CB1006058EC00097C4F8544 /* Launch.framework in Frameworks */,
 				C676D0ADA0F76C0916235CD6 /* Shared.framework in Frameworks */,
 				EBE6591D3B210BA5A77C4BEE /* Signup.framework in Frameworks */,
@@ -153,6 +156,7 @@
 				A0D3F01D7AE7F92987AA5BEB /* Data.framework */,
 				42F5E70E54A9D11122495EFF /* DesignSystem.framework */,
 				063771607106B9FAF0CD3191 /* Domain.framework */,
+				A3807BBFB2D5C8B2513C5534 /* Home.framework */,
 				07F21865B765752721E8465D /* Launch.framework */,
 				F4FA82F97BD0C253847BEBC3 /* Shared.framework */,
 				9E10D8055DE91DF89CD9A616 /* Signup.framework */,

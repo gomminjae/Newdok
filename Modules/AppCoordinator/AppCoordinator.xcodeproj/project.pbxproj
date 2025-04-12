@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 55;
+	objectVersion = 56;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -16,6 +16,8 @@
 		A758B6D31329B917EAE2FA37 /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCDC9B63C926672852B00CDC /* AppCoordinator.swift */; };
 		AEE48CEB8FA6C433EC3BBF63 /* DesignSystem.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55722F5CCC4201D4184E352D /* DesignSystem.framework */; };
 		B172E4AF5DF3A35FF1ADA1B9 /* Data.framework in Dependencies */ = {isa = PBXBuildFile; fileRef = 389E23A3E1DBC5350510374E /* Data.framework */; };
+		B2545A523BEE4D136BDE4B11 /* Home.framework in Dependencies */ = {isa = PBXBuildFile; fileRef = 275A08FCEAEEF8B617DD483F /* Home.framework */; };
+		B5D4E1012DAAC23C00D24202 /* NewDokTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D4E1002DAAC23C00D24202 /* NewDokTabView.swift */; };
 		C3E350D91B8ECF05EAB5C96F /* Domain.framework in Dependencies */ = {isa = PBXBuildFile; fileRef = 924788B4548B7D433D29F3B4 /* Domain.framework */; };
 		DEF770977A22146AD16904DF /* Shared.framework in Dependencies */ = {isa = PBXBuildFile; fileRef = E8AE92AE3530D16E11F67BC8 /* Shared.framework */; };
 		E97DECCE2E8CB5105AF29808 /* Test.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DF312BF32C188795B9F9B41 /* Test.swift */; };
@@ -33,6 +35,7 @@
 				47A95E00D8121476916FABE8 /* Auth.framework in Dependencies */,
 				B172E4AF5DF3A35FF1ADA1B9 /* Data.framework in Dependencies */,
 				C3E350D91B8ECF05EAB5C96F /* Domain.framework in Dependencies */,
+				B2545A523BEE4D136BDE4B11 /* Home.framework in Dependencies */,
 				F373A5E7496946CED72BCA90 /* Launch.framework in Dependencies */,
 				DEF770977A22146AD16904DF /* Shared.framework in Dependencies */,
 				39214A0E40CA0E2F9ECCCA05 /* Signup.framework in Dependencies */,
@@ -57,6 +60,7 @@
 /* Begin PBXFileReference section */
 		1B39CB14B95B55A6AC773E37 /* Core.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Core.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		238DA4510E0083E8A5FFD06E /* Auth.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Auth.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		275A08FCEAEEF8B617DD483F /* Home.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Home.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		389E23A3E1DBC5350510374E /* Data.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Data.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4DB5C72FA4659244F10721F3 /* AppCoordinator-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "AppCoordinator-Info.plist"; sourceTree = "<group>"; };
 		55722F5CCC4201D4184E352D /* DesignSystem.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = DesignSystem.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -65,6 +69,7 @@
 		93A25D25F6C1F4D5F26B3F2E /* AppCoordinatorEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinatorEntry.swift; sourceTree = "<group>"; };
 		AA278F2074F296122B680809 /* Launch.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Launch.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		AA2C6970F82306BD4F0E6381 /* Survey.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Survey.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		B5D4E1002DAAC23C00D24202 /* NewDokTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewDokTabView.swift; sourceTree = "<group>"; };
 		BCDC9B63C926672852B00CDC /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
 		BF2FEF9CAF1F7732B4FF6B3E /* Signup.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Signup.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D908C008AEFA0721CDA34C29 /* Swinject.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Swinject.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -118,6 +123,7 @@
 		5C6BAA5F342A01FE2DF12E07 /* Flow */ = {
 			isa = PBXGroup;
 			children = (
+				B5D4E1002DAAC23C00D24202 /* NewDokTabView.swift */,
 				95F4FED3D6EAB4EC0630A50C /* AuthFlow */,
 			);
 			path = Flow;
@@ -156,6 +162,7 @@
 				389E23A3E1DBC5350510374E /* Data.framework */,
 				55722F5CCC4201D4184E352D /* DesignSystem.framework */,
 				924788B4548B7D433D29F3B4 /* Domain.framework */,
+				275A08FCEAEEF8B617DD483F /* Home.framework */,
 				AA278F2074F296122B680809 /* Launch.framework */,
 				E8AE92AE3530D16E11F67BC8 /* Shared.framework */,
 				BF2FEF9CAF1F7732B4FF6B3E /* Signup.framework */,
@@ -257,6 +264,7 @@
 			files = (
 				34A2F59BAF7B9E5834D8DE20 /* AppCoordinatorEntry.swift in Sources */,
 				13C9A534034C115EDB4A8D03 /* AppDIContainer.swift in Sources */,
+				B5D4E1012DAAC23C00D24202 /* NewDokTabView.swift in Sources */,
 				A758B6D31329B917EAE2FA37 /* AppCoordinator.swift in Sources */,
 				49D495033DE0E6D4EB14972B /* QABFlowCoordinatorView.swift in Sources */,
 				E97DECCE2E8CB5105AF29808 /* Test.swift in Sources */,
@@ -437,10 +445,7 @@
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
 				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = (
-					"$(inherited)",
-					DEBUG,
-				);
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) DEBUG";
 				SWIFT_COMPILATION_MODE = singlefile;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;

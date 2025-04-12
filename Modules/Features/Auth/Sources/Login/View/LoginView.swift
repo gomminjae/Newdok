@@ -104,7 +104,7 @@ public struct LoginView: View {
 
                 HStack {
                     Button("비회원으로 이용하기") {
-                        showHomeView = true
+                        router.resetTo(.tabbar)
                     }
                     .font(.hanSansNeo(14, .medium))
                     .foregroundStyle(Color(hex: "565656"))

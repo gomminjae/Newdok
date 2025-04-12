@@ -16,6 +16,7 @@ let project = Project(
         .project(target: "Auth", path: "../Features/Auth"),
         .project(target: "Survey", path: "../Features/Survey"),
         .project(target: "Launch", path: "../Features/Launch"),
+        .project(target: "Home", path: "../Features/Home"),  
         .project(target: "Data", path: "../Data"),
         .project(target: "Domain", path: "../Domain"),
         .project(target: "Core", path: "../Core"),

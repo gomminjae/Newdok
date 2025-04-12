@@ -36,6 +36,10 @@ struct QABRootViewView: View {
 
                         case .login:
                             coordinator.makeLoginView()
+                        case .home:
+                            coordinator.makeHomeView()
+                        case .tabbar:
+                            coordinator.makeTabView()
 
                         default:
                             EmptyView()
