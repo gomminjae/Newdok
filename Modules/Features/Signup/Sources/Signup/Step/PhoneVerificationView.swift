@@ -24,16 +24,14 @@ public struct PhoneVerificationView: View {
     @EnvironmentObject private var router: AppRouter
     
     
-    var nextStep: () -> Void
 
     @FocusState private var isPhoneFieldFocused: Bool
     @FocusState private var isNumberPadFocused: Bool
 
     @ObservedObject private var viewModel: SignupViewModel
     
-    public init(viewModel: SignupViewModel, nextStep: @escaping () -> Void) {
+    public init(viewModel: SignupViewModel) {
             self.viewModel = viewModel
-            self.nextStep = nextStep
         }
 
     public var body: some View {
@@ -146,7 +144,7 @@ public struct PhoneVerificationView: View {
             if viewModel.isRequestSent {
                 Button(action: {
                     if viewModel.verifyCode() {
-                        nextStep()
+                        viewModel.goToNextStep()
                     }
                 }) {
                     Text("다음")

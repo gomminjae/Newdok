@@ -16,13 +16,10 @@ public struct IDInputView: View {
     @FocusState private var isIDFocused: Bool
     
     
-    var nextStep: () -> Void
-    
     @ObservedObject private var viewModel: SignupViewModel
     
-    public init(viewModel: SignupViewModel, nextStep: @escaping () -> Void) {
+    public init(viewModel: SignupViewModel) {
             self.viewModel = viewModel
-            self.nextStep = nextStep
         }
     
     public var body: some View {
@@ -73,8 +70,8 @@ public struct IDInputView: View {
             .ignoresSafeArea(.keyboard)
             
             Button(action: {
-                print("중복검사")
-                nextStep()
+                print("✅ 버튼 클릭됨 - 현재 step: \(viewModel.currentStep)")
+                    viewModel.goToNextStep()
             }) {
                 Text("다음")
                     .font(.hanSansNeo(14, .bold))
@@ -83,6 +80,9 @@ public struct IDInputView: View {
                     .background(viewModel.isIDAvailable ?? false ? Color.primaryNormal : Color(hex: "#EBEBEB"))
                     .foregroundColor(.white)
                     .cornerRadius(4)
+            }
+            .onAppear {
+                print("✅ PwInputView 진입")
             }
             .ignoresSafeArea(.keyboard)
             .disabled(!(viewModel.isIDAvailable ?? true))

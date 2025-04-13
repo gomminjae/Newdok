@@ -16,14 +16,11 @@ public struct PwInputView: View {
     @FocusState private var isPasswordFocused: Bool
     @FocusState private var isConfirmPasswordFocused: Bool
 
-    
-    var nextStep: () -> Void
 
     @ObservedObject private var viewModel: SignupViewModel
     
-    public init(viewModel: SignupViewModel, nextStep: @escaping () -> Void) {
+    public init(viewModel: SignupViewModel) {
             self.viewModel = viewModel
-            self.nextStep = nextStep
         }
 
     public var body: some View {
@@ -88,7 +85,7 @@ public struct PwInputView: View {
             .hideKeyboardOnTap()
 
             Button(action: {
-                nextStep()
+                viewModel.goToNextStep()
             }) {
                 Text("다음")
                     .font(.hanSansNeo(14,.bold))
@@ -100,9 +97,9 @@ public struct PwInputView: View {
                     .contentShape(Rectangle())
                 
             }
-            disabled(!viewModel.isPasswordValid)
-                .padding(.horizontal, 24)
-                .padding(.bottom, 20)
+            .padding(.horizontal, 24)
+            .padding(.bottom, 20)
+            .disabled(!viewModel.isPasswordValid)
         }
 
     }
