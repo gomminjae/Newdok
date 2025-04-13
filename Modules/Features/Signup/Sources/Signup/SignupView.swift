@@ -65,6 +65,7 @@ public struct SignupView: View {
                 switch currentStep {
                 case .phoneVerification:
                     PhoneVerificationView(viewModel: viewModel, nextStep: nextStep)
+                        .environmentObject(router)
 
 
                 case .idInput:

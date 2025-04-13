@@ -10,26 +10,27 @@ import Domain
 
 
 public struct InterestDTO: Decodable {
-    public let interestId: Int
-    public let name: String
+        let userId: Int
+        let interestId: Int
+        let createdAt: String
 
     public func toDomain() -> Domain.Interest {
-        return Domain.Interest(id: interestId, name: name)
+        return Interest(userId: userId, interestId: interestId, createdAt: createdAt)
     }
 }
 
 
 public struct UserDTO: Decodable {
-    public let id: Int
-    public let loginId: String
-    public let phoneNumber: String
-    public let subscribeEmail: String
-    public let nickname: String
-    public let birthYear: String
-    public let gender: String
-    public let createdAt: String
-    public let industryId: Int
-    public let interests: [InterestDTO]
+        let id: Int
+        let loginId: String
+        let phoneNumber: String
+        let subscribeEmail: String
+        let nickname: String
+        let birthYear: String
+        let gender: String
+        let createdAt: String
+        let industryId: Int
+        let interests: [InterestDTO]
 
     public func toDomain() -> User {
 

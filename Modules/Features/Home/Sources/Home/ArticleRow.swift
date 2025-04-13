@@ -5,6 +5,7 @@
 //  Created by 권민재 on 2/23/25.
 //
 import SwiftUI
+import DesignSystem
 
 struct ArticleRow: View {
     let article: Article
@@ -12,7 +13,7 @@ struct ArticleRow: View {
     var body: some View {
         HStack(spacing: 12) {
             // 🔹 뉴스레터 아이콘
-            Image("signup")//article.imageName)
+            Image(asset: DesignSystemAsset.signup)//article.imageName)
                 .resizable()
                 .frame(width: 56, height: 56)
                 .clipShape(RoundedRectangle(cornerRadius: 12))

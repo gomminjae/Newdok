@@ -50,6 +50,11 @@ public final class LoginViewModel: LoginViewModelBindable {
     
     @Published public var isLoginIdError: Bool = false
     @Published public var isPasswordError: Bool = false
+
+    
+    
+    @AppStorage("isLoggedIn") public var isLoggedIn: Bool = false
+    public var onLoginSuccess: (() -> Void)? = nil
     
     
     
@@ -72,10 +77,14 @@ public final class LoginViewModel: LoginViewModelBindable {
             do {
                 let (user,token) = try await userUseCase.login(loginId: loginId, password: password)
                 self.user = user
+                print("유저유저\(user)")
                 TokenStorage.accessToken = token
                 errorMessage = nil
                 isLoginIdError = false
                 isPasswordError = false
+                isLoggedIn = true
+                print("✅ Login success, navigating...")
+                onLoginSuccess?()
                 
             } catch let error as NetworkError {
                 switch error {

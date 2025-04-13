@@ -169,9 +169,11 @@ public struct PhoneVerificationView: View {
                     infos: viewModel.userList,
                     onClose: {
                         viewModel.isShowUserList = false
+
                     },
                     onLogin: {
                         viewModel.isShowUserList = false
+                        router.push(.login)
                     }
                 )
             }

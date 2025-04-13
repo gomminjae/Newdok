@@ -74,6 +74,7 @@ public final class AppDIContainer {
                 LoginViewModel(userUserCase: useCase)
             }
         }
+        .inObjectScope(.container)
         
         
         //MARK: Home

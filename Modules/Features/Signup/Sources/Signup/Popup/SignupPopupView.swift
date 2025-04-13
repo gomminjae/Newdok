@@ -44,12 +44,12 @@ public struct SignupPopupView: View {
 
                         VStack(alignment: .leading, spacing: 4) {
                             Text(info.maskedLoginId)
-                                .font(.hanSansNeo(14, .regular))
-                                .foregroundColor(Color.primaryNormal)
+                                .font(.hanSansNeo(14, .medium))
+                                .foregroundColor(Color(hex: "#161616"))
 
                             Text(info.formattedCreatedAt) 
-                                .font(.hanSansNeo(12, .regular))
-                                .foregroundColor(Color(hex: "333333"))
+                                .font(.hanSansNeo(12, .medium))
+                                .foregroundColor(Color(hex: "#565656"))
                         }
                         .padding(.horizontal, 16)
                         .padding(.top, index == 0 ? 16 : 0)
@@ -70,7 +70,7 @@ public struct SignupPopupView: View {
                     .frame(height: 44)
                     .frame(maxWidth: .infinity)
                     .overlay(
-                        RoundedRectangle(cornerRadius: 8)
+                        RoundedRectangle(cornerRadius: 4)
                             .stroke(Color.primaryNormal, lineWidth: 1)
                     )
                     .font(.hanSansNeo(14, .bold))
@@ -83,7 +83,7 @@ public struct SignupPopupView: View {
                     .frame(maxWidth: .infinity)
                     .background(Color.primaryNormal)
                     .foregroundColor(.white)
-                    .cornerRadius(8)
+                    .cornerRadius(4)
                     .font(.hanSansNeo(14, .bold))
                 }
                 .padding(.horizontal, 20)
@@ -100,3 +100,27 @@ public struct SignupPopupView: View {
 
 }
 
+#Preview {
+    SignupPopupView(
+        infos: [
+            SimpleUser(
+                id: 1,
+                loginId: "testuser01",
+                phoneNumber: "01012345678",
+                createdAt: Date()
+            ),
+            SimpleUser(
+                id: 2,
+                loginId: "testuser02",
+                phoneNumber: "01087654321",
+                createdAt: Date()
+            )
+        ],
+        onClose: {
+            print("✅ 닫기")
+        },
+        onLogin: {
+            print("✅ 로그인 이동")
+        }
+    )
+}
