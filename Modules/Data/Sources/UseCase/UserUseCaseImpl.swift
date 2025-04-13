@@ -19,7 +19,7 @@ public final class UserUseCaseImpl: UserUseCase {
     }
     
     
-    public func login(loginId: String, password: String) async throws -> Domain.User {
+    public func login(loginId: String, password: String) async throws -> (User,String) {
         return try await userRepository.login(loginId: loginId, password: password)
     }
     

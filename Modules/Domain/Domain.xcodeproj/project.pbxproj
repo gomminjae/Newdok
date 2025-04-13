@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 55;
+	objectVersion = 56;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -24,6 +24,7 @@
 		93E7EB46FD583E8C439D947E /* Articles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 960D479DD34669CA918E0712 /* Articles.swift */; };
 		A0FBB74C23B411ADF6E1022D /* UserRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53F01AB1AE9AA1D26882B92 /* UserRepository.swift */; };
 		B1B701966B544092E744B831 /* ArticleRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = B16B7317BD5134447322A1FF /* ArticleRepository.swift */; };
+		B5D4E1072DABB18300D24202 /* LoginResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D4E1062DABB17E00D24202 /* LoginResponse.swift */; };
 		C2F30D6443BE6094D14361FF /* Industry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76F0058B74237B785ABC9E63 /* Industry.swift */; };
 		C672B2F134FCA043F15C1667 /* MonthlyBookmark.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB04FD788EF603F7BA89B88D /* MonthlyBookmark.swift */; };
 		E85EA8E9A482F4D3139A379A /* SMSResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22D28BDA51D577B28525253B /* SMSResponse.swift */; };
@@ -74,6 +75,7 @@
 		9F62C33991ABC4ABEB09DDAF /* Gender.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Gender.swift; sourceTree = "<group>"; };
 		AB04F1ED6218F595BE7FD39E /* NewsletterDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsletterDetail.swift; sourceTree = "<group>"; };
 		B16B7317BD5134447322A1FF /* ArticleRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleRepository.swift; sourceTree = "<group>"; };
+		B5D4E1062DABB17E00D24202 /* LoginResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginResponse.swift; sourceTree = "<group>"; };
 		BB04FD788EF603F7BA89B88D /* MonthlyBookmark.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthlyBookmark.swift; sourceTree = "<group>"; };
 		BD15A37E85BAE3A36B2CE72C /* Domain-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "Domain-Info.plist"; sourceTree = "<group>"; };
 		D41442B97371063DE432F8FD /* Newsletter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Newsletter.swift; sourceTree = "<group>"; };
@@ -117,6 +119,7 @@
 		13F422358481DCCD195F2DDF /* User */ = {
 			isa = PBXGroup;
 			children = (
+				B5D4E1062DABB17E00D24202 /* LoginResponse.swift */,
 				9CC625909490667A0E5466F6 /* Error */,
 				EBC4968267CD3793D679B664 /* Brand.swift */,
 				9F62C33991ABC4ABEB09DDAF /* Gender.swift */,
@@ -303,6 +306,7 @@
 				EE440BBB39BA777250D61E56 /* Brand.swift in Sources */,
 				5091B95C8FE576742F1D7E91 /* ErrorResponse.swift in Sources */,
 				34A32B84CB0DBAF03564CF2E /* Gender.swift in Sources */,
+				B5D4E1072DABB18300D24202 /* LoginResponse.swift in Sources */,
 				043AB363E24F1C147D028B4E /* NicknameResponse.swift in Sources */,
 				E85EA8E9A482F4D3139A379A /* SMSResponse.swift in Sources */,
 				4A67A3859BAC84FBDA71A447 /* SignupResponse.swift in Sources */,
@@ -489,10 +493,7 @@
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
 				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = (
-					"$(inherited)",
-					DEBUG,
-				);
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) DEBUG";
 				SWIFT_COMPILATION_MODE = singlefile;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;

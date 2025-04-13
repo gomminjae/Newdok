@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 55;
+	objectVersion = 56;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -13,6 +13,7 @@
 		40EF068D4DC0E9365A1757C3 /* SimpleUserDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E28E018F88597F58569E374 /* SimpleUserDTO.swift */; };
 		4196AC73C8ABBF529103C4C2 /* Domain.framework in Dependencies */ = {isa = PBXBuildFile; fileRef = 06FAA1459D11CCE724C34195 /* Domain.framework */; };
 		685B26DD6D5F090B12797E9B /* NicknameResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADDB13B1B8842ABB36E7430B /* NicknameResponseDTO.swift */; };
+		B5D4E1092DABB22600D24202 /* LoginResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D4E1082DABB21E00D24202 /* LoginResponseDTO.swift */; };
 		BA9C0868848F9818CEE39F48 /* SignupResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5214DC5CC69DE14A8257DAEC /* SignupResponseDTO.swift */; };
 		D86BF22977141E11F7D579F4 /* UserRepositoryImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2D0D4F26DEE2260AF4A6192 /* UserRepositoryImpl.swift */; };
 		E4E489F29D2DEAB48C3B2CB4 /* ErrorResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = E630F4F8E5DEF53D9C94324D /* ErrorResponseDTO.swift */; };
@@ -51,6 +52,7 @@
 		6E28E018F88597F58569E374 /* SimpleUserDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleUserDTO.swift; sourceTree = "<group>"; };
 		8371EA1F7B772A246E6CF72A /* SMSResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SMSResponseDTO.swift; sourceTree = "<group>"; };
 		ADDB13B1B8842ABB36E7430B /* NicknameResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NicknameResponseDTO.swift; sourceTree = "<group>"; };
+		B5D4E1082DABB21E00D24202 /* LoginResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginResponseDTO.swift; sourceTree = "<group>"; };
 		C77CDBA5F2AEA7960FD52453 /* UserDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDTO.swift; sourceTree = "<group>"; };
 		C7DE91AC8EE9CAA20178CE0A /* BrandListResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrandListResponseDTO.swift; sourceTree = "<group>"; };
 		D2D0D4F26DEE2260AF4A6192 /* UserRepositoryImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRepositoryImpl.swift; sourceTree = "<group>"; };
@@ -92,6 +94,7 @@
 		223EEC2CD9C65A64CA922A52 /* User */ = {
 			isa = PBXGroup;
 			children = (
+				B5D4E1082DABB21E00D24202 /* LoginResponseDTO.swift */,
 				4A74F8B74E721C115EBFF274 /* Error */,
 				C7DE91AC8EE9CAA20178CE0A /* BrandListResponseDTO.swift */,
 				ADDB13B1B8842ABB36E7430B /* NicknameResponseDTO.swift */,
@@ -241,6 +244,7 @@
 				09A4E170E18913D79514D2C9 /* SMSResponseDTO.swift in Sources */,
 				BA9C0868848F9818CEE39F48 /* SignupResponseDTO.swift in Sources */,
 				40EF068D4DC0E9365A1757C3 /* SimpleUserDTO.swift in Sources */,
+				B5D4E1092DABB22600D24202 /* LoginResponseDTO.swift in Sources */,
 				2120D23AB81CA806BEDDA337 /* UserDTO.swift in Sources */,
 				D86BF22977141E11F7D579F4 /* UserRepositoryImpl.swift in Sources */,
 				2F4A90C76257924820EAEA02 /* UserUseCaseImpl.swift in Sources */,
@@ -275,10 +279,7 @@
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
 				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = (
-					"$(inherited)",
-					DEBUG,
-				);
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) DEBUG";
 				SWIFT_COMPILATION_MODE = singlefile;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
