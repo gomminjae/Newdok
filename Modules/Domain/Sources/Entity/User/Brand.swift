@@ -35,11 +35,13 @@ public struct Brand {
 }
 
 public struct Interest {
-    public let id: Int
-    public let name: String
+        let userId: Int
+        let interestId: Int
+        let createdAt: String
 
-    public init(id: Int, name: String) {
-        self.id = id
-        self.name = name
+    public init(userId: Int, interestId: Int, createdAt: String) {
+        self.userId = userId
+        self.interestId = interestId
+        self.createdAt = createdAt
     }
 }

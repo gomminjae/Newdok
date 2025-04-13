@@ -21,6 +21,7 @@ public struct LoginView: View {
     @EnvironmentObject private var router: AppRouter
     
     @AppStorage("isGuest") public var isGuest: Bool = false
+    @AppStorage("isLoggedIn") public var isLoggedIn: Bool = false
     
     public init(viewModel: LoginViewModel) {
         _viewModel = StateObject(wrappedValue: viewModel)
@@ -95,7 +96,11 @@ public struct LoginView: View {
                 Spacer()
 
                 Button("로그인") {
+                    viewModel.onLoginSuccess = {
+                            router.resetTo(.tabbar) // 로그인 성공 시 라우터 실행
+                        }
                     viewModel.login()
+                    
                 }
                 .disabled(!viewModel.isLoginEnabled)
                 .frame(maxWidth: .infinity)

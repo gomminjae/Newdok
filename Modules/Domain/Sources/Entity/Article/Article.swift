@@ -11,5 +11,13 @@ public struct Article {
     let imageUrl: String
     let articleTitle: String
     let articleId: Int
-    let status: String 
+    let status: String
+    
+    public init(brandName: String, imageUrl: String, articleTitle: String, articleId: Int, status: String) {
+        self.brandName = brandName
+        self.imageUrl = imageUrl
+        self.articleTitle = articleTitle
+        self.articleId = articleId
+        self.status = status
+    }
 }

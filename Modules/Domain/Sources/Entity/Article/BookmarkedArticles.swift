@@ -8,4 +8,9 @@
 public struct BookmarkedArticles {
     let totalAmount: Int
     let bookmarkForMonth: [MonthlyBookmark]
+    
+    public init(totalAmount: Int, bookmarkForMonth: [MonthlyBookmark]) {
+        self.totalAmount = totalAmount
+        self.bookmarkForMonth = bookmarkForMonth
+    }
 }
