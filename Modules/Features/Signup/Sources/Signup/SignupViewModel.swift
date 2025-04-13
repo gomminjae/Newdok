@@ -13,7 +13,7 @@ final public class SignupViewModel: ObservableObject {
 
     private let userUseCase: UserUseCase
     
-    @Published var currentStep: SignupStep = .idInput
+    @Published var currentStep: SignupStep = .enterProfile
 
     // MARK: - Form
     @Published public var phoneNumber: String = ""

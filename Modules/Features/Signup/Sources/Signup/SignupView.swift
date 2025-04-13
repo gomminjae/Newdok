@@ -76,7 +76,7 @@ public struct SignupView: View {
                      
 
                 case .enterProfile:
-                    ProfileInputView(viewModel: viewModel, nextStep: nextStep)
+                    ProfileInputView(viewModel: viewModel)
                        
 
                 case .agreeTerms:

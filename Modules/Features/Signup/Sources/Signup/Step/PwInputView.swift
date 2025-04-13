@@ -35,13 +35,15 @@ public struct PwInputView: View {
                         .font(.hanSansNeo(14, .medium))
                         .foregroundStyle(Color(hex: "#565656"))
                         .padding(.top, 42)
-                        .padding(.bottom, 8)
 
                     Group {
                         if isSecurePassword {
                             SecureField("8자 이상, 영문/숫자 조합", text: $viewModel.password)
+                                .font(.hanSansNeo(14,.medium))
+                                
                         } else {
                             TextField("8자 이상, 영문/숫자 조합", text: $viewModel.password)
+                                .font(.hanSansNeo(14,.medium))
                         }
                     }
                     .modifier(

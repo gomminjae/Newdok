@@ -29,13 +29,11 @@ public struct ProfileInputView: View {
     
     @State private var nicknameError: NickNameValidationError? = nil
     
-    var nextStep: () -> Void
 
     @ObservedObject private var viewModel: SignupViewModel
     
-    public init(viewModel: SignupViewModel, nextStep: @escaping () -> Void) {
+    public init(viewModel: SignupViewModel) {
             self.viewModel = viewModel
-            self.nextStep = nextStep
         }
 
     public var body: some View {
@@ -43,72 +41,72 @@ public struct ProfileInputView: View {
             Text("프로필 설정을 위해\n회원 정보를 입력해주세요.")
                 .font(.hanSansNeo(20, .bold))
                 .padding(.top, 24)
-
+            
             Text("닉네임")
                 .font(.hanSansNeo(14, .medium))
                 .foregroundStyle(Color(hex: "#565656"))
                 .padding(.top, 42)
                 .padding(.bottom, 8)
                 .padding(.leading, 4)
-
+            
             TextField("12자 이내, 특수문자 사용 불가", text: $viewModel.nickname)
                 .padding(.leading, 16)
-//                .onChange(of: viewModel.nickname) { _ in
-//                    nicknameError = viewModel.validateNickname()
-//                }
+            //                .onChange(of: viewModel.nickname) { _ in
+            //                    nicknameError = viewModel.validateNickname()
+            //                }
                 .onSubmit {
-                        nicknameError = viewModel.validateNickname()
-                    }
+                    nicknameError = viewModel.validateNickname()
+                }
                 .frame(height: 50)
                 .overlay(
-                    RoundedRectangle(cornerRadius: 10)
+                    RoundedRectangle(cornerRadius: 4)
                         .stroke(nicknameError != nil ? Color.red : Color.gray.opacity(0.5), lineWidth: 1)
                 )
-
+            
             if let error = nicknameError {
                 Text(error.message)
                     .font(.footnote)
                     .foregroundStyle(.red)
             }
-
+            
             Text("출생연도")
                 .font(.hanSansNeo(14, .medium))
                 .foregroundStyle(Color(hex: "#565656"))
                 .padding(.bottom, 8)
                 .padding(.leading, 4)
                 .padding(.top, 32)
-
-            BirthYearDropdown()
-
+            
+            BirthYearDropdown(selectedYear: $viewModel.birthYear)
+            
             Text("출생연도는 뉴스레터 추천에 활용돼요.")
                 .font(.hanSansNeo(12, .medium))
                 .foregroundStyle(Color(hex: "#565656"))
                 .padding(.top, 8)
-
+            
             Text("성별")
                 .font(.hanSansNeo(14, .medium))
                 .foregroundStyle(Color(hex: "#565656"))
                 .padding(.top, 32)
-
+            
             HStack(spacing: 8) {
                 GenderButton(title: "남자", isSelected: viewModel.gender == "남자") {
                     viewModel.gender = "남자"
                 }
-
+                
                 GenderButton(title: "여자", isSelected: viewModel.gender == "여자") {
                     viewModel.gender = "여자"
                 }
             }
-
+            
             Text("성별은 뉴스레터 추천에 활용돼요.")
                 .font(.hanSansNeo(12, .medium))
                 .foregroundStyle(Color(hex: "#565656"))
                 .padding(.top, 8)
-
+            
             Spacer()
             Button(action: {
                 print("중복검사")
-                nextStep()
+                viewModel.goToNextStep()
             }) {
                 Text("다음")
                     .font(.hanSansNeo(14, .bold))
@@ -119,12 +117,8 @@ public struct ProfileInputView: View {
                     .cornerRadius(4)
             }
             .ignoresSafeArea(.keyboard)
-            //.disabled(!(viewModel.isIDAvailable ?? true))
-            .padding(.horizontal, 24)
             .padding(.bottom, 20)
             .contentShape(Rectangle())
-            
-            
         }
         .padding(.horizontal, 24)
     }
@@ -143,15 +137,9 @@ struct GenderButton: View {
                 .padding(.vertical, 14)
                 .frame(maxWidth: .infinity)
                 .overlay(
-                    RoundedRectangle(cornerRadius: 10)
+                    RoundedRectangle(cornerRadius: 4)
                         .stroke(isSelected ? Color(hex: "#2866D3") : Color.gray, lineWidth: 1)
                 )
-                .cornerRadius(10)
         }
     }
 }
-
-//#Preview {
-//    ProfileInputView(nextStep: {})
-//}
-//
