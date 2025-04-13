@@ -11,6 +11,6 @@ public enum AppRoute: Hashable {
     case login
     case signup
     case home
-    case profile(userId: String)
+    case profile
     case tabbar
 }

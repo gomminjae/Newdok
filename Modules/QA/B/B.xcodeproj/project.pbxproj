@@ -25,6 +25,7 @@
 		D7F7B41C84B829672F721F53 /* Swinject.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E05AA693C3E4A78793949CF5 /* Swinject.framework */; };
 		EBE6591D3B210BA5A77C4BEE /* Signup.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9E10D8055DE91DF89CD9A616 /* Signup.framework */; };
 		ED299898C15F8C9C61934994 /* DesignSystem.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 42F5E70E54A9D11122495EFF /* DesignSystem.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		EF1CA8797A9F6AF7DA5418C8 /* Mypage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B2F059A4D28A405569119AE2 /* Mypage.framework */; };
 		F0123C5B11FEDB50386CC1BF /* BTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73FD44ED8E632B513BD81837 /* BTests.swift */; };
 /* End PBXBuildFile section */
 
@@ -89,6 +90,7 @@
 		9E10D8055DE91DF89CD9A616 /* Signup.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Signup.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A0D3F01D7AE7F92987AA5BEB /* Data.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Data.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A3807BBFB2D5C8B2513C5534 /* Home.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Home.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		B2F059A4D28A405569119AE2 /* Mypage.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Mypage.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CA035CDBC79B589E2A387B44 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		D2857F713F5C24040D1DBDA2 /* BTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		E05AA693C3E4A78793949CF5 /* Swinject.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Swinject.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -116,6 +118,7 @@
 				2C98BFBD6353B1565A738604 /* Domain.framework in Frameworks */,
 				BC4D17FFCADE9D608BD4F9B1 /* Home.framework in Frameworks */,
 				3CB1006058EC00097C4F8544 /* Launch.framework in Frameworks */,
+				EF1CA8797A9F6AF7DA5418C8 /* Mypage.framework in Frameworks */,
 				C676D0ADA0F76C0916235CD6 /* Shared.framework in Frameworks */,
 				EBE6591D3B210BA5A77C4BEE /* Signup.framework in Frameworks */,
 				3408CDDE0AF6EA0587436697 /* Survey.framework in Frameworks */,
@@ -158,6 +161,7 @@
 				063771607106B9FAF0CD3191 /* Domain.framework */,
 				A3807BBFB2D5C8B2513C5534 /* Home.framework */,
 				07F21865B765752721E8465D /* Launch.framework */,
+				B2F059A4D28A405569119AE2 /* Mypage.framework */,
 				F4FA82F97BD0C253847BEBC3 /* Shared.framework */,
 				9E10D8055DE91DF89CD9A616 /* Signup.framework */,
 				4AC530546BCB1DF246993E72 /* Survey.framework */,

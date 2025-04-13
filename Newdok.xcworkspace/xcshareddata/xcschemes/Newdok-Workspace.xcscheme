@@ -280,6 +280,20 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
+               BlueprintIdentifier = "417BA61376E98ECD6ED70C2A"
+               BuildableName = "Mypage.framework"
+               BlueprintName = "Mypage"
+               ReferencedContainer = "container:Modules/Features/Mypage/Mypage.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
                BlueprintIdentifier = "3F5E725EB25BB5E4543E24FA"
                BuildableName = "Shared.framework"
                BlueprintName = "Shared"
