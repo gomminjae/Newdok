@@ -57,14 +57,25 @@ final public class SignupViewModel: ObservableObject {
     
     @Published public var user: User?
     
-    
-    
-    
-    
 
     public init(userUseCase: UserUseCase) {
         self.userUseCase = userUseCase
     }
+    
+    public func goToNextStep() {
+        if let next = SignupStep(rawValue: currentStep.rawValue + 1) {
+            currentStep = next
+        }
+    }
+    
+    public func goToPreviousStep() {
+        if let prev = SignupStep(rawValue: currentStep.rawValue - 1) {
+            currentStep = prev
+        }
+    }
+    
+    
+    
 
     public func sendVerificationCode() {
         guard resendFailureCount < 3 else {

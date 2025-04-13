@@ -64,7 +64,7 @@ public final class AppDIContainer {
             return MainActor.assumeIsolated {
                 SignupViewModel(userUseCase: useCase)
             }
-        }
+        } .inObjectScope(.container)
         
         container.register(LoginViewModel.self) { r in
             print("🧩 [DI] Register: LoginViewModel")

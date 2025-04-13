@@ -47,7 +47,6 @@ public enum SignupStep: Int, CaseIterable {
 }
 
 public struct SignupView: View {
-    @State private var currentStep: SignupStep = .idInput
     @StateObject public var viewModel: SignupViewModel
     
     @EnvironmentObject private var router: AppRouter
@@ -62,18 +61,18 @@ public struct SignupView: View {
             signupHeaderView
 
             Group {
-                switch currentStep {
+                switch viewModel.currentStep {
                 case .phoneVerification:
-                    PhoneVerificationView(viewModel: viewModel, nextStep: nextStep)
+                    PhoneVerificationView(viewModel: viewModel)
                         .environmentObject(router)
 
 
                 case .idInput:
-                    IDInputView(viewModel: viewModel, nextStep: nextStep)
+                    IDInputView(viewModel: viewModel)
                      
 
                 case .pwInput:
-                    PwInputView(viewModel: viewModel, nextStep: nextStep)
+                    PwInputView(viewModel: viewModel)
                      
 
                 case .enterProfile:
@@ -88,23 +87,21 @@ public struct SignupView: View {
                        
                 }
             }
-            .animation(.easeInOut, value: currentStep)
+            .animation(.easeInOut, value: viewModel.currentStep)
             .interactiveDismissDisabled()
         }
         .ignoresSafeArea(.keyboard)
     }
 
     private func nextStep() {
-        if let next = SignupStep(rawValue: currentStep.rawValue + 1) {
-            currentStep = next
-        }
+        viewModel.goToNextStep()
     }
 
     private func previousStepOrExit() {
-        if currentStep == .phoneVerification {
+        if viewModel.currentStep == .phoneVerification {
             router.pop()
-        } else if let prev = SignupStep(rawValue: currentStep.rawValue - 1) {
-            currentStep = prev
+        } else {
+            viewModel.goToPreviousStep()
         }
     }
 
@@ -120,7 +117,7 @@ public struct SignupView: View {
 
                 Spacer()
 
-                Text(currentStep.title)
+                Text(viewModel.currentStep.title)
                     .font(.hanSansNeo(16, .bold))
                     .foregroundColor(.black)
                     .frame(height: 44)
@@ -141,11 +138,14 @@ public struct SignupView: View {
 
                     Rectangle()
                         .fill(Color.primaryNormal)
-                        .frame(width: geometry.size.width * currentStep.progressValue, height: 4)
-                        .animation(.easeInOut(duration: 0.2), value: currentStep)
+                        .frame(width: geometry.size.width * viewModel.currentStep.progressValue, height: 4)
+                        .animation(.easeInOut(duration: 0.2), value: viewModel.currentStep)
                 }
             }
             .frame(height: 4)
+        }
+        .onAppear {
+            print("🧩 SignupViewModel address: \(Unmanaged.passUnretained(viewModel).toOpaque())")
         }
         .navigationBarHidden(true)
     }
