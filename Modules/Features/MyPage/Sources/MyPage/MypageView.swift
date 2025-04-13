@@ -6,12 +6,12 @@
 //
 
 import SwiftUI
+import DesignSystem
 
 public struct MypageView: View {
     
     public init() {}
     public var body: some View {
-        // 스크롤 가능하도록 ScrollView 사용
         ScrollView {
             VStack(spacing: 24) {
                 
@@ -20,9 +20,10 @@ public struct MypageView: View {
                     
                     // 1) 닉네임
                     Text("닉네임최대열자열두자열")
-                        .font(.hanSansNeo(16,.bold))
+                        .font(.hanSansNeo(16, .bold))
+                        .padding(.top,32)
                     
-                    // 2) "구독이메일 ?" 라벨
+                   
                     HStack(spacing: 4) {
                         Text("구독이메일")
                             .font(.hanSansNeo(14,.medium))
@@ -32,29 +33,32 @@ public struct MypageView: View {
                             .font(.system(size: 13))
                             .foregroundColor(Color(hex: "#565656"))
                     }
+                    .padding(.top,12)
                     
-                    // 3) 이메일 주소 (복사 아이콘 + 이메일)
+                   
                     HStack(spacing: 6) {
                         Image(systemName: "doc.on.doc")
-                            .foregroundColor(.blue)
+                            .foregroundColor(Color(hex: "#161616"))
                         Text("newdok001@newdok.tbd")
                             .font(.system(size: 14))
-                            .foregroundColor(.black)
+                            .foregroundColor(Color(hex: "#161616"))
                     }
                     
-                    // 4) 프로필 편집 버튼
+                
                     Button(action: {
                         // TODO: 프로필 편집 액션
                     }) {
                         Text("프로필 편집")
-                            .font(.system(size: 14))
-                            .foregroundColor(.black)
+                            .font(.hanSansNeo(14, .bold))
+                            .foregroundColor(Color(hex: "#565656"))
                             .frame(maxWidth: .infinity)
                             .frame(height: 44)
-                            .background(Color.gray.opacity(0.2))
-                            .cornerRadius(8)
+                            .overlay {
+                                RoundedRectangle(cornerRadius: 4)
+                                    .stroke(Color(hex: "#EBEBEB"))
+                            }
                     }
-                    .padding(.top, 8)
+                    .padding(.top, 18)
                 }
                 .padding(.horizontal, 20) // 좌우 여백
                 
@@ -97,13 +101,13 @@ public struct MypageView: View {
                 
                 Spacer().frame(height: 40)
             }
-            .padding(.top, 20)  // 전체 상단 여백
+            .padding(.top, 20)
         }
         .navigationBarTitleDisplayMode(.inline)
-        .navigationBarHidden(true) // 상단 네비게이션 바 숨김(필요시)
+        .navigationBarHidden(true)
     }
     
-    // 공용으로 쓸 셋팅 항목 뷰
+    
     @ViewBuilder
     private func settingRow(title: String) -> some View {
         HStack {

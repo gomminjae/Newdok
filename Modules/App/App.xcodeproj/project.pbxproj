@@ -3,12 +3,11 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 56;
+	objectVersion = 55;
 	objects = {
 
 /* Begin PBXBuildFile section */
 		0124B5187DA64DDD60250AD7 /* Core.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 514C6A786251DDEC6B3DFF77 /* Core.framework */; };
-		027039B987151093D68925BD /* .swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AC832BEB2DFE1258D73C0AB /* .swift */; };
 		1BC5B98AD386E5E8F84A45D6 /* Shared.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB40F3B3D8E2DCB2AC3C9605 /* Shared.framework */; };
 		2DECB327F9E1EFE0AE533114 /* Launch.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7E710496E985656C6B2D0826 /* Launch.framework */; };
 		30A760CEBD549F168553106C /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E38436ED8889DC7424B93FD /* ContentView.swift */; };
@@ -52,7 +51,6 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		0AC832BEB2DFE1258D73C0AB /* .swift */ = {isa = PBXFileReference; lastKnownFileType = text; path = .swift; sourceTree = "<group>"; };
 		0E742829AD9D1D2B50EFB2A0 /* NewdokApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewdokApp.swift; sourceTree = "<group>"; };
 		514C6A786251DDEC6B3DFF77 /* Core.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Core.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		571E08A9083FD4334E4B7D06 /* App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = App.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -121,7 +119,6 @@
 			children = (
 				5E38436ED8889DC7424B93FD /* ContentView.swift */,
 				0E742829AD9D1D2B50EFB2A0 /* NewdokApp.swift */,
-				0AC832BEB2DFE1258D73C0AB /* .swift */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -213,7 +210,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				30A760CEBD549F168553106C /* ContentView.swift in Sources */,
-				027039B987151093D68925BD /* .swift in Sources */,
 				79CC342CF73CCAAFEF0E7A8A /* NewdokApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -239,7 +235,10 @@
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
 				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) DEBUG";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = (
+					"$(inherited)",
+					DEBUG,
+				);
 				SWIFT_COMPILATION_MODE = singlefile;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;

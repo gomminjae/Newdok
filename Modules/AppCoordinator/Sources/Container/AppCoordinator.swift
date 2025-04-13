@@ -10,6 +10,7 @@ import Shared
 import Signup
 import Auth
 import Home
+import Mypage
 import Foundation
 
 final class AppCoordinator {
@@ -44,5 +45,8 @@ final class AppCoordinator {
     }
     func makeTabView() -> some View {
         return NewDokTabView().environmentObject(router)
+    }
+    func mekeProfileView() -> some View {
+        return MypageView().environmentObject(router)
     }
 }

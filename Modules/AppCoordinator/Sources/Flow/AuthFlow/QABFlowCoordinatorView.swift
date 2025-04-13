@@ -40,6 +40,8 @@ struct QABRootViewView: View {
                             coordinator.makeHomeView()
                         case .tabbar:
                             coordinator.makeTabView()
+                        case .profile:
+                            coordinator.mekeProfileView()
 
                         default:
                             EmptyView()

@@ -7,6 +7,7 @@
 
 import SwiftUI
 import Home
+import Mypage
 import DesignSystem
 
 public struct NewDokTabView: View {
@@ -19,6 +20,9 @@ public struct NewDokTabView: View {
             TabView(selection: $selectedTab) {
                 HomeView()
                     .tag(NewDokTab.home)
+                MypageView()
+                    .tag(NewDokTab.profile)
+            
             }
 
             NewDokTabBar(selectedTab: $selectedTab)
@@ -36,6 +40,7 @@ struct NewDokTabBar: View {
             Divider()
             HStack {
                 tabItem(.home, normalAsset: DesignSystemAsset.lineHome, selectedAsset: DesignSystemAsset.fillHome, title: "홈")
+                tabItem(.profile, normalAsset: DesignSystemAsset.lineUser, selectedAsset: DesignSystemAsset.fillUser,title: "마이페이지")
             }
             .padding(.top, 8)
             .padding(.bottom, 10)
@@ -47,7 +52,7 @@ struct NewDokTabBar: View {
         VStack(spacing: 4) {
             Image(asset: selectedTab == tab ? selectedAsset : normalAsset)
             Text(title)
-                .font(DesignSystemFontFamily.SpoqaHanSansNeo.medium.swiftUIFont(size: 14))
+                .font(.hanSansNeo(11,.medium))
                 .foregroundColor(selectedTab == tab ? Color.primaryNormal : Color.gray)
         }
         .frame(maxWidth: .infinity)
@@ -61,6 +66,7 @@ struct NewDokTabBar: View {
 // MARK: - ✅ 탭 Enum (Home만 유지)
 public enum NewDokTab: Int {
     case home
+    case profile
 }
 
 
