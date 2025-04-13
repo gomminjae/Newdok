@@ -20,6 +20,8 @@ public struct LoginView: View {
     
     @EnvironmentObject private var router: AppRouter
     
+    @AppStorage("isGuest") public var isGuest: Bool = false
+    
     public init(viewModel: LoginViewModel) {
         _viewModel = StateObject(wrappedValue: viewModel)
     }
@@ -104,6 +106,7 @@ public struct LoginView: View {
 
                 HStack {
                     Button("비회원으로 이용하기") {
+                        isGuest = true
                         router.resetTo(.tabbar)
                     }
                     .font(.hanSansNeo(14, .medium))

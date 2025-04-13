@@ -8,6 +8,7 @@ import SwiftUI
 import Combine
 import Domain
 import Core
+import Shared
 
 @MainActor
 public protocol LoginViewModelBindable: ObservableObject {
@@ -52,6 +53,7 @@ public final class LoginViewModel: LoginViewModelBindable {
     
     
     
+    
     public init(userUserCase: UserUseCase) {
         self.userUseCase = userUserCase
         self.loginId = ""
@@ -68,10 +70,13 @@ public final class LoginViewModel: LoginViewModelBindable {
         Task {
             
             do {
-                user = try await userUseCase.login(loginId: loginId, password: password)
+                let (user,token) = try await userUseCase.login(loginId: loginId, password: password)
+                self.user = user
+                TokenStorage.accessToken = token
                 errorMessage = nil
                 isLoginIdError = false
                 isPasswordError = false
+                
             } catch let error as NetworkError {
                 switch error {
                 case .serverError(let statusCode, let message):

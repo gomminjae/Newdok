@@ -21,13 +21,13 @@ public final class UserRepositoryImpl: UserRepository {
     }
     
     
-    public func login(loginId: String, password: String) async throws -> Domain.User {
+    public func login(loginId: String, password: String) async throws -> (User,String) {
         
-        let response: UserDTO = try await provider.asyncRequest(.login(loginId: loginId, password: password))
+        let response: LoginResponseDTO = try await provider.asyncRequest(.login(loginId: loginId, password: password))
+        let user = response.user.toDomain()
+        let token = response.accessToken
         
-        let user = response.toDomain()
-    
-        return user
+        return (user,token)
         
         
     }
