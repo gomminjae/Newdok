@@ -9,4 +9,10 @@ public struct MonthlyBookmark {
     let id: Int
     let month: String
     let bookmark: [Bookmark]
+    
+    public init(id: Int, month: String, bookmark: [Bookmark]) {
+        self.id = id
+        self.month = month
+        self.bookmark = bookmark
+    }
 }

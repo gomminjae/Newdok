@@ -13,4 +13,14 @@ public struct Bookmark {
     let sampleText: String
     let date: String
     let imageURL: String
+    
+    public init(brandName: String, brandId: Int, articleTitle: String, articleId: Int, sampleText: String, date: String, imageURL: String) {
+        self.brandName = brandName
+        self.brandId = brandId
+        self.articleTitle = articleTitle
+        self.articleId = articleId
+        self.sampleText = sampleText
+        self.date = date
+        self.imageURL = imageURL
+    }
 }

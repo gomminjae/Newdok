@@ -37,7 +37,7 @@ public final class AppDIContainer {
         container.register(MoyaProvider<UserAPI>.self) { r in
             print("🛠️ [DI] Register: MoyaProvider<UserAPI>")
             let network = r.resolve(NetworkProviding.self)!
-            return network.makeAuthProvider() // 이 시점엔 호출 안 됨 (Lazy 통해서만 접근)
+            return network.makeAuthProvider()
         }
         
         // MARK: - Repository
@@ -74,5 +74,8 @@ public final class AppDIContainer {
                 LoginViewModel(userUserCase: useCase)
             }
         }
+        
+        
+        //MARK: Home
     }
 }

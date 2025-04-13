@@ -14,6 +14,12 @@
 		4196AC73C8ABBF529103C4C2 /* Domain.framework in Dependencies */ = {isa = PBXBuildFile; fileRef = 06FAA1459D11CCE724C34195 /* Domain.framework */; };
 		685B26DD6D5F090B12797E9B /* NicknameResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADDB13B1B8842ABB36E7430B /* NicknameResponseDTO.swift */; };
 		B5D4E1092DABB22600D24202 /* LoginResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D4E1082DABB21E00D24202 /* LoginResponseDTO.swift */; };
+		B5D4E10E2DABC74C00D24202 /* ArticleDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D4E10D2DABC74900D24202 /* ArticleDTO.swift */; };
+		B5D4E1102DABC7B900D24202 /* ArticleDetailDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D4E10F2DABC7B500D24202 /* ArticleDetailDTO.swift */; };
+		B5D4E1122DABC84E00D24202 /* ArticlesDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D4E1112DABC84900D24202 /* ArticlesDTO.swift */; };
+		B5D4E1142DABCA0D00D24202 /* BookmarkDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D4E1132DABCA0800D24202 /* BookmarkDTO.swift */; };
+		B5D4E1162DABCA4900D24202 /* BookmarkedArticleDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D4E1152DABCA4200D24202 /* BookmarkedArticleDTO.swift */; };
+		B5D4E1182DABCA9400D24202 /* MonthlyBookmarkDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D4E1172DABCA8D00D24202 /* MonthlyBookmarkDTO.swift */; };
 		BA9C0868848F9818CEE39F48 /* SignupResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5214DC5CC69DE14A8257DAEC /* SignupResponseDTO.swift */; };
 		D86BF22977141E11F7D579F4 /* UserRepositoryImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2D0D4F26DEE2260AF4A6192 /* UserRepositoryImpl.swift */; };
 		E4E489F29D2DEAB48C3B2CB4 /* ErrorResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = E630F4F8E5DEF53D9C94324D /* ErrorResponseDTO.swift */; };
@@ -53,6 +59,12 @@
 		8371EA1F7B772A246E6CF72A /* SMSResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SMSResponseDTO.swift; sourceTree = "<group>"; };
 		ADDB13B1B8842ABB36E7430B /* NicknameResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NicknameResponseDTO.swift; sourceTree = "<group>"; };
 		B5D4E1082DABB21E00D24202 /* LoginResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginResponseDTO.swift; sourceTree = "<group>"; };
+		B5D4E10D2DABC74900D24202 /* ArticleDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleDTO.swift; sourceTree = "<group>"; };
+		B5D4E10F2DABC7B500D24202 /* ArticleDetailDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleDetailDTO.swift; sourceTree = "<group>"; };
+		B5D4E1112DABC84900D24202 /* ArticlesDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticlesDTO.swift; sourceTree = "<group>"; };
+		B5D4E1132DABCA0800D24202 /* BookmarkDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkDTO.swift; sourceTree = "<group>"; };
+		B5D4E1152DABCA4200D24202 /* BookmarkedArticleDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkedArticleDTO.swift; sourceTree = "<group>"; };
+		B5D4E1172DABCA8D00D24202 /* MonthlyBookmarkDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthlyBookmarkDTO.swift; sourceTree = "<group>"; };
 		C77CDBA5F2AEA7960FD52453 /* UserDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDTO.swift; sourceTree = "<group>"; };
 		C7DE91AC8EE9CAA20178CE0A /* BrandListResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrandListResponseDTO.swift; sourceTree = "<group>"; };
 		D2D0D4F26DEE2260AF4A6192 /* UserRepositoryImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRepositoryImpl.swift; sourceTree = "<group>"; };
@@ -117,6 +129,7 @@
 		647255CD65221C9CD4A43DED /* DTO */ = {
 			isa = PBXGroup;
 			children = (
+				B5D4E10C2DABC73700D24202 /* Article */,
 				223EEC2CD9C65A64CA922A52 /* User */,
 			);
 			path = DTO;
@@ -144,6 +157,19 @@
 				033B57EACF093CA22F91EAB9 /* Data-Info.plist */,
 			);
 			path = InfoPlists;
+			sourceTree = "<group>";
+		};
+		B5D4E10C2DABC73700D24202 /* Article */ = {
+			isa = PBXGroup;
+			children = (
+				B5D4E1172DABCA8D00D24202 /* MonthlyBookmarkDTO.swift */,
+				B5D4E1152DABCA4200D24202 /* BookmarkedArticleDTO.swift */,
+				B5D4E1132DABCA0800D24202 /* BookmarkDTO.swift */,
+				B5D4E1112DABC84900D24202 /* ArticlesDTO.swift */,
+				B5D4E10F2DABC7B500D24202 /* ArticleDetailDTO.swift */,
+				B5D4E10D2DABC74900D24202 /* ArticleDTO.swift */,
+			);
+			path = Article;
 			sourceTree = "<group>";
 		};
 		C25E2D135BFBAC1019949D62 /* Derived */ = {
@@ -241,13 +267,19 @@
 				F6821D6B328FDD11ED010367 /* BrandListResponseDTO.swift in Sources */,
 				E4E489F29D2DEAB48C3B2CB4 /* ErrorResponseDTO.swift in Sources */,
 				685B26DD6D5F090B12797E9B /* NicknameResponseDTO.swift in Sources */,
+				B5D4E1102DABC7B900D24202 /* ArticleDetailDTO.swift in Sources */,
 				09A4E170E18913D79514D2C9 /* SMSResponseDTO.swift in Sources */,
 				BA9C0868848F9818CEE39F48 /* SignupResponseDTO.swift in Sources */,
 				40EF068D4DC0E9365A1757C3 /* SimpleUserDTO.swift in Sources */,
 				B5D4E1092DABB22600D24202 /* LoginResponseDTO.swift in Sources */,
 				2120D23AB81CA806BEDDA337 /* UserDTO.swift in Sources */,
 				D86BF22977141E11F7D579F4 /* UserRepositoryImpl.swift in Sources */,
+				B5D4E10E2DABC74C00D24202 /* ArticleDTO.swift in Sources */,
+				B5D4E1182DABCA9400D24202 /* MonthlyBookmarkDTO.swift in Sources */,
+				B5D4E1142DABCA0D00D24202 /* BookmarkDTO.swift in Sources */,
 				2F4A90C76257924820EAEA02 /* UserUseCaseImpl.swift in Sources */,
+				B5D4E1162DABCA4900D24202 /* BookmarkedArticleDTO.swift in Sources */,
+				B5D4E1122DABC84E00D24202 /* ArticlesDTO.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
