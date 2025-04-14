@@ -32,6 +32,10 @@ public struct ProfileInputView: View {
 
     @ObservedObject private var viewModel: SignupViewModel
     
+    let birthYearOptions: [DropdownOption] = (1990...2025).reversed().map {
+        DropdownOption(key: "\($0)", value: "\($0)")
+    }
+    
     public init(viewModel: SignupViewModel) {
             self.viewModel = viewModel
         }
@@ -50,6 +54,7 @@ public struct ProfileInputView: View {
                 .padding(.leading, 4)
             
             TextField("12자 이내, 특수문자 사용 불가", text: $viewModel.nickname)
+                .font(.hanSansNeo(14, .medium))
                 .padding(.leading, 16)
             //                .onChange(of: viewModel.nickname) { _ in
             //                    nicknameError = viewModel.validateNickname()
@@ -62,6 +67,7 @@ public struct ProfileInputView: View {
                     RoundedRectangle(cornerRadius: 4)
                         .stroke(nicknameError != nil ? Color.red : Color.gray.opacity(0.5), lineWidth: 1)
                 )
+                .contentShape(Rectangle())
             
             if let error = nicknameError {
                 Text(error.message)
@@ -76,7 +82,8 @@ public struct ProfileInputView: View {
                 .padding(.leading, 4)
                 .padding(.top, 32)
             
-            BirthYearDropdown(selectedYear: $viewModel.birthYear)
+           DropdownSelector(placeholder: "선ㅌ", options: birthYearOptions)
+                .frame(height: 48)
             
             Text("출생연도는 뉴스레터 추천에 활용돼요.")
                 .font(.hanSansNeo(12, .medium))
@@ -120,7 +127,9 @@ public struct ProfileInputView: View {
             .padding(.bottom, 20)
             .contentShape(Rectangle())
         }
+        .scrollDisabled(true)
         .padding(.horizontal, 24)
+        .ignoresSafeArea(.keyboard)
     }
 }
 

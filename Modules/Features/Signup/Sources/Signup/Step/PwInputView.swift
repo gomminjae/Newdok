@@ -102,7 +102,9 @@ public struct PwInputView: View {
             .padding(.horizontal, 24)
             .padding(.bottom, 20)
             .disabled(!viewModel.isPasswordValid)
+            
         }
+        .scrollDisabled(true)
 
     }
 }
