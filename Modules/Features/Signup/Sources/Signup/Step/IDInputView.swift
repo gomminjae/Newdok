@@ -90,6 +90,7 @@ public struct IDInputView: View {
             .padding(.bottom, 20)
             .contentShape(Rectangle())
         }
+        .scrollDisabled(true)
 
     }
 

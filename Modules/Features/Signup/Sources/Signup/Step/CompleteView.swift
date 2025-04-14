@@ -9,9 +9,16 @@ import SwiftUI
 import DesignSystem
 
 
+
 struct CompleteView: View {
     var email: String = "newdok12@newdok.site"
     var onNext: () -> Void = {}
+    
+    @ObservedObject private var viewModel: SignupViewModel
+    
+    public init(viewModel: SignupViewModel) {
+        self.viewModel = viewModel
+    }
 
     var body: some View {
         VStack(spacing: 0) {
@@ -60,7 +67,7 @@ struct CompleteView: View {
             Spacer()
 
             // 다음 버튼
-            Button(action: onNext) {
+            Button(action: viewModel.goToNextStep) {
                 Text("다음")
                     .font(.hanSansNeo(14, .bold))
                     .frame(maxWidth: .infinity)
@@ -77,6 +84,6 @@ struct CompleteView: View {
 }
 
 
-#Preview {
-    CompleteView()
-}
+//#Preview {
+//    CompleteView()
+//}

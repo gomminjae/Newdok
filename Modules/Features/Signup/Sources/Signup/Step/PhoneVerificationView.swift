@@ -184,6 +184,7 @@ public struct PhoneVerificationView: View {
                 })
             }
         }
+        .scrollDisabled(true)
         .ignoresSafeArea(.keyboard)
     }
 
