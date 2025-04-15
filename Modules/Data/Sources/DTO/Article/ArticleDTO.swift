@@ -7,7 +7,7 @@
 import Domain
 
 
-public struct ArticleDTO {
+public struct ArticleDTO: Decodable {
     let brandName: String
     let imageUrl: String
     let articleTitle: String

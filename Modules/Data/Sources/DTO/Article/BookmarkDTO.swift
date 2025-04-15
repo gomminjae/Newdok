@@ -5,7 +5,7 @@
 //  Created by 권민재 on 4/13/25.
 //
 import Domain
-public struct BookmarkDTO {
+public struct BookmarkDTO: Decodable {
     let brandName: String
     let brandId: Int
     let articleTitle: String

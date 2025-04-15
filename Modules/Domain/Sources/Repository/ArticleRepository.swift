@@ -11,16 +11,16 @@ import Shared
 
 public protocol ArticleRepository {
     
-    func fetchArticles(year: String, publicationMonth: String) -> Articles
+    func fetchArticles(year: String, publicationMonth: String) async throws -> Articles
     
-    func fetchTodayArticles() -> Articles
+    func fetchTodayArticles() async throws -> Articles
     
-    func fetchBookmarkArticles(interest: String) -> BookmarkedArticles
-    func changeBookmarkState(articleId: String)
+    func fetchBookmarkArticles(interest: String) async throws -> BookmarkedArticles
+    func changeBookmarkState(articleId: String) async throws
     
-    func fetchBookmarkedInterest() -> [Interest]
+    func fetchBookmarkedInterest() async throws -> [Interest]
     
-    func fetchArticleDetail(id: String) -> ArticleDetail
+    func fetchArticleDetail(id: String) async throws -> ArticleDetail
     
     
 }

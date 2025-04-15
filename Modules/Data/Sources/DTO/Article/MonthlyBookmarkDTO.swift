@@ -5,7 +5,7 @@
 //  Created by 권민재 on 4/13/25.
 //
 import Domain
-public struct MonthlyBookmarkDTO {
+public struct MonthlyBookmarkDTO: Decodable {
     let id: Int
     let month: String
     let bookmark: [BookmarkDTO]

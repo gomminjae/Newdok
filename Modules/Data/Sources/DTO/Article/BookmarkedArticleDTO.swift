@@ -6,7 +6,7 @@
 //
 import Domain
 
-public struct BookmarkedArticlesDTO {
+public struct BookmarkedArticlesDTO: Decodable {
     let totalAmount: Int
     let bookmarkForMonth: [MonthlyBookmarkDTO]
     

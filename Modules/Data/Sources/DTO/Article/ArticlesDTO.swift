@@ -6,7 +6,7 @@
 //
 import Domain
 
-public struct ArticlesDTO {
+public struct ArticlesDTO: Decodable {
     
     let id: Int?
     let publishDate: Int

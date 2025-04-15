@@ -10,16 +10,21 @@ import Shared
 
 
 public protocol ArticleUseCase {
+
     
-    func loadMonthlyArticles(year: String, month: String) async throws -> Articles
+    func fetchArticlesByMonth(year: String, month: String) async throws -> Articles
 
-    func loadTodayArticles() async throws -> Articles
+    
+    func fetchTodayArticles() async throws -> Articles
 
-    func loadBookmarkedArticles(for interest: String) async throws -> BookmarkedArticles
+    func fetchBookmarkedArticles(interest: String) async throws -> BookmarkedArticles
 
-    func toggleBookmark(for articleId: String) async throws
+  
+    func toggleBookmarkStatus(articleId: String) async throws
 
-    func getBookmarkedInterests() async throws -> [Interest]
+    
+    func fetchBookmarkedInterests() async throws -> [Interest]
 
-    func loadArticleDetail(id: String) async throws -> ArticleDetail
+  
+    func fetchArticleDetail(articleId: String) async throws -> ArticleDetail
 }
