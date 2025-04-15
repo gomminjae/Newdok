@@ -16,7 +16,7 @@ public struct BrandListResponseDTO: Decodable {
 }
 
 public struct BrandDTO: Decodable {
-    public let brandId: Int
+    public let id: Int
     public let brandName: String
     public let briefDescription: String
     public let publicationCycle: String
@@ -26,7 +26,7 @@ public struct BrandDTO: Decodable {
     
     public func toDomain() -> Brand {
         return Brand(
-            id: brandId,
+            id: id,
             name: brandName,
             description: briefDescription,
             cycle: publicationCycle,

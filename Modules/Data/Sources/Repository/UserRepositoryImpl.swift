@@ -102,7 +102,7 @@ public final class UserRepositoryImpl: UserRepository {
         return code
     }
     
-    public func preInvestigate(industryId: Int, interestIds: [Int]) async throws -> [Brand] {
+    public func preInvestigate(industryId: String, interestIds: [String]) async throws -> [Brand] {
         let response: BrandListResponseDTO = try await provider.asyncRequest(.preInvestigate(industryId: industryId, interestIds: interestIds))
         
         let brands = response.toDomain()

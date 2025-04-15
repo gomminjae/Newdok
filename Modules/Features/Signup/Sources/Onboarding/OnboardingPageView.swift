@@ -16,7 +16,7 @@ struct OnboardingPageView: View {
     let totalPages: Int
     
     var body: some View {
-        VStack {
+        VStack(spacing: 0) {
             Spacer(minLength: 64)
             Text(title)
                 .font(.hanSansNeo(14, .medium))

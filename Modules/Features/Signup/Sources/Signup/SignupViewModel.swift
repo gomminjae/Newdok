@@ -57,6 +57,12 @@ final public class SignupViewModel: ObservableObject {
     
     @Published public var user: User?
     
+    
+    //MARK: Investigate
+    @Published public var myIndustry: String = ""
+    @Published public var selectedInterests: Set<String> = []
+    @Published public var recommendedPost: [Brand] = []
+    
 
     public init(userUseCase: UserUseCase) {
         self.userUseCase = userUseCase
@@ -189,6 +195,26 @@ final public class SignupViewModel: ObservableObject {
             }
         }
     }
+    
+    func toggleInterest(_ key: String) {
+        if selectedInterests.contains(key) {
+            selectedInterests.remove(key)
+        } else {
+            selectedInterests.insert(key)
+        }
+    }
+    
+    func submitInterests() {
+            Task {
+                do {
+                    let result = try await userUseCase.preInvestigate(industryId: myIndustry, interestIds: Array(selectedInterests))
+                    recommendedPost = result
+                    goToNextStep()
+                } catch {
+                    print("전송 실패: \(error)")
+                }
+            }
+        }
     
     
     

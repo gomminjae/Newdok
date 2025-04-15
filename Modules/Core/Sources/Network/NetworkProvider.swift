@@ -8,6 +8,7 @@
 import Moya
 import Foundation
 import Alamofire
+import Shared
 
 public protocol NetworkProviding {
     func makeAuthProvider() -> MoyaProvider<UserAPI>
@@ -23,25 +24,15 @@ public final class NetworkProvider: NetworkProviding {
         print("⚙️ [CALL] makeAuthProvider 실행됨")
         return MoyaProvider<UserAPI>(
             session: makeSafeSession(),
-            plugins: [NetworkLoggerPlugin()]
+            plugins: [
+                NetworkLoggerPlugin(),
+                TokenPlugin(tokenProvider: {
+                    TokenStorage.accessToken
+                })
+            ]
         )
     }
 
-//    /// ✅ 시뮬레이터 환경에 따라 안전한 세션을 반환
-//    private func makeSafeSession() -> Session {
-//        let config: URLSessionConfiguration = {
-//            if ProcessInfo.processInfo.environment["SIMULATOR_DEVICE_NAME"] != nil {
-//                print("🧪 [Session] 시뮬레이터 → ephemeral 사용")
-//                return .ephemeral
-//            } else {
-//                print("📱 [Session] 디바이스 → default 사용")
-//                return .default
-//            }
-//        }()
-//
-//        config.headers = .default
-//        return Session(configuration: config)
-//    }
     private func makeSafeSession() -> Session {
         #if targetEnvironment(simulator)
         print("🧪 [Session] 시뮬레이터 → ephemeral 사용")

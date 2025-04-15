@@ -21,5 +21,5 @@ public protocol UserUseCase {
     func updatePhoneNumber(_ phoneNumber: String) async throws
 
     func authSMS(phoneNumber: String) async throws -> SMSResponse
-    func preInvestigate(industryId: Int, interestIds: [Int]) async throws -> [Brand]
+    func preInvestigate(industryId: String, interestIds: [String]) async throws -> [Brand]
 }

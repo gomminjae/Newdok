@@ -27,7 +27,7 @@ public enum UserAPI {
     case authSMS(phoneNumber: String)
     
     //사전조사
-    case preInvestigate(industryId: Int, interestIds: [Int])
+    case preInvestigate(industryId: String, interestIds: [String])
     
 }
 
@@ -125,14 +125,18 @@ extension UserAPI: TargetType {
             return .requestParameters(parameters: ["phoneNumber": phoneNumber], encoding: JSONEncoding.default)
             
         case let .preInvestigate(industryId, interestIds):
-            var parameters: [String: Any] = ["industry": industryId]
-            
-            // interest 파라미터를 여러 개 추가 (ex. &interest=1&interest=2)
-            for interestId in interestIds {
-                parameters["interest"] = interestId
-            }
+            let parameters: [String: Any] = [
+                "industry": industryId,
+                "interest": interestIds
+            ]
 
-            return .requestParameters(parameters: parameters, encoding: URLEncoding.default)
+            let encoding = URLEncoding(
+                destination: .queryString,
+                arrayEncoding: .noBrackets,  
+                boolEncoding: .literal
+            )
+
+            return .requestParameters(parameters: parameters, encoding: encoding)
         }
     }
     

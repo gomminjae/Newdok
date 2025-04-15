@@ -57,7 +57,7 @@ public struct OnboardingView: View {
                     router.push(.signup)
                 }) {
                     Text("회원가입")
-                        .font(.hanSansNeo(18, .bold))
+                        .font(.hanSansNeo(14, .bold))
                         .frame(maxWidth: .infinity)
                         .padding()
                         .background(Color(hex: "#2866D3"))
@@ -70,7 +70,7 @@ public struct OnboardingView: View {
                 HStack {
                     Text("이미 계정이 있나요?")
                         .font(.hanSansNeo(14, .medium))
-                        .foregroundColor(Color(hex: "#555555"))
+                        .foregroundColor(Color(hex: "#969696"))
 
                     Button(action: {
                         router.push(.login)
@@ -82,9 +82,9 @@ public struct OnboardingView: View {
                             .underline()
                     }
                 }
-                .padding(.top, 8)
+                .padding(.top, 20)
+                .padding(.bottom, 56)
             }
-            .padding(.bottom, 130)
         }
     }
 }
