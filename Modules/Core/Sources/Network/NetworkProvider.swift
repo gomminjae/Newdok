@@ -12,6 +12,7 @@ import Shared
 
 public protocol NetworkProviding {
     func makeAuthProvider() -> MoyaProvider<UserAPI>
+    func mekeArticleProvider() -> MoyaProvider<ArticleAPI>
 }
 
 public final class NetworkProvider: NetworkProviding {
@@ -23,6 +24,18 @@ public final class NetworkProvider: NetworkProviding {
     public func makeAuthProvider() -> MoyaProvider<UserAPI> {
         print("⚙️ [CALL] makeAuthProvider 실행됨")
         return MoyaProvider<UserAPI>(
+            session: makeSafeSession(),
+            plugins: [
+                NetworkLoggerPlugin(),
+                TokenPlugin(tokenProvider: {
+                    TokenStorage.accessToken
+                })
+            ]
+        )
+    }
+    
+    public func mekeArticleProvider() -> MoyaProvider<ArticleAPI> {
+        return MoyaProvider<ArticleAPI>(
             session: makeSafeSession(),
             plugins: [
                 NetworkLoggerPlugin(),

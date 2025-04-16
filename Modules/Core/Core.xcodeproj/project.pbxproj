@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 56;
+	objectVersion = 55;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -21,7 +21,7 @@
 		914F154986FC953CD03CBBFB /* APIEnvironment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37D20FB3473EE5354A38EDF4 /* APIEnvironment.swift */; };
 		9312E114DDCBE60BDD2DD032 /* NetworkLoggerPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC3BF1DA23727917D472C859 /* NetworkLoggerPlugin.swift */; };
 		AECBBB447FE9A2ED67703BF9 /* AuthInterceptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39C015A0A4F1E90FBDFFF855 /* AuthInterceptor.swift */; };
-		B5D4E10B2DABBB0800D24202 /* TokenPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D4E10A2DABBB0800D24202 /* TokenPlugin.swift */; };
+		D32B53DF3BA93B1875B18F04 /* TokenPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29D52B2E4D0092141C27BCFB /* TokenPlugin.swift */; };
 		E04A978CAE4A2D7499F40213 /* NetworkProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF091BF7231A5E1E4699673 /* NetworkProvider.swift */; };
 /* End PBXBuildFile section */
 
@@ -42,6 +42,7 @@
 		05ECDCC9A0A1527B8AAEE504 /* AccessTokenPlugin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccessTokenPlugin.swift; sourceTree = "<group>"; };
 		0D2C05222F38012E3350EB44 /* NetworkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
 		26BDD2D3E7FED8CDE9A52F46 /* Core-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "Core-Info.plist"; sourceTree = "<group>"; };
+		29D52B2E4D0092141C27BCFB /* TokenPlugin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenPlugin.swift; sourceTree = "<group>"; };
 		2B0FA7F85F3573FB522F9478 /* Core.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Core.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		37D20FB3473EE5354A38EDF4 /* APIEnvironment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIEnvironment.swift; sourceTree = "<group>"; };
 		39C015A0A4F1E90FBDFFF855 /* AuthInterceptor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthInterceptor.swift; sourceTree = "<group>"; };
@@ -50,7 +51,6 @@
 		4A672C80AC40AD7ADFD38507 /* Alamofire.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Alamofire.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6260F75C087362295DDE52AE /* Moya.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Moya.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		72703E2E055FAC09CC450CE3 /* ErrorMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorMapper.swift; sourceTree = "<group>"; };
-		B5D4E10A2DABBB0800D24202 /* TokenPlugin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenPlugin.swift; sourceTree = "<group>"; };
 		B8E481F76A48C00550F37F55 /* Shared.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Shared.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C637758CB1CB1F6B2EC6B13B /* NewsletterAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsletterAPI.swift; sourceTree = "<group>"; };
 		CA3F13E23B6662B1FDAD4536 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS.sdk/System/Library/Frameworks/CFNetwork.framework; sourceTree = DEVELOPER_DIR; };
@@ -140,9 +140,9 @@
 		701982BA4C64C66A61BF8233 /* Plugin */ = {
 			isa = PBXGroup;
 			children = (
-				B5D4E10A2DABBB0800D24202 /* TokenPlugin.swift */,
 				05ECDCC9A0A1527B8AAEE504 /* AccessTokenPlugin.swift */,
 				FC3BF1DA23727917D472C859 /* NetworkLoggerPlugin.swift */,
+				29D52B2E4D0092141C27BCFB /* TokenPlugin.swift */,
 			);
 			path = Plugin;
 			sourceTree = "<group>";
@@ -263,12 +263,12 @@
 				35CE2FDD50BA7F137135D3EA /* NewsletterAPI.swift in Sources */,
 				2DA8BE51AA803E3F6E393FF5 /* UserAPI.swift in Sources */,
 				914F154986FC953CD03CBBFB /* APIEnvironment.swift in Sources */,
-				B5D4E10B2DABBB0800D24202 /* TokenPlugin.swift in Sources */,
 				0CD90D2359B0E7BA52DF5427 /* ErrorMapper.swift in Sources */,
 				27E013E9E2A196C96E85C6E1 /* MoyaProvider+Async.swift in Sources */,
 				6060ADA578420B6B6DA0DED2 /* NetworkError.swift in Sources */,
 				3C70BCF59122F24D77D22BC3 /* AccessTokenPlugin.swift in Sources */,
 				9312E114DDCBE60BDD2DD032 /* NetworkLoggerPlugin.swift in Sources */,
+				D32B53DF3BA93B1875B18F04 /* TokenPlugin.swift in Sources */,
 				AECBBB447FE9A2ED67703BF9 /* AuthInterceptor.swift in Sources */,
 				E04A978CAE4A2D7499F40213 /* NetworkProvider.swift in Sources */,
 			);
@@ -413,7 +413,10 @@
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
 				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) DEBUG";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = (
+					"$(inherited)",
+					DEBUG,
+				);
 				SWIFT_COMPILATION_MODE = singlefile;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;

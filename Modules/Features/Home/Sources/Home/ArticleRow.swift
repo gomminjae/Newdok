@@ -6,14 +6,14 @@
 //
 import SwiftUI
 import DesignSystem
+import Domain
 
 struct ArticleRow: View {
     let article: Article
 
     var body: some View {
         HStack(spacing: 12) {
-            // 🔹 뉴스레터 아이콘
-            Image(asset: DesignSystemAsset.signup)//article.imageName)
+            Image(asset: DesignSystemAsset.signup)
                 .resizable()
                 .frame(width: 56, height: 56)
                 .clipShape(RoundedRectangle(cornerRadius: 12))
@@ -24,18 +24,18 @@ struct ArticleRow: View {
 
             VStack(alignment: .leading, spacing: 6) {
                 HStack {
-                    Text(article.source)
+                    Text(article.brandName)
                         .font(.hanSansNeo(12, .regular))
                         .foregroundColor(.gray)
 
                     Spacer()
 
-                    Text(article.isRead ? "읽음" : "안읽음")
+                    Text(article.status == "Read" ? "읽음" : "안읽음")
                         .font(.hanSansNeo(11, .regular))
-                        .foregroundColor(article.isRead ? .gray : Color.primaryNormal)
+                        .foregroundColor(article.status == "Read" ? .gray : Color.primaryNormal)
                 }
 
-                Text(article.title)
+                Text(article.articleTitle)
                     .font(.hanSansNeo(14, .medium))
                     .foregroundColor(.black)
                     .lineLimit(1)
@@ -43,7 +43,7 @@ struct ArticleRow: View {
             }
         }
         .padding(16)
-        .background(article.isRead ? Color(hex: "EBEBEB") : Color.white)
+        .background(article.status == "Read" ? Color(hex: "EBEBEB") : Color.white)
         .overlay {
             RoundedRectangle(cornerRadius: 12)
                 .stroke(Color(hex: "#EBEBEB"), lineWidth: 1)
@@ -54,11 +54,7 @@ struct ArticleRow: View {
 }
 
 #Preview {
-    ArticleRow(article: Article(
-        title: "💰 도커스님의 희망 은퇴 연령은?",
-        source: "머니레터",
-        imageName: "signup",
-        isRead: false
+    ArticleRow(article: Article(brandName: "네오", imageUrl: "", articleTitle: "헬로", articleId: 3, status: "Read"
     ))
     .previewLayout(.sizeThatFits)
     .padding()

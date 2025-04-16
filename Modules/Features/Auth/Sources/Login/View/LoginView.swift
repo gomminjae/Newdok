@@ -46,11 +46,11 @@ public struct LoginView: View {
                     .frame(height: 56)
                     .customTextFieldStyle(isError: viewModel.isLoginIdError, isFocused: $isIdFocused)
                     .focused($isIdFocused)
+                    .contentShape(Rectangle())
                 if viewModel.isLoginIdError {
                     Text(viewModel.errorMessage ?? "")
                         .font(.hanSansNeo(12,.medium))
                         .foregroundStyle(Color(hex: "#E32727"))
-                        
                     
                 }
 
@@ -75,6 +75,7 @@ public struct LoginView: View {
                         isError: viewModel.isPasswordError
                     )
                 )
+                .contentShape(Rectangle())
                 if viewModel.isPasswordError {
                     Text(viewModel.errorMessage ?? "")
                         .font(.hanSansNeo(12,.medium))

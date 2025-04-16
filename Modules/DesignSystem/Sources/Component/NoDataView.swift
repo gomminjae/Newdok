@@ -12,11 +12,11 @@ public enum NoDataType {
     case noSubscriptions   // 구독 중인 뉴스레터 없음
     case requireSignUp     // 회원가입 필요
 
-    var imageName: String {
+    var imageName: DesignSystemImages {
         switch self {
-        case .noArticles: return "nodata"
-        case .noSubscriptions: return "nosubscribe"
-        case .requireSignUp: return "nologin"
+        case .noArticles: return DesignSystemAsset.nodata
+        case .noSubscriptions: return DesignSystemAsset.nosubscibe
+        case .requireSignUp: return DesignSystemAsset.nologin
         }
     }
 
@@ -71,27 +71,30 @@ public struct NoDataView: View {
     
 
     public var body: some View {
-        VStack {
-            // 🔹 새로고침 버튼 (모든 화면에 공통)
+        VStack(alignment: .center, spacing: 0) {
             HStack {
                 Spacer()
                 Button(action: {
                     print("새로고침")
                 }) {
-                    Image("refresh")
-                    Text("새로고침")
-                        .font(.hanSansNeo(12, .regular))
-                        .foregroundStyle(Color.primaryNormal)
-                        .padding(.leading, 4)
+                    HStack(spacing: 0) {
+                        Image(asset: DesignSystemAsset.refresh)
+                            .foregroundStyle(Color.primaryNormal)
+                        Text("새로고침")
+                            .font(.hanSansNeo(12, .regular))
+                            .foregroundStyle(Color.primaryNormal)
+                            .padding(.leading, 4)
+                    }
                 }
                 .padding(.top, 20)
                 .padding(.trailing, 28)
             }
 
     
-            Image(type.imageName)
+            Image(asset: type.imageName)
                 .resizable()
-                .frame(width: 240, height: 240)
+                .frame(width: 280, height: 280)
+                .padding(.top, 24)
 
           
             Text(type.title)
@@ -111,9 +114,9 @@ public struct NoDataView: View {
                     .font(.hanSansNeo(16, .bold))
                     .foregroundStyle(Color.white)
                     .frame(maxWidth: .infinity)
-                    .frame(height: 56)
+                    .frame(height: 48)
                     .background(Color.primaryNormal)
-                    .cornerRadius(12)
+                    .cornerRadius(4)
             }
             .padding(.horizontal, 24)
             .padding(.top, 24)
@@ -124,11 +127,15 @@ public struct NoDataView: View {
                     Text("이미 계정이 있나요?")
                         .font(.hanSansNeo(14, .regular))
                         .foregroundColor(.gray)
-                    Button("로그인") {
+                    Button(action: {
                         loginAction?()
+                    }) {
+                        Text("로그인")
+                            .font(.hanSansNeo(14, .bold))
+                            .foregroundColor(Color.primaryNormal)
+                            .underline()
                     }
-                    .font(.hanSansNeo(14, .bold))
-                    .foregroundColor(Color.primaryNormal)
+                    
                 }
                 .padding(.top, 12)
             }

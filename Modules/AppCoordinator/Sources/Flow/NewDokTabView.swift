@@ -12,13 +12,21 @@ import DesignSystem
 
 public struct NewDokTabView: View {
     @State private var selectedTab: NewDokTab = .home
+    
+    private let homeViewModel: HomeViewModel
+    
+    
 
-    public init() {}
+    public init(
+        homeViewModel: HomeViewModel
+    ) {
+        self.homeViewModel = homeViewModel
+    }
 
     public var body: some View {
         VStack(spacing: 0) {
             TabView(selection: $selectedTab) {
-                HomeView()
+                HomeView(viewModel: homeViewModel)
                     .tag(NewDokTab.home)
                 MypageView()
                     .tag(NewDokTab.profile)
@@ -70,9 +78,9 @@ public enum NewDokTab: Int {
 }
 
 
-// MARK: - ✅ 4. 미리보기
-struct NewDokTabView_Previews: PreviewProvider {
-    static var previews: some View {
-        NewDokTabView()
-    }
-}
+//// MARK: - ✅ 4. 미리보기
+//struct NewDokTabView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        NewDokTabView()
+//    }
+//}

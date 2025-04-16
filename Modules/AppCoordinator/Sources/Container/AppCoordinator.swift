@@ -39,12 +39,15 @@ final class AppCoordinator {
     }
     
     func makeHomeView() -> some View {
-        
-        return HomeView().environmentObject(router)
+        let vm = container.container.resolve(HomeViewModel.self)!
+        return HomeView(viewModel: vm).environmentObject(router)
         
     }
     func makeTabView() -> some View {
-        return NewDokTabView().environmentObject(router)
+        
+        let homeVm = container.container.resolve(HomeViewModel.self)!
+        
+        return NewDokTabView(homeViewModel: homeVm).environmentObject(router)
     }
     func mekeProfileView() -> some View {
         return MypageView().environmentObject(router)

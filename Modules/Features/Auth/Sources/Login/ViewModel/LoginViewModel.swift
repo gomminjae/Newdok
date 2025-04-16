@@ -56,6 +56,8 @@ public final class LoginViewModel: LoginViewModelBindable {
     @AppStorage("isLoggedIn") public var isLoggedIn: Bool = false
     public var onLoginSuccess: (() -> Void)? = nil
     
+    @AppStorage("isGuest") public var isGuest: Bool = false
+    
     
     
     
@@ -83,7 +85,6 @@ public final class LoginViewModel: LoginViewModelBindable {
                 isLoginIdError = false
                 isPasswordError = false
                 isLoggedIn = true
-                print("✅ Login success, navigating...")
                 onLoginSuccess?()
                 
             } catch let error as NetworkError {

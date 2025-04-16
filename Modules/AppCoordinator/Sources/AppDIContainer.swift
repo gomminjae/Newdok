@@ -14,6 +14,7 @@ import Data
 import Auth
 import Signup
 import Moya
+import Home
 
 public final class AppDIContainer {
     public static let shared = AppDIContainer()
@@ -47,7 +48,7 @@ public final class AppDIContainer {
             print("🔗 [DI] Injected: NetworkProvider → UserRepository")
             return UserRepositoryImpl(provider: provider)
         }
-
+        
         // MARK: - UseCase
         container.register(UserUseCase.self) { r in
             print("🧩 [DI] Register: UserUseCase")
@@ -55,7 +56,7 @@ public final class AppDIContainer {
             print("🔗 [DI] Injected: UserRepository → UserUseCase")
             return UserUseCaseImpl(userRepository: repo)
         }
-
+        
         // MARK: - ViewModels
         container.register(SignupViewModel.self) { r in
             print("🧩 [DI] Register: SignupViewModel")
@@ -78,5 +79,25 @@ public final class AppDIContainer {
         
         
         //MARK: Home
+        container.register(MoyaProvider<ArticleAPI>.self) { r in
+            let network = r.resolve(NetworkProviding.self)!
+            return network.mekeArticleProvider()
+        }
+        
+        container.register(ArticleRepository.self) { r in
+            let provider = r.resolve(MoyaProvider<ArticleAPI>.self)!
+            return ArticleRepositoryImpl(provider: provider)
+        }
+        container.register(ArticleUseCase.self) { r in
+            let repo = r.resolve(ArticleRepository.self)!
+            return ArticleUseCaseImpl(articleRepository: repo)
+        }
+        container.register(HomeViewModel.self) { r in
+            let usecase = r.resolve(ArticleUseCase.self)!
+            return MainActor.assumeIsolated {
+                HomeViewModel(articleUseCase: usecase)
+            }
+        }
+        .inObjectScope(.container)
     }
 }
