@@ -210,6 +210,20 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
+               BlueprintIdentifier = "9943AD2B429C898B2E18E15D"
+               BuildableName = "Explore.framework"
+               BlueprintName = "Explore"
+               ReferencedContainer = "container:Modules/Features/Explore/Explore.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
                BlueprintIdentifier = "52E844066D197E3B81FA748F"
                BuildableName = "Home.framework"
                BlueprintName = "Home"

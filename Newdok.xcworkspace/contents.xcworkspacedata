@@ -32,6 +32,9 @@
             location = "group:Auth/Auth.xcodeproj">
          </FileRef>
          <FileRef
+            location = "group:Explore/Explore.xcodeproj">
+         </FileRef>
+         <FileRef
             location = "group:Home/Home.xcodeproj">
          </FileRef>
          <FileRef

@@ -14,6 +14,7 @@ let workspace = Workspace(
         "Modules/Features/Signup",
         "Modules/Features/Survey",
         "Modules/Features/Mypage",
+        "Modules/Features/Explore", 
         "Modules/QA/A", 
         "Modules/QA/B",
         "Modules/AppCoordinator", 

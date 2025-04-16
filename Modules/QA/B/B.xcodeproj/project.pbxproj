@@ -23,6 +23,7 @@
 		BDE1D020A28F07EA1FDE6B99 /* Core.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 2378C408DCDC0EDC22736EE2 /* Core.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C676D0ADA0F76C0916235CD6 /* Shared.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F4FA82F97BD0C253847BEBC3 /* Shared.framework */; };
 		D7F7B41C84B829672F721F53 /* Swinject.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E05AA693C3E4A78793949CF5 /* Swinject.framework */; };
+		DBCC2AB2186077776463CD5D /* Explore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 48862800142DC5E05C5B28E3 /* Explore.framework */; };
 		EBE6591D3B210BA5A77C4BEE /* Signup.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9E10D8055DE91DF89CD9A616 /* Signup.framework */; };
 		ED299898C15F8C9C61934994 /* DesignSystem.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 42F5E70E54A9D11122495EFF /* DesignSystem.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		EF1CA8797A9F6AF7DA5418C8 /* Mypage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B2F059A4D28A405569119AE2 /* Mypage.framework */; };
@@ -82,6 +83,7 @@
 		425857CB3DDB1DFF6EDD7842 /* BTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "BTests-Info.plist"; sourceTree = "<group>"; };
 		42F5E70E54A9D11122495EFF /* DesignSystem.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = DesignSystem.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		463931FF006CC49E6594D6C0 /* Alamofire_Alamofire.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Alamofire_Alamofire.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
+		48862800142DC5E05C5B28E3 /* Explore.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Explore.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4AC530546BCB1DF246993E72 /* Survey.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Survey.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		53D7F0C40548F755B7A470EE /* AppCoordinator.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = AppCoordinator.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6EAB1B89B375E80DD021B526 /* B.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = B.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -116,6 +118,7 @@
 				A287073E23F5DFCBE7A7028A /* Data.framework in Frameworks */,
 				508E52E990E3E3BF408A7501 /* DesignSystem.framework in Frameworks */,
 				2C98BFBD6353B1565A738604 /* Domain.framework in Frameworks */,
+				DBCC2AB2186077776463CD5D /* Explore.framework in Frameworks */,
 				BC4D17FFCADE9D608BD4F9B1 /* Home.framework in Frameworks */,
 				3CB1006058EC00097C4F8544 /* Launch.framework in Frameworks */,
 				EF1CA8797A9F6AF7DA5418C8 /* Mypage.framework in Frameworks */,
@@ -159,6 +162,7 @@
 				A0D3F01D7AE7F92987AA5BEB /* Data.framework */,
 				42F5E70E54A9D11122495EFF /* DesignSystem.framework */,
 				063771607106B9FAF0CD3191 /* Domain.framework */,
+				48862800142DC5E05C5B28E3 /* Explore.framework */,
 				A3807BBFB2D5C8B2513C5534 /* Home.framework */,
 				07F21865B765752721E8465D /* Launch.framework */,
 				B2F059A4D28A405569119AE2 /* Mypage.framework */,
