@@ -82,6 +82,7 @@ public struct PhoneVerificationView: View {
                             viewModel.sendVerificationCode()
                         }
                         .font(.hanSansNeo(14, .bold))
+                        .foregroundStyle(viewModel.phoneNumber.count < 13 ?  Color(hex: "#BDBDBD") : Color.primaryNormal)
                         .disabled(viewModel.phoneNumber.count < 13)
                         .frame(width: 94, height: 48)
                         .overlay(

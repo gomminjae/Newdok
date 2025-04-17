@@ -5,6 +5,7 @@
 //  Created by 권민재 on 2/23/25.
 //
 import SwiftUI
+import DesignSystem
 
 public struct ExploreView: View {
     @State private var selectedTab: Int = 0 // 0: 추천 뉴스레터, 1: 모든 뉴스레터
@@ -19,22 +20,22 @@ public struct ExploreView: View {
         VStack(spacing: 0) {
             HStack {
                 Text("둘러보기")
-                    .font(.hanSansNeo(18, .bold))
+                    .font(.hanSansNeo(16, .bold))
                     .padding(.vertical, 17)
                     .padding(.leading, 20)
                 Spacer()
                 Button(action: {
                     print("검색 버튼 탭")
                 }) {
-                    Image("search")
-                        .padding(.top, 18)
+                    Image(asset: DesignSystemAsset.search)
+                        .padding(.vertical, 17)
                         .padding(.trailing, 2.4)
                 }
                 Button(action: {
                     print("알람 버튼 탭")
                 }) {
-                    Image("bell")
-                        .padding(.top, 18)
+                    Image(asset: DesignSystemAsset.bell)
+                        .padding(.vertical, 17)
                         .padding(.leading, 16)
                         .padding(.trailing, 17.8)
                 }
@@ -45,6 +46,15 @@ public struct ExploreView: View {
                 tabButton(title: "모든 뉴스레터", index: 1)
             }
             .padding(.top, 16)
+            GeometryReader { geometry in
+                let width = geometry.size.width / 2
+                Rectangle()
+                    .fill(Color(hex: "#363636"))
+                    .frame(width: width, height: 2)
+                    .offset(x: selectedTab == 0 ? 0 : width)
+                    .animation(.easeInOut(duration: 0.3), value: selectedTab)
+            }
+            .frame(height: 2)
             
             Divider()
             
@@ -59,13 +69,23 @@ public struct ExploreView: View {
                     TabView {
                         ForEach(0..<5, id: \.self) { _ in
                             RecommendedNewsLetterView()
-                                .frame(width: 320, height: 350)
-                                .cornerRadius(12)
+                            
                         }
                     }
                     .frame(height: 350)
                     .tabViewStyle(.page)
-                    //.padding(.horizontal, 20)
+                    HStack {
+                        Spacer()
+                        ForEach(0..<5) { index in
+                            Circle()
+                                .fill(Color.primaryNormal)
+                                .frame(width: 6, height: 6)
+                        }
+                        Spacer()
+                    }
+                    .padding(.vertical,20)
+                    .padding(.horizontal,24)
+                   
                     
                     HStack {
                         Text("이런 뉴스레터는 어때요?")
@@ -79,21 +99,20 @@ public struct ExploreView: View {
                     .padding(.vertical, 20)
                     
                     // 뉴스레터 목록 리스트
-                    List {
-                        ForEach(0..<10, id: \.self) { index in
-                            ArticleRow(article: Article(title: "dfdf", source: "sdfsdf", imageName: "signup_icon", isRead: false))
-                        }
-                    }
-                    .frame(height: 400) // 리스트 높이 조절
-                    .listStyle(PlainListStyle())
+//                    List {
+//                        ForEach(0..<10, id: \.self) { index in
+//                            ArticleRow(article: Article(title: "dfdf", source: "sdfsdf", imageName: "signup_icon", isRead: false))
+//                        }
+//                    }
+//                    .frame(height: 400) // 리스트 높이 조절
+//                    .listStyle(PlainListStyle())
                 }
             }
             .background(Color(hex: "#F5F5F7"))
         }
         .padding(.bottom, 8)
     }
-    
-    // MARK: - 탭 버튼 뷰
+
     @ViewBuilder
     private func tabButton(title: String, index: Int) -> some View {
         Button(action: {

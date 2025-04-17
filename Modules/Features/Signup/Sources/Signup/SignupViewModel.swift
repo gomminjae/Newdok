@@ -7,13 +7,14 @@
 
 import Foundation
 import Domain
+import Shared
 
 @MainActor
 final public class SignupViewModel: ObservableObject {
 
     private let userUseCase: UserUseCase
     
-    @Published var currentStep: SignupStep = .myIndustry
+    @Published var currentStep: SignupStep = .recommend
 
     // MARK: - Form
     @Published public var phoneNumber: String = ""
@@ -61,7 +62,7 @@ final public class SignupViewModel: ObservableObject {
     //MARK: Investigate
     @Published public var myIndustry: String = ""
     @Published public var selectedInterests: Set<String> = []
-    @Published public var recommendedPost: [Brand] = []
+    @Published public var recommendedPost: [RecommendedBrand] = []
     
 
     public init(userUseCase: UserUseCase) {
@@ -100,6 +101,7 @@ final public class SignupViewModel: ObservableObject {
                 let rawPhoneNumber = phoneNumber.replacingOccurrences(of: "-", with: "")
 
                 let users = try await userUseCase.checkPhoneNumber(rawPhoneNumber)
+                print(users)
                 if !users.isEmpty {
                     userList = users
                     isShowUserList = true
@@ -109,6 +111,7 @@ final public class SignupViewModel: ObservableObject {
                 
                 let result = try await userUseCase.authSMS(phoneNumber: rawPhoneNumber)
                 verificationCode = String(result.code)
+                phoneNumber = rawPhoneNumber
                 isRequestSent = true
                 startTimer()
             } catch {
@@ -167,7 +170,6 @@ final public class SignupViewModel: ObservableObject {
                 case .notFound:
                     isIDAvailable = true
                 }
-                print("Helloooo: \(isIDAvailable)")
             } catch {
                 isIDAvailable = nil
             }
@@ -215,6 +217,18 @@ final public class SignupViewModel: ObservableObject {
                 }
             }
         }
+    
+    func signup() {
+        Task {
+            do {
+                let result = try await userUseCase.signup(loginId: loginID, password: password, phoneNumber: phoneNumber, nickname: nickname, birthYear: birthYear, gender: gender)
+                TokenStorage.accessToken = result.accessToken
+                goToNextStep()
+            } catch {
+                print("회원가입 실패: \(error)")
+            }
+        }
+    }
     
     
     

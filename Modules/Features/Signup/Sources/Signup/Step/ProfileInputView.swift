@@ -82,7 +82,7 @@ public struct ProfileInputView: View {
                 .padding(.leading, 4)
                 .padding(.top, 32)
             
-           DropdownSelector(placeholder: "선ㅌ", options: birthYearOptions)
+           DropdownSelector(placeholder: "선택", options: birthYearOptions)
                 .frame(height: 48)
             
             Text("출생연도는 뉴스레터 추천에 활용돼요.")
@@ -96,12 +96,12 @@ public struct ProfileInputView: View {
                 .padding(.top, 32)
             
             HStack(spacing: 8) {
-                GenderButton(title: "남자", isSelected: viewModel.gender == "남자") {
-                    viewModel.gender = "남자"
+                GenderButton(title: "남성", isSelected: viewModel.gender == "남자") {
+                    viewModel.gender = "남성"
                 }
                 
-                GenderButton(title: "여자", isSelected: viewModel.gender == "여자") {
-                    viewModel.gender = "여자"
+                GenderButton(title: "여성", isSelected: viewModel.gender == "여성") {
+                    viewModel.gender = "여성"
                 }
             }
             

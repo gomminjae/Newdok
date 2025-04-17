@@ -8,6 +8,11 @@
 import Foundation
 
 public struct RecommendedNewsletter {
-    let union: [NewsletterDetail]
-    let intersection: [NewsletterDetail]
+    public let union: [NewsletterDetail]
+    public let intersection: [NewsletterDetail]
+    
+    public init(union: [NewsletterDetail], intersection: [NewsletterDetail]) {
+        self.union = union
+        self.intersection = intersection
+    }
 }

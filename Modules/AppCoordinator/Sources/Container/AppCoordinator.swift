@@ -11,6 +11,7 @@ import Signup
 import Auth
 import Home
 import Mypage
+import Explore
 import Foundation
 
 final class AppCoordinator {
@@ -51,5 +52,8 @@ final class AppCoordinator {
     }
     func mekeProfileView() -> some View {
         return MypageView().environmentObject(router)
+    }
+    func makeExploreView() -> some View {
+        return ExploreView().environmentObject(router)
     }
 }

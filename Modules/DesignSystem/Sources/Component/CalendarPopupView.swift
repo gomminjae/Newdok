@@ -21,9 +21,8 @@ public struct PopupViewModifier<Popup: View>: ViewModifier {
                     .transition(.opacity)
                     .animation(.easeInOut, value: isPresented)
                     .onTapGesture {
-                        isPresented = false // 바깥을 터치하면 닫힘
+                        isPresented = false
                     }
-                
                 popupContent
                     .transition(.scale.combined(with: .opacity))
                     .animation(.spring(), value: isPresented)

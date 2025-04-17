@@ -22,13 +22,14 @@ public protocol LoginViewModelBindable: ObservableObject {
     var errorMessage: String? { get }
     var isLoading: Bool { get }
     
-    func login()
+    func login(onSuccess: @escaping () -> Void)
 }
 
 
 
 @MainActor
 public final class LoginViewModel: LoginViewModelBindable {
+    
     
     private let userUseCase: UserUseCase
     
@@ -54,8 +55,7 @@ public final class LoginViewModel: LoginViewModelBindable {
     
     
     @AppStorage("isLoggedIn") public var isLoggedIn: Bool = false
-    public var onLoginSuccess: (() -> Void)? = nil
-    
+  
     @AppStorage("isGuest") public var isGuest: Bool = false
     
     
@@ -73,19 +73,20 @@ public final class LoginViewModel: LoginViewModelBindable {
     }
     
     
-    public func login() {
+    public func login(onSuccess: @escaping () -> Void) {
         Task {
             
             do {
                 let (user,token) = try await userUseCase.login(loginId: loginId, password: password)
-                self.user = user
+                //self.user = user
                 print("유저유저\(user)")
                 TokenStorage.accessToken = token
                 errorMessage = nil
                 isLoginIdError = false
                 isPasswordError = false
                 isLoggedIn = true
-                onLoginSuccess?()
+                isGuest = false 
+                onSuccess()
                 
             } catch let error as NetworkError {
                 switch error {
@@ -103,7 +104,8 @@ public final class LoginViewModel: LoginViewModelBindable {
                         }
                     }
                 default:
-                    errorMessage = "이상한 오류 발생"
+                    isPasswordError = false
+                    isLoginIdError = false
                 }
                 
             }

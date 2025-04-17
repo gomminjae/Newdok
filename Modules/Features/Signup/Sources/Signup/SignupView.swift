@@ -23,9 +23,9 @@ public enum SignupStep: Int, CaseIterable {
     
     var progressValue: Double {
         switch self {
-        case .phoneVerification: return 0.2
-        case .idInput: return 0.4
-        case .pwInput: return 0.6
+        case .phoneVerification: return 0.1
+        case .idInput: return 0.3
+        case .pwInput: return 0.5
         case .enterProfile: return 0.7
         case .agreeTerms: return 0.9
         case .myIndustry: return 0.3
@@ -95,7 +95,7 @@ public struct SignupView: View {
                        
 
                 case .agreeTerms:
-                    AgreeView(viewModel: viewModel, nextStep: nextStep)
+                    AgreeView(viewModel: viewModel)
                        
                 case .complete:
                     CompleteView(viewModel: viewModel)
@@ -148,7 +148,23 @@ public struct SignupView: View {
 
                 Spacer()
 
-                Spacer().frame(width: 40)
+                if viewModel.currentStep == .recommend {
+                    Button(action: {
+                        withAnimation(.easeInOut) {
+                            router.resetTo(.tabbar)
+                        }
+                    }) {
+                        Text("건너뛰기")
+                            .font(.hanSansNeo(12, .medium))
+                            .foregroundColor(.primaryNormal)
+                            .padding(.trailing, 20)
+                            .underline()
+                    }
+                    .transition(.opacity)
+                } else {
+                    // 위치 유지를 위한 빈 공간
+                    Spacer().frame(width: 40)
+                            }
             }
             
             .contentShape(Rectangle())

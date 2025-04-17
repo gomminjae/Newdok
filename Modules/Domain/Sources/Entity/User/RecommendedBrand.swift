@@ -6,7 +6,7 @@
 //
 import Foundation
 
-public struct Brand {
+public struct RecommendedBrand {
     public let id: Int
     public let name: String
     public let description: String

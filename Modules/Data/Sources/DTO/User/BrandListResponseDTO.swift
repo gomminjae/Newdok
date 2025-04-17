@@ -7,15 +7,15 @@
 import Foundation
 import Domain
 
-public struct BrandListResponseDTO: Decodable {
-    public let data: [BrandDTO]
+public struct RecommendedBrandListResponseDTO: Decodable {
+    public let data: [RecommendedBrandDTO]
     
-    public func toDomain() -> [Brand] {
+    public func toDomain() -> [RecommendedBrand] {
         return data.map { $0.toDomain() }
     }
 }
 
-public struct BrandDTO: Decodable {
+public struct RecommendedBrandDTO: Decodable {
     public let id: Int
     public let brandName: String
     public let briefDescription: String
@@ -24,8 +24,8 @@ public struct BrandDTO: Decodable {
     public let imageUrl: String
     public let interests: [InterestDTO]
     
-    public func toDomain() -> Brand {
-        return Brand(
+    public func toDomain() -> RecommendedBrand {
+        return RecommendedBrand(
             id: id,
             name: brandName,
             description: briefDescription,

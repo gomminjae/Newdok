@@ -60,7 +60,7 @@ public final class UserUseCaseImpl: UserUseCase {
         return try await userRepository.authSMS(phoneNumber: phoneNumber)
     }
     
-    public func preInvestigate(industryId: String, interestIds: [String]) async throws -> [Domain.Brand] {
+    public func preInvestigate(industryId: String, interestIds: [String]) async throws -> [Domain.RecommendedBrand] {
         return try await userRepository.preInvestigate(industryId: industryId, interestIds: interestIds)
     }
     

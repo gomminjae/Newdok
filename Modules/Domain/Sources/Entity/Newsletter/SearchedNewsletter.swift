@@ -6,9 +6,16 @@
 //
 
 public struct SearchedNewsletter {
-    let id: String
-    let brandName: String
-    let firstDescription: String
-    let imageUrl: String
+    public let id: String
+    public let brandName: String
+    public let firstDescription: String
+    public let imageUrl: String
+    
+    public init(id: String, brandName: String, firstDescription: String, imageUrl: String) {
+        self.id = id
+        self.brandName = brandName
+        self.firstDescription = firstDescription
+        self.imageUrl = imageUrl
+    }
 }
 

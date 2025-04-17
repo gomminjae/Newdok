@@ -15,13 +15,11 @@ public struct AgreeView: View {
     @State private var marketingAgreement = false
     
     
-    var nextStep: () -> Void
     
     @ObservedObject private var viewModel: SignupViewModel
     
-    public init(viewModel: SignupViewModel, nextStep: @escaping () -> Void) {
+    public init(viewModel: SignupViewModel) {
             self.viewModel = viewModel
-            self.nextStep = nextStep
         }
 
     var isSignUpEnabled: Bool {
@@ -73,8 +71,7 @@ public struct AgreeView: View {
             Spacer()
 
             Button("가입완료") {
-                print("회원가입 완료!")
-                nextStep()
+                viewModel.signup()
             }
             .font(.hanSansNeo(14,.bold))
             .frame(maxWidth: .infinity)

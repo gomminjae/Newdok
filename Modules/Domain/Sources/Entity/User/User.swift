@@ -17,7 +17,7 @@ public struct User {
     public let birthYear: String
     public let gender: String
     public let createdAt: String
-    public let industryId: Int
+    public let industryId: Int?
     public let interests: [Interest]
 
     public init(

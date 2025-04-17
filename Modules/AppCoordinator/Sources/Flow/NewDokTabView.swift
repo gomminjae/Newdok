@@ -9,6 +9,15 @@ import SwiftUI
 import Home
 import Mypage
 import DesignSystem
+import Explore
+
+
+public enum NewDokTab: Int {
+    case explore
+    case home
+    case profile
+    
+}
 
 public struct NewDokTabView: View {
     @State private var selectedTab: NewDokTab = .home
@@ -26,6 +35,8 @@ public struct NewDokTabView: View {
     public var body: some View {
         VStack(spacing: 0) {
             TabView(selection: $selectedTab) {
+                ExploreView()
+                    .tag(NewDokTab.explore)
                 HomeView(viewModel: homeViewModel)
                     .tag(NewDokTab.home)
                 MypageView()
@@ -47,6 +58,7 @@ struct NewDokTabBar: View {
         VStack(spacing: 0) {
             Divider()
             HStack {
+                tabItem(.explore, normalAsset: DesignSystemAsset.lineNewsletter, selectedAsset: DesignSystemAsset.fillNewsletter, title: "둘러보기")
                 tabItem(.home, normalAsset: DesignSystemAsset.lineHome, selectedAsset: DesignSystemAsset.fillHome, title: "홈")
                 tabItem(.profile, normalAsset: DesignSystemAsset.lineUser, selectedAsset: DesignSystemAsset.fillUser,title: "마이페이지")
             }
@@ -71,16 +83,4 @@ struct NewDokTabBar: View {
 
 }
 
-// MARK: - ✅ 탭 Enum (Home만 유지)
-public enum NewDokTab: Int {
-    case home
-    case profile
-}
 
-
-//// MARK: - ✅ 4. 미리보기
-//struct NewDokTabView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        NewDokTabView()
-//    }
-//}

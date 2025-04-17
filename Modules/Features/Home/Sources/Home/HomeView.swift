@@ -12,7 +12,7 @@ import Domain
 public struct HomeView: View {
     
     @StateObject private var viewModel: HomeViewModel
-  
+    
     @State private var showCalendar = false
     
     @EnvironmentObject private var router: AppRouter
@@ -69,7 +69,7 @@ public struct HomeView: View {
                                 .padding(.trailing, 24)
                         }
                     }
-            
+                    
                     .frame(height: 52)
                     .background(Color.white)
                     .cornerRadius(12)
@@ -79,39 +79,47 @@ public struct HomeView: View {
                     
                     VStack {
                         if isGuest {
-                            NoDataView(type: .requireSignUp, buttonAction: {}, loginAction: {})
+                            NoDataView(type: .requireSignUp, buttonAction: {
+                                router.push(.signup)
+                            }, loginAction: {
+                                router.resetTo(.login)
+                            })
                         }
                         
                         else {
-                            HStack {
-                                Text("\(viewModel.articles.count)개의 아티클이 도착했어요.")
-                                    .font(.hanSansNeo(18, .bold))
-                                    .padding(.top, 20)
-                                    .padding(.leading, 28)
-                                Spacer()
-                                Button(action: {
-                                    print("새로고침 버튼")
-                                }) {
-                                    HStack(spacing: 4) {
-                                        Image("refresh")
-                                        Text("새로고침")
-                                            .font(.hanSansNeo(14, .medium))
-                                            .foregroundStyle(Color.primaryNormal)
+                            if viewModel.articles.isEmpty {
+                                NoDataView(type: .noArticles, buttonAction: {})
+                            } else {
+                                HStack {
+                                    Text("\(viewModel.articles.count)개의 아티클이 도착했어요.")
+                                        .font(.hanSansNeo(18, .bold))
+                                        .padding(.top, 20)
+                                        .padding(.leading, 28)
+                                    Spacer()
+                                    Button(action: {
+                                        print("새로고침 버튼")
+                                    }) {
+                                        HStack(spacing: 4) {
+                                            Image("refresh")
+                                            Text("새로고침")
+                                                .font(.hanSansNeo(14, .medium))
+                                                .foregroundStyle(Color.primaryNormal)
+                                        }
+                                    }
+                                    .padding(.top, 23)
+                                    .padding(.trailing, 24)
+                                }
+                                
+                                VStack(spacing: 8) {
+                                    ForEach(viewModel.articles) { article in
+                                        ArticleRow(article: article)
+                                            .frame(height: 88)
                                     }
                                 }
-                                .padding(.top, 23)
-                                .padding(.trailing, 24)
+                                //.background(Color.red)
+                                .padding(.top,20)
+                                .padding(.horizontal, 20)
                             }
-                           
-                            VStack(spacing: 8) {
-                                ForEach(viewModel.articles) { article in
-                                    ArticleRow(article: article)
-                                        .frame(height: 88)
-                                }
-                            }
-                            //.background(Color.red)
-                            .padding(.top,20)
-                            .padding(.horizontal, 20)
                         }
                     }
                     .background(Color.white)
@@ -179,13 +187,13 @@ struct PullToRefreshView<Content: View>: View {
                     return Color.clear
                 }
                 .frame(height: 0)
-            
+                
                 if isRefreshing || pullProgress > 0 {
                     CustomSpinner(progress: pullProgress, isRefreshing: isRefreshing)
                         .frame(height: 60)
                 }
                 
-
+                
                 content()
                     .frame(maxWidth: .infinity)
             }
@@ -200,7 +208,7 @@ struct CustomSpinner: View {
     private let circleCount = 5
     
     var body: some View {
-
+        
         HStack(spacing: 12) {
             ForEach(0..<circleCount, id: \.self) { index in
                 Circle()
@@ -233,7 +241,7 @@ struct CustomSpinner: View {
         }
     }
     
-
+    
     private func opacity(for index: Int) -> CGFloat {
         if isRefreshing {
             return 1.0

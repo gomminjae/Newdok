@@ -4,13 +4,13 @@
 //
 //  Created by 권민재 on 4/11/25.
 //
+import Domain
 
-public struct Industry {
+public struct IndustryDTO {
     public let id: Int
     public let name: String
     
-    public init(id: Int, name: String) {
-        self.id = id
-        self.name = name
+    public func toDomain() -> Industry {
+        return Industry(id: id, name: name)
     }
 }

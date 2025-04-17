@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 55;
+	objectVersion = 56;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -25,11 +25,15 @@
 		93E7EB46FD583E8C439D947E /* Articles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 960D479DD34669CA918E0712 /* Articles.swift */; };
 		A0FBB74C23B411ADF6E1022D /* UserRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53F01AB1AE9AA1D26882B92 /* UserRepository.swift */; };
 		B1B701966B544092E744B831 /* ArticleRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = B16B7317BD5134447322A1FF /* ArticleRepository.swift */; };
+		B5D4E1402DB1565C00D24202 /* NewsletterRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D4E13F2DB1565100D24202 /* NewsletterRepository.swift */; };
+		B5D4E1442DB159D600D24202 /* Brand.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D4E1432DB159D600D24202 /* Brand.swift */; };
+		B5D4E1472DB15A7D00D24202 /* BrandDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D4E1462DB15A7D00D24202 /* BrandDetail.swift */; };
+		B5D4E1492DB15AB200D24202 /* BrandArticle.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D4E1482DB15AAE00D24202 /* BrandArticle.swift */; };
 		C2F30D6443BE6094D14361FF /* Industry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76F0058B74237B785ABC9E63 /* Industry.swift */; };
 		C672B2F134FCA043F15C1667 /* MonthlyBookmark.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB04FD788EF603F7BA89B88D /* MonthlyBookmark.swift */; };
 		E85EA8E9A482F4D3139A379A /* SMSResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22D28BDA51D577B28525253B /* SMSResponse.swift */; };
 		EA5AA6D2CA9780D08F920966 /* NewsletterDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB04F1ED6218F595BE7FD39E /* NewsletterDetail.swift */; };
-		EE440BBB39BA777250D61E56 /* Brand.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBC4968267CD3793D679B664 /* Brand.swift */; };
+		EE440BBB39BA777250D61E56 /* RecommendedBrand.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBC4968267CD3793D679B664 /* RecommendedBrand.swift */; };
 		F9C36A20ED17DDCA4580601E /* Newsletter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D41442B97371063DE432F8FD /* Newsletter.swift */; };
 		FB6D6D3F34D58844997B1E94 /* ArticleDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34FDFF93C28FD5E0214180B9 /* ArticleDetail.swift */; };
 /* End PBXBuildFile section */
@@ -76,13 +80,17 @@
 		9F62C33991ABC4ABEB09DDAF /* Gender.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Gender.swift; sourceTree = "<group>"; };
 		AB04F1ED6218F595BE7FD39E /* NewsletterDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsletterDetail.swift; sourceTree = "<group>"; };
 		B16B7317BD5134447322A1FF /* ArticleRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleRepository.swift; sourceTree = "<group>"; };
+		B5D4E13F2DB1565100D24202 /* NewsletterRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsletterRepository.swift; sourceTree = "<group>"; };
+		B5D4E1432DB159D600D24202 /* Brand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Brand.swift; sourceTree = "<group>"; };
+		B5D4E1462DB15A7D00D24202 /* BrandDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrandDetail.swift; sourceTree = "<group>"; };
+		B5D4E1482DB15AAE00D24202 /* BrandArticle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrandArticle.swift; sourceTree = "<group>"; };
 		BB04FD788EF603F7BA89B88D /* MonthlyBookmark.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthlyBookmark.swift; sourceTree = "<group>"; };
 		BD15A37E85BAE3A36B2CE72C /* Domain-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "Domain-Info.plist"; sourceTree = "<group>"; };
 		D41442B97371063DE432F8FD /* Newsletter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Newsletter.swift; sourceTree = "<group>"; };
 		E34BE5FE165914279689ED55 /* SignupResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupResponse.swift; sourceTree = "<group>"; };
 		E476B128DD7FF742E366068A /* Bookmark.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bookmark.swift; sourceTree = "<group>"; };
 		E53F01AB1AE9AA1D26882B92 /* UserRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRepository.swift; sourceTree = "<group>"; };
-		EBC4968267CD3793D679B664 /* Brand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Brand.swift; sourceTree = "<group>"; };
+		EBC4968267CD3793D679B664 /* RecommendedBrand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendedBrand.swift; sourceTree = "<group>"; };
 		F3B959DFAA4C5D6C5848644B /* ErrorResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorResponse.swift; sourceTree = "<group>"; };
 		FD49F277B86481D3D105FAC8 /* Domain.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Domain.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -120,7 +128,7 @@
 			isa = PBXGroup;
 			children = (
 				9CC625909490667A0E5466F6 /* Error */,
-				EBC4968267CD3793D679B664 /* Brand.swift */,
+				EBC4968267CD3793D679B664 /* RecommendedBrand.swift */,
 				9F62C33991ABC4ABEB09DDAF /* Gender.swift */,
 				6917E3A437BAF8B94F8FA62F /* LoginResponse.swift */,
 				4A2CDBFBB88856904B006234 /* NicknameResponse.swift */,
@@ -209,6 +217,9 @@
 		CFA91F2468AB7ADF9C2DEB6B /* Newsletter */ = {
 			isa = PBXGroup;
 			children = (
+				B5D4E1482DB15AAE00D24202 /* BrandArticle.swift */,
+				B5D4E1462DB15A7D00D24202 /* BrandDetail.swift */,
+				B5D4E1432DB159D600D24202 /* Brand.swift */,
 				76F0058B74237B785ABC9E63 /* Industry.swift */,
 				D41442B97371063DE432F8FD /* Newsletter.swift */,
 				AB04F1ED6218F595BE7FD39E /* NewsletterDetail.swift */,
@@ -221,6 +232,7 @@
 		D77F035CD6F2D3D73A7C0400 /* Repository */ = {
 			isa = PBXGroup;
 			children = (
+				B5D4E13F2DB1565100D24202 /* NewsletterRepository.swift */,
 				B16B7317BD5134447322A1FF /* ArticleRepository.swift */,
 				E53F01AB1AE9AA1D26882B92 /* UserRepository.swift */,
 			);
@@ -294,6 +306,7 @@
 			files = (
 				1E559FF1F1BF88A3B0409360 /* Article.swift in Sources */,
 				FB6D6D3F34D58844997B1E94 /* ArticleDetail.swift in Sources */,
+				B5D4E1442DB159D600D24202 /* Brand.swift in Sources */,
 				93E7EB46FD583E8C439D947E /* Articles.swift in Sources */,
 				140BC755E2D955456D101241 /* Bookmark.swift in Sources */,
 				87633E75309293F26710B847 /* BookmarkedArticles.swift in Sources */,
@@ -303,10 +316,13 @@
 				EA5AA6D2CA9780D08F920966 /* NewsletterDetail.swift in Sources */,
 				27A4A21CEBF371A49642D66F /* RecommendedNewsletter.swift in Sources */,
 				3182F325FF29F682EB62956E /* SearchedNewsletter.swift in Sources */,
-				EE440BBB39BA777250D61E56 /* Brand.swift in Sources */,
+				EE440BBB39BA777250D61E56 /* RecommendedBrand.swift in Sources */,
 				5091B95C8FE576742F1D7E91 /* ErrorResponse.swift in Sources */,
+				B5D4E1402DB1565C00D24202 /* NewsletterRepository.swift in Sources */,
 				34A32B84CB0DBAF03564CF2E /* Gender.swift in Sources */,
+				B5D4E1492DB15AB200D24202 /* BrandArticle.swift in Sources */,
 				5C6A8DA43C2A66A56DBE5970 /* LoginResponse.swift in Sources */,
+				B5D4E1472DB15A7D00D24202 /* BrandDetail.swift in Sources */,
 				043AB363E24F1C147D028B4E /* NicknameResponse.swift in Sources */,
 				E85EA8E9A482F4D3139A379A /* SMSResponse.swift in Sources */,
 				4A67A3859BAC84FBDA71A447 /* SignupResponse.swift in Sources */,
@@ -493,10 +509,7 @@
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
 				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = (
-					"$(inherited)",
-					DEBUG,
-				);
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) DEBUG";
 				SWIFT_COMPILATION_MODE = singlefile;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;

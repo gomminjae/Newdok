@@ -97,10 +97,9 @@ public struct LoginView: View {
                 Spacer()
 
                 Button("로그인") {
-                    viewModel.onLoginSuccess = {
-                            router.resetTo(.tabbar) // 로그인 성공 시 라우터 실행
-                        }
-                    viewModel.login()
+                    viewModel.login() {
+                        router.resetTo(.tabbar)
+                    }
                     
                 }
                 .disabled(!viewModel.isLoginEnabled)

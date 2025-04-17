@@ -29,7 +29,7 @@ public struct UserDTO: Decodable {
         let birthYear: String
         let gender: String
         let createdAt: String
-        let industryId: Int
+        let industryId: Int?
         let interests: [InterestDTO]
 
     public func toDomain() -> User {
@@ -43,7 +43,7 @@ public struct UserDTO: Decodable {
             birthYear: birthYear,
             gender: gender,
             createdAt: createdAt,
-            industryId: industryId,
+            industryId: industryId ?? 0,
             interests: interests.map { $0.toDomain() }
         )
     }
