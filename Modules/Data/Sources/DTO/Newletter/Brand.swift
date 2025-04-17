@@ -6,7 +6,7 @@
 //
 import Domain
 
-public struct BrandDTO {
+public struct BrandDTO: Decodable {
     public let brandId: Int
     public let brandName: String
     public let imageUrl: String

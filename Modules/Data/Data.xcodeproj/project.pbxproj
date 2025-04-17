@@ -28,6 +28,7 @@
 		B5D4E1582DB15B9600D24202 /* Newsletter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D4E14F2DB15B9600D24202 /* Newsletter.swift */; };
 		B5D4E1592DB15B9600D24202 /* SearchedNewsletter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D4E1522DB15B9600D24202 /* SearchedNewsletter.swift */; };
 		B5D4E15A2DB15B9600D24202 /* RecommendedNewsletter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D4E1512DB15B9600D24202 /* RecommendedNewsletter.swift */; };
+		B5D4E15C2DB15F2000D24202 /* NewsletterRepositoryImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D4E15B2DB15F1000D24202 /* NewsletterRepositoryImpl.swift */; };
 		BA9C0868848F9818CEE39F48 /* SignupResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5214DC5CC69DE14A8257DAEC /* SignupResponseDTO.swift */; };
 		CA7DA562BA260B5111EBEC41 /* ArticleUseCaseImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = B85DCC41E40C38AC555521BD /* ArticleUseCaseImpl.swift */; };
 		D86BF22977141E11F7D579F4 /* UserRepositoryImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2D0D4F26DEE2260AF4A6192 /* UserRepositoryImpl.swift */; };
@@ -79,6 +80,7 @@
 		B5D4E1502DB15B9600D24202 /* NewsletterDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsletterDetail.swift; sourceTree = "<group>"; };
 		B5D4E1512DB15B9600D24202 /* RecommendedNewsletter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendedNewsletter.swift; sourceTree = "<group>"; };
 		B5D4E1522DB15B9600D24202 /* SearchedNewsletter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchedNewsletter.swift; sourceTree = "<group>"; };
+		B5D4E15B2DB15F1000D24202 /* NewsletterRepositoryImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsletterRepositoryImpl.swift; sourceTree = "<group>"; };
 		B85DCC41E40C38AC555521BD /* ArticleUseCaseImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleUseCaseImpl.swift; sourceTree = "<group>"; };
 		BC437B7EE5D018BB77982A0D /* BookmarkedArticleDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkedArticleDTO.swift; sourceTree = "<group>"; };
 		BE3FCA8392C88669DA34A564 /* ArticlesDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticlesDTO.swift; sourceTree = "<group>"; };
@@ -173,6 +175,7 @@
 		73F3ED55BFDC2EF15878F5B6 /* Repository */ = {
 			isa = PBXGroup;
 			children = (
+				B5D4E15B2DB15F1000D24202 /* NewsletterRepositoryImpl.swift */,
 				E27AAF02BD938715DE74ED82 /* ArticleRepositoryImpl.swift */,
 				D2D0D4F26DEE2260AF4A6192 /* UserRepositoryImpl.swift */,
 			);
@@ -323,6 +326,7 @@
 				09A4E170E18913D79514D2C9 /* SMSResponseDTO.swift in Sources */,
 				BA9C0868848F9818CEE39F48 /* SignupResponseDTO.swift in Sources */,
 				40EF068D4DC0E9365A1757C3 /* SimpleUserDTO.swift in Sources */,
+				B5D4E15C2DB15F2000D24202 /* NewsletterRepositoryImpl.swift in Sources */,
 				2120D23AB81CA806BEDDA337 /* UserDTO.swift in Sources */,
 				0AF818859D8E0418B916EBB1 /* ArticleRepositoryImpl.swift in Sources */,
 				D86BF22977141E11F7D579F4 /* UserRepositoryImpl.swift in Sources */,

@@ -8,13 +8,13 @@
 import Foundation
 import Domain
 
-public struct NewsletterDTO {
+public struct NewsletterDTO: Decodable {
     let id: Int
     let brandName: String
     let imageUrl: String
     let publicationCycle: String
     
-    public func toDomainModel() -> Newsletter {
+    public func toDomain() -> Newsletter {
         return Newsletter(
             id: id,
             brandName: brandName,

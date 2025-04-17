@@ -9,7 +9,7 @@ import Moya
 import Foundation
 
 
-enum NewsletterAPI {
+public enum NewsletterAPI {
     
     //구독중인
     case fetchActiveNewletters
@@ -34,13 +34,13 @@ enum NewsletterAPI {
 
 extension NewsletterAPI: TargetType {
     
-    var baseURL: URL {
+    public var baseURL: URL {
         return URL(string:
                     "\(APIEnvironment.development.baseURL)/newsletters")!
     }
     
     
-    var path: String {
+    public var path: String {
         switch self {
         case .fetchActiveNewletters:
             return "/subscription/active"
@@ -66,7 +66,7 @@ extension NewsletterAPI: TargetType {
         }
     }
     
-    var method: Moya.Method {
+    public var method: Moya.Method {
         switch self {
         case .pauseSubscription, .resumeSubscription:
             return .patch
@@ -75,7 +75,7 @@ extension NewsletterAPI: TargetType {
         }
     }
     
-    var task: Moya.Task {
+    public var task: Moya.Task {
         switch self {
         case .fetchActiveNewletters, .fetchPausedNewletters,.fetchRecommendationList,.fetchGuestNewsletterBrand, .fetchNewsletterBrand:
             return .requestPlain
@@ -95,7 +95,7 @@ extension NewsletterAPI: TargetType {
         }
     }
     
-    var headers: [String : String]? {
+    public var headers: [String : String]? {
         return [
             "Content-Type": "application/json",
             "Accept": "application/json"

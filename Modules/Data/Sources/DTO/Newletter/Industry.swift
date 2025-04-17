@@ -6,7 +6,7 @@
 //
 import Domain
 
-public struct IndustryDTO {
+public struct IndustryDTO: Decodable {
     public let id: Int
     public let name: String
     

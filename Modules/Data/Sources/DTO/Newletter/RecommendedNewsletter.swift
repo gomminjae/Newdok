@@ -8,7 +8,7 @@
 import Foundation
 import Domain
 
-public struct RecommendedNewsletterDTO {
+public struct RecommendedNewsletterDTO: Decodable {
     let union: [NewsletterDetailDTO]
     let intersection: [NewsletterDetailDTO]
     

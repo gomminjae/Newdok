@@ -5,7 +5,7 @@
 //  Created by 권민재 on 4/11/25.
 //
 import Domain
-public struct SearchedNewsletterDTO {
+public struct SearchedNewsletterDTO: Decodable {
     let id: String
     let brandName: String
     let firstDescription: String
