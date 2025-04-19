@@ -13,6 +13,7 @@ import Shared
 public protocol NetworkProviding {
     func makeAuthProvider() -> MoyaProvider<UserAPI>
     func mekeArticleProvider() -> MoyaProvider<ArticleAPI>
+    func makeNewsletterProvider() -> MoyaProvider<NewsletterAPI>
 }
 
 public final class NetworkProvider: NetworkProviding {
@@ -45,6 +46,19 @@ public final class NetworkProvider: NetworkProviding {
             ]
         )
     }
+    
+    public func makeNewsletterProvider() -> MoyaProvider<NewsletterAPI> {
+        return MoyaProvider<NewsletterAPI>(
+            session: makeSafeSession(),
+            plugins: [
+                NetworkLoggerPlugin(),
+                TokenPlugin(tokenProvider: {
+                    TokenStorage.accessToken
+                })
+            ]
+        )
+    }
+    
 
     private func makeSafeSession() -> Session {
         #if targetEnvironment(simulator)

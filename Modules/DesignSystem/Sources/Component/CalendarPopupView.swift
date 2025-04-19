@@ -11,6 +11,8 @@ public struct PopupViewModifier<Popup: View>: ViewModifier {
     @Binding var isPresented: Bool
     let popupContent: Popup
     
+    
+    
     public func body(content: Content) -> some View {
         ZStack {
             content
@@ -45,14 +47,20 @@ public struct CalendarPopupView: View {
     @Binding var isPresented: Bool
     @State private var selectedDate = Date()
     
+    public var onDateSelected: ((Date) -> Void)?
+    
     private let calendar = Calendar.current
     private let weekdays = ["일", "월", "화", "수", "목", "금", "토"]
     
     // 점이 표시될 날짜 목록 (임시로 설정)
     private let datesWithEvents: [Int] = [1,3,4,9,11,12,13,14,15,16,18,19,20,21,23,25,26,27,28,29,30]
     
-    public init(isPresented: Binding<Bool>) {
+    public init(
+        isPresented: Binding<Bool>,
+        onDateSelected: ((Date) -> Void)? = nil
+    ) {
         self._isPresented = isPresented
+        self.onDateSelected = onDateSelected
     }
     
     public var body: some View {
@@ -115,6 +123,8 @@ public struct CalendarPopupView: View {
                     }
                     .onTapGesture {
                         selectedDate = day.date
+                        onDateSelected?(day.date)
+                        isPresented = false
                     }
                 }
             }
@@ -198,6 +208,6 @@ struct CalendarPopupView_Previews_Container: View {
     }
 }
 
-#Preview {
-    CalendarPopupView_Previews_Container()
-}
+//#Preview {
+//    CalendarPopupView_Previews_Container()
+//}

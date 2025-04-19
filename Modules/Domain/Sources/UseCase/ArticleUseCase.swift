@@ -12,7 +12,7 @@ import Shared
 public protocol ArticleUseCase {
 
     
-    func fetchArticlesByMonth(year: String, month: String) async throws -> Articles
+    func fetchArticlesByMonth(year: String, month: String) async throws -> [Articles]
 
     
     func fetchTodayArticles() async throws -> Articles

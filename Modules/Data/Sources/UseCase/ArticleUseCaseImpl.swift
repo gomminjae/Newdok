@@ -16,7 +16,7 @@ public final class ArticleUseCaseImpl: ArticleUseCase {
         self.articleRepository = articleRepository
     }
     
-    public func fetchArticlesByMonth(year: String, month: String) async throws -> Domain.Articles {
+    public func fetchArticlesByMonth(year: String, month: String) async throws -> [Domain.Articles] {
         return try await articleRepository.fetchArticles(year: year, publicationMonth: month)
     }
     

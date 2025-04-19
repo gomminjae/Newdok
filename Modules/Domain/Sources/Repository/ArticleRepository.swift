@@ -11,7 +11,7 @@ import Shared
 
 public protocol ArticleRepository {
     
-    func fetchArticles(year: String, publicationMonth: String) async throws -> Articles
+    func fetchArticles(year: String, publicationMonth: String) async throws -> [Articles]
     
     func fetchTodayArticles() async throws -> Articles
     

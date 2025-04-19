@@ -24,7 +24,7 @@ public enum ArticleAPI {
 extension ArticleAPI: TargetType {
     public var baseURL: URL {
         return URL(string:
-                    "\(APIEnvironment.development.baseURL)/aticles")!
+                    "\(APIEnvironment.development.baseURL)/articles")!
     }
     
     public var path: String {

@@ -39,12 +39,10 @@ public class FetchHomeDataUseCaseImpl: FetchHomeDataUseCase {
     }
 
     
-    public func fetchMonthlyData(year: String, month: String) async throws -> [Domain.Article] {
+    public func fetchMonthlyData(year: String, month: String) async throws -> [Domain.Articles] {
         let monthlyArticles = try await articleRepo.fetchArticles(year: year, publicationMonth: month)
         
-        let articleList = monthlyArticles.receivedArticleList
-        
-        return articleList
+        return monthlyArticles
         
     }
     

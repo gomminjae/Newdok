@@ -12,7 +12,7 @@ import Shared
 public protocol FetchHomeDataUseCase {
     
     func fetchTodayData() async throws -> HomeData
-    func fetchMonthlyData(year: String, month: String) async throws -> [Article]
+    func fetchMonthlyData(year: String, month: String) async throws -> [Articles]
 
     
 }

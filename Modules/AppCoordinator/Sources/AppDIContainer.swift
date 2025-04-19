@@ -41,6 +41,13 @@ public final class AppDIContainer {
             return network.makeAuthProvider()
         }
         
+        container.register(MoyaProvider.self) { r in
+            let network = r.resolve(NetworkProviding.self)!
+            return network.makeNewsletterProvider()
+        }
+        
+        
+        
         // MARK: - Repository
         container.register(UserRepository.self) { r in
             print("🧩 [DI] Register: UserRepository")
@@ -88,14 +95,20 @@ public final class AppDIContainer {
             let provider = r.resolve(MoyaProvider<ArticleAPI>.self)!
             return ArticleRepositoryImpl(provider: provider)
         }
-        container.register(ArticleUseCase.self) { r in
-            let repo = r.resolve(ArticleRepository.self)!
-            return ArticleUseCaseImpl(articleRepository: repo)
+        container.register(NewsletterRepository.self) { r in
+            let provider = r.resolve(MoyaProvider<NewsletterAPI>.self)!
+            return NewsletterRepositoryImpl(provider: provider)
+        }
+        container.register(FetchHomeDataUseCase.self) { r in
+            let articleRepo = r.resolve(ArticleRepository.self)!
+            let newsletterRepo = r.resolve(NewsletterRepository.self)!
+            
+            return FetchHomeDataUseCaseImpl(newsletterRepo: newsletterRepo, articleRepo: articleRepo)
         }
         container.register(HomeViewModel.self) { r in
-            let usecase = r.resolve(ArticleUseCase.self)!
+            let usecase = r.resolve(FetchHomeDataUseCase.self)!
             return MainActor.assumeIsolated {
-                HomeViewModel(articleUseCase: usecase)
+                HomeViewModel(useCase: usecase)
             }
         }
         .inObjectScope(.container)

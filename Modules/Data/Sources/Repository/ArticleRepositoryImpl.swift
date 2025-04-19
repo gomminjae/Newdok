@@ -20,9 +20,9 @@ public class ArticleRepositoryImpl: ArticleRepository {
     }
     
     
-    public func fetchArticles(year: String, publicationMonth: String) async throws -> Domain.Articles {
-        let response: ArticlesDTO = try await provider.asyncRequest(.fetchArticles(year: year, publicationMonth: publicationMonth))
-        return response.toDomain()
+    public func fetchArticles(year: String, publicationMonth: String) async throws -> [Domain.Articles] {
+        let response: ArticlesResponseDTO = try await provider.asyncRequest(.fetchArticles(year: year, publicationMonth: publicationMonth))
+        return response.data.map {$0.toDomain()}
     }
     
     public func fetchTodayArticles() async throws -> Domain.Articles {

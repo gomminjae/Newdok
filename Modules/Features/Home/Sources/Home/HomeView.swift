@@ -9,10 +9,10 @@ import DesignSystem
 import Shared
 import Domain
 
+
 public struct HomeView: View {
     
     @StateObject private var viewModel: HomeViewModel
-    
     @State private var showCalendar = false
     
     @EnvironmentObject private var router: AppRouter
@@ -29,6 +29,7 @@ public struct HomeView: View {
             
             PullToRefreshView {
                 VStack(spacing: 0) {
+                    // MARK: - 헤더 (로고, 아이콘)
                     HStack {
                         Image(asset: DesignSystemAsset.logo)
                             .resizable()
@@ -36,16 +37,12 @@ public struct HomeView: View {
                             .padding(.vertical, 18)
                             .padding(.leading, 20)
                         Spacer()
-                        Button(action: {
-                            print("검색")
-                        }) {
+                        Button(action: { print("검색") }) {
                             Image(asset: DesignSystemAsset.search)
                                 .padding(.vertical, 18)
                                 .padding(.trailing, 2.4)
                         }
-                        Button(action: {
-                            print("알람")
-                        }) {
+                        Button(action: { print("알람") }) {
                             Image(asset: DesignSystemAsset.bell)
                                 .padding(.vertical, 18)
                                 .padding(.leading, 16)
@@ -53,8 +50,9 @@ public struct HomeView: View {
                         }
                     }
                     
+                    // MARK: - 날짜 + 캘린더 버튼
                     HStack {
-                        Text("5월 23일(수)")
+                        Text(viewModel.formattedDate)
                             .font(.hanSansNeo(16, .bold))
                             .foregroundStyle(Color(hex: "#363636"))
                             .padding(.vertical, 15)
@@ -69,14 +67,13 @@ public struct HomeView: View {
                                 .padding(.trailing, 24)
                         }
                     }
-                    
                     .frame(height: 52)
                     .background(Color.white)
                     .cornerRadius(12)
                     .padding(.top, 16)
                     .padding(.horizontal, 8)
                     
-                    
+                    // MARK: - 콘텐츠 뷰
                     VStack {
                         if isGuest {
                             NoDataView(type: .requireSignUp, buttonAction: {
@@ -84,20 +81,22 @@ public struct HomeView: View {
                             }, loginAction: {
                                 router.resetTo(.login)
                             })
-                        }
-                        
-                        else {
-                            if viewModel.articles.isEmpty {
+                        } else {
+                            if viewModel.subscribedNewsletters.isEmpty {
+                                NoDataView(type: .noSubscriptions, buttonAction: {})
+                            } else if viewModel.filteredArticles.isEmpty {
                                 NoDataView(type: .noArticles, buttonAction: {})
                             } else {
                                 HStack {
-                                    Text("\(viewModel.articles.count)개의 아티클이 도착했어요.")
+                                    Text("\(viewModel.filteredArticles.count)개의 아티클이 도착했어요.")
                                         .font(.hanSansNeo(18, .bold))
                                         .padding(.top, 20)
                                         .padding(.leading, 28)
                                     Spacer()
                                     Button(action: {
-                                        print("새로고침 버튼")
+                                        Task {
+                                            await viewModel.loadToday()
+                                        }
                                     }) {
                                         HStack(spacing: 4) {
                                             Image("refresh")
@@ -111,39 +110,46 @@ public struct HomeView: View {
                                 }
                                 
                                 VStack(spacing: 8) {
-                                    ForEach(viewModel.articles) { article in
+                                    ForEach(viewModel.filteredArticles) { article in
                                         ArticleRow(article: article)
                                             .frame(height: 88)
                                     }
                                 }
-                                //.background(Color.red)
-                                .padding(.top,20)
+                                .padding(.top, 20)
                                 .padding(.horizontal, 20)
                             }
                         }
                     }
-                    .background(Color.white)
-                    .cornerRadius(12)
-                    .padding(.horizontal, 8)
-                    .padding(.top, 8)
                     
-                    
-                    Spacer()
+                    Spacer() // ✅ VStack 안으로 이동
                 }
+                .background(Color.white)
+                .cornerRadius(12)
+                .padding(.horizontal, 8)
+                .padding(.top, 8)
             } onRefresh: {
-                try? await Task.sleep(nanoseconds: 1_500_000_000)
-                
+                await viewModel.loadToday()
             }
             .navigationBarHidden(true)
             .popup(isPresented: $showCalendar) {
-                CalendarPopupView(isPresented: $showCalendar)
+                CalendarPopupView(
+                    isPresented: $showCalendar,
+                    onDateSelected: { date in
+                        viewModel.selectedDate = date
+                        viewModel.loadArticles(for: date)
+                    }
+                )
+            }
+            .onAppear {
+                Task {
+                    await viewModel.loadToday()
+                }
             }
         }
     }
 }
 
 
-import SwiftUI
 
 struct PullToRefreshView<Content: View>: View {
     let content: () -> Content
@@ -250,3 +256,4 @@ struct CustomSpinner: View {
         }
     }
 }
+
