@@ -7,10 +7,10 @@
 
 public struct Articles {
     
-    let id: Int?
-    let publishDate: Int
-    let receivedUnread: Int
-    let receivedArticleList: [Article]
+    public let id: Int?
+    public let publishDate: Int
+    public let receivedUnread: Int
+    public let receivedArticleList: [Article]
     
     public init(id: Int?, publishDate: Int, receivedUnread: Int, receivedArticleList: [Article]) {
         self.id = id

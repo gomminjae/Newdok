@@ -29,6 +29,8 @@
 		B5D4E1442DB159D600D24202 /* Brand.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D4E1432DB159D600D24202 /* Brand.swift */; };
 		B5D4E1472DB15A7D00D24202 /* BrandDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D4E1462DB15A7D00D24202 /* BrandDetail.swift */; };
 		B5D4E1492DB15AB200D24202 /* BrandArticle.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D4E1482DB15AAE00D24202 /* BrandArticle.swift */; };
+		B5D4E1672DB3C12600D24202 /* FetchHomeDataUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D4E1662DB3C12000D24202 /* FetchHomeDataUseCase.swift */; };
+		B5D4E1692DB3C1A100D24202 /* HomeData.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D4E1682DB3C19A00D24202 /* HomeData.swift */; };
 		C2F30D6443BE6094D14361FF /* Industry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76F0058B74237B785ABC9E63 /* Industry.swift */; };
 		C672B2F134FCA043F15C1667 /* MonthlyBookmark.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB04FD788EF603F7BA89B88D /* MonthlyBookmark.swift */; };
 		E85EA8E9A482F4D3139A379A /* SMSResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22D28BDA51D577B28525253B /* SMSResponse.swift */; };
@@ -84,6 +86,8 @@
 		B5D4E1432DB159D600D24202 /* Brand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Brand.swift; sourceTree = "<group>"; };
 		B5D4E1462DB15A7D00D24202 /* BrandDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrandDetail.swift; sourceTree = "<group>"; };
 		B5D4E1482DB15AAE00D24202 /* BrandArticle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrandArticle.swift; sourceTree = "<group>"; };
+		B5D4E1662DB3C12000D24202 /* FetchHomeDataUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchHomeDataUseCase.swift; sourceTree = "<group>"; };
+		B5D4E1682DB3C19A00D24202 /* HomeData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeData.swift; sourceTree = "<group>"; };
 		BB04FD788EF603F7BA89B88D /* MonthlyBookmark.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthlyBookmark.swift; sourceTree = "<group>"; };
 		BD15A37E85BAE3A36B2CE72C /* Domain-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "Domain-Info.plist"; sourceTree = "<group>"; };
 		D41442B97371063DE432F8FD /* Newsletter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Newsletter.swift; sourceTree = "<group>"; };
@@ -117,6 +121,7 @@
 		11B3611D1728B87E7C917C63 /* Entity */ = {
 			isa = PBXGroup;
 			children = (
+				B5D4E1682DB3C19A00D24202 /* HomeData.swift */,
 				C37EE8412C51ADD3F1F0349C /* Article */,
 				CFA91F2468AB7ADF9C2DEB6B /* Newsletter */,
 				13F422358481DCCD195F2DDF /* User */,
@@ -162,6 +167,7 @@
 		2BE278B80FDD95404961E580 /* UseCase */ = {
 			isa = PBXGroup;
 			children = (
+				B5D4E1652DB3C11B00D24202 /* Home */,
 				00FDEFD2101FCD0CC9E10CF8 /* ArticleUseCase.swift */,
 				261679B89057804E12EBBCC2 /* UserUseCase.swift */,
 			);
@@ -191,6 +197,14 @@
 				F3B959DFAA4C5D6C5848644B /* ErrorResponse.swift */,
 			);
 			path = Error;
+			sourceTree = "<group>";
+		};
+		B5D4E1652DB3C11B00D24202 /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				B5D4E1662DB3C12000D24202 /* FetchHomeDataUseCase.swift */,
+			);
+			path = Home;
 			sourceTree = "<group>";
 		};
 		BFC9D7B14C1B3B0AB857D8F2 /* InfoPlists */ = {
@@ -318,6 +332,7 @@
 				3182F325FF29F682EB62956E /* SearchedNewsletter.swift in Sources */,
 				EE440BBB39BA777250D61E56 /* RecommendedBrand.swift in Sources */,
 				5091B95C8FE576742F1D7E91 /* ErrorResponse.swift in Sources */,
+				B5D4E1692DB3C1A100D24202 /* HomeData.swift in Sources */,
 				B5D4E1402DB1565C00D24202 /* NewsletterRepository.swift in Sources */,
 				34A32B84CB0DBAF03564CF2E /* Gender.swift in Sources */,
 				B5D4E1492DB15AB200D24202 /* BrandArticle.swift in Sources */,
@@ -327,6 +342,7 @@
 				E85EA8E9A482F4D3139A379A /* SMSResponse.swift in Sources */,
 				4A67A3859BAC84FBDA71A447 /* SignupResponse.swift in Sources */,
 				86B791CDC88EF1D6D219DD72 /* SimpleUser.swift in Sources */,
+				B5D4E1672DB3C12600D24202 /* FetchHomeDataUseCase.swift in Sources */,
 				5CFDB6BEC6FA65FB81875046 /* User.swift in Sources */,
 				B1B701966B544092E744B831 /* ArticleRepository.swift in Sources */,
 				A0FBB74C23B411ADF6E1022D /* UserRepository.swift in Sources */,

@@ -1,0 +1,18 @@
+//
+//  FetchHomeDataUseCase.swift
+//  Domain
+//
+//  Created by 권민재 on 4/19/25.
+//
+
+import Foundation
+import Shared
+
+
+public protocol FetchHomeDataUseCase {
+    
+    func fetchTodayData() async throws -> HomeData
+    func fetchMonthlyData(year: String, month: String) async throws -> [Article]
+
+    
+}
