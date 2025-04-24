@@ -7,29 +7,35 @@
 
 import SwiftUI
 import DesignSystem
+import Shared
+import Domain
+import Kingfisher
 
 struct RecommendedNewsLetterView: View {
+    
+    public var recommendation: NewsletterDetail
+    
     var body: some View {
         VStack(alignment: .leading) {
-            Image(asset: DesignSystemAsset.signup)
+            KFImage(URL(string: recommendation.imageUrl))
                 .resizable()
                 .frame(height: 210)
                 .frame(width: 340)
 
             
-            Text("뉴스레터 브랜드명")
+            Text(recommendation.brandName)
                 .font(.hanSansNeo(16, .bold))
                 .padding(.top, 16)
                 .padding(.horizontal, 20)
-            Text("소개글")
+            Text(recommendation.firstDescription)
                 .font(.hanSansNeo(14, .medium))
                 .padding(.top,8)
                 .padding(.horizontal, 20)
             
             HStack(spacing: 4) {
-                TagView(text: "hello")
-                TagView(text: "hello")
-                TagView(text: "hello")
+                ForEach(recommendation.interests) { interest in
+                    TagView(text: interest.name)
+                }
             }
             .padding(.top,17)
             .padding(.horizontal, 20)
@@ -45,10 +51,10 @@ struct RecommendedNewsLetterView: View {
     
     }
 }
-
-#Preview {
-    RecommendedNewsLetterView()
-}
+//
+//#Preview {
+//    RecommendedNewsLetterView()
+//}
 
 struct TagView: View {
     var text: String

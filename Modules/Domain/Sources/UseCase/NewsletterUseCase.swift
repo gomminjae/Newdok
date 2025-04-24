@@ -1,33 +1,31 @@
 //
-//  NewsletterRepository.swift
+//  NewsletterUseCase.swift
 //  Domain
 //
-//  Created by 권민재 on 4/18/25.
+//  Created by 권민재 on 4/24/25.
 //
 
 import Foundation
 import Shared
 
-
-public protocol NewsletterRepository {
-    //MARK: 구독 상태
+public protocol NewsletterUseCase {
+    
     func fetchActiveSubscription() async throws -> [Newsletter]
     func fetchPausedSubscription() async throws -> [Newsletter]
     
-    //MARK: 추천
-    func fetchRecommenidation() async throws -> RecommendedNewsletter
     
-    //MARK: 검색
+    func fetchRecommendation() async throws -> RecommendedNewsletter
+    
+  
     func searchNewsletter(brandName: String) async throws -> [Newsletter]
     
     
-    //MARK: 모든 뉴스레터 브랜드
+    
     func fetchNewsletters(orderOpt: String, industry: String, day: String) async throws -> [Brand]
     
     func fetchNewsletterBrand(id: String) async throws -> BrandDetail
     
     func pauseSubscription(newsletterId: String) async throws
     func resumeSubscription(newsletterId: String) async throws
-    
     
 }

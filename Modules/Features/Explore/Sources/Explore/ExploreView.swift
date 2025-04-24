@@ -6,15 +6,23 @@
 //
 import SwiftUI
 import DesignSystem
+import Shared
+import Domain
 
 public struct ExploreView: View {
     @State private var selectedTab: Int = 0 // 0: 추천 뉴스레터, 1: 모든 뉴스레터
-    @State private var currentPage: Int = 0 // 페이지 컨트롤 인덱스
+    @State private var currentPage: Int = 0
+    
+    @StateObject private var viewModel: ExploreViewModel
+    @EnvironmentObject private var router: AppRouter
+    
+    public init(viewModel: ExploreViewModel) {
+        _viewModel = StateObject(wrappedValue: viewModel)
+    }
+    
     
     // 닉네임 예시
     let userName = "닉네임"
-    
-    public init() {}
     
     public var body: some View {
         VStack(spacing: 0) {
@@ -65,11 +73,9 @@ public struct ExploreView: View {
                         .padding(.top, 20)
                         .padding(.horizontal, 28)
                     
-                    // 캐러셀 (RecommendedNewsLetterView를 여러 개 보여줌)
                     TabView {
-                        ForEach(0..<5, id: \.self) { _ in
-                            RecommendedNewsLetterView()
-                            
+                        ForEach(viewModel.myRecommendation, id: \.id) { recommendation in
+                            RecommendedNewsLetterView(recommendation: recommendation)
                         }
                     }
                     .frame(height: 350)
@@ -111,6 +117,11 @@ public struct ExploreView: View {
             .background(Color(hex: "#F5F5F7"))
         }
         .padding(.bottom, 8)
+        .onAppear {
+            Task {
+                viewModel.fetchRecommendation()
+            }
+        }
     }
 
     @ViewBuilder
@@ -131,6 +142,6 @@ public struct ExploreView: View {
    
 }
 
-#Preview {
-    ExploreView()
-}
+//#Preview {
+//    ExploreView()
+//}
