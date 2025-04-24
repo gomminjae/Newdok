@@ -5,7 +5,7 @@
 //  Created by 권민재 on 4/11/25.
 //
 
-public struct Industry {
+public struct Industry: Identifiable {
     public let id: Int
     public let name: String
     

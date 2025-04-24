@@ -34,14 +34,12 @@ public struct RecommendedBrand {
     }
 }
 
-public struct Interest {
-        let userId: Int
-        let interestId: Int
-        let createdAt: String
+public struct Interest: Identifiable {
+    public let id: Int
+    public let name: String
 
-    public init(userId: Int, interestId: Int, createdAt: String) {
-        self.userId = userId
-        self.interestId = interestId
-        self.createdAt = createdAt
+    public init(id: Int, name: String) {
+        self.id = id
+        self.name = name
     }
 }

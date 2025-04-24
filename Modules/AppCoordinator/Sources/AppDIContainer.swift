@@ -15,6 +15,7 @@ import Auth
 import Signup
 import Moya
 import Home
+import Explore
 
 public final class AppDIContainer {
     public static let shared = AppDIContainer()
@@ -41,7 +42,7 @@ public final class AppDIContainer {
             return network.makeAuthProvider()
         }
         
-        container.register(MoyaProvider.self) { r in
+        container.register(MoyaProvider<NewsletterAPI>.self) { r in
             let network = r.resolve(NetworkProviding.self)!
             return network.makeNewsletterProvider()
         }
@@ -111,6 +112,19 @@ public final class AppDIContainer {
                 HomeViewModel(useCase: usecase)
             }
         }
-        .inObjectScope(.container)
+       
+
+        //MARK: Explore
+        container.register(NewsletterUseCase.self) { r in
+            let repo = r.resolve(NewsletterRepository.self)!
+            return NewsletterUseCaseImpl(repository: repo)
+        }
+        container.register(ExploreViewModel.self) { r in
+            let useCase = r.resolve(NewsletterUseCase.self)!
+            return MainActor.assumeIsolated {
+                ExploreViewModel(useCase: useCase)
+            }
+        }
+        
     }
 }

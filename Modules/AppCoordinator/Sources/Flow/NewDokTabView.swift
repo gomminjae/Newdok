@@ -23,19 +23,21 @@ public struct NewDokTabView: View {
     @State private var selectedTab: NewDokTab = .home
     
     private let homeViewModel: HomeViewModel
+    private let exploreViewModel: ExploreViewModel
     
     
 
     public init(
-        homeViewModel: HomeViewModel
+        homeViewModel: HomeViewModel,
+        exploreViewModel: ExploreViewModel
     ) {
         self.homeViewModel = homeViewModel
+        self.exploreViewModel = exploreViewModel
     }
-
     public var body: some View {
         VStack(spacing: 0) {
             TabView(selection: $selectedTab) {
-                ExploreView()
+                ExploreView(viewModel: exploreViewModel)
                     .tag(NewDokTab.explore)
                 HomeView(viewModel: homeViewModel)
                     .tag(NewDokTab.home)
