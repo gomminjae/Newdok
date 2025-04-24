@@ -15,7 +15,7 @@ public protocol ArticleUseCase {
     func fetchArticlesByMonth(year: String, month: String) async throws -> [Articles]
 
     
-    func fetchTodayArticles() async throws -> Articles
+    func fetchTodayArticles() async throws -> [Article]
 
     func fetchBookmarkedArticles(interest: String) async throws -> BookmarkedArticles
 

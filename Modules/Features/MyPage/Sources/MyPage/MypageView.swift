@@ -28,10 +28,13 @@ public struct MypageView: View {
                         Text("구독이메일")
                             .font(.hanSansNeo(14,.medium))
                             .foregroundColor(Color(hex: "#565656"))
-                        
-                        Image(systemName: "questionmark.circle")
-                            .font(.system(size: 13))
-                            .foregroundColor(Color(hex: "#565656"))
+                        Button(action: {
+                            
+                        }) {
+                            Image(systemName: "questionmark.circle")
+                                .font(.system(size: 13))
+                                .foregroundColor(Color(hex: "#565656"))
+                        }
                     }
                     .padding(.top,12)
                     

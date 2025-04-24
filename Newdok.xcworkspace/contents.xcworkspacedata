@@ -68,6 +68,9 @@
          location = "group:Tuist/.build/tuist-derived/Alamofire/Alamofire.xcodeproj">
       </FileRef>
       <FileRef
+         location = "group:Tuist/.build/tuist-derived/Kingfisher/Kingfisher.xcodeproj">
+      </FileRef>
+      <FileRef
          location = "group:Tuist/.build/tuist-derived/Moya/Moya.xcodeproj">
       </FileRef>
       <FileRef

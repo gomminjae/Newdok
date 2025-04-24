@@ -15,11 +15,14 @@
 		4787DFDD71F731243F3587AF /* Domain.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6BEB75E9463ACE494A73BD36 /* Domain.framework */; };
 		618C5A4BDBBDA7F1A2F8DC93 /* Home.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 76E66C32BAE4D2C1EE4C64CB /* Home.framework */; };
 		70F3CF0BB9F240B2A59853E0 /* DesignSystem.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = E9369BFA2C65412102538303 /* DesignSystem.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		784452FA2E8E29178120DA76 /* Kingfisher.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 77D69EAF942AA87F8A9468BF /* Kingfisher.framework */; };
 		79CC342CF73CCAAFEF0E7A8A /* NewdokApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E742829AD9D1D2B50EFB2A0 /* NewdokApp.swift */; };
+		81EB0128D84DCC5895B5438C /* Kingfisher_Kingfisher.bundle in Resources */ = {isa = PBXBuildFile; fileRef = BEA84935B5BCB66E6882A426 /* Kingfisher_Kingfisher.bundle */; };
 		87A4789DB157CD0E2403FA8E /* Survey.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C863CB0D96F66393E87E9112 /* Survey.framework */; };
 		8F3691F7301E714387485350 /* DesignSystem.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E9369BFA2C65412102538303 /* DesignSystem.framework */; };
 		A63FF532A5DE421354BF1D50 /* Alamofire_Alamofire.bundle in Dependencies */ = {isa = PBXBuildFile; fileRef = FA19395CE67AB6554BDAFCF5 /* Alamofire_Alamofire.bundle */; };
 		AAB073F1221B89F1B9D0816C /* Core.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 514C6A786251DDEC6B3DFF77 /* Core.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C096EDCC85582A3605D51A6D /* Kingfisher_Kingfisher.bundle in Dependencies */ = {isa = PBXBuildFile; fileRef = BEA84935B5BCB66E6882A426 /* Kingfisher_Kingfisher.bundle */; };
 		CAC34288B9F9A43D57E874D8 /* Signup.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AAE3FEC5495E2E1AF26A4BA3 /* Signup.framework */; };
 		F099CD980652945E75D48F5F /* Alamofire_Alamofire.bundle in Resources */ = {isa = PBXBuildFile; fileRef = FA19395CE67AB6554BDAFCF5 /* Alamofire_Alamofire.bundle */; };
 		F343BFC34A1F6F392C331803 /* Data.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8AF7E105F5FEC83A7A47F2E7 /* Data.framework */; };
@@ -44,6 +47,7 @@
 			dstSubfolderSpec = 16;
 			files = (
 				A63FF532A5DE421354BF1D50 /* Alamofire_Alamofire.bundle in Dependencies */,
+				C096EDCC85582A3605D51A6D /* Kingfisher_Kingfisher.bundle in Dependencies */,
 			);
 			name = Dependencies;
 			runOnlyForDeploymentPostprocessing = 1;
@@ -58,10 +62,12 @@
 		6BEB75E9463ACE494A73BD36 /* Domain.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Domain.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		709ECB981BF7FB2A9D697179 /* Auth.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Auth.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		76E66C32BAE4D2C1EE4C64CB /* Home.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Home.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		77D69EAF942AA87F8A9468BF /* Kingfisher.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Kingfisher.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7E710496E985656C6B2D0826 /* Launch.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Launch.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8AF7E105F5FEC83A7A47F2E7 /* Data.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Data.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		AAE3FEC5495E2E1AF26A4BA3 /* Signup.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Signup.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		AB40F3B3D8E2DCB2AC3C9605 /* Shared.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Shared.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		BEA84935B5BCB66E6882A426 /* Kingfisher_Kingfisher.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Kingfisher_Kingfisher.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
 		C863CB0D96F66393E87E9112 /* Survey.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Survey.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E9369BFA2C65412102538303 /* DesignSystem.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = DesignSystem.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F13E636A9305A42EC91FE66D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
@@ -79,6 +85,7 @@
 				8F3691F7301E714387485350 /* DesignSystem.framework in Frameworks */,
 				4787DFDD71F731243F3587AF /* Domain.framework in Frameworks */,
 				618C5A4BDBBDA7F1A2F8DC93 /* Home.framework in Frameworks */,
+				784452FA2E8E29178120DA76 /* Kingfisher.framework in Frameworks */,
 				2DECB327F9E1EFE0AE533114 /* Launch.framework in Frameworks */,
 				1BC5B98AD386E5E8F84A45D6 /* Shared.framework in Frameworks */,
 				CAC34288B9F9A43D57E874D8 /* Signup.framework in Frameworks */,
@@ -134,6 +141,8 @@
 				E9369BFA2C65412102538303 /* DesignSystem.framework */,
 				6BEB75E9463ACE494A73BD36 /* Domain.framework */,
 				76E66C32BAE4D2C1EE4C64CB /* Home.framework */,
+				BEA84935B5BCB66E6882A426 /* Kingfisher_Kingfisher.bundle */,
+				77D69EAF942AA87F8A9468BF /* Kingfisher.framework */,
 				7E710496E985656C6B2D0826 /* Launch.framework */,
 				AB40F3B3D8E2DCB2AC3C9605 /* Shared.framework */,
 				AAE3FEC5495E2E1AF26A4BA3 /* Signup.framework */,
@@ -199,6 +208,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F099CD980652945E75D48F5F /* Alamofire_Alamofire.bundle in Resources */,
+				81EB0128D84DCC5895B5438C /* Kingfisher_Kingfisher.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

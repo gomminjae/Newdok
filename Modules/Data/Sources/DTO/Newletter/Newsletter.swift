@@ -9,17 +9,17 @@ import Foundation
 import Domain
 
 public struct NewsletterDTO: Decodable {
-    let id: Int
+    let id: Int?
     let brandName: String
     let imageUrl: String
-    let publicationCycle: String
+    let publicationCycle: String?
     
     public func toDomain() -> Newsletter {
         return Newsletter(
-            id: id,
+            id: id ?? 0,
             brandName: brandName,
             imageUrl: imageUrl,
-            publicationCycle: publicationCycle
+            publicationCycle: publicationCycle ?? ""
         )
     }
 }

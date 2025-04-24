@@ -27,35 +27,40 @@ public struct HomeView: View {
             Color(hex: "F5F5F7")
                 .ignoresSafeArea()
             
-            PullToRefreshView {
-                VStack(spacing: 0) {
-                    // MARK: - 헤더 (로고, 아이콘)
-                    HStack {
-                        Image(asset: DesignSystemAsset.logo)
-                            .resizable()
-                            .frame(width: 126, height: 24)
-                            .padding(.vertical, 18)
-                            .padding(.leading, 20)
-                        Spacer()
+            VStack(spacing: 0) {
+                // MARK: - 헤더
+                HStack {
+                    Image(asset: DesignSystemAsset.logo)
+                        .resizable()
+                        .frame(width: 126, height: 24)
+                        .padding(.vertical, 18)
+                        .padding(.leading, 20)
+                    Spacer()
+                    HStack(spacing: 16) {
                         Button(action: { print("검색") }) {
-                            Image(asset: DesignSystemAsset.search)
+                            Image(asset: DesignSystemAsset.lineSearch)
+                                .resizable()
+                                .frame(width: 28, height: 28)
                                 .padding(.vertical, 18)
-                                .padding(.trailing, 2.4)
                         }
                         Button(action: { print("알람") }) {
-                            Image(asset: DesignSystemAsset.bell)
+                            Image(asset: DesignSystemAsset.lineBell)
+                                .resizable()
+                                .frame(width: 28, height: 28)
                                 .padding(.vertical, 18)
-                                .padding(.leading, 16)
                                 .padding(.trailing, 17.8)
                         }
                     }
-                    
+                }
+                .background(Color(hex: "#F5F5F7"))
+                
+                ScrollView {
                     // MARK: - 날짜 + 캘린더 버튼
-                    HStack {
+                    HStack(spacing: 0) {
                         Text(viewModel.formattedDate)
                             .font(.hanSansNeo(16, .bold))
                             .foregroundStyle(Color(hex: "#363636"))
-                            .padding(.vertical, 15)
+                        
                             .padding(.leading, 24)
                         
                         Spacer()
@@ -63,15 +68,18 @@ public struct HomeView: View {
                             showCalendar.toggle()
                         }) {
                             Image(asset: DesignSystemAsset.lineCalendar)
-                                .padding(.vertical, 15)
+                            
                                 .padding(.trailing, 24)
                         }
                     }
                     .frame(height: 52)
-                    .background(Color.white)
-                    .cornerRadius(12)
-                    .padding(.top, 16)
-                    .padding(.horizontal, 8)
+                    .background(
+                        Color.white
+                            .clipShape(RoundedRectangle(cornerRadius: 12))
+                    )
+                    .padding(.top, 8)
+                    //.padding(.horizontal, 8)
+                    
                     
                     // MARK: - 콘텐츠 뷰
                     VStack {
@@ -82,178 +90,79 @@ public struct HomeView: View {
                                 router.resetTo(.login)
                             })
                         } else {
-                            if viewModel.subscribedNewsletters.isEmpty {
+                            if viewModel.subscribedNewsletters.isEmpty && viewModel.filteredArticles.isEmpty {
                                 NoDataView(type: .noSubscriptions, buttonAction: {})
                             } else if viewModel.filteredArticles.isEmpty {
                                 NoDataView(type: .noArticles, buttonAction: {})
                             } else {
-                                HStack {
-                                    Text("\(viewModel.filteredArticles.count)개의 아티클이 도착했어요.")
-                                        .font(.hanSansNeo(18, .bold))
-                                        .padding(.top, 20)
-                                        .padding(.leading, 28)
-                                    Spacer()
-                                    Button(action: {
-                                        Task {
-                                            await viewModel.loadToday()
+                                VStack {
+                                    HStack {
+                                        Text("\(viewModel.filteredArticles.count)개의 아티클이 도착했어요.")
+                                            .font(.hanSansNeo(18, .bold))
+                                            .padding(.top, 20)
+                                            .padding(.leading, 28)
+                                        Spacer()
+                                        Button(action: {
+                                            Task {
+                                                await viewModel.loadToday()
+                                            }
+                                        }) {
+                                            HStack(spacing: 4) {
+                                                Image(asset: DesignSystemAsset.refresh)
+                                                    .font(.hanSansNeo(14,.medium))
+                                                    .foregroundStyle(Color.primaryNormal)
+                                                Text("새로고침")
+                                                    .font(.hanSansNeo(14, .medium))
+                                                    .foregroundStyle(Color.primaryNormal)
+                                            }
                                         }
-                                    }) {
-                                        HStack(spacing: 4) {
-                                            Image("refresh")
-                                            Text("새로고침")
-                                                .font(.hanSansNeo(14, .medium))
-                                                .foregroundStyle(Color.primaryNormal)
+                                        .padding(.top, 23)
+                                        .padding(.trailing, 24)
+                                    }
+                                    
+                                    VStack(spacing: 8) {
+                                        ForEach(viewModel.filteredArticles) { article in
+                                            ArticleRow(article: article)
+                                                .frame(height: 88)
                                         }
                                     }
-                                    .padding(.top, 23)
-                                    .padding(.trailing, 24)
+                                    .padding(.top, 20)
+                                    .padding(.horizontal, 20)
+                                    .padding(.bottom, 16)
                                 }
-                                
-                                VStack(spacing: 8) {
-                                    ForEach(viewModel.filteredArticles) { article in
-                                        ArticleRow(article: article)
-                                            .frame(height: 88)
-                                    }
-                                }
-                                .padding(.top, 20)
-                                .padding(.horizontal, 20)
+                                .background(
+                                    Color.white
+                                        .clipShape(RoundedRectangle(cornerRadius: 12))
+                                )
                             }
                         }
                     }
-                    
-                    Spacer() // ✅ VStack 안으로 이동
                 }
-                .background(Color.white)
-                .cornerRadius(12)
-                .padding(.horizontal, 8)
-                .padding(.top, 8)
-            } onRefresh: {
+                .background(Color(hex: "#F5F5F7"))
+                
+
+            }
+            .background(Color.white)
+            .cornerRadius(12)
+            .padding(.horizontal, 8)
+            .padding(.top, 8)
+        }
+        .navigationBarHidden(true)
+        .popup(isPresented: $showCalendar) {
+            CalendarPopupView(
+                isPresented: $showCalendar,
+                onDateSelected: { date in
+                    viewModel.selectedDate = date
+                    viewModel.loadArticles(for: date)
+                }
+            )
+        }
+        .onAppear {
+            Task {
                 await viewModel.loadToday()
             }
-            .navigationBarHidden(true)
-            .popup(isPresented: $showCalendar) {
-                CalendarPopupView(
-                    isPresented: $showCalendar,
-                    onDateSelected: { date in
-                        viewModel.selectedDate = date
-                        viewModel.loadArticles(for: date)
-                    }
-                )
-            }
-            .onAppear {
-                Task {
-                    await viewModel.loadToday()
-                }
-            }
         }
     }
 }
 
-
-
-struct PullToRefreshView<Content: View>: View {
-    let content: () -> Content
-    let onRefresh: () async -> Void
-    
-    @State private var isRefreshing = false
-    @State private var pullProgress: CGFloat = 0
-    
-    private let threshold: CGFloat = 80
-    
-    var body: some View {
-        GeometryReader { outerProxy in
-            ScrollView(showsIndicators: false) {
-                // 스크롤 offset 계산용
-                GeometryReader { proxy -> Color in
-                    DispatchQueue.main.async {
-                        let offset = proxy.frame(in: .named("PullToRefresh")).minY
-                        
-                        if offset > 0 {
-                            
-                            pullProgress = min(1.0, offset / threshold)
-                            
-                            if !isRefreshing && offset > threshold {
-                                isRefreshing = true
-                                Task {
-                                    await onRefresh()
-                                    
-                                    withAnimation {
-                                        isRefreshing = false
-                                        pullProgress = 0
-                                    }
-                                }
-                            }
-                        } else {
-                            
-                            if !isRefreshing {
-                                pullProgress = 0
-                            }
-                        }
-                    }
-                    return Color.clear
-                }
-                .frame(height: 0)
-                
-                if isRefreshing || pullProgress > 0 {
-                    CustomSpinner(progress: pullProgress, isRefreshing: isRefreshing)
-                        .frame(height: 60)
-                }
-                
-                
-                content()
-                    .frame(maxWidth: .infinity)
-            }
-            .coordinateSpace(name: "PullToRefresh")
-        }
-    }
-}
-struct CustomSpinner: View {
-    let progress: CGFloat
-    let isRefreshing: Bool
-    
-    private let circleCount = 5
-    
-    var body: some View {
-        
-        HStack(spacing: 12) {
-            ForEach(0..<circleCount, id: \.self) { index in
-                Circle()
-                    .fill(gradient(for: index))
-                    .frame(width: 20, height: 20)
-                    .scaleEffect(scale(for: index))
-                    .opacity(opacity(for: index))
-            }
-        }
-        .padding(.top, 8)
-        .animation(.easeInOut, value: progress)
-        .animation(.easeInOut, value: isRefreshing)
-    }
-    
-    private func gradient(for index: Int) -> LinearGradient {
-        let start = Color.blue.opacity(0.3 + 0.1 * Double(index))
-        let end   = Color.blue.opacity(0.7 + 0.05 * Double(index))
-        return LinearGradient(
-            gradient: Gradient(colors: [start, end]),
-            startPoint: .topLeading,
-            endPoint: .bottomTrailing
-        )
-    }
-    
-    private func scale(for index: Int) -> CGFloat {
-        if isRefreshing {
-            return 1.0
-        } else {
-            return 0.5 + 0.5 * progress
-        }
-    }
-    
-    
-    private func opacity(for index: Int) -> CGFloat {
-        if isRefreshing {
-            return 1.0
-        } else {
-            return 0.5 + 0.5 * progress
-        }
-    }
-}
 

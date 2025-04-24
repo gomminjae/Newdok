@@ -17,6 +17,7 @@ let project = Project(
                 .project(target: "DesignSystem", path: "../../DesignSystem"),
                 .project(target: "Domain", path: "../../Domain"),
                 .project(target: "Shared", path: "../../Shared"),
+                .external(name: "Kingfisher"),
              ]
         ),
         .target(

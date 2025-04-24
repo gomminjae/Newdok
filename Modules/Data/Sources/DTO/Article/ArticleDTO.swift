@@ -8,14 +8,20 @@ import Domain
 
 
 public struct ArticleDTO: Decodable {
-    let brandName: String
-    let imageUrl: String
-    let articleTitle: String
-    let articleId: Int
+    let id: Int
+    let title: String
     let status: String
-    
+    let newsletter: NewsletterDTO
+
     public func toDomain() -> Article {
-        return Article(brandName: brandName, imageUrl: imageUrl, articleTitle: articleTitle, articleId: articleId, status: status)
+        return Article(
+            brandName: newsletter.brandName,
+            imageUrl: newsletter.imageUrl,
+            articleTitle: title,
+            articleId: id,
+            status: status
+        )
     }
 }
+
 

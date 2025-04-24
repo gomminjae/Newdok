@@ -13,7 +13,7 @@ public protocol ArticleRepository {
     
     func fetchArticles(year: String, publicationMonth: String) async throws -> [Articles]
     
-    func fetchTodayArticles() async throws -> Articles
+    func fetchTodayArticles() async throws -> [Article]
     
     func fetchBookmarkArticles(interest: String) async throws -> BookmarkedArticles
     func changeBookmarkState(articleId: String) async throws

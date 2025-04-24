@@ -29,6 +29,14 @@ public final class HomeViewModel: ObservableObject {
     
     @AppStorage("isGuest") public var isGuest: Bool = false
     
+    
+    public var activeArticeDays: [Int] {
+        articlesByMonth
+            .filter { !$0.receivedArticleList.isEmpty }
+            .map { $0.publishDate }
+    }
+    
+    
     public func loadToday() async {
         do {
             let data = try await useCase.fetchTodayData()

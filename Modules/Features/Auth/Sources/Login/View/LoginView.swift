@@ -102,6 +102,7 @@ public struct LoginView: View {
                     }
                     
                 }
+                .font(.hanSansNeo(16,.bold))
                 .disabled(!viewModel.isLoginEnabled)
                 .frame(maxWidth: .infinity)
                 .frame(height: 48)

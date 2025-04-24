@@ -30,7 +30,7 @@ public class FetchHomeDataUseCaseImpl: FetchHomeDataUseCase {
         let articles = try await articlesTask
         let newsletters = try await newslettersTask
         
-        let articleList = articles.receivedArticleList
+        let articleList = articles
         
         return HomeData(
             articles: articleList,

@@ -7,13 +7,14 @@
 import SwiftUI
 import DesignSystem
 import Domain
+import Kingfisher
 
 struct ArticleRow: View {
     let article: Article
 
     var body: some View {
         HStack(spacing: 12) {
-            Image(asset: DesignSystemAsset.signup)
+            KFImage(URL(string: article.imageUrl))
                 .resizable()
                 .frame(width: 56, height: 56)
                 .clipShape(RoundedRectangle(cornerRadius: 12))

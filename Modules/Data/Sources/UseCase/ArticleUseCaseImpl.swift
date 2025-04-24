@@ -20,7 +20,7 @@ public final class ArticleUseCaseImpl: ArticleUseCase {
         return try await articleRepository.fetchArticles(year: year, publicationMonth: month)
     }
     
-    public func fetchTodayArticles() async throws -> Domain.Articles {
+    public func fetchTodayArticles() async throws -> [Article] {
         return try await articleRepository.fetchTodayArticles()
     }
     
