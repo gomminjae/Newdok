@@ -18,6 +18,12 @@ public class ExploreViewModel: ObservableObject {
     @Published public var myRecommendation: [NewsletterDetail] = []
     @Published public var unionRecommendation: [NewsletterDetail] = []
     
+    @Published public var allNewsletters: [Brand] = []
+    
+    @Published public var orderOpt: String = ""
+    @Published public var industry: String = ""
+    @Published public var day: String = ""
+    
     
     private let useCase: NewsletterUseCase
     
@@ -30,7 +36,7 @@ public class ExploreViewModel: ObservableObject {
     
     
     
-    public func fetchRecommendation() {
+    public func fetchRecommendation() async {
         Task {
             do {
                 let response = try await useCase.fetchRecommendation()
@@ -38,11 +44,22 @@ public class ExploreViewModel: ObservableObject {
                 myRecommendation = response.intersection
                 unionRecommendation = response.union
             } catch {
-                print("에러")
+                print("추천 에러")
             }
         }
     }
     
+    public func fetchAllNewsletters() async {
+        Task {
+            do {
+                let response = try await useCase.fetchNewsletters(orderOpt: orderOpt, industry: industry, day: day)
+                allNewsletters = response
+                
+            } catch {
+                print("모든 뉴스레터 에러",error)
+            }
+        }
+    }
     
     
     

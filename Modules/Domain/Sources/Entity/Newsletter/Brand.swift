@@ -6,14 +6,14 @@
 //
 
 
-public struct Brand {
+public struct Brand: Identifiable {
+    public var id: Int { brandId }
     public let brandId: Int
     public let brandName: String
     public let imageUrl: String
     public let interests: [Interest]
     public let isSubscribed: String
     public let shortDescription: String
-    public let subscriptionCount: Int
 
     public init(
         brandId: Int,
@@ -22,7 +22,6 @@ public struct Brand {
         interests: [Interest],
         isSubscribed: String,
         shortDescription: String,
-        subscriptionCount: Int
     ) {
         self.brandId = brandId
         self.brandName = brandName
@@ -30,6 +29,5 @@ public struct Brand {
         self.interests = interests
         self.isSubscribed = isSubscribed
         self.shortDescription = shortDescription
-        self.subscriptionCount = subscriptionCount
     }
 }

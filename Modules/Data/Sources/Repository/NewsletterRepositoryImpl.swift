@@ -41,7 +41,7 @@ public class NewsletterRepositoryImpl: NewsletterRepository {
         
     }
     
-    public func fetchNewsletters(orderOpt: String, industry: String, day: String) async throws -> [Domain.Brand] {
+    public func fetchNewsletters(orderOpt: String?, industry: String?, day: String?) async throws -> [Domain.Brand] {
         let response: [BrandDTO] = try await provider.asyncRequest(.fetchAllNewsletterBrands(orderOpt: orderOpt, industry: industry, day: day))
         return response.map { $0.toDomain() }
     }

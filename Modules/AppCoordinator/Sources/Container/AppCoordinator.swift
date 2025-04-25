@@ -44,6 +44,10 @@ final class AppCoordinator {
         return HomeView(viewModel: vm).environmentObject(router)
         
     }
+    func makeExploreView() -> some View {
+        let vm = container.container.resolve(ExploreViewModel.self)!
+        return ExploreView(viewModel: vm).environmentObject(router)
+    }
     func makeTabView() -> some View {
         
         let homeVm = container.container.resolve(HomeViewModel.self)!

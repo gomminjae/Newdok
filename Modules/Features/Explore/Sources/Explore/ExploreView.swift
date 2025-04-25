@@ -10,50 +10,79 @@ import Shared
 import Domain
 
 public struct ExploreView: View {
-    @State private var selectedTab: Int = 0 // 0: 추천 뉴스레터, 1: 모든 뉴스레터
+    @State private var selectedTab: Int = 0 // 0: 추천, 1: 전체
     @State private var currentPage: Int = 0
-    
+
     @StateObject private var viewModel: ExploreViewModel
     @EnvironmentObject private var router: AppRouter
-    
+
     public init(viewModel: ExploreViewModel) {
         _viewModel = StateObject(wrappedValue: viewModel)
     }
-    
-    
-    // 닉네임 예시
+
     let userName = "닉네임"
-    
+
     public var body: some View {
         VStack(spacing: 0) {
-            HStack {
-                Text("둘러보기")
-                    .font(.hanSansNeo(16, .bold))
-                    .padding(.vertical, 17)
-                    .padding(.leading, 20)
-                Spacer()
-                Button(action: {
-                    print("검색 버튼 탭")
-                }) {
-                    Image(asset: DesignSystemAsset.search)
-                        .padding(.vertical, 17)
-                        .padding(.trailing, 2.4)
+            headerView
+            tabSwitcher
+            Divider()
+
+            ScrollView(showsIndicators: false) {
+                VStack(alignment: .leading, spacing: 0) {
+                    if selectedTab == 0 {
+                        recommendationSection
+                    } else {
+                        allNewsletterSection
+                    }
                 }
-                Button(action: {
-                    print("알람 버튼 탭")
-                }) {
-                    Image(asset: DesignSystemAsset.bell)
-                        .padding(.vertical, 17)
-                        .padding(.leading, 16)
-                        .padding(.trailing, 17.8)
-                }
+                .background(Color(hex: "#F5F5F7"))
             }
-            
+        }
+        .background(Color.white)
+        .onAppear {
+            Task {
+                await viewModel.fetchRecommendation()
+                await viewModel.fetchAllNewsletters()
+            }
+        }
+    }
+
+    // MARK: - 헤더
+    private var headerView: some View {
+        HStack {
+            Text("둘러보기")
+                .font(.hanSansNeo(16, .bold))
+                .padding(.vertical, 17)
+                .padding(.leading, 20)
+            Spacer()
+            Button {
+                print("검색 버튼 탭")
+            } label: {
+                Image(asset: DesignSystemAsset.search)
+                    .padding(.vertical, 17)
+                    .padding(.trailing, 2.4)
+            }
+            Button {
+                print("알람 버튼 탭")
+            } label: {
+                Image(asset: DesignSystemAsset.bell)
+                    .padding(.vertical, 17)
+                    .padding(.leading, 16)
+                    .padding(.trailing, 17.8)
+            }
+        }
+    }
+
+    // MARK: - 탭 스위처
+    private var tabSwitcher: some View {
+        VStack(spacing: 0) {
             HStack(spacing: 0) {
                 tabButton(title: "추천 뉴스레터", index: 0)
                 tabButton(title: "모든 뉴스레터", index: 1)
             }
             .padding(.top, 16)
+
             GeometryReader { geometry in
                 let width = geometry.size.width / 2
                 Rectangle()
@@ -63,67 +92,73 @@ public struct ExploreView: View {
                     .animation(.easeInOut(duration: 0.3), value: selectedTab)
             }
             .frame(height: 2)
-            
-            Divider()
-            
-            ScrollView(showsIndicators: false) {
-                VStack(alignment: .leading) {
-                    Text("닉네임님을 위한\n맞춤형 뉴스레터가 도착했어요.")
-                        .font(.hanSansNeo(20, .bold))
-                        .padding(.top, 20)
-                        .padding(.horizontal, 28)
-                    
-                    TabView {
-                        ForEach(viewModel.myRecommendation, id: \.id) { recommendation in
-                            RecommendedNewsLetterView(recommendation: recommendation)
-                        }
+        }
+    }
+    private var recommendationSection: some View {
+        VStack(alignment: .leading) {
+            Text("\(userName)님을 위한\n맞춤형 뉴스레터가 도착했어요.")
+                .font(.hanSansNeo(20, .bold))
+                .padding(.top, 20)
+                .padding(.horizontal, 24)
+
+            PagingScrollView(newsletters: viewModel.myRecommendation, currentPage: $currentPage)
+                .frame(height: 360)
+                .padding(.leading,24)
+
+            HStack(spacing: 6) {
+                Spacer()
+                ForEach(0..<viewModel.myRecommendation.count, id: \.self) { index in
+                    Circle()
+                        .fill(index == currentPage ? Color.primaryNormal : Color(hex: "#E0E0E0"))
+                        .frame(width: 6, height: 6)
+                }
+                Spacer()
+            }
+            .padding(.vertical, 20)
+
+            HStack {
+                Text("이런 뉴스레터는 어때요?")
+                    .font(.hanSansNeo(16, .bold))
+                Spacer()
+                Button(action: {
+                    Task {
+                        await viewModel.fetchRecommendation()
                     }
-                    .frame(height: 350)
-                    .tabViewStyle(.page)
-                    HStack {
-                        Spacer()
-                        ForEach(0..<5) { index in
-                            Circle()
-                                .fill(Color.primaryNormal)
-                                .frame(width: 6, height: 6)
-                        }
-                        Spacer()
-                    }
-                    .padding(.vertical,20)
-                    .padding(.horizontal,24)
-                   
-                    
-                    HStack {
-                        Text("이런 뉴스레터는 어때요?")
-                            .font(.hanSansNeo(16, .bold))
-                        Spacer()
-                        Button("새로고침") {
-                            print("hello world")
-                        }
-                    }
-                    .padding(.horizontal, 24)
-                    .padding(.vertical, 20)
-                    
-                    // 뉴스레터 목록 리스트
-//                    List {
-//                        ForEach(0..<10, id: \.self) { index in
-//                            ArticleRow(article: Article(title: "dfdf", source: "sdfsdf", imageName: "signup_icon", isRead: false))
-//                        }
-//                    }
-//                    .frame(height: 400) // 리스트 높이 조절
-//                    .listStyle(PlainListStyle())
+                }) {
+                    Image(asset: DesignSystemAsset.refresh)
+                        .foregroundStyle(Color.primaryNormal)
+                    Text("새로고침")
+                        .font(.hanSansNeo(14, .medium))
+                        .foregroundStyle(Color.primaryNormal)
                 }
             }
-            .background(Color(hex: "#F5F5F7"))
-        }
-        .padding(.bottom, 8)
-        .onAppear {
-            Task {
-                viewModel.fetchRecommendation()
+            .padding(.horizontal, 24)
+            .padding(.bottom, 20)
+
+            VStack(spacing: 12) {
+                ForEach(viewModel.unionRecommendation, id: \.id) { newsletter in
+                    NewsletterRow(newsletter: newsletter)
+                        .padding(.horizontal, 20)
+                }
             }
+            .padding(.bottom, 80)
         }
     }
 
+
+    // MARK: - 모든 뉴스레터
+    private var allNewsletterSection: some View {
+        LazyVStack(spacing: 12) {
+            ForEach(viewModel.allNewsletters) { brand in
+                NewsletterDetailRow(brand: brand)
+                    .padding(.horizontal, 20)
+            }
+        }
+        .padding(.top, 24)
+        .padding(.bottom, 80)
+    }
+
+    // MARK: - 탭 버튼 뷰
     @ViewBuilder
     private func tabButton(title: String, index: Int) -> some View {
         Button(action: {
@@ -134,14 +169,61 @@ public struct ExploreView: View {
                 .foregroundColor(selectedTab == index ? Color(hex: "#363636") : Color(hex: "#767676"))
                 .frame(maxWidth: .infinity)
                 .padding(.vertical, 12)
-                
         }
     }
-    
-    
-   
 }
 
-//#Preview {
-//    ExploreView()
-//}
+
+
+
+
+
+struct PagingScrollView: View {
+    let newsletters: [NewsletterDetail]
+    @Binding var currentPage: Int
+
+    @State private var dragOffset: CGFloat = .zero
+
+    var body: some View {
+        GeometryReader { proxy in
+            let cardWidth: CGFloat = 320
+            let spacing: CGFloat = 12
+            let sidePadding: CGFloat = 24
+            let pageWidth = cardWidth + spacing  // 🔥 반드시 spacing 포함해야 함
+
+            ScrollView(.horizontal, showsIndicators: false) {
+                HStack(spacing: spacing) {
+                    ForEach(Array(newsletters.enumerated()), id: \.element.id) { index, newsletter in
+                        RecommendedNewsLetterView(recommendation: newsletter)
+                            .frame(width: cardWidth)
+                    }
+                }
+                .padding(.horizontal, sidePadding)
+                .offset(x: -CGFloat(currentPage) * pageWidth + dragOffset)
+                .animation(.easeOut(duration: 0.25), value: currentPage)
+                .gesture(
+                    DragGesture()
+                        .onChanged { value in
+                            dragOffset = value.translation.width
+                        }
+                        .onEnded { value in
+                            let threshold = pageWidth / 3
+                            var newIndex = currentPage
+
+                            if value.translation.width < -threshold {
+                                newIndex = min(currentPage + 1, newsletters.count - 1)
+                            } else if value.translation.width > threshold {
+                                newIndex = max(currentPage - 1, 0)
+                            }
+
+                            withAnimation(.easeOut(duration: 0.25)) {
+                                currentPage = newIndex
+                                dragOffset = .zero
+                            }
+                        }
+                )
+            }
+            .background(Color(hex: "F5F5F7"))
+        }
+    }
+}

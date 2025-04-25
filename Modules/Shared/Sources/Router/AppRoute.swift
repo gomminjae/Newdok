@@ -12,5 +12,6 @@ public enum AppRoute: Hashable {
     case signup
     case home
     case profile
+    case explore
     case tabbar
 }

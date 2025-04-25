@@ -22,7 +22,7 @@ public protocol NewsletterRepository {
     
     
     //MARK: 모든 뉴스레터 브랜드
-    func fetchNewsletters(orderOpt: String, industry: String, day: String) async throws -> [Brand]
+    func fetchNewsletters(orderOpt: String?, industry: String?, day: String?) async throws -> [Brand]
     
     func fetchNewsletterBrand(id: String) async throws -> BrandDetail
     

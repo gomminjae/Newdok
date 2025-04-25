@@ -21,7 +21,7 @@ public protocol NewsletterUseCase {
     
     
     
-    func fetchNewsletters(orderOpt: String, industry: String, day: String) async throws -> [Brand]
+    func fetchNewsletters(orderOpt: String?, industry: String?, day: String?) async throws -> [Brand]
     
     func fetchNewsletterBrand(id: String) async throws -> BrandDetail
     

@@ -13,7 +13,6 @@ public struct BrandDTO: Decodable {
     public let interests: [InterestDTO]
     public let isSubscribed: String
     public let shortDescription: String
-    public let subscriptionCount: Int
 
     public func toDomain() -> Brand {
         return Brand(
@@ -23,7 +22,6 @@ public struct BrandDTO: Decodable {
             interests: interests.map { $0.toDomain() },
             isSubscribed: isSubscribed,
             shortDescription: shortDescription,
-            subscriptionCount: subscriptionCount
         )
     }
 }

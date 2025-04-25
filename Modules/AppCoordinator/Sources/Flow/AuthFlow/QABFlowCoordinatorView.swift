@@ -11,19 +11,26 @@ import Signup
 import Shared
 
 struct QABRootViewView: View {
-    @StateObject private var router = AppRouter()
+    @StateObject private var router: AppRouter
     private var coordinator: AppCoordinator
     
     @State private var launched = false
     
     init() {
-        let sharedRouter = AppRouter()
-        self._router = StateObject(wrappedValue: sharedRouter)
-        self.coordinator = AppCoordinator(router: sharedRouter)
+        let router = AppRouter()
+        self._router = StateObject(wrappedValue: router)
+        self.coordinator = AppCoordinator(router: router)
     }
     
     var body: some View {
         ZStack {
+            if !launched {
+                SplashView()
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    .ignoresSafeArea()
+                    .transition(.opacity)
+                    .zIndex(1)
+            }
             NavigationStack(path: $router.path) {
                 coordinator.makeOnboardingView()
                     .navigationDestination(for: AppRoute.self) { route in
@@ -40,16 +47,13 @@ struct QABRootViewView: View {
                             coordinator.makeTabView()
                         case .profile:
                             coordinator.mekeProfileView()
+                        case .explore:
+                            coordinator.makeExploreView()
                         }
                     }
                     .opacity(launched ? 1 : 0) // 메인뷰 서서히 나타남
                     .animation(.easeInOut(duration: 0.3), value: launched)
                 
-                if !launched {
-                    SplashView()
-                        .transition(.opacity)
-                        .zIndex(1) // Splash가 위에
-                }
             }
             .onAppear {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
