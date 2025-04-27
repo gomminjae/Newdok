@@ -25,6 +25,11 @@ public class ExploreViewModel: ObservableObject {
     @Published public var day: String = ""
     
     
+    
+    
+    @Published public var isShowFilterSheet: Bool = false 
+    
+    
     private let useCase: NewsletterUseCase
     
     public init(useCase: NewsletterUseCase) {

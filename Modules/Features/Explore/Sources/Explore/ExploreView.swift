@@ -23,30 +23,32 @@ public struct ExploreView: View {
     let userName = "닉네임"
 
     public var body: some View {
-        VStack(spacing: 0) {
-            headerView
-            tabSwitcher
-            Divider()
-
-            ScrollView(showsIndicators: false) {
-                VStack(alignment: .leading, spacing: 0) {
-                    if selectedTab == 0 {
-                        recommendationSection
-                    } else {
-                        allNewsletterSection
+        ZStack {
+            VStack(spacing: 0) {
+                headerView
+                tabSwitcher
+                Divider()
+                
+                ScrollView(showsIndicators: false) {
+                    VStack(alignment: .leading, spacing: 0) {
+                        if selectedTab == 0 {
+                            recommendationSection
+                        } else {
+                            allNewsletterSection
+                        }
                     }
+                    .background(Color(hex: "#F5F5F7"))
                 }
-                .background(Color(hex: "#F5F5F7"))
+                .padding(.bottom, 0)
+                
             }
-            .padding(.bottom, 0)
-            
-        }
-        .frame(maxHeight: .infinity, alignment: .top)
-        .background(Color.white)
-        .onAppear {
-            Task {
-                await viewModel.fetchRecommendation()
-                await viewModel.fetchAllNewsletters()
+            .frame(maxHeight: .infinity, alignment: .top)
+            .background(Color.white)
+            .onAppear {
+                Task {
+                    await viewModel.fetchRecommendation()
+                    await viewModel.fetchAllNewsletters()
+                }
             }
         }
     }
@@ -170,7 +172,7 @@ public struct ExploreView: View {
             }
             
             Button(action: {
-                //showIndustrySheet = true
+                viewModel.isShowFilterSheet.toggle()
             }) {
                 HStack {
                     Text("산업")
@@ -218,10 +220,12 @@ public struct ExploreView: View {
 //            Text("정렬 모달")
 //                .presentationDetents([.medium])
 //        }
-//        .sheet(isPresented: $showIndustrySheet) {
-//            Text("산업 모달")
-//                .presentationDetents([.medium])
-//        }
+        .sheet(isPresented: $viewModel.isShowFilterSheet) {
+            FilterBottomSheet  { _, _ in
+            }
+            .presentationDragIndicator(.hidden)
+        }
+                
 //        .sheet(isPresented: $showWeekdaySheet) {
 //            Text("요일 모달")
 //                .presentationDetents([.medium])
