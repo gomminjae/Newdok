@@ -48,24 +48,29 @@ struct NewsletterDetailRow: View {
     public var brand: Brand
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 12) {
-            HStack(alignment: .top, spacing: 12) {
+        VStack(alignment: .leading, spacing: 0) {
+            HStack(alignment: .top, spacing: 0) {
                 KFImage(URL(string: brand.imageUrl))
                     .placeholder { Color.gray.opacity(0.2) }
                     .resizable()
                     .frame(width: 56, height: 56)
-                    .clipShape(RoundedRectangle(cornerRadius: 8))
+                    .overlay {
+                        RoundedRectangle(cornerRadius: 10)
+                            .stroke(Color(hex: "EBEBEB"))
+                    }
 
-                VStack(alignment: .leading, spacing: 6) {
+                VStack(alignment: .leading, spacing: 12) {
                     Text(brand.brandName)
                         .font(.hanSansNeo(16, .bold))
                         .foregroundColor(Color(hex: "#161616"))
+                        .padding(.leading, 8)
 
                     Text(brand.shortDescription)
                         .font(.hanSansNeo(14, .medium))
                         .foregroundColor(Color(hex: "#565656"))
                         .lineLimit(2)
                         .multilineTextAlignment(.leading)
+                        .padding(.leading, 8)
                 }
 
                 Spacer()
@@ -89,10 +94,15 @@ struct NewsletterDetailRow: View {
                 }
                 .padding(.vertical, 4)
             }
+            .padding(.top, 21)
         }
         .padding(16)
         .background(Color.white)
-        .clipShape(RoundedRectangle(cornerRadius: 12))
-        .shadow(color: Color.black.opacity(0.02), radius: 2, x: 0, y: 1)
+        .overlay {
+            RoundedRectangle(cornerRadius: 8)
+                .stroke(Color(hex: "EBEBEB"))
+        }
+        
+        
     }
 }

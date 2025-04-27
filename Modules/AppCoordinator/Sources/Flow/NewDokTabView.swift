@@ -25,8 +25,6 @@ public struct NewDokTabView: View {
     private let homeViewModel: HomeViewModel
     private let exploreViewModel: ExploreViewModel
     
-    
-
     public init(
         homeViewModel: HomeViewModel,
         exploreViewModel: ExploreViewModel
@@ -34,8 +32,9 @@ public struct NewDokTabView: View {
         self.homeViewModel = homeViewModel
         self.exploreViewModel = exploreViewModel
     }
+    
     public var body: some View {
-        VStack(spacing: 0) {
+        ZStack(alignment: .bottom) {
             TabView(selection: $selectedTab) {
                 ExploreView(viewModel: exploreViewModel)
                     .tag(NewDokTab.explore)
@@ -43,15 +42,16 @@ public struct NewDokTabView: View {
                     .tag(NewDokTab.home)
                 MypageView()
                     .tag(NewDokTab.profile)
-            
             }
+            .edgesIgnoringSafeArea(.bottom)
 
             NewDokTabBar(selectedTab: $selectedTab)
                 .background(Color.white)
-                .edgesIgnoringSafeArea(.bottom)
         }
+        .background(Color.white)
     }
 }
+
 
 struct NewDokTabBar: View {
     @Binding var selectedTab: NewDokTab

@@ -38,7 +38,10 @@ public struct ExploreView: View {
                 }
                 .background(Color(hex: "#F5F5F7"))
             }
+            .padding(.bottom, 0)
+            
         }
+        .frame(maxHeight: .infinity, alignment: .top)
         .background(Color.white)
         .onAppear {
             Task {
@@ -53,23 +56,23 @@ public struct ExploreView: View {
         HStack {
             Text("둘러보기")
                 .font(.hanSansNeo(16, .bold))
+                .foregroundStyle(Color(hex: "161616"))
                 .padding(.vertical, 17)
                 .padding(.leading, 20)
             Spacer()
             Button {
                 print("검색 버튼 탭")
             } label: {
-                Image(asset: DesignSystemAsset.search)
-                    .padding(.vertical, 17)
-                    .padding(.trailing, 2.4)
+                Image(asset: DesignSystemAsset.lineSearch)
+                    .padding(.vertical, 14)
+                    .padding(.trailing, 12)
             }
             Button {
                 print("알람 버튼 탭")
             } label: {
-                Image(asset: DesignSystemAsset.bell)
-                    .padding(.vertical, 17)
-                    .padding(.leading, 16)
-                    .padding(.trailing, 17.8)
+                Image(asset: DesignSystemAsset.lineBell)
+                    .padding(.vertical, 14)
+                    .padding(.trailing, 20)
             }
         }
     }
@@ -126,6 +129,7 @@ public struct ExploreView: View {
                     }
                 }) {
                     Image(asset: DesignSystemAsset.refresh)
+                        .font(.hanSansNeo(14,.bold))
                         .foregroundStyle(Color.primaryNormal)
                     Text("새로고침")
                         .font(.hanSansNeo(14, .medium))
@@ -139,23 +143,113 @@ public struct ExploreView: View {
                 ForEach(viewModel.unionRecommendation, id: \.id) { newsletter in
                     NewsletterRow(newsletter: newsletter)
                         .padding(.horizontal, 20)
+                        
                 }
             }
             .padding(.bottom, 80)
         }
     }
+    private var newsletterFilterSection: some View {
+        HStack(spacing: 12) {
+            Button(action: {
+                //showSortSheet = true
+            }) {
+                HStack {
+                    Text("인기순")
+                        .font(.hanSansNeo(14,.medium))
+                    Image(systemName: "arrow.up.arrow.down")
+                }
+                .padding(.horizontal, 12)
+                .padding(.vertical, 8)
+                .background(Color.white)
+                .cornerRadius(20)
+                .overlay(
+                    RoundedRectangle(cornerRadius: 20)
+                        .stroke(Color.gray.opacity(0.3))
+                )
+            }
+            
+            Button(action: {
+                //showIndustrySheet = true
+            }) {
+                HStack {
+                    Text("산업")
+                        .font(.hanSansNeo(14,.medium))
+                    Image(systemName: "chevron.down")
+                }
+                .padding(.horizontal, 12)
+                .padding(.vertical, 8)
+                .background(Color.white)
+                .cornerRadius(20)
+                .overlay(
+                    RoundedRectangle(cornerRadius: 20)
+                        .stroke(Color.gray.opacity(0.3))
+                )
+            }
+            
+            Button(action: {
+                //showWeekdaySheet = true
+            }) {
+                HStack {
+                    Text("발행 요일")
+                        .font(.hanSansNeo(14,.medium))
+                    Image(systemName: "chevron.down")
+                }
+                .padding(.horizontal, 12)
+                .padding(.vertical, 8)
+                .background(Color.white)
+                .cornerRadius(20)
+                .overlay(
+                    RoundedRectangle(cornerRadius: 20)
+                        .stroke(Color.gray.opacity(0.3))
+                )
+            }
+            
+            Spacer()
+            
+            Button(action: {
+                //showResetSheet = true
+            }) {
+                Image(asset: DesignSystemAsset.refresh)
+                    .foregroundColor(.blue)
+            }
+        }
+//        .sheet(isPresented: $showSortSheet) {
+//            Text("정렬 모달")
+//                .presentationDetents([.medium])
+//        }
+//        .sheet(isPresented: $showIndustrySheet) {
+//            Text("산업 모달")
+//                .presentationDetents([.medium])
+//        }
+//        .sheet(isPresented: $showWeekdaySheet) {
+//            Text("요일 모달")
+//                .presentationDetents([.medium])
+//        }
+//        .sheet(isPresented: $showResetSheet) {
+//            Text("초기화 모달")
+//                .presentationDetents([.medium])
+//        }
+    }
+
 
 
     // MARK: - 모든 뉴스레터
     private var allNewsletterSection: some View {
-        LazyVStack(spacing: 12) {
-            ForEach(viewModel.allNewsletters) { brand in
-                NewsletterDetailRow(brand: brand)
-                    .padding(.horizontal, 20)
+        VStack(spacing: 0) {
+            newsletterFilterSection
+                .padding(.horizontal,20)
+                .padding(.top, 20)
+                .padding(.bottom, 16)
+            LazyVStack(spacing: 12) {
+                
+                ForEach(viewModel.allNewsletters) { brand in
+                    NewsletterDetailRow(brand: brand)
+                        .padding(.horizontal, 20)
+                    
+                }
             }
         }
-        .padding(.top, 24)
-        .padding(.bottom, 80)
     }
 
     // MARK: - 탭 버튼 뷰
