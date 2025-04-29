@@ -10,16 +10,28 @@ import DesignSystem
 
 public struct MypageView: View {
     
+    @AppStorage("nickname") public var nickname: String = ""
+    @AppStorage("email") public var email: String = ""
+    
+    
+    
+    
+    
+    @State private var showToast: Bool = false
+    @State private var showEmailAlert: Bool = false
+    
     public init() {}
     public var body: some View {
         ScrollView {
             VStack(spacing: 24) {
                 
+                
+                
                 // MARK: - 상단 프로필 영역
                 VStack(alignment: .leading, spacing: 8) {
                     
-                    // 1) 닉네임
-                    Text("닉네임최대열자열두자열")
+                 
+                    Text(nickname)
                         .font(.hanSansNeo(16, .bold))
                         .padding(.top,32)
                     
@@ -29,7 +41,7 @@ public struct MypageView: View {
                             .font(.hanSansNeo(14,.medium))
                             .foregroundColor(Color(hex: "#565656"))
                         Button(action: {
-                            
+                            showEmailAlert = true
                         }) {
                             Image(systemName: "questionmark.circle")
                                 .font(.system(size: 13))
@@ -38,18 +50,24 @@ public struct MypageView: View {
                     }
                     .padding(.top,12)
                     
+                    
                    
                     HStack(spacing: 6) {
-                        Image(systemName: "doc.on.doc")
-                            .foregroundColor(Color(hex: "#161616"))
-                        Text("newdok001@newdok.tbd")
+                        Button(action: {
+                            Text("복사")
+                            UIPasteboard.general.string = email
+                        }) {
+                            Image(asset: DesignSystemAsset.lineCopy)
+                                .foregroundStyle(Color.primaryNormal)
+                        }
+                        Text(email)
                             .font(.system(size: 14))
                             .foregroundColor(Color(hex: "#161616"))
                     }
                     
                 
                     Button(action: {
-                        // TODO: 프로필 편집 액션
+                       
                     }) {
                         Text("프로필 편집")
                             .font(.hanSansNeo(14, .bold))
@@ -63,7 +81,7 @@ public struct MypageView: View {
                     }
                     .padding(.top, 18)
                 }
-                .padding(.horizontal, 20) // 좌우 여백
+                .padding(.horizontal, 20)
                 
                 // MARK: - 서비스 섹션
                 VStack(alignment: .leading, spacing: 8) {
@@ -126,9 +144,8 @@ public struct MypageView: View {
     }
 }
 
-// 미리보기
-#Preview {
-    NavigationView {
-        MypageView()
-    }
-}
+//#Preview {
+//    NavigationView {
+//        MypageView()
+//    }
+//}

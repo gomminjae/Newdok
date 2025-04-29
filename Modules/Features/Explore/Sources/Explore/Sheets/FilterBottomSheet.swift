@@ -15,10 +15,10 @@ struct FilterBottomSheet: View {
     let industries = ["IT·게임·통신", "F&B", "패션", "유통·무역", "의료", "자영업", "생활·서비스", "건설", "광고", "교육", "금융·부동산", "미디어", "문화·예술·엔터", "생산·제조", "기타"]
     let weekdays = ["월요일", "화요일", "수요일", "목요일", "금요일", "토요일", "일요일", "기타"]
 
-    @State private var selectedIndustry: String? = nil
-    @State private var selectedWeekday: String? = nil
-
-    var onApply: (_ selectedIndustry: String, _ selectedWeekday: String) -> Void
+    @Binding var industry: [Int]?
+    @Binding var day: [Int]?
+    
+    var onApply: () async -> Void
 
     var body: some View {
         VStack(spacing: 0) {
@@ -46,12 +46,12 @@ struct FilterBottomSheet: View {
                     .foregroundColor(Color(hex: "565656"))
                     .padding(.horizontal, 24)
 
-                FlowLayoutView(data: industries, spacing: 8) { industry in
+                FlowLayoutView(data: industries.indices, spacing: 8) { index in
                     SelectableChip(
-                        text: industry,
-                        isSelected: selectedIndustry == industry
+                        text: industries[index],
+                        isSelected: industry?.contains(index + 1) ?? false
                     ) {
-                        selectedIndustry = industry
+                        toggleSelection(&industry, value: index + 1)
                     }
                 }
                 .padding(.horizontal, 24)
@@ -61,27 +61,26 @@ struct FilterBottomSheet: View {
             VStack(alignment: .leading, spacing: 12) {
                 Text("발행요일")
                     .font(.hanSansNeo(14, .medium))
-                    .foregroundColor(Color(hex: "3565656"))
+                    .foregroundColor(Color(hex: "565656"))
                     .padding(.horizontal, 24)
-                    .padding(.top,28)
+                    .padding(.top, 28)
 
-                FlowLayoutView(data: weekdays, spacing: 8) { day in
+                FlowLayoutView(data: weekdays.indices, spacing: 8) { index in
                     SelectableChip(
-                        text: day,
-                        isSelected: selectedWeekday == day
+                        text: weekdays[index],
+                        isSelected: day?.contains(index + 1) ?? false     // ✅ 수정
                     ) {
-                        selectedWeekday = day
+                        toggleSelection(&day, value: index + 1)           // ✅ 수정
                     }
                 }
                 .padding(.horizontal, 24)
             }
-            .padding(.top,28)
-
+            .padding(.top, 28)
 
             HStack(spacing: 12) {
                 Button(action: {
-                    selectedIndustry = nil
-                    selectedWeekday = nil
+                    industry = nil
+                    day = nil
                 }) {
                     HStack {
                         Image(asset: DesignSystemAsset.lineReload)
@@ -94,11 +93,10 @@ struct FilterBottomSheet: View {
                 }
 
                 Button(action: {
-                    if let industry = selectedIndustry,
-                       let weekday = selectedWeekday {
-                        onApply(industry, weekday)
+                    Task {
+                        await onApply()
+                        dismiss()
                     }
-                    dismiss()
                 }) {
                     Text("적용하기")
                         .font(.hanSansNeo(14, .medium))
@@ -110,7 +108,6 @@ struct FilterBottomSheet: View {
                 }
             }
             .padding(.bottom, 56)
-            //.padding(.top,28)
             .padding(.horizontal, 24)
         }
         .frame(maxHeight: .infinity, alignment: .top)
@@ -118,6 +115,21 @@ struct FilterBottomSheet: View {
         .cornerRadius(20)
         .presentationDetents([.fraction(0.7)])
         .presentationDragIndicator(.visible)
+    }
+
+    // ✅ 선택/해제 토글 함수
+    private func toggleSelection(_ selection: inout [Int]?, value: Int) {
+        if selection?.contains(value) == true {
+            selection?.removeAll(where: { $0 == value })
+            if selection?.isEmpty == true {
+                selection = nil
+            }
+        } else {
+            if selection == nil {
+                selection = []
+            }
+            selection?.append(value)
+        }
     }
 }
 

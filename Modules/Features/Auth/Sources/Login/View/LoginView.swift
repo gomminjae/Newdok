@@ -98,7 +98,9 @@ public struct LoginView: View {
 
                 Button("로그인") {
                     viewModel.login() {
+                        isLoggedIn = true
                         router.resetTo(.tabbar)
+                        print("LoginView에서 router 인스턴스: \(Unmanaged.passUnretained(router).toOpaque())")
                     }
                     
                 }
@@ -112,7 +114,7 @@ public struct LoginView: View {
 
                 HStack {
                     Button("비회원으로 이용하기") {
-                        isGuest = true
+                        isGuest = false
                         router.resetTo(.tabbar)
                     }
                     .font(.hanSansNeo(14, .medium))

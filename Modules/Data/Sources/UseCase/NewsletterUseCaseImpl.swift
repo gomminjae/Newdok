@@ -33,7 +33,7 @@ public class NewsletterUseCaseImpl: NewsletterUseCase {
         return try await repository.searchNewsletter(brandName: brandName)
     }
     
-    public func fetchNewsletters(orderOpt: String?, industry: String?, day: String?) async throws -> [Domain.Brand] {
+    public func fetchNewsletters(orderOpt: String?, industry: [Int]?, day: [Int]?) async throws -> [Domain.Brand] {
         return try await repository.fetchNewsletters(orderOpt: orderOpt, industry: industry, day: day)
     }
     

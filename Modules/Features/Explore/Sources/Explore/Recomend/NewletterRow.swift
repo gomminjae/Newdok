@@ -48,10 +48,10 @@ public struct NewsletterRow: View {
         .padding(16)
         .background(Color.white)
         .clipShape(RoundedRectangle(cornerRadius: 12))
-//        .overlay {
-//            RoundedRectangle(cornerRadius: 12)
-//                .stroke(Color(hex: "EBEBEB"))
-//        }
-        .shadow(color: .clear, radius: 0) // 필요 시 그림자
+        .overlay {
+            RoundedRectangle(cornerRadius: 12)
+                .stroke(Color(hex: "EBEBEB"))
+        }
+        //.shadow(color: .clear, radius: 0) // 필요 시 그림자
     }
 }

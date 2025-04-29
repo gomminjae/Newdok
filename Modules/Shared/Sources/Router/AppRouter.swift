@@ -10,6 +10,7 @@ import SwiftUI
 @MainActor
 public final class AppRouter: ObservableObject {
     @Published public var path = NavigationPath()
+    @Published public var root: AppRoute = .onboarding
 
     public init() {}
 
@@ -24,7 +25,7 @@ public final class AppRouter: ObservableObject {
 
     public func resetTo(_ route: AppRoute) {
         path = NavigationPath()
-        path.append(route)
+        root = route
     }
 
     public func reset() {

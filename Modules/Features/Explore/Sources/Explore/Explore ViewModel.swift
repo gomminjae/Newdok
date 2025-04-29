@@ -20,14 +20,15 @@ public class ExploreViewModel: ObservableObject {
     
     @Published public var allNewsletters: [Brand] = []
     
-    @Published public var orderOpt: String = ""
-    @Published public var industry: String = ""
-    @Published public var day: String = ""
+    @Published public var orderOpt: String? = "최신순"
+    @Published public var industry: [Int]? = nil
+    @Published public var day: [Int]? = nil
     
     
     
     
-    @Published public var isShowFilterSheet: Bool = false 
+    @Published public var isShowFilterSheet: Bool = false
+    @Published public var isShowSortSheet: Bool = false
     
     
     private let useCase: NewsletterUseCase

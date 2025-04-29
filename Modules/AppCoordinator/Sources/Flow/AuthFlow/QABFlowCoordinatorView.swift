@@ -31,34 +31,54 @@ struct QABRootViewView: View {
                     .transition(.opacity)
                     .zIndex(1)
             }
+            
             NavigationStack(path: $router.path) {
-                coordinator.makeOnboardingView()
-                    .navigationDestination(for: AppRoute.self) { route in
-                        switch route {
-                        case .onboarding:
-                            coordinator.makeOnboardingView()
-                        case .signup:
-                            coordinator.makeSignupView()
-                        case .login:
-                            coordinator.makeLoginView()
-                        case .home:
-                            coordinator.makeHomeView()
-                        case .tabbar:
-                            coordinator.makeTabView()
-                        case .profile:
-                            coordinator.mekeProfileView()
-                        case .explore:
-                            coordinator.makeExploreView()
-                        }
+                // ✅ 현재 Root에 따라 첫 View 변경
+                Group {
+                    switch router.root {
+                    case .onboarding:
+                        coordinator.makeOnboardingView()
+                    case .signup:
+                        coordinator.makeSignupView()
+                    case .login:
+                        coordinator.makeLoginView()
+                    case .home:
+                        coordinator.makeHomeView()
+                    case .tabbar:
+                        coordinator.makeTabView()
+                    case .profile:
+                        coordinator.mekeProfileView()
+                    case .explore:
+                        coordinator.makeExploreView()
                     }
-                    .opacity(launched ? 1 : 0) // 메인뷰 서서히 나타남
-                    .animation(.easeInOut(duration: 0.3), value: launched)
-                
+                }
+                .navigationDestination(for: AppRoute.self) { route in
+                    // ✅ push 이동
+                    switch route {
+                    case .onboarding:
+                        coordinator.makeOnboardingView()
+                    case .signup:
+                        coordinator.makeSignupView()
+                    case .login:
+                        coordinator.makeLoginView()
+                    case .home:
+                        coordinator.makeHomeView()
+                    case .tabbar:
+                        coordinator.makeTabView()
+                    case .profile:
+                        coordinator.mekeProfileView()
+                    case .explore:
+                        coordinator.makeExploreView()
+                    }
+                }
+                .opacity(launched ? 1 : 0) // Splash 후 메인뷰 서서히 등장
+                .animation(.easeInOut(duration: 0.3), value: launched)
             }
             .onAppear {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
                     withAnimation {
                         launched = true
+                        print("QABRootViewView에서 router 인스턴스: \(Unmanaged.passUnretained(router).toOpaque())")
                     }
                 }
             }

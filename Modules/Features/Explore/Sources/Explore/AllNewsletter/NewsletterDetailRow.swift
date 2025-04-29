@@ -51,9 +51,9 @@ struct NewsletterDetailRow: View {
         VStack(alignment: .leading, spacing: 0) {
             HStack(alignment: .top, spacing: 0) {
                 KFImage(URL(string: brand.imageUrl))
-                    .placeholder { Color.gray.opacity(0.2) }
                     .resizable()
                     .frame(width: 56, height: 56)
+                    .clipShape(RoundedRectangle(cornerRadius: 10))
                     .overlay {
                         RoundedRectangle(cornerRadius: 10)
                             .stroke(Color(hex: "EBEBEB"))
@@ -64,6 +64,7 @@ struct NewsletterDetailRow: View {
                         .font(.hanSansNeo(16, .bold))
                         .foregroundColor(Color(hex: "#161616"))
                         .padding(.leading, 8)
+                        .padding(.top, 2)
 
                     Text(brand.shortDescription)
                         .font(.hanSansNeo(14, .medium))
@@ -85,6 +86,7 @@ struct NewsletterDetailRow: View {
                         .clipShape(Capsule())
                 }
             }
+            .padding(.bottom,18)
 
             ScrollView(.horizontal, showsIndicators: false) {
                 HStack(spacing: 8) {
@@ -94,10 +96,12 @@ struct NewsletterDetailRow: View {
                 }
                 .padding(.vertical, 4)
             }
-            .padding(.top, 21)
+            .padding(.bottom, 16)
         }
-        .padding(16)
+        .padding(.horizontal, 20)
+        .padding(.top, 16)
         .background(Color.white)
+        .clipShape(RoundedRectangle(cornerRadius: 8))
         .overlay {
             RoundedRectangle(cornerRadius: 8)
                 .stroke(Color(hex: "EBEBEB"))

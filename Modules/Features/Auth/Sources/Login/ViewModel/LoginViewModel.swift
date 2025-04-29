@@ -55,9 +55,9 @@ public final class LoginViewModel: LoginViewModelBindable {
     
     
     @AppStorage("isLoggedIn") public var isLoggedIn: Bool = false
-  
     @AppStorage("isGuest") public var isGuest: Bool = false
-    
+    @AppStorage("nickname") public var nickname: String = ""
+    @AppStorage("email") public var email: String = ""
     
     
     
@@ -85,8 +85,14 @@ public final class LoginViewModel: LoginViewModelBindable {
                 isLoginIdError = false
                 isPasswordError = false
                 isLoggedIn = true
-                isGuest = false 
-                onSuccess()
+                isGuest = false
+                nickname = user.nickname
+                email = user.subscribeEmail
+                
+                await MainActor.run {
+                    onSuccess()
+                }
+                
                 
             } catch let error as NetworkError {
                 switch error {

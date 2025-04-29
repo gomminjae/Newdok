@@ -15,12 +15,14 @@ public struct ExploreView: View {
 
     @StateObject private var viewModel: ExploreViewModel
     @EnvironmentObject private var router: AppRouter
+    
+    
+    @AppStorage("nickname") public var nickname = ""
 
     public init(viewModel: ExploreViewModel) {
         _viewModel = StateObject(wrappedValue: viewModel)
     }
 
-    let userName = "닉네임"
 
     public var body: some View {
         ZStack {
@@ -101,7 +103,7 @@ public struct ExploreView: View {
     }
     private var recommendationSection: some View {
         VStack(alignment: .leading) {
-            Text("\(userName)님을 위한\n맞춤형 뉴스레터가 도착했어요.")
+            Text("\(nickname)님을 위한\n맞춤형 뉴스레터가 도착했어요.")
                 .font(.hanSansNeo(20, .bold))
                 .padding(.top, 20)
                 .padding(.horizontal, 24)
@@ -153,88 +155,108 @@ public struct ExploreView: View {
     }
     private var newsletterFilterSection: some View {
         HStack(spacing: 12) {
-            Button(action: {
-                //showSortSheet = true
-            }) {
-                HStack {
-                    Text("인기순")
-                        .font(.hanSansNeo(14,.medium))
-                    Image(systemName: "arrow.up.arrow.down")
+            // 스크롤 가능한 필터 버튼들
+            ScrollView(.horizontal, showsIndicators: false) {
+                HStack(spacing: 4) {
+                    // 정렬 버튼
+                    Button(action: {
+                        viewModel.isShowSortSheet.toggle()
+                    }) {
+                        HStack(spacing: 4) {
+                            Text(viewModel.orderOpt ?? "인기순")
+                                .font(.hanSansNeo(14,.medium))
+                                .foregroundStyle(Color(hex: "#363636"))
+                            Image(systemName: "arrow.up.arrow.down")
+                                .font(.system(size: 12))
+                                .foregroundStyle(Color(hex: "#363636"))
+                        }
+                        .padding(.horizontal, 12)
+                        .padding(.vertical, 8)
+                        .background(Color.white)
+                        .cornerRadius(20)
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 20)
+                                .stroke(Color.gray.opacity(0.3))
+                        )
+                    }
+                    Divider()
+                        .frame(height: 20)
+
+                    // 산업 필터
+                    Button(action: {
+                        viewModel.isShowFilterSheet.toggle()
+                    }) {
+                        HStack(spacing: 4) {
+                            Text(industryText)
+                                .font(.hanSansNeo(14,.medium))
+                                .foregroundStyle(viewModel.industry != nil ? Color.primaryNormal : Color(hex: "969696"))
+                            Image(asset: DesignSystemAsset.lineDown)
+                                .resizable()
+                                .frame(width: 12, height: 12)
+                                .foregroundStyle(viewModel.industry != nil ? Color.primaryNormal : Color(hex: "969696"))
+                        }
+                        .padding(.horizontal, 12)
+                        .padding(.vertical, 8)
+                        .background(Color.white)
+                        .cornerRadius(20)
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 20)
+                                .stroke(viewModel.industry != nil ? Color.primaryNormal : Color.gray.opacity(0.3))
+                        )
+                    }
+
+                    // 요일 필터
+                    Button(action: {
+                        // showWeekdaySheet = true
+                    }) {
+                        HStack(spacing: 4) {
+                            Text(dayText)
+                                .font(.hanSansNeo(14,.medium))
+                                .foregroundStyle(viewModel.day != nil ? Color.primaryNormal : Color(hex: "969696"))
+                            Image(asset: DesignSystemAsset.lineDown)
+                                .resizable()
+                                .frame(width: 12, height: 12)
+                                .foregroundStyle(viewModel.day != nil ? Color.primaryNormal : Color(hex: "969696"))
+                        }
+                        .padding(.horizontal, 12)
+                        .padding(.vertical, 8)
+                        .background(Color.white)
+                        .cornerRadius(20)
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 20)
+                                .stroke(viewModel.day != nil ? Color.primaryNormal : Color.gray.opacity(0.3))
+                        )
+                    }
                 }
-                .padding(.horizontal, 12)
-                .padding(.vertical, 8)
-                .background(Color.white)
-                .cornerRadius(20)
-                .overlay(
-                    RoundedRectangle(cornerRadius: 20)
-                        .stroke(Color.gray.opacity(0.3))
-                )
             }
-            
+            .frame(maxWidth: .infinity)
+
+            // 리프레시 버튼 고정
             Button(action: {
-                viewModel.isShowFilterSheet.toggle()
-            }) {
-                HStack {
-                    Text("산업")
-                        .font(.hanSansNeo(14,.medium))
-                    Image(systemName: "chevron.down")
+                Task {
+                    viewModel.day = nil
+                    viewModel.industry = nil
+                    await viewModel.fetchAllNewsletters()
                 }
-                .padding(.horizontal, 12)
-                .padding(.vertical, 8)
-                .background(Color.white)
-                .cornerRadius(20)
-                .overlay(
-                    RoundedRectangle(cornerRadius: 20)
-                        .stroke(Color.gray.opacity(0.3))
-                )
-            }
-            
-            Button(action: {
-                //showWeekdaySheet = true
-            }) {
-                HStack {
-                    Text("발행 요일")
-                        .font(.hanSansNeo(14,.medium))
-                    Image(systemName: "chevron.down")
-                }
-                .padding(.horizontal, 12)
-                .padding(.vertical, 8)
-                .background(Color.white)
-                .cornerRadius(20)
-                .overlay(
-                    RoundedRectangle(cornerRadius: 20)
-                        .stroke(Color.gray.opacity(0.3))
-                )
-            }
-            
-            Spacer()
-            
-            Button(action: {
-                //showResetSheet = true
             }) {
                 Image(asset: DesignSystemAsset.refresh)
                     .foregroundColor(.blue)
             }
         }
-//        .sheet(isPresented: $showSortSheet) {
-//            Text("정렬 모달")
-//                .presentationDetents([.medium])
-//        }
-        .sheet(isPresented: $viewModel.isShowFilterSheet) {
-            FilterBottomSheet  { _, _ in
+        .sheet(isPresented: $viewModel.isShowSortSheet) {
+            SortBottomSheet(orderOpt: $viewModel.orderOpt) {
+                await viewModel.fetchAllNewsletters()
             }
             .presentationDragIndicator(.hidden)
         }
-                
-//        .sheet(isPresented: $showWeekdaySheet) {
-//            Text("요일 모달")
-//                .presentationDetents([.medium])
-//        }
-//        .sheet(isPresented: $showResetSheet) {
-//            Text("초기화 모달")
-//                .presentationDetents([.medium])
-//        }
+        .sheet(isPresented: $viewModel.isShowFilterSheet) {
+            FilterBottomSheet(industry: $viewModel.industry, day: $viewModel.day) {
+                await viewModel.fetchAllNewsletters()
+            }
+            .presentationDragIndicator(.hidden)
+        }
     }
+
 
 
 
@@ -269,8 +291,26 @@ public struct ExploreView: View {
                 .padding(.vertical, 12)
         }
     }
-}
+    
+    private var industryText: String {
+        guard let selected = viewModel.industry else { return "산업" }
+        let labels = ["IT·게임·통신", "F&B", "패션", "유통·무역", "의료", "자영업", "생활·서비스", "건설", "광고", "교육", "금융·부동산", "미디어", "문화·예술·엔터", "생산·제조", "기타"]
+        return selected.count == 1 ? labels[selected.first! - 1] : "산업 \(selected.count)"
+    }
 
+    private var dayText: String {
+        guard let selected = viewModel.day else { return "발행요일" }
+        let labels = ["월요일", "화요일", "수요일", "목요일", "금요일", "토요일", "일요일", "기타"]
+        return selected.count == 1 ? labels[selected.first! - 1] : "발행요일 \(selected.count)"
+    }
+
+    // 배열 안전 서브스크립트
+}
+extension Array {
+    subscript(safe index: Int) -> Element? {
+        return indices.contains(index) ? self[index] : nil
+    }
+}
 
 
 

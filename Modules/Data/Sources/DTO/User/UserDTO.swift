@@ -19,6 +19,19 @@ public struct InterestDTO: Decodable {
     }
 }
 
+public struct LoginInterestDTO: Decodable {
+    let userId: Int
+    let interestId: Int
+    let createdAt: String
+
+    public func toDomain() -> Domain.Interest {
+        return Interest(
+            id: interestId,
+            name: "" // 로그인 응답에는 name이 없으니까 빈 값
+        )
+    }
+}
+
 
 public struct UserDTO: Decodable {
         let id: Int
@@ -30,7 +43,7 @@ public struct UserDTO: Decodable {
         let gender: String
         let createdAt: String
         let industryId: Int?
-        let interests: [InterestDTO]
+        let interests: [LoginInterestDTO]
 
     public func toDomain() -> User {
 

@@ -20,7 +20,7 @@ public enum NewsletterAPI {
     
     case search(brandName: String)
     
-    case fetchAllNewsletterBrands(orderOpt: String?, industry: String?, day: String?)
+    case fetchAllNewsletterBrands(orderOpt: String?, industry: [Int]?, day: [Int]?)
     case fetchNewsletterBrand(id: String)
     
     
@@ -88,10 +88,10 @@ extension NewsletterAPI: TargetType {
                 params["orderOpt"] = orderOpt
             }
             if let industry, !industry.isEmpty {
-                params["industry"] = industry
+                params["industry"] = industry.map { String($0) }.joined(separator: ",")
             }
             if let day, !day.isEmpty {
-                params["day"] = day
+                params["day"] = day.map { String($0) }.joined(separator: ",")
             }
             
             return .requestParameters(parameters: params, encoding: URLEncoding.default)
