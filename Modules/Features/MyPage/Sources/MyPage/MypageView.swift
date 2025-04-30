@@ -126,6 +126,8 @@ public struct MypageView: View {
         }
         .navigationBarTitleDisplayMode(.inline)
         .navigationBarHidden(true)
+        
+        
     }
     
     

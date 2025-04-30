@@ -6,8 +6,13 @@
 //
 
 import SwiftUI
+import DesignSystem
 
 public struct NewsLetterView: View {
+    
+    public init() {}
+    
+    
     public var body: some View {
         ScrollView {
             VStack(spacing: 0) {
@@ -68,7 +73,7 @@ public struct NewsLetterView: View {
     }
     
   
-    var profileCardView: some View {
+    public var profileCardView: some View {
         HStack(alignment: .center) {
             VStack(alignment: .leading, spacing: 4) {
                 Text("NEWNEEK")
@@ -100,9 +105,9 @@ public struct NewsLetterView: View {
 }
 
 // 개별 태그 뷰
-struct LetterTagView: View {
+public struct LetterTagView: View {
     var text: String
-    var body: some View {
+    public var body: some View {
         Text(text)
             .font(.caption2)
             .padding(.horizontal, 10)
@@ -114,11 +119,11 @@ struct LetterTagView: View {
 }
 
 // 개별 아티클 카드 뷰
-struct ArticleCard: View {
+public  struct ArticleCard: View {
     var title: String
     var date: String
     
-    var body: some View {
+    public var body: some View {
         VStack(alignment: .leading, spacing: 4) {
             Text(title)
                 .font(.subheadline)
@@ -140,13 +145,5 @@ struct ArticleCard: View {
                 .stroke(Color(hex: "#EBEBEB"), lineWidth: 1)
         )
        
-    }
-}
-
-#Preview {
-    NavigationStack {
-        NewsLetterView()
-            .navigationTitle("뉴스레터 홈")
-            .navigationBarTitleDisplayMode(.inline)
     }
 }

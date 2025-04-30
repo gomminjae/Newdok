@@ -16,6 +16,7 @@ import Signup
 import Moya
 import Home
 import Explore
+import Subscribe
 
 public final class AppDIContainer {
     public static let shared = AppDIContainer()
@@ -120,6 +121,13 @@ public final class AppDIContainer {
             let useCase = r.resolve(NewsletterUseCase.self)!
             return MainActor.assumeIsolated {
                 ExploreViewModel(useCase: useCase)
+            }
+        }.inObjectScope(.container)
+        
+        container.register(SubscribeViewModel.self) { r in
+            let useCase = r.resolve(NewsletterUseCase.self)!
+            return MainActor.assumeIsolated {
+                SubscribeViewModel(useCase: useCase)
             }
         }.inObjectScope(.container)
     }

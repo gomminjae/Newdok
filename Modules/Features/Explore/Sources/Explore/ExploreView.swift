@@ -12,6 +12,9 @@ import Domain
 public struct ExploreView: View {
     @State private var selectedTab: Int = 0 // 0: 추천, 1: 전체
     @State private var currentPage: Int = 0
+    
+    
+    @State private var isLoaded: Bool = false
 
     @StateObject private var viewModel: ExploreViewModel
     @EnvironmentObject private var router: AppRouter
@@ -31,25 +34,36 @@ public struct ExploreView: View {
                 tabSwitcher
                 Divider()
                 
-                ScrollView(showsIndicators: false) {
-                    VStack(alignment: .leading, spacing: 0) {
-                        if selectedTab == 0 {
-                            recommendationSection
+                Group {
+                    if selectedTab == 0 {
+                        if !isLoaded {
+                            EmptyView() //후에 로딩뷰
+                        } else if !viewModel.isRecommend {
+                            noProfileSection
                         } else {
+                            ScrollView(showsIndicators: false) {
+                                recommendationSection
+                            }
+                            .background(Color(hex: "#F5F5F7"))
+                        }
+                    } else {
+                        ScrollView(showsIndicators: false) {
                             allNewsletterSection
                         }
+                        .background(Color(hex: "#F5F5F7"))
                     }
-                    .background(Color(hex: "#F5F5F7"))
                 }
                 .padding(.bottom, 0)
-                
             }
             .frame(maxHeight: .infinity, alignment: .top)
             .background(Color.white)
             .onAppear {
-                Task {
-                    await viewModel.fetchRecommendation()
-                    await viewModel.fetchAllNewsletters()
+                if !isLoaded {
+                    Task {
+                        await viewModel.fetchRecommendation()
+                        await viewModel.fetchAllNewsletters()
+                        isLoaded = true
+                    }
                 }
             }
         }
@@ -101,6 +115,49 @@ public struct ExploreView: View {
             .frame(height: 2)
         }
     }
+    
+    private var noProfileSection: some View {
+        VStack {
+            Spacer()
+
+            VStack(spacing: 0) {
+                Image(asset: DesignSystemAsset.nologin)
+                    .resizable()
+                    .frame(width: 280, height: 280)
+                    .padding(.bottom, 24)
+
+                Text("프로필을 등록해 주세요.")
+                    .font(.hanSansNeo(16, .bold))
+                    .foregroundStyle(Color(hex: "#161616"))
+                    .padding(.bottom, 4)
+
+                Text("\(nickname)님만을 위한 뉴스레터를 찾아드릴게요!")
+                    .font(.hanSansNeo(14, .medium))
+                    .foregroundStyle(Color(hex: "#555555"))
+                    .padding(.bottom, 24)
+
+                Button(action: {
+                    print("등록")
+                }) {
+                    Text("프로필 등록하기")
+                        .font(.hanSansNeo(14,.bold))
+                        .foregroundColor(.white)
+                        .frame(maxWidth: .infinity)
+                        .frame(height: 48)
+                        .background(Color.primaryNormal)
+                        .cornerRadius(4)
+                }
+                .padding(.horizontal, 24)
+            }
+
+            Spacer()
+        }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .background(Color(hex: "#F5F5F7"))
+    }
+
+    
+    
     private var recommendationSection: some View {
         VStack(alignment: .leading) {
             Text("\(nickname)님을 위한\n맞춤형 뉴스레터가 도착했어요.")

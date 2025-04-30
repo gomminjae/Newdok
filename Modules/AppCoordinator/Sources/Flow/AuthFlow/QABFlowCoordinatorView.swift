@@ -33,7 +33,6 @@ struct QABRootViewView: View {
             }
             
             NavigationStack(path: $router.path) {
-                // ✅ 현재 Root에 따라 첫 View 변경
                 Group {
                     switch router.root {
                     case .onboarding:
@@ -53,7 +52,6 @@ struct QABRootViewView: View {
                     }
                 }
                 .navigationDestination(for: AppRoute.self) { route in
-                    // ✅ push 이동
                     switch route {
                     case .onboarding:
                         coordinator.makeOnboardingView()

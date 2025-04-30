@@ -3,11 +3,12 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 56;
+	objectVersion = 55;
 	objects = {
 
 /* Begin PBXBuildFile section */
 		107A60A0D4AC559B786E3AEB /* Alamofire_Alamofire.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 463931FF006CC49E6594D6C0 /* Alamofire_Alamofire.bundle */; };
+		21FCB0DE7C7F33DA42D03191 /* Bookmark.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E04E9FF2531E2C53460129D /* Bookmark.framework */; };
 		2C98BFBD6353B1565A738604 /* Domain.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 063771607106B9FAF0CD3191 /* Domain.framework */; };
 		3408CDDE0AF6EA0587436697 /* Survey.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4AC530546BCB1DF246993E72 /* Survey.framework */; };
 		37928BB26BF71F7932A66715 /* Kingfisher.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BAF1D945C939D2A114D6DA70 /* Kingfisher.framework */; };
@@ -16,6 +17,7 @@
 		447A51F62551251CE6AE60A6 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA035CDBC79B589E2A387B44 /* ContentView.swift */; };
 		508E52E990E3E3BF408A7501 /* DesignSystem.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 42F5E70E54A9D11122495EFF /* DesignSystem.framework */; };
 		603DD422847CD0CC50C2CA68 /* Auth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A8111C9E153F8D084CA5582 /* Auth.framework */; };
+		6CFA24C20382F58C91C10779 /* Search.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4BC68A9C532A093929A7F845 /* Search.framework */; };
 		7F36D8FBE7C77D5E020B84B3 /* Core.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2378C408DCDC0EDC22736EE2 /* Core.framework */; };
 		87FC3194588504EAA7B0720C /* Kingfisher_Kingfisher.bundle in Dependencies */ = {isa = PBXBuildFile; fileRef = 3D284BF5567CE0CE34164DC1 /* Kingfisher_Kingfisher.bundle */; };
 		9D95A440D1F08648A1189B26 /* BMain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D9D8337B8DADC1C73C9B83 /* BMain.swift */; };
@@ -31,6 +33,7 @@
 		ED299898C15F8C9C61934994 /* DesignSystem.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 42F5E70E54A9D11122495EFF /* DesignSystem.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		EF1CA8797A9F6AF7DA5418C8 /* Mypage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B2F059A4D28A405569119AE2 /* Mypage.framework */; };
 		F0123C5B11FEDB50386CC1BF /* BTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73FD44ED8E632B513BD81837 /* BTests.swift */; };
+		F238F35B4622D167C6C0F0D2 /* Subscribe.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 71214E5D20E7105B268DB5C1 /* Subscribe.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -90,8 +93,11 @@
 		463931FF006CC49E6594D6C0 /* Alamofire_Alamofire.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Alamofire_Alamofire.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
 		48862800142DC5E05C5B28E3 /* Explore.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Explore.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4AC530546BCB1DF246993E72 /* Survey.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Survey.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		4BC68A9C532A093929A7F845 /* Search.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Search.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		4E04E9FF2531E2C53460129D /* Bookmark.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Bookmark.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		53D7F0C40548F755B7A470EE /* AppCoordinator.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = AppCoordinator.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6EAB1B89B375E80DD021B526 /* B.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = B.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		71214E5D20E7105B268DB5C1 /* Subscribe.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Subscribe.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		73FD44ED8E632B513BD81837 /* BTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BTests.swift; sourceTree = "<group>"; };
 		9A8111C9E153F8D084CA5582 /* Auth.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Auth.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9E10D8055DE91DF89CD9A616 /* Signup.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Signup.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -120,6 +126,7 @@
 			files = (
 				AECC421D10C27B6A7DA92E35 /* AppCoordinator.framework in Frameworks */,
 				603DD422847CD0CC50C2CA68 /* Auth.framework in Frameworks */,
+				21FCB0DE7C7F33DA42D03191 /* Bookmark.framework in Frameworks */,
 				7F36D8FBE7C77D5E020B84B3 /* Core.framework in Frameworks */,
 				A287073E23F5DFCBE7A7028A /* Data.framework in Frameworks */,
 				508E52E990E3E3BF408A7501 /* DesignSystem.framework in Frameworks */,
@@ -129,8 +136,10 @@
 				37928BB26BF71F7932A66715 /* Kingfisher.framework in Frameworks */,
 				3CB1006058EC00097C4F8544 /* Launch.framework in Frameworks */,
 				EF1CA8797A9F6AF7DA5418C8 /* Mypage.framework in Frameworks */,
+				6CFA24C20382F58C91C10779 /* Search.framework in Frameworks */,
 				C676D0ADA0F76C0916235CD6 /* Shared.framework in Frameworks */,
 				EBE6591D3B210BA5A77C4BEE /* Signup.framework in Frameworks */,
+				F238F35B4622D167C6C0F0D2 /* Subscribe.framework in Frameworks */,
 				3408CDDE0AF6EA0587436697 /* Survey.framework in Frameworks */,
 				D7F7B41C84B829672F721F53 /* Swinject.framework in Frameworks */,
 			);
@@ -164,6 +173,7 @@
 				53D7F0C40548F755B7A470EE /* AppCoordinator.framework */,
 				9A8111C9E153F8D084CA5582 /* Auth.framework */,
 				6EAB1B89B375E80DD021B526 /* B.app */,
+				4E04E9FF2531E2C53460129D /* Bookmark.framework */,
 				D2857F713F5C24040D1DBDA2 /* BTests.xctest */,
 				2378C408DCDC0EDC22736EE2 /* Core.framework */,
 				A0D3F01D7AE7F92987AA5BEB /* Data.framework */,
@@ -175,8 +185,10 @@
 				BAF1D945C939D2A114D6DA70 /* Kingfisher.framework */,
 				07F21865B765752721E8465D /* Launch.framework */,
 				B2F059A4D28A405569119AE2 /* Mypage.framework */,
+				4BC68A9C532A093929A7F845 /* Search.framework */,
 				F4FA82F97BD0C253847BEBC3 /* Shared.framework */,
 				9E10D8055DE91DF89CD9A616 /* Signup.framework */,
+				71214E5D20E7105B268DB5C1 /* Subscribe.framework */,
 				4AC530546BCB1DF246993E72 /* Survey.framework */,
 				E05AA693C3E4A78793949CF5 /* Swinject.framework */,
 			);
@@ -362,7 +374,10 @@
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
 				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) DEBUG";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = (
+					"$(inherited)",
+					DEBUG,
+				);
 				SWIFT_COMPILATION_MODE = singlefile;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
@@ -489,7 +504,6 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				DEVELOPMENT_TEAM = AU24ZRJ649;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = "Derived/InfoPlists/B-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
@@ -542,7 +556,6 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				DEVELOPMENT_TEAM = AU24ZRJ649;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = "Derived/InfoPlists/B-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
@@ -556,7 +569,10 @@
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
 				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) DEBUG";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = (
+					"$(inherited)",
+					DEBUG,
+				);
 				SWIFT_COMPILATION_MODE = singlefile;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;

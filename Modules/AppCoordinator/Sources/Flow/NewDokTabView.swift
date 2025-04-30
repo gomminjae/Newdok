@@ -10,11 +10,15 @@ import Home
 import Mypage
 import DesignSystem
 import Explore
+import Subscribe
+import Bookmark
 
 
 public enum NewDokTab: Int {
     case explore
+    case subscribe
     case home
+    case bookmark
     case profile
     
 }
@@ -24,13 +28,16 @@ public struct NewDokTabView: View {
     
     private let homeViewModel: HomeViewModel
     private let exploreViewModel: ExploreViewModel
+    private let subscribeViewModel: SubscribeViewModel
     
     public init(
         homeViewModel: HomeViewModel,
-        exploreViewModel: ExploreViewModel
+        exploreViewModel: ExploreViewModel,
+        subscribeViewModel: SubscribeViewModel
     ) {
         self.homeViewModel = homeViewModel
         self.exploreViewModel = exploreViewModel
+        self.subscribeViewModel = subscribeViewModel
     }
     
     public var body: some View {
@@ -38,8 +45,15 @@ public struct NewDokTabView: View {
             TabView(selection: $selectedTab) {
                 ExploreView(viewModel: exploreViewModel)
                     .tag(NewDokTab.explore)
+                
+                SubscribeView(viewModel: subscribeViewModel )
+                    .tag(NewDokTab.subscribe)
+                
                 HomeView(viewModel: homeViewModel)
                     .tag(NewDokTab.home)
+                
+                NewsLetterView()
+                    .tag(NewDokTab.bookmark)
                 MypageView()
                     .tag(NewDokTab.profile)
             }
@@ -61,7 +75,13 @@ struct NewDokTabBar: View {
             Divider()
             HStack {
                 tabItem(.explore, normalAsset: DesignSystemAsset.lineNewsletter, selectedAsset: DesignSystemAsset.fillNewsletter, title: "둘러보기")
+                
+                tabItem(.subscribe, normalAsset: DesignSystemAsset.lineMailbox, selectedAsset: DesignSystemAsset.fillMailbox, title: "구독관리")
+                
+                
                 tabItem(.home, normalAsset: DesignSystemAsset.lineHome, selectedAsset: DesignSystemAsset.fillHome, title: "홈")
+                
+                tabItem(.bookmark, normalAsset: DesignSystemAsset.lineBookmark, selectedAsset: DesignSystemAsset.fillBookmark, title: "북마크함")
                 tabItem(.profile, normalAsset: DesignSystemAsset.lineUser, selectedAsset: DesignSystemAsset.fillUser,title: "마이페이지")
             }
             .padding(.top, 8)

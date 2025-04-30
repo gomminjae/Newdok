@@ -154,6 +154,20 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
+               BlueprintIdentifier = "CA3BDA5CCBC32BFCAFE328FB"
+               BuildableName = "Bookmark.framework"
+               BlueprintName = "Bookmark"
+               ReferencedContainer = "container:Modules/Features/Bookmark/Bookmark.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
                BlueprintIdentifier = "B90FCF66245CD7327BEE2CBF"
                BuildableName = "Core.framework"
                BlueprintName = "Core"
@@ -336,6 +350,20 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
+               BlueprintIdentifier = "C8340F58B0B1AD7EA1B1F833"
+               BuildableName = "Search.framework"
+               BlueprintName = "Search"
+               ReferencedContainer = "container:Modules/Features/Search/Search.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
                BlueprintIdentifier = "3F5E725EB25BB5E4543E24FA"
                BuildableName = "Shared.framework"
                BlueprintName = "Shared"
@@ -368,6 +396,20 @@
                BuildableName = "SignupTests.xctest"
                BlueprintName = "SignupTests"
                ReferencedContainer = "container:Modules/Features/Signup/Signup.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "AB64776038A7A7B975B07604"
+               BuildableName = "Subscribe.framework"
+               BlueprintName = "Subscribe"
+               ReferencedContainer = "container:Modules/Features/Subscribe/Subscribe.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
          <BuildActionEntry

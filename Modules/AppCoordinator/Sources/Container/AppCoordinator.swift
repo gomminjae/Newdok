@@ -13,6 +13,7 @@ import Home
 import Mypage
 import Explore
 import Foundation
+import Subscribe
 
 final class AppCoordinator {
     private let container = AppDIContainer.shared
@@ -52,8 +53,13 @@ final class AppCoordinator {
         
         let homeVm = container.container.resolve(HomeViewModel.self)!
         let exploreVm = container.container.resolve(ExploreViewModel.self)!
+        let subscribeVm = container.container.resolve(SubscribeViewModel.self)!
         
-        return NewDokTabView(homeViewModel: homeVm, exploreViewModel: exploreVm).environmentObject(router)
+        return NewDokTabView(
+            homeViewModel: homeVm,
+            exploreViewModel: exploreVm,
+            subscribeViewModel: subscribeVm
+        ).environmentObject(router)
     }
     func mekeProfileView() -> some View {
         return MypageView().environmentObject(router)

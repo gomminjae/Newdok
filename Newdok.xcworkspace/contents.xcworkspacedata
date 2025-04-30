@@ -32,6 +32,9 @@
             location = "group:Auth/Auth.xcodeproj">
          </FileRef>
          <FileRef
+            location = "group:Bookmark/Bookmark.xcodeproj">
+         </FileRef>
+         <FileRef
             location = "group:Explore/Explore.xcodeproj">
          </FileRef>
          <FileRef
@@ -44,7 +47,13 @@
             location = "group:Mypage/Mypage.xcodeproj">
          </FileRef>
          <FileRef
+            location = "group:Search/Search.xcodeproj">
+         </FileRef>
+         <FileRef
             location = "group:Signup/Signup.xcodeproj">
+         </FileRef>
+         <FileRef
+            location = "group:Subscribe/Subscribe.xcodeproj">
          </FileRef>
          <FileRef
             location = "group:Survey/Survey.xcodeproj">

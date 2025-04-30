@@ -7,6 +7,10 @@
 import SwiftUI
 
 struct EmailInfoModalView: View {
+    
+    @Binding var isPresented: Bool
+    
+    
     var body: some View {
         ZStack {
            
@@ -52,7 +56,7 @@ struct EmailInfoModalView: View {
                 HStack(spacing: 8) {
                     
                     Button(action: {
-                        
+                        isPresented = false
                     }) {
                         Text("취소")
                             .font(.hanSansNeo(14, .bold))
@@ -70,7 +74,7 @@ struct EmailInfoModalView: View {
                     
                     
                     Button(action: {
-                        
+                        isPresented = false 
                     }) {
                         Text("확인")
                             .font(.hanSansNeo(14, .bold))
@@ -92,6 +96,3 @@ struct EmailInfoModalView: View {
     }
 }
 
-#Preview {
-    EmailInfoModalView()
-}

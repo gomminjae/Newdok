@@ -30,6 +30,8 @@ public class ExploreViewModel: ObservableObject {
     @Published public var isShowFilterSheet: Bool = false
     @Published public var isShowSortSheet: Bool = false
     
+    @Published public var isRecommend: Bool = false
+    
     
     private let useCase: NewsletterUseCase
     
@@ -51,6 +53,7 @@ public class ExploreViewModel: ObservableObject {
                 unionRecommendation = response.union
             } catch {
                 print("추천 에러")
+                isRecommend = false
             }
         }
     }
