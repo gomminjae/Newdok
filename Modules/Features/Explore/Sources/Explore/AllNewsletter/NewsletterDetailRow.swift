@@ -31,15 +31,31 @@ enum SubscriptionStatus: String {
     var label: String? {
         switch self {
         case .confirmed: return "구독중"
-        case .check: return "확인 중"
         case .paused: return "구독중지"
         default: return nil
         }
     }
     var color: Color {
         switch self {
-        case .initial: return Color(hex: "#FFA500")
-        default: return Color(hex: "5184DB")
+        case .confirmed: return Color(hex: "#5184DB")
+        case .paused: return .white
+        default: return .clear
+        }
+    }
+    
+    var foregroundColor: Color {
+        switch self {
+        case .confirmed: return Color.white
+        case .paused: return Color(hex: "#BDBDBD")
+        default: return .clear
+        }
+    }
+    
+    var borderColor: Color {
+        switch self {
+        case .paused: return Color(hex: "#C0C0C0")
+        case .confirmed: return Color(hex: "#2866D3")
+        default: return .clear
         }
     }
 }
@@ -78,12 +94,16 @@ struct NewsletterDetailRow: View {
 
                 if let label = SubscriptionStatus(rawValue: brand.isSubscribed).label {
                     Text(label)
-                        .font(.hanSansNeo(13, .bold))
-                        .foregroundColor(.white)
+                        .font(.hanSansNeo(11, .medium))
+                        .foregroundColor(SubscriptionStatus(rawValue: brand.isSubscribed).foregroundColor)
                         .padding(.horizontal, 12)
                         .padding(.vertical, 6)
                         .background(SubscriptionStatus(rawValue: brand.isSubscribed).color)
                         .clipShape(Capsule())
+                        .overlay {
+                            Capsule()
+                                .stroke(SubscriptionStatus(rawValue: brand.isSubscribed).borderColor)
+                        }
                 }
             }
             .padding(.bottom,18)

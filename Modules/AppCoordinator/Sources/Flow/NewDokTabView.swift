@@ -52,7 +52,7 @@ public struct NewDokTabView: View {
                 HomeView(viewModel: homeViewModel)
                     .tag(NewDokTab.home)
                 
-                NewsLetterView()
+                BookmarkView()
                     .tag(NewDokTab.bookmark)
                 MypageView()
                     .tag(NewDokTab.profile)

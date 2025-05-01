@@ -33,8 +33,9 @@ public struct CustomSegmentedSlider: View {
                     // 선택된 슬라이더 배경
                     RoundedRectangle(cornerRadius: 6)
                         .fill(Color.white)
-                        .frame(width: segmentWidth, height: 36) // 40 - (2 * padding)
+                        .frame(width: segmentWidth, height: 36)
                         .padding(.vertical, 2)
+                        .padding(.horizontal, 2)
                         .shadow(color: .black.opacity(0.06), radius: 1, y: 1)
                         .offset(x: CGFloat(selectedIndex) * segmentWidth)
                         .animation(.easeInOut(duration: 0.25), value: selectedIndex)

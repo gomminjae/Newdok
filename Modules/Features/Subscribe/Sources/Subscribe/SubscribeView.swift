@@ -36,7 +36,13 @@ public struct SubscribeView: View {
 
                         ForEach(filteredSubscriptions, id: \.id) { newsletter in
                             SubscribeRow(newsletter: newsletter, isSubscribed: selectedTab == 0) {
-                                print("\(newsletter.brandName) 탭됨")
+                                if selectedTab == 0 {
+                                    await viewModel.pause(newsletterId: String(newsletter.id ?? 0))
+                                    await viewModel.fetchActive()
+                                } else {
+                                    await viewModel.resume(newsletterId: String(newsletter.id ?? 0))
+                                    await viewModel.fetchPaused()
+                                }
                             }
                             .padding(.horizontal, 20)
                             .padding(.vertical, 10)
@@ -50,8 +56,8 @@ public struct SubscribeView: View {
         }
         .onAppear {
             Task {
-                viewModel.fetchActive()
-                viewModel.fetchPaused()
+                await viewModel.fetchActive()
+                await viewModel.fetchPaused()
             }
         }
     }
@@ -84,10 +90,10 @@ public struct SubscribeView: View {
 
     private func listHeaderView() -> some View {
         VStack(alignment: .leading, spacing: 8) {
-            Text("총 \(filteredSubscriptions.count)개의 뉴스레터를 구독중이에요.")
+            Text(selectedTab == 0 ? "총 \(filteredSubscriptions.count)개의 뉴스레터를 구독중이에요." : "\(filteredSubscriptions.count)개의 뉴스레터를 구독 중지했어요.")
                 .font(.hanSansNeo(16, .bold))
                 .padding(.top, 16)
-            Text("구독신청 후 첫 아티클을 수신받으면 내 구독에 추가돼요.")
+            Text(selectedTab == 0 ? "구독신청 후 첫 아티클을 수신받으면 내 구독에 추가돼요." : "구독을 재개하면 다시 아티클을 받아볼 수 있어요")
                 .font(.hanSansNeo(14, .medium))
                 .foregroundStyle(Color(hex: "#565656"))
         }

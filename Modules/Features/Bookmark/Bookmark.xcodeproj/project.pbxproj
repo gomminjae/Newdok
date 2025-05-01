@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 55;
+	objectVersion = 56;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -11,6 +11,9 @@
 		292A125709A1026D71045F7A /* NewsLetterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 518BAAA65BF35C6106E2FA43 /* NewsLetterView.swift */; };
 		5127FD4C0CEB2BA908E3CCA4 /* DesignSystem.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F2A5BEA1A83032F8516C05FC /* DesignSystem.framework */; };
 		74BC714D5520B898AC4F91AE /* Domain.framework in Dependencies */ = {isa = PBXBuildFile; fileRef = DE52F60F7D201E28F2B73788 /* Domain.framework */; };
+		B5ECBC4D2DC3B96E009E1FA3 /* BookmarkView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5ECBC4C2DC3B96E009E1FA3 /* BookmarkView.swift */; };
+		B5ECBC502DC3BE47009E1FA3 /* BookmarkCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5ECBC4F2DC3BE47009E1FA3 /* BookmarkCard.swift */; };
+		B5ECBC522DC3D445009E1FA3 /* BookmarkViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5ECBC512DC3D43F009E1FA3 /* BookmarkViewModel.swift */; };
 		C6D2F181D424BE4BA0E205C4 /* BookmarkMain.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8CAFD478C6DDC83E089E3A7 /* BookmarkMain.swift */; };
 		C9713249EFF54B95D5957871 /* Shared.framework in Dependencies */ = {isa = PBXBuildFile; fileRef = 22775B642171631175E5C887 /* Shared.framework */; };
 		F9DF24B5012C0CCF46AF885D /* Kingfisher.framework in Dependencies */ = {isa = PBXBuildFile; fileRef = 722BE9794BB696843B2378B9 /* Kingfisher.framework */; };
@@ -47,6 +50,9 @@
 		518BAAA65BF35C6106E2FA43 /* NewsLetterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsLetterView.swift; sourceTree = "<group>"; };
 		722BE9794BB696843B2378B9 /* Kingfisher.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Kingfisher.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		76BD577AD93EFB89FF1662CC /* Bookmark.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Bookmark.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		B5ECBC4C2DC3B96E009E1FA3 /* BookmarkView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkView.swift; sourceTree = "<group>"; };
+		B5ECBC4F2DC3BE47009E1FA3 /* BookmarkCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkCard.swift; sourceTree = "<group>"; };
+		B5ECBC512DC3D43F009E1FA3 /* BookmarkViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkViewModel.swift; sourceTree = "<group>"; };
 		DE52F60F7D201E28F2B73788 /* Domain.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Domain.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F2A5BEA1A83032F8516C05FC /* DesignSystem.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = DesignSystem.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F8CAFD478C6DDC83E089E3A7 /* BookmarkMain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkMain.swift; sourceTree = "<group>"; };
@@ -89,6 +95,7 @@
 		548D75079954AD79DF67E9EF /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				B5ECBC4B2DC3B967009E1FA3 /* Bookmark */,
 				541ABE504C207D11DED88267 /* NewsLetter */,
 				F8CAFD478C6DDC83E089E3A7 /* BookmarkMain.swift */,
 			);
@@ -117,6 +124,24 @@
 				F13653EAB299DFFD57EC2680 /* Project */,
 				349FAF58BCF75F1E87F887B1 /* Products */,
 			);
+			sourceTree = "<group>";
+		};
+		B5ECBC4B2DC3B967009E1FA3 /* Bookmark */ = {
+			isa = PBXGroup;
+			children = (
+				B5ECBC512DC3D43F009E1FA3 /* BookmarkViewModel.swift */,
+				B5ECBC4E2DC3BE3F009E1FA3 /* Component */,
+				B5ECBC4C2DC3B96E009E1FA3 /* BookmarkView.swift */,
+			);
+			path = Bookmark;
+			sourceTree = "<group>";
+		};
+		B5ECBC4E2DC3BE3F009E1FA3 /* Component */ = {
+			isa = PBXGroup;
+			children = (
+				B5ECBC4F2DC3BE47009E1FA3 /* BookmarkCard.swift */,
+			);
+			path = Component;
 			sourceTree = "<group>";
 		};
 		F13653EAB299DFFD57EC2680 /* Project */ = {
@@ -194,8 +219,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B5ECBC522DC3D445009E1FA3 /* BookmarkViewModel.swift in Sources */,
 				C6D2F181D424BE4BA0E205C4 /* BookmarkMain.swift in Sources */,
 				292A125709A1026D71045F7A /* NewsLetterView.swift in Sources */,
+				B5ECBC4D2DC3B96E009E1FA3 /* BookmarkView.swift in Sources */,
+				B5ECBC502DC3BE47009E1FA3 /* BookmarkCard.swift in Sources */,
 				2892A5E3959641B7EB88CFB9 /* StopSubscribeView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -281,10 +309,7 @@
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
 				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = (
-					"$(inherited)",
-					DEBUG,
-				);
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) DEBUG";
 				SWIFT_COMPILATION_MODE = singlefile;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;

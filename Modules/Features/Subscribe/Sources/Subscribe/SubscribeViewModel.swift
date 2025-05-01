@@ -22,7 +22,7 @@ public class SubscribeViewModel: ObservableObject {
         self.useCase = useCase
     }
     
-    public func fetchActive() {
+    public func fetchActive() async {
         Task {
             do {
                 let response = try await useCase.fetchActiveSubscription()
@@ -31,11 +31,31 @@ public class SubscribeViewModel: ObservableObject {
         }
     }
     
-    public func fetchPaused() {
+    public func fetchPaused() async {
         Task {
             do {
                 let response = try await useCase.fetchPausedSubscription()
                 pausedNewsletters = response
+            }
+        }
+    }
+    
+    public func pause(newsletterId: String) async {
+        Task {
+            do {
+                _ = try await useCase.pauseSubscription(newsletterId: newsletterId)
+            } catch {
+                print("중지 실패")
+            }
+        }
+    }
+    
+    public func resume(newsletterId: String) async {
+        Task {
+            do {
+                _ = try await useCase.resumeSubscription(newsletterId: newsletterId)
+            } catch {
+                print("재개 실패")
             }
         }
     }

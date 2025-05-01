@@ -14,9 +14,9 @@ import Kingfisher
 public struct SubscribeRow: View {
     public let newsletter: Newsletter
     public let isSubscribed: Bool
-    public let onTap: () -> Void
+    public let onTap: () async -> Void
 
-    public init(newsletter: Newsletter, isSubscribed: Bool, onTap: @escaping () -> Void) {
+    public init(newsletter: Newsletter, isSubscribed: Bool, onTap: @escaping () async -> Void) {
         self.newsletter = newsletter
         self.isSubscribed = isSubscribed
         self.onTap = onTap
@@ -51,7 +51,11 @@ public struct SubscribeRow: View {
 
             Spacer()
 
-            Button(action: onTap) {
+            Button(action: {
+                Task {
+                    await onTap()
+                }
+            }) {
                 Text(isSubscribed ? "구독중지" : "구독재개")
                     .font(.hanSansNeo(13, .medium))
                     .foregroundColor(isSubscribed ? Color(hex: "#565656") : Color.primaryNormal)
@@ -69,6 +73,10 @@ public struct SubscribeRow: View {
         .padding(.vertical, 12)
         .background(Color.white)
         .clipShape(RoundedRectangle(cornerRadius: 12))
+        .overlay {
+            RoundedRectangle(cornerRadius: 12)
+                .stroke(Color(hex: "#EBEBEB"))
+        }
         .shadow(color: Color.black.opacity(0.02), radius: 1, y: 1)
     }
 }
