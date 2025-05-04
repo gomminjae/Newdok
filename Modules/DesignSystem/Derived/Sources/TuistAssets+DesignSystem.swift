@@ -41,6 +41,7 @@ public enum DesignSystemAsset: Sendable {
   public static let calendarLogo = DesignSystemImages(name: "calendar_logo")
   public static let check = DesignSystemImages(name: "check")
   public static let darklogo = DesignSystemImages(name: "darklogo")
+  public static let emptybookmark = DesignSystemImages(name: "emptybookmark")
   public static let home = DesignSystemImages(name: "home")
   public static let letter = DesignSystemImages(name: "letter")
   public static let logo = DesignSystemImages(name: "logo")

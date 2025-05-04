@@ -52,14 +52,26 @@ public struct BookmarkView: View {
             categoryFilter
             sortInfo
             
-            ScrollView(showsIndicators: false) {
-                VStack(alignment: .leading, spacing: 24) {
-                    
-                    section(month: "2023년 11월", articles: sampleArticles)
-                    section(month: "2023년 10월", articles: sampleArticles)
+            if sampleArticles.isEmpty {
+                VStack {
+                    BookmarkEmptyView()
+                        .frame(maxWidth: .infinity)
+                        .frame(maxHeight: .infinity)
+                        .background(Color(hex: "#F5F5F7"))
+                    Spacer()
                 }
+                .background(Color(hex: "#F5F5F7"))
+            } else {
+                
+                ScrollView(showsIndicators: false) {
+                    
+                    VStack(alignment: .leading, spacing: 24) {
+                        section(month: "2023년 11월", articles: sampleArticles)
+                        section(month: "2023년 10월", articles: sampleArticles)
+                    }
+                }
+                .background(Color(hex: "#F5F5F7"))
             }
-            .background(Color(hex: "#F5F5F7"))
         }
         .background(.white)
     }
