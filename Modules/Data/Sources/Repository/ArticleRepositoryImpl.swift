@@ -13,6 +13,7 @@ import Moya
 
 public class ArticleRepositoryImpl: ArticleRepository {
     
+    
     private let provider: MoyaProvider<ArticleAPI>
     
     public init(provider: MoyaProvider<ArticleAPI>) {
@@ -30,9 +31,9 @@ public class ArticleRepositoryImpl: ArticleRepository {
         return response.map { $0.toDomain() }
     }
     
-    public func fetchBookmarkArticles(interest: String) async throws -> Domain.BookmarkedArticles {
-        let response: BookmarkedArticlesDTO = try await provider.asyncRequest(.fetchBookmarkArticles(interest: interest))
-        return response.toDomain()
+    public func fetchBookmarkArticles(interest: String?) async throws -> Domain.BookmarkedArticles {
+        let response: BookmarkArticlesResponse = try await provider.asyncRequest(.fetchBookmarkArticles(interest: interest))
+        return response.data.toDomain()
     }
     
     public func changeBookmarkState(articleId: String) async throws {

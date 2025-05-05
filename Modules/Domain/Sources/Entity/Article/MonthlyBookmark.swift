@@ -5,13 +5,14 @@
 //  Created by 권민재 on 4/11/25.
 //
 
-public struct MonthlyBookmark {
-    let id: Int
-    let month: String
-    let bookmark: [Bookmark]
+public struct MonthlyBookmark: Identifiable {
     
-    public init(id: Int, month: String, bookmark: [Bookmark]) {
-        self.id = id
+    public var id: String { month }
+    
+    public let month: String
+    public let bookmark: [Bookmark]
+    
+    public init(month: String, bookmark: [Bookmark]) {
         self.month = month
         self.bookmark = bookmark
     }

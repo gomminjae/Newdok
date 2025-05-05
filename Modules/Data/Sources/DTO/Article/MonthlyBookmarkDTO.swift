@@ -6,11 +6,10 @@
 //
 import Domain
 public struct MonthlyBookmarkDTO: Decodable {
-    let id: Int
     let month: String
     let bookmark: [BookmarkDTO]
     
     public func toDomain() -> MonthlyBookmark {
-        return MonthlyBookmark(id: id, month: month, bookmark: bookmark.map { $0.toDomain() })
+        return MonthlyBookmark(month: month, bookmark: bookmark.map { $0.toDomain() })
     }
 }

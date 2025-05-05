@@ -15,7 +15,7 @@ public protocol ArticleRepository {
     
     func fetchTodayArticles() async throws -> [Article]
     
-    func fetchBookmarkArticles(interest: String) async throws -> BookmarkedArticles
+    func fetchBookmarkArticles(interest: String?) async throws -> BookmarkedArticles
     func changeBookmarkState(articleId: String) async throws
     
     func fetchBookmarkedInterest() async throws -> [Interest]

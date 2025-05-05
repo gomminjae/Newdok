@@ -14,6 +14,7 @@ import Mypage
 import Explore
 import Foundation
 import Subscribe
+import Bookmark
 
 final class AppCoordinator {
     private let container = AppDIContainer.shared
@@ -54,11 +55,13 @@ final class AppCoordinator {
         let homeVm = container.container.resolve(HomeViewModel.self)!
         let exploreVm = container.container.resolve(ExploreViewModel.self)!
         let subscribeVm = container.container.resolve(SubscribeViewModel.self)!
+        let bookmakrVm = container.container.resolve(BookmarkViewModel.self)!
         
         return NewDokTabView(
             homeViewModel: homeVm,
             exploreViewModel: exploreVm,
-            subscribeViewModel: subscribeVm
+            subscribeViewModel: subscribeVm,
+            bookmarkViewModel: bookmakrVm
         ).environmentObject(router)
     }
     func mekeProfileView() -> some View {

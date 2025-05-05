@@ -45,9 +45,11 @@ public class BookmarkViewModel: ObservableObject, BookmarkViewModelBindable {
     }
     
     func fetchUserBookmarks() async {
-        Task {
+        do {
             let response = try await useCase.fetchBookmarkedArticles(interest: interest)
             bookmarks = response
+        } catch {
+            print("북마크 불러오기 실패: \(error)")
         }
     }
     

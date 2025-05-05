@@ -13,17 +13,17 @@ import Kingfisher
 
 
 struct BookmarkCard: View {
-    let article: Article
+    let article: Bookmark
     
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
-            Text(article.title)
+            Text(article.articleTitle)
                 .font(.hanSansNeo(16, .bold))
                 .foregroundColor(Color(hex: "#363636"))
                 .lineLimit(2)
                 .padding(.bottom,8)
             
-            Text(article.description)
+            Text(article.sampleText)
                 .font(.hanSansNeo(14, .regular))
                 .foregroundColor(Color(hex: "#565656"))
                 .lineLimit(2)
@@ -31,11 +31,11 @@ struct BookmarkCard: View {
             
             HStack {
                 HStack(spacing: 4) {
-                    KFImage(URL(string: article.brandImageName))
+                    KFImage(URL(string: article.imageURL))
                         .resizable()
                         .frame(width: 20, height: 20)
                         .clipShape(Circle())
-                        .background(Color.gray)
+                        //.background(Color.gray)
                     Text(article.brandName)
                         .font(.hanSansNeo(12, .medium))
                         .foregroundColor(.gray)

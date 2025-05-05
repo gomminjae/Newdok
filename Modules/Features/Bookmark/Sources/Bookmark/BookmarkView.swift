@@ -9,10 +9,13 @@
 
 import SwiftUI
 import DesignSystem
+import Domain
 
 public struct BookmarkView: View {
     @State private var selectedCategory: String = "전체"
     @State private var sortOrder: String = "추가순"
+    
+    @StateObject private var viewModel: BookmarkViewModel
     
     public let interests: [String: String] = [
         "1": "경제・시사・상식",
@@ -43,7 +46,9 @@ public struct BookmarkView: View {
         "26": "사회공헌"
     ]
     
-    public init() {}
+    public init(viewModel: BookmarkViewModel) {
+        _viewModel = StateObject(wrappedValue: viewModel)
+    }
     
     public var body: some View {
         VStack(spacing: 0) {
@@ -52,7 +57,7 @@ public struct BookmarkView: View {
             categoryFilter
             sortInfo
             
-            if sampleArticles.isEmpty {
+            if viewModel.bookmarks?.totalAmount == 0 {
                 VStack {
                     BookmarkEmptyView()
                         .frame(maxWidth: .infinity)
@@ -66,14 +71,20 @@ public struct BookmarkView: View {
                 ScrollView(showsIndicators: false) {
                     
                     VStack(alignment: .leading, spacing: 24) {
-                        section(month: "2023년 11월", articles: sampleArticles)
-                        section(month: "2023년 10월", articles: sampleArticles)
+                        ForEach(viewModel.bookmarks?.bookmarkForMonth ?? []) { monthly in
+                            section(month: monthly.month, articles: monthly.bookmark)
+                        }
                     }
                 }
                 .background(Color(hex: "#F5F5F7"))
             }
         }
         .background(.white)
+        .onAppear {
+            Task {
+                await viewModel.fetchUserBookmarks()
+            }
+        }
     }
     
     private func headerView() -> some View {
@@ -131,7 +142,7 @@ public struct BookmarkView: View {
     
     private var sortInfo: some View {
         HStack {
-            Text("총 32개")
+            Text("총 \(viewModel.bookmarks?.totalAmount ?? 0)개")
                 .font(.hanSansNeo(20, .bold))
                 .foregroundColor(Color.primaryNormal)
             Spacer()
@@ -153,7 +164,7 @@ public struct BookmarkView: View {
         .padding(.bottom,12)
     }
     
-    private func section(month: String, articles: [Article]) -> some View {
+    private func section(month: String, articles: [Bookmark]) -> some View {
         VStack(alignment: .leading, spacing: 0) {
             Text(month)
                 .font(.hanSansNeo(18, .bold))
@@ -172,23 +183,3 @@ public struct BookmarkView: View {
     }
 }
 
-// MARK: - 카드 컴포넌트
-
-
-
-// MARK: - Dummy Model & Sample
-
-struct Article: Identifiable {
-    var id = UUID()
-    var title: String
-    var description: String
-    var brandName: String
-    var brandImageName: String
-    var date: String
-}
-
-let sampleArticles: [Article] = [
-    .init(title: "🧠 신입사원 시절 '최악의 실수'는?", description: "출연하는 두뇌 서바이벌로 개인적 아쉬움이 남았던 das;lfdsa;lfal;skdfl;kasdjfl;kasdjflk;ajsdlk;fjasldk;jlask;dflak;sdflask;d", brandName: "주간 컴퍼니타임스", brandImageName: "logo1", date: "2023-11-26"),
-    .init(title: "🥓 SNS에서 주목받는 브랜드의 비법 노트", description: "GS25는 한정 판매로 중량 4kg에 달하는 넷플릭스...das;lfdsa;lfal;skdfl;kasdjfl;kasdjflk;ajsdlk;fjasldk;jlask;dflak;sdflask;d", brandName: "고구마팜", brandImageName: "logo2", date: "2023-11-26"),
-    .init(title: "💰 어피티 퇴사, 그 이후..", description: "국내 OTT인 티빙도 멤버십 구독료를 인상해요...das;lfdsa;lfal;skdfl;kasdjfl;kasdjflk;ajsdlk;fjasldk;jlask;dflak;sdflask;d", brandName: "머니레터", brandImageName: "logo3", date: "2023-11-25")
-]

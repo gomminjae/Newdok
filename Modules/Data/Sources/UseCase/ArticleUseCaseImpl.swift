@@ -24,7 +24,7 @@ public final class ArticleUseCaseImpl: ArticleUseCase {
         return try await articleRepository.fetchTodayArticles()
     }
     
-    public func fetchBookmarkedArticles(interest: String) async throws -> Domain.BookmarkedArticles {
+    public func fetchBookmarkedArticles(interest: String?) async throws -> Domain.BookmarkedArticles {
         return try await articleRepository.fetchBookmarkArticles(interest: interest)
     }
     

@@ -29,15 +29,18 @@ public struct NewDokTabView: View {
     private let homeViewModel: HomeViewModel
     private let exploreViewModel: ExploreViewModel
     private let subscribeViewModel: SubscribeViewModel
+    private let bookmarkViewModel: BookmarkViewModel
     
     public init(
         homeViewModel: HomeViewModel,
         exploreViewModel: ExploreViewModel,
-        subscribeViewModel: SubscribeViewModel
+        subscribeViewModel: SubscribeViewModel,
+        bookmarkViewModel: BookmarkViewModel
     ) {
         self.homeViewModel = homeViewModel
         self.exploreViewModel = exploreViewModel
         self.subscribeViewModel = subscribeViewModel
+        self.bookmarkViewModel = bookmarkViewModel
     }
     
     public var body: some View {
@@ -52,7 +55,7 @@ public struct NewDokTabView: View {
                 HomeView(viewModel: homeViewModel)
                     .tag(NewDokTab.home)
                 
-                BookmarkView()
+                BookmarkView(viewModel: bookmarkViewModel)
                     .tag(NewDokTab.bookmark)
                 MypageView()
                     .tag(NewDokTab.profile)

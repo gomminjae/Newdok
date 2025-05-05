@@ -17,3 +17,7 @@ public struct BookmarkedArticlesDTO: Decodable {
     
     
 }
+
+public struct BookmarkArticlesResponse: Decodable {
+    let data: BookmarkedArticlesDTO
+}

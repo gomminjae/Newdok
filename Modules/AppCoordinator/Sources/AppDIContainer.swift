@@ -17,6 +17,7 @@ import Moya
 import Home
 import Explore
 import Subscribe
+import Bookmark
 
 public final class AppDIContainer {
     public static let shared = AppDIContainer()
@@ -79,6 +80,12 @@ public final class AppDIContainer {
             print("🔗 [DI] Injected: UserRepository → UserUseCase")
             return UserUseCaseImpl(userRepository: repo)
         }.inObjectScope(.container)
+        container.register(ArticleUseCase.self) { r in
+            print("🧩 [DI] Register: UserUseCase")
+            let repo = r.resolve(ArticleRepository.self)!
+            print("🔗 [DI] Injected: UserRepository → UserUseCase")
+            return ArticleUseCaseImpl(articleRepository: repo)
+        }.inObjectScope(.container)
 
         container.register(FetchHomeDataUseCase.self) { r in
             let articleRepo = r.resolve(ArticleRepository.self)!
@@ -130,5 +137,13 @@ public final class AppDIContainer {
                 SubscribeViewModel(useCase: useCase)
             }
         }.inObjectScope(.container)
+        
+        container.register(BookmarkViewModel.self) { r in
+            let useCase = r.resolve(ArticleUseCase.self)!
+            return MainActor.assumeIsolated {
+                BookmarkViewModel(useCase: useCase)
+            }
+        }
+        .inObjectScope(.container)
     }
 }
