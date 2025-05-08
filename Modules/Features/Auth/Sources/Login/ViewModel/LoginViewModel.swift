@@ -89,6 +89,24 @@ public final class LoginViewModel: LoginViewModelBindable {
                 nickname = user.nickname
                 email = user.subscribeEmail
                 
+                let userInfo = UserInfo(
+                    id: user.id,
+                    loginId: user.loginId,
+                    phoneNumber: user.phoneNumber,
+                    subscribeEmail: user.subscribeEmail,
+                    nickname: user.nickname,
+                    birthYear: user.birthYear,
+                    gender: user.gender,
+                    createdAt: user.createdAt,
+                    industryId: user.industryId,
+                    interestIds: user.interests.map { $0.id }
+                )
+                
+                UserInfoStore.shared.save(userInfo)
+                
+                
+                
+                
                 await MainActor.run {
                     onSuccess()
                 }
