@@ -5,6 +5,7 @@
 //  Created by 권민재 on 2/28/25.
 //
 import SwiftUI
+import DesignSystem
 
 struct EmailInfoModalView: View {
     
@@ -22,14 +23,15 @@ struct EmailInfoModalView: View {
                 
               
                 Text("구독 이메일")
-                    .font(.system(size: 20, weight: .bold))
+                    .font(.hanSansNeo(20, .bold))
+                    .foregroundStyle(Color(hex: "#161616"))
                     .padding(.top, 24)
                     .padding(.horizontal, 24)
                 
                 
                 Text("회원가입 시 자동으로 생성되는\n뉴스레터 구독을 위한 이메일 주소예요.")
-                    .font(.system(size: 14))
-                    .foregroundColor(.gray)
+                    .font(.hanSansNeo(14, .medium))
+                    .foregroundColor(Color(hex: "#161616"))
                     .padding(.top, 8)
                     .padding(.horizontal, 24)
                 

@@ -35,13 +35,16 @@ struct BookmarkCard: View {
                         .resizable()
                         .frame(width: 20, height: 20)
                         .clipShape(Circle())
-                        //.background(Color.gray)
+                        .overlay {
+                            Circle()
+                                .stroke(Color(hex: "#EBEBEB"))
+                        }
                     Text(article.brandName)
                         .font(.hanSansNeo(12, .medium))
                         .foregroundColor(.gray)
                 }
                 Spacer()
-                Text(article.date)
+                Text(article.date.prefix(10))
                     .font(.hanSansNeo(12, .medium))
                     .foregroundColor(Color(hex: "#969696"))
             }

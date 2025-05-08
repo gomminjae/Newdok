@@ -35,6 +35,9 @@
             location = "group:Bookmark/Bookmark.xcodeproj">
          </FileRef>
          <FileRef
+            location = "group:Detail/Detail.xcodeproj">
+         </FileRef>
+         <FileRef
             location = "group:Explore/Explore.xcodeproj">
          </FileRef>
          <FileRef

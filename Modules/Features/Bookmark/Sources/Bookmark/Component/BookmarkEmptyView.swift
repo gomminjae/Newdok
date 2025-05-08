@@ -24,6 +24,7 @@ struct BookmarkEmptyView: View {
             Text("북마크를 눌러 다시 보고싶은 아티클을 저장해보세요.")
                 .font(.hanSansNeo(14,.medium))
                 .foregroundStyle(Color(hex: "#565656"))
+            Spacer()
         }
         .background(.clear)
     }

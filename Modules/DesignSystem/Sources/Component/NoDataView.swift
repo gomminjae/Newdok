@@ -72,56 +72,57 @@ public struct NoDataView: View {
 
     public var body: some View {
         VStack(alignment: .center, spacing: 0) {
-            HStack {
+            HStack(spacing: 0) {
                 Spacer()
                 Button(action: {
                     print("새로고침")
                 }) {
                     HStack(spacing: 0) {
-                        Image(asset: DesignSystemAsset.refresh)
+                        Image(asset: DesignSystemAsset.lineReload)
+                            .renderingMode(.template)
                             .foregroundStyle(Color.primaryNormal)
+                            
                         Text("새로고침")
-                            .font(.hanSansNeo(12, .regular))
+                            .font(.hanSansNeo(14, .medium))
                             .foregroundStyle(Color.primaryNormal)
                             .padding(.leading, 4)
                     }
                 }
-                .padding(.top, 20)
-                .padding(.trailing, 28)
+                .padding(.top, 14)
+                .padding(.trailing, 16)
             }
 
-    
             Image(asset: type.imageName)
                 .resizable()
                 .frame(width: 280, height: 280)
                 .padding(.top, 24)
 
-          
             Text(type.title)
                 .font(.hanSansNeo(16, .bold))
+                .foregroundStyle(Color(hex: "161616"))
+                .multilineTextAlignment(.center) // 중요
                 .padding(.top, 24)
 
-         
             if !type.subTitle.isEmpty {
                 Text(type.subTitle)
-                    .font(.hanSansNeo(14, .regular))
+                    .font(.hanSansNeo(14, .medium))
+                    .foregroundStyle(Color(hex: "565656"))
+                    .multilineTextAlignment(.center) // 중요
                     .padding(.top, 4)
             }
 
-          
             Button(action: buttonAction) {
                 Text(type.buttonTitle)
-                    .font(.hanSansNeo(16, .bold))
+                    .font(.hanSansNeo(14, .bold))
                     .foregroundStyle(Color.white)
                     .frame(maxWidth: .infinity)
-                    .frame(height: 48)
+                    .frame(height: 48) // maxWidth -> 고정폭
                     .background(Color.primaryNormal)
                     .cornerRadius(4)
             }
-            .padding(.horizontal, 24)
             .padding(.top, 24)
+            .padding(.horizontal, 24)
 
-          
             if type.showLoginOption {
                 HStack {
                     Text("이미 계정이 있나요?")
@@ -135,17 +136,17 @@ public struct NoDataView: View {
                             .foregroundColor(Color.primaryNormal)
                             .underline()
                     }
-                    
                 }
                 .padding(.top, 12)
             }
         }
+        .frame(maxWidth: .infinity)
         .background(Color(hex: "F5F5F7"))
     }
 }
 
 #Preview {
-    NoDataView(type: .requireSignUp) {
+    NoDataView(type: .noSubscriptions) {
         print("뉴스레터 보기 클릭")
     } loginAction: {}
 }

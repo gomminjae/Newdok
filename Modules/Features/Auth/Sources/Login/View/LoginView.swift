@@ -114,7 +114,7 @@ public struct LoginView: View {
 
                 HStack {
                     Button("비회원으로 이용하기") {
-                        isGuest = false
+                        isGuest = true
                         router.resetTo(.tabbar)
                     }
                     .font(.hanSansNeo(14, .medium))

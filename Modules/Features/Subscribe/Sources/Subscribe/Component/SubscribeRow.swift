@@ -40,6 +40,7 @@ public struct SubscribeRow: View {
 
                 HStack(spacing: 4) {
                     Image(asset: DesignSystemAsset.lineClock)
+                        .renderingMode(.template)
                         .resizable()
                         .frame(width: 20, height: 20)
                         .foregroundColor(Color(hex: "#969696"))

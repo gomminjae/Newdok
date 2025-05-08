@@ -25,12 +25,12 @@ public enum NewDokTab: Int {
 
 public struct NewDokTabView: View {
     @State private var selectedTab: NewDokTab = .home
-    
+
     private let homeViewModel: HomeViewModel
     private let exploreViewModel: ExploreViewModel
     private let subscribeViewModel: SubscribeViewModel
     private let bookmarkViewModel: BookmarkViewModel
-    
+
     public init(
         homeViewModel: HomeViewModel,
         exploreViewModel: ExploreViewModel,
@@ -42,23 +42,34 @@ public struct NewDokTabView: View {
         self.subscribeViewModel = subscribeViewModel
         self.bookmarkViewModel = bookmarkViewModel
     }
-    
+
     public var body: some View {
         ZStack(alignment: .bottom) {
             TabView(selection: $selectedTab) {
-                ExploreView(viewModel: exploreViewModel)
-                    .tag(NewDokTab.explore)
-                
-                SubscribeView(viewModel: subscribeViewModel )
-                    .tag(NewDokTab.subscribe)
-                
-                HomeView(viewModel: homeViewModel)
-                    .tag(NewDokTab.home)
-                
-                BookmarkView(viewModel: bookmarkViewModel)
-                    .tag(NewDokTab.bookmark)
-                MypageView()
-                    .tag(NewDokTab.profile)
+                NavigationStack {
+                    ExploreView(viewModel: exploreViewModel)
+                }
+                .tag(NewDokTab.explore)
+
+                NavigationStack {
+                    SubscribeView(viewModel: subscribeViewModel)
+                }
+                .tag(NewDokTab.subscribe)
+
+                NavigationStack {
+                    HomeView(viewModel: homeViewModel)
+                }
+                .tag(NewDokTab.home)
+
+                NavigationStack {
+                    BookmarkView(viewModel: bookmarkViewModel)
+                }
+                .tag(NewDokTab.bookmark)
+
+                NavigationStack {
+                    MypageView()
+                }
+                .tag(NewDokTab.profile)
             }
             .edgesIgnoringSafeArea(.bottom)
 
@@ -68,6 +79,7 @@ public struct NewDokTabView: View {
         .background(Color.white)
     }
 }
+
 
 
 struct NewDokTabBar: View {

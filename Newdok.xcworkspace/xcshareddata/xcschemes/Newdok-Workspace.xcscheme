@@ -210,6 +210,20 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
+               BlueprintIdentifier = "8B7F7C5C5BC308F0FECD514E"
+               BuildableName = "Detail.framework"
+               BlueprintName = "Detail"
+               ReferencedContainer = "container:Modules/Features/Detail/Detail.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
                BlueprintIdentifier = "C538ACB2975E6B55AFA02B19"
                BuildableName = "Domain.framework"
                BlueprintName = "Domain"

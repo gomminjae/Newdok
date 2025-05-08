@@ -124,6 +124,10 @@ public struct MypageView: View {
             }
             .padding(.top, 20)
         }
+        .fullScreenCover(isPresented: $showEmailAlert) {
+            EmailInfoModalView(isPresented: $showEmailAlert)
+                .presentationBackground(Color(hex: "#25242C").opacity(0.6))
+        }
         .navigationBarTitleDisplayMode(.inline)
         .navigationBarHidden(true)
         

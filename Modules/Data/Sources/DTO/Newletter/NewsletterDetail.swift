@@ -5,6 +5,8 @@
 //  Created by 권민재 on 4/11/25.
 //
 import Domain
+
+
 public struct NewsletterDetailDTO: Decodable {
     let id: Int
     let brandName: String

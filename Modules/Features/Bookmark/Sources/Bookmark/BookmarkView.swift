@@ -63,7 +63,6 @@ public struct BookmarkView: View {
                         .frame(maxWidth: .infinity)
                         .frame(maxHeight: .infinity)
                         .background(Color(hex: "#F5F5F7"))
-                    Spacer()
                 }
                 .background(Color(hex: "#F5F5F7"))
             } else {

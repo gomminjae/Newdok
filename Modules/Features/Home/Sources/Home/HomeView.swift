@@ -87,7 +87,7 @@ public struct HomeView: View {
                             NoDataView(type: .requireSignUp, buttonAction: {
                                 router.push(.signup)
                             }, loginAction: {
-                                router.resetTo(.login)
+                                router.push(.login)
                             })
                         } else {
                             if viewModel.subscribedNewsletters.isEmpty && viewModel.filteredArticles.isEmpty {
@@ -148,7 +148,7 @@ public struct HomeView: View {
             .padding(.top, 8)
         }
         .navigationBarHidden(true)
-        .popup(isPresented: $showCalendar) {
+        .fullScreenCover(isPresented: $showCalendar) {
             CalendarPopupView(
                 isPresented: $showCalendar,
                 onDateSelected: { date in
@@ -156,6 +156,7 @@ public struct HomeView: View {
                     viewModel.loadArticles(for: date)
                 }
             )
+            .presentationBackground(Color(hex: "#25242C").opacity(0.6))
         }
         .onAppear {
             Task {
