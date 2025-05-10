@@ -23,4 +23,11 @@ public final class UserInfoStore {
     public func clear() {
         UserDefaults.standard.removeObject(forKey: key)
     }
+    
+    public var hasProfile: Bool {
+        guard let user = load() else { return false }
+        return !user.nickname.isEmpty &&
+        user.industryId != nil &&
+        !(user.interestIds.isEmpty)
+    }
 }

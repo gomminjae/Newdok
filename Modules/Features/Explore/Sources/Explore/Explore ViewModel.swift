@@ -29,8 +29,11 @@ public class ExploreViewModel: ObservableObject {
     
     @Published public var isShowFilterSheet: Bool = false
     @Published public var isShowSortSheet: Bool = false
-    
     @Published public var isRecommend: Bool = false
+    
+    var hasUserProfile: Bool {
+        return UserInfoStore.shared.hasProfile
+    }
     
     
     private let useCase: NewsletterUseCase

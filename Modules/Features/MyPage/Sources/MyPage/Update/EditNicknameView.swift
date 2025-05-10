@@ -15,6 +15,10 @@ public struct EditNicknameView: View {
     @Binding var nickname: String
     @State private var draftNickname: String
     @State private var validationState: ValidationState = .none
+    @FocusState private var isFocused: Bool
+    
+    @Environment(\.dismiss) private var dismiss
+    
     
     public init(nickname: Binding<String>) {
         self._nickname = nickname
@@ -28,16 +32,21 @@ public struct EditNicknameView: View {
             
             TextField("", text: $draftNickname)
                 .padding()
-                .background(validationState.borderColor)
-                .cornerRadius(8)
+                .font(.hanSansNeo(14, .medium))
+                .background(.white)
+                .clipShape(RoundedRectangle(cornerRadius: 4))
                 .overlay(
-                    RoundedRectangle(cornerRadius: 8)
-                        .stroke(validationState.borderColor, lineWidth: 1)
+                    RoundedRectangle(cornerRadius: 4)
+                        .stroke(
+                            isFocused ? .primaryNormal : validationState.borderColor,
+                            lineWidth: 1
+                        )
                 )
+                .focused($isFocused)
                 .onChange(of: draftNickname, perform: validate)
 
             Text(validationState.message)
-                .font(.system(size: 13))
+                .font(.hanSansNeo(12, .medium))
                 .foregroundColor(validationState.textColor)
             
             Spacer()
@@ -46,16 +55,38 @@ public struct EditNicknameView: View {
                 nickname = draftNickname
             }) {
                 Text("변경하기")
+                    .font(.hanSansNeo(14, .bold))
                     .frame(maxWidth: .infinity)
                     .frame(height: 48)
-                    .background(Color.blue)
+                    .background(Color.primaryNormal)
                     .foregroundColor(.white)
-                    .cornerRadius(10)
+                    .cornerRadius(4)
             }
         }
         .padding(20)
-        .navigationTitle("닉네임 변경")
         .navigationBarTitleDisplayMode(.inline)
+        .navigationBarBackButtonHidden(true)
+        .toolbar {
+            ToolbarItem(placement: .navigationBarLeading) {
+                Button(action: {
+                    dismiss()
+                }) {
+                    HStack(spacing: 4) {
+                        Image(asset: DesignSystemAsset.back)
+                            .resizable()
+                            .renderingMode(.template)
+                            .frame(width: 24, height: 24)
+                            .foregroundColor(.black)
+                    }
+                }
+            }
+            ToolbarItem(placement: .principal) {
+                Text("닉네임 변경")
+                    .font(.hanSansNeo(16, .bold))
+                    .foregroundColor(.black)
+            }
+        }
+        
     }
     
     func validate(_ text: String) {
@@ -70,6 +101,7 @@ public struct EditNicknameView: View {
         }
     }
 }
+
 
 enum ValidationState {
     case none
@@ -88,17 +120,17 @@ enum ValidationState {
     
     var textColor: Color {
         switch self {
-        case .valid: return Color.blue
-        case .invalidChar, .tooLong: return .red
+        case .valid: return .primaryNormal
+        case .invalidChar, .tooLong: return Color(hex: "E32727")
         case .none: return .gray
         }
     }
     
     var borderColor: Color {
         switch self {
-        case .valid: return .blue
-        case .invalidChar, .tooLong: return .red
-        case .none: return Color(UIColor.systemGray4)
+        case .valid: return .primaryNormal
+        case .invalidChar, .tooLong: return Color(hex: "E32727")
+        case .none: return Color(hex: "DADADA")
         }
     }
 }

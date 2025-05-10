@@ -6,8 +6,8 @@
 //
 import SwiftUI
 import DesignSystem
-import Shared
 import Domain
+import Shared
 
 public struct ExploreView: View {
     @State private var selectedTab: Int = 0 // 0: 추천, 1: 전체
@@ -38,7 +38,7 @@ public struct ExploreView: View {
                     if selectedTab == 0 {
                         if !isLoaded {
                             EmptyView() //후에 로딩뷰
-                        } else if !viewModel.isRecommend {
+                        } else if !viewModel.hasUserProfile {
                             noProfileSection
                         } else {
                             ScrollView(showsIndicators: false) {
@@ -166,12 +166,11 @@ public struct ExploreView: View {
                 .padding(.horizontal, 24)
 
             PagingScrollView(newsletters: viewModel.myRecommendation, currentPage: $currentPage)
-                .frame(height: 360)
                 .padding(.leading,24)
 
             HStack(spacing: 6) {
                 Spacer()
-                ForEach(0..<viewModel.myRecommendation.count, id: \.self) { index in
+                ForEach(0..<5, id: \.self) { index in
                     Circle()
                         .fill(index == currentPage ? Color.primaryNormal : Color(hex: "#E0E0E0"))
                         .frame(width: 6, height: 6)
@@ -189,7 +188,11 @@ public struct ExploreView: View {
                         await viewModel.fetchRecommendation()
                     }
                 }) {
-                    Image(asset: DesignSystemAsset.refresh)
+                    Image(asset: DesignSystemAsset.lineReload)
+                       
+                        .renderingMode(.template)
+                        .resizable()
+                        .frame(width:20, height: 20)
                         .font(.hanSansNeo(14,.bold))
                         .foregroundStyle(Color.primaryNormal)
                     Text("새로고침")
@@ -198,7 +201,7 @@ public struct ExploreView: View {
                 }
             }
             .padding(.horizontal, 24)
-            .padding(.bottom, 20)
+            .padding(.bottom, 16)
 
             VStack(spacing: 12) {
                 ForEach(viewModel.unionRecommendation, id: \.id) { newsletter in
@@ -377,48 +380,26 @@ struct PagingScrollView: View {
     let newsletters: [NewsletterDetail]
     @Binding var currentPage: Int
 
-    @State private var dragOffset: CGFloat = .zero
-
     var body: some View {
-        GeometryReader { proxy in
-            let cardWidth: CGFloat = 320
-            let spacing: CGFloat = 12
-            let sidePadding: CGFloat = 24
-            let pageWidth = cardWidth + spacing  // 🔥 반드시 spacing 포함해야 함
+        let cardWidth: CGFloat = 320
+        let spacing: CGFloat = 12
+        let sidePadding: CGFloat = spacing
 
+        VStack(spacing: 16) {
+            // 캐러셀 뷰
             ScrollView(.horizontal, showsIndicators: false) {
-                HStack(spacing: spacing) {
+                LazyHStack(spacing: spacing) {
                     ForEach(Array(newsletters.enumerated()), id: \.element.id) { index, newsletter in
                         RecommendedNewsLetterView(recommendation: newsletter)
-                            .frame(width: cardWidth)
+                            .frame(width: 320,height: 350)
+                            .clipShape(RoundedRectangle(cornerRadius: 12))
                     }
                 }
-                .padding(.horizontal, sidePadding)
-                .offset(x: -CGFloat(currentPage) * pageWidth + dragOffset)
-                .animation(.easeOut(duration: 0.25), value: currentPage)
-                .gesture(
-                    DragGesture()
-                        .onChanged { value in
-                            dragOffset = value.translation.width
-                        }
-                        .onEnded { value in
-                            let threshold = pageWidth / 3
-                            var newIndex = currentPage
-
-                            if value.translation.width < -threshold {
-                                newIndex = min(currentPage + 1, newsletters.count - 1)
-                            } else if value.translation.width > threshold {
-                                newIndex = max(currentPage - 1, 0)
-                            }
-
-                            withAnimation(.easeOut(duration: 0.25)) {
-                                currentPage = newIndex
-                                dragOffset = .zero
-                            }
-                        }
-                )
+                .scrollTargetLayout()
             }
-            .background(Color(hex: "F5F5F7"))
+            .scrollTargetBehavior(.viewAligned)
+            //.frame(height: 350)
+
         }
     }
 }
