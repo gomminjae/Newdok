@@ -168,18 +168,9 @@ public struct ExploreView: View {
             PagingScrollView(newsletters: viewModel.myRecommendation, currentPage: $currentPage)
                 .padding(.leading,24)
 
-            HStack(spacing: 6) {
-                Spacer()
-                ForEach(0..<5, id: \.self) { index in
-                    Circle()
-                        .fill(index == currentPage ? Color.primaryNormal : Color(hex: "#E0E0E0"))
-                        .frame(width: 6, height: 6)
-                }
-                Spacer()
-            }
-            .padding(.vertical, 20)
 
-            HStack {
+
+            HStack(spacing: 0) {
                 Text("이런 뉴스레터는 어때요?")
                     .font(.hanSansNeo(16, .bold))
                 Spacer()
@@ -200,11 +191,12 @@ public struct ExploreView: View {
                         .foregroundStyle(Color.primaryNormal)
                 }
             }
+            .padding(.top, 20)
             .padding(.horizontal, 24)
             .padding(.bottom, 16)
 
             VStack(spacing: 12) {
-                ForEach(viewModel.unionRecommendation, id: \.id) { newsletter in
+                ForEach(viewModel.unionRecommendation.shuffled().prefix(6), id: \.id) { newsletter in
                     NewsletterRow(newsletter: newsletter)
                         .padding(.horizontal, 20)
                         
@@ -299,8 +291,10 @@ public struct ExploreView: View {
                     await viewModel.fetchAllNewsletters()
                 }
             }) {
-                Image(asset: DesignSystemAsset.refresh)
-                    .foregroundColor(.blue)
+                Image(asset: DesignSystemAsset.lineReload)
+                    .renderingMode(.template)
+                    .frame(width: 30, height: 30)
+                    .foregroundColor(Color.primaryNormal)
             }
         }
         .sheet(isPresented: $viewModel.isShowSortSheet) {
@@ -375,31 +369,46 @@ extension Array {
 
 
 
-
 struct PagingScrollView: View {
     let newsletters: [NewsletterDetail]
     @Binding var currentPage: Int
 
-    var body: some View {
-        let cardWidth: CGFloat = 320
-        let spacing: CGFloat = 12
-        let sidePadding: CGFloat = spacing
+    // 스크롤 위치 추적용
+    @State private var scrollID: Int?
 
-        VStack(spacing: 16) {
-            // 캐러셀 뷰
+    var body: some View {
+        let items = Array(newsletters.shuffled().prefix(5))
+
+        VStack(spacing: 12) {
+            // 캐러셀 영역
             ScrollView(.horizontal, showsIndicators: false) {
-                LazyHStack(spacing: spacing) {
-                    ForEach(Array(newsletters.enumerated()), id: \.element.id) { index, newsletter in
+                LazyHStack(spacing: 12) {
+                    ForEach(Array(items.enumerated()), id: \.element.id) { index, newsletter in
                         RecommendedNewsLetterView(recommendation: newsletter)
-                            .frame(width: 320,height: 350)
-                            .clipShape(RoundedRectangle(cornerRadius: 12))
+                            .frame(width: 320, height: 350)
+                            .id(index) // scrollPosition 추적용
                     }
                 }
                 .scrollTargetLayout()
             }
             .scrollTargetBehavior(.viewAligned)
-            //.frame(height: 350)
+            .scrollPosition(id: $scrollID)
+            .frame(height: 350)
+            .onChange(of: scrollID) { newValue in
+                currentPage = newValue ?? 0
+            }
+            .padding(.bottom, 12)
 
+            // 인디케이터
+            HStack(spacing: 6) {
+                ForEach(0..<items.count, id: \.self) { index in
+                    Circle()
+                        .fill(index == currentPage ? Color.primaryNormal : Color(hex: "#CCDFFF"))
+                        .frame(width: 6, height: 6)
+                }
+            }
+            .padding(.bottom, 20)
         }
     }
 }
+
