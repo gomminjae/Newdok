@@ -9,57 +9,49 @@ import SwiftUI
 import Foundation
 import Domain
 
-
 @MainActor
 public class SubscribeViewModel: ObservableObject {
     
-    private var useCase: NewsletterUseCase
+    private let useCase: NewsletterUseCase
     
-    @Published open var activeNewsletters: [Newsletter] = []
-    @Published open var pausedNewsletters: [Newsletter] = []
+    @Published public var activeNewsletters: [Newsletter] = []
+    @Published public var pausedNewsletters: [Newsletter] = []
     
     public init(useCase: NewsletterUseCase) {
         self.useCase = useCase
     }
     
     public func fetchActive() async {
-        Task {
-            do {
-                let response = try await useCase.fetchActiveSubscription()
-                activeNewsletters = response
-            }
+        do {
+            let response = try await useCase.fetchActiveSubscription()
+            activeNewsletters = response
+        } catch {
+            print("✅ fetchActive 실패:", error)
         }
     }
     
     public func fetchPaused() async {
-        Task {
-            do {
-                let response = try await useCase.fetchPausedSubscription()
-                pausedNewsletters = response
-            }
+        do {
+            let response = try await useCase.fetchPausedSubscription()
+            pausedNewsletters = response
+        } catch {
+            print("✅ fetchPaused 실패:", error)
         }
     }
     
     public func pause(newsletterId: String) async {
-        Task {
-            do {
-                _ = try await useCase.pauseSubscription(newsletterId: newsletterId)
-            } catch {
-                print("중지 실패")
-            }
+        do {
+            _ = try await useCase.pauseSubscription(newsletterId: newsletterId)
+        } catch {
+            print("✅ pause 실패:", error)
         }
     }
     
     public func resume(newsletterId: String) async {
-        Task {
-            do {
-                _ = try await useCase.resumeSubscription(newsletterId: newsletterId)
-            } catch {
-                print("재개 실패")
-            }
+        do {
+            _ = try await useCase.resumeSubscription(newsletterId: newsletterId)
+        } catch {
+            print("✅ resume 실패:", error)
         }
     }
-    
-
-    
 }

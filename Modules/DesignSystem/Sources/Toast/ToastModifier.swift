@@ -17,6 +17,7 @@ public struct ToastView: View {
     public var body: some View {
         HStack(spacing: 8) {
             Image(systemName: "checkmark.circle")
+                
                 .font(.system(size: 14))
                 .foregroundColor(.white)
 

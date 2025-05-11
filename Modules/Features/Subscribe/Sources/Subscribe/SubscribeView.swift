@@ -18,6 +18,12 @@ public struct SubscribeView: View {
     @State private var selectedNewsletter: Newsletter? = nil
     
     
+    //Toast
+    @State private var showSubscribeToast: Bool = false
+    @State private var showPauseToast: Bool = false
+    
+    
+    
     public init(viewModel: SubscribeViewModel) {
         _viewModel = StateObject(wrappedValue: viewModel)
     }
@@ -50,6 +56,12 @@ public struct SubscribeView: View {
                                 } else {
                                     await viewModel.resume(newsletterId: String(newsletter.id ?? 0))
                                     await viewModel.fetchPaused()
+                                    showSubscribeToast = true
+                                    DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                                        
+                                        showSubscribeToast = false
+                                        print("토스트 끝났음")
+                                    }
                                 }
                             }
                             .padding(.horizontal, 20)
@@ -68,7 +80,15 @@ public struct SubscribeView: View {
                 await viewModel.fetchPaused()
             }
         }
-        .popup(isPresented: $showUnsubscribeAlert) {
+        .popup(isPresented: Binding(
+            get: { showUnsubscribeAlert && selectedNewsletter != nil },
+            set: { newValue in
+                if !newValue {
+                    showUnsubscribeAlert = false
+                    selectedNewsletter = nil
+                }
+            })
+        ) {
             if let selected = selectedNewsletter {
                 UnsubscribePopupView(
                     brandName: selected.brandName,
@@ -77,11 +97,17 @@ public struct SubscribeView: View {
                         selectedNewsletter = nil
                     },
                     onConfirm: {
+                        showUnsubscribeAlert = false
+                        selectedNewsletter = nil
                         Task {
                             await viewModel.pause(newsletterId: String(selected.id ?? 0))
                             await viewModel.fetchActive()
-                            selectedNewsletter = nil
-                            showUnsubscribeAlert = false
+                            await viewModel.fetchPaused()
+                            showPauseToast = true
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                                showPauseToast = false
+                                print("토스트 끝났음")
+                            }
                         }
                     }
                 )
@@ -90,10 +116,33 @@ public struct SubscribeView: View {
             $0
                 .type(.default)
                 .position(.center)
-                .animation(.spring())
+                .animation(.easeInOut) // spring 애니메이션이 버벅일 수 있음
                 .backgroundColor(Color.black.opacity(0.3))
                 .closeOnTapOutside(true)
         }
+        .popup(isPresented: $showPauseToast) {
+            ToastView(message: "구독이 중지되었습니다.")
+                .padding(.bottom, 106)
+        } customize: {
+            $0
+                .type(.toast)
+                .position(.bottom)
+                .autohideIn(1)
+                .animation(.easeInOut)
+                .closeOnTapOutside(false)
+        }
+        .popup(isPresented: $showSubscribeToast) {
+            ToastView(message: "구독이 재개되었습니다.")
+                .padding(.bottom, 106)
+        } customize: {
+            $0
+                .type(.toast)
+                .position(.bottom)
+                .autohideIn(1)
+                .animation(.easeInOut)
+                .closeOnTapOutside(false)
+        }
+
         
     }
 
