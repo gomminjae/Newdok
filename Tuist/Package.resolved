@@ -29,6 +29,15 @@
         }
       },
       {
+        "package": "PopupView",
+        "repositoryURL": "https://github.com/exyte/PopupView.git",
+        "state": {
+          "branch": null,
+          "revision": "53b9a5ae0e96cdd9ade22cf8b0693291c2aa91b3",
+          "version": "4.1.7"
+        }
+      },
+      {
         "package": "ReactiveSwift",
         "repositoryURL": "https://github.com/ReactiveCocoa/ReactiveSwift.git",
         "state": {
@@ -44,6 +53,15 @@
           "branch": null,
           "revision": "5dd1907d64f0d36f158f61a466bab75067224893",
           "version": "6.9.0"
+        }
+      },
+      {
+        "package": "swiftui-introspect",
+        "repositoryURL": "https://github.com/siteline/swiftui-introspect",
+        "state": {
+          "branch": null,
+          "revision": "807f73ce09a9b9723f12385e592b4e0aaebd3336",
+          "version": "1.3.0"
         }
       },
       {

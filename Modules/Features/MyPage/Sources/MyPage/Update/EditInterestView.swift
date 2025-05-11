@@ -14,7 +14,12 @@ import Shared
 public struct EditInterestView: View {
     @Environment(\.dismiss) private var dismiss
 
-    @State private var selectedIds: Set<Int> = []
+    @State private var selectedIds: Set<Int> = {
+        if let userInfo = UserInfoStore.shared.load() {
+            return Set(userInfo.interestIds)
+        }
+        return []
+    }()
 
     private let interests = SelectableItemStore.shared.interests
     private let columns = [
@@ -27,13 +32,14 @@ public struct EditInterestView: View {
     public var body: some View {
         VStack(spacing: 0) {
             ScrollView {
-                VStack(alignment: .leading, spacing: 12) {
+                VStack(alignment: .leading) {
                     Text("관심사")
-                        .font(.hanSansNeo(14, .bold))
+                        .font(.hanSansNeo(18, .bold))
+                        .foregroundStyle(Color(hex: "1E1E1E"))
 
                     Text("최소 3가지 이상을 선택해주세요.")
-                        .font(.system(size: 13))
-                        .foregroundColor(.gray)
+                        .font(.hanSansNeo(14, .regular))
+                        .foregroundColor(Color(hex: "555555"))
 
                     LazyVGrid(columns: columns, spacing: 12) {
                         ForEach(interests, id: \.id) { item in
@@ -41,23 +47,22 @@ public struct EditInterestView: View {
                                 toggle(id: item.id)
                             }) {
                                 Text(item.name)
-                                    .font(.system(size: 14))
+                                    .font(.hanSansNeo(14, .medium))
                                     .frame(maxWidth: .infinity)
-                                    .frame(height: 40)
-                                    .background(selectedIds.contains(item.id) ? Color.white : Color(UIColor.systemGray6))
-                                    .foregroundColor(selectedIds.contains(item.id) ? Color.primaryNormal : Color.black)
+                                    .frame(height: 48)
+                                    .background(Color.white)
+                                    .foregroundColor(selectedIds.contains(item.id) ? Color.primaryNormal : Color(hex: "565656"))
                                     .overlay(
-                                        RoundedRectangle(cornerRadius: 8)
-                                            .stroke(selectedIds.contains(item.id) ? Color.primaryNormal : Color.clear)
+                                        RoundedRectangle(cornerRadius: 4)
+                                            .stroke(selectedIds.contains(item.id) ? Color.primaryNormal : Color(hex: "EBEBEB"))
                                     )
-                                    .cornerRadius(8)
+                                    .cornerRadius(4)
                             }
                         }
                     }
-                    .padding(.top, 8)
+                    .padding(.top, 16)
                 }
-                .padding(.horizontal, 20)
-                .padding(.top, 24)
+                .padding(.horizontal, 24)
             }
 
             // 하단 버튼

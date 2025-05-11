@@ -364,6 +364,20 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
+               BlueprintIdentifier = "824937338F8C5DC9D6F4B702"
+               BuildableName = "PopupView.framework"
+               BlueprintName = "PopupView"
+               ReferencedContainer = "container:Tuist/.build/tuist-derived/PopupView/PopupView.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
                BlueprintIdentifier = "C8340F58B0B1AD7EA1B1F833"
                BuildableName = "Search.framework"
                BlueprintName = "Search"
@@ -452,6 +466,20 @@
                BuildableName = "SurveyTests.xctest"
                BlueprintName = "SurveyTests"
                ReferencedContainer = "container:Modules/Features/Survey/Survey.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "C0B66C9F607B0D0E419B8581"
+               BuildableName = "SwiftUIIntrospect.framework"
+               BlueprintName = "SwiftUIIntrospect"
+               ReferencedContainer = "container:Tuist/.build/tuist-derived/swiftui-introspect/swiftui-introspect.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
          <BuildActionEntry

@@ -199,6 +199,9 @@ public struct ExploreView: View {
                 ForEach(viewModel.unionRecommendation.shuffled().prefix(6), id: \.id) { newsletter in
                     NewsletterRow(newsletter: newsletter)
                         .padding(.horizontal, 20)
+                        .onTapGesture {
+                            router.push(.brandDetail(id: "\(newsletter.id)"))
+                        }
                         
                 }
             }
@@ -326,6 +329,10 @@ public struct ExploreView: View {
                 ForEach(viewModel.allNewsletters) { brand in
                     NewsletterDetailRow(brand: brand)
                         .padding(.horizontal, 20)
+                        .onTapGesture {
+                            print("tapped")
+                            router.push(.brandDetail(id: "\(brand.id)"))
+                        }
                     
                 }
             }
@@ -372,6 +379,8 @@ extension Array {
 struct PagingScrollView: View {
     let newsletters: [NewsletterDetail]
     @Binding var currentPage: Int
+    
+    @EnvironmentObject private var router: AppRouter
 
     // 스크롤 위치 추적용
     @State private var scrollID: Int?
@@ -386,7 +395,11 @@ struct PagingScrollView: View {
                     ForEach(Array(items.enumerated()), id: \.element.id) { index, newsletter in
                         RecommendedNewsLetterView(recommendation: newsletter)
                             .frame(width: 320, height: 350)
-                            .id(index) // scrollPosition 추적용
+                            .id(index) // scrollPosition 추적
+                            .onTapGesture {
+                                router.push(.brandDetail(id: "\(newsletter.id)"))
+                            }
+                           
                     }
                 }
                 .scrollTargetLayout()

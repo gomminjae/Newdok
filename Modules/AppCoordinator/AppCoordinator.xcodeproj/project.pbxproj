@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		0B27C940DF5DAA6C8C7B851E /* Swinject.framework in Dependencies */ = {isa = PBXBuildFile; fileRef = D908C008AEFA0721CDA34C29 /* Swinject.framework */; };
+		0BD3CF907A80694B031FE405 /* Detail.framework in Dependencies */ = {isa = PBXBuildFile; fileRef = 2B12389B9D34AA31B5777696 /* Detail.framework */; };
 		13C9A534034C115EDB4A8D03 /* AppDIContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3792451C4D850095AD92560 /* AppDIContainer.swift */; };
 		34A2F59BAF7B9E5834D8DE20 /* AppCoordinatorEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93A25D25F6C1F4D5F26B3F2E /* AppCoordinatorEntry.swift */; };
 		39214A0E40CA0E2F9ECCCA05 /* Signup.framework in Dependencies */ = {isa = PBXBuildFile; fileRef = BF2FEF9CAF1F7732B4FF6B3E /* Signup.framework */; };
@@ -40,6 +41,7 @@
 				47A95E00D8121476916FABE8 /* Auth.framework in Dependencies */,
 				699BB6C4DC2DA0583A195BE3 /* Bookmark.framework in Dependencies */,
 				B172E4AF5DF3A35FF1ADA1B9 /* Data.framework in Dependencies */,
+				0BD3CF907A80694B031FE405 /* Detail.framework in Dependencies */,
 				C3E350D91B8ECF05EAB5C96F /* Domain.framework in Dependencies */,
 				71B73EACEC5BC6931DBF87D3 /* Explore.framework in Dependencies */,
 				B2545A523BEE4D136BDE4B11 /* Home.framework in Dependencies */,
@@ -71,6 +73,7 @@
 		1B39CB14B95B55A6AC773E37 /* Core.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Core.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		238DA4510E0083E8A5FFD06E /* Auth.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Auth.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		275A08FCEAEEF8B617DD483F /* Home.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Home.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		2B12389B9D34AA31B5777696 /* Detail.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Detail.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		389E23A3E1DBC5350510374E /* Data.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Data.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		40DEF26D6CCE1D89E30673E3 /* Bookmark.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Bookmark.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4DB5C72FA4659244F10721F3 /* AppCoordinator-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "AppCoordinator-Info.plist"; sourceTree = "<group>"; };
@@ -177,6 +180,7 @@
 				1B39CB14B95B55A6AC773E37 /* Core.framework */,
 				389E23A3E1DBC5350510374E /* Data.framework */,
 				55722F5CCC4201D4184E352D /* DesignSystem.framework */,
+				2B12389B9D34AA31B5777696 /* Detail.framework */,
 				924788B4548B7D433D29F3B4 /* Domain.framework */,
 				9C494B729F6FC9CAA8002E73 /* Explore.framework */,
 				275A08FCEAEEF8B617DD483F /* Home.framework */,

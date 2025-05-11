@@ -5,59 +5,30 @@
 //  Created by 권민재 on 4/20/25.
 //  Copyright © 2025 Your Organization Name. All rights reserved.
 //
-
 import SwiftUI
 
 public struct ToastView: View {
-    let message: String
+    public let message: String
+
+    public init(message: String) {
+        self.message = message
+    }
 
     public var body: some View {
-        HStack(spacing: 10) {
-            Image(asset: DesignSystemAsset.lineCheckCircle)
-                .font(.system(size: 18, weight: .semibold))
+        HStack(spacing: 8) {
+            Image(systemName: "checkmark.circle")
+                .font(.system(size: 14))
                 .foregroundColor(.white)
 
             Text(message)
-                .foregroundColor(.white)
                 .font(.hanSansNeo(14, .medium))
+                .foregroundColor(.white)
         }
-        .padding()
-        .background(Color.primaryNormal)
+        .padding(.horizontal, 16)
+        .frame(maxWidth: .infinity)
+        .frame(height: 56)
+        .background(Color(hex: "#2866D3"))
         .cornerRadius(8)
-        .padding(.horizontal, 20)
-    }
-}
-
-
-public struct BottomToastModifier: ViewModifier {
-    @Binding var isPresented: Bool
-    let message: String
-    let duration: TimeInterval
-
-    public func body(content: Content) -> some View {
-        ZStack {
-            content
-
-            if isPresented {
-                VStack {
-                    Spacer()
-                    ToastView(message: message)
-                        .transition(.move(edge: .bottom).combined(with: .opacity))
-                        .onAppear {
-                            DispatchQueue.main.asyncAfter(deadline: .now() + duration) {
-                                withAnimation {
-                                    isPresented = false
-                                }
-                            }
-                        }
-                }
-                .animation(.easeInOut, value: isPresented)
-            }
-        }
-    }
-}
-public extension View {
-    func bottomToast(isPresented: Binding<Bool>, message: String, duration: TimeInterval = 2.0) -> some View {
-        self.modifier(BottomToastModifier(isPresented: isPresented, message: message, duration: duration))
+        .padding(.horizontal, 24)
     }
 }

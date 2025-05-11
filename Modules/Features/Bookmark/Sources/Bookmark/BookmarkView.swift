@@ -148,12 +148,12 @@ public struct BookmarkView: View {
             Button(action: {
                 // 정렬 변경 동작
             }) {
-                HStack(spacing: 4) {
+                HStack(spacing: 0) {
                     Text(sortOrder)
                         .font(.hanSansNeo(13, .medium))
                         .foregroundColor(Color(hex: "#363636"))
-                    Image(systemName: "arrow.up.arrow.down")
-                        .font(.system(size: 20))
+                    Image(asset: DesignSystemAsset.updown)
+                        .renderingMode(.template)
                         .foregroundColor(Color(hex: "#363636"))
                 }
             }

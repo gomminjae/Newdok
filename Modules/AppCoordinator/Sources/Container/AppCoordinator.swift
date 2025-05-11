@@ -15,6 +15,8 @@ import Explore
 import Foundation
 import Subscribe
 import Bookmark
+import Detail
+import Domain
 
 final class AppCoordinator {
     private let container = AppDIContainer.shared
@@ -66,5 +68,13 @@ final class AppCoordinator {
     }
     func mekeProfileView() -> some View {
         return MypageView().environmentObject(router)
+    }
+    
+    func makeBrandDetail(id: String) -> some View {
+        
+        let vm = container.container.resolve(BrandDetailViewModel.self, argument: id)!
+        
+        
+        return BrandDetailView(viewModel: vm).environmentObject(router)
     }
 }

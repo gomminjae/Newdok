@@ -3,13 +3,14 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 55;
+	objectVersion = 56;
 	objects = {
 
 /* Begin PBXBuildFile section */
 		49E4F31AF9CEC156F3AD86FF /* DesignSystem.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AC1A311498193AE6DF677F49 /* DesignSystem.framework */; };
 		7E373051E56150C452EB9F8A /* Shared.framework in Dependencies */ = {isa = PBXBuildFile; fileRef = 818348BBF6B997119C6F5E6A /* Shared.framework */; };
 		8B094C7028F7E2E1363D1236 /* EmptySubscriptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0C1BA120221BB2C5DA202ED /* EmptySubscriptionView.swift */; };
+		B596FB9C2DD0EE7300234C8B /* UnsubscribePopupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B596FB9B2DD0EE7300234C8B /* UnsubscribePopupView.swift */; };
 		C4D403ADB487A63B26DEBCBD /* SubscribeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B7D112BBF7502924041ED21 /* SubscribeView.swift */; };
 		DB5C9D560E785B286AAA4E2E /* SubscribeRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 518873D08881857BF9308510 /* SubscribeRow.swift */; };
 		E74AB61A5820B6AC5B4E4508 /* Kingfisher.framework in Dependencies */ = {isa = PBXBuildFile; fileRef = 77C44007B0D39A42AB4ACE21 /* Kingfisher.framework */; };
@@ -56,6 +57,7 @@
 		AC1A311498193AE6DF677F49 /* DesignSystem.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = DesignSystem.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B0C1BA120221BB2C5DA202ED /* EmptySubscriptionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptySubscriptionView.swift; sourceTree = "<group>"; };
 		B2642F864ADC580169E7271B /* Domain.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Domain.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		B596FB9B2DD0EE7300234C8B /* UnsubscribePopupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnsubscribePopupView.swift; sourceTree = "<group>"; };
 		D7B3585C3C74FC24341FFA4E /* Subscribe-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "Subscribe-Info.plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -74,6 +76,7 @@
 		08484A3A72D5AF673AEE1640 /* Component */ = {
 			isa = PBXGroup;
 			children = (
+				B596FB9B2DD0EE7300234C8B /* UnsubscribePopupView.swift */,
 				B0C1BA120221BB2C5DA202ED /* EmptySubscriptionView.swift */,
 				27BE4372D9C9BB0DAF5A3985 /* SegmentPickerView.swift */,
 				518873D08881857BF9308510 /* SubscribeRow.swift */,
@@ -211,6 +214,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B596FB9C2DD0EE7300234C8B /* UnsubscribePopupView.swift in Sources */,
 				8B094C7028F7E2E1363D1236 /* EmptySubscriptionView.swift in Sources */,
 				F3CB6A79FD601706C034F708 /* SegmentPickerView.swift in Sources */,
 				DB5C9D560E785B286AAA4E2E /* SubscribeRow.swift in Sources */,
@@ -248,10 +252,7 @@
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
 				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = (
-					"$(inherited)",
-					DEBUG,
-				);
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) DEBUG";
 				SWIFT_COMPILATION_MODE = singlefile;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;

@@ -57,6 +57,7 @@ public enum DesignSystemAsset: Sendable {
   public static let signup = DesignSystemImages(name: "signup")
   public static let time = DesignSystemImages(name: "time")
   public static let uncheck = DesignSystemImages(name: "uncheck")
+  public static let updown = DesignSystemImages(name: "updown")
   public static let warning = DesignSystemImages(name: "warning")
   public static let back = DesignSystemImages(name: "Back")
   public static let lineArrowTransfer = DesignSystemImages(name: "Line Arrow Transfer")

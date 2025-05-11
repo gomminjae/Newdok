@@ -13,11 +13,6 @@ struct EmailInfoModalView: View {
     
     
     var body: some View {
-        ZStack {
-           
-            Color.black.opacity(0.4)
-                .ignoresSafeArea()
-            
    
             VStack(alignment: .leading, spacing: 0) {
                 
@@ -95,6 +90,5 @@ struct EmailInfoModalView: View {
             .shadow(radius: 4)
             .padding(.horizontal, 24)
         }
-    }
 }
 

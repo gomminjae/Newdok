@@ -22,6 +22,7 @@ let project = Project(
         .project(target: "Subscribe", path: "../Features/Subscribe"), 
         .project(target: "Search", path: "../Features/Search"),
         .project(target: "Bookmark", path: "../Features/Bookmark"),
+        .project(target: "Detail", path: "../Features/Detail"), 
         .project(target: "Data", path: "../Data"),
         .project(target: "Domain", path: "../Domain"),
         .project(target: "Core", path: "../Core"),

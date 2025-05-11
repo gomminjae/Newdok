@@ -15,7 +15,8 @@ import ProjectDescription
              resources: ["Resources/**"],
              dependencies: [
                  .project(target: "DesignSystem", path: "../../DesignSystem"),
-                 .project(target: "Shared", path: "../../Shared"), 
+                 .project(target: "Shared", path: "../../Shared"),
+                 .external(name: "PopupView")
               ]
          )
      ]

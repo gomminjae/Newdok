@@ -18,6 +18,7 @@
 		508E52E990E3E3BF408A7501 /* DesignSystem.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 42F5E70E54A9D11122495EFF /* DesignSystem.framework */; };
 		603DD422847CD0CC50C2CA68 /* Auth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A8111C9E153F8D084CA5582 /* Auth.framework */; };
 		6CFA24C20382F58C91C10779 /* Search.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4BC68A9C532A093929A7F845 /* Search.framework */; };
+		71C7EAD2BC434CDEC1A61439 /* SwiftUIIntrospect.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D1030C41F2B46CDAE67CA5A0 /* SwiftUIIntrospect.framework */; };
 		7F36D8FBE7C77D5E020B84B3 /* Core.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2378C408DCDC0EDC22736EE2 /* Core.framework */; };
 		87FC3194588504EAA7B0720C /* Kingfisher_Kingfisher.bundle in Dependencies */ = {isa = PBXBuildFile; fileRef = 3D284BF5567CE0CE34164DC1 /* Kingfisher_Kingfisher.bundle */; };
 		9D95A440D1F08648A1189B26 /* BMain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D9D8337B8DADC1C73C9B83 /* BMain.swift */; };
@@ -25,8 +26,10 @@
 		AECC421D10C27B6A7DA92E35 /* AppCoordinator.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 53D7F0C40548F755B7A470EE /* AppCoordinator.framework */; };
 		BC4D17FFCADE9D608BD4F9B1 /* Home.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A3807BBFB2D5C8B2513C5534 /* Home.framework */; };
 		BDE1D020A28F07EA1FDE6B99 /* Core.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 2378C408DCDC0EDC22736EE2 /* Core.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C02078BB3F16806F983509CF /* Detail.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2B22FA163A3145E3003898B4 /* Detail.framework */; };
 		C676D0ADA0F76C0916235CD6 /* Shared.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F4FA82F97BD0C253847BEBC3 /* Shared.framework */; };
 		CC49E426B74F82F1EDA40FE5 /* Kingfisher_Kingfisher.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 3D284BF5567CE0CE34164DC1 /* Kingfisher_Kingfisher.bundle */; };
+		CF3EB26141045232946D5678 /* PopupView.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 44513F78E5A0EFF791B2EF61 /* PopupView.framework */; };
 		D7F7B41C84B829672F721F53 /* Swinject.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E05AA693C3E4A78793949CF5 /* Swinject.framework */; };
 		DBCC2AB2186077776463CD5D /* Explore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 48862800142DC5E05C5B28E3 /* Explore.framework */; };
 		EBE6591D3B210BA5A77C4BEE /* Signup.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9E10D8055DE91DF89CD9A616 /* Signup.framework */; };
@@ -87,9 +90,11 @@
 		063771607106B9FAF0CD3191 /* Domain.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Domain.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		07F21865B765752721E8465D /* Launch.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Launch.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2378C408DCDC0EDC22736EE2 /* Core.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Core.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		2B22FA163A3145E3003898B4 /* Detail.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Detail.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3D284BF5567CE0CE34164DC1 /* Kingfisher_Kingfisher.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Kingfisher_Kingfisher.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
 		425857CB3DDB1DFF6EDD7842 /* BTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "BTests-Info.plist"; sourceTree = "<group>"; };
 		42F5E70E54A9D11122495EFF /* DesignSystem.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = DesignSystem.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		44513F78E5A0EFF791B2EF61 /* PopupView.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = PopupView.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		463931FF006CC49E6594D6C0 /* Alamofire_Alamofire.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Alamofire_Alamofire.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
 		48862800142DC5E05C5B28E3 /* Explore.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Explore.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4AC530546BCB1DF246993E72 /* Survey.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Survey.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -106,6 +111,7 @@
 		B2F059A4D28A405569119AE2 /* Mypage.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Mypage.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BAF1D945C939D2A114D6DA70 /* Kingfisher.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Kingfisher.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CA035CDBC79B589E2A387B44 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		D1030C41F2B46CDAE67CA5A0 /* SwiftUIIntrospect.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SwiftUIIntrospect.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D2857F713F5C24040D1DBDA2 /* BTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		E05AA693C3E4A78793949CF5 /* Swinject.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Swinject.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F4FA82F97BD0C253847BEBC3 /* Shared.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Shared.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -130,17 +136,20 @@
 				7F36D8FBE7C77D5E020B84B3 /* Core.framework in Frameworks */,
 				A287073E23F5DFCBE7A7028A /* Data.framework in Frameworks */,
 				508E52E990E3E3BF408A7501 /* DesignSystem.framework in Frameworks */,
+				C02078BB3F16806F983509CF /* Detail.framework in Frameworks */,
 				2C98BFBD6353B1565A738604 /* Domain.framework in Frameworks */,
 				DBCC2AB2186077776463CD5D /* Explore.framework in Frameworks */,
 				BC4D17FFCADE9D608BD4F9B1 /* Home.framework in Frameworks */,
 				37928BB26BF71F7932A66715 /* Kingfisher.framework in Frameworks */,
 				3CB1006058EC00097C4F8544 /* Launch.framework in Frameworks */,
 				EF1CA8797A9F6AF7DA5418C8 /* Mypage.framework in Frameworks */,
+				CF3EB26141045232946D5678 /* PopupView.framework in Frameworks */,
 				6CFA24C20382F58C91C10779 /* Search.framework in Frameworks */,
 				C676D0ADA0F76C0916235CD6 /* Shared.framework in Frameworks */,
 				EBE6591D3B210BA5A77C4BEE /* Signup.framework in Frameworks */,
 				F238F35B4622D167C6C0F0D2 /* Subscribe.framework in Frameworks */,
 				3408CDDE0AF6EA0587436697 /* Survey.framework in Frameworks */,
+				71C7EAD2BC434CDEC1A61439 /* SwiftUIIntrospect.framework in Frameworks */,
 				D7F7B41C84B829672F721F53 /* Swinject.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -178,6 +187,7 @@
 				2378C408DCDC0EDC22736EE2 /* Core.framework */,
 				A0D3F01D7AE7F92987AA5BEB /* Data.framework */,
 				42F5E70E54A9D11122495EFF /* DesignSystem.framework */,
+				2B22FA163A3145E3003898B4 /* Detail.framework */,
 				063771607106B9FAF0CD3191 /* Domain.framework */,
 				48862800142DC5E05C5B28E3 /* Explore.framework */,
 				A3807BBFB2D5C8B2513C5534 /* Home.framework */,
@@ -185,11 +195,13 @@
 				BAF1D945C939D2A114D6DA70 /* Kingfisher.framework */,
 				07F21865B765752721E8465D /* Launch.framework */,
 				B2F059A4D28A405569119AE2 /* Mypage.framework */,
+				44513F78E5A0EFF791B2EF61 /* PopupView.framework */,
 				4BC68A9C532A093929A7F845 /* Search.framework */,
 				F4FA82F97BD0C253847BEBC3 /* Shared.framework */,
 				9E10D8055DE91DF89CD9A616 /* Signup.framework */,
 				71214E5D20E7105B268DB5C1 /* Subscribe.framework */,
 				4AC530546BCB1DF246993E72 /* Survey.framework */,
+				D1030C41F2B46CDAE67CA5A0 /* SwiftUIIntrospect.framework */,
 				E05AA693C3E4A78793949CF5 /* Swinject.framework */,
 			);
 			name = Products;

@@ -73,6 +73,15 @@ public class ExploreViewModel: ObservableObject {
         }
     }
     
+    public func fetchBrandDetail(id: String) async {
+        Task {
+            do {
+                let response = try await useCase.fetchNewsletterBrand(id: id)
+                
+            }
+        }
+    }
+    
     
     
 }

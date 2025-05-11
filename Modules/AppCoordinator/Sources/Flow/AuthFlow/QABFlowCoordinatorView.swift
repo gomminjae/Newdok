@@ -49,6 +49,9 @@ struct QABRootViewView: View {
                         coordinator.mekeProfileView()
                     case .explore:
                         coordinator.makeExploreView()
+                    case .brandDetail(let id):
+                        coordinator.makeBrandDetail(id: id)
+                        
                     }
                 }
                 .navigationDestination(for: AppRoute.self) { route in
@@ -67,6 +70,8 @@ struct QABRootViewView: View {
                         coordinator.mekeProfileView()
                     case .explore:
                         coordinator.makeExploreView()
+                    case .brandDetail(let id):
+                        coordinator.makeBrandDetail(id: id)
                     }
                 }
                 .opacity(launched ? 1 : 0) // Splash 후 메인뷰 서서히 등장

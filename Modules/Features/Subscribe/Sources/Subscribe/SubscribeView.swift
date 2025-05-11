@@ -7,11 +7,17 @@
 import SwiftUI
 import DesignSystem
 import Domain
+import PopupView
 
 public struct SubscribeView: View {
     @State private var selectedTab: Int = 0
     @StateObject private var viewModel: SubscribeViewModel
-
+    
+    
+    @State private var showUnsubscribeAlert: Bool = false
+    @State private var selectedNewsletter: Newsletter? = nil
+    
+    
     public init(viewModel: SubscribeViewModel) {
         _viewModel = StateObject(wrappedValue: viewModel)
     }
@@ -37,8 +43,10 @@ public struct SubscribeView: View {
                         ForEach(filteredSubscriptions, id: \.id) { newsletter in
                             SubscribeRow(newsletter: newsletter, isSubscribed: selectedTab == 0) {
                                 if selectedTab == 0 {
-                                    await viewModel.pause(newsletterId: String(newsletter.id ?? 0))
-                                    await viewModel.fetchActive()
+                                    selectedNewsletter = newsletter
+                                    showUnsubscribeAlert = true
+//                                    await viewModel.pause(newsletterId: String(newsletter.id ?? 0))
+//                                    await viewModel.fetchActive()
                                 } else {
                                     await viewModel.resume(newsletterId: String(newsletter.id ?? 0))
                                     await viewModel.fetchPaused()
@@ -60,6 +68,33 @@ public struct SubscribeView: View {
                 await viewModel.fetchPaused()
             }
         }
+        .popup(isPresented: $showUnsubscribeAlert) {
+            if let selected = selectedNewsletter {
+                UnsubscribePopupView(
+                    brandName: selected.brandName,
+                    onCancel: {
+                        showUnsubscribeAlert = false
+                        selectedNewsletter = nil
+                    },
+                    onConfirm: {
+                        Task {
+                            await viewModel.pause(newsletterId: String(selected.id ?? 0))
+                            await viewModel.fetchActive()
+                            selectedNewsletter = nil
+                            showUnsubscribeAlert = false
+                        }
+                    }
+                )
+            }
+        } customize: {
+            $0
+                .type(.default)
+                .position(.center)
+                .animation(.spring())
+                .backgroundColor(Color.black.opacity(0.3))
+                .closeOnTapOutside(true)
+        }
+        
     }
 
     private var filteredSubscriptions: [Newsletter] {

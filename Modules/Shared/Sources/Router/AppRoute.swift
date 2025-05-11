@@ -5,7 +5,6 @@
 //  Created by 권민재 on 4/9/25.
 //
 
-
 public enum AppRoute: Hashable {
     case onboarding
     case login
@@ -14,4 +13,6 @@ public enum AppRoute: Hashable {
     case profile
     case explore
     case tabbar
+    
+    case brandDetail(id: String)
 }

@@ -8,7 +8,7 @@
 
 
 
-public struct BrandArticle {
+public struct BrandArticle: Identifiable {
     public let id: Int
     public let title: String
     public let date: String

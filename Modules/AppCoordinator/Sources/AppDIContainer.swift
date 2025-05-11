@@ -18,6 +18,7 @@ import Home
 import Explore
 import Subscribe
 import Bookmark
+import Detail
 
 public final class AppDIContainer {
     public static let shared = AppDIContainer()
@@ -145,5 +146,12 @@ public final class AppDIContainer {
             }
         }
         .inObjectScope(.container)
+        
+        container.register(BrandDetailViewModel.self) { (r, id: String) in
+            let useCase = r.resolve(NewsletterUseCase.self)!
+            return MainActor.assumeIsolated {
+                return BrandDetailViewModel(id: id,useCase: useCase)
+            }
+        }
     }
 }
