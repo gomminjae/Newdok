@@ -83,58 +83,62 @@ public struct HomeView: View {
                     
                     // MARK: - 콘텐츠 뷰
                     VStack {
-                        if isGuest {
-                            NoDataView(type: .requireSignUp, buttonAction: {
-                                router.push(.signup)
-                            }, loginAction: {
-                                router.push(.login)
-                            })
-                        } else {
-                            if viewModel.subscribedNewsletters.isEmpty && viewModel.filteredArticles.isEmpty {
-                                NoDataView(type: .noSubscriptions, buttonAction: {})
-                            } else if viewModel.filteredArticles.isEmpty {
-                                NoDataView(type: .noArticles, buttonAction: {})
-                            } else {
-                                VStack {
-                                    HStack {
-                                        Text("\(viewModel.filteredArticles.count)개의 아티클이 도착했어요.")
-                                            .font(.hanSansNeo(18, .bold))
-                                            .padding(.top, 20)
-                                            .padding(.leading, 28)
-                                        Spacer()
-                                        Button(action: {
-                                            Task {
-                                                await viewModel.loadToday()
-                                            }
-                                        }) {
-                                            HStack(spacing: 4) {
-                                                Image(asset: DesignSystemAsset.refresh)
-                                                    .font(.hanSansNeo(14,.medium))
-                                                    .foregroundStyle(Color.primaryNormal)
-                                                Text("새로고침")
-                                                    .font(.hanSansNeo(14, .medium))
-                                                    .foregroundStyle(Color.primaryNormal)
-                                            }
+                        switch viewModel.homeState {
+                        case .none:
+                            EmptyView()
+                        case .guest:
+                            NoDataView(
+                                type: .requireSignUp,
+                                buttonAction: { router.push(.signup) },
+                                loginAction: { router.push(.login) }
+                            )
+                            
+                        case .noSubscriptions:
+                            NoDataView(type: .noSubscriptions, buttonAction: {})
+
+                        case .noArticles:
+                            NoDataView(type: .noArticles, buttonAction: {})
+
+                        case .articles:
+                            VStack {
+                                HStack {
+                                    Text("\(viewModel.filteredArticles.count)개의 아티클이 도착했어요.")
+                                        .font(.hanSansNeo(18, .bold))
+                                        .padding(.top, 20)
+                                        .padding(.leading, 28)
+                                    Spacer()
+                                    Button(action: {
+                                        Task {
+                                            await viewModel.loadToday()
                                         }
-                                        .padding(.top, 23)
-                                        .padding(.trailing, 24)
-                                    }
-                                    
-                                    VStack(spacing: 8) {
-                                        ForEach(viewModel.filteredArticles) { article in
-                                            ArticleRow(article: article)
-                                                .frame(height: 88)
+                                    }) {
+                                        HStack(spacing: 4) {
+                                            Image(asset: DesignSystemAsset.refresh)
+                                                .font(.hanSansNeo(14, .medium))
+                                                .foregroundStyle(Color.primaryNormal)
+                                            Text("새로고침")
+                                                .font(.hanSansNeo(14, .medium))
+                                                .foregroundStyle(Color.primaryNormal)
                                         }
                                     }
-                                    .padding(.top, 20)
-                                    .padding(.horizontal, 20)
-                                    .padding(.bottom, 16)
+                                    .padding(.top, 23)
+                                    .padding(.trailing, 24)
                                 }
-                                .background(
-                                    Color.white
-                                        .clipShape(RoundedRectangle(cornerRadius: 12))
-                                )
+
+                                VStack(spacing: 8) {
+                                    ForEach(viewModel.filteredArticles) { article in
+                                        ArticleRow(article: article)
+                                            .frame(height: 88)
+                                    }
+                                }
+                                .padding(.top, 20)
+                                .padding(.horizontal, 20)
+                                .padding(.bottom, 16)
                             }
+                            .background(
+                                Color.white
+                                    .clipShape(RoundedRectangle(cornerRadius: 12))
+                            )
                         }
                     }
                 }
@@ -152,8 +156,10 @@ public struct HomeView: View {
             CalendarPopupView(
                 isPresented: $showCalendar,
                 onDateSelected: { date in
-                    viewModel.selectedDate = date
-                    viewModel.loadArticles(for: date)
+                    Task {
+                        viewModel.selectedDate = date
+                        await viewModel.loadArticles(for: date)
+                    }
                 }
             )
             .presentationBackground(Color(hex: "#25242C").opacity(0.6))

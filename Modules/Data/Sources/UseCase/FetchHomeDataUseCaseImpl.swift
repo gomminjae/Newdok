@@ -22,21 +22,36 @@ public class FetchHomeDataUseCaseImpl: FetchHomeDataUseCase {
     }
     
     
+//    public func fetchTodayData() async throws -> Domain.HomeData {
+//        
+//        async let articlesTask = articleRepo.fetchTodayArticles()
+//        async let newslettersTask = newsletterRepo.fetchActiveSubscription()
+//        
+//        let articles = try await articlesTask
+//        let newsletters = try await newslettersTask
+//        
+//        let articleList = articles
+//        
+//        return HomeData(
+//            articles: articleList,
+//            activeNewsletters: newsletters
+//        )
+//    }
     public func fetchTodayData() async throws -> Domain.HomeData {
-        
-        async let articlesTask = articleRepo.fetchTodayArticles()
-        async let newslettersTask = newsletterRepo.fetchActiveSubscription()
-        
-        let articles = try await articlesTask
-        let newsletters = try await newslettersTask
-        
-        let articleList = articles
-        
+        let newsletters = try await newsletterRepo.fetchActiveSubscription()
+
+        guard !newsletters.isEmpty else {
+            return HomeData(articles: [], activeNewsletters: [])
+        }
+
+        let articles = try await articleRepo.fetchTodayArticles()
+
         return HomeData(
-            articles: articleList,
+            articles: articles,
             activeNewsletters: newsletters
         )
     }
+
 
     
     public func fetchMonthlyData(year: String, month: String) async throws -> [Domain.Articles] {

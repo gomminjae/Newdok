@@ -11,6 +11,15 @@ import Domain
 import Shared
 import Foundation
 
+enum HomeState {
+    case none 
+    case guest
+    case noSubscriptions
+    case noArticles
+    case articles
+}
+
+
 
 @MainActor
 public final class HomeViewModel: ObservableObject {
@@ -21,13 +30,32 @@ public final class HomeViewModel: ObservableObject {
         self.useCase = useCase
     }
     
-    // MARK: - Published 상태
+
+    
+    @Published public var isLoaded: Bool = false
+    
     @Published public var filteredArticles: [Article] = []
     @Published public var subscribedNewsletters: [Newsletter] = []
     @Published public var articlesByMonth: [Articles] = []
     @Published public var selectedDate: Date = Date()
     
     @AppStorage("isGuest") public var isGuest: Bool = false
+    
+    
+    var homeState: HomeState {
+        if !isLoaded {
+            return .none// or .none if 따로 정의
+        } else if isGuest {
+            return .guest
+        } else if subscribedNewsletters.isEmpty && filteredArticles.isEmpty {
+            return .noSubscriptions
+        } else if filteredArticles.isEmpty {
+            return .noArticles
+        } else {
+            return .articles
+        }
+    }
+
     
     
     public var activeArticeDays: [Int] {
@@ -38,6 +66,7 @@ public final class HomeViewModel: ObservableObject {
     
     
     public func loadToday() async {
+        isLoaded = false
         do {
             let data = try await useCase.fetchTodayData()
             self.filteredArticles = data.articles
@@ -45,20 +74,19 @@ public final class HomeViewModel: ObservableObject {
         } catch {
             print("today fetch error: \(error)")
         }
+        isLoaded = true
     }
     
-    public func loadArticles(for date: Date) {
+    public func loadArticles(for date: Date) async {
         let year = formatYear(date)
         let month = formatMonth(date)
-
-        Task {
-            do {
-                let monthly = try await useCase.fetchMonthlyData(year: year, month: month)
-                self.articlesByMonth = monthly
-                self.filterArticles(by: date)
-            } catch {
-                print("❌ Monthly fetch failed: \(error)")
-            }
+        
+        do {
+            let monthly = try await useCase.fetchMonthlyData(year: year, month: month)
+            self.articlesByMonth = monthly
+            self.filterArticles(by: date)
+        } catch {
+            print("❌ Monthly fetch failed: \(error)")
         }
     }
     public func filterArticles(by date: Date) {

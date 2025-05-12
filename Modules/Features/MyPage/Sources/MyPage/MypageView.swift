@@ -17,6 +17,8 @@ public struct MypageView: View {
     @State private var showEmailAlert: Bool = false
     
     @State private var isCopy: Bool = false
+    
+    @EnvironmentObject private var router: AppRouter
 
     public init() {}
 
@@ -94,6 +96,7 @@ public struct MypageView: View {
                         NavigationLink("계정 관리", destination: AccountManagementView())
                             .buttonStyle(PlainButtonStyle())
                             .settingRowStyle()
+                            .environmentObject(router)
                         NavigationLink("알림 설정", destination: Text("알림 설정 화면"))
                             .buttonStyle(PlainButtonStyle())
                             .settingRowStyle()

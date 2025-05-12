@@ -8,7 +8,7 @@ import Domain
 
 public struct ArticleDetailDTO: Decodable {
     let articleTitle: String
-    let articleId: String
+    let articleid: Int
     let date: String
     let brandId: Int
     let brandName: String
@@ -19,7 +19,7 @@ public struct ArticleDetailDTO: Decodable {
     public func toDomain() -> ArticleDetail {
         return ArticleDetail(
             articleTitle: articleTitle,
-            articleId: articleId,
+            articleId: articleid,
             date: date,
             brandId: brandId,
             brandName: brandName,

@@ -45,12 +45,12 @@ public final class AppDIContainer {
             let network = r.resolve(NetworkProviding.self)!
             return network.makeAuthProvider()
         }.inObjectScope(.container)
-
+        
         container.register(MoyaProvider<NewsletterAPI>.self) { r in
             let network = r.resolve(NetworkProviding.self)!
             return network.makeNewsletterProvider()
         }.inObjectScope(.container)
-
+        
         container.register(MoyaProvider<ArticleAPI>.self) { r in
             let network = r.resolve(NetworkProviding.self)!
             return network.mekeArticleProvider()
@@ -63,41 +63,41 @@ public final class AppDIContainer {
             print("🔗 [DI] Injected: NetworkProvider → UserRepository")
             return UserRepositoryImpl(provider: provider)
         }.inObjectScope(.container)
-
+        
         container.register(NewsletterRepository.self) { r in
             let provider = r.resolve(MoyaProvider<NewsletterAPI>.self)!
             return NewsletterRepositoryImpl(provider: provider)
         }.inObjectScope(.container)
-
+        
         container.register(ArticleRepository.self) { r in
             let provider = r.resolve(MoyaProvider<ArticleAPI>.self)!
             return ArticleRepositoryImpl(provider: provider)
         }.inObjectScope(.container)
-
+        
         // MARK: - UseCase
         container.register(UserUseCase.self) { r in
             print("🧩 [DI] Register: UserUseCase")
             let repo = r.resolve(UserRepository.self)!
             print("🔗 [DI] Injected: UserRepository → UserUseCase")
             return UserUseCaseImpl(userRepository: repo)
-        }.inObjectScope(.container)
+        }
         container.register(ArticleUseCase.self) { r in
             print("🧩 [DI] Register: UserUseCase")
             let repo = r.resolve(ArticleRepository.self)!
             print("🔗 [DI] Injected: UserRepository → UserUseCase")
             return ArticleUseCaseImpl(articleRepository: repo)
-        }.inObjectScope(.container)
-
+        }
+        
         container.register(FetchHomeDataUseCase.self) { r in
             let articleRepo = r.resolve(ArticleRepository.self)!
             let newsletterRepo = r.resolve(NewsletterRepository.self)!
             return FetchHomeDataUseCaseImpl(newsletterRepo: newsletterRepo, articleRepo: articleRepo)
-        }.inObjectScope(.container)
-
+        }
+        
         container.register(NewsletterUseCase.self) { r in
             let repo = r.resolve(NewsletterRepository.self)!
             return NewsletterUseCaseImpl(repository: repo)
-        }.inObjectScope(.container)
+        }
         
         // MARK: - ViewModels
         container.register(SignupViewModel.self) { r in
@@ -117,14 +117,14 @@ public final class AppDIContainer {
                 LoginViewModel(userUserCase: useCase)
             }
         }.inObjectScope(.container)
-
+        
         container.register(HomeViewModel.self) { r in
             let useCase = r.resolve(FetchHomeDataUseCase.self)!
             return MainActor.assumeIsolated {
                 HomeViewModel(useCase: useCase)
             }
         }.inObjectScope(.container)
-
+        
         container.register(ExploreViewModel.self) { r in
             let useCase = r.resolve(NewsletterUseCase.self)!
             return MainActor.assumeIsolated {
@@ -153,5 +153,13 @@ public final class AppDIContainer {
                 return BrandDetailViewModel(id: id,useCase: useCase)
             }
         }
+        
+        container.register(ArticleDetailViewModel.self) { (r,id: String) in
+            let useCase = r.resolve(ArticleUseCase.self)!
+            return MainActor.assumeIsolated {
+                return ArticleDetailViewModel(id: id, useCase: useCase)
+            }
+        }
+    
     }
 }

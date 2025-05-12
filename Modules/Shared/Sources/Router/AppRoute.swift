@@ -15,4 +15,5 @@ public enum AppRoute: Hashable {
     case tabbar
     
     case brandDetail(id: String)
+    case articleDetail(id: String)
 }

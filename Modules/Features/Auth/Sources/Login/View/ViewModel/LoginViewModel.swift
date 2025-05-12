@@ -63,8 +63,8 @@ public final class LoginViewModel: LoginViewModelBindable {
     
     public init(userUserCase: UserUseCase) {
         self.userUseCase = userUserCase
-        self.loginId = "newdok-test1"
-        self.password = "newdok-test1"
+        self.loginId = "kjyong702"
+        self.password = "k1203702"
         self.isUserIdValid = false
         self.isUserPwdValid = false
         self.isLoading = false

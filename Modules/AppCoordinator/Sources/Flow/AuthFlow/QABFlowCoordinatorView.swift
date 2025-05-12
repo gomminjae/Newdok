@@ -52,6 +52,9 @@ struct QABRootViewView: View {
                     case .brandDetail(let id):
                         coordinator.makeBrandDetail(id: id)
                         
+                    case .articleDetail(let id):
+                        coordinator.makeArticleDetail(id: id)
+                        
                     }
                 }
                 .navigationDestination(for: AppRoute.self) { route in
@@ -72,19 +75,23 @@ struct QABRootViewView: View {
                         coordinator.makeExploreView()
                     case .brandDetail(let id):
                         coordinator.makeBrandDetail(id: id)
+                    case .articleDetail(let id):
+                        coordinator.makeArticleDetail(id: id)
+                        
                     }
                 }
-                .opacity(launched ? 1 : 0) // Splash 후 메인뷰 서서히 등장
-                .animation(.easeInOut(duration: 0.3), value: launched)
             }
-            .onAppear {
-                DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
-                    withAnimation {
-                        launched = true
-                        print("QABRootViewView에서 router 인스턴스: \(Unmanaged.passUnretained(router).toOpaque())")
-                    }
+            .opacity(launched ? 1 : 0) // Splash 후 메인뷰 서서히 등장
+            .animation(.easeInOut(duration: 0.3), value: launched)
+        }
+        .onAppear {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+                withAnimation {
+                    launched = true
+                    print("QABRootViewView에서 router 인스턴스: \(Unmanaged.passUnretained(router).toOpaque())")
                 }
             }
         }
     }
 }
+

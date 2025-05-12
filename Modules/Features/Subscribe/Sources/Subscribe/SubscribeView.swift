@@ -54,13 +54,16 @@ public struct SubscribeView: View {
 //                                    await viewModel.pause(newsletterId: String(newsletter.id ?? 0))
 //                                    await viewModel.fetchActive()
                                 } else {
-                                    await viewModel.resume(newsletterId: String(newsletter.id ?? 0))
-                                    await viewModel.fetchPaused()
-                                    showSubscribeToast = true
-                                    DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-                                        
-                                        showSubscribeToast = false
-                                        print("토스트 끝났음")
+                                    Task {
+                                        await viewModel.resume(newsletterId: String(newsletter.id ?? 0))
+                                        await viewModel.fetchPaused()
+                                        await viewModel.fetchActive()
+                                        showSubscribeToast = true
+                                        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                                            
+                                            showSubscribeToast = false
+                                            print("토스트 끝났음")
+                                        }
                                     }
                                 }
                             }
@@ -176,7 +179,7 @@ public struct SubscribeView: View {
         VStack(alignment: .leading, spacing: 8) {
             Text(selectedTab == 0 ? "총 \(filteredSubscriptions.count)개의 뉴스레터를 구독중이에요." : "\(filteredSubscriptions.count)개의 뉴스레터를 구독 중지했어요.")
                 .font(.hanSansNeo(16, .bold))
-                .padding(.top, 16)
+                .padding(.top, 32)
             Text(selectedTab == 0 ? "구독신청 후 첫 아티클을 수신받으면 내 구독에 추가돼요." : "구독을 재개하면 다시 아티클을 받아볼 수 있어요")
                 .font(.hanSansNeo(14, .medium))
                 .foregroundStyle(Color(hex: "#565656"))

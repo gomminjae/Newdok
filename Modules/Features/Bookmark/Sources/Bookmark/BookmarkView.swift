@@ -10,12 +10,15 @@
 import SwiftUI
 import DesignSystem
 import Domain
+import Shared
 
 public struct BookmarkView: View {
     @State private var selectedCategory: String = "전체"
     @State private var sortOrder: String = "추가순"
     
     @StateObject private var viewModel: BookmarkViewModel
+    
+    @EnvironmentObject private var router: AppRouter
     
     public let interests: [String: String] = [
         "1": "경제・시사・상식",
@@ -174,6 +177,9 @@ public struct BookmarkView: View {
                 BookmarkCard(article: article)
                     .padding(.horizontal, 24)
                     .padding(.bottom, 8)
+                    .onTapGesture {
+                        router.push(.articleDetail(id: "\(article.id)"))
+                    }
             }
         }
         .padding(.top, 20)

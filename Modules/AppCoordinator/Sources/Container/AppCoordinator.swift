@@ -77,4 +77,9 @@ final class AppCoordinator {
         
         return BrandDetailView(viewModel: vm).environmentObject(router)
     }
+    
+    func makeArticleDetail(id: String) -> some View {
+        let vm = container.container.resolve(ArticleDetailViewModel.self, argument: id)!
+        return ArticleDetailView(viewModel: vm).environmentObject(router)
+    }
 }

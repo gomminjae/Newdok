@@ -9,10 +9,12 @@
 import SwiftUI
 import DesignSystem
 import PopupView
+import Shared
 
 public struct AccountManagementView: View {
     @Environment(\.dismiss) private var dismiss
     @State private var showLogoutPopup = false
+    @EnvironmentObject private var router: AppRouter
 
     public init() {}
 
@@ -33,6 +35,9 @@ public struct AccountManagementView: View {
             // 로그아웃 버튼
             Button {
                 showLogoutPopup = true
+                router.resetTo(.login)
+                
+                
             } label: {
                 rowLabel(title: "로그아웃")
             }
@@ -77,6 +82,7 @@ public struct AccountManagementView: View {
                 onCancel: { showLogoutPopup = false },
                 onConfirm: {
                     showLogoutPopup = false
+                    router.resetTo(.login)
                     // 로그아웃 로직
                 }
             )

@@ -42,37 +42,36 @@ public struct NewDokTabView: View {
         self.subscribeViewModel = subscribeViewModel
         self.bookmarkViewModel = bookmarkViewModel
     }
-
+    
     public var body: some View {
         ZStack(alignment: .bottom) {
             TabView(selection: $selectedTab) {
-                NavigationStack {
-                    ExploreView(viewModel: exploreViewModel)
-                }
-                .tag(NewDokTab.explore)
-
-                NavigationStack {
-                    SubscribeView(viewModel: subscribeViewModel)
-                }
-                .tag(NewDokTab.subscribe)
-
-                NavigationStack {
-                    HomeView(viewModel: homeViewModel)
-                }
-                .tag(NewDokTab.home)
-
-                NavigationStack {
-                    BookmarkView(viewModel: bookmarkViewModel)
-                }
-                .tag(NewDokTab.bookmark)
-
-                NavigationStack {
-                    MypageView()
-                }
-                .tag(NewDokTab.profile)
+                
+                ExploreView(viewModel: exploreViewModel)
+                
+                    .tag(NewDokTab.explore)
+                
+                
+                SubscribeView(viewModel: subscribeViewModel)
+                
+                    .tag(NewDokTab.subscribe)
+                
+                HomeView(viewModel: homeViewModel)
+                
+                    .tag(NewDokTab.home)
+                
+                
+                BookmarkView(viewModel: bookmarkViewModel)
+                
+                    .tag(NewDokTab.bookmark)
+                
+                
+                MypageView()
+                
+                    .tag(NewDokTab.profile)
             }
             .edgesIgnoringSafeArea(.bottom)
-
+            
             NewDokTabBar(selectedTab: $selectedTab)
                 .background(Color.white)
         }
@@ -108,6 +107,7 @@ struct NewDokTabBar: View {
     private func tabItem(_ tab: NewDokTab, normalAsset: DesignSystemImages, selectedAsset: DesignSystemImages, title: String) -> some View {
         VStack(spacing: 4) {
             Image(asset: selectedTab == tab ? selectedAsset : normalAsset)
+                
             Text(title)
                 .font(.hanSansNeo(11,.medium))
                 .foregroundColor(selectedTab == tab ? Color.primaryNormal : Color.gray)
@@ -117,6 +117,7 @@ struct NewDokTabBar: View {
             selectedTab = tab
         }
     }
+    
 
 }
 

@@ -146,13 +146,13 @@ public struct BrandDetailView: View {
                             .padding(.bottom, 4)
 
                         HStack {
-                            Text(article.date)
+                            Text(article.date.prefix(10))
                                 .font(.hanSansNeo(12, .medium))
                                 .foregroundColor(Color(hex: "565656"))
 
                             Divider()
 
-                            Text("오전 7:06")
+                            Text(extractTime(from: article.date))
                                 .font(.hanSansNeo(12, .medium))
                                 .foregroundColor(Color(hex: "565656"))
                         }
@@ -164,6 +164,9 @@ public struct BrandDetailView: View {
                     .clipShape(RoundedRectangle(cornerRadius: 8))
                     .overlay(RoundedRectangle(cornerRadius: 8).stroke(Color(hex: "EBEBEB")))
                     .padding(.horizontal)
+                    .onTapGesture {
+                        router.push(.articleDetail(id: "\(article.id)"))
+                    }
                 }
             }
             .padding(.bottom, 32)
@@ -187,4 +190,23 @@ public struct BrandDetailView: View {
                 )
         }
     }
+    
+    
+    func extractTime(from isoString: String) -> String {
+        let isoFormatter = ISO8601DateFormatter()
+        isoFormatter.formatOptions = [.withInternetDateTime, .withFractionalSeconds]
+
+        let fallbackFormatter = ISO8601DateFormatter() // for when fractional seconds not present
+        fallbackFormatter.formatOptions = [.withInternetDateTime]
+
+        let date = isoFormatter.date(from: isoString) ?? fallbackFormatter.date(from: isoString)
+
+        guard let date = date else { return "" }
+
+        let timeFormatter = DateFormatter()
+        timeFormatter.dateFormat = "a h:mm"
+        timeFormatter.locale = Locale(identifier: "ko_KR")
+        return timeFormatter.string(from: date)
+    }
+
 }
