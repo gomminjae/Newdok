@@ -14,7 +14,6 @@
 		DB5C9D560E785B286AAA4E2E /* SubscribeRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 518873D08881857BF9308510 /* SubscribeRow.swift */; };
 		E74AB61A5820B6AC5B4E4508 /* Kingfisher.framework in Dependencies */ = {isa = PBXBuildFile; fileRef = 77C44007B0D39A42AB4ACE21 /* Kingfisher.framework */; };
 		EA6088EE736EA710C61A29C6 /* SubscribeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 210E740423E2557577E07549 /* SubscribeViewModel.swift */; };
-		EB210336E4C269F52CA3415F /* UnsubscribePopupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26BDC3A5666269FD36ED2927 /* UnsubscribePopupView.swift */; };
 		ECB3A6D8A5EE4F0D5BDA3B5A /* SubscribeMain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 601DDD48F11BCA082BCDC946 /* SubscribeMain.swift */; };
 		EE2DD2E0D2FAE26753CAB364 /* Domain.framework in Dependencies */ = {isa = PBXBuildFile; fileRef = B2642F864ADC580169E7271B /* Domain.framework */; };
 		F3CB6A79FD601706C034F708 /* SegmentPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27BE4372D9C9BB0DAF5A3985 /* SegmentPickerView.swift */; };
@@ -47,7 +46,6 @@
 
 /* Begin PBXFileReference section */
 		210E740423E2557577E07549 /* SubscribeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscribeViewModel.swift; sourceTree = "<group>"; };
-		26BDC3A5666269FD36ED2927 /* UnsubscribePopupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnsubscribePopupView.swift; sourceTree = "<group>"; };
 		27BE4372D9C9BB0DAF5A3985 /* SegmentPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentPickerView.swift; sourceTree = "<group>"; };
 		518873D08881857BF9308510 /* SubscribeRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscribeRow.swift; sourceTree = "<group>"; };
 		5595DBABF800B949A8877D83 /* Subscribe.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Subscribe.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -79,7 +77,6 @@
 				B0C1BA120221BB2C5DA202ED /* EmptySubscriptionView.swift */,
 				27BE4372D9C9BB0DAF5A3985 /* SegmentPickerView.swift */,
 				518873D08881857BF9308510 /* SubscribeRow.swift */,
-				26BDC3A5666269FD36ED2927 /* UnsubscribePopupView.swift */,
 			);
 			path = Component;
 			sourceTree = "<group>";
@@ -217,7 +214,6 @@
 				8B094C7028F7E2E1363D1236 /* EmptySubscriptionView.swift in Sources */,
 				F3CB6A79FD601706C034F708 /* SegmentPickerView.swift in Sources */,
 				DB5C9D560E785B286AAA4E2E /* SubscribeRow.swift in Sources */,
-				EB210336E4C269F52CA3415F /* UnsubscribePopupView.swift in Sources */,
 				C4D403ADB487A63B26DEBCBD /* SubscribeView.swift in Sources */,
 				EA6088EE736EA710C61A29C6 /* SubscribeViewModel.swift in Sources */,
 				ECB3A6D8A5EE4F0D5BDA3B5A /* SubscribeMain.swift in Sources */,

@@ -12,6 +12,7 @@ import Shared
 
 
 public final class UserRepositoryImpl: UserRepository {
+  
     
     
     private let provider: MoyaProvider<UserAPI>
@@ -110,6 +111,15 @@ public final class UserRepositoryImpl: UserRepository {
         return brands
         
     }
+    
+    public func getProfile() async throws -> Domain.User {
+        let response: UserDTO = try await provider.asyncRequest(.profile)
+        
+        let user = response.toDomain()
+        
+        return user 
+    }
+    
     
     
     

@@ -12,6 +12,7 @@ import DesignSystem
 import Explore
 import Subscribe
 import Bookmark
+import Shared
 
 
 public enum NewDokTab: Int {
@@ -25,6 +26,10 @@ public enum NewDokTab: Int {
 
 public struct NewDokTabView: View {
     @State private var selectedTab: NewDokTab = .home
+    @State private var previousTab: NewDokTab = .home
+    
+    @AppStorage("isGuest") private var isGuest: Bool = false
+    @EnvironmentObject private var router: AppRouter
 
     private let homeViewModel: HomeViewModel
     private let exploreViewModel: ExploreViewModel
@@ -67,10 +72,17 @@ public struct NewDokTabView: View {
                 
                 
                 MypageView()
-                
                     .tag(NewDokTab.profile)
             }
             .edgesIgnoringSafeArea(.bottom)
+            .onChange(of: selectedTab) { newTab in
+                if isGuest && newTab == .profile {
+                    selectedTab = previousTab 
+                    router.push(.login)
+                } else {
+                    previousTab = newTab
+                }
+            }
             
             NewDokTabBar(selectedTab: $selectedTab)
                 .background(Color.white)

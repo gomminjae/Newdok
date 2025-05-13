@@ -34,4 +34,20 @@ public final class BrandDetailViewModel: ObservableObject {
         }
         isLoading = false
     }
+    
+    public func resume() async {
+        do {
+            _ = try await useCase.resumeSubscription(newsletterId: id)
+        } catch {
+            print("resume error")
+        }
+    }
+    
+    public func pause() async {
+        do {
+            _ = try await useCase.pauseSubscription(newsletterId: id)
+        } catch {
+            print("pause error")
+        }
+    }
 }

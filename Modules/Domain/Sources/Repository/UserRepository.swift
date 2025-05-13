@@ -23,4 +23,6 @@ public protocol UserRepository {
 
     func authSMS(phoneNumber: String) async throws -> SMSResponse
     func preInvestigate(industryId: String, interestIds: [String]) async throws -> [RecommendedBrand]
+    
+    func getProfile() async throws -> User
 }

@@ -3,15 +3,15 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 56;
+	objectVersion = 55;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		06C7F1D619C3D8813EC698DC /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADA7DDBBA02C09D5678982D1 /* LoginViewModel.swift */; };
 		16D5D214569544F40FBBDB04 /* AuthTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA9479B1142A48D6DA9E15EB /* AuthTests.swift */; };
 		20967759C2FB3DD4A69AE22C /* AuthMain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 083CBFE74C9E7F71EDD0C703 /* AuthMain.swift */; };
 		2D93D0C06F2FDF0903805593 /* Alamofire_Alamofire.bundle in Dependencies */ = {isa = PBXBuildFile; fileRef = 78FF525D0E8F54DA8ADC5422 /* Alamofire_Alamofire.bundle */; };
 		38885CC0C2414879F652B0A7 /* Shared.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2D55F8F97BF588B8074069DA /* Shared.framework */; };
-		421B851E66AC1CB3484AC79F /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 075F551F197F579FA3924CA9 /* LoginViewModel.swift */; };
 		5484CD780C3B9E53375710C9 /* DesignSystem.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45A8BB59B621EFC832DCFE0F /* DesignSystem.framework */; };
 		6BAE6A217722795DA8B18F6E /* DesignSystem.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45A8BB59B621EFC832DCFE0F /* DesignSystem.framework */; };
 		7394A6538868246BC3E4BB0C /* Domain.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DEC277DFEA4D9F953E9B16E9 /* Domain.framework */; };
@@ -79,7 +79,6 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		075F551F197F579FA3924CA9 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		083CBFE74C9E7F71EDD0C703 /* AuthMain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthMain.swift; sourceTree = "<group>"; };
 		2D55F8F97BF588B8074069DA /* Shared.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Shared.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		45A8BB59B621EFC832DCFE0F /* DesignSystem.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = DesignSystem.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -87,6 +86,7 @@
 		80F4100D76210727644AF6D0 /* Data.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Data.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8895FC8BB8C3644A2923E77A /* Auth.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Auth.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A6061C08937A7986D4F7D042 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
+		ADA7DDBBA02C09D5678982D1 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		C857B2C600CA35873D2A9D32 /* Auth-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "Auth-Info.plist"; sourceTree = "<group>"; };
 		CF8FCFE4AC3B608B5042F210 /* AuthTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AuthTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		DA9479B1142A48D6DA9E15EB /* AuthTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthTests.swift; sourceTree = "<group>"; };
@@ -168,6 +168,14 @@
 			path = Login;
 			sourceTree = "<group>";
 		};
+		659C13050BCF61A779C185AF /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				ADA7DDBBA02C09D5678982D1 /* LoginViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
 		979F65349794D0984634C212 /* Project */ = {
 			isa = PBXGroup;
 			children = (
@@ -181,18 +189,10 @@
 		ADB937677342DE02F6525141 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				659C13050BCF61A779C185AF /* ViewModel */,
 				A6061C08937A7986D4F7D042 /* LoginView.swift */,
-				D5CE023CD0DFD22D69E269EB /* ViewModel */,
 			);
 			path = View;
-			sourceTree = "<group>";
-		};
-		D5CE023CD0DFD22D69E269EB /* ViewModel */ = {
-			isa = PBXGroup;
-			children = (
-				075F551F197F579FA3924CA9 /* LoginViewModel.swift */,
-			);
-			path = ViewModel;
 			sourceTree = "<group>";
 		};
 		D889D2D65A9E44A4C8933E7A /* Derived */ = {
@@ -311,7 +311,7 @@
 			files = (
 				20967759C2FB3DD4A69AE22C /* AuthMain.swift in Sources */,
 				A47F3F9CC80909D5A826ED2E /* LoginView.swift in Sources */,
-				421B851E66AC1CB3484AC79F /* LoginViewModel.swift in Sources */,
+				06C7F1D619C3D8813EC698DC /* LoginViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -419,7 +419,10 @@
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
 				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) DEBUG";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = (
+					"$(inherited)",
+					DEBUG,
+				);
 				SWIFT_COMPILATION_MODE = singlefile;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
@@ -533,7 +536,10 @@
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
 				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) DEBUG";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = (
+					"$(inherited)",
+					DEBUG,
+				);
 				SWIFT_COMPILATION_MODE = singlefile;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;

@@ -40,4 +40,6 @@ public final class ArticleUseCaseImpl: ArticleUseCase {
         try await articleRepository.fetchArticleDetail(id: articleId)
     }
     
+    
+    
 }

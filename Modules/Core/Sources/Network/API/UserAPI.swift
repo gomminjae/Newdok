@@ -28,6 +28,7 @@ public enum UserAPI {
     
     //사전조사
     case preInvestigate(industryId: String, interestIds: [String])
+    case profile
     
 }
 
@@ -67,6 +68,8 @@ extension UserAPI: TargetType {
             
         case .preInvestigate:
             return "/preInvestigate"
+        case .profile:
+            return "/my"
         }
     }
     
@@ -76,7 +79,7 @@ extension UserAPI: TargetType {
             return .patch
         case .login,.signup,.authSMS:
             return .post
-        case .preInvestigate, .checkIDDup, .checkPhoneNumber:
+        case .preInvestigate, .checkIDDup, .checkPhoneNumber, .profile:
             return .get
         }
    
@@ -137,6 +140,8 @@ extension UserAPI: TargetType {
             )
 
             return .requestParameters(parameters: parameters, encoding: encoding)
+        case .profile:
+            return .requestPlain
         }
     }
     

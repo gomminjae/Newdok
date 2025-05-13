@@ -10,19 +10,61 @@ import DesignSystem
 import Kingfisher
 import Domain
 import Shared
+import PopupView
+
+enum SubscriptionStatus: String {
+    case initial = "INITIAL"
+    case check = "CHECK"
+    case confirmed = "CONFIRMED"
+    case paused = "PAUSED"
+
+    var buttonTitle: String {
+        switch self {
+        case .initial: return "구독하기"
+        case .check: return "확인중"
+        case .confirmed: return "구독중지"
+        case .paused: return "구독재개"
+        }
+    }
+
+    var isActionable: Bool {
+        self != .check
+    }
+
+    var style: (background: Color, foreground: Color, border: Color) {
+        switch self {
+        case .initial:
+            return (Color.primaryNormal, .white, .clear)
+        case .check:
+            return (Color.white, Color(hex: "565656"), Color(hex: "ebebeb"))
+        case .confirmed:
+            return (Color.white, Color(hex: "565656"), Color(hex: "ebebeb"))
+        case .paused:
+            return (.white, Color.primaryNormal, Color.primaryNormal)
+        }
+    }
+}
+
+
 
 public struct BrandDetailView: View {
     @StateObject private var viewModel: BrandDetailViewModel
-    
-    
     @EnvironmentObject private var router: AppRouter
+    
+    @State private var isShowPauseAlert: Bool = false
+    @State private var isShowGuestAlert: Bool = false
+    
+    @AppStorage("isGuest") private var isGuest = false
 
+    
     public init(viewModel: BrandDetailViewModel) {
         _viewModel = StateObject(wrappedValue: viewModel)
+      
     }
 
     public var body: some View {
         ScrollView {
+            
             if viewModel.isLoading {
                 //ProgressView().frame(maxWidth: .infinity, maxHeight: .infinity)
             } else if let detail = viewModel.detail {
@@ -36,7 +78,9 @@ public struct BrandDetailView: View {
         }
         .background(Color(hex: "F5F5F7"))
         .onAppear {
-            Task { await viewModel.fetch() }
+            if viewModel.detail == nil {
+                Task { await viewModel.fetch() }
+            }
         }
         .toolbar {
             ToolbarItem(placement: .navigationBarLeading) {
@@ -59,6 +103,40 @@ public struct BrandDetailView: View {
         }
         .navigationBarBackButtonHidden(true)
         .navigationBarTitleDisplayMode(.inline)
+        .popup(isPresented: $isShowPauseAlert) {
+            UnsubscribePopupView(brandName: viewModel.detail?.brandName ?? "",
+                                 onCancel: {
+                isShowPauseAlert = false
+                
+            },
+                                 onConfirm: {
+                Task {
+                    await viewModel.pause()
+                }
+                
+            })
+        } customize: {
+            $0
+                .type(.default)
+                .position(.center)
+                .animation(.easeInOut) // spring 애니메이션이 버벅일 수 있음
+                .backgroundColor(Color.black.opacity(0.3))
+                .closeOnTapOutside(true)
+        }
+        .popup(isPresented: $isShowGuestAlert) {
+            SubscribeGuestAlertView(isPresented: $isShowGuestAlert,
+                                    onSignup: {
+                router.resetTo(.signup)
+            }
+            )
+        } customize: {
+            $0
+                .type(.default)
+                .position(.center)
+                .animation(.easeInOut) // spring 애니메이션이 버벅일 수 있음
+                .backgroundColor(Color.black.opacity(0.3))
+                .closeOnTapOutside(true)
+        }
     }
 
     @ViewBuilder
@@ -109,17 +187,29 @@ public struct BrandDetailView: View {
                         }
 
                         Spacer()
-                        subscribeButton(isSubscribed: detail.subscribeCheck)
+                        if let status = SubscriptionStatus(rawValue: viewModel.detail?.isSubscribed ?? "") {
+                            subscribeButton(status: status)
+                        }
                     }
                     .padding(.top, 20)
-                    .padding(.horizontal, 24)
-                    .padding(.bottom, 21)
-                    .background(Color(hex: "FFFFFF").opacity(0.6))
-                    .cornerRadius(8)
-                    .shadow(color: .black.opacity(0.1), radius: 6, y: 2)
-                    .padding(.horizontal)
-                    .offset(y: 15)
-                    .padding(.bottom, 12)
+                       .padding(.horizontal, 24)
+                       .padding(.bottom, 21)
+                       .background(
+                           // ✅ 블러 + 반투명 백그라운드
+                           Color.white.opacity(0.6)
+                               .background(.ultraThinMaterial) // 또는 .regularMaterial
+                               .blur(radius: 8)
+                       )
+                       .cornerRadius(8)
+                       .shadow(
+                           color: Color.black.opacity(0.04), // ✅ #000000 4%
+                           radius: 8,                         // ✅ Blur
+                           x: 0,
+                           y: 4                               // ✅ Offset Y
+                       )
+                       .padding(.horizontal)
+                       .offset(y: 15)
+                       .padding(.bottom, 12)
 
                 }
             }
@@ -135,6 +225,7 @@ public struct BrandDetailView: View {
             VStack(alignment: .leading, spacing: 8) {
                 Text("지난 아티클 보기")
                     .font(.hanSansNeo(14, .bold))
+                    .foregroundStyle(Color(hex: "#565656"))
                     .padding(.leading, 28)
                     .padding(.top, 20)
 
@@ -173,23 +264,46 @@ public struct BrandDetailView: View {
         }
     }
 
-    @ViewBuilder
-    private func subscribeButton(isSubscribed: Bool) -> some View {
-        Button(action: {
-            // TODO: 구독 토글
+    
+    private func subscribeButton(status: SubscriptionStatus) -> some View {
+        let style = status.style
+
+        return Button(action: {
+            handleSubscriptionAction(status: status)
         }) {
-            Text(isSubscribed ? "구독중지" : "구독하기")
+            Text(status.buttonTitle)
                 .frame(width: 95, height: 40)
                 .font(.system(size: 14, weight: .semibold))
-                .background(isSubscribed ? Color.white : Color.primaryNormal)
-                .foregroundColor(isSubscribed ? Color(hex: "565656") : .white)
+                .background(style.background)
+                .foregroundColor(style.foreground)
                 .clipShape(RoundedRectangle(cornerRadius: 4))
                 .overlay(
                     RoundedRectangle(cornerRadius: 4)
-                        .stroke(isSubscribed ? Color(hex: "EBEBEB") : .clear)
+                        .stroke(style.border)
                 )
         }
+        .disabled(!status.isActionable)
     }
+    
+    private func handleSubscriptionAction(status: SubscriptionStatus) {
+        
+        if isGuest {
+               isShowGuestAlert = true
+               return
+           }
+        switch status {
+        case .initial:
+            print("✅ 구독 신청 API 호출")
+        case .check:
+            print("⏳ 확인중 상태 - 아무 동작 안 함")
+        case .confirmed:
+            print("🛑 구독 중지 API 호출")
+            
+        case .paused:
+            print("✅ 구독 재개 API 호출")
+        }
+    }
+
     
     
     func extractTime(from isoString: String) -> String {

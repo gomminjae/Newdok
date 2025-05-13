@@ -144,5 +144,12 @@ public struct LoginView: View {
         .navigationBarItems(leading: BackButton(action: {
             router.pop()
         }))
+        .toolbar {
+            ToolbarItem(placement: .principal) {
+                Text("로그인")
+                    .font(.hanSansNeo(16,.bold))
+                    .foregroundStyle(Color(hex: "161616"))
+            }
+        }
     }
 }

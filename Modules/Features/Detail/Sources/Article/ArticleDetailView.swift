@@ -12,11 +12,10 @@ import Shared
 import DesignSystem
 import Kingfisher
 
-
 public struct ArticleDetailView: View {
     @StateObject private var viewModel: ArticleDetailViewModel
     @EnvironmentObject private var router: AppRouter
-    @State private var webViewHeight: CGFloat = .zero
+    @State private var webViewHeight: CGFloat = 100 // 초기값 설정
 
     public init(viewModel: ArticleDetailViewModel) {
         _viewModel = StateObject(wrappedValue: viewModel)
@@ -48,10 +47,17 @@ public struct ArticleDetailView: View {
 
                 // HTML 콘텐츠
                 if let html = viewModel.detail?.articleHTML {
-                    WebView(htmlContent: html, contentHeight: $webViewHeight)
-                        .frame(height: webViewHeight)
-                        .padding(.horizontal, 20)
-                        .padding(.top, 16)
+                    GeometryReader { geometry in
+                        let width = geometry.size.width - 40
+
+                        WebView(htmlContent: html, contentHeight: $webViewHeight)
+                            .frame(width: width, height: webViewHeight)
+                            .padding(.horizontal, 20)
+                            .padding(.top, 16)
+                            .animation(.easeInOut(duration: 0.2), value: webViewHeight)
+                            .opacity(webViewHeight > 10 ? 1 : 0)
+                    }
+                    .frame(height: webViewHeight + 16)
                 }
             }
         }
@@ -74,7 +80,7 @@ public struct ArticleDetailView: View {
             }
             ToolbarItem(placement: .topBarTrailing) {
                 Button {
-                    
+                    // 북마크 액션
                 } label: {
                     Image(asset: DesignSystemAsset.lineBookmark)
                 }
@@ -98,6 +104,50 @@ public struct ArticleDetailView: View {
 }
 
 
+
+import SwiftUI
+import WebKit
+
+//struct WebView: UIViewRepresentable {
+//    let htmlContent: String
+//    @Binding var contentHeight: CGFloat
+//
+//    func makeCoordinator() -> Coordinator {
+//        Coordinator(self)
+//    }
+//
+//    func makeUIView(context: Context) -> WKWebView {
+//        let webView = WKWebView()
+//        webView.scrollView.isScrollEnabled = false
+//        webView.isOpaque = false
+//        webView.backgroundColor = .clear
+//        webView.navigationDelegate = context.coordinator
+//        return webView
+//    }
+//
+//    func updateUIView(_ uiView: WKWebView, context: Context) {
+//        uiView.loadHTMLString(htmlContent, baseURL: nil)
+//    }
+//
+//    class Coordinator: NSObject, WKNavigationDelegate {
+//        var parent: WebView
+//
+//        init(_ parent: WebView) {
+//            self.parent = parent
+//        }
+//
+//        func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
+//            webView.evaluateJavaScript("document.body.scrollHeight") { result, error in
+//                if let height = result as? CGFloat {
+//                    DispatchQueue.main.async {
+//                        self.parent.contentHeight = height
+//                    }
+//                }
+//            }
+//        }
+//    }
+//}
+//
 import SwiftUI
 import WebKit
 
@@ -119,7 +169,51 @@ struct WebView: UIViewRepresentable {
     }
 
     func updateUIView(_ uiView: WKWebView, context: Context) {
-        uiView.loadHTMLString(htmlContent, baseURL: nil)
+        let styledHTML = """
+        <!DOCTYPE html>
+        <html lang="ko">
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+            <style>
+                html, body {
+                    margin: 0;
+                    padding: 0;
+                    width: 100%;
+                    font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+                    color: #333;
+                    line-height: 1.6;
+                    background-color: transparent;
+                    box-sizing: border-box;
+                    overflow-wrap: break-word;
+                    word-wrap: break-word;
+                }
+                * {
+                    box-sizing: border-box !important;
+                    max-width: 100% !important;
+                }
+                img, iframe, video {
+                    display: block;
+                    width: 100% !important;
+                    height: auto !important;
+                }
+                table {
+                    width: 100% !important;
+                    table-layout: fixed;
+                    word-break: break-word;
+                }
+                p {
+                    margin: 0 0 1em;
+                }
+            </style>
+        </head>
+        <body>
+            \(htmlContent)
+        </body>
+        </html>
+        """
+
+        uiView.loadHTMLString(styledHTML, baseURL: nil)
     }
 
     class Coordinator: NSObject, WKNavigationDelegate {
@@ -140,4 +234,3 @@ struct WebView: UIViewRepresentable {
         }
     }
 }
-

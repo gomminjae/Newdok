@@ -1,21 +1,26 @@
 //
 //  UnsubscribePopupView.swift
-//  Subscribe
+//  DesignSystem
 //
-//  Created by 권민재 on 5/11/25.
-//  Copyright © 2025 Newdok. All rights reserved.
+//  Created by 권민재 on 5/14/25.
+//  Copyright © 2025 Your Organization Name. All rights reserved.
 //
 
 
 import SwiftUI
-import DesignSystem
 
-struct UnsubscribePopupView: View {
-    let brandName: String
-    let onCancel: () -> Void
-    let onConfirm: () -> Void
+public struct UnsubscribePopupView: View {
+    public let brandName: String
+    public let onCancel: () -> Void
+    public let onConfirm: () -> Void
+    
+    public init(brandName: String, onCancel: @escaping () -> Void, onConfirm: @escaping () -> Void) {
+        self.brandName = brandName
+        self.onCancel = onCancel
+        self.onConfirm = onConfirm
+    }
 
-    var body: some View {
+    public var body: some View {
         VStack(spacing: 20) {
             Image(asset: DesignSystemAsset.warning)
                 .resizable()

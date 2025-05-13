@@ -14,7 +14,7 @@ final public class SignupViewModel: ObservableObject {
 
     private let userUseCase: UserUseCase
     
-    @Published var currentStep: SignupStep = .recommend
+    @Published var currentStep: SignupStep = .phoneVerification
 
     // MARK: - Form
     @Published public var phoneNumber: String = ""

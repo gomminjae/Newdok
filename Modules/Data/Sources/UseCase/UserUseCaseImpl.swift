@@ -12,6 +12,7 @@ import Shared
 
 public final class UserUseCaseImpl: UserUseCase {
     
+    
     private let userRepository: UserRepository
     
     public init(userRepository: UserRepository) {
@@ -64,7 +65,9 @@ public final class UserUseCaseImpl: UserUseCase {
         return try await userRepository.preInvestigate(industryId: industryId, interestIds: interestIds)
     }
     
-    
+    public func getProfile() async throws -> Domain.User {
+        return try await userRepository.getProfile()
+    }
     
     
 }
