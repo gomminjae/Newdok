@@ -43,18 +43,25 @@ public final class HomeViewModel: ObservableObject {
     
     
     var homeState: HomeState {
-        if !isLoaded {
-            return .none// or .none if 따로 정의
-        } else if isGuest {
+        if isGuest {
             return .guest
-        } else if subscribedNewsletters.isEmpty && filteredArticles.isEmpty {
-            return .noSubscriptions
-        } else if filteredArticles.isEmpty {
-            return .noArticles
-        } else {
-            return .articles
         }
+
+        if !isLoaded {
+            return .none
+        }
+
+        if subscribedNewsletters.isEmpty && filteredArticles.isEmpty {
+            return .noSubscriptions
+        }
+
+        if filteredArticles.isEmpty {
+            return .noArticles
+        }
+
+        return .articles
     }
+
 
     
     

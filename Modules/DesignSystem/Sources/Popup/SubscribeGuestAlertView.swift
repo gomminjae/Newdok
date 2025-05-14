@@ -29,6 +29,7 @@ public struct SubscribeGuestAlertView: View {
                         .resizable()
                         .frame(width: 80, height: 80)
                         .foregroundStyle(Color(hex: "#DADADA"))
+                        .padding(.top, 20)
                     
                     Spacer().frame(height: 16)
                     
@@ -57,8 +58,9 @@ public struct SubscribeGuestAlertView: View {
                             .background(Color.primaryNormal)
                             .cornerRadius(4)
                     }
+                    .padding(.bottom,28)
                 }
-                .padding(24)
+                .padding(.horizontal, 20)
                 
                 // 닫기 버튼은 오른쪽 상단에 overlay로
                 HStack {
@@ -80,7 +82,7 @@ public struct SubscribeGuestAlertView: View {
                     .fill(Color.white)
                     .shadow(color: Color.black.opacity(0.04), radius: 8, x: 0, y: 4)
             )
-            .padding(.horizontal, 40)
+            .padding(.horizontal, 24)
             
         }
     }

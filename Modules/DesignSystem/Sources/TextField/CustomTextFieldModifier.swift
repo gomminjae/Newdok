@@ -18,8 +18,8 @@ public struct CustomTextFieldModifier: ViewModifier {
     public func body(content: Content) -> some View {
         HStack {
             Image(asset: DesignSystemAsset.lineUser)
-                .foregroundColor(.gray)
-
+                .renderingMode(.template)
+                .foregroundStyle(isFocused ? Color(hex: "363636") : Color(hex : "969696"))
             content
                 .foregroundColor(.primary)
                 .padding(.vertical, 12)
@@ -77,6 +77,8 @@ public struct PasswordFieldModifier: ViewModifier {
     public func body(content: Content) -> some View {
         HStack {
             Image(asset: DesignSystemAsset.lineLock)
+                .renderingMode(.template)
+                .foregroundStyle(isFocused ? Color(hex: "363636") : Color(hex : "969696"))
             content
                 .focused($isFocused)
             Button(action: {
@@ -84,7 +86,7 @@ public struct PasswordFieldModifier: ViewModifier {
             }) {
                 Image(asset: isSecure ? DesignSystemAsset.lineCloseEye : DesignSystemAsset.lineEye)
                     .renderingMode(.template)
-                    .foregroundColor(Color(hex: "#363636"))
+                    .foregroundColor(isFocused ? Color.primaryNormal : Color(hex: "#363636"))
             }
         }
         .padding(.horizontal)

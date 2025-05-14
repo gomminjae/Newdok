@@ -20,6 +20,8 @@ public struct BookmarkView: View {
     
     @EnvironmentObject private var router: AppRouter
     
+    @AppStorage("isGuest") private var isGuest = false
+    
     public let interests: [String: String] = [
         "1": "경제・시사・상식",
         "2": "비즈니스",
@@ -60,7 +62,19 @@ public struct BookmarkView: View {
             categoryFilter
             sortInfo
             
-            if viewModel.bookmarks?.totalAmount == 0 {
+            
+            if isGuest {
+                VStack {
+                    BookmarkGuestView(onLogin: {
+                        router.push(.login)
+                    })
+                        .frame(maxWidth: .infinity)
+                        .frame(maxHeight: .infinity)
+                        .background(Color(hex: "#F5F5F7"))
+                }
+                .background(Color(hex: "#F5F5F7"))
+            }
+            else if !isGuest && viewModel.bookmarks?.totalAmount == 0 {
                 VStack {
                     BookmarkEmptyView()
                         .frame(maxWidth: .infinity)
@@ -83,8 +97,10 @@ public struct BookmarkView: View {
         }
         .background(.white)
         .onAppear {
-            Task {
-                await viewModel.fetchUserBookmarks()
+            if !isGuest {
+                Task {
+                    await viewModel.fetchUserBookmarks()
+                }
             }
         }
     }
@@ -92,7 +108,7 @@ public struct BookmarkView: View {
     private func headerView() -> some View {
         HStack {
             Text("북마크함")
-                .font(.hanSansNeo(18, .bold))
+                .font(.hanSansNeo(16, .bold))
             
             Spacer()
             

@@ -9,12 +9,18 @@
 
 import SwiftUI
 import DesignSystem
+import Shared
 
 public struct EmptySubscriptionView: View {
     let isSubscribedTab: Bool
+    let isGuest: Bool
+    
+    @EnvironmentObject private var router: AppRouter
+    
 
-    public init(isSubscribedTab: Bool) {
+    public init(isSubscribedTab: Bool, isGuest: Bool) {
         self.isSubscribedTab = isSubscribedTab
+        self.isGuest = isGuest
     }
 
     public var body: some View {
@@ -30,12 +36,30 @@ public struct EmptySubscriptionView: View {
                 .font(.hanSansNeo(16, .bold))
                 .foregroundColor(Color(hex: "#161616"))
                 .padding(.bottom, 4)
-
-            Text(isSubscribedTab ?
-                 "구독신청 후 첫 아티클을 수신받으면 내 구독에 추가돼요." :
-                 "구독 중지 후에도 언제든 아티클을 다시 받아볼 수 있어요.")
+            
+            if isGuest {
+                HStack(spacing: 0) {
+                    Text("로그인")
+                        .font(.hanSansNeo(14, .medium))
+                        .foregroundStyle(Color.primaryNormal)
+                        .underline()
+                        .onTapGesture {
+                            router.push(.login)
+                        }
+                        .padding(.trailing, 4)
+                    Text("후 뉴스레터를 구독해 보세요.")
+                        .font(.hanSansNeo(14, .medium))
+                        .foregroundColor(Color(hex: "#565656"))
+                }
+            } else {
+                
+                Text(isSubscribedTab ?
+                     "구독신청 후 첫 아티클을 수신받으면 내 구독에 추가돼요." :
+                        "구독 중지 후에도 언제든 아티클을 다시 받아볼 수 있어요.")
+                .multilineTextAlignment(.center)
                 .font(.hanSansNeo(14, .medium))
                 .foregroundColor(Color(hex: "#565656"))
+            }
             Spacer()
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)

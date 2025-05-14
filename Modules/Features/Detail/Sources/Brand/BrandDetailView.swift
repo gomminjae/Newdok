@@ -126,7 +126,7 @@ public struct BrandDetailView: View {
         .popup(isPresented: $isShowGuestAlert) {
             SubscribeGuestAlertView(isPresented: $isShowGuestAlert,
                                     onSignup: {
-                router.resetTo(.signup)
+                router.push(.signup)
             }
             )
         } customize: {

@@ -22,6 +22,8 @@ public struct SubscribeView: View {
     @State private var showSubscribeToast: Bool = false
     @State private var showPauseToast: Bool = false
     
+    @AppStorage("isGuest") private var isGuest: Bool = false 
+    
     
     
     public init(viewModel: SubscribeViewModel) {
@@ -37,8 +39,8 @@ public struct SubscribeView: View {
                 .padding(.bottom, 18)
                 .padding(.horizontal, 20)
 
-            if filteredSubscriptions.isEmpty {
-                EmptySubscriptionView(isSubscribedTab: selectedTab == 0)
+            if filteredSubscriptions.isEmpty || isGuest {
+                EmptySubscriptionView(isSubscribedTab: selectedTab == 0, isGuest: isGuest)
             } else {
                 ScrollView {
                     VStack(alignment: .leading, spacing: 0) {

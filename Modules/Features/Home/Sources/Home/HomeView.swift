@@ -165,8 +165,10 @@ public struct HomeView: View {
             .presentationBackground(Color(hex: "#25242C").opacity(0.6))
         }
         .onAppear {
-            Task {
-                await viewModel.loadToday()
+            if !isGuest {
+                Task {
+                    await viewModel.loadToday()
+                }
             }
         }
     }

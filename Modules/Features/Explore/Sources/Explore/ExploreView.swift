@@ -21,6 +21,7 @@ public struct ExploreView: View {
     
     
     @AppStorage("nickname") public var nickname = ""
+    @AppStorage("isGuest") private var isGuest: Bool = false
 
     public init(viewModel: ExploreViewModel) {
         _viewModel = StateObject(wrappedValue: viewModel)
@@ -34,35 +35,54 @@ public struct ExploreView: View {
                 tabSwitcher
                 Divider()
                 
-                Group {
-                    if selectedTab == 0 {
-                        if !isLoaded {
-                            EmptyView() //후에 로딩뷰
-                        } else if !viewModel.hasUserProfile {
-                            noProfileSection
+                if isGuest {
+                    Group {
+                        if selectedTab == 0 {
+                            ScrollView(showsIndicators: false) {
+                                allNewsletterSection
+                            }
+                        } else {
+                            guestSection
+                        }
+                    }
+                } else {
+                    Group {
+                        if selectedTab == 0 {
+                            if !isLoaded {
+                                EmptyView() //후에 로딩뷰
+                            } else if !viewModel.hasUserProfile {
+                                noProfileSection
+                            } else {
+                                ScrollView(showsIndicators: false) {
+                                    recommendationSection
+                                }
+                                .background(Color(hex: "#F5F5F7"))
+                            }
                         } else {
                             ScrollView(showsIndicators: false) {
-                                recommendationSection
+                                allNewsletterSection
                             }
                             .background(Color(hex: "#F5F5F7"))
                         }
-                    } else {
-                        ScrollView(showsIndicators: false) {
-                            allNewsletterSection
-                        }
-                        .background(Color(hex: "#F5F5F7"))
                     }
+                    .padding(.bottom, 0)
                 }
-                .padding(.bottom, 0)
             }
             .frame(maxHeight: .infinity, alignment: .top)
             .background(Color.white)
             .onAppear {
                 if !isLoaded {
-                    Task {
-                        await viewModel.fetchRecommendation()
-                        await viewModel.fetchAllNewsletters()
-                        isLoaded = true
+                    if isGuest {
+                        Task {
+                            await viewModel.fetchAllNewsletters()
+                            isLoaded = true
+                        }
+                    } else {
+                        Task {
+                            await viewModel.fetchRecommendation()
+                            await viewModel.fetchAllNewsletters()
+                            isLoaded = true
+                        }
                     }
                 }
             }
@@ -98,11 +118,21 @@ public struct ExploreView: View {
     // MARK: - 탭 스위처
     private var tabSwitcher: some View {
         VStack(spacing: 0) {
-            HStack(spacing: 0) {
-                tabButton(title: "추천 뉴스레터", index: 0)
-                tabButton(title: "모든 뉴스레터", index: 1)
+            
+            if isGuest {
+                HStack(spacing: 0) {
+                    tabButton(title: "모든 뉴스레터", index: 0)
+                    tabButton(title: "추천 뉴스레터", index: 1)
+                }
+                .padding(.top, 16)
+            } else {
+                
+                HStack(spacing: 0) {
+                    tabButton(title: "추천 뉴스레터", index: 0)
+                    tabButton(title: "모든 뉴스레터", index: 1)
+                }
+                .padding(.top, 16)
             }
-            .padding(.top, 16)
 
             GeometryReader { geometry in
                 let width = geometry.size.width / 2
@@ -153,6 +183,51 @@ public struct ExploreView: View {
             Spacer()
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .background(Color(hex: "#F5F5F7"))
+    }
+    
+    private var guestSection: some View {
+        VStack(alignment: .center, spacing: 0) {
+            Image(asset: DesignSystemAsset.nologin)
+                .resizable()
+                .frame(width: 280, height: 280)
+                .padding(.top, 20)
+                .padding(.bottom, 24)
+            Text("회원이 되면 뉴스레터를\n간편하게 모아볼 수 있어요!")
+                .font(.hanSansNeo(16, .bold))
+                .multilineTextAlignment(.center)
+                .foregroundStyle(Color(hex: "161616"))
+                .padding(.bottom, 24)
+            
+            Button(action: {
+                router.push(.signup)
+            }) {
+                Text("회원가입")
+                    .font(.hanSansNeo(14,.bold))
+                    .foregroundColor(.white)
+                    .frame(maxWidth: .infinity)
+                    .frame(height: 48)
+                    .background(Color.primaryNormal)
+                    .cornerRadius(4)
+                    .padding(.bottom, 12)
+                    .padding(.horizontal, 24)
+            }
+            HStack {
+                Text("이미 계정이 있나요?")
+                    .font(.hanSansNeo(14,.medium))
+                    .foregroundStyle(Color(hex: "555555"))
+                Text("로그인")
+                    .font(.hanSansNeo(14,.medium))
+                    .foregroundStyle(Color.primaryNormal)
+                    .underline()
+                    .onTapGesture {
+                        router.push(.login)
+                    }
+            }
+            Spacer()
+            
+            
+        }
         .background(Color(hex: "#F5F5F7"))
     }
 
@@ -256,7 +331,7 @@ public struct ExploreView: View {
                         .cornerRadius(20)
                         .overlay(
                             RoundedRectangle(cornerRadius: 20)
-                                .stroke(viewModel.industry != nil ? Color.primaryNormal : Color.gray.opacity(0.3))
+                                .stroke(viewModel.industry != nil ? Color.primaryNormal : Color(hex :"EBEBEB"))
                         )
                     }
 

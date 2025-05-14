@@ -57,14 +57,15 @@ public struct LoginView: View {
                 Text("비밀번호")
                     .font(.hanSansNeo(14, .medium))
                     .padding(.top, 28)
-
+                
                 Group {
                     if viewModel.isSecurePassword {
                         SecureField("비밀번호를 입력해주세요", text: $viewModel.password)
-                            
+                        
+                        
                     } else {
                         TextField("비밀번호를 입력해주세요", text: $viewModel.password)
-                            
+                        
                     }
                 }
                 .font(.hanSansNeo(14, .medium))
@@ -80,7 +81,7 @@ public struct LoginView: View {
                     Text(viewModel.errorMessage ?? "")
                         .font(.hanSansNeo(12,.medium))
                         .foregroundStyle(Color(hex: "#E32727"))
-                        
+                    
                 }
                 
 
@@ -99,6 +100,7 @@ public struct LoginView: View {
                 Button("로그인") {
                     viewModel.login() {
                         isLoggedIn = true
+                        isGuest = false 
                         router.resetTo(.tabbar)
                         print("LoginView에서 router 인스턴스: \(Unmanaged.passUnretained(router).toOpaque())")
                     }
@@ -153,3 +155,6 @@ public struct LoginView: View {
         }
     }
 }
+
+
+

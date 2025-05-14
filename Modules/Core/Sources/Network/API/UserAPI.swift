@@ -36,9 +36,9 @@ extension UserAPI: TargetType {
     public var baseURL: URL {
         switch self {
         case .authSMS:
-            return URL(string: "\(APIEnvironment.development.baseURL)/auth")!
+            return URL(string: "\(APIEnvironment.production.baseURL)/auth")!
         default:
-            return URL(string: "\(APIEnvironment.development.baseURL)/users")!
+            return URL(string: "\(APIEnvironment.production.baseURL)/users")!
         }
         
     }

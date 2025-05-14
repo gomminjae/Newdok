@@ -10,6 +10,8 @@ import SwiftUI
 import DesignSystem
 
 struct BookmarkEmptyView: View {
+    
+    
     var body: some View {
         VStack(alignment: .center, spacing: 0) {
             Image(asset: DesignSystemAsset.emptybookmark)
