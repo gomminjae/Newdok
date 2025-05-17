@@ -9,6 +9,9 @@
 import SwiftUI
 import DesignSystem
 import Shared
+import Foundation
+import Combine
+import PopupView
 
 public struct EditProfileView: View {
     
@@ -18,8 +21,19 @@ public struct EditProfileView: View {
     @State private var showEditInterest = false
 
     @Environment(\.dismiss) private var dismiss
+    @EnvironmentObject private var router: AppRouter
 
-    public init() {}
+    @FocusState private var isTextFieldFocused: Bool // ✅ 포커스 상태 추가
+
+    @ObservedObject private var viewModel: MypageViewModel
+    
+    
+    
+    
+
+    public init(viewModel: MypageViewModel) {
+        self.viewModel = viewModel
+    }
 
     public var body: some View {
         VStack(alignment: .leading, spacing: 24) {
@@ -30,47 +44,49 @@ public struct EditProfileView: View {
             
             // 닉네임
             NavigationLink {
-                EditNicknameView(nickname: $nickname)
+                EditNicknameView(nickname: $nickname, viewModel: viewModel)
+                    .environmentObject(router)
             } label: {
-                EditableRow(title: "닉네임", text: userInfo?.nickname ?? "")
+                EditableRow(title: "닉네임", text: viewModel.user?.nickname ?? "")
             }
 
             // 종사산업
             NavigationLink {
-                EditIndustryView(selectedIndustryId: $industryId)
+                EditIndustryView(viewModel: viewModel)
+                    .environmentObject(router)
             } label: {
                 EditableRow(
                     title: "종사산업",
-                    text: industryId
+                    text: viewModel.user?.industryId
                         .flatMap { SelectableItemStore.shared.name(for: $0, in: .industry) } ?? "",
                     placeholder: "산업군을 선택해주세요."
                 )
             }
 
             // 관심사
-            if let interestIds = userInfo?.interestIds, !interestIds.isEmpty {
+            if let interests = viewModel.user?.interests, !interests.isEmpty {
                 VStack(alignment: .leading, spacing: 8) {
                     Text("관심사")
                         .font(.hanSansNeo(14, .medium))
                         .foregroundStyle(Color(hex: "#565656"))
 
-                    Wrap(
-                        tags: interestIds.map {
-                            SelectableItemStore.shared.name(for: $0, in: .interest)
-                        },
-                        onAdd: {
-                            showEditInterest = true
-                        }
-                    )
+                    let interestNames = interests.compactMap {
+                        SelectableItemStore.shared.name(for: $0.id, in: .interest)
+                    }
 
-                    NavigationLink(destination: EditInterestView(), isActive: $showEditInterest) {
+                    Wrap(tags: interestNames, onAdd: {
+                        showEditInterest = true
+                    })
+                    //.frame(maxWidth: .infinity, alignment: .leading)
+
+                    NavigationLink(destination: EditInterestView(viewModel: viewModel), isActive: $showEditInterest) {
                         EmptyView()
                     }
                     .hidden()
                 }
             } else {
                 NavigationLink {
-                    EditInterestView()
+                    EditInterestView(viewModel: viewModel).environmentObject(router)
                 } label: {
                     EditableRow(
                         title: "관심사",
@@ -83,9 +99,9 @@ public struct EditProfileView: View {
             Spacer()
         }
         .onAppear {
-            let info = UserInfoStore.shared.load()
-            userInfo = info
-            industryId = info?.industryId
+            Task {
+                await viewModel.fetchuserInfo()
+            }
         }
         .padding(.horizontal, 20)
         .navigationBarTitleDisplayMode(.inline)
@@ -109,6 +125,52 @@ public struct EditProfileView: View {
                     .foregroundColor(.black)
             }
         }
+        .toolbar {
+            ToolbarItemGroup(placement: .keyboard) {
+                Spacer()
+                Button("Done") {
+                    isTextFieldFocused = false
+                }
+                .foregroundStyle(Color.primaryNormal)
+                .font(.hanSansNeo(17, .medium))
+            }
+        }
+        .hideKeyboardOnTap()
+        .popup(isPresented: $viewModel.shownicknameToast) {
+            ToastView(message: "닉네임이 변경되었습니다.")
+                .padding(.bottom, 106)
+        } customize: {
+            $0
+                .type(.toast)
+                .position(.bottom)
+                .autohideIn(1)
+                .animation(.easeInOut)
+                .closeOnTapOutside(false)
+        }
+        .popup(isPresented: $viewModel.showIndustryToast) {
+            ToastView(message: "관심사가 변경 되었습니다.")
+                .padding(.bottom, 106)
+        } customize: {
+            $0
+                .type(.toast)
+                .position(.bottom)
+                .autohideIn(1)
+                .animation(.easeInOut)
+                .closeOnTapOutside(false)
+        }
+        .popup(isPresented: $viewModel.showInterestToast) {
+            ToastView(message: "닉네임이 변경되었습니다.")
+                .padding(.bottom, 106)
+        } customize: {
+            $0
+                .type(.toast)
+                .position(.bottom)
+                .autohideIn(1)
+                .animation(.easeInOut)
+                .closeOnTapOutside(false)
+        }
+        
+        
     }
 }
 

@@ -10,13 +10,7 @@ import DesignSystem
 import Shared
 
 
-extension View {
-    public func hideKeyboardOnTap() -> some View {
-        self.onTapGesture {
-            UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
-        }
-    }
-}
+
 public struct PhoneVerificationView: View {
     
     

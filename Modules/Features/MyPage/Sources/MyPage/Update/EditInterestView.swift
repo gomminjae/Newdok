@@ -13,13 +13,9 @@ import Shared
 
 public struct EditInterestView: View {
     @Environment(\.dismiss) private var dismiss
+    @ObservedObject private var viewModel: MypageViewModel
 
-    @State private var selectedIds: Set<Int> = {
-        if let userInfo = UserInfoStore.shared.load() {
-            return Set(userInfo.interestIds)
-        }
-        return []
-    }()
+    @State private var selectedIds: Set<Int> = []
 
     private let interests = SelectableItemStore.shared.interests
     private let columns = [
@@ -27,7 +23,9 @@ public struct EditInterestView: View {
         GridItem(.flexible(), spacing: 12)
     ]
 
-    public init() {}
+    public init(viewModel: MypageViewModel) {
+        self.viewModel = viewModel
+    }
 
     public var body: some View {
         VStack(spacing: 0) {
@@ -65,9 +63,13 @@ public struct EditInterestView: View {
                 .padding(.horizontal, 24)
             }
 
-            // 하단 버튼
+            // ✅ 저장 버튼 - API 호출만 추가
             Button(action: {
-                // 저장 or dismiss
+                Task {
+                    await viewModel.updateInterests(ids: Array(selectedIds))
+                    viewModel.showInterestToast = true
+                    dismiss()
+                }
             }) {
                 Text("변경하기")
                     .frame(maxWidth: .infinity)
@@ -95,6 +97,12 @@ public struct EditInterestView: View {
                 Text("관심사 변경")
                     .font(.hanSansNeo(16, .bold))
                     .foregroundColor(.black)
+            }
+        }
+        .onAppear {
+            // ✅ viewModel.user 기준으로 selectedIds 세팅
+            if let interests = viewModel.user?.interests {
+                selectedIds = Set(interests.map { $0.id })
             }
         }
     }

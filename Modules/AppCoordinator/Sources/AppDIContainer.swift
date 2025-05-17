@@ -19,6 +19,7 @@ import Explore
 import Subscribe
 import Bookmark
 import Detail
+import Mypage
 
 public final class AppDIContainer {
     public static let shared = AppDIContainer()
@@ -158,6 +159,13 @@ public final class AppDIContainer {
             let useCase = r.resolve(ArticleUseCase.self)!
             return MainActor.assumeIsolated {
                 return ArticleDetailViewModel(id: id, useCase: useCase)
+            }
+        }
+        
+        container.register(MypageViewModel.self) { r in
+            let useCase = r.resolve(UserUseCase.self)!
+            return MainActor.assumeIsolated {
+                return MypageViewModel(useCase: useCase)
             }
         }
     

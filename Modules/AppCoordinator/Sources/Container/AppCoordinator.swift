@@ -58,16 +58,20 @@ final class AppCoordinator {
         let exploreVm = container.container.resolve(ExploreViewModel.self)!
         let subscribeVm = container.container.resolve(SubscribeViewModel.self)!
         let bookmakrVm = container.container.resolve(BookmarkViewModel.self)!
+        let mypageVm = container.container.resolve(MypageViewModel.self)!
         
         return NewDokTabView(
             homeViewModel: homeVm,
             exploreViewModel: exploreVm,
             subscribeViewModel: subscribeVm,
-            bookmarkViewModel: bookmakrVm
+            bookmarkViewModel: bookmakrVm,
+            mypageViewModel: mypageVm
         ).environmentObject(router)
     }
     func mekeProfileView() -> some View {
-        return MypageView().environmentObject(router)
+        let vm = container.container.resolve(MypageViewModel.self)!
+        return MypageView(viewModel: vm)
+            .environmentObject(router)
     }
     
     func makeBrandDetail(id: String) -> some View {

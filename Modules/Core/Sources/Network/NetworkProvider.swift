@@ -28,9 +28,9 @@ public final class NetworkProvider: NetworkProviding {
             session: makeSafeSession(),
             plugins: [
                 NetworkLoggerPlugin(),
-//                TokenPlugin(tokenProvider: {
-//                    TokenStorage.accessToken
-//                })
+                TokenPlugin(tokenProvider: {
+                    TokenStorage.accessToken
+                })
             ]
         )
     }

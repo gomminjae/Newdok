@@ -19,8 +19,12 @@ public struct MypageView: View {
     @State private var isCopy: Bool = false
     
     @EnvironmentObject private var router: AppRouter
+    
+    @StateObject private var viewModel: MypageViewModel
 
-    public init() {}
+    public init(viewModel: MypageViewModel) {
+        _viewModel = StateObject(wrappedValue: viewModel)
+    }
 
     public var body: some View {
         NavigationStack {
@@ -31,7 +35,7 @@ public struct MypageView: View {
                     VStack(alignment: .leading, spacing: 16) {
                         
                         // 닉네임 (최대 2줄)
-                        Text(userInfo?.nickname ?? "")
+                        Text(viewModel.user?.nickname ?? "")
                             .font(.hanSansNeo(16, .bold))
                             .lineLimit(2)
                             .padding(.top, 32)
@@ -75,7 +79,7 @@ public struct MypageView: View {
                         }
 
                         // 프로필 편집 버튼 (가로 전체)
-                        NavigationLink(destination: EditProfileView()) {
+                        NavigationLink(destination: EditProfileView(viewModel: viewModel).environmentObject(router)) {
                             Text("프로필 편집")
                                 .font(.hanSansNeo(14, .bold))
                                 .foregroundColor(Color(hex: "#565656"))
@@ -132,6 +136,9 @@ public struct MypageView: View {
         .onAppear {
             DispatchQueue.main.async {
                 userInfo = UserInfoStore.shared.load()
+            }
+            Task {
+                await viewModel.fetchuserInfo()
             }
         }
         .popup(isPresented: $showEmailAlert) {

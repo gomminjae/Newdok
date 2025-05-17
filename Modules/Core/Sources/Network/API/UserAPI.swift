@@ -30,15 +30,17 @@ public enum UserAPI {
     case preInvestigate(industryId: String, interestIds: [String])
     case profile
     
+    
+    
 }
 
 extension UserAPI: TargetType {
     public var baseURL: URL {
         switch self {
         case .authSMS:
-            return URL(string: "\(APIEnvironment.production.baseURL)/auth")!
+            return URL(string: "\(APIEnvironment.development.baseURL)/auth")!
         default:
-            return URL(string: "\(APIEnvironment.production.baseURL)/users")!
+            return URL(string: "\(APIEnvironment.development.baseURL)/users")!
         }
         
     }
@@ -116,7 +118,7 @@ extension UserAPI: TargetType {
             ], encoding: JSONEncoding.default)
             
         case let .updateInterest(interestsId):
-            return .requestParameters(parameters: ["interestsId": interestsId], encoding: JSONEncoding.default)
+            return .requestParameters(parameters: ["interestIds": interestsId], encoding: JSONEncoding.default)
             
         case let .updateIndustry(industryId):
             return .requestParameters(parameters: ["industryId": industryId], encoding: JSONEncoding.default)

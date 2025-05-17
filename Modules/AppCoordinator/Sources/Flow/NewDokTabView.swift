@@ -35,17 +35,20 @@ public struct NewDokTabView: View {
     private let exploreViewModel: ExploreViewModel
     private let subscribeViewModel: SubscribeViewModel
     private let bookmarkViewModel: BookmarkViewModel
+    private let mypageViewModel: MypageViewModel
 
     public init(
         homeViewModel: HomeViewModel,
         exploreViewModel: ExploreViewModel,
         subscribeViewModel: SubscribeViewModel,
-        bookmarkViewModel: BookmarkViewModel
+        bookmarkViewModel: BookmarkViewModel,
+        mypageViewModel: MypageViewModel
     ) {
         self.homeViewModel = homeViewModel
         self.exploreViewModel = exploreViewModel
         self.subscribeViewModel = subscribeViewModel
         self.bookmarkViewModel = bookmarkViewModel
+        self.mypageViewModel = mypageViewModel
     }
     
     public var body: some View {
@@ -71,7 +74,7 @@ public struct NewDokTabView: View {
                     .tag(NewDokTab.bookmark)
                 
                 
-                MypageView()
+                MypageView(viewModel: mypageViewModel)
                     .tag(NewDokTab.profile)
             }
             .edgesIgnoringSafeArea(.bottom)

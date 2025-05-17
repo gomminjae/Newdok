@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 55;
+	objectVersion = 56;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -140,6 +140,7 @@
 		6A23E8EBFB91F55C1A3A567D /* Update */ = {
 			isa = PBXGroup;
 			children = (
+				B0367F1D84D37FBC224EEE5E /* EditIndustryView.swift */,
 				E9EE8D720105BC83D1182EC4 /* EditInterestView.swift */,
 				EE20CEB3997ED5CB0105D8D5 /* EditNicknameView.swift */,
 				734D04D066005B7F09E817DE /* EditProfileView.swift */,
@@ -153,7 +154,6 @@
 				240E8891926BD2EC96385980 /* AccountManage */,
 				4C1131CF6F10CA0C54CBF324 /* Alert */,
 				6A23E8EBFB91F55C1A3A567D /* Update */,
-				B0367F1D84D37FBC224EEE5E /* EditIndustryView.swift */,
 				6316494CF79FD65F674FEC66 /* FlexibleView.swift */,
 				9F90F5BE05980B64F460A361 /* MypageView.swift */,
 				8596DB5B78443B0D49B09ED2 /* MypageViewModel.swift */,
@@ -367,10 +367,7 @@
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
 				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = (
-					"$(inherited)",
-					DEBUG,
-				);
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) DEBUG";
 				SWIFT_COMPILATION_MODE = singlefile;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
