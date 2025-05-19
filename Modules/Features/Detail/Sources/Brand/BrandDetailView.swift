@@ -55,6 +55,8 @@ public struct BrandDetailView: View {
     @State private var isShowGuestAlert: Bool = false
     
     @AppStorage("isGuest") private var isGuest = false
+    
+    @State private var showSubscribeSheet = false
 
     
     public init(viewModel: BrandDetailViewModel) {
@@ -147,6 +149,18 @@ public struct BrandDetailView: View {
                     .resizable()
                     .frame(maxWidth: .infinity)
                     .frame(height: 260)
+                    .overlay(
+                        LinearGradient(
+                            gradient: Gradient(stops: [
+                                .init(color: Color.black.opacity(0.0), location: 0.0),
+                                .init(color: Color.black.opacity(1.0), location: 1.0)
+                            ]),
+                            startPoint: .top,
+                            endPoint: .bottom
+                        )
+                        .opacity(0.06)
+                    )
+                
 
                 HStack(spacing: 4) {
                     ForEach(detail.interests.prefix(3), id: \..id) { interest in
@@ -195,17 +209,18 @@ public struct BrandDetailView: View {
                        .padding(.horizontal, 24)
                        .padding(.bottom, 21)
                        .background(
-                           // ✅ 블러 + 반투명 백그라운드
                            Color.white.opacity(0.6)
-                               .background(.ultraThinMaterial) // 또는 .regularMaterial
+                               .background(.ultraThinMaterial)
                                .blur(radius: 8)
                        )
+                       .clipShape(RoundedRectangle(cornerRadius: 12))
+
                        .cornerRadius(8)
                        .shadow(
-                           color: Color.black.opacity(0.04), // ✅ #000000 4%
-                           radius: 8,                         // ✅ Blur
+                           color: Color.black.opacity(0.04),
+                           radius: 8,
                            x: 0,
-                           y: 4                               // ✅ Offset Y
+                           y: 4
                        )
                        .padding(.horizontal)
                        .offset(y: 15)
@@ -258,9 +273,15 @@ public struct BrandDetailView: View {
                     .onTapGesture {
                         router.push(.articleDetail(id: "\(article.id)"))
                     }
+                    
                 }
             }
             .padding(.bottom, 32)
+            .sheet(isPresented: $showSubscribeSheet) {
+                SubscribeModalView(title: viewModel.detail?.brandName ?? "", url: viewModel.detail?.subscribeUrl ?? "")
+                    .presentationDetents([.large])
+                    .presentationDragIndicator(.visible)
+            }
         }
     }
 
@@ -293,6 +314,7 @@ public struct BrandDetailView: View {
            }
         switch status {
         case .initial:
+            showSubscribeSheet = true
             print("✅ 구독 신청 API 호출")
         case .check:
             print("⏳ 확인중 상태 - 아무 동작 안 함")

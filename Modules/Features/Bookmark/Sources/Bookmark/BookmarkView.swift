@@ -22,34 +22,6 @@ public struct BookmarkView: View {
     
     @AppStorage("isGuest") private var isGuest = false
     
-    public let interests: [String: String] = [
-        "1": "경제・시사・상식",
-        "2": "비즈니스",
-        "3": "과학・기술",
-        "4": "트렌드",
-        "5": "재테크",
-        "6": "콘텐츠",
-        "7": "라이프스타일",
-        "8": "취미・자기계발",
-        "9": "건강・의학",
-        "10": "멘탈케어",
-        "11": "푸드・드링크",
-        "12": "자연・환경",
-        "13": "리빙・인테리어",
-        "14": "미술・디자인・전시",
-        "15": "음악",
-        "16": "게임",
-        "17": "콘서트・공연",
-        "18": "문화",
-        "19": "문학・도서",
-        "20": "언어",
-        "21": "영화",
-        "22": "지역・여행",
-        "23": "가족",
-        "24": "쇼핑",
-        "25": "반려동물",
-        "26": "사회공헌"
-    ]
     
     public init(viewModel: BookmarkViewModel) {
         _viewModel = StateObject(wrappedValue: viewModel)
@@ -99,6 +71,7 @@ public struct BookmarkView: View {
         .onAppear {
             if !isGuest {
                 Task {
+                    await viewModel.fetchUserInterests()
                     await viewModel.fetchUserBookmarks()
                 }
             }
@@ -127,17 +100,22 @@ public struct BookmarkView: View {
     }
     
     private var categoryFilter: some View {
-        let sortedCategories = ["전체"] + interests.values.sorted()
+        let sortedCategories: [(Int?, String)] = [(nil, "전체")] + viewModel.interests.map { ($0.id, $0.name) }
 
         return ScrollView(.horizontal, showsIndicators: false) {
             HStack(spacing: 4) {
-                ForEach(sortedCategories, id: \.self) { category in
+                ForEach(sortedCategories, id: \.1) { (id, name) in
                     Button(action: {
                         withAnimation(.easeInOut(duration: 0.2)) {
-                            selectedCategory = category
+                            selectedCategory = name
+                            
+                        }
+                        Task {
+                            viewModel.interest = id != nil ? "\(id!)" : ""
+                            await viewModel.fetchUserBookmarks()
                         }
                     }) {
-                        Text(category)
+                        Text(name)
                             .font(.hanSansNeo(13, .medium))
                             .padding(.horizontal, 14)
                             .padding(.vertical, 6)
@@ -147,9 +125,9 @@ public struct BookmarkView: View {
                             )
                             .overlay(
                                 RoundedRectangle(cornerRadius: 16)
-                                    .stroke(selectedCategory == category ? Color.primaryNormal : Color(hex: "#EBEBEB"), lineWidth: 1)
+                                    .stroke(selectedCategory == name ? Color.primaryNormal : Color(hex: "#EBEBEB"), lineWidth: 1)
                             )
-                            .foregroundColor(selectedCategory == category ? Color.primaryNormal : Color(hex: "#363636"))
+                            .foregroundColor(selectedCategory == name ? Color.primaryNormal : Color(hex: "#363636"))
                     }
                 }
             }
@@ -157,6 +135,7 @@ public struct BookmarkView: View {
             .padding(.vertical, 8)
         }
     }
+
     
     private var sortInfo: some View {
         HStack {

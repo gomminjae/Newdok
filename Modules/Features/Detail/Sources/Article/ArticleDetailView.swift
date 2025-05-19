@@ -31,6 +31,18 @@ public struct ArticleDetailView: View {
                         .scaledToFill()
                         .frame(height: 260)
                         .clipped()
+                        .overlay(
+                            LinearGradient(
+                                gradient: Gradient(stops: [
+                                    .init(color: Color(hex: "#000000").opacity(0.0), location: 0.0),
+                                    .init(color: Color(hex: "#0C0C0C").opacity(0.39), location: 0.63),
+                                    .init(color: Color(hex: "#1E1E1E").opacity(1.0), location: 1.0)
+                                ]),
+                                startPoint: .top,
+                                endPoint: .bottom
+                            )
+                            .opacity(0.4)
+                        )
 
                     VStack(alignment: .leading, spacing: 8) {
                         Text(viewModel.detail?.articleTitle ?? "")

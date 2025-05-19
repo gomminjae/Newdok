@@ -23,7 +23,7 @@ public struct EditProfileView: View {
     @Environment(\.dismiss) private var dismiss
     @EnvironmentObject private var router: AppRouter
 
-    @FocusState private var isTextFieldFocused: Bool // ✅ 포커스 상태 추가
+    @FocusState private var isTextFieldFocused: Bool 
 
     @ObservedObject private var viewModel: MypageViewModel
     
