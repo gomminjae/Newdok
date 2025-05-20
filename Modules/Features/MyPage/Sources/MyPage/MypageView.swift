@@ -97,16 +97,15 @@ public struct MypageView: View {
                     // MARK: - 서비스 섹션
                     VStack(spacing: 0) {
                         SectionHeader(title: "서비스")
-                        NavigationLink("계정 관리", destination: AccountManagementView())
+                        NavigationLink("계정 관리", destination: AccountManagementView(viewModel: viewModel))
                             .buttonStyle(PlainButtonStyle())
                             .settingRowStyle()
-                            .environmentObject(router)
                         NavigationLink("알림 설정", destination: Text("알림 설정 화면"))
                             .buttonStyle(PlainButtonStyle())
                             .settingRowStyle()
                     }
                     .padding(.horizontal, 20)
-
+                    
                     // MARK: - 고객센터 섹션
                     VStack(spacing: 0) {
                         SectionHeader(title: "고객센터")

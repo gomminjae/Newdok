@@ -15,19 +15,23 @@ public struct AccountManagementView: View {
     @Environment(\.dismiss) private var dismiss
     @State private var showLogoutPopup = false
     @EnvironmentObject private var router: AppRouter
+    
+    @ObservedObject private var viewModel: MypageViewModel
 
-    public init() {}
+    public init(viewModel: MypageViewModel) {
+        self.viewModel = viewModel
+    }
 
     public var body: some View {
         VStack(alignment: .leading, spacing: 0) {
             // 휴대폰 번호 변경
-            NavigationLink(destination: Text("휴대폰 번호 변경 뷰")) {
+            NavigationLink(destination: PhoneUpdateView(viewModel: viewModel)) {
                 rowLabel(title: "휴대폰 번호 변경")
             }
             .padding(.vertical, 13)
 
             // 비밀번호 변경
-            NavigationLink(destination: Text("비밀번호 변경 뷰")) {
+            NavigationLink(destination: PwdUpdateView(viewModel: viewModel)) {
                 rowLabel(title: "비밀번호 변경")
             }
             .padding(.vertical, 13)
@@ -82,6 +86,7 @@ public struct AccountManagementView: View {
                 onCancel: { showLogoutPopup = false },
                 onConfirm: {
                     showLogoutPopup = false
+                    TokenStorage.clear()
                     router.resetTo(.login)
                     // 로그아웃 로직
                 }

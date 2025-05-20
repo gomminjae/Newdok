@@ -15,16 +15,10 @@ import Bookmark
 import Shared
 
 
-public enum NewDokTab: Int {
-    case explore
-    case subscribe
-    case home
-    case bookmark
-    case profile
-    
-}
+
 
 public struct NewDokTabView: View {
+    @StateObject private var tabSelection = TabSelection()
     @State private var selectedTab: NewDokTab = .home
     @State private var previousTab: NewDokTab = .home
     
@@ -53,7 +47,7 @@ public struct NewDokTabView: View {
     
     public var body: some View {
         ZStack(alignment: .bottom) {
-            TabView(selection: $selectedTab) {
+            TabView(selection: $tabSelection.selectedTab) {
                 
                 ExploreView(viewModel: exploreViewModel)
                 
@@ -78,18 +72,17 @@ public struct NewDokTabView: View {
                     .tag(NewDokTab.profile)
             }
             .edgesIgnoringSafeArea(.bottom)
-            .onChange(of: selectedTab) { newTab in
+            .onChange(of: tabSelection.selectedTab) { newTab in
                 if isGuest && newTab == .profile {
-                    selectedTab = previousTab 
+                    tabSelection.selectedTab = .home
                     router.push(.login)
-                } else {
-                    previousTab = newTab
                 }
             }
             
-            NewDokTabBar(selectedTab: $selectedTab)
+            NewDokTabBar(selectedTab: $tabSelection.selectedTab)
                 .background(Color.white)
         }
+        .environmentObject(tabSelection)
         .background(Color.white)
     }
 }

@@ -159,7 +159,7 @@ public struct EditProfileView: View {
                 .closeOnTapOutside(false)
         }
         .popup(isPresented: $viewModel.showInterestToast) {
-            ToastView(message: "닉네임이 변경되었습니다.")
+            ToastView(message: "종사산어이 변경되었습니다.")
                 .padding(.bottom, 106)
         } customize: {
             $0

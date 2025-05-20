@@ -1,0 +1,25 @@
+//
+//  TabSelection.swift
+//  Shared
+//
+//  Created by 권민재 on 5/21/25.
+//
+import SwiftUI
+import Combine
+
+public final class TabSelection: ObservableObject {
+    @Published public var selectedTab: NewDokTab = .home
+
+    public init() {}
+}
+
+
+
+public enum NewDokTab: Int {
+    case explore
+    case subscribe
+    case home
+    case bookmark
+    case profile
+    
+}

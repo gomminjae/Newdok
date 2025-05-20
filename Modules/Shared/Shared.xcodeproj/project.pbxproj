@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 55;
+	objectVersion = 56;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -15,6 +15,7 @@
 		7D04C850BB0BAE64479467A3 /* AppRoute.swift in Sources */ = {isa = PBXBuildFile; fileRef = 990582F8C227FE7665BA5DC8 /* AppRoute.swift */; };
 		96CFE788CBFC80C85178485A /* CheckResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0616F85852A726E9E6A1E31B /* CheckResult.swift */; };
 		986650F906C2F56D536CFFAA /* SelectableItemStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1743374E82CFD282451B401 /* SelectableItemStore.swift */; };
+		B59943132DDCE4DE009BC1D9 /* TabSelection.swift in Sources */ = {isa = PBXBuildFile; fileRef = B59943122DDCE4DE009BC1D9 /* TabSelection.swift */; };
 		C1F55CCE5F47EFD7E182822F /* SelectableItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8A1EBAD9AC767B12A003540 /* SelectableItem.swift */; };
 		D1FFD4928C1E8843CF7A7395 /* BrandDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 866E330B5D3795B77C163184 /* BrandDetailView.swift */; };
 		DECBAACDAECC2379F5B517CA /* AppRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B003F7CC7D7753A3F19A643 /* AppRouter.swift */; };
@@ -43,6 +44,7 @@
 		990582F8C227FE7665BA5DC8 /* AppRoute.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppRoute.swift; sourceTree = "<group>"; };
 		ABD09C1E8E179695F3A17A71 /* UserInfoStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoStore.swift; sourceTree = "<group>"; };
 		B1743374E82CFD282451B401 /* SelectableItemStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectableItemStore.swift; sourceTree = "<group>"; };
+		B59943122DDCE4DE009BC1D9 /* TabSelection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabSelection.swift; sourceTree = "<group>"; };
 		C7E2402EF9A73970D230C689 /* AppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
 		D72BA6AE8B9AF02B56D8FC04 /* Shared-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "Shared-Info.plist"; sourceTree = "<group>"; };
 		E8A1EBAD9AC767B12A003540 /* SelectableItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectableItem.swift; sourceTree = "<group>"; };
@@ -137,6 +139,7 @@
 		B009AEDC1F84E55C19868CE1 /* Router */ = {
 			isa = PBXGroup;
 			children = (
+				B59943122DDCE4DE009BC1D9 /* TabSelection.swift */,
 				990582F8C227FE7665BA5DC8 /* AppRoute.swift */,
 				7B003F7CC7D7753A3F19A643 /* AppRouter.swift */,
 			);
@@ -237,6 +240,7 @@
 				2440871C3D29D9C5EBE970A2 /* AppState.swift in Sources */,
 				73A91ABEF61282418D59684A /* UserInfo.swift in Sources */,
 				72104A94ACE064372DD74143 /* UserInfoStore.swift in Sources */,
+				B59943132DDCE4DE009BC1D9 /* TabSelection.swift in Sources */,
 				56E86C3A63173151BE4B29EC /* TokenStorage.swift in Sources */,
 				5A3D4395DDCD980070A0BE03 /* SelectableCategoryType.swift in Sources */,
 				C1F55CCE5F47EFD7E182822F /* SelectableItem.swift in Sources */,
@@ -307,10 +311,7 @@
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
 				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = (
-					"$(inherited)",
-					DEBUG,
-				);
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) DEBUG";
 				SWIFT_COMPILATION_MODE = singlefile;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;

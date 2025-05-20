@@ -1,0 +1,142 @@
+//
+//  PasswordUpdateView.swift
+//  Mypage
+//
+//  Created by 권민재 on 5/20/25.
+//  Copyright © 2025 Newdok. All rights reserved.
+//
+
+import SwiftUI
+import DesignSystem
+import Shared
+
+public struct PwdUpdateView: View {
+    
+    @Environment(\.dismiss) private var dismiss
+
+    @State private var isSecureOldPassword: Bool = true
+    @State private var isSecureNewPassword: Bool = true
+    @State private var isSecureConfirmPassword: Bool = true
+
+    @FocusState private var isOldPasswordFocused: Bool
+    @FocusState private var isNewPasswordFocused: Bool
+    @FocusState private var isConfirmPasswordFocused: Bool
+
+    @ObservedObject private var viewModel: MypageViewModel
+
+    public init(viewModel: MypageViewModel) {
+        self.viewModel = viewModel
+    }
+
+    public var body: some View {
+            VStack(alignment: .leading, spacing: 8) {
+
+                // 현재 비밀번호
+                Text("현재 비밀번호")
+                    .font(.hanSansNeo(14, .medium))
+                    .foregroundStyle(Color(hex: "#565656"))
+                    
+
+                Group {
+                    if isSecureOldPassword {
+                        SecureField("8자 이상, 영문/숫자 조합", text: $viewModel.oldPassword)
+                    } else {
+                        TextField("8자 이상, 영문/숫자 조합", text: $viewModel.oldPassword)
+                    }
+                }
+                .font(.hanSansNeo(14,.medium))
+                .modifier(PasswordFieldModifier(isSecure: $isSecureOldPassword, isFocused: $isOldPasswordFocused))
+
+                if let error = viewModel.oldPasswordError {
+                    Text(error)
+                        .font(.hanSansNeo(12, .medium))
+                        .foregroundColor(.red)
+                }
+
+                // 새 비밀번호
+                Text("새 비밀번호")
+                    .font(.hanSansNeo(14, .medium))
+                    .foregroundStyle(Color(hex: "#565656"))
+                    .padding(.top, 22)
+
+                Group {
+                    if isSecureNewPassword {
+                        SecureField("8자 이상, 영문/숫자 조합", text: $viewModel.newPassword)
+                    } else {
+                        TextField("8자 이상, 영문/숫자 조합", text: $viewModel.newPassword)
+                    }
+                }
+                .font(.hanSansNeo(14,.medium))
+                .modifier(PasswordFieldModifier(isSecure: $isSecureNewPassword, isFocused: $isNewPasswordFocused))
+
+                if let error = viewModel.newPasswordError {
+                    Text(error)
+                        .font(.hanSansNeo(12, .medium))
+                        .foregroundColor(.red)
+                }
+
+                // 새 비밀번호 확인
+                Text("새 비밀번호 확인")
+                    .font(.hanSansNeo(14, .medium))
+                    .foregroundStyle(Color(hex: "#565656"))
+                    .padding(.top, 22)
+
+                Group {
+                    if isSecureConfirmPassword {
+                        SecureField("8자 이상, 영문/숫자 조합", text: $viewModel.checkedPassword)
+                    } else {
+                        TextField("8자 이상, 영문/숫자 조합", text: $viewModel.checkedPassword)
+                    }
+                }
+                .font(.hanSansNeo(14,.medium))
+                .modifier(PasswordFieldModifier(isSecure: $isSecureConfirmPassword, isFocused: $isConfirmPasswordFocused))
+
+                if let error = viewModel.confirmPasswordError {
+                    Text(error)
+                        .font(.hanSansNeo(12, .medium))
+                        .foregroundColor(.red)
+                }
+
+                Spacer() // 아래 버튼 공간 확보
+            }
+            .padding(.horizontal, 24)
+
+            // 하단 버튼
+            Button(action: {
+                Task {
+                    await viewModel.updatePassword()
+                    dismiss()
+                }
+            }) {
+                Text("변경하기")
+                    .font(.hanSansNeo(14,.bold))
+                    .frame(height: 48)
+                    .frame(maxWidth: .infinity)
+                    .background(viewModel.isPasswordValid ? Color.primaryNormal : Color.lineNeutral)
+                    .cornerRadius(4)
+                    .foregroundColor(.white)
+                    .contentShape(Rectangle())
+            }
+            .padding(.top, 10)
+            .padding(.horizontal, 24)
+            .padding(.bottom, 20)
+            .disabled(!viewModel.isPasswordValid)
+        .navigationBarBackButtonHidden(true)
+        .toolbar {
+            ToolbarItem(placement: .navigationBarLeading) {
+                Button {
+                    dismiss()
+                } label: {
+                    Image(asset: DesignSystemAsset.back)
+                        .font(.system(size: 17, weight: .semibold))
+                        .foregroundColor(.black)
+                }
+            }
+            ToolbarItem(placement: .principal) {
+                Text("비밀번호 변경")
+                    .font(.hanSansNeo(16, .bold))
+                    .foregroundColor(.black)
+            }
+        }
+    }
+}
