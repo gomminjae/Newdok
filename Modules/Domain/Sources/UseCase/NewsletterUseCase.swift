@@ -28,4 +28,9 @@ public protocol NewsletterUseCase {
     func pauseSubscription(newsletterId: String) async throws
     func resumeSubscription(newsletterId: String) async throws
     
+    
+    func fetchGuestNewsletters(orderOpt: String?, industry: [Int]?, day: [Int]?) async throws -> [Brand]
+    
+    func fetchGuestNewsletterBrand(id: String) async throws -> BrandDetail
+    
 }

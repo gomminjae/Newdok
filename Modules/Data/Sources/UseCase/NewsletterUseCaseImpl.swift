@@ -11,6 +11,8 @@ import Shared
 
 public class NewsletterUseCaseImpl: NewsletterUseCase {
     
+    
+    
     private let repository: NewsletterRepository
     
     public init(repository: NewsletterRepository) {
@@ -47,6 +49,14 @@ public class NewsletterUseCaseImpl: NewsletterUseCase {
     
     public func resumeSubscription(newsletterId: String) async throws {
         return try await repository.resumeSubscription(newsletterId: newsletterId)
+    }
+    
+    public func fetchGuestNewsletters(orderOpt: String?, industry: [Int]?, day: [Int]?) async throws -> [Domain.Brand] {
+        return try await repository.fetchGuestAllNewsletters(orderOpt: orderOpt, industry: industry, day: day)
+    }
+    
+    public func fetchGuestNewsletterBrand(id: String) async throws -> Domain.BrandDetail {
+        return try await repository.fetchGuestNewsletterBrand(id: id)
     }
     
     

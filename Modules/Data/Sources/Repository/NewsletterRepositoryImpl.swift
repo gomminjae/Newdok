@@ -12,6 +12,7 @@ import Moya
 
 
 public class NewsletterRepositoryImpl: NewsletterRepository {
+  
     
     private let provider: MoyaProvider<NewsletterAPI>
     
@@ -58,6 +59,18 @@ public class NewsletterRepositoryImpl: NewsletterRepository {
     public func resumeSubscription(newsletterId: String) async throws {
         try await provider.asyncVoidRequest(.resumeSubscription(newsletterId: newsletterId))
     }
+    
+    
+    public func fetchGuestAllNewsletters(orderOpt: String?, industry: [Int]?, day: [Int]?) async throws -> [Domain.Brand] {
+        let response: [BrandDTO] = try await provider.asyncRequest(.fetchGuestAllNewsletterBrand(orderOpt:  orderOpt, industry: industry, day: day))
+        return response.map { $0.toDomain() }
+    }
+    
+    public func fetchGuestNewsletterBrand(id: String) async throws -> Domain.BrandDetail {
+        let response: BrandDetailDTO = try await provider.asyncRequest(.fetchGuestNewsletterBrand(id: id))
+        return response.toDomain()
+    }
+    
     
     
 }

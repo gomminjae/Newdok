@@ -83,9 +83,12 @@ public struct ExploreView: View {
             }
             .onAppear {
                 Task {
-                    
-                    await viewModel.fetchRecommendation()
-                    await viewModel.fetchAllNewsletters()
+                    if isGuest {
+                        await viewModel.fetchAllNewsletters()
+                    } else {
+                        await viewModel.fetchRecommendation()
+                        await viewModel.fetchAllNewsletters()
+                    }
                     isLoaded = true
                     
                 }

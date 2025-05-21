@@ -1,79 +1,80 @@
 //
-//  UnsubscribePopupView.swift
+//  CheckSubscribeView.swift
 //  DesignSystem
 //
-//  Created by 권민재 on 5/14/25.
+//  Created by 권민재 on 5/21/25.
 //  Copyright © 2025 Your Organization Name. All rights reserved.
 //
 
-
 import SwiftUI
 
-public struct UnsubscribePopupView: View {
-    public let brandName: String
-    public let onCancel: () -> Void
-    public let onConfirm: () -> Void
+public struct CheckSubscribeView: View {
+    @Environment(\.dismiss) var dismiss
     
-    public init(brandName: String, onCancel: @escaping () -> Void, onConfirm: @escaping () -> Void) {
-        self.brandName = brandName
-        self.onCancel = onCancel
-        self.onConfirm = onConfirm
-    }
-
+    public var onConfirmEmail: () -> Void = {}
+    
     public var body: some View {
         VStack(spacing: 0) {
+            HStack {
+                Spacer()
+                Button(action: {
+                    dismiss()  // 팝업 닫기
+                }) {
+                    Image(asset: DesignSystemAsset.lineClose)
+                        .renderingMode(.template)
+                        .foregroundColor(Color(hex: "#969696"))
+                }
+            }
+            
             Image(asset: DesignSystemAsset.warning)
                 .resizable()
                 .frame(width: 80, height: 80)
                 .foregroundColor(Color(hex: "#C4C4C4"))
 
-            Text("‘\(brandName)’\n구독 중지")
+            Text("구독 확인 필요")
                 .multilineTextAlignment(.center)
                 .font(.hanSansNeo(20, .bold))
                 .foregroundColor(Color(hex: "#161616"))
-                .padding(.bottom, 6)
+                .padding(.bottom, 8)
 
-            Text("구독을 중지하면 더이상\n새로운 아티클이 수신되지 않아요.")
+            Text("구독 신청을 완료하기 위해\n구독 확인 메일의 확인 버튼을 눌러주세요.")
                 .multilineTextAlignment(.center)
                 .font(.hanSansNeo(14, .medium))
                 .foregroundColor(Color(hex: "#555555"))
-                .padding(.bottom, 24)
+                .padding(.bottom, 20)
 
             Text("구독 재개로 언제든 아티클을 다시 받아볼 수 있어요.")
                 .font(.hanSansNeo(12, .medium))
                 .foregroundColor(Color(hex: "#2866D3"))
                 .padding()
                 .frame(maxWidth: .infinity)
+                .frame(height: 50)
                 .background(Color(hex: "#F5F5F5"))
                 .cornerRadius(6)
                 .padding(.bottom, 24)
 
             HStack(spacing: 8) {
-                Button(action: onCancel) {
-                    Text("취소")
+                Button(action: {
+                    onConfirmEmail()
+                    dismiss()
+                    
+                }) {
+                    Text("메일 확인하기")
                         .font(.hanSansNeo(14, .bold))
-                        .foregroundColor(Color(hex: "#565656"))
+                        .foregroundColor(Color(hex: "#FFFFFF"))
                         .frame(maxWidth: .infinity, minHeight: 48)
-                        .background(Color.white)
+                        .background(Color.primaryNormal)
                         .overlay(RoundedRectangle(cornerRadius: 4).stroke(Color(hex: "#EBEBEB")))
-                }
-
-                Button(action: onConfirm) {
-                    Text("구독 중지")
-                        .font(.hanSansNeo(14, .bold))
-                        .foregroundColor(.white)
-                        .frame(maxWidth: .infinity, minHeight: 48)
-                        .background(Color(hex: "#2866D3"))
-                        .cornerRadius(4)
                 }
             }
         }
-        .padding(24)
+        .padding(20)
         .background(Color.white)
         .cornerRadius(12)
         .padding(.horizontal, 24)
     }
 }
+
 #Preview {
-    UnsubscribePopupView(brandName: "야호", onCancel: {}, onConfirm: {})
+    CheckSubscribeView()
 }

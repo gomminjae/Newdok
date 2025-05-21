@@ -34,6 +34,7 @@ public enum DesignSystemAsset: Sendable {
   public static let emptybookmark = DesignSystemImages(name: "emptybookmark")
   public static let home = DesignSystemImages(name: "home")
   public static let letter = DesignSystemImages(name: "letter")
+  public static let loading = DesignSystemImages(name: "loading")
   public static let logo = DesignSystemImages(name: "logo")
   public static let mailbox = DesignSystemImages(name: "mailbox")
   public static let nodata = DesignSystemImages(name: "nodata")

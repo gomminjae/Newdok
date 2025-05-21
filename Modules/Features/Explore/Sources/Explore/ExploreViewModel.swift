@@ -82,6 +82,16 @@ public class ExploreViewModel: ObservableObject {
         }
     }
     
+    public func fetchGuestAllNewsletters() async {
+        do {
+            let response = try await useCase.fetchGuestNewsletters(orderOpt: orderOpt, industry: industry, day: day)
+            allNewsletters = response
+        } catch {
+            print("비회원 조회 실패")
+        }
+    }
+    
+    
     
     
 }

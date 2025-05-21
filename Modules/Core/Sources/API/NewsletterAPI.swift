@@ -27,7 +27,7 @@ public enum NewsletterAPI {
     case pauseSubscription(newsletterId: String)
     case resumeSubscription(newsletterId: String)
     
-    case fetchGuestAllNewsletterBrand(orderOpt: String)
+    case fetchGuestAllNewsletterBrand(orderOpt: String?, industry: [Int]?, day: [Int]?)
     case fetchGuestNewsletterBrand(id: String)
     
 }
@@ -97,8 +97,20 @@ extension NewsletterAPI: TargetType {
             return .requestParameters(parameters: params, encoding: URLEncoding.default)
         case .pauseSubscription(let newsletterId), .resumeSubscription(let newsletterId):
             return .requestParameters(parameters: ["newsletterId": newsletterId], encoding: JSONEncoding.default)
-        case .fetchGuestAllNewsletterBrand(let orderOpt):
-            return .requestParameters(parameters: ["orderOpt": orderOpt], encoding: URLEncoding.default)
+        case .fetchGuestAllNewsletterBrand(let orderOpt, let industry, let day):
+            var params: [String: Any] = [:]
+
+            if let orderOpt, !orderOpt.isEmpty {
+                params["orderOpt"] = orderOpt
+            }
+            if let industry {
+                params["industry"] = industry // [String]
+            }
+            if let day {
+                params["day"] = day // [String]
+            }
+
+            return .requestParameters(parameters: params, encoding: URLEncoding.default)
             
         }
     }

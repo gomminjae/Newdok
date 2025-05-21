@@ -57,6 +57,12 @@ public struct BrandDetailView: View {
     @AppStorage("isGuest") private var isGuest = false
     
     @State private var showSubscribeSheet = false
+    
+    
+    
+    //Toast
+    @State private var showSubscribeToast: Bool = false
+    @State private var showPauseToast: Bool = false
 
     
     public init(viewModel: BrandDetailViewModel) {
@@ -80,8 +86,13 @@ public struct BrandDetailView: View {
         }
         .background(Color(hex: "F5F5F7"))
         .onAppear {
+            
             if viewModel.detail == nil {
-                Task { await viewModel.fetch() }
+                if isGuest {
+                    Task { await viewModel.guestFetch() }
+                } else {
+                    Task { await viewModel.fetch() }
+                }
             }
         }
         .toolbar {
@@ -114,6 +125,8 @@ public struct BrandDetailView: View {
                                  onConfirm: {
                 Task {
                     await viewModel.pause()
+                    viewModel.detail?.isSubscribed = SubscriptionStatus.paused.rawValue
+                    showPauseToast = true
                 }
                 
             })
@@ -121,7 +134,7 @@ public struct BrandDetailView: View {
             $0
                 .type(.default)
                 .position(.center)
-                .animation(.easeInOut) // spring 애니메이션이 버벅일 수 있음
+                .animation(.easeInOut)
                 .backgroundColor(Color.black.opacity(0.3))
                 .closeOnTapOutside(true)
         }
@@ -135,9 +148,31 @@ public struct BrandDetailView: View {
             $0
                 .type(.default)
                 .position(.center)
-                .animation(.easeInOut) // spring 애니메이션이 버벅일 수 있음
+                .animation(.easeInOut)
                 .backgroundColor(Color.black.opacity(0.3))
                 .closeOnTapOutside(true)
+        }
+        .popup(isPresented: $showPauseToast) {
+            ToastView(message: "구독이 중지되었습니다.")
+                .padding(.bottom, 50)
+        } customize: {
+            $0
+                .type(.toast)
+                .position(.bottom)
+                .autohideIn(1)
+                .animation(.easeInOut)
+                .closeOnTapOutside(false)
+        }
+        .popup(isPresented: $showSubscribeToast) {
+            ToastView(message: "구독이 재개되었습니다.")
+                .padding(.bottom, 50)
+        } customize: {
+            $0
+                .type(.toast)
+                .position(.bottom)
+                .autohideIn(1)
+                .animation(.easeInOut)
+                .closeOnTapOutside(false)
         }
     }
 
@@ -307,11 +342,11 @@ public struct BrandDetailView: View {
     }
     
     private func handleSubscriptionAction(status: SubscriptionStatus) {
-        
         if isGuest {
-               isShowGuestAlert = true
-               return
-           }
+            isShowGuestAlert = true
+            return
+        }
+        
         switch status {
         case .initial:
             showSubscribeSheet = true
@@ -319,12 +354,18 @@ public struct BrandDetailView: View {
         case .check:
             print("⏳ 확인중 상태 - 아무 동작 안 함")
         case .confirmed:
-            print("🛑 구독 중지 API 호출")
+            isShowPauseAlert = true
             
         case .paused:
+            Task {
+                await viewModel.resume() // 구독 재개 처리
+                viewModel.detail?.isSubscribed = SubscriptionStatus.confirmed.rawValue
+                showSubscribeToast = true
+            }
             print("✅ 구독 재개 API 호출")
         }
     }
+
 
     
     

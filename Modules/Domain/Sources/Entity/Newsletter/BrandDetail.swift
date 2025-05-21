@@ -15,7 +15,7 @@ public struct BrandDetail {
     public let imageUrl: String
     public let interests: [Interest]
     public let brandArticleList: [BrandArticle]
-    public let isSubscribed: String
+    public var isSubscribed: String
     public let subscribeCheck: Bool
 
     public init(
