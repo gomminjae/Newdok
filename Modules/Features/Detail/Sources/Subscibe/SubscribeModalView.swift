@@ -42,10 +42,11 @@ public struct SubscribeModalView: View {
 
     public var body: some View {
         VStack(spacing: 0) {
-            // 상단 바 (ZStack 정중앙 정렬)
+       
             ZStack {
                 Text("\(title) 구독하기")
                     .font(.hanSansNeo(20, .bold))
+                    .frame(maxWidth: .infinity)
                     .foregroundStyle(Color(hex: "#161616"))
                     .multilineTextAlignment(.center)
 

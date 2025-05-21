@@ -11,16 +11,15 @@ import Signup
 import Shared
 
 struct QABRootViewView: View {
-    @StateObject private var router: AppRouter
-    private var coordinator: AppCoordinator
+    @EnvironmentObject private var router: AppRouter
+    @EnvironmentObject private var tabSelection: TabSelection
+    
+    private var coordinator: AppCoordinator {
+           AppCoordinator(router: router)
+    }
     
     @State private var launched = false
     
-    init() {
-        let router = AppRouter()
-        self._router = StateObject(wrappedValue: router)
-        self.coordinator = AppCoordinator(router: router)
-    }
     
     var body: some View {
         ZStack {
@@ -55,6 +54,9 @@ struct QABRootViewView: View {
                     case .articleDetail(let id):
                         coordinator.makeArticleDetail(id: id)
                         
+                    case .editProfile:
+                        coordinator.makeEditProfileView()
+                        
                     }
                 }
                 .navigationDestination(for: AppRoute.self) { route in
@@ -77,10 +79,14 @@ struct QABRootViewView: View {
                         coordinator.makeBrandDetail(id: id)
                     case .articleDetail(let id):
                         coordinator.makeArticleDetail(id: id)
+                    case .editProfile:
+                        coordinator.makeEditProfileView()
                         
                     }
                 }
             }
+//            .environmentObject(router)
+//            .environmentObject(tabSelection)
             .opacity(launched ? 1 : 0) // Splash 후 메인뷰 서서히 등장
             .animation(.easeInOut(duration: 0.3), value: launched)
         }

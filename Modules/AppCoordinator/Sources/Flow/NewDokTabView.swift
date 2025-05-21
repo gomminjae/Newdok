@@ -18,12 +18,12 @@ import Shared
 
 
 public struct NewDokTabView: View {
-    @StateObject private var tabSelection = TabSelection()
     @State private var selectedTab: NewDokTab = .home
     @State private var previousTab: NewDokTab = .home
     
     @AppStorage("isGuest") private var isGuest: Bool = false
     @EnvironmentObject private var router: AppRouter
+    @EnvironmentObject private var tabSelection: TabSelection
 
     private let homeViewModel: HomeViewModel
     private let exploreViewModel: ExploreViewModel

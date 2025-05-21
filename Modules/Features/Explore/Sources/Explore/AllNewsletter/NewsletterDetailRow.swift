@@ -107,15 +107,13 @@ struct NewsletterDetailRow: View {
                 }
             }
             .padding(.bottom,18)
-
-            ScrollView(.horizontal, showsIndicators: false) {
-                HStack(spacing: 8) {
-                    ForEach(brand.interests) { interest in
-                        TagView(text: interest.name)
-                    }
+            
+            HStack(spacing: 8) {
+                ForEach(brand.interests.prefix(3)) { interest in
+                    TagView(text: interest.name)
                 }
-                .padding(.vertical, 4)
             }
+            .padding(.vertical, 4)
             .padding(.bottom, 16)
         }
         .padding(.horizontal, 20)

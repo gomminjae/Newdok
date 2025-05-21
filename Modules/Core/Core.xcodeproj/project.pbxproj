@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 55;
+	objectVersion = 56;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -150,6 +150,7 @@
 		81104ECEC5CD1B0F5111557B /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				2A3D0BE98190220FACADF2FF /* API */,
 				A58C2BCC11B9ECEF52CEEC77 /* Network */,
 			);
 			path = Sources;
@@ -168,7 +169,6 @@
 		A58C2BCC11B9ECEF52CEEC77 /* Network */ = {
 			isa = PBXGroup;
 			children = (
-				2A3D0BE98190220FACADF2FF /* API */,
 				29E6F4F991C14AC479421678 /* Core */,
 				5C475DB9E0AD9001EACCA8B5 /* Interceptor */,
 				37D20FB3473EE5354A38EDF4 /* APIEnvironment.swift */,
@@ -413,10 +413,7 @@
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
 				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = (
-					"$(inherited)",
-					DEBUG,
-				);
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) DEBUG";
 				SWIFT_COMPILATION_MODE = singlefile;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;

@@ -19,6 +19,7 @@ public struct LoginView: View {
     @State private var showHomeView = false
     
     @EnvironmentObject private var router: AppRouter
+    @EnvironmentObject private var tabSelection: TabSelection
     
     @AppStorage("isGuest") public var isGuest: Bool = false
     @AppStorage("isLoggedIn") public var isLoggedIn: Bool = false
@@ -100,7 +101,8 @@ public struct LoginView: View {
                 Button("로그인") {
                     viewModel.login() {
                         isLoggedIn = true
-                        isGuest = false 
+                        isGuest = false
+                        tabSelection.selectedTab = .home
                         router.resetTo(.tabbar)
                         print("LoginView에서 router 인스턴스: \(Unmanaged.passUnretained(router).toOpaque())")
                     }

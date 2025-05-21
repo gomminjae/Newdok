@@ -86,4 +86,12 @@ final class AppCoordinator {
         let vm = container.container.resolve(ArticleDetailViewModel.self, argument: id)!
         return ArticleDetailView(viewModel: vm).environmentObject(router)
     }
+    
+    func makeEditProfileView() -> some View {
+        let vm = container.container.resolve(MypageViewModel.self)!
+        return EditProfileView(viewModel: vm).environmentObject(router)
+    }
+    
+    
+    
 }

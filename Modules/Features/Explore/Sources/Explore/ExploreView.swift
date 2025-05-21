@@ -70,20 +70,24 @@ public struct ExploreView: View {
             }
             .frame(maxHeight: .infinity, alignment: .top)
             .background(Color.white)
-            .onAppear {
-                if !isLoaded {
+            .onChange(of: isGuest) {
+                Task {
                     if isGuest {
-                        Task {
-                            await viewModel.fetchAllNewsletters()
-                            isLoaded = true
-                        }
+                        await viewModel.fetchAllNewsletters()
                     } else {
-                        Task {
-                            await viewModel.fetchRecommendation()
-                            await viewModel.fetchAllNewsletters()
-                            isLoaded = true
-                        }
+                        await viewModel.fetchRecommendation()
+                        await viewModel.fetchAllNewsletters()
                     }
+                    isLoaded = true
+                }
+            }
+            .onAppear {
+                Task {
+                    
+                    await viewModel.fetchRecommendation()
+                    await viewModel.fetchAllNewsletters()
+                    isLoaded = true
+                    
                 }
             }
         }
@@ -167,7 +171,7 @@ public struct ExploreView: View {
                     .padding(.bottom, 24)
 
                 Button(action: {
-                    print("등록")
+                    router.push(.editProfile)
                 }) {
                     Text("프로필 등록하기")
                         .font(.hanSansNeo(14,.bold))
@@ -285,7 +289,7 @@ public struct ExploreView: View {
     }
     private var newsletterFilterSection: some View {
         HStack(spacing: 12) {
-            // 스크롤 가능한 필터 버튼들
+            
             ScrollView(.horizontal, showsIndicators: false) {
                 HStack(spacing: 4) {
                     // 정렬 버튼
@@ -337,7 +341,7 @@ public struct ExploreView: View {
 
                     // 요일 필터
                     Button(action: {
-                        // showWeekdaySheet = true
+                        viewModel.isShowFilterSheet.toggle()
                     }) {
                         HStack(spacing: 4) {
                             Text(dayText)

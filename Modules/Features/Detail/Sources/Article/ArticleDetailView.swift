@@ -12,10 +12,11 @@ import Shared
 import DesignSystem
 import Kingfisher
 
+
 public struct ArticleDetailView: View {
     @StateObject private var viewModel: ArticleDetailViewModel
     @EnvironmentObject private var router: AppRouter
-    @State private var webViewHeight: CGFloat = 100 // 초기값 설정
+    @State private var webViewHeight: CGFloat = 100
 
     public init(viewModel: ArticleDetailViewModel) {
         _viewModel = StateObject(wrappedValue: viewModel)
@@ -24,52 +25,45 @@ public struct ArticleDetailView: View {
     public var body: some View {
         ScrollView {
             VStack(spacing: 0) {
-                // 배너 이미지 + 제목
+                // MARK: - 배너 + 타이틀
                 ZStack(alignment: .bottomLeading) {
                     KFImage(URL(string: viewModel.detail?.brandImageUrl ?? ""))
                         .resizable()
                         .scaledToFill()
                         .frame(height: 260)
+                        .frame(maxWidth: .infinity)
                         .clipped()
                         .overlay(
                             LinearGradient(
                                 gradient: Gradient(stops: [
-                                    .init(color: Color(hex: "#000000").opacity(0.0), location: 0.0),
-                                    .init(color: Color(hex: "#0C0C0C").opacity(0.39), location: 0.63),
-                                    .init(color: Color(hex: "#1E1E1E").opacity(1.0), location: 1.0)
+                                    .init(color: .black.opacity(0.0), location: 0.0),
+                                    .init(color: .black.opacity(0.4), location: 1.0)
                                 ]),
                                 startPoint: .top,
                                 endPoint: .bottom
                             )
-                            .opacity(0.4)
                         )
 
-                    VStack(alignment: .leading, spacing: 8) {
+                    VStack(alignment: .leading, spacing: 4) {
                         Text(viewModel.detail?.articleTitle ?? "")
                             .font(.hanSansNeo(22, .bold))
                             .foregroundStyle(.white)
                             .lineLimit(2)
 
-                        Text(formatDate(viewModel.detail?.date ?? ""))
+                        Text(viewModel.detail?.date ?? "")
                             .foregroundStyle(Color(hex: "C6C6C6"))
+                            .font(.hanSansNeo(14, .medium))
                     }
-                    .padding(.horizontal, 20)
-                    .padding(.bottom, 24)
+                    .padding(.leading, 20)
+                    .padding(.trailing, 42)
+                    .padding(.bottom, 16)
                 }
 
-                // HTML 콘텐츠
+                // MARK: - 웹 콘텐츠
                 if let html = viewModel.detail?.articleHTML {
-                    GeometryReader { geometry in
-                        let width = geometry.size.width - 40
-
-                        WebView(htmlContent: html, contentHeight: $webViewHeight)
-                            .frame(width: width, height: webViewHeight)
-                            .padding(.horizontal, 20)
-                            .padding(.top, 16)
-                            .animation(.easeInOut(duration: 0.2), value: webViewHeight)
-                            .opacity(webViewHeight > 10 ? 1 : 0)
-                    }
-                    .frame(height: webViewHeight + 16)
+                    WebView(htmlContent: html, contentHeight: $webViewHeight)
+                        .frame(height: webViewHeight)
+                        .padding(.top, 16)
                 }
             }
         }
@@ -81,7 +75,6 @@ public struct ArticleDetailView: View {
                     router.pop()
                 } label: {
                     Image(asset: DesignSystemAsset.back)
-                        .font(.system(size: 17, weight: .semibold))
                         .foregroundColor(.black)
                 }
             }
@@ -92,7 +85,7 @@ public struct ArticleDetailView: View {
             }
             ToolbarItem(placement: .topBarTrailing) {
                 Button {
-                    // 북마크 액션
+                    // 북마크 기능
                 } label: {
                     Image(asset: DesignSystemAsset.lineBookmark)
                 }
@@ -115,54 +108,7 @@ public struct ArticleDetailView: View {
     }
 }
 
-
-
-import SwiftUI
-import WebKit
-
-//struct WebView: UIViewRepresentable {
-//    let htmlContent: String
-//    @Binding var contentHeight: CGFloat
-//
-//    func makeCoordinator() -> Coordinator {
-//        Coordinator(self)
-//    }
-//
-//    func makeUIView(context: Context) -> WKWebView {
-//        let webView = WKWebView()
-//        webView.scrollView.isScrollEnabled = false
-//        webView.isOpaque = false
-//        webView.backgroundColor = .clear
-//        webView.navigationDelegate = context.coordinator
-//        return webView
-//    }
-//
-//    func updateUIView(_ uiView: WKWebView, context: Context) {
-//        uiView.loadHTMLString(htmlContent, baseURL: nil)
-//    }
-//
-//    class Coordinator: NSObject, WKNavigationDelegate {
-//        var parent: WebView
-//
-//        init(_ parent: WebView) {
-//            self.parent = parent
-//        }
-//
-//        func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
-//            webView.evaluateJavaScript("document.body.scrollHeight") { result, error in
-//                if let height = result as? CGFloat {
-//                    DispatchQueue.main.async {
-//                        self.parent.contentHeight = height
-//                    }
-//                }
-//            }
-//        }
-//    }
-//}
-//
-import SwiftUI
-import WebKit
-
+// MARK: - WKWebView
 struct WebView: UIViewRepresentable {
     let htmlContent: String
     @Binding var contentHeight: CGFloat
@@ -191,31 +137,21 @@ struct WebView: UIViewRepresentable {
                 html, body {
                     margin: 0;
                     padding: 0;
-                    width: 100%;
-                    font-family: -apple-system, BlinkMacSystemFont, sans-serif;
-                    color: #333;
-                    line-height: 1.6;
                     background-color: transparent;
-                    box-sizing: border-box;
-                    overflow-wrap: break-word;
-                    word-wrap: break-word;
+                    font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+                    overflow-x: hidden;
+                    width: 100% !important;
                 }
                 * {
                     box-sizing: border-box !important;
                     max-width: 100% !important;
+                    word-break: break-word !important;
                 }
-                img, iframe, video {
-                    display: block;
+                img, iframe, video, table, td {
                     width: 100% !important;
+                    max-width: 100% !important;
                     height: auto !important;
-                }
-                table {
-                    width: 100% !important;
-                    table-layout: fixed;
-                    word-break: break-word;
-                }
-                p {
-                    margin: 0 0 1em;
+                    display: block !important;
                 }
             </style>
         </head>
@@ -224,7 +160,6 @@ struct WebView: UIViewRepresentable {
         </body>
         </html>
         """
-
         uiView.loadHTMLString(styledHTML, baseURL: nil)
     }
 
@@ -236,7 +171,17 @@ struct WebView: UIViewRepresentable {
         }
 
         func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
-            webView.evaluateJavaScript("document.body.scrollHeight") { result, error in
+            let fixWidthScript = """
+            Array.from(document.querySelectorAll('[width]')).forEach(el => el.removeAttribute('width'));
+            Array.from(document.querySelectorAll('img, table, td')).forEach(el => {
+                el.style.width = '100%';
+                el.style.maxWidth = '100%';
+                el.style.height = 'auto';
+                el.style.boxSizing = 'border-box';
+            });
+            document.body.scrollHeight;
+            """
+            webView.evaluateJavaScript(fixWidthScript) { result, _ in
                 if let height = result as? CGFloat {
                     DispatchQueue.main.async {
                         self.parent.contentHeight = height

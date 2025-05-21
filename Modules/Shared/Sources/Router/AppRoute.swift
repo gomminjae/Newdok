@@ -16,4 +16,7 @@ public enum AppRoute: Hashable {
     
     case brandDetail(id: String)
     case articleDetail(id: String)
+    
+    
+    case editProfile
 }

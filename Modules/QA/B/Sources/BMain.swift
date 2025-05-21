@@ -12,6 +12,7 @@ struct BApp: App {
     
     @State private var isLaunch: Bool = true
     @StateObject private var router = AppRouter()
+    @StateObject private var tabSelection = TabSelection()
     
     init() {
         DesignSystemFontFamily.registerAllCustomFonts()
@@ -22,6 +23,7 @@ struct BApp: App {
         WindowGroup {
             AppCoordinatorEntry.makeAFlow()
                 .environmentObject(router)
+                .environmentObject(tabSelection)
         }
     }
 }

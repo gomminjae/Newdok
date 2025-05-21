@@ -32,7 +32,7 @@ public struct UnsubscribePopupView: View {
                 .font(.hanSansNeo(18, .bold))
                 .foregroundColor(Color(hex: "#161616"))
 
-            Text("구독을 중지하면 더이상\n새로운 아티클을 수신되지 않아요.")
+            Text("구독을 중지하면 더이상\n새로운 아티클이 수신되지 않아요.")
                 .multilineTextAlignment(.center)
                 .font(.hanSansNeo(14, .medium))
                 .foregroundColor(Color(hex: "#555555"))
