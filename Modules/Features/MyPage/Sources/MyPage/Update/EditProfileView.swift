@@ -138,7 +138,7 @@ public struct EditProfileView: View {
         .hideKeyboardOnTap()
         .popup(isPresented: $viewModel.shownicknameToast) {
             ToastView(message: "닉네임이 변경되었습니다.")
-                .padding(.bottom, 106)
+                .padding(.bottom, 50)
         } customize: {
             $0
                 .type(.toast)
@@ -149,7 +149,7 @@ public struct EditProfileView: View {
         }
         .popup(isPresented: $viewModel.showIndustryToast) {
             ToastView(message: "관심사가 변경 되었습니다.")
-                .padding(.bottom, 106)
+                .padding(.bottom, 50)
         } customize: {
             $0
                 .type(.toast)
@@ -160,7 +160,7 @@ public struct EditProfileView: View {
         }
         .popup(isPresented: $viewModel.showInterestToast) {
             ToastView(message: "종사산어이 변경되었습니다.")
-                .padding(.bottom, 106)
+                .padding(.bottom, 50)
         } customize: {
             $0
                 .type(.toast)
