@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 55;
+	objectVersion = 56;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -23,6 +23,10 @@
 		963BD2E45D7172CE4BF69364 /* VerificationButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DEFF305135085B93F19593 /* VerificationButtonStyle.swift */; };
 		99AD012E16AE91B0DA8273E7 /* SpoqaHanSansNeo-Thin.otf in Resources */ = {isa = PBXBuildFile; fileRef = 1EAA4A417D2996F4DF2DED40 /* SpoqaHanSansNeo-Thin.otf */; };
 		ABB14811E13F7B1ECCF8B086 /* TuistAssets+DesignSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5263BC75B281154AC0B5A7B /* TuistAssets+DesignSystem.swift */; };
+		B59943222DDF7A76009BC1D9 /* SystemErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B59943212DDF7A76009BC1D9 /* SystemErrorView.swift */; };
+		B59943242DDF7A82009BC1D9 /* NetworkErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B59943232DDF7A82009BC1D9 /* NetworkErrorView.swift */; };
+		B59943262DDF7A91009BC1D9 /* LoginErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B59943252DDF7A91009BC1D9 /* LoginErrorView.swift */; };
+		B59943282DDF7A9A009BC1D9 /* UpdateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B59943272DDF7A9A009BC1D9 /* UpdateView.swift */; };
 		BC4360B914A0E6C10A4A851E /* CheckSubscribeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CF8A496C7E691DCF3A7C603 /* CheckSubscribeView.swift */; };
 		D077CFC5DD281F26BDA2376F /* AuthFailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41950894E4E9C8FF11201792 /* AuthFailView.swift */; };
 		D2E21543F5B3B63472BE98A1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4F6AF114A38FDBD9663A6B1B /* Assets.xcassets */; };
@@ -72,6 +76,10 @@
 		927C881A2F81BA000C05ABEF /* SubscribeNoticeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscribeNoticeView.swift; sourceTree = "<group>"; };
 		9CF8A496C7E691DCF3A7C603 /* CheckSubscribeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckSubscribeView.swift; sourceTree = "<group>"; };
 		A5263BC75B281154AC0B5A7B /* TuistAssets+DesignSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TuistAssets+DesignSystem.swift"; sourceTree = "<group>"; };
+		B59943212DDF7A76009BC1D9 /* SystemErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SystemErrorView.swift; sourceTree = "<group>"; };
+		B59943232DDF7A82009BC1D9 /* NetworkErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkErrorView.swift; sourceTree = "<group>"; };
+		B59943252DDF7A91009BC1D9 /* LoginErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginErrorView.swift; sourceTree = "<group>"; };
+		B59943272DDF7A9A009BC1D9 /* UpdateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateView.swift; sourceTree = "<group>"; };
 		BE4AD9735556ECA8C8008FEC /* TuistBundle+DesignSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TuistBundle+DesignSystem.swift"; sourceTree = "<group>"; };
 		BFD516035027585AFC53F053 /* ColorPalette.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorPalette.swift; sourceTree = "<group>"; };
 		CD2A1BFFD4D22BB78D3CF32E /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
@@ -110,6 +118,7 @@
 		19EDB96E44056176A3F928A5 /* Popup */ = {
 			isa = PBXGroup;
 			children = (
+				B59943202DDF7A61009BC1D9 /* System */,
 				41950894E4E9C8FF11201792 /* AuthFailView.swift */,
 				9CF8A496C7E691DCF3A7C603 /* CheckSubscribeView.swift */,
 				F04616C3C5DB23A49097D3BF /* SubscribeGuestAlertView.swift */,
@@ -193,6 +202,17 @@
 				1EAA4A417D2996F4DF2DED40 /* SpoqaHanSansNeo-Thin.otf */,
 			);
 			path = Font;
+			sourceTree = "<group>";
+		};
+		B59943202DDF7A61009BC1D9 /* System */ = {
+			isa = PBXGroup;
+			children = (
+				B59943212DDF7A76009BC1D9 /* SystemErrorView.swift */,
+				B59943232DDF7A82009BC1D9 /* NetworkErrorView.swift */,
+				B59943252DDF7A91009BC1D9 /* LoginErrorView.swift */,
+				B59943272DDF7A9A009BC1D9 /* UpdateView.swift */,
+			);
+			path = System;
 			sourceTree = "<group>";
 		};
 		CA7FD31B81030BC1A9A40F5D /* Toast */ = {
@@ -322,15 +342,19 @@
 				6F4DC4FB98D3EF58306E1CDA /* BackButton.swift in Sources */,
 				963BD2E45D7172CE4BF69364 /* VerificationButtonStyle.swift in Sources */,
 				4D1C8FAC5AA3A85D2B2BFAAF /* Color+Extension.swift in Sources */,
+				B59943222DDF7A76009BC1D9 /* SystemErrorView.swift in Sources */,
 				EA14ADB3FF1DCA11D8B9D962 /* ColorPalette.swift in Sources */,
 				EBF8A05ADDF1FF48833C370E /* BirthYearPickerView.swift in Sources */,
+				B59943262DDF7A91009BC1D9 /* LoginErrorView.swift in Sources */,
 				D748D56D7CAC703E51B32DD4 /* CalendarPopupView.swift in Sources */,
 				07AB90021A70B1D55E233DDA /* NoDataView.swift in Sources */,
 				72415CF40FB9EA2BE53157FD /* Font.swift in Sources */,
 				EBF8029EE12A2BE1AD00F4BC /* LoadingView.swift in Sources */,
+				B59943242DDF7A82009BC1D9 /* NetworkErrorView.swift in Sources */,
 				D077CFC5DD281F26BDA2376F /* AuthFailView.swift in Sources */,
 				BC4360B914A0E6C10A4A851E /* CheckSubscribeView.swift in Sources */,
 				68B44B93AD7ED2B47CD71A4A /* SubscribeGuestAlertView.swift in Sources */,
+				B59943282DDF7A9A009BC1D9 /* UpdateView.swift in Sources */,
 				8A9C0A8F4FB5F65357DC241E /* SubscribeNoticeView.swift in Sources */,
 				E3003B318BD827C1E876F9C9 /* UnsubscribePopupView.swift in Sources */,
 				D35DFD63D8CD70868B230DA2 /* CustomTextFieldModifier.swift in Sources */,
@@ -365,10 +389,7 @@
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
 				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = (
-					"$(inherited)",
-					DEBUG,
-				);
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) DEBUG";
 				SWIFT_COMPILATION_MODE = singlefile;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
