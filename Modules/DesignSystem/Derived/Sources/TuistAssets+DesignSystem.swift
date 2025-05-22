@@ -46,6 +46,7 @@ public enum DesignSystemAsset: Sendable {
   public static let refresh = DesignSystemImages(name: "refresh")
   public static let search = DesignSystemImages(name: "search")
   public static let signup = DesignSystemImages(name: "signup")
+  public static let systemPost = DesignSystemImages(name: "systemPost")
   public static let time = DesignSystemImages(name: "time")
   public static let uncheck = DesignSystemImages(name: "uncheck")
   public static let updown = DesignSystemImages(name: "updown")
