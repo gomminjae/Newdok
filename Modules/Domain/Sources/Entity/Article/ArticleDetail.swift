@@ -14,7 +14,7 @@ public struct ArticleDetail {
     public let brandName: String
     public let articleHTML: String
     public let brandImageUrl: String
-    public let isBookmarked: Bool
+    public var isBookmarked: Bool
     
     
     public init(articleTitle: String, articleId: Int, date: String, brandId: Int, brandName: String, articleHTML: String, brandImageUrl: String, isBookmarked: Bool) {

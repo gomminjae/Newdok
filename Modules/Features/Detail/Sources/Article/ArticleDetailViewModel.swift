@@ -35,4 +35,14 @@ public final class ArticleDetailViewModel: ObservableObject {
         }
     }
     
+    public func bookmark() async {
+        do {
+            guard let articleId = detail?.articleId else { return }
+            _ = try await useCase.toggleBookmarkStatus(articleId: "\(articleId)")
+            detail?.isBookmarked.toggle()
+        } catch {
+            print("북마크 오류")
+        }
+    }
+    
 }

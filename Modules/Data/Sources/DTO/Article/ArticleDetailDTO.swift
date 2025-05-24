@@ -14,7 +14,7 @@ public struct ArticleDetailDTO: Decodable {
     let brandName: String
     let articleHTML: String
     let brandImageUrl: String
-    let isBookmarked: Bool
+    var isBookmarked: Bool
     
     public func toDomain() -> ArticleDetail {
         return ArticleDetail(

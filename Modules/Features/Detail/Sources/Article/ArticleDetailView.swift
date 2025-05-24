@@ -85,9 +85,15 @@ public struct ArticleDetailView: View {
             }
             ToolbarItem(placement: .topBarTrailing) {
                 Button {
-                    // 북마크 기능
+                    Task {
+                        await viewModel.bookmark()
+                    }
                 } label: {
-                    Image(asset: DesignSystemAsset.lineBookmark)
+                    if viewModel.detail?.isBookmarked == true {
+                        Image(asset: DesignSystemAsset.fillBookmark)
+                    } else {
+                        Image(asset: DesignSystemAsset.lineBookmark)
+                    }
                 }
             }
         }
