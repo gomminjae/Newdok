@@ -101,6 +101,7 @@ public enum DesignSystemAsset: Sendable {
   public static let lineLeft = DesignSystemImages(name: "Line left")
   public static let lineRight = DesignSystemImages(name: "Line right")
   public static let lineCloseEye = DesignSystemImages(name: "_Line Close Eye")
+  public static let bookmarked = DesignSystemImages(name: "bookmarked")
 }
 // swiftlint:enable identifier_name line_length nesting type_body_length type_name
 

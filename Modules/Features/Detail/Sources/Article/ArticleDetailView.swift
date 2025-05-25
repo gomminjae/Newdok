@@ -23,50 +23,52 @@ public struct ArticleDetailView: View {
     }
 
     public var body: some View {
-        ScrollView {
-            VStack(spacing: 0) {
-                // MARK: - 배너 + 타이틀
-                ZStack(alignment: .bottomLeading) {
-                    KFImage(URL(string: viewModel.detail?.brandImageUrl ?? ""))
-                        .resizable()
-                        .scaledToFill()
-                        .frame(height: 260)
-                        .frame(maxWidth: .infinity)
-                        .clipped()
-                        .overlay(
-                            LinearGradient(
-                                gradient: Gradient(stops: [
-                                    .init(color: .black.opacity(0.0), location: 0.0),
-                                    .init(color: .black.opacity(0.4), location: 1.0)
-                                ]),
-                                startPoint: .top,
-                                endPoint: .bottom
+        GeometryReader { geo in
+            ScrollView {
+                VStack(spacing: 0) {
+                    ZStack(alignment: .bottomLeading) {
+                        KFImage(URL(string: viewModel.detail?.brandImageUrl ?? ""))
+                            .resizable()
+                            .scaledToFill()
+                            .frame(width: geo.size.width, height: 260) 
+                            .clipped()
+                            .overlay(
+                                LinearGradient(
+                                    gradient: Gradient(stops: [
+                                        .init(color: .black.opacity(0.0), location: 0.0),
+                                        .init(color: .black.opacity(0.4), location: 1.0)
+                                    ]),
+                                    startPoint: .top,
+                                    endPoint: .bottom
+                                )
                             )
-                        )
 
-                    VStack(alignment: .leading, spacing: 4) {
-                        Text(viewModel.detail?.articleTitle ?? "")
-                            .font(.hanSansNeo(22, .bold))
-                            .foregroundStyle(.white)
-                            .lineLimit(2)
+                        VStack(alignment: .leading, spacing: 4) {
+                            Text(viewModel.detail?.articleTitle ?? "")
+                                .font(.hanSansNeo(22, .bold))
+                                .foregroundStyle(.white)
+                                
+                                .multilineTextAlignment(.leading)
+                                .lineLimit(2)
 
-                        Text(viewModel.detail?.date ?? "")
-                            .foregroundStyle(Color(hex: "C6C6C6"))
-                            .font(.hanSansNeo(14, .medium))
+                            Text(formatDate(viewModel.detail?.date ?? ""))
+                                .foregroundStyle(Color(hex: "C6C6C6"))
+                                .font(.hanSansNeo(14, .medium))
+                        }
+                        .padding(.horizontal, 20)
+                        .padding(.trailing, 42)
+                        .padding(.bottom, 16)
                     }
-                    .padding(.leading, 20)
-                    .padding(.trailing, 42)
-                    .padding(.bottom, 16)
-                }
 
-                // MARK: - 웹 콘텐츠
-                if let html = viewModel.detail?.articleHTML {
-                    WebView(htmlContent: html, contentHeight: $webViewHeight)
-                        .frame(height: webViewHeight)
-                        .padding(.top, 16)
+                    if let html = viewModel.detail?.articleHTML {
+                        WebView(htmlContent: html, contentHeight: $webViewHeight)
+                            .frame(height: webViewHeight)
+                            .frame(width: geo.size.width)
+                    }
                 }
             }
         }
+
         .navigationBarBackButtonHidden(true)
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
@@ -89,11 +91,13 @@ public struct ArticleDetailView: View {
                         await viewModel.bookmark()
                     }
                 } label: {
-                    if viewModel.detail?.isBookmarked == true {
-                        Image(asset: DesignSystemAsset.fillBookmark)
-                    } else {
-                        Image(asset: DesignSystemAsset.lineBookmark)
-                    }
+                    Image(
+                        asset: viewModel.detail?.isBookmarked == true
+                            ? DesignSystemAsset.bookmarked
+                            : DesignSystemAsset.lineBookmark
+                    )
+                    .resizable()
+                    //.frame(width: 28, height: 28)
                 }
             }
         }
@@ -102,16 +106,23 @@ public struct ArticleDetailView: View {
         }
     }
 
-    private func formatDate(_ isoString: String) -> String {
-        let formatter = ISO8601DateFormatter()
-        guard let date = formatter.date(from: isoString) else { return "" }
+    func formatDate(_ isoString: String) -> String {
+        let isoFormatter = ISO8601DateFormatter()
+        isoFormatter.formatOptions = [.withInternetDateTime, .withFractionalSeconds]
+        isoFormatter.timeZone = TimeZone(secondsFromGMT: 0)
+
+        guard let date = isoFormatter.date(from: isoString) else {
+            return isoString
+        }
 
         let displayFormatter = DateFormatter()
         displayFormatter.locale = Locale(identifier: "ko_KR")
+        displayFormatter.timeZone = TimeZone(identifier: "Asia/Seoul")
         displayFormatter.dateFormat = "M월 d일 (E) a h:mm"
 
         return displayFormatter.string(from: date)
     }
+
 }
 
 // MARK: - WKWebView
@@ -142,7 +153,7 @@ struct WebView: UIViewRepresentable {
             <style>
                 html, body {
                     margin: 0;
-                    padding: 0;
+                    padding: 0 6px !important;
                     background-color: transparent;
                     font-family: -apple-system, BlinkMacSystemFont, sans-serif;
                     overflow-x: hidden;

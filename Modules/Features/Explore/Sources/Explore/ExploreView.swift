@@ -480,6 +480,7 @@ struct PagingScrollView: View {
                             .id(index) // scrollPosition 추적
                             .onTapGesture {
                                 router.push(.brandDetail(id: "\(newsletter.id)"))
+                                
                             }
                            
                     }
