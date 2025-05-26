@@ -15,7 +15,7 @@ public struct BrandDetailDTO: Decodable {
     public let imageUrl: String
     public let interests: [InterestDTO]
     public let brandArticleList: [BrandArticleDTO]
-    public let isSubscribed: String
+    public let isSubscribed: String?
     public let subscribeCheck: Bool
 
     public func toDomain() -> BrandDetail {

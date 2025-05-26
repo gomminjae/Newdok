@@ -54,6 +54,7 @@ struct SortBottomSheet: View {
                             Spacer()
                             if orderOpt == option.value {
                                 Image(asset: DesignSystemAsset.lineCheckmark)
+                                    .renderingMode(.template)
                                     .foregroundColor(Color(hex: "#2866D3"))
                             }
                         }

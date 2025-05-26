@@ -53,8 +53,6 @@ public struct SubscribeView: View {
                                 if selectedTab == 0 {
                                     selectedNewsletter = newsletter
                                     showUnsubscribeAlert = true
-//                                    await viewModel.pause(newsletterId: String(newsletter.id ?? 0))
-//                                    await viewModel.fetchActive()
                                 } else {
                                     Task {
                                         await viewModel.resume(newsletterId: String(newsletter.id ?? 0))
@@ -70,7 +68,7 @@ public struct SubscribeView: View {
                                 }
                             }
                             .padding(.horizontal, 20)
-                            .padding(.vertical, 10)
+                            .padding(.bottom, 12)
 
                             
                         }

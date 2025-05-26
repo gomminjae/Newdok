@@ -8,13 +8,60 @@
 import Foundation
 import Domain
 import Shared
+import SwiftUI
+
+
+public enum IDValidationError: Error {
+    case invalidLengthAndCombination
+    case invalidLength
+    case invalidCombination
+
+    var message: String {
+        switch self {
+        case .invalidLengthAndCombination:
+            return "6~12자, 영문/숫자 조합으로 입력해주세요."
+        case .invalidLength:
+            return "6~12자 이내로 입력해주세요."
+        case .invalidCombination:
+            return "영문/숫자 조합으로 구성해주세요."
+        }
+    }
+}
+public enum NickNameValidationError: Error {
+    case tooLong
+    case containsSpecialCharacters
+    
+    var message: String {
+        switch self {
+        case .tooLong:
+            return "닉네임은 최대 12자까지 입력할 수 있습니다."
+        case .containsSpecialCharacters:
+            return "특수문자는 사용할 수 없습니다."
+        }
+    }
+}
+
+public enum NicknameValidationError: Error {
+    case invalidLength
+    case containsInvalidCharacters
+    
+    var message: String {
+        switch self {
+        case .invalidLength:
+            return "1자 이상 12자 이하로 입력해주세요."
+        case .containsInvalidCharacters:
+            return "특수문자와 공백은 사용할 수 없습니다."
+        }
+    }
+}
+
 
 @MainActor
 final public class SignupViewModel: ObservableObject {
 
     private let userUseCase: UserUseCase
     
-    @Published var currentStep: SignupStep = .phoneVerification
+    @Published var currentStep: SignupStep = .agreeTerms
 
     // MARK: - Form
     @Published public var phoneNumber: String = ""
@@ -25,8 +72,56 @@ final public class SignupViewModel: ObservableObject {
     
     
     //MARK: - id
-    @Published public var loginID: String = ""
+    @Published public var loginID: String = "" {
+        didSet {
+            isIDAvailable = nil
+        }
+    }
     @Published public var isIDAvailable: Bool? = nil
+    
+    var idValidationError: IDValidationError? {
+        guard !loginID.isEmpty else { return nil }
+        return validateID()
+    }
+
+    var isIDCheckEnabled: Bool {
+        return validateID() == nil
+    }
+
+    var isIDErrorState: Bool {
+        // 0. 입력이 아예 없으면 에러 표시 안 함
+        guard !loginID.isEmpty else { return false }
+
+        // 1. 중복 확인 실패
+        if isIDAvailable == false {
+            return true
+        }
+
+        // 2. 중복 확인을 안 했고, 형식 에러가 있는 경우
+        if isIDAvailable == nil, validateID() != nil {
+            return true
+        }
+
+        return false
+    }
+
+
+    var idValidationMessage: (text: String, color: Color)? {
+        if let available = isIDAvailable {
+            return (
+                text: available ? "사용 가능한 아이디입니다" : "이미 사용중인 아이디입니다",
+                color: available ? Color(hex: "#2866D3") : Color(hex: "#E32727")
+            )
+        } else if let error = idValidationError {
+            return (
+                text: error.message,
+                color: Color(hex: "#E32727")
+            )
+        } else {
+            return nil
+        }
+    }
+    
 
     // MARK: - State
     @Published public var isLoading = false
@@ -157,13 +252,48 @@ final public class SignupViewModel: ObservableObject {
         timer?.invalidate()
         timer = nil
     }
+    public func validateID() -> IDValidationError? {
+        let id = loginID
+        let isValidLength = (6...12).contains(id.count)
+        let hasLetter = id.rangeOfCharacter(from: .letters) != nil
+        let hasNumber = id.rangeOfCharacter(from: .decimalDigits) != nil
+        let isAlphanumeric = hasLetter && hasNumber
+
+        // 특수문자 제거 (영문+숫자만 허용)
+        let allowedCharset = CharacterSet.alphanumerics
+        let containsOnlyAllowed = id.rangeOfCharacter(from: allowedCharset.inverted) == nil
+
+        // case 1: 길이 + 조합 둘 다 틀림
+        if !isValidLength && (!isAlphanumeric || !containsOnlyAllowed) {
+            
+            return .invalidLengthAndCombination
+        }
+
+        // case 2: 길이만 틀림
+        if !isValidLength {
+            
+            return .invalidLength
+        }
+
+        // case 3: 조합만 틀림
+        if !isAlphanumeric || !containsOnlyAllowed {
+            
+            return .invalidCombination
+        }
+
+        return nil
+    }
     
     public func checkIDDup() {
+        guard validateID() == nil else {
+            isIDAvailable = nil
+            return
+        }
+
         isIDAvailable = nil
-        Task { @MainActor in 
+        Task { @MainActor in
             do {
                 let result = try await userUseCase.checkIDDup(loginID)
-                
                 switch result {
                 case .exists:
                     isIDAvailable = false
@@ -176,16 +306,6 @@ final public class SignupViewModel: ObservableObject {
         }
     }
     
-    public func validateNickname() -> NickNameValidationError? {
-        if nickname.count > 12 {
-            return .tooLong
-        }
-        let specialCharacterSet = CharacterSet(charactersIn: "!@#$%^&*()_+-=~`[]{}|:;\"'<>,.?/")
-        if nickname.rangeOfCharacter(from: specialCharacterSet) != nil {
-            return .containsSpecialCharacters
-        }
-        return nil
-    }
     
     public func signIn() {
         Task {

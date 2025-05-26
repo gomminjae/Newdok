@@ -62,7 +62,7 @@ public extension View {
 public struct PasswordFieldModifier: ViewModifier {
     @Binding var isSecure: Bool
     @FocusState.Binding var isFocused: Bool
-    var isError: Bool   // 에러 상태 주입
+    var isError: Bool = false
 
     public init(
         isSecure: Binding<Bool>,
@@ -86,7 +86,7 @@ public struct PasswordFieldModifier: ViewModifier {
             }) {
                 Image(asset: isSecure ? DesignSystemAsset.lineCloseEye : DesignSystemAsset.lineEye)
                     .renderingMode(.template)
-                    .foregroundColor(isFocused ? Color.primaryNormal : Color(hex: "#363636"))
+                    .foregroundStyle(isFocused ? Color(hex: "363636") : Color(hex : "969696"))
             }
         }
         .padding(.horizontal)

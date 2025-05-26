@@ -20,7 +20,7 @@ public class ExploreViewModel: ObservableObject {
     
     @Published public var allNewsletters: [Brand] = []
     
-    @Published public var orderOpt: String? = "최신순"
+    @Published public var orderOpt: String? = "인기순"
     @Published public var industry: [Int]? = nil
     @Published public var day: [Int]? = nil
     

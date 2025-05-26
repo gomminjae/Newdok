@@ -10,18 +10,14 @@ import DesignSystem
 import Combine
 
 public struct IDInputView: View {
-    
-   
-    
+
     @FocusState private var isIDFocused: Bool
-    
-    
     @ObservedObject private var viewModel: SignupViewModel
-    
+
     public init(viewModel: SignupViewModel) {
-            self.viewModel = viewModel
-        }
-    
+        self.viewModel = viewModel
+    }
+
     public var body: some View {
         ZStack(alignment: .bottom) {
             ScrollView {
@@ -29,7 +25,7 @@ public struct IDInputView: View {
                     Text("아이디를\n입력해주세요.")
                         .font(.hanSansNeo(20, .bold))
                         .padding(.top, 24)
-                    
+
                     Text("아이디")
                         .font(.hanSansNeo(14, .medium))
                         .foregroundStyle(Color(hex: "#565656"))
@@ -39,26 +35,27 @@ public struct IDInputView: View {
                     HStack {
                         TextField("6~12자,영문/숫자 조합", text: $viewModel.loginID)
                             .font(.hanSansNeo(14, .medium))
-                            .customTextFieldStyle(isError: viewModel.isIDAvailable == false, isFocused: $isIDFocused)
+                            .customTextFieldStyle(isError: viewModel.isIDErrorState, isFocused: $isIDFocused)
                             .frame(height: 56)
-                        
+                            .focused($isIDFocused)
 
                         Button("중복확인") {
                             viewModel.checkIDDup()
                         }
-                        .font(.hanSansNeo(14,.bold))
+                        .font(.hanSansNeo(14, .bold))
                         .frame(width: 94, height: 48)
-                        .foregroundStyle(viewModel.loginID.count >= 6 ? Color.primaryNormal : Color(hex: "C0C0C0"))
+                        .foregroundStyle(viewModel.isIDCheckEnabled ? Color.primaryNormal : Color(hex: "C0C0C0"))
                         .overlay {
                             RoundedRectangle(cornerRadius: 4)
-                                .stroke(viewModel.loginID.count >= 6 ? Color.primaryNormal : Color(hex: "C0C0C0"))
+                                .stroke(viewModel.isIDCheckEnabled ? Color.primaryNormal : Color(hex: "C0C0C0"))
                         }
+                        .disabled(!viewModel.isIDCheckEnabled)
                     }
 
-                    if let isAvailable = viewModel.isIDAvailable {
-                        Text(isAvailable ? "사용 가능한 아이디입니다" : "이미 사용중인 아이디입니다")
+                    if let message = viewModel.idValidationMessage {
+                        Text(message.text)
                             .font(.hanSansNeo(12, .medium))
-                            .foregroundStyle(isAvailable ? Color(hex: "#2866D3") : Color(hex: "#E32727"))
+                            .foregroundStyle(message.color)
                             .padding(.top, 8)
                     }
 
@@ -68,34 +65,26 @@ public struct IDInputView: View {
             }
             .hideKeyboardOnTap()
             .ignoresSafeArea(.keyboard)
-            
+
             Button(action: {
-                print("✅ 버튼 클릭됨 - 현재 step: \(viewModel.currentStep)")
-                    viewModel.goToNextStep()
+                viewModel.goToNextStep()
             }) {
                 Text("다음")
                     .font(.hanSansNeo(14, .bold))
                     .frame(height: 48)
                     .frame(maxWidth: .infinity)
-                    .background(viewModel.isIDAvailable ?? false ? Color.primaryNormal : Color(hex: "#EBEBEB"))
+                    .background(viewModel.isIDAvailable == true ? Color.primaryNormal : Color(hex: "#EBEBEB"))
                     .foregroundColor(.white)
                     .cornerRadius(4)
             }
-            .onAppear {
-                print("✅ PwInputView 진입")
-            }
-            .ignoresSafeArea(.keyboard)
-            .disabled(!(viewModel.isIDAvailable ?? true))
+            .disabled(viewModel.isIDAvailable != true)
             .padding(.horizontal, 24)
             .padding(.bottom, 20)
-            .contentShape(Rectangle())
         }
         .scrollDisabled(true)
-
     }
-
-    
 }
+
 
 //#Preview {
 //    IDInputView(nextStep: {})

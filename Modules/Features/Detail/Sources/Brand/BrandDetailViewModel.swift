@@ -37,11 +37,13 @@ public final class BrandDetailViewModel: ObservableObject {
     
     public func guestFetch() async {
         isLoading = true
+        defer { isLoading = false }
+
         do {
             let data = try await useCase.fetchGuestNewsletterBrand(id: id)
             detail = data
         } catch {
-            print("Guest fetch error")
+            print("❌ Guest fetch error:", error)
         }
     }
     

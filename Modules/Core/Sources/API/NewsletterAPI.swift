@@ -59,7 +59,7 @@ extension NewsletterAPI: TargetType {
         case .resumeSubscription:
             return "/subscription/resume"
         case .fetchGuestNewsletterBrand(let id):
-            return "/\(id)/non-memeber"
+            return "/\(id)/non-member"
         case .fetchGuestAllNewsletterBrand:
             return "/non-member"
         
@@ -99,16 +99,20 @@ extension NewsletterAPI: TargetType {
             return .requestParameters(parameters: ["newsletterId": newsletterId], encoding: JSONEncoding.default)
         case .fetchGuestAllNewsletterBrand(let orderOpt, let industry, let day):
             var params: [String: Any] = [:]
-
+            
             if let orderOpt, !orderOpt.isEmpty {
-                params["orderOpt"] = orderOpt
-            }
-            if let industry {
-                params["industry"] = industry // [String]
-            }
-            if let day {
-                params["day"] = day // [String]
-            }
+                    params["orderOpt"] = orderOpt
+                }
+                
+                // industry: [3, 5] → industry=3&industry=5
+                if let industry, !industry.isEmpty {
+                    params["industry"] = industry
+                }
+
+                // day: [2, 4] → day=2&day=4
+                if let day, !day.isEmpty {
+                    params["day"] = day
+                }
 
             return .requestParameters(parameters: params, encoding: URLEncoding.default)
             

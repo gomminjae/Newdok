@@ -15,7 +15,7 @@ public struct BrandDetail {
     public let imageUrl: String
     public let interests: [Interest]
     public let brandArticleList: [BrandArticle]
-    public var isSubscribed: String
+    public var isSubscribed: String?
     public let subscribeCheck: Bool
 
     public init(
@@ -27,7 +27,7 @@ public struct BrandDetail {
         imageUrl: String,
         interests: [Interest],
         brandArticleList: [BrandArticle],
-        isSubscribed: String,
+        isSubscribed: String?,
         subscribeCheck: Bool
     ) {
         self.brandId = brandId

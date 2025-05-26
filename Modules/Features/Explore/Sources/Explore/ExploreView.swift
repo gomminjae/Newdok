@@ -73,7 +73,7 @@ public struct ExploreView: View {
             .onChange(of: isGuest) {
                 Task {
                     if isGuest {
-                        await viewModel.fetchAllNewsletters()
+                        await viewModel.fetchGuestAllNewsletters()
                     } else {
                         await viewModel.fetchRecommendation()
                         await viewModel.fetchAllNewsletters()
@@ -84,7 +84,7 @@ public struct ExploreView: View {
             .onAppear {
                 Task {
                     if isGuest {
-                        await viewModel.fetchAllNewsletters()
+                        await viewModel.fetchGuestAllNewsletters()
                     } else {
                         await viewModel.fetchRecommendation()
                         await viewModel.fetchAllNewsletters()
@@ -373,7 +373,11 @@ public struct ExploreView: View {
                 Task {
                     viewModel.day = nil
                     viewModel.industry = nil
-                    await viewModel.fetchAllNewsletters()
+                    if isGuest {
+                        await viewModel.fetchGuestAllNewsletters()
+                    } else {
+                        await viewModel.fetchAllNewsletters()
+                    }
                 }
             }) {
                 Image(asset: DesignSystemAsset.lineReload)
