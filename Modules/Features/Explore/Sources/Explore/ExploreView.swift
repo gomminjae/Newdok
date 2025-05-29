@@ -71,15 +71,9 @@ public struct ExploreView: View {
             .frame(maxHeight: .infinity, alignment: .top)
             .background(Color.white)
             .onChange(of: isGuest) {
-                Task {
-                    if isGuest {
-                        await viewModel.fetchGuestAllNewsletters()
-                    } else {
-                        await viewModel.fetchRecommendation()
-                        await viewModel.fetchAllNewsletters()
-                    }
-                    isLoaded = true
-                }
+                viewModel.day = nil
+                viewModel.industry = nil
+                viewModel.orderOpt = "인기순"
             }
             .onAppear {
                 Task {
@@ -373,6 +367,7 @@ public struct ExploreView: View {
                 Task {
                     viewModel.day = nil
                     viewModel.industry = nil
+                    viewModel.orderOpt = "인기순"
                     if isGuest {
                         await viewModel.fetchGuestAllNewsletters()
                     } else {
@@ -388,13 +383,21 @@ public struct ExploreView: View {
         }
         .sheet(isPresented: $viewModel.isShowSortSheet) {
             SortBottomSheet(orderOpt: $viewModel.orderOpt) {
-                await viewModel.fetchAllNewsletters()
+                if isGuest {
+                    await viewModel.fetchGuestAllNewsletters()
+                } else {
+                    await viewModel.fetchAllNewsletters()
+                }
             }
             .presentationDragIndicator(.hidden)
         }
         .sheet(isPresented: $viewModel.isShowFilterSheet) {
             FilterBottomSheet(industry: $viewModel.industry, day: $viewModel.day) {
-                await viewModel.fetchAllNewsletters()
+                if isGuest {
+                    await viewModel.fetchGuestAllNewsletters()
+                } else {
+                    await viewModel.fetchAllNewsletters()
+                }
             }
             .presentationDragIndicator(.hidden)
         }

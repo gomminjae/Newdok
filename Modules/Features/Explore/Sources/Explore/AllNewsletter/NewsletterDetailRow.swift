@@ -92,17 +92,17 @@ struct NewsletterDetailRow: View {
 
                 Spacer()
 
-                if let label = SubscriptionStatus(rawValue: brand.isSubscribed).label {
+                if let label = SubscriptionStatus(rawValue: brand.isSubscribed ?? "").label {
                     Text(label)
                         .font(.hanSansNeo(11, .medium))
-                        .foregroundColor(SubscriptionStatus(rawValue: brand.isSubscribed).foregroundColor)
+                        .foregroundColor(SubscriptionStatus(rawValue: brand.isSubscribed ?? "").foregroundColor)
                         .padding(.horizontal, 12)
                         .padding(.vertical, 6)
-                        .background(SubscriptionStatus(rawValue: brand.isSubscribed).color)
+                        .background(SubscriptionStatus(rawValue: brand.isSubscribed ?? "").color)
                         .clipShape(Capsule())
                         .overlay {
                             Capsule()
-                                .stroke(SubscriptionStatus(rawValue: brand.isSubscribed).borderColor)
+                                .stroke(SubscriptionStatus(rawValue: brand.isSubscribed ?? "").borderColor)
                         }
                 }
             }

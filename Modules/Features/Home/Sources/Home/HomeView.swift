@@ -9,6 +9,7 @@ import SwiftUI
 import DesignSystem
 import Shared
 import Domain
+import PopupView
 
 
 public struct HomeView: View {
@@ -41,22 +42,27 @@ public struct HomeView: View {
             .padding(.top, 8)
         }
         .navigationBarHidden(true)
-        .fullScreenCover(isPresented: $showCalendar) {
-            CalendarPopupView(
-                isPresented: $showCalendar,
-                onDateSelected: { date in
-                    Task {
-                        viewModel.selectedDate = date
-                        await viewModel.loadArticles(for: date)
-                    }
-                }
-            )
-            .presentationBackground(Color(hex: "#25242C").opacity(0.6))
-        }
         .onAppear {
             if !isGuest {
                 Task { await viewModel.loadToday() }
             }
+        }
+        .popup(isPresented: $showCalendar) {
+            CalendarPopupView(isPresented: $showCalendar ,onDateSelected: { date in
+                Task {
+                    viewModel.selectedDate = date
+                    await viewModel.loadArticles(for: date)
+                }
+            })
+        } customize: {
+            $0
+                .type(.default)
+                .position(.center)
+                .animation(.easeInOut)
+                .closeOnTapOutside(true)
+                .backgroundColor(Color.black.opacity(0.3))
+            
+            
         }
     }
 

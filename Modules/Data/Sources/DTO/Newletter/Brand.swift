@@ -11,7 +11,7 @@ public struct BrandDTO: Decodable {
     public let brandName: String
     public let imageUrl: String
     public let interests: [InterestDTO]
-    public let isSubscribed: String
+    public let isSubscribed: String?
     public let shortDescription: String
 
     public func toDomain() -> Brand {
@@ -20,7 +20,7 @@ public struct BrandDTO: Decodable {
             brandName: brandName,
             imageUrl: imageUrl,
             interests: interests.map { $0.toDomain() },
-            isSubscribed: isSubscribed,
+            isSubscribed: isSubscribed ?? "",
             shortDescription: shortDescription,
         )
     }

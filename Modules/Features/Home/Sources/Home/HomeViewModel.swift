@@ -61,10 +61,6 @@ public final class HomeViewModel: ObservableObject {
 
         return .articles
     }
-
-
-    
-    
     public var activeArticeDays: [Int] {
         articlesByMonth
             .filter { !$0.receivedArticleList.isEmpty }

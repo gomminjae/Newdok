@@ -12,7 +12,7 @@ public struct Brand: Identifiable {
     public let brandName: String
     public let imageUrl: String
     public let interests: [Interest]
-    public let isSubscribed: String
+    public let isSubscribed: String?
     public let shortDescription: String
 
     public init(

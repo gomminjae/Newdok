@@ -101,19 +101,15 @@ extension NewsletterAPI: TargetType {
             var params: [String: Any] = [:]
             
             if let orderOpt, !orderOpt.isEmpty {
-                    params["orderOpt"] = orderOpt
-                }
-                
-                // industry: [3, 5] → industry=3&industry=5
-                if let industry, !industry.isEmpty {
-                    params["industry"] = industry
-                }
-
-                // day: [2, 4] → day=2&day=4
-                if let day, !day.isEmpty {
-                    params["day"] = day
-                }
-
+                params["orderOpt"] = orderOpt
+            }
+            if let industry, !industry.isEmpty {
+                params["industry"] = industry.map { String($0) }.joined(separator: ",")
+            }
+            if let day, !day.isEmpty {
+                params["day"] = day.map { String($0) }.joined(separator: ",")
+            }
+            
             return .requestParameters(parameters: params, encoding: URLEncoding.default)
             
         }
