@@ -22,8 +22,8 @@ public class RecoveryViewModel: ObservableObject {
     @Published public var checkPassword: String = ""
     
     
-    init(userUseCase: UserUseCase) {
-        self.userUseCase = userUseCase
+    public init(useCase: UserUseCase) {
+        self.userUseCase = useCase
     }
     
     

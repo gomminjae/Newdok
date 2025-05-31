@@ -56,6 +56,8 @@ struct QABRootViewView: View {
                         
                     case .editProfile:
                         coordinator.makeEditProfileView()
+                    case .recovery:
+                        coordinator.makeRecoveryView()
                         
                     }
                 }
@@ -81,6 +83,8 @@ struct QABRootViewView: View {
                         coordinator.makeArticleDetail(id: id)
                     case .editProfile:
                         coordinator.makeEditProfileView()
+                    case .recovery:
+                        coordinator.makeRecoveryView()
                         
                     }
                 }

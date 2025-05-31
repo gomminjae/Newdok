@@ -16,6 +16,7 @@ import Foundation
 import Subscribe
 import Bookmark
 import Detail
+import Recovery
 import Domain
 
 final class AppCoordinator {
@@ -90,6 +91,12 @@ final class AppCoordinator {
     func makeEditProfileView() -> some View {
         let vm = container.container.resolve(MypageViewModel.self)!
         return EditProfileView(viewModel: vm).environmentObject(router)
+    }
+    
+    
+    func makeRecoveryView() -> some View {
+        let vm = container.container.resolve(RecoveryViewModel.self)!
+        return RecoveryView(viewModel: vm).environmentObject(router)
     }
     
     

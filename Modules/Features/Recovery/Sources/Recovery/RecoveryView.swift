@@ -12,10 +12,17 @@ import DesignSystem
 
 
 
-struct RecoveryView: View {
+public struct RecoveryView: View {
     @State private var selectedTab: Int = 0
     @State private var currentPage: Int = 0
-    var body: some View {
+    
+    @StateObject private var viewModel: RecoveryViewModel
+    
+    public init(viewModel: RecoveryViewModel) {
+        _viewModel = StateObject(wrappedValue: viewModel)
+    }
+    
+    public var body: some View {
         VStack {
             ZStack {
                 VStack(spacing: 0) {
