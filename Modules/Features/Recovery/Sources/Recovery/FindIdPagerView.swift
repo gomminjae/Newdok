@@ -7,38 +7,27 @@
 //
 import SwiftUI
 import DesignSystem
+import Domain
 
-struct UserIdResult {
-    var maskedId: String
-    var createdAt: String
-}
 
 
 struct FindIdPagerView: View {
-    @State private var pageIndex: Int = 0
-    @State private var foundIds: [UserIdResult] = []
+    @ObservedObject var viewModel: RecoveryViewModel
 
     var body: some View {
-        TabView(selection: $pageIndex) {
-            FindIdPhoneInputView(pageIndex: $pageIndex, foundIds: $foundIds)
+        TabView(selection: $viewModel.currentPage) {
+            FindIdPhoneInputView(viewModel: viewModel)
                 .tag(0)
-            FindIdResultView(foundIds: foundIds)
+            FindIdResultView(viewModel: viewModel)
                 .tag(1)
         }
         .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
-        .animation(.easeInOut, value: pageIndex)
+       
     }
 }
 struct FindIdPhoneInputView: View {
-    @Binding var pageIndex: Int
-    @Binding var foundIds: [UserIdResult]
-
-    @State private var phoneNumber: String = ""
-    @State private var showError = false
-    
-    
+    @ObservedObject var viewModel: RecoveryViewModel
     @FocusState private var isPhoneFieldFocused: Bool
-    @FocusState private var isNumberPadFocused: Bool
 
     var body: some View {
         VStack(spacing: 0) {
@@ -53,19 +42,18 @@ struct FindIdPhoneInputView: View {
                 .padding(.top, 42)
                 .padding(.leading, 28)
                 .padding(.bottom, 8)
+
             HStack(spacing: 8) {
                 HStack {
                     Image(asset: DesignSystemAsset.phone)
                         .padding(.leading, 20)
-                    
-                    TextField("-구분 없이 입력", text: $phoneNumber)
+
+                    TextField("-구분 없이 입력", text: $viewModel.phoneNumber)
                         .font(.hanSansNeo(14, .medium))
                         .keyboardType(.numberPad)
                         .focused($isPhoneFieldFocused)
-                        .focused($isNumberPadFocused)
                         .padding(.vertical, 12)
                         .padding(.horizontal, 8)
-                    
                 }
                 .frame(height: 48)
                 .background(Color.white)
@@ -76,56 +64,34 @@ struct FindIdPhoneInputView: View {
             }
 
             Button("다음") {
-                Task {
-                    // Mock API 호출
-                    let result = await mockFindId(phone: phoneNumber)
-                    if result.isEmpty {
-                        showError = true
-                    } else {
-                        foundIds = result
-                        pageIndex += 1
-                    }
-                }
+                Task { await viewModel.findMyIds() }
             }
-            .disabled(phoneNumber.isEmpty)
-            //.buttonStyle(PrimaryButtonStyle())
+            .disabled(viewModel.phoneNumber.isEmpty)
         }
-        .alert("가입되지 않은 휴대폰 번호입니다.", isPresented: $showError) {
-            Button("회원가입") {
-                // AppRouter push to signup
-            }
-        } message: {
-            Text("입력하신 정보로 조회된 계정이 없습니다.")
-        }
-        .padding()
-    }
-
-    // 예시 mock API
-    func mockFindId(phone: String) async -> [UserIdResult] {
-        if phone == "01012345678" {
-            return [
-                UserIdResult(maskedId: "aaa***", createdAt: "2024.05.12 가입"),
-                UserIdResult(maskedId: "aaa***", createdAt: "2025.01.16 가입")
-            ]
-        } else {
-            return []
-        }
+//        .alert("가입되지 않은 휴대폰 번호입니다.", isPresented: $viewModel.showError) {
+//            Button("회원가입") {
+//                // AppRouter push
+//            }
+//        } message: {
+//            Text("입력하신 정보로 조회된 계정이 없습니다.")
+//        }
+//        .padding()
     }
 }
 struct FindIdResultView: View {
-    var foundIds: [UserIdResult]
+    @ObservedObject var viewModel: RecoveryViewModel
 
     var body: some View {
         VStack(alignment: .leading, spacing: 12) {
-            Text("입력하신 번호로\n\(foundIds.count)개의 계정을 찾았습니다.")
+            Text("입력하신 번호로\n\(viewModel.users.count)개의 계정을 찾았습니다.")
                 .font(.hanSansNeo(16, .bold))
                 .padding(.bottom, 16)
 
-            ForEach(foundIds, id: \.maskedId) { id in
+            ForEach(viewModel.users, id: \.id) { id in
                 VStack(alignment: .leading) {
-                    Text(id.maskedId)
+                    Text(id.maskedLoginId)
                         .font(.hanSansNeo(15, .bold))
-                    Text(id.createdAt)
+                    Text(id.formattedCreatedAt)
                         .font(.hanSansNeo(13, .regular))
                         .foregroundColor(.gray)
                 }

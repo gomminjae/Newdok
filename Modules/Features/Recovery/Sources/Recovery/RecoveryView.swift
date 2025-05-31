@@ -18,6 +18,8 @@ public struct RecoveryView: View {
     
     @StateObject private var viewModel: RecoveryViewModel
     
+    @EnvironmentObject private var router: AppRouter
+    
     public init(viewModel: RecoveryViewModel) {
         _viewModel = StateObject(wrappedValue: viewModel)
     }
@@ -28,9 +30,9 @@ public struct RecoveryView: View {
                 VStack(spacing: 0) {
                     tabSwitcher
                     if selectedTab == 0 {
-                        FindIdPagerView()
+                        FindIdPagerView(viewModel: viewModel)
                     } else {
-                        FindIdPagerView()
+                        FindIdPagerView(viewModel: viewModel)
                     }
                 }
             }
@@ -40,7 +42,7 @@ public struct RecoveryView: View {
         .toolbar {
             ToolbarItem(placement: .navigationBarLeading) {
                 Button {
-                    
+                    router.pop()
                 } label: {
                     Image(asset: DesignSystemAsset.back)
                         .foregroundColor(.black)
@@ -92,6 +94,6 @@ public struct RecoveryView: View {
     
 }
 
-#Preview {
-    RecoveryView()
-}
+//#Preview {
+//    RecoveryView()
+//}

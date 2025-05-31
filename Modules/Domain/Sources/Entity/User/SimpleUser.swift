@@ -6,11 +6,13 @@
 //
 import Foundation
 
-public struct SimpleUser {
+public struct SimpleUser: Identifiable {
     public let id: Int
     public let loginId: String
     public let phoneNumber: String
     public let createdAt: Date
+    
+    
     
     public var maskedLoginId: String {
         let prefix = loginId.prefix(4)

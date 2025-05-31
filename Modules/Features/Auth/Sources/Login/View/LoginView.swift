@@ -89,7 +89,7 @@ public struct LoginView: View {
                 HStack {
                     Spacer()
                     Button("아이디/비밀번호 찾기") {
-                        print("로그인 비밀번호 찾기")
+                        router.push(.recovery)
                     }
                     .font(.hanSansNeo(14, .medium))
                     .foregroundStyle(Color(hex: "565656"))
