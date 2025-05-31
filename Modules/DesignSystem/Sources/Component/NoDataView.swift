@@ -7,6 +7,8 @@
 
 import SwiftUI
 
+import SwiftUI
+
 public enum NoDataType {
     case noArticles        // 도착한 아티클 없음
     case noSubscriptions   // 구독 중인 뉴스레터 없음
@@ -38,9 +40,14 @@ public enum NoDataType {
 
     var buttonTitle: String {
         switch self {
-        case .noArticles: return "수요일에 발행되는 뉴스레터 보기"
-        case .noSubscriptions: return "내게 필요한 뉴스레터 추천받기"
-        case .requireSignUp: return "회원가입"
+        case .noArticles:
+            let weekday = Calendar.current.component(.weekday, from: Date())
+            let weekdayString = Self.localizedWeekday(weekday)
+            return "\(weekdayString)에 발행되는 뉴스레터 보기"
+        case .noSubscriptions:
+            return "내게 필요한 뉴스레터 추천받기"
+        case .requireSignUp:
+            return "회원가입"
         }
     }
 
@@ -50,15 +57,28 @@ public enum NoDataType {
         default: return false
         }
     }
+
+    private static func localizedWeekday(_ weekday: Int) -> String {
+        switch weekday {
+        case 1: return "일요일"
+        case 2: return "월요일"
+        case 3: return "화요일"
+        case 4: return "수요일"
+        case 5: return "목요일"
+        case 6: return "금요일"
+        case 7: return "토요일"
+        default: return ""
+        }
+    }
 }
+
 
 
 public struct NoDataView: View {
     let type: NoDataType
     let buttonAction: () -> Void
-    let loginAction: (() -> Void)? // 로그인 버튼이 필요한 경우만 사용
-    
-    
+    let loginAction: (() -> Void)?
+
     public init(
         type: NoDataType,
         buttonAction: @escaping () -> Void,
@@ -68,7 +88,6 @@ public struct NoDataView: View {
         self.buttonAction = buttonAction
         self.loginAction = loginAction
     }
-    
 
     public var body: some View {
         VStack(alignment: .center, spacing: 0) {
@@ -81,7 +100,7 @@ public struct NoDataView: View {
                         Image(asset: DesignSystemAsset.lineReload)
                             .renderingMode(.template)
                             .foregroundStyle(Color.primaryNormal)
-                            
+
                         Text("새로고침")
                             .font(.hanSansNeo(14, .medium))
                             .foregroundStyle(Color.primaryNormal)
@@ -100,14 +119,14 @@ public struct NoDataView: View {
             Text(type.title)
                 .font(.hanSansNeo(16, .bold))
                 .foregroundStyle(Color(hex: "161616"))
-                .multilineTextAlignment(.center) // 중요
+                .multilineTextAlignment(.center)
                 .padding(.top, 24)
 
             if !type.subTitle.isEmpty {
                 Text(type.subTitle)
                     .font(.hanSansNeo(14, .medium))
                     .foregroundStyle(Color(hex: "565656"))
-                    .multilineTextAlignment(.center) // 중요
+                    .multilineTextAlignment(.center)
                     .padding(.top, 4)
             }
 
@@ -116,7 +135,7 @@ public struct NoDataView: View {
                     .font(.hanSansNeo(14, .bold))
                     .foregroundStyle(Color.white)
                     .frame(maxWidth: .infinity)
-                    .frame(height: 48) // maxWidth -> 고정폭
+                    .frame(height: 48)
                     .background(Color.primaryNormal)
                     .cornerRadius(4)
             }
@@ -143,10 +162,4 @@ public struct NoDataView: View {
         .frame(maxWidth: .infinity)
         .background(Color(hex: "F5F5F7"))
     }
-}
-
-#Preview {
-    NoDataView(type: .noSubscriptions) {
-        print("뉴스레터 보기 클릭")
-    } loginAction: {}
 }

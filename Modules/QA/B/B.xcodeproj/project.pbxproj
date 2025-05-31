@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 56;
+	objectVersion = 55;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -14,6 +14,7 @@
 		37928BB26BF71F7932A66715 /* Kingfisher.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BAF1D945C939D2A114D6DA70 /* Kingfisher.framework */; };
 		3CB1006058EC00097C4F8544 /* Launch.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 07F21865B765752721E8465D /* Launch.framework */; };
 		404318AB2F80D0C93C5DA51E /* Alamofire_Alamofire.bundle in Dependencies */ = {isa = PBXBuildFile; fileRef = 463931FF006CC49E6594D6C0 /* Alamofire_Alamofire.bundle */; };
+		430F09430940E7B776339F1C /* Recovery.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6B2E486924450ABB5E6968E3 /* Recovery.framework */; };
 		447A51F62551251CE6AE60A6 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA035CDBC79B589E2A387B44 /* ContentView.swift */; };
 		508E52E990E3E3BF408A7501 /* DesignSystem.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 42F5E70E54A9D11122495EFF /* DesignSystem.framework */; };
 		603DD422847CD0CC50C2CA68 /* Auth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A8111C9E153F8D084CA5582 /* Auth.framework */; };
@@ -101,6 +102,7 @@
 		4BC68A9C532A093929A7F845 /* Search.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Search.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4E04E9FF2531E2C53460129D /* Bookmark.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Bookmark.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		53D7F0C40548F755B7A470EE /* AppCoordinator.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = AppCoordinator.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		6B2E486924450ABB5E6968E3 /* Recovery.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Recovery.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6EAB1B89B375E80DD021B526 /* B.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = B.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		71214E5D20E7105B268DB5C1 /* Subscribe.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Subscribe.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		73FD44ED8E632B513BD81837 /* BTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BTests.swift; sourceTree = "<group>"; };
@@ -144,6 +146,7 @@
 				3CB1006058EC00097C4F8544 /* Launch.framework in Frameworks */,
 				EF1CA8797A9F6AF7DA5418C8 /* Mypage.framework in Frameworks */,
 				CF3EB26141045232946D5678 /* PopupView.framework in Frameworks */,
+				430F09430940E7B776339F1C /* Recovery.framework in Frameworks */,
 				6CFA24C20382F58C91C10779 /* Search.framework in Frameworks */,
 				C676D0ADA0F76C0916235CD6 /* Shared.framework in Frameworks */,
 				EBE6591D3B210BA5A77C4BEE /* Signup.framework in Frameworks */,
@@ -196,6 +199,7 @@
 				07F21865B765752721E8465D /* Launch.framework */,
 				B2F059A4D28A405569119AE2 /* Mypage.framework */,
 				44513F78E5A0EFF791B2EF61 /* PopupView.framework */,
+				6B2E486924450ABB5E6968E3 /* Recovery.framework */,
 				4BC68A9C532A093929A7F845 /* Search.framework */,
 				F4FA82F97BD0C253847BEBC3 /* Shared.framework */,
 				9E10D8055DE91DF89CD9A616 /* Signup.framework */,
@@ -386,7 +390,10 @@
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
 				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) DEBUG";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = (
+					"$(inherited)",
+					DEBUG,
+				);
 				SWIFT_COMPILATION_MODE = singlefile;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
@@ -513,7 +520,6 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				DEVELOPMENT_TEAM = AU24ZRJ649;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = "Derived/InfoPlists/B-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
@@ -566,7 +572,6 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				DEVELOPMENT_TEAM = AU24ZRJ649;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = "Derived/InfoPlists/B-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
@@ -580,7 +585,10 @@
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
 				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) DEBUG";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = (
+					"$(inherited)",
+					DEBUG,
+				);
 				SWIFT_COMPILATION_MODE = singlefile;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;

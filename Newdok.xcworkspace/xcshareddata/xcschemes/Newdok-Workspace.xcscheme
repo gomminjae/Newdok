@@ -378,6 +378,20 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
+               BlueprintIdentifier = "0C30D110C07ACE1028C25DED"
+               BuildableName = "Recovery.framework"
+               BlueprintName = "Recovery"
+               ReferencedContainer = "container:Modules/Features/Recovery/Recovery.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
                BlueprintIdentifier = "C8340F58B0B1AD7EA1B1F833"
                BuildableName = "Search.framework"
                BlueprintName = "Search"

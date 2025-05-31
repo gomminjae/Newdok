@@ -30,6 +30,7 @@
 		F373A5E7496946CED72BCA90 /* Launch.framework in Dependencies */ = {isa = PBXBuildFile; fileRef = AA278F2074F296122B680809 /* Launch.framework */; };
 		F7AE7474A1A86C1261A15BB9 /* Core.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B39CB14B95B55A6AC773E37 /* Core.framework */; };
 		F91AF99636A3FA1190A4AF56 /* Subscribe.framework in Dependencies */ = {isa = PBXBuildFile; fileRef = C6C889D7AF6FDD3318DA6F1D /* Subscribe.framework */; };
+		FBF3C8A52A56228D62967629 /* Recovery.framework in Dependencies */ = {isa = PBXBuildFile; fileRef = C5B28670747B57E0B2D559B2 /* Recovery.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -47,6 +48,7 @@
 				B2545A523BEE4D136BDE4B11 /* Home.framework in Dependencies */,
 				F373A5E7496946CED72BCA90 /* Launch.framework in Dependencies */,
 				82A203EC5DD0D3B98CD9E266 /* Mypage.framework in Dependencies */,
+				FBF3C8A52A56228D62967629 /* Recovery.framework in Dependencies */,
 				62DF4A4A32DA7766EDA7A631 /* Search.framework in Dependencies */,
 				DEF770977A22146AD16904DF /* Shared.framework in Dependencies */,
 				39214A0E40CA0E2F9ECCCA05 /* Signup.framework in Dependencies */,
@@ -88,6 +90,7 @@
 		AF73942FA92E1BF2208C6AE5 /* Mypage.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Mypage.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BCDC9B63C926672852B00CDC /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
 		BF2FEF9CAF1F7732B4FF6B3E /* Signup.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Signup.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C5B28670747B57E0B2D559B2 /* Recovery.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Recovery.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C6C889D7AF6FDD3318DA6F1D /* Subscribe.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Subscribe.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D908C008AEFA0721CDA34C29 /* Swinject.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Swinject.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DAF18C459220DE6C55396D1A /* QABFlowCoordinatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QABFlowCoordinatorView.swift; sourceTree = "<group>"; };
@@ -186,6 +189,7 @@
 				275A08FCEAEEF8B617DD483F /* Home.framework */,
 				AA278F2074F296122B680809 /* Launch.framework */,
 				AF73942FA92E1BF2208C6AE5 /* Mypage.framework */,
+				C5B28670747B57E0B2D559B2 /* Recovery.framework */,
 				E5244020C7F599E67FE05B1C /* Search.framework */,
 				E8AE92AE3530D16E11F67BC8 /* Shared.framework */,
 				BF2FEF9CAF1F7732B4FF6B3E /* Signup.framework */,
