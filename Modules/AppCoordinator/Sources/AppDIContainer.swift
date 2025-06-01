@@ -20,6 +20,7 @@ import Subscribe
 import Bookmark
 import Detail
 import Mypage
+import Recovery
 
 public final class AppDIContainer {
     public static let shared = AppDIContainer()
@@ -166,6 +167,13 @@ public final class AppDIContainer {
             let useCase = r.resolve(UserUseCase.self)!
             return MainActor.assumeIsolated {
                 return MypageViewModel(useCase: useCase)
+            }
+        }
+        
+        container.register(RecoveryViewModel.self) { r in
+            let useCase = r.resolve(UserUseCase.self)!
+            return MainActor.assumeIsolated {
+                return RecoveryViewModel(useCase: useCase)
             }
         }
     

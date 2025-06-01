@@ -19,4 +19,6 @@ public enum AppRoute: Hashable {
     
     
     case editProfile
+    
+    case recovery
 }

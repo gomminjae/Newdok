@@ -13,6 +13,9 @@
 		8F5835DA4AAF188AD9E0A527 /* Shared.framework in Dependencies */ = {isa = PBXBuildFile; fileRef = 4CD807EF128E4523E4F93901 /* Shared.framework */; };
 		A05D8FFBF4486AA2EC1869A9 /* Domain.framework in Dependencies */ = {isa = PBXBuildFile; fileRef = 07BD651011AC8F84B15B365F /* Domain.framework */; };
 		B54A10092DEB4D1E00DCB9DE /* RecoveryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B54A10082DEB4D1E00DCB9DE /* RecoveryView.swift */; };
+		B54A100B2DEB528700DCB9DE /* FindIdPagerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B54A100A2DEB528700DCB9DE /* FindIdPagerView.swift */; };
+		B54A100D2DEB558E00DCB9DE /* RecoveryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B54A100C2DEB558A00DCB9DE /* RecoveryViewModel.swift */; };
+		B54A100F2DEC2C9000DCB9DE /* CheckPhoneErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B54A100E2DEC2C9000DCB9DE /* CheckPhoneErrorView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -47,6 +50,9 @@
 		4CD807EF128E4523E4F93901 /* Shared.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Shared.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		63CF72536A5AEAA562212B5A /* Recovery.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Recovery.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B54A10082DEB4D1E00DCB9DE /* RecoveryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecoveryView.swift; sourceTree = "<group>"; };
+		B54A100A2DEB528700DCB9DE /* FindIdPagerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindIdPagerView.swift; sourceTree = "<group>"; };
+		B54A100C2DEB558A00DCB9DE /* RecoveryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecoveryViewModel.swift; sourceTree = "<group>"; };
+		B54A100E2DEC2C9000DCB9DE /* CheckPhoneErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckPhoneErrorView.swift; sourceTree = "<group>"; };
 		C298D3EE9DEDF203C83327FD /* Kingfisher.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Kingfisher.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E1EF64A9C25417233B91F71B /* RecoveryMain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecoveryMain.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -111,7 +117,10 @@
 		B54A10072DEB4D0C00DCB9DE /* Recovery */ = {
 			isa = PBXGroup;
 			children = (
+				B54A100C2DEB558A00DCB9DE /* RecoveryViewModel.swift */,
+				B54A100A2DEB528700DCB9DE /* FindIdPagerView.swift */,
 				B54A10082DEB4D1E00DCB9DE /* RecoveryView.swift */,
+				B54A100E2DEC2C9000DCB9DE /* CheckPhoneErrorView.swift */,
 			);
 			path = Recovery;
 			sourceTree = "<group>";
@@ -192,7 +201,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				3BFD166C087B6C1E148273BC /* RecoveryMain.swift in Sources */,
+				B54A100D2DEB558E00DCB9DE /* RecoveryViewModel.swift in Sources */,
+				B54A100B2DEB528700DCB9DE /* FindIdPagerView.swift in Sources */,
 				B54A10092DEB4D1E00DCB9DE /* RecoveryView.swift in Sources */,
+				B54A100F2DEC2C9000DCB9DE /* CheckPhoneErrorView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

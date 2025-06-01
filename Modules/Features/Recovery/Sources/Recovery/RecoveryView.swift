@@ -7,13 +7,95 @@
 //
 
 import SwiftUI
+import Shared
+import DesignSystem
 
-struct RecoveryView: View {
-    var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+
+
+public struct RecoveryView: View {
+    @State private var selectedTab: Int = 0
+  
+    
+    @StateObject private var viewModel: RecoveryViewModel
+    
+    @EnvironmentObject private var router: AppRouter
+    
+    public init(viewModel: RecoveryViewModel) {
+        _viewModel = StateObject(wrappedValue: viewModel)
     }
+    
+    public var body: some View {
+        VStack {
+            ZStack {
+                VStack(spacing: 0) {
+                    tabSwitcher
+                    if viewModel.currentPage == 0 {
+                        FindIdPagerView(viewModel: viewModel)
+                    } else {
+                        FindIdPagerView(viewModel: viewModel)
+                    }
+                }
+            }
+            
+        }
+        .frame(maxWidth: .infinity,           // 가로 꽉 채우기
+                      maxHeight: .infinity,          // 세로도 꽉 채우기
+                      alignment: .topLeading)
+        .navigationTitle("")
+        .navigationBarBackButtonHidden(true)
+        .toolbar {
+            ToolbarItem(placement: .navigationBarLeading) {
+                Button {
+                    router.pop()
+                } label: {
+                    Image(asset: DesignSystemAsset.back)
+                        .foregroundColor(.black)
+                }
+            }
+            ToolbarItem(placement: .principal) {
+                Text("계정찾기")
+                    .font(.hanSansNeo(16, .bold))
+                    .foregroundColor(.black)
+            }
+        }
+        .ignoresSafeArea(.keyboard)
+        
+    }
+    private var tabSwitcher: some View {
+        VStack(spacing: 0) {
+            HStack(spacing: 0) {
+                tabButton(title: "아이디 찾기", index: 0)
+                tabButton(title: "비밀번호 찾기", index: 1)
+            }
+           
+            
+            
+            GeometryReader { geometry in
+                let width = geometry.size.width / 2
+                Rectangle()
+                    .fill(Color(hex: "#363636"))
+                    .frame(width: width, height: 2)
+                    .offset(x: selectedTab == 0 ? 0 : width)
+                    .animation(.easeInOut(duration: 0.3), value: selectedTab)
+            }
+            .frame(height: 2)
+        }
+        .padding(.top, 16)
+        
+    }
+    @ViewBuilder
+    private func tabButton(title: String, index: Int) -> some View {
+        Button(action: {
+            selectedTab = index
+        }) {
+            Text(title)
+                .font(.hanSansNeo(14, .bold))
+                .foregroundColor(selectedTab == index ? Color(hex: "#363636") : Color(hex: "#767676"))
+                .frame(maxWidth: .infinity)
+                .padding(.vertical, 12)
+        }
+    }
+    
+    
 }
 
-#Preview {
-    RecoveryView()
-}

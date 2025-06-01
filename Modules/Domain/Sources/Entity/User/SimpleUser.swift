@@ -6,15 +6,22 @@
 //
 import Foundation
 
-public struct SimpleUser {
+public struct SimpleUser: Identifiable {
     public let id: Int
     public let loginId: String
     public let phoneNumber: String
     public let createdAt: Date
     
+    
+    
     public var maskedLoginId: String {
         let prefix = loginId.prefix(4)
-        return "\(prefix)****"
+        
+        // 남은 글자 수만큼 * 생성
+        let starCount = max(0, loginId.count - 4)
+        let stars = String(repeating: "*", count: starCount)
+        
+        return "\(prefix)\(stars)"
     }
     
     public var formattedCreatedAt: String {
