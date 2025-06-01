@@ -124,7 +124,7 @@ public struct PhoneVerificationView: View {
                     Spacer().frame(height: 100)
                 }
             }
-            .toolbar { // 🔧 수정된 위치: ScrollView 외부로 .toolbar 옮김
+            .toolbar { 
                 ToolbarItemGroup(placement: .keyboard) {
                     Spacer()
                     Button("Done") {

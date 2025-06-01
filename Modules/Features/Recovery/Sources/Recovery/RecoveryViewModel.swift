@@ -25,6 +25,8 @@ public class RecoveryViewModel: ObservableObject {
     @Published public var password: String = ""
     @Published public var checkPassword: String = ""
     
+    @Published public var loginID: String = ""
+    
     
     public init(useCase: UserUseCase) {
         self.userUseCase = useCase
@@ -40,5 +42,7 @@ public class RecoveryViewModel: ObservableObject {
             print("핸드폰 번호 조회 에러")
         }
     }
+    
+    
     
 }

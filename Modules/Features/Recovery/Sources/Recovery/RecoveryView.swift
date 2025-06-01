@@ -14,7 +14,7 @@ import DesignSystem
 
 public struct RecoveryView: View {
     @State private var selectedTab: Int = 0
-    @State private var currentPage: Int = 0
+  
     
     @StateObject private var viewModel: RecoveryViewModel
     
@@ -29,14 +29,18 @@ public struct RecoveryView: View {
             ZStack {
                 VStack(spacing: 0) {
                     tabSwitcher
-                    if selectedTab == 0 {
+                    if viewModel.currentPage == 0 {
                         FindIdPagerView(viewModel: viewModel)
                     } else {
                         FindIdPagerView(viewModel: viewModel)
                     }
                 }
             }
+            
         }
+        .frame(maxWidth: .infinity,           // 가로 꽉 채우기
+                      maxHeight: .infinity,          // 세로도 꽉 채우기
+                      alignment: .topLeading)
         .navigationTitle("")
         .navigationBarBackButtonHidden(true)
         .toolbar {
@@ -54,17 +58,16 @@ public struct RecoveryView: View {
                     .foregroundColor(.black)
             }
         }
+        .ignoresSafeArea(.keyboard)
+        
     }
     private var tabSwitcher: some View {
         VStack(spacing: 0) {
-            
-            
-            
             HStack(spacing: 0) {
                 tabButton(title: "아이디 찾기", index: 0)
                 tabButton(title: "비밀번호 찾기", index: 1)
             }
-            .padding(.top, 16)
+           
             
             
             GeometryReader { geometry in
@@ -77,6 +80,8 @@ public struct RecoveryView: View {
             }
             .frame(height: 2)
         }
+        .padding(.top, 16)
+        
     }
     @ViewBuilder
     private func tabButton(title: String, index: Int) -> some View {
@@ -94,6 +99,3 @@ public struct RecoveryView: View {
     
 }
 
-//#Preview {
-//    RecoveryView()
-//}
