@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 55;
+	objectVersion = 56;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -26,6 +26,7 @@
 		963BD2E45D7172CE4BF69364 /* VerificationButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DEFF305135085B93F19593 /* VerificationButtonStyle.swift */; };
 		99AD012E16AE91B0DA8273E7 /* SpoqaHanSansNeo-Thin.otf in Resources */ = {isa = PBXBuildFile; fileRef = 1EAA4A417D2996F4DF2DED40 /* SpoqaHanSansNeo-Thin.otf */; };
 		ABB14811E13F7B1ECCF8B086 /* TuistAssets+DesignSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5263BC75B281154AC0B5A7B /* TuistAssets+DesignSystem.swift */; };
+		B5D514E82DF1E86000CFC1FE /* FAQView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D514E72DF1E86000CFC1FE /* FAQView.swift */; };
 		BC4360B914A0E6C10A4A851E /* CheckSubscribeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CF8A496C7E691DCF3A7C603 /* CheckSubscribeView.swift */; };
 		D077CFC5DD281F26BDA2376F /* AuthFailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41950894E4E9C8FF11201792 /* AuthFailView.swift */; };
 		D2E21543F5B3B63472BE98A1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4F6AF114A38FDBD9663A6B1B /* Assets.xcassets */; };
@@ -79,6 +80,7 @@
 		9CF8A496C7E691DCF3A7C603 /* CheckSubscribeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckSubscribeView.swift; sourceTree = "<group>"; };
 		A3CC877F7AECA4386F75D208 /* LoginErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginErrorView.swift; sourceTree = "<group>"; };
 		A5263BC75B281154AC0B5A7B /* TuistAssets+DesignSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TuistAssets+DesignSystem.swift"; sourceTree = "<group>"; };
+		B5D514E72DF1E86000CFC1FE /* FAQView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FAQView.swift; sourceTree = "<group>"; };
 		BE4AD9735556ECA8C8008FEC /* TuistBundle+DesignSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TuistBundle+DesignSystem.swift"; sourceTree = "<group>"; };
 		BFD516035027585AFC53F053 /* ColorPalette.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorPalette.swift; sourceTree = "<group>"; };
 		CD2A1BFFD4D22BB78D3CF32E /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
@@ -182,6 +184,7 @@
 			children = (
 				86103BCC821FCC1FE2B9F3CD /* BackButton.swift */,
 				84DEFF305135085B93F19593 /* VerificationButtonStyle.swift */,
+				B5D514E72DF1E86000CFC1FE /* FAQView.swift */,
 			);
 			path = Button;
 			sourceTree = "<group>";
@@ -355,6 +358,7 @@
 				E4DAAFF70B6D667729E15EDE /* LoginErrorView.swift in Sources */,
 				1FA24D3FDDFF21AFE5CFC0D9 /* NetworkErrorView.swift in Sources */,
 				90D6A5AEB9B8DACDEBE64A29 /* SystemErrorView.swift in Sources */,
+				B5D514E82DF1E86000CFC1FE /* FAQView.swift in Sources */,
 				85F33B9FC7C90A8C544B7057 /* UpdateView.swift in Sources */,
 				E3003B318BD827C1E876F9C9 /* UnsubscribePopupView.swift in Sources */,
 				D35DFD63D8CD70868B230DA2 /* CustomTextFieldModifier.swift in Sources */,
@@ -389,10 +393,7 @@
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
 				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = (
-					"$(inherited)",
-					DEBUG,
-				);
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) DEBUG";
 				SWIFT_COMPILATION_MODE = singlefile;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
