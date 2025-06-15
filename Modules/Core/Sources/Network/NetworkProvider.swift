@@ -12,7 +12,7 @@ import Shared
 
 public protocol NetworkProviding {
     func makeAuthProvider() -> MoyaProvider<UserAPI>
-    func mekeArticleProvider() -> MoyaProvider<ArticleAPI>
+    func makeArticleProvider() -> MoyaProvider<ArticleAPI>
     func makeNewsletterProvider() -> MoyaProvider<NewsletterAPI>
 }
 
@@ -35,7 +35,7 @@ public final class NetworkProvider: NetworkProviding {
         )
     }
     
-    public func mekeArticleProvider() -> MoyaProvider<ArticleAPI> {
+    public func makeArticleProvider() -> MoyaProvider<ArticleAPI> {
         return MoyaProvider<ArticleAPI>(
             session: makeSafeSession(),
             plugins: [
