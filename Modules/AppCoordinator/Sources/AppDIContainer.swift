@@ -55,7 +55,7 @@ public final class AppDIContainer {
         
         container.register(MoyaProvider<ArticleAPI>.self) { r in
             let network = r.resolve(NetworkProviding.self)!
-            return network.mekeArticleProvider()
+            return network.makeArticleProvider()
         }.inObjectScope(.container)
         
         // MARK: - Repository

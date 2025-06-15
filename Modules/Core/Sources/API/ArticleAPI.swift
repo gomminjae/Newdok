@@ -74,7 +74,7 @@ extension ArticleAPI: TargetType {
         case .fetchBookmarkedInterest:
             return .requestPlain
         case .search(let word):
-            return .requestParameters(parameters: ["ketword": word], encoding: URLEncoding.default)
+            return .requestParameters(parameters: ["keyword": word], encoding: URLEncoding.default)
         case .fetchArticleDetail:
             return .requestPlain
         }
