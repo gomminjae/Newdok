@@ -189,25 +189,30 @@ final public class SignupViewModel: ObservableObject {
                 isLoading = true
                 userList = []
                 isShowUserList = false
-                showError = false
                 errorMessage = nil
-                enteredVerificationCode = ""
-                
-                let rawPhoneNumber = phoneNumber.replacingOccurrences(of: "-", with: "")
 
-                let users = try await userUseCase.checkPhoneNumber(rawPhoneNumber)
-                print(users)
+                
+                enteredVerificationCode = ""
+             
+                showError = false
+            
+                timerRemaining = 180
+
+                
+                let users = try await userUseCase.checkPhoneNumber(phoneNumber)
                 if !users.isEmpty {
                     userList = users
                     isShowUserList = true
                     showAlreadyRegisteredAlert = true
                     return
                 }
-                
-                let result = try await userUseCase.authSMS(phoneNumber: rawPhoneNumber)
+
+               
+                let result = try await userUseCase.authSMS(phoneNumber: phoneNumber)
                 verificationCode = String(result.code)
-                phoneNumber = rawPhoneNumber
                 isRequestSent = true
+
+                
                 startTimer()
             } catch {
                 errorMessage = error.localizedDescription
@@ -215,6 +220,7 @@ final public class SignupViewModel: ObservableObject {
             isLoading = false
         }
     }
+
 
     func verifyCode() -> Bool {
         guard isRequestSent else { return false }

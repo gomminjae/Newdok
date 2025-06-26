@@ -10,7 +10,7 @@ public struct SimpleUser: Identifiable {
     public let id: Int
     public let loginId: String
     public let phoneNumber: String
-    public let createdAt: Date
+    public let createdAt: String
     
     
     
@@ -25,17 +25,25 @@ public struct SimpleUser: Identifiable {
     }
     
     public var formattedCreatedAt: String {
-            let formatter = DateFormatter()
-            formatter.locale = Locale(identifier: "ko_KR")
-            formatter.dateFormat = "yyyy.MM.dd"
-            return formatter.string(from: createdAt) + " 가입"
+            // 1) ISO8601 → Date
+            let isoFormatter = ISO8601DateFormatter()
+            isoFormatter.formatOptions = [.withInternetDateTime, .withFractionalSeconds]
+            guard let date = isoFormatter.date(from: createdAt) else {
+                return createdAt
+            }
+
+            // 2) Date → 원하는 문자열 포맷
+            let displayFormatter = DateFormatter()
+            displayFormatter.locale = Locale(identifier: "ko_KR")
+            displayFormatter.dateFormat = "yyyy.MM.dd"
+            return "\(displayFormatter.string(from: date)) 가입"
         }
     
     public init(
         id: Int,
         loginId: String,
         phoneNumber: String,
-        createdAt: Date
+        createdAt: String
     ) {
         self.id = id
         self.loginId = loginId

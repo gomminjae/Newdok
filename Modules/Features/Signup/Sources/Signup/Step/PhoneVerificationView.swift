@@ -8,7 +8,7 @@ import SwiftUI
 import Combine
 import DesignSystem
 import Shared
-
+import PopupView
 
 
 public struct PhoneVerificationView: View {
@@ -56,12 +56,7 @@ public struct PhoneVerificationView: View {
                                 .focused($isNumberPadFocused)
                                 .padding(.vertical, 12)
                                 .padding(.horizontal, 8)
-                                .onReceive(Just(viewModel.phoneNumber)) { new in
-                                    let formatted = formatPhoneNumber(new)
-                                    if formatted != viewModel.phoneNumber {
-                                        viewModel.phoneNumber = formatted
-                                    }
-                                }
+                                
                         }
                         .frame(height: 48)
                         .background(Color.white)
@@ -76,12 +71,12 @@ public struct PhoneVerificationView: View {
                             viewModel.sendVerificationCode()
                         }
                         .font(.hanSansNeo(14, .bold))
-                        .foregroundStyle(viewModel.phoneNumber.count < 13 ?  Color(hex: "#BDBDBD") : Color.primaryNormal)
-                        .disabled(viewModel.phoneNumber.count < 13)
+                        .foregroundStyle(viewModel.phoneNumber.count < 11 ?  Color(hex: "#BDBDBD") : Color.primaryNormal)
+                        .disabled(viewModel.phoneNumber.count < 11)
                         .frame(width: 94, height: 48)
                         .overlay(
                             RoundedRectangle(cornerRadius: 4)
-                                .stroke(viewModel.phoneNumber.count < 13 ? Color(hex: "#C0C0C0") : Color.primaryNormal, lineWidth: 1)
+                                .stroke(viewModel.phoneNumber.count < 11 ? Color(hex: "#C0C0C0") : Color.primaryNormal, lineWidth: 1)
                         )
                     }
                     .padding(.horizontal, 24)
@@ -157,45 +152,46 @@ public struct PhoneVerificationView: View {
             }
             
 
-            if viewModel.isShowUserList {
-                SignupPopupView(
-                    infos: viewModel.userList,
-                    onClose: {
-                        viewModel.isShowUserList = false
-
-                    },
-                    onLogin: {
-                        viewModel.isShowUserList = false
-                        router.push(.login)
-                    }
-                )
-            }
-
-            if viewModel.resendFailureCount >= 3 {
-                // 재전송 실패 3회 이상 시 팝업
-                AuthFailView(
-                    onClose: {
-                        router.push(.login)
-                })
-            }
         }
         .scrollDisabled(true)
         .ignoresSafeArea(.keyboard)
-    }
-
-    private func formatPhoneNumber(_ number: String) -> String {
-        let digits = number.filter { $0.isNumber }
-        let maxLength = 11
-        var formattedNumber = ""
-
-        for (index, ch) in digits.prefix(maxLength).enumerated() {
-            if index == 3 || index == 7 {
-                formattedNumber.append("-")
-            }
-            formattedNumber.append(String(ch))
+        .popup(isPresented: $viewModel.isShowUserList) {
+            SignupPopupView(
+                infos: viewModel.userList,
+                onClose: { viewModel.isShowUserList = false },
+                onLogin: {
+                    viewModel.isShowUserList = false
+                    router.push(.login)
+                }
+            )
+        } customize: {
+            $0
+                .type(.default)
+                .position(.center)
+                .animation(.easeInOut)
+                .closeOnTapOutside(false)
+                .backgroundColor(Color(hex: "#25242C").opacity(0.6))
         }
-        return formattedNumber
+        
+        .popup(isPresented: Binding(
+            get: { viewModel.resendFailureCount >= 3 },
+            set: { newValue in if !newValue { viewModel.resendFailureCount = 0 } }
+        )) {
+            AuthFailView(onClose: {
+                viewModel.resendFailureCount = 0
+                router.push(.login)
+            })
+        } customize: {
+            $0
+                .type(.default)
+                .position(.center)
+                .animation(.easeInOut)
+                .closeOnTapOutside(true)
+                .backgroundColor(Color(hex: "#25242C").opacity(0.6))
+        }
     }
+
+    
 
     private func formatTime(_ seconds: Int) -> String {
         String(format: "%02d:%02d", seconds / 60, seconds % 60)

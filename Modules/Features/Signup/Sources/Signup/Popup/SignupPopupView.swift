@@ -17,12 +17,7 @@ public struct SignupPopupView: View {
     var onLogin: () -> Void
 
     public var body: some View {
-        ZStack {
-            Color.black.opacity(0.4)
-                .edgesIgnoringSafeArea(.all)
-                .onTapGesture { onClose() }
-
-            VStack {
+        VStack(spacing: 0) {
                 Image(asset: DesignSystemAsset.warning)
                     .resizable()
                     .frame(width: 80, height: 80)
@@ -96,31 +91,7 @@ public struct SignupPopupView: View {
             .padding(.top, 24)
             .padding(.bottom, 28)
         }
-    }
 
 }
 
-#Preview {
-    SignupPopupView(
-        infos: [
-            SimpleUser(
-                id: 1,
-                loginId: "testuser01",
-                phoneNumber: "01012345678",
-                createdAt: Date()
-            ),
-            SimpleUser(
-                id: 2,
-                loginId: "testuser02",
-                phoneNumber: "01087654321",
-                createdAt: Date()
-            )
-        ],
-        onClose: {
-            print("✅ 닫기")
-        },
-        onLogin: {
-            print("✅ 로그인 이동")
-        }
-    )
-}
+
