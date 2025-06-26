@@ -1,12 +1,13 @@
 //
 //  FAQView.swift
-//  DesignSystem
+//  Mypage
 //
-//  Created by 권민재 on 6/5/25.
-//  Copyright © 2025 Your Organization Name. All rights reserved.
+//  Created by 권민재 on 6/26/25.
+//  Copyright © 2025 Newdok. All rights reserved.
 //
 
 import SwiftUI
+import DesignSystem
 
 struct FAQItem: Identifiable {
     let id = UUID()
@@ -126,6 +127,8 @@ let sampleFAQs: [FAQItem] = [
 struct FAQView: View {
     
     @State private var expandedFAQID: UUID? = nil
+    
+    @Environment(\.dismiss) private var dismiss
 
     var body: some View {
         ScrollView {
@@ -147,10 +150,29 @@ struct FAQView: View {
                 }
             }
             .padding(.horizontal, 16)
-            .padding(.vertical, 20)
+            .padding(.vertical, 24)
         }
-        .navigationTitle("FAQ")
+        .navigationBarBackButtonHidden(true)
         .navigationBarTitleDisplayMode(.inline)
+        .toolbar {
+            
+            ToolbarItem(placement: .navigationBarLeading) {
+                Button {
+                    dismiss()
+                } label: {
+                    Image(asset: DesignSystemAsset.back)
+                        .font(.system(size: 17, weight: .semibold))
+                        .foregroundColor(.black)
+                }
+            }
+
+            // 📌 중앙 타이틀
+            ToolbarItem(placement: .principal) {
+                Text("FAQ")
+                    .font(.system(size: 16, weight: .bold))
+                    .foregroundColor(.black)
+            }
+        }
     }
 }
 
@@ -178,7 +200,7 @@ struct FAQRow: View {
 
                 Image(asset: DesignSystemAsset.lineDown)
                     .resizable()
-                    .frame(width: 12, height: 6)
+                    .frame(width: 24, height: 24)
                     .rotationEffect(.degrees(isExpanded ? 180 : 0))
                     .foregroundColor(.gray)
                     .padding(.top, 4)
@@ -210,12 +232,3 @@ struct FAQRow: View {
     }
 }
 
-
-// 5. 미리보기
-struct FAQView_Previews: PreviewProvider {
-    static var previews: some View {
-        NavigationView {
-            FAQView()
-        }
-    }
-}

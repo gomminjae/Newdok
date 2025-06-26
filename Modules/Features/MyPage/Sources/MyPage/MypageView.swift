@@ -109,7 +109,7 @@ public struct MypageView: View {
                     // MARK: - 고객센터 섹션
                     VStack(spacing: 0) {
                         SectionHeader(title: "고객센터")
-                        NavigationLink("FAQ", destination: Text("FAQ 화면"))
+                        NavigationLink("FAQ", destination: FAQView())
                             .buttonStyle(PlainButtonStyle())
                             .settingRowStyle()
                         NavigationLink("서비스 피드백", destination: FeedbackView())
