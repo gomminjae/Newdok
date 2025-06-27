@@ -312,18 +312,6 @@ final public class SignupViewModel: ObservableObject {
         }
     }
     
-    
-    public func signIn() {
-        Task {
-            do {
-                let result = try await userUseCase.signup(loginId: loginID, password: password, phoneNumber: phoneNumber, nickname: nickname, birthYear: birthYear, gender: gender)
-                user = result.user
-            } catch {
-                errorMessage = error.localizedDescription
-            }
-        }
-    }
-    
     func toggleInterest(_ key: String) {
         if selectedInterests.contains(key) {
             selectedInterests.remove(key)
@@ -349,6 +337,7 @@ final public class SignupViewModel: ObservableObject {
             do {
                 let result = try await userUseCase.signup(loginId: loginID, password: password, phoneNumber: phoneNumber, nickname: nickname, birthYear: birthYear, gender: gender)
                 TokenStorage.accessToken = result.accessToken
+                user = result.user
                 goToNextStep()
             } catch {
                 print("회원가입 실패: \(error)")

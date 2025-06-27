@@ -7,25 +7,24 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		025798644615AA67790981BD /* Domain.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F2F420D386240A6785E95C2 /* Domain.framework */; };
 		1CB4A32BD2D98E6477F5C0CD /* DesignSystem.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 85C21E5E41B25BF1296FDC62 /* DesignSystem.framework */; };
-		20B634E36733005C09AF4EB1 /* Shared.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 31810BC9814938F0F30C9204 /* Shared.framework */; };
 		2DFBFA35558C079A59E84931 /* MyIndustryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DB11600D0E5DE520DB92465 /* MyIndustryView.swift */; };
 		31CAEA710C6520DBB827D541 /* AgreeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67EF4BBEC87D32F0BE736064 /* AgreeView.swift */; };
 		405B6815DD158339D48E5B3D /* BirthYearDropdown.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB0E6C823C8F31315153A074 /* BirthYearDropdown.swift */; };
 		40B211FAFB83F068BD1064F9 /* Alamofire_Alamofire.bundle in Resources */ = {isa = PBXBuildFile; fileRef = A8DC766D028A253557F32C96 /* Alamofire_Alamofire.bundle */; };
+		49BF0DA0978157F28EB49E6E /* Core.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08684DEE6B18264EC733E3EA /* Core.framework */; };
 		4ECED101068F670CE60CF6E9 /* PwInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01C558CCDE8D9D55FBBD2BD0 /* PwInputView.swift */; };
-		5110DB042195F5E6AAD775B3 /* Auth.framework in Dependencies */ = {isa = PBXBuildFile; fileRef = 766F8951B640B8EBDABB6323 /* Auth.framework */; };
 		55DD21004E7ED935F7928BB0 /* SignupMain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AE159452A9D28FDB105234D /* SignupMain.swift */; };
 		56E49B9F6EE5E5967059E38B /* SignupTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E5C89CA9056923E18123563 /* SignupTests.swift */; };
-		59F8133C2059A078913ADC5A /* Auth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 766F8951B640B8EBDABB6323 /* Auth.framework */; };
-		5E7B325329887C2197F2AF8F /* Shared.framework in Dependencies */ = {isa = PBXBuildFile; fileRef = 31810BC9814938F0F30C9204 /* Shared.framework */; };
 		5EF014595DE654BC71C6732B /* CompleteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D1C66CBCE6F6C7CBF91D466 /* CompleteView.swift */; };
+		6CE0BDB366A5E0AC7BD18321 /* Domain.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F2F420D386240A6785E95C2 /* Domain.framework */; };
 		757C2296F499BAF102770DB8 /* PolicyWebSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD7BC4B0AB5A6C65118659F6 /* PolicyWebSheetView.swift */; };
 		7897D21057808BEC99F67347 /* IndustrySurveyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA76FF6A716983A658BF1D18 /* IndustrySurveyView.swift */; };
 		7974D3B5A60F2C3A62056294 /* CurationRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCE511B3491C3DAC5E3DA08F /* CurationRow.swift */; };
 		80B39D744C986F747FC4B721 /* IDInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D0B48E48F75055FF32E54AC /* IDInputView.swift */; };
+		813E56D2912B4E27A73A27D0 /* Data.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 53086A13DE300ED094DF02EE /* Data.framework */; };
 		813F7CE1B63128DE85ECCDC0 /* PhoneVerificationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8362585C58EFC538FE2604A /* PhoneVerificationView.swift */; };
+		861F8E2215B4D0A998EB93A5 /* Shared.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 31810BC9814938F0F30C9204 /* Shared.framework */; };
 		8661A8DA73DBCED6AE7E0EFF /* Signup.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8B64B94EDDD988EA78DBF160 /* Signup.framework */; };
 		908C21F7E87D664FDDA5EC4F /* OnboardingPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B12B34A05B2A5D6F8260440F /* OnboardingPageView.swift */; };
 		91B18E530369BD455A016A3D /* OnboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 130E40D360A2BC7177784B6A /* OnboardView.swift */; };
@@ -37,9 +36,7 @@
 		CFE2DF464C54967700865649 /* SignupViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0566089A8FEF046632274744 /* SignupViewModel.swift */; };
 		D013C95EB375DEEFF94E37C4 /* RecommendView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EEB58F54776CECFC9D5195E /* RecommendView.swift */; };
 		D8C1273648D92C59C2B10512 /* DesignSystem.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 85C21E5E41B25BF1296FDC62 /* DesignSystem.framework */; };
-		E31DE513E6B8218F3304905A /* Domain.framework in Dependencies */ = {isa = PBXBuildFile; fileRef = 7F2F420D386240A6785E95C2 /* Domain.framework */; };
-		E83C73ACC94597238056D7A7 /* Data.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 53086A13DE300ED094DF02EE /* Data.framework */; };
-		EE3803C42393FF368873D42E /* Core.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08684DEE6B18264EC733E3EA /* Core.framework */; };
+		F2E3E965C3F1EF60D1C2016D /* Auth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 766F8951B640B8EBDABB6323 /* Auth.framework */; };
 		FB5361C96950EADD04686876 /* SignupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADA3F2B0CCAC12C073E7692A /* SignupView.swift */; };
 /* End PBXBuildFile section */
 
@@ -84,18 +81,6 @@
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		EFFE4844A39C9F15CECBDBCB /* Dependencies */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 8;
-			dstSubfolderSpec = 16;
-			files = (
-				5110DB042195F5E6AAD775B3 /* Auth.framework in Dependencies */,
-				E31DE513E6B8218F3304905A /* Domain.framework in Dependencies */,
-				5E7B325329887C2197F2AF8F /* Shared.framework in Dependencies */,
-			);
-			name = Dependencies;
-			runOnlyForDeploymentPostprocessing = 1;
-		};
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
@@ -138,12 +123,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				59F8133C2059A078913ADC5A /* Auth.framework in Frameworks */,
-				EE3803C42393FF368873D42E /* Core.framework in Frameworks */,
-				E83C73ACC94597238056D7A7 /* Data.framework in Frameworks */,
 				D8C1273648D92C59C2B10512 /* DesignSystem.framework in Frameworks */,
-				025798644615AA67790981BD /* Domain.framework in Frameworks */,
-				20B634E36733005C09AF4EB1 /* Shared.framework in Frameworks */,
 				8661A8DA73DBCED6AE7E0EFF /* Signup.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -152,7 +132,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F2E3E965C3F1EF60D1C2016D /* Auth.framework in Frameworks */,
+				49BF0DA0978157F28EB49E6E /* Core.framework in Frameworks */,
+				813E56D2912B4E27A73A27D0 /* Data.framework in Frameworks */,
 				1CB4A32BD2D98E6477F5C0CD /* DesignSystem.framework in Frameworks */,
+				6CE0BDB366A5E0AC7BD18321 /* Domain.framework in Frameworks */,
+				861F8E2215B4D0A998EB93A5 /* Shared.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -296,7 +281,6 @@
 				F339FD1783245071E97EA8F3 /* Resources */,
 				CC043E36749B9DA327C9633B /* Frameworks */,
 				BB4366183B02C609D71C2505 /* Embed Frameworks */,
-				EFFE4844A39C9F15CECBDBCB /* Dependencies */,
 			);
 			buildRules = (
 			);
@@ -525,7 +509,6 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MACH_O_TYPE = staticlib;
 				PRODUCT_BUNDLE_IDENTIFIER = com.newdok.signup;
 				PRODUCT_NAME = Signup;
 				SDKROOT = iphoneos;
@@ -559,7 +542,6 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MACH_O_TYPE = staticlib;
 				PRODUCT_BUNDLE_IDENTIFIER = com.newdok.signup;
 				PRODUCT_NAME = Signup;
 				SDKROOT = iphoneos;

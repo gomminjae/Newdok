@@ -11,7 +11,7 @@ import DesignSystem
 struct CurationRow: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 12) {
-            // 🔹 상단 회색 배경 영역
+            
             HStack(alignment: .top, spacing: 12) {
                 Image("signup")
                     .resizable()

@@ -11,13 +11,53 @@ import Core
 @main
 struct NewdokApp: App {
     
-    //@StateObject private var loginState = LoginState()
-    
+    @State private var showUpdateAlert = false
     
     var body: some Scene {
         WindowGroup {
             ContentView()
-                //.environmentObject(loginState)
+                .onAppear(perform: checkVersion)
+                .alert(isPresented: $showUpdateAlert) {
+                    Alert(
+                        title: Text("업데이트 안내"),
+                        message: Text("새로운 버전이 출시되었습니다. 스토어로 이동하여 업데이트를 진행해주세요."),
+                        primaryButton: .default(Text("업데이트"), action: {
+                            openAppStore()
+                        }),
+                        secondaryButton: .cancel(Text("나중에"))
+                    )
+                }
         }
+    }
+    
+    private func checkVersion() {
+        guard let bundleId = Bundle.main.bundleIdentifier,
+              let url = URL(string: "http://itunes.apple.com/lookup?bundleId=\(bundleId)") else {
+            return
+        }
+        
+        URLSession.shared.dataTask(with: url) { data, _, _ in
+            guard let data = data,
+                  let json = try? JSONSerialization.jsonObject(with: data, options: []) as? [String: Any],
+                  let results = json["results"] as? [[String: Any]],
+                  let appStoreVersion = results.first?["version"] as? String,
+                  let currentVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String else {
+                return
+            }
+            
+            if appStoreVersion.compare(currentVersion, options: .numeric) == .orderedDescending {
+                DispatchQueue.main.async {
+                    showUpdateAlert = true
+                }
+            }
+        }.resume()
+    }
+    
+    private func openAppStore() {
+        guard let bundleId = Bundle.main.bundleIdentifier,
+              let url = URL(string: "itms-apps://itunes.apple.com/app/apple-store/\(bundleId)") else {
+            return
+        }
+        UIApplication.shared.open(url)
     }
 }

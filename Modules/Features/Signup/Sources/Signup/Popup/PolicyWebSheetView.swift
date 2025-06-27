@@ -16,11 +16,11 @@ struct PolicyWebSheetView: View {
 
     var body: some View {
         VStack(spacing: 0) {
-            // 드래그 핸들
-            Capsule()
-                .fill(Color.secondary)
-                .frame(width: 40, height: 4)
-                .padding(.top, 8)
+            
+//            Capsule()
+//                .fill(Color.secondary)
+//                .frame(width: 40, height: 4)
+//                .padding(.top, 8)
 
             // 커스텀 헤더
             HStack {

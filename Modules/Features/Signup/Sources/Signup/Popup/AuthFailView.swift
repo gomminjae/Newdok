@@ -13,9 +13,7 @@ struct AuthFailView: View {
     var onClose: () -> Void
     
     var body: some View {
-        ZStack {
-            Color.black.opacity(0.4)
-                .edgesIgnoringSafeArea(.all)
+        
             VStack(spacing: 0) {
                 Image(asset: DesignSystemAsset.warning)
                     .padding(.top, 20)
@@ -45,7 +43,6 @@ struct AuthFailView: View {
             .cornerRadius(12)
             .padding(.horizontal, 24)
         }
-    }
     
         
 }

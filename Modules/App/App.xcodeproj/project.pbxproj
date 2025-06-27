@@ -14,6 +14,7 @@
 		326C0B3CADC173970CDF3EAF /* Auth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 709ECB981BF7FB2A9D697179 /* Auth.framework */; };
 		4787DFDD71F731243F3587AF /* Domain.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6BEB75E9463ACE494A73BD36 /* Domain.framework */; };
 		618C5A4BDBBDA7F1A2F8DC93 /* Home.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 76E66C32BAE4D2C1EE4C64CB /* Home.framework */; };
+		700AEC4BAEF5248CFB02D019 /* Signup.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = AAE3FEC5495E2E1AF26A4BA3 /* Signup.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		70F3CF0BB9F240B2A59853E0 /* DesignSystem.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = E9369BFA2C65412102538303 /* DesignSystem.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		784452FA2E8E29178120DA76 /* Kingfisher.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 77D69EAF942AA87F8A9468BF /* Kingfisher.framework */; };
 		79CC342CF73CCAAFEF0E7A8A /* NewdokApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E742829AD9D1D2B50EFB2A0 /* NewdokApp.swift */; };
@@ -37,6 +38,7 @@
 			files = (
 				AAB073F1221B89F1B9D0816C /* Core.framework in Embed Frameworks */,
 				70F3CF0BB9F240B2A59853E0 /* DesignSystem.framework in Embed Frameworks */,
+				700AEC4BAEF5248CFB02D019 /* Signup.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
