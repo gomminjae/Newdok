@@ -21,9 +21,11 @@ struct BApp: App {
     
     var body: some Scene {
         WindowGroup {
-            AppCoordinatorEntry.makeAFlow()
-                .environmentObject(router)
-                .environmentObject(tabSelection)
+            OverlayRootView {
+                AppCoordinatorEntry.makeAFlow()
+                    .environmentObject(router)
+                    .environmentObject(tabSelection)
+            }
         }
     }
 }

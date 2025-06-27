@@ -35,14 +35,26 @@ public struct AgreeView: View {
                 AgreementRow(title: "만 14세 이상 확인 (필수)", isChecked: $isOver14)
 
                 AgreementRow(title: "서비스 이용 동의 (필수)", isChecked: $serviceAgreement) {
-                    sheetType = .terms
-                    showSheet = true
+                    if serviceAgreement {
+                        serviceAgreement.toggle()
+                    } else {
+                        serviceAgreement.toggle()
+                        sheetType = .terms
+                        showSheet = true
+                    }
                 }
 
                 AgreementRow(title: "개인정보 수집 및 이용 동의 (필수)", isChecked: $personalInfoAgreement) {
-                    sheetType = .privacy
-                    showSheet = true
+                    if personalInfoAgreement {
+                        personalInfoAgreement.toggle()
+                    } else {
+                        personalInfoAgreement.toggle()
+                        sheetType = .privacy
+                        showSheet = true
+                    }
                 }
+
+                
 
                 AgreementRow(title: "마케팅 활용/광고성 정보 수신 동의 (선택)", isChecked: $marketingAgreement)
             }

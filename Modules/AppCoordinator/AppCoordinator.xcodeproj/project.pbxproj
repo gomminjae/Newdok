@@ -11,7 +11,6 @@
 		0BD3CF907A80694B031FE405 /* Detail.framework in Dependencies */ = {isa = PBXBuildFile; fileRef = 2B12389B9D34AA31B5777696 /* Detail.framework */; };
 		13C9A534034C115EDB4A8D03 /* AppDIContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3792451C4D850095AD92560 /* AppDIContainer.swift */; };
 		34A2F59BAF7B9E5834D8DE20 /* AppCoordinatorEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93A25D25F6C1F4D5F26B3F2E /* AppCoordinatorEntry.swift */; };
-		39214A0E40CA0E2F9ECCCA05 /* Signup.framework in Dependencies */ = {isa = PBXBuildFile; fileRef = BF2FEF9CAF1F7732B4FF6B3E /* Signup.framework */; };
 		47A95E00D8121476916FABE8 /* Auth.framework in Dependencies */ = {isa = PBXBuildFile; fileRef = 238DA4510E0083E8A5FFD06E /* Auth.framework */; };
 		49D495033DE0E6D4EB14972B /* QABFlowCoordinatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAF18C459220DE6C55396D1A /* QABFlowCoordinatorView.swift */; };
 		62DF4A4A32DA7766EDA7A631 /* Search.framework in Dependencies */ = {isa = PBXBuildFile; fileRef = E5244020C7F599E67FE05B1C /* Search.framework */; };
@@ -23,6 +22,7 @@
 		AEE48CEB8FA6C433EC3BBF63 /* DesignSystem.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55722F5CCC4201D4184E352D /* DesignSystem.framework */; };
 		B172E4AF5DF3A35FF1ADA1B9 /* Data.framework in Dependencies */ = {isa = PBXBuildFile; fileRef = 389E23A3E1DBC5350510374E /* Data.framework */; };
 		B2545A523BEE4D136BDE4B11 /* Home.framework in Dependencies */ = {isa = PBXBuildFile; fileRef = 275A08FCEAEEF8B617DD483F /* Home.framework */; };
+		C2E50172768D9C77475EE551 /* Signup.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF2FEF9CAF1F7732B4FF6B3E /* Signup.framework */; };
 		C3E350D91B8ECF05EAB5C96F /* Domain.framework in Dependencies */ = {isa = PBXBuildFile; fileRef = 924788B4548B7D433D29F3B4 /* Domain.framework */; };
 		DEF770977A22146AD16904DF /* Shared.framework in Dependencies */ = {isa = PBXBuildFile; fileRef = E8AE92AE3530D16E11F67BC8 /* Shared.framework */; };
 		E97DECCE2E8CB5105AF29808 /* Test.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DF312BF32C188795B9F9B41 /* Test.swift */; };
@@ -51,7 +51,6 @@
 				FBF3C8A52A56228D62967629 /* Recovery.framework in Dependencies */,
 				62DF4A4A32DA7766EDA7A631 /* Search.framework in Dependencies */,
 				DEF770977A22146AD16904DF /* Shared.framework in Dependencies */,
-				39214A0E40CA0E2F9ECCCA05 /* Signup.framework in Dependencies */,
 				F91AF99636A3FA1190A4AF56 /* Subscribe.framework in Dependencies */,
 				ED55B87429175EE6DDE7131A /* Survey.framework in Dependencies */,
 				0B27C940DF5DAA6C8C7B851E /* Swinject.framework in Dependencies */,
@@ -107,6 +106,7 @@
 			files = (
 				F7AE7474A1A86C1261A15BB9 /* Core.framework in Frameworks */,
 				AEE48CEB8FA6C433EC3BBF63 /* DesignSystem.framework in Frameworks */,
+				C2E50172768D9C77475EE551 /* Signup.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

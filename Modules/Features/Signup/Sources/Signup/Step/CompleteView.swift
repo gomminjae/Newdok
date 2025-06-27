@@ -50,7 +50,7 @@ struct CompleteView: View {
                     .padding(.top,20)
                     .padding(.leading,20)
 
-                Text(email)
+                Text(viewModel.user?.subscribeEmail ?? "")
                     .font(.hanSansNeo(16, .bold))
                     .foregroundStyle(Color(hex: "#2866D3"))
                     .padding(.top,8)

@@ -10,6 +10,7 @@
 		107A60A0D4AC559B786E3AEB /* Alamofire_Alamofire.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 463931FF006CC49E6594D6C0 /* Alamofire_Alamofire.bundle */; };
 		21FCB0DE7C7F33DA42D03191 /* Bookmark.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E04E9FF2531E2C53460129D /* Bookmark.framework */; };
 		2C98BFBD6353B1565A738604 /* Domain.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 063771607106B9FAF0CD3191 /* Domain.framework */; };
+		301234ABB5DCAE1B750D67F3 /* Signup.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 9E10D8055DE91DF89CD9A616 /* Signup.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		3408CDDE0AF6EA0587436697 /* Survey.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4AC530546BCB1DF246993E72 /* Survey.framework */; };
 		37928BB26BF71F7932A66715 /* Kingfisher.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BAF1D945C939D2A114D6DA70 /* Kingfisher.framework */; };
 		3CB1006058EC00097C4F8544 /* Launch.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 07F21865B765752721E8465D /* Launch.framework */; };
@@ -80,6 +81,7 @@
 			files = (
 				BDE1D020A28F07EA1FDE6B99 /* Core.framework in Embed Frameworks */,
 				ED299898C15F8C9C61934994 /* DesignSystem.framework in Embed Frameworks */,
+				301234ABB5DCAE1B750D67F3 /* Signup.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;

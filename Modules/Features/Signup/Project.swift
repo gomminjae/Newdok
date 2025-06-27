@@ -7,7 +7,7 @@ let project = Project(
         .target(
             name: "Signup",
             destinations: .iOS,
-            product: .staticFramework,
+            product: .framework,
             bundleId: "com.newdok.signup",
             deploymentTargets: .iOS("17.0"),
             infoPlist: .default,
