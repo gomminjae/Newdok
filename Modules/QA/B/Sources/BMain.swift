@@ -23,9 +23,11 @@ struct BApp: App {
         WindowGroup {
             OverlayRootView {
                 AppCoordinatorEntry.makeAFlow()
-                    .environmentObject(router)
-                    .environmentObject(tabSelection)
+                    
             }
+            .environmentObject(router)
+            .environmentObject(tabSelection)
+            
         }
     }
 }

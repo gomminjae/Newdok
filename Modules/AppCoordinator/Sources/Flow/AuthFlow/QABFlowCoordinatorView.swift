@@ -10,7 +10,7 @@ import Auth
 import Signup
 import Shared
 
-struct QABRootViewView: View {
+struct QABRootView: View {
     @EnvironmentObject private var router: AppRouter
     @EnvironmentObject private var tabSelection: TabSelection
     
@@ -89,8 +89,8 @@ struct QABRootViewView: View {
                     }
                 }
             }
-//            .environmentObject(router)
-//            .environmentObject(tabSelection)
+            .environmentObject(router)
+            .environmentObject(tabSelection)
             .opacity(launched ? 1 : 0) // Splash 후 메인뷰 서서히 등장
             .animation(.easeInOut(duration: 0.3), value: launched)
         }

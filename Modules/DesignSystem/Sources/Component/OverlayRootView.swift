@@ -12,13 +12,16 @@ import Shared
 import PopupView
 
 public struct OverlayRootView<Content: View>: View {
+    @EnvironmentObject private var router: AppRouter
+    @EnvironmentObject private var tabSelection: TabSelection
+
     @ObservedObject private var networkManager = NetworkStatusManager.shared
-    @ViewBuilder let content: Content
+    private let content: () -> Content
     
     public init(@ViewBuilder content: @escaping () -> Content) {
-        self.content = content()
+        self.content = content
     }
-    
+
     private var isPopupPresented: Binding<Bool> {
         Binding(
             get: { !networkManager.isConnected },
@@ -28,7 +31,9 @@ public struct OverlayRootView<Content: View>: View {
 
     public var body: some View {
         ZStack {
-            content
+            content()
+                .environmentObject(router)
+                .environmentObject(tabSelection) 
         }
         .popup(isPresented: isPopupPresented) {
             NetworkErrorView()
@@ -41,6 +46,7 @@ public struct OverlayRootView<Content: View>: View {
         }
     }
 }
+
 
 
 

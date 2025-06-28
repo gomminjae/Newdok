@@ -12,7 +12,7 @@ public enum AppCoordinatorEntry {
     
     @MainActor
     public static func makeAFlow() -> some View {
-       QABRootViewView()
+       QABRootView()
             
     }
 }
