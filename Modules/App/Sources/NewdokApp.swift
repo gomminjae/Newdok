@@ -7,15 +7,20 @@
 
 import SwiftUI
 import Core
+import Shared
 
 @main
 struct NewdokApp: App {
-    
+
     @State private var showUpdateAlert = false
+    @StateObject private var router = AppRouter()
+    @StateObject private var tabSelection = TabSelection()
     
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .environmentObject(router)
+                .environmentObject(tabSelection)
                 .onAppear(perform: checkVersion)
                 .alert(isPresented: $showUpdateAlert) {
                     Alert(
