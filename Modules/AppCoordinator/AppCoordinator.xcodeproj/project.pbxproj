@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 55;
+	objectVersion = 56;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -25,7 +25,6 @@
 		C2E50172768D9C77475EE551 /* Signup.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF2FEF9CAF1F7732B4FF6B3E /* Signup.framework */; };
 		C3E350D91B8ECF05EAB5C96F /* Domain.framework in Dependencies */ = {isa = PBXBuildFile; fileRef = 924788B4548B7D433D29F3B4 /* Domain.framework */; };
 		DEF770977A22146AD16904DF /* Shared.framework in Dependencies */ = {isa = PBXBuildFile; fileRef = E8AE92AE3530D16E11F67BC8 /* Shared.framework */; };
-		E97DECCE2E8CB5105AF29808 /* Test.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DF312BF32C188795B9F9B41 /* Test.swift */; };
 		ED55B87429175EE6DDE7131A /* Survey.framework in Dependencies */ = {isa = PBXBuildFile; fileRef = AA2C6970F82306BD4F0E6381 /* Survey.framework */; };
 		F373A5E7496946CED72BCA90 /* Launch.framework in Dependencies */ = {isa = PBXBuildFile; fileRef = AA278F2074F296122B680809 /* Launch.framework */; };
 		F7AE7474A1A86C1261A15BB9 /* Core.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B39CB14B95B55A6AC773E37 /* Core.framework */; };
@@ -80,7 +79,6 @@
 		4DB5C72FA4659244F10721F3 /* AppCoordinator-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "AppCoordinator-Info.plist"; sourceTree = "<group>"; };
 		55722F5CCC4201D4184E352D /* DesignSystem.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = DesignSystem.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6C8DF8FB1683331DA4E93520 /* NewDokTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewDokTabView.swift; sourceTree = "<group>"; };
-		7DF312BF32C188795B9F9B41 /* Test.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Test.swift; sourceTree = "<group>"; };
 		924788B4548B7D433D29F3B4 /* Domain.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Domain.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		93A25D25F6C1F4D5F26B3F2E /* AppCoordinatorEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinatorEntry.swift; sourceTree = "<group>"; };
 		9C494B729F6FC9CAA8002E73 /* Explore.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Explore.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -128,7 +126,6 @@
 				3EF3ABEFAA151A2D3F1228E9 /* Container */,
 				5C6BAA5F342A01FE2DF12E07 /* Flow */,
 				E3792451C4D850095AD92560 /* AppDIContainer.swift */,
-				7DF312BF32C188795B9F9B41 /* Test.swift */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -295,7 +292,6 @@
 				A758B6D31329B917EAE2FA37 /* AppCoordinator.swift in Sources */,
 				49D495033DE0E6D4EB14972B /* QABFlowCoordinatorView.swift in Sources */,
 				AD5F078346B48782AE8F2F45 /* NewDokTabView.swift in Sources */,
-				E97DECCE2E8CB5105AF29808 /* Test.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -473,10 +469,7 @@
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
 				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = (
-					"$(inherited)",
-					DEBUG,
-				);
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) DEBUG";
 				SWIFT_COMPILATION_MODE = singlefile;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;

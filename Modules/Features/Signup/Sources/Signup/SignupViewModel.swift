@@ -7,9 +7,8 @@
 
 import Foundation
 import Domain
-import Shared
 import SwiftUI
-
+import Shared
 
 public enum IDValidationError: Error {
     case invalidLengthAndCombination
