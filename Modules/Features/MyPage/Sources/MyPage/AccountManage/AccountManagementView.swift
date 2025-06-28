@@ -23,14 +23,20 @@ public struct AccountManagementView: View {
     public var body: some View {
         VStack(alignment: .leading, spacing: 0) {
             // 휴대폰 번호 변경
-            Button("휴대폰 번호 변경") {
+            Button {
                 router.push(.updatePhoneNumber)
+                
+            } label: {
+                rowLabel(title: "휴대폰 번호 변경")
             }
             .padding(.vertical, 13)
 
             // 비밀번호 변경
-            Button("비밀번호 변경") {
+            Button {
                 router.push(.updatePassword)
+                
+            } label: {
+                rowLabel(title: "비밀번호 변경")
             }
             .padding(.vertical, 13)
 
