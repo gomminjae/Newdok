@@ -99,6 +99,21 @@ final class AppCoordinator {
         return RecoveryView(viewModel: vm).environmentObject(router)
     }
     
+    func makeAccountManageView() -> some View {
+        return AccountManagementView().environmentObject(router)
+    }
+    
+    func makeChangePasswordView() -> some View {
+        let vm = container.container.resolve(MypageViewModel.self)!
+        return PwdUpdateView(viewModel: vm).environmentObject(router)
+    }
+    
+    func makeChangePhoneNumberView() -> some View {
+        let vm = container.container.resolve(MypageViewModel.self)!
+        return PhoneUpdateView(viewModel: vm).environmentObject(router)
+    }
+    
+    
     
     
 }

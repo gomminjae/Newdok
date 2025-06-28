@@ -16,31 +16,27 @@ public struct AccountManagementView: View {
     @State private var showLogoutPopup = false
     @EnvironmentObject private var router: AppRouter
     
-    @ObservedObject private var viewModel: MypageViewModel
+    
+    public init() {}
 
-    public init(viewModel: MypageViewModel) {
-        self.viewModel = viewModel
-    }
 
     public var body: some View {
         VStack(alignment: .leading, spacing: 0) {
             // 휴대폰 번호 변경
-            NavigationLink(destination: PhoneUpdateView(viewModel: viewModel)) {
-                rowLabel(title: "휴대폰 번호 변경")
+            Button("휴대폰 번호 변경") {
+                router.push(.updatePhoneNumber)
             }
             .padding(.vertical, 13)
 
             // 비밀번호 변경
-            NavigationLink(destination: PwdUpdateView(viewModel: viewModel)) {
-                rowLabel(title: "비밀번호 변경")
+            Button("비밀번호 변경") {
+                router.push(.updatePassword)
             }
             .padding(.vertical, 13)
 
             // 로그아웃 버튼
             Button {
                 showLogoutPopup = true
-                router.resetTo(.login)
-                
                 
             } label: {
                 rowLabel(title: "로그아웃")
@@ -66,7 +62,7 @@ public struct AccountManagementView: View {
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
             ToolbarItem(placement: .navigationBarLeading) {
-                Button(action: { dismiss() }) {
+                Button(action: { router.pop() }) {
                     Image(asset: DesignSystemAsset.back)
                         .resizable()
                         .renderingMode(.template)
@@ -80,7 +76,6 @@ public struct AccountManagementView: View {
                     .foregroundColor(.black)
             }
         }
-        // ✅ 팝업 적용
         .popup(isPresented: $showLogoutPopup) {
             LogoutPopupView(
                 onCancel: { showLogoutPopup = false },
@@ -88,7 +83,7 @@ public struct AccountManagementView: View {
                     showLogoutPopup = false
                     TokenStorage.clear()
                     router.resetTo(.login)
-                    // 로그아웃 로직
+                    
                 }
             )
         } customize: {

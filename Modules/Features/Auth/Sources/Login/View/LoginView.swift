@@ -146,10 +146,15 @@ public struct LoginView: View {
         .navigationBarBackButtonHidden()
         .navigationBarTitleDisplayMode(.inline)
         .navigationBarBackButtonHidden(true)
-        .navigationBarItems(leading: BackButton(action: {
-            router.pop()
-        }))
         .toolbar {
+            ToolbarItem(placement: .navigationBarLeading) {
+                if !router.path.isEmpty {
+                    BackButton(action: {
+                        router.pop()
+                    })
+                }
+            }
+            
             ToolbarItem(placement: .principal) {
                 Text("로그인")
                     .font(.hanSansNeo(16,.bold))
