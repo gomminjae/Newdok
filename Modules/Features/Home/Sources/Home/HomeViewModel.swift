@@ -42,6 +42,18 @@ public final class HomeViewModel: ObservableObject {
     @AppStorage("isGuest") public var isGuest: Bool = false
     
     
+    public var articlesByMonthDates: Set<Date> {
+            let calendar = Calendar.current
+            // selectedDate 의 연·월 컴포넌트만 살리고, publishDate(Int day)만 교체
+            let comps = calendar.dateComponents([.year, .month], from: selectedDate)
+            return Set(articlesByMonth.compactMap { articleGroup in
+                var dc = comps
+                dc.day = articleGroup.publishDate
+                return calendar.date(from: dc)
+            })
+        }
+    
+    
     var homeState: HomeState {
         if isGuest {
             return .guest
