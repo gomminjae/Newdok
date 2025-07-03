@@ -7,7 +7,6 @@
 
 import SwiftUI
 import UIKit
-import Domain
 
 struct RoundedCorners: Shape {
     var radius: CGFloat = 16
@@ -27,9 +26,8 @@ public struct CalendarPopupView: View {
     @State private var selectedDate = Date()
     @State private var displayedMonthDate = Date()
     
-    public var monthlyData: [Articles]
-
     public var onDateSelected: ((Date) -> Void)?
+    public var onMonthChanged: ((Date) -> Void)?
     /// 데이터가 있는 날짜를 외부에서 전달 받습니다.
     public var dataDates: Set<Date>
 
@@ -44,13 +42,13 @@ public struct CalendarPopupView: View {
         isPresented: Binding<Bool>,
         dataDates: Set<Date> = [],
         onDateSelected: ((Date) -> Void)? = nil,
-        monthlyData: [Articles] = []
+        onMonthChanged: ((Date) -> Void)? = nil
     ) {
         self._isPresented = isPresented
         self.dataDates = dataDates.map { Calendar.current.startOfDay(for: $0) }
             .reduce(into: []) { $0.insert($1) }
         self.onDateSelected = onDateSelected
-        self.monthlyData = monthlyData
+        self.onMonthChanged = onMonthChanged
     }
 
     public var body: some View {
@@ -214,10 +212,12 @@ public struct CalendarPopupView: View {
 
     private func previousMonth() {
         displayedMonthDate = calendar.date(byAdding: .month, value: -1, to: displayedMonthDate)!
+        onMonthChanged?(displayedMonthDate)
     }
 
     private func nextMonth() {
         displayedMonthDate = calendar.date(byAdding: .month, value: 1, to: displayedMonthDate)!
+        onMonthChanged?(displayedMonthDate)
     }
 
     private func isSameDay(_ date1: Date, _ date2: Date) -> Bool {

@@ -38,20 +38,23 @@ public final class HomeViewModel: ObservableObject {
     @Published public var subscribedNewsletters: [Newsletter] = []
     @Published public var articlesByMonth: [Articles] = []
     @Published public var selectedDate: Date = Date()
+    /// 현재 로드된 월을 저장합니다.
+    @Published public var currentMonthDate: Date = Date()
     
     @AppStorage("isGuest") public var isGuest: Bool = false
     
     
     public var articlesByMonthDates: Set<Date> {
-            let calendar = Calendar.current
-            // selectedDate 의 연·월 컴포넌트만 살리고, publishDate(Int day)만 교체
-            let comps = calendar.dateComponents([.year, .month], from: selectedDate)
-            return Set(articlesByMonth.compactMap { articleGroup in
-                var dc = comps
-                dc.day = articleGroup.publishDate
-                return calendar.date(from: dc)
-            })
-        }
+        let calendar = Calendar.current
+        // 현재 로드된 월의 연·월 컴포넌트만 사용하고, 일 정보만 교체합니다.
+        let comps = calendar.dateComponents([.year, .month], from: currentMonthDate)
+        return Set(articlesByMonth.compactMap { articleGroup in
+            guard !articleGroup.receivedArticleList.isEmpty else { return nil }
+            var dc = comps
+            dc.day = articleGroup.publishDate
+            return calendar.date(from: dc)
+        })
+    }
     
     
     var homeState: HomeState {
@@ -86,6 +89,7 @@ public final class HomeViewModel: ObservableObject {
             let data = try await useCase.fetchTodayData()
             self.filteredArticles = data.articles
             self.subscribedNewsletters = data.activeNewsletters
+            self.currentMonthDate = Date()
         } catch {
             print("today fetch error: \(error)")
         }
@@ -95,11 +99,13 @@ public final class HomeViewModel: ObservableObject {
     public func loadArticles(for date: Date) async {
         let year = formatYear(date)
         let month = formatMonth(date)
-        
+
         do {
             let monthly = try await useCase.fetchMonthlyData(year: year, month: month)
             self.articlesByMonth = monthly
-            self.filterArticles(by: date)
+            self.currentMonthDate = date
+            // 기존 선택된 날짜 기준으로 필터링을 유지합니다.
+            self.filterArticles(by: selectedDate)
         } catch {
             print("❌ Monthly fetch failed: \(error)")
         }

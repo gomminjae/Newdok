@@ -57,7 +57,14 @@ public struct HomeView: View {
                                 viewModel.filterArticles(by: date)
                                 showCalendar = false
                             }
-                        }, monthlyData: viewModel.articlesByMonth
+                        },
+                        onMonthChanged: { date in
+                            Task {
+                                await viewModel.loadArticles(for: date)
+                                // 월을 변경해도 팝업이 닫히지 않도록 유지합니다.
+                                showCalendar = true
+                            }
+                        }
                     )
                 } customize: {
             $0
