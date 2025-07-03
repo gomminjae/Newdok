@@ -48,13 +48,18 @@ public struct HomeView: View {
             }
         }
         .popup(isPresented: $showCalendar) {
-            CalendarPopupView(isPresented: $showCalendar ,onDateSelected: { date in
-                Task {
-                    viewModel.selectedDate = date
-                    await viewModel.loadArticles(for: date)
-                }
-            })
-        } customize: {
+                    CalendarPopupView(
+                        isPresented: $showCalendar,
+                        dataDates: viewModel.articlesByMonthDates,  // ◆ 활성화할 날짜들
+                        onDateSelected: { date in
+                            Task {
+                                viewModel.selectedDate = date
+                                viewModel.filterArticles(by: date)
+                                showCalendar = false
+                            }
+                        }, monthlyData: viewModel.articlesByMonth
+                    )
+                } customize: {
             $0
                 .type(.default)
                 .position(.center)
@@ -100,7 +105,13 @@ public struct HomeView: View {
                 .foregroundStyle(Color(hex: "#363636"))
                 .padding(.leading, 24)
             Spacer()
-            Button(action: { showCalendar.toggle() }) {
+            Button(action: {
+                Task {
+                    await viewModel.loadArticles(for: viewModel.selectedDate)
+                    showCalendar.toggle()
+                }
+                
+            }) {
                 Image(asset: DesignSystemAsset.lineCalendar)
                     .padding(.trailing, 24)
             }
