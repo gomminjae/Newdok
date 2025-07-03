@@ -43,14 +43,15 @@ public final class HomeViewModel: ObservableObject {
     
     
     public var articlesByMonthDates: Set<Date> {
-            let calendar = Calendar.current
-            // selectedDate 의 연·월 컴포넌트만 살리고, publishDate(Int day)만 교체
-            let comps = calendar.dateComponents([.year, .month], from: selectedDate)
-            return Set(articlesByMonth.compactMap { articleGroup in
-                var dc = comps
-                dc.day = articleGroup.publishDate
-                return calendar.date(from: dc)
-            })
+        let calendar = Calendar.current
+        // selectedDate 의 연·월 컴포넌트만 살리고, publishDate(Int day)만 교체
+        let comps = calendar.dateComponents([.year, .month], from: selectedDate)
+        return Set(articlesByMonth.compactMap { articleGroup in
+            guard !articleGroup.receivedArticleList.isEmpty else { return nil }
+            var dc = comps
+            dc.day = articleGroup.publishDate
+            return calendar.date(from: dc)
+        })
         }
     
     

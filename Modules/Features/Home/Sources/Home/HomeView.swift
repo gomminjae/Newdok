@@ -57,7 +57,10 @@ public struct HomeView: View {
                                 viewModel.filterArticles(by: date)
                                 showCalendar = false
                             }
-                        }, monthlyData: viewModel.articlesByMonth
+                        },
+                        onMonthChanged: { date in
+                            Task { await viewModel.loadArticles(for: date) }
+                        }
                     )
                 } customize: {
             $0
