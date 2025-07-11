@@ -64,6 +64,8 @@ struct QABRootView: View {
                         coordinator.makeChangePasswordView()
                     case .updatePhoneNumber:
                         coordinator.makeChangePhoneNumberView()
+                    case .search:
+                        coordinator.makeSearchView()
                         
                     }
                 }
@@ -97,6 +99,8 @@ struct QABRootView: View {
                         coordinator.makeChangePasswordView()
                     case .updatePhoneNumber:
                         coordinator.makeChangePhoneNumberView()
+                    case .search:
+                        coordinator.makeSearchView()
                         
                     }
                 }

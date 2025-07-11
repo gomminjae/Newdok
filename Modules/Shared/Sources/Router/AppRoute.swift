@@ -27,6 +27,9 @@ public enum AppRoute: Hashable {
     case updatePassword
     
     
+    case search
+    
+    
     
    
 }

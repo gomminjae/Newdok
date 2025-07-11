@@ -28,7 +28,7 @@ public class ArticleRepositoryImpl: ArticleRepository {
     
     public func fetchTodayArticles() async throws -> [Article] {
         let response: [ArticleDTO] = try await provider.asyncRequest(.fetchTodayArticle)
-        return response.map { $0.toDomain() }
+        return response.map { $0.toDomain }
     }
     
     public func fetchBookmarkArticles(interest: String?) async throws -> Domain.BookmarkedArticles {

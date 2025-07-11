@@ -18,6 +18,7 @@ import Bookmark
 import Detail
 import Recovery
 import Domain
+import Search
 
 final class AppCoordinator {
     private let container = AppDIContainer.shared
@@ -112,6 +113,13 @@ final class AppCoordinator {
         let vm = container.container.resolve(MypageViewModel.self)!
         return PhoneUpdateView(viewModel: vm).environmentObject(router)
     }
+    
+    
+    
+    func makeSearchView() -> some View {
+        return SearchResultView().environmentObject(router)
+    }
+    
     
     
     

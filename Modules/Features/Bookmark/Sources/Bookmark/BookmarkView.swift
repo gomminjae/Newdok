@@ -34,7 +34,6 @@ public struct BookmarkView: View {
             categoryFilter
             sortInfo
             
-            
             if isGuest {
                 VStack {
                     BookmarkGuestView(onLogin: {
@@ -85,7 +84,9 @@ public struct BookmarkView: View {
             
             Spacer()
             
-            Button(action: {}) {
+            Button(action: {
+                router.push(.search)
+            }) {
                 Image(asset: DesignSystemAsset.lineSearch)
             }
             .padding(.trailing, 12)

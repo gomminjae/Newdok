@@ -8,6 +8,7 @@ import SwiftUI
 import DesignSystem
 import Domain
 import PopupView
+import Shared
 
 public struct SubscribeView: View {
     @State private var selectedTab: Int = 0
@@ -16,6 +17,8 @@ public struct SubscribeView: View {
     
     @State private var showUnsubscribeAlert: Bool = false
     @State private var selectedNewsletter: Newsletter? = nil
+    
+    @EnvironmentObject private var router: AppRouter
     
     
     //Toast
@@ -161,7 +164,9 @@ public struct SubscribeView: View {
 
             Spacer()
 
-            Button(action: {}) {
+            Button(action: {
+                router.push(.search)
+            }) {
                 Image(asset: DesignSystemAsset.lineSearch)
                     .padding(.trailing, 8)
             }

@@ -10,6 +10,8 @@ import DesignSystem
 import Shared
 import Domain
 import PopupView
+import Lottie
+
 
 
 public struct HomeView: View {
@@ -17,12 +19,13 @@ public struct HomeView: View {
     @EnvironmentObject private var tabSelection: TabSelection
     @StateObject private var viewModel: HomeViewModel
     @State private var showCalendar = false
+    @State private var calendarDisplayedMonth = Date()
     @EnvironmentObject private var router: AppRouter
     @AppStorage("isGuest") private var isGuest: Bool = false
-
     public init(viewModel: HomeViewModel) {
         _viewModel = StateObject(wrappedValue: viewModel)
     }
+    
 
     public var body: some View {
         ZStack {
@@ -48,30 +51,21 @@ public struct HomeView: View {
             }
         }
         .popup(isPresented: $showCalendar) {
-                    CalendarPopupView(
-                        isPresented: $showCalendar,
-                        dataDates: viewModel.articlesByMonthDates,  // ◆ 활성화할 날짜들
-                        onDateSelected: { date in
-                            Task {
-                                viewModel.selectedDate = date
-                                viewModel.filterArticles(by: date)
-                                showCalendar = false
-                            }
-                        },
-                        onMonthChanged: { date in
-                            Task { await viewModel.loadArticles(for: date) }
-                        }
-                    )
-                } customize: {
-            $0
-                .type(.default)
-                .position(.center)
-                .animation(.easeInOut)
-                .closeOnTapOutside(true)
-                .backgroundColor(Color.black.opacity(0.3))
-            
-            
-        }
+                   CalendarPopupView(
+                       isPresented: $showCalendar,
+                       selectedDate: $viewModel.selectedDate,
+                       displayedMonthDate: $calendarDisplayedMonth,
+                       dataDays: Binding<Set<Int>>(
+                                   get: { Set(viewModel.activeArticeDays)   },
+                                   set: { _ in  }
+                               ),
+                       onDateSelected: { date in Task { await viewModel.loadArticles(for: date) } },
+                       onMonthChanged: { monthDate in
+                           calendarDisplayedMonth = monthDate
+                           Task { await viewModel.loadArticles(for: monthDate) }
+                       }
+                   )
+               } customize: { $0.type(.default).position(.center).animation(.easeInOut).closeOnTap(false).backgroundColor(Color.black.opacity(0.3)) }
     }
 
     private var headerView: some View {
@@ -83,7 +77,7 @@ public struct HomeView: View {
                 .padding(.leading, 20)
             Spacer()
             HStack(spacing: 16) {
-                Button(action: { print("검색") }) {
+                Button(action: { router.push(.search) }) {
                     Image(asset: DesignSystemAsset.lineSearch)
                         .resizable()
                         .frame(width: 28, height: 28)

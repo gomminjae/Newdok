@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 55;
+	objectVersion = 60;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -25,6 +25,7 @@
 		87FC3194588504EAA7B0720C /* Kingfisher_Kingfisher.bundle in Dependencies */ = {isa = PBXBuildFile; fileRef = 3D284BF5567CE0CE34164DC1 /* Kingfisher_Kingfisher.bundle */; };
 		9D95A440D1F08648A1189B26 /* BMain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D9D8337B8DADC1C73C9B83 /* BMain.swift */; };
 		A287073E23F5DFCBE7A7028A /* Data.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A0D3F01D7AE7F92987AA5BEB /* Data.framework */; };
+		AC8DC650B8843F10E2432AB2 /* Lottie.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 9B18F3151E09AF33BD577C75 /* Lottie.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		AECC421D10C27B6A7DA92E35 /* AppCoordinator.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 53D7F0C40548F755B7A470EE /* AppCoordinator.framework */; };
 		BC4D17FFCADE9D608BD4F9B1 /* Home.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A3807BBFB2D5C8B2513C5534 /* Home.framework */; };
 		BDE1D020A28F07EA1FDE6B99 /* Core.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 2378C408DCDC0EDC22736EE2 /* Core.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -34,11 +35,13 @@
 		CF3EB26141045232946D5678 /* PopupView.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 44513F78E5A0EFF791B2EF61 /* PopupView.framework */; };
 		D7F7B41C84B829672F721F53 /* Swinject.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E05AA693C3E4A78793949CF5 /* Swinject.framework */; };
 		DBCC2AB2186077776463CD5D /* Explore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 48862800142DC5E05C5B28E3 /* Explore.framework */; };
+		E176BF28948C5871289C9DA3 /* _LottieStub.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E4FE96B76B7D4DB07CA4025C /* _LottieStub.framework */; };
 		EBE6591D3B210BA5A77C4BEE /* Signup.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9E10D8055DE91DF89CD9A616 /* Signup.framework */; };
 		ED299898C15F8C9C61934994 /* DesignSystem.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 42F5E70E54A9D11122495EFF /* DesignSystem.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		EF1CA8797A9F6AF7DA5418C8 /* Mypage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B2F059A4D28A405569119AE2 /* Mypage.framework */; };
 		F0123C5B11FEDB50386CC1BF /* BTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73FD44ED8E632B513BD81837 /* BTests.swift */; };
 		F238F35B4622D167C6C0F0D2 /* Subscribe.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 71214E5D20E7105B268DB5C1 /* Subscribe.framework */; };
+		F550D8172313AA5E36F0A7E1 /* Lottie.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B18F3151E09AF33BD577C75 /* Lottie.xcframework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -82,6 +85,7 @@
 				BDE1D020A28F07EA1FDE6B99 /* Core.framework in Embed Frameworks */,
 				ED299898C15F8C9C61934994 /* DesignSystem.framework in Embed Frameworks */,
 				301234ABB5DCAE1B750D67F3 /* Signup.framework in Embed Frameworks */,
+				AC8DC650B8843F10E2432AB2 /* Lottie.xcframework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -109,6 +113,7 @@
 		71214E5D20E7105B268DB5C1 /* Subscribe.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Subscribe.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		73FD44ED8E632B513BD81837 /* BTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BTests.swift; sourceTree = "<group>"; };
 		9A8111C9E153F8D084CA5582 /* Auth.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Auth.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		9B18F3151E09AF33BD577C75 /* Lottie.xcframework */ = {isa = PBXFileReference; expectedSignature = "SelfSigned:892F1B43047B50538F2F46EAD92900DD3D4811F3582178C061A5FB20F111CB26"; lastKnownFileType = wrapper.xcframework; path = Lottie.xcframework; sourceTree = "<group>"; };
 		9E10D8055DE91DF89CD9A616 /* Signup.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Signup.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A0D3F01D7AE7F92987AA5BEB /* Data.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Data.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A3807BBFB2D5C8B2513C5534 /* Home.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Home.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -118,6 +123,7 @@
 		D1030C41F2B46CDAE67CA5A0 /* SwiftUIIntrospect.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SwiftUIIntrospect.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D2857F713F5C24040D1DBDA2 /* BTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		E05AA693C3E4A78793949CF5 /* Swinject.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Swinject.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		E4FE96B76B7D4DB07CA4025C /* _LottieStub.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = _LottieStub.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F4FA82F97BD0C253847BEBC3 /* Shared.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Shared.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FC24A59D15F77BA85B6772BA /* B-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "B-Info.plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -156,6 +162,8 @@
 				3408CDDE0AF6EA0587436697 /* Survey.framework in Frameworks */,
 				71C7EAD2BC434CDEC1A61439 /* SwiftUIIntrospect.framework in Frameworks */,
 				D7F7B41C84B829672F721F53 /* Swinject.framework in Frameworks */,
+				E176BF28948C5871289C9DA3 /* _LottieStub.framework in Frameworks */,
+				F550D8172313AA5E36F0A7E1 /* Lottie.xcframework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -171,6 +179,14 @@
 			path = InfoPlists;
 			sourceTree = "<group>";
 		};
+		4F4E8EC3599B6CF6FD796DB6 /* .build */ = {
+			isa = PBXGroup;
+			children = (
+				CE2AFBEE256F213AB45CC999 /* artifacts */,
+			);
+			path = .build;
+			sourceTree = "<group>";
+		};
 		5B6F7E41F483A94CD6BF49CB /* Sources */ = {
 			isa = PBXGroup;
 			children = (
@@ -180,9 +196,18 @@
 			path = Sources;
 			sourceTree = "<group>";
 		};
+		5DFBE3829E3CFA5D51E2A9DE /* Lottie */ = {
+			isa = PBXGroup;
+			children = (
+				9B18F3151E09AF33BD577C75 /* Lottie.xcframework */,
+			);
+			path = Lottie;
+			sourceTree = "<group>";
+		};
 		7ECBFEE97F8D77936C786AD1 /* Products */ = {
 			isa = PBXGroup;
 			children = (
+				E4FE96B76B7D4DB07CA4025C /* _LottieStub.framework */,
 				463931FF006CC49E6594D6C0 /* Alamofire_Alamofire.bundle */,
 				53D7F0C40548F755B7A470EE /* AppCoordinator.framework */,
 				9A8111C9E153F8D084CA5582 /* Auth.framework */,
@@ -219,8 +244,26 @@
 				EC80072C82040B0CD8CA0F05 /* Derived */,
 				5B6F7E41F483A94CD6BF49CB /* Sources */,
 				FBD19C743A6C0C0498463779 /* Tests */,
+				95118A9CA0AB300D1976E8F6 /* Tuist */,
 			);
 			name = Project;
+			sourceTree = "<group>";
+		};
+		95118A9CA0AB300D1976E8F6 /* Tuist */ = {
+			isa = PBXGroup;
+			children = (
+				4F4E8EC3599B6CF6FD796DB6 /* .build */,
+			);
+			name = Tuist;
+			path = ../../../Tuist;
+			sourceTree = "<group>";
+		};
+		CE2AFBEE256F213AB45CC999 /* artifacts */ = {
+			isa = PBXGroup;
+			children = (
+				DC6937358CE4F8B794A6A922 /* lottie-spm */,
+			);
+			path = artifacts;
 			sourceTree = "<group>";
 		};
 		CE6EBB1686B3EA37B2B390FB = {
@@ -229,6 +272,14 @@
 				8D3F1075EBB071A980BC028C /* Project */,
 				7ECBFEE97F8D77936C786AD1 /* Products */,
 			);
+			sourceTree = "<group>";
+		};
+		DC6937358CE4F8B794A6A922 /* lottie-spm */ = {
+			isa = PBXGroup;
+			children = (
+				5DFBE3829E3CFA5D51E2A9DE /* Lottie */,
+			);
+			path = "lottie-spm";
 			sourceTree = "<group>";
 		};
 		EC80072C82040B0CD8CA0F05 /* Derived */ = {
@@ -392,10 +443,7 @@
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
 				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = (
-					"$(inherited)",
-					DEBUG,
-				);
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) DEBUG";
 				SWIFT_COMPILATION_MODE = singlefile;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
@@ -523,6 +571,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				ENABLE_PREVIEWS = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)/../../../Tuist/.build/artifacts/lottie-spm/Lottie",
+				);
 				INFOPLIST_FILE = "Derived/InfoPlists/B-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -575,6 +627,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				ENABLE_PREVIEWS = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)/../../../Tuist/.build/artifacts/lottie-spm/Lottie",
+				);
 				INFOPLIST_FILE = "Derived/InfoPlists/B-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -587,10 +643,7 @@
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
 				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = (
-					"$(inherited)",
-					DEBUG,
-				);
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) DEBUG";
 				SWIFT_COMPILATION_MODE = singlefile;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;

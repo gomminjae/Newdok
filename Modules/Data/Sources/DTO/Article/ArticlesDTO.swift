@@ -8,14 +8,14 @@ import Domain
 
 public struct ArticlesDTO: Decodable {
     
-    let id: Int?
+    
     let publishDate: Int
     let receivedUnread: Int
     let receivedArticleList: [ArticleDTO]
     
     public func toDomain() -> Articles {
         return Articles(
-            id: id, publishDate: publishDate, receivedUnread: receivedUnread, receivedArticleList: receivedArticleList.map { $0.toDomain() }
+            publishDate: publishDate, receivedUnread: receivedUnread, receivedArticleList: receivedArticleList.map { $0.toDomain }
         )
     }
 }

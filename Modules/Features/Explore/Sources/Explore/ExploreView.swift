@@ -8,6 +8,7 @@ import SwiftUI
 import DesignSystem
 import Domain
 import Shared
+import Lottie 
 
 public struct ExploreView: View {
     @State private var selectedTab: Int = 0 // 0: 추천, 1: 전체
@@ -101,6 +102,7 @@ public struct ExploreView: View {
             Spacer()
             Button {
                 print("검색 버튼 탭")
+                router.push(.search)
             } label: {
                 Image(asset: DesignSystemAsset.lineSearch)
                     .padding(.vertical, 14)
@@ -152,6 +154,11 @@ public struct ExploreView: View {
             Spacer()
 
             VStack(spacing: 0) {
+                
+                
+                
+                
+                
                 Image(asset: DesignSystemAsset.nologin)
                     .resizable()
                     .frame(width: 280, height: 280)
@@ -465,53 +472,77 @@ extension Array {
 
 
 
+import SwiftUI
+
 struct PagingScrollView: View {
-    let newsletters: [NewsletterDetail]
+    
+    private let items: [NewsletterDetail]
     @Binding var currentPage: Int
     
     @EnvironmentObject private var router: AppRouter
-
-    // 스크롤 위치 추적용
     @State private var scrollID: Int?
-
+    
+  
+    private let itemWidth: CGFloat = 320
+    private let itemHeight: CGFloat = 350
+    private let itemSpacing: CGFloat = 12
+    
+    private let leadingMargin: CGFloat = 24
+    
+   
+    init(newsletters: [NewsletterDetail], currentPage: Binding<Int>) {
+        self._currentPage = currentPage
+        self.items = Array(newsletters.shuffled().prefix(5))
+    }
+    
     var body: some View {
-        let items = Array(newsletters.shuffled().prefix(5))
-
-        VStack(spacing: 12) {
-            // 캐러셀 영역
-            ScrollView(.horizontal, showsIndicators: false) {
-                LazyHStack(spacing: 12) {
-                    ForEach(Array(items.enumerated()), id: \.element.id) { index, newsletter in
-                        RecommendedNewsLetterView(recommendation: newsletter)
-                            .frame(width: 320, height: 350)
-                            .id(index) // scrollPosition 추적
-                            .onTapGesture {
-                                router.push(.brandDetail(id: "\(newsletter.id)"))
-                                
-                            }
-                           
+        GeometryReader { geo in
+            
+        
+            let trailingSpace = max(0, geo.size.width - itemWidth - leadingMargin + 12)
+            
+            VStack(spacing: 12) {
+                // MARK: - 캐러셀
+                ScrollView(.horizontal, showsIndicators: false) {
+                    LazyHStack(spacing: itemSpacing) {
+                        ForEach(items.indices, id: \.self) { index in
+                            let newsletter = items[index]
+                            RecommendedNewsLetterView(recommendation: newsletter)
+                                .frame(width: itemWidth, height: itemHeight)
+                                .id(index)
+                                .onTapGesture {
+                                    router.push(.brandDetail(id: "\(newsletter.id)"))
+                                }
+                        }
+                        
+                        Color.clear
+                            .frame(width: trailingSpace)
+                    }
+                    .scrollTargetLayout()
+                }
+                .scrollTargetBehavior(.viewAligned)
+                .scrollPosition(id: $scrollID)
+                .onChange(of: scrollID) { newValue in
+                    currentPage = newValue ?? 0
+                }
+                .frame(height: itemHeight)
+                
+                // MARK: - 페이지 인디케이터
+                HStack(spacing: 6) {
+                    ForEach(items.indices, id: \.self) { idx in
+                        Circle()
+                            .fill(idx == currentPage
+                                  ? Color.primaryNormal
+                                  : Color(hex: "#CCDFFF"))
+                            .frame(width: 6, height: 6)
                     }
                 }
-                .scrollTargetLayout()
+                .padding(.bottom, 20)
             }
-            .scrollTargetBehavior(.viewAligned)
-            .scrollPosition(id: $scrollID)
-            .frame(height: 350)
-            .onChange(of: scrollID) { newValue in
-                currentPage = newValue ?? 0
-            }
-            .padding(.bottom, 12)
-
-            // 인디케이터
-            HStack(spacing: 6) {
-                ForEach(0..<items.count, id: \.self) { index in
-                    Circle()
-                        .fill(index == currentPage ? Color.primaryNormal : Color(hex: "#CCDFFF"))
-                        .frame(width: 6, height: 6)
-                }
-            }
-            .padding(.bottom, 20)
+            .frame(width: geo.size.width)
         }
+        .frame(height: itemHeight + 60)
     }
 }
+
 
