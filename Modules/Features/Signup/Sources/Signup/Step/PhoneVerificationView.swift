@@ -158,7 +158,11 @@ public struct PhoneVerificationView: View {
         .popup(isPresented: $viewModel.isShowUserList) {
             SignupPopupView(
                 infos: viewModel.userList,
-                onClose: { viewModel.isShowUserList = false },
+                onClose: {
+                    viewModel.isShowUserList = false
+                    viewModel.sendVerificationCode(skipCheck: true)
+                    
+                },
                 onLogin: {
                     viewModel.isShowUserList = false
                     router.push(.login)

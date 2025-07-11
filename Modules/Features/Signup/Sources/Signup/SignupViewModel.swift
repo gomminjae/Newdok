@@ -178,47 +178,42 @@ final public class SignupViewModel: ObservableObject {
     
     
 
-    public func sendVerificationCode() {
-        guard resendFailureCount < 3 else {
-            isShowPopup = true
-            return
-        }
-        Task {
-            do {
-                isLoading = true
-                userList = []
-                isShowUserList = false
-                errorMessage = nil
-
-                
-                enteredVerificationCode = ""
-             
-                showError = false
-            
-                timerRemaining = 180
-
-                
-                let users = try await userUseCase.checkPhoneNumber(phoneNumber)
-                if !users.isEmpty {
-                    userList = users
-                    isShowUserList = true
-                    showAlreadyRegisteredAlert = true
-                    return
-                }
-
-               
-                let result = try await userUseCase.authSMS(phoneNumber: phoneNumber)
-                verificationCode = String(result.code)
-                isRequestSent = true
-
-                
-                startTimer()
-            } catch {
-                errorMessage = error.localizedDescription
+    public func sendVerificationCode(skipCheck: Bool = false) {
+            guard resendFailureCount < 3 else {
+                isShowPopup = true
+                return
             }
-            isLoading = false
+            Task {
+                do {
+                    isLoading = true
+                    userList = []
+                    isShowUserList = false
+                    errorMessage = nil
+                    enteredVerificationCode = ""
+                    showError = false
+                    timerRemaining = 180
+
+                    if !skipCheck {
+                        let users = try await userUseCase.checkPhoneNumber(phoneNumber)
+                        if !users.isEmpty {
+                            userList = users
+                            isShowUserList = true
+                            showAlreadyRegisteredAlert = true
+                            isLoading = false
+                            return
+                        }
+                    }
+
+                    let result = try await userUseCase.authSMS(phoneNumber: phoneNumber)
+                    verificationCode = String(result.code)
+                    isRequestSent = true
+                    startTimer()
+                } catch {
+                    errorMessage = error.localizedDescription
+                }
+                isLoading = false
+            }
         }
-    }
 
 
     func verifyCode() -> Bool {
