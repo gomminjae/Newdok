@@ -11,13 +11,10 @@ import Shared
 import Lottie 
 
 public struct ExploreView: View {
-    @State private var selectedTab: Int = 0 // 0: 추천, 1: 전체
-    @State private var currentPage: Int = 0
-    
-    
-    @State private var isLoaded: Bool = false
-
+    // ViewModel에서 탭 상태를 관리하도록 수정
     @StateObject private var viewModel: ExploreViewModel
+    @State private var currentPage: Int = 0
+    @State private var isLoaded: Bool = false
     @EnvironmentObject private var router: AppRouter
     
     
@@ -38,7 +35,7 @@ public struct ExploreView: View {
                 
                 if isGuest {
                     Group {
-                        if selectedTab == 0 {
+                        if viewModel.selectedTab == 0 {
                             ScrollView(showsIndicators: false) {
                                 allNewsletterSection
                             }
@@ -48,7 +45,7 @@ public struct ExploreView: View {
                     }
                 } else {
                     Group {
-                        if selectedTab == 0 {
+                        if viewModel.selectedTab == 0 {
                             if !isLoaded {
                                 EmptyView() //후에 로딩뷰
                             } else if !viewModel.hasUserProfile {
@@ -142,8 +139,8 @@ public struct ExploreView: View {
                 Rectangle()
                     .fill(Color(hex: "#363636"))
                     .frame(width: width, height: 2)
-                    .offset(x: selectedTab == 0 ? 0 : width)
-                    .animation(.easeInOut(duration: 0.3), value: selectedTab)
+                    .offset(x: viewModel.selectedTab == 0 ? 0 : width)
+                    .animation(.easeInOut(duration: 0.3), value: viewModel.selectedTab)
             }
             .frame(height: 2)
         }
@@ -439,11 +436,11 @@ public struct ExploreView: View {
     @ViewBuilder
     private func tabButton(title: String, index: Int) -> some View {
         Button(action: {
-            selectedTab = index
+            viewModel.selectedTab = index
         }) {
             Text(title)
                 .font(.hanSansNeo(14, .bold))
-                .foregroundColor(selectedTab == index ? Color(hex: "#363636") : Color(hex: "#767676"))
+                .foregroundColor(viewModel.selectedTab == index ? Color(hex: "#363636") : Color(hex: "#767676"))
                 .frame(maxWidth: .infinity)
                 .padding(.vertical, 12)
         }

@@ -19,6 +19,9 @@ public class ExploreViewModel: ObservableObject {
     @Published public var unionRecommendation: [NewsletterDetail] = []
     
     @Published public var allNewsletters: [Brand] = []
+
+    // 현재 선택된 탭 (0: 추천, 1: 전체)
+    @Published public var selectedTab: Int = 0
     
     @Published public var orderOpt: String? = "인기순"
     @Published public var industry: [Int]? = nil

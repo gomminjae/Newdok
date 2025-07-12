@@ -21,6 +21,7 @@ public struct HomeView: View {
     @State private var showCalendar = false
     @State private var calendarDisplayedMonth = Date()
     @EnvironmentObject private var router: AppRouter
+    @EnvironmentObject private var exploreViewModel: ExploreViewModel
     @AppStorage("isGuest") private var isGuest: Bool = false
     public init(viewModel: HomeViewModel) {
         _viewModel = StateObject(wrappedValue: viewModel)
@@ -137,7 +138,20 @@ public struct HomeView: View {
                     tabSelection.selectedTab = .explore
                 })
             case .noArticles:
-                NoDataView(type: .noArticles, buttonAction: {})
+                NoDataView(type: .noArticles, buttonAction: {
+                    let weekday = Calendar.current.component(.weekday, from: viewModel.selectedDate)
+                    let dayIndex = convertWeekdayToExploreIndex(weekday)
+                    exploreViewModel.day = [dayIndex]
+                    exploreViewModel.selectedTab = 1
+                    Task {
+                        if isGuest {
+                            await exploreViewModel.fetchGuestAllNewsletters()
+                        } else {
+                            await exploreViewModel.fetchAllNewsletters()
+                        }
+                    }
+                    tabSelection.selectedTab = .explore
+                })
             case .articles:
                 articlesSection
             }
@@ -185,5 +199,18 @@ public struct HomeView: View {
         .background(
             Color.white.clipShape(RoundedRectangle(cornerRadius: 12))
         )
+    }
+
+    private func convertWeekdayToExploreIndex(_ weekday: Int) -> Int {
+        switch weekday {
+        case 1: return 7 // Sunday
+        case 2: return 1 // Monday
+        case 3: return 2
+        case 4: return 3
+        case 5: return 4
+        case 6: return 5
+        case 7: return 6
+        default: return 8
+        }
     }
 }
