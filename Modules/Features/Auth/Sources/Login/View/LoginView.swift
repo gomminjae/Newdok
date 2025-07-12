@@ -102,8 +102,7 @@ public struct LoginView: View {
                     viewModel.login() {
                         isLoggedIn = true
                         isGuest = false
-                        tabSelection.selectedTab = .home
-                        router.resetTo(.tabbar)
+                        router.resetTo(.tabbar(selectedTab: .home))
                         print("LoginView에서 router 인스턴스: \(Unmanaged.passUnretained(router).toOpaque())")
                     }
                     
@@ -120,7 +119,7 @@ public struct LoginView: View {
                     Button("비회원으로 이용하기") {
                         isGuest = true
                         TokenStorage.clear()
-                        router.resetTo(.tabbar)
+                        router.resetTo(.tabbar(selectedTab: .home))
                     }
                     .font(.hanSansNeo(14, .medium))
                     .foregroundStyle(Color(hex: "565656"))

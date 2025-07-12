@@ -12,7 +12,7 @@ public enum AppRoute: Hashable {
     case home
     case profile
     case explore(day: Int? = nil, selectedTab: Int? = nil)
-    case tabbar
+    case tabbar(selectedTab: NewDokTab? = nil, exploreDay: Int? = nil, exploreSelectedTab: Int? = nil)
     
     case brandDetail(id: String)
     case articleDetail(id: String)

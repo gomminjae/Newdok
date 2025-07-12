@@ -15,8 +15,6 @@ import Lottie
 
 
 public struct HomeView: View {
-    
-    @EnvironmentObject private var tabSelection: TabSelection
     @StateObject private var viewModel: HomeViewModel
     @State private var showCalendar = false
     @State private var calendarDisplayedMonth = Date()
@@ -135,14 +133,13 @@ public struct HomeView: View {
                 )
             case .noSubscriptions:
                 NoDataView(type: .noSubscriptions, buttonAction: {
-                    tabSelection.selectedTab = .explore
+                    router.resetTo(.tabbar(selectedTab: .explore))
                 })
             case .noArticles:
                 NoDataView(type: .noArticles, buttonAction: {
                     let weekday = Calendar.current.component(.weekday, from: viewModel.selectedDate)
                     let dayIndex = convertWeekdayToExploreIndex(weekday)
-                    router.push(.explore(day: dayIndex, selectedTab: 1))
-                    tabSelection.selectedTab = .explore
+                    router.resetTo(.tabbar(selectedTab: .explore, exploreDay: dayIndex, exploreSelectedTab: 1))
                 })
             case .articles:
                 articlesSection

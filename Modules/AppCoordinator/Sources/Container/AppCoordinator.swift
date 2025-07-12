@@ -54,7 +54,7 @@ final class AppCoordinator {
         let vm = container.container.resolve(ExploreViewModel.self)!
         return ExploreView(viewModel: vm).environmentObject(router)
     }
-    func makeTabView() -> some View {
+    func makeTabView(selectedTab: NewDokTab? = nil, exploreDay: Int? = nil, exploreSelectedTab: Int? = nil) -> some View {
         
         let homeVm = container.container.resolve(HomeViewModel.self)!
         let exploreVm = container.container.resolve(ExploreViewModel.self)!
@@ -67,7 +67,10 @@ final class AppCoordinator {
             exploreViewModel: exploreVm,
             subscribeViewModel: subscribeVm,
             bookmarkViewModel: bookmakrVm,
-            mypageViewModel: mypageVm
+            mypageViewModel: mypageVm,
+            selectedTab: selectedTab,
+            exploreDay: exploreDay,
+            exploreSelectedTab: exploreSelectedTab
         ).environmentObject(router)
     }
     func mekeProfileView() -> some View {

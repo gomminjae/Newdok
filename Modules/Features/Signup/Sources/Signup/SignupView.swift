@@ -151,7 +151,7 @@ public struct SignupView: View {
                 if viewModel.currentStep == .recommend {
                     Button(action: {
                         withAnimation(.easeInOut) {
-                            router.resetTo(.tabbar)
+                            router.resetTo(.tabbar())
                         }
                     }) {
                         Text("건너뛰기")
