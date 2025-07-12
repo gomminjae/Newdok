@@ -74,6 +74,12 @@ public struct ExploreView: View {
                 viewModel.orderOpt = "인기순"
             }
             .onAppear {
+                if let lastRoute = router.path.last as? AppRoute {
+                    if case let .explore(day, selectedTab) = lastRoute {
+                        if let day = day { viewModel.day = [day] }
+                        if let selectedTab = selectedTab { viewModel.selectedTab = selectedTab }
+                    }
+                }
                 Task {
                     if isGuest {
                         await viewModel.fetchGuestAllNewsletters()

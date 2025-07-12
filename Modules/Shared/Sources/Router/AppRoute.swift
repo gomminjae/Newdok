@@ -11,7 +11,7 @@ public enum AppRoute: Hashable {
     case signup
     case home
     case profile
-    case explore
+    case explore(day: Int? = nil, selectedTab: Int? = nil)
     case tabbar
     
     case brandDetail(id: String)

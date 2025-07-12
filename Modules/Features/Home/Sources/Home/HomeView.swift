@@ -11,7 +11,6 @@ import Shared
 import Domain
 import PopupView
 import Lottie
-import Explore
 
 
 
@@ -142,15 +141,7 @@ public struct HomeView: View {
                 NoDataView(type: .noArticles, buttonAction: {
                     let weekday = Calendar.current.component(.weekday, from: viewModel.selectedDate)
                     let dayIndex = convertWeekdayToExploreIndex(weekday)
-                    exploreViewModel.day = [dayIndex]
-                    exploreViewModel.selectedTab = 1
-                    Task {
-                        if isGuest {
-                            await exploreViewModel.fetchGuestAllNewsletters()
-                        } else {
-                            await exploreViewModel.fetchAllNewsletters()
-                        }
-                    }
+                    router.push(.explore(day: dayIndex, selectedTab: 1))
                     tabSelection.selectedTab = .explore
                 })
             case .articles:
