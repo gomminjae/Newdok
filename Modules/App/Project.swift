@@ -15,11 +15,8 @@ let project = Project(
             dependencies: [
                 .project(target: "Core", path: "../Core"),
                 .project(target: "DesignSystem", path: "../DesignSystem"),
-                .project(target: "Auth", path: "../Features/Auth"),
-                .project(target: "Home", path: "../Features/Home"),
-                .project(target: "Launch", path: "../Features/Launch"),
-                .project(target: "Signup", path: "../Features/Signup"),
-                .project(target: "Survey", path: "../Features/Survey"),
+                .project(target: "AppCoordinator", path: "../AppCoordinator"),
+                .project(target: "Shared", path: "../Shared"),
             ]
         )
     ]

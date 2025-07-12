@@ -8,6 +8,8 @@
 import SwiftUI
 import Core
 import Shared
+import AppCoordinator
+import DesignSystem
 
 @main
 struct NewdokApp: App {
@@ -15,23 +17,29 @@ struct NewdokApp: App {
     @State private var showUpdateAlert = false
     @StateObject private var router = AppRouter()
     @StateObject private var tabSelection = TabSelection()
-    
+
+    init() {
+        DesignSystemFontFamily.registerAllCustomFonts()
+    }
+
     var body: some Scene {
         WindowGroup {
-            ContentView()
-                .environmentObject(router)
-                .environmentObject(tabSelection)
-                .onAppear(perform: checkVersion)
-                .alert(isPresented: $showUpdateAlert) {
-                    Alert(
-                        title: Text("업데이트 안내"),
-                        message: Text("새로운 버전이 출시되었습니다. 스토어로 이동하여 업데이트를 진행해주세요."),
-                        primaryButton: .default(Text("업데이트"), action: {
-                            openAppStore()
-                        }),
-                        secondaryButton: .cancel(Text("나중에"))
-                    )
-                }
+            OverlayRootView {
+                AppCoordinatorEntry.makeRootView()
+            }
+            .environmentObject(router)
+            .environmentObject(tabSelection)
+            .onAppear(perform: checkVersion)
+            .alert(isPresented: $showUpdateAlert) {
+                Alert(
+                    title: Text("업데이트 안내"),
+                    message: Text("새로운 버전이 출시되었습니다. 스토어로 이동하여 업데이트를 진행해주세요."),
+                    primaryButton: .default(Text("업데이트"), action: {
+                        openAppStore()
+                    }),
+                    secondaryButton: .cancel(Text("나중에"))
+                )
+            }
         }
     }
     

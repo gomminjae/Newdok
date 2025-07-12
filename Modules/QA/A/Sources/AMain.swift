@@ -20,7 +20,7 @@ struct AApp: App {
     var body: some Scene {
         WindowGroup {
             OverlayRootView {
-                AppCoordinatorEntry.makeAFlow()
+                AppCoordinatorEntry.makeRootView()
                     .environmentObject(router)
                     .environmentObject(tabSelection)
             }
