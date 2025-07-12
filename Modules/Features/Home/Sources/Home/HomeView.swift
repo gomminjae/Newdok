@@ -11,6 +11,7 @@ import Shared
 import Domain
 import PopupView
 import Lottie
+import Explore
 
 
 
@@ -203,8 +204,8 @@ public struct HomeView: View {
 
     private func convertWeekdayToExploreIndex(_ weekday: Int) -> Int {
         switch weekday {
-        case 1: return 7 // Sunday
-        case 2: return 1 // Monday
+        case 1: return 7
+        case 2: return 1 
         case 3: return 2
         case 4: return 3
         case 5: return 4
