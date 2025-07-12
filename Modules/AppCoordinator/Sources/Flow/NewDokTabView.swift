@@ -30,18 +30,28 @@ public struct NewDokTabView: View {
     private let bookmarkViewModel: BookmarkViewModel
     private let mypageViewModel: MypageViewModel
 
+    private let initialSelectedTab: NewDokTab?
+    private let exploreDay: Int?
+    private let exploreSelectedTab: Int?
+
     public init(
         homeViewModel: HomeViewModel,
         exploreViewModel: ExploreViewModel,
         subscribeViewModel: SubscribeViewModel,
         bookmarkViewModel: BookmarkViewModel,
-        mypageViewModel: MypageViewModel
+        mypageViewModel: MypageViewModel,
+        selectedTab: NewDokTab? = nil,
+        exploreDay: Int? = nil,
+        exploreSelectedTab: Int? = nil
     ) {
         self.homeViewModel = homeViewModel
         self.exploreViewModel = exploreViewModel
         self.subscribeViewModel = subscribeViewModel
         self.bookmarkViewModel = bookmarkViewModel
         self.mypageViewModel = mypageViewModel
+        self.initialSelectedTab = selectedTab
+        self.exploreDay = exploreDay
+        self.exploreSelectedTab = exploreSelectedTab
     }
     
     public var body: some View {
@@ -83,6 +93,17 @@ public struct NewDokTabView: View {
         }
         .environmentObject(tabSelection)
         .environmentObject(exploreViewModel)
+        .onAppear {
+            if let tab = initialSelectedTab {
+                tabSelection.selectedTab = tab
+            }
+            if let day = exploreDay {
+                exploreViewModel.day = [day]
+            }
+            if let selected = exploreSelectedTab {
+                exploreViewModel.selectedTab = selected
+            }
+        }
         .background(Color.white)
     }
 }

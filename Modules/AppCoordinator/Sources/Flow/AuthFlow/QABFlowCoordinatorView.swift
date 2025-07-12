@@ -42,8 +42,8 @@ struct QABRootView: View {
                         coordinator.makeLoginView()
                     case .home:
                         coordinator.makeHomeView()
-                    case .tabbar:
-                        coordinator.makeTabView()
+                    case let .tabbar(selectedTab, exploreDay, exploreSelectedTab):
+                        coordinator.makeTabView(selectedTab: selectedTab, exploreDay: exploreDay, exploreSelectedTab: exploreSelectedTab)
                     case .profile:
                         coordinator.mekeProfileView()
                     case .explore:
@@ -79,8 +79,8 @@ struct QABRootView: View {
                         coordinator.makeLoginView()
                     case .home:
                         coordinator.makeHomeView()
-                    case .tabbar:
-                        coordinator.makeTabView()
+                    case let .tabbar(selectedTab, exploreDay, exploreSelectedTab):
+                        coordinator.makeTabView(selectedTab: selectedTab, exploreDay: exploreDay, exploreSelectedTab: exploreSelectedTab)
                     case .profile:
                         coordinator.mekeProfileView()
                     case .explore:
