@@ -82,6 +82,7 @@ public struct NewDokTabView: View {
                 .background(Color.white)
         }
         .environmentObject(tabSelection)
+        .environmentObject(exploreViewModel)
         .background(Color.white)
     }
 }
