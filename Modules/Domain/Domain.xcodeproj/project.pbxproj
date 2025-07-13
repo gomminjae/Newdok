@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 55;
+	objectVersion = 56;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -28,6 +28,8 @@
 		93E7EB46FD583E8C439D947E /* Articles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 960D479DD34669CA918E0712 /* Articles.swift */; };
 		A0FBB74C23B411ADF6E1022D /* UserRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53F01AB1AE9AA1D26882B92 /* UserRepository.swift */; };
 		B1B701966B544092E744B831 /* ArticleRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = B16B7317BD5134447322A1FF /* ArticleRepository.swift */; };
+		B5371BCC2E23D1DF00267E7A /* SearchRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5371BCB2E23D1D800267E7A /* SearchRepository.swift */; };
+		B5371BCE2E23D2EE00267E7A /* SearchUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5371BCD2E23D2E700267E7A /* SearchUseCase.swift */; };
 		C222D9E86CEB185B45FF40B9 /* FetchHomeDataUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E7FA7C726BB2446742C50D9 /* FetchHomeDataUseCase.swift */; };
 		C2F30D6443BE6094D14361FF /* Industry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76F0058B74237B785ABC9E63 /* Industry.swift */; };
 		C672B2F134FCA043F15C1667 /* MonthlyBookmark.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB04FD788EF603F7BA89B88D /* MonthlyBookmark.swift */; };
@@ -90,6 +92,8 @@
 		A4BE916AF6CE8F3594C2FC77 /* NewsletterRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsletterRepository.swift; sourceTree = "<group>"; };
 		AB04F1ED6218F595BE7FD39E /* NewsletterDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsletterDetail.swift; sourceTree = "<group>"; };
 		B16B7317BD5134447322A1FF /* ArticleRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleRepository.swift; sourceTree = "<group>"; };
+		B5371BCB2E23D1D800267E7A /* SearchRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchRepository.swift; sourceTree = "<group>"; };
+		B5371BCD2E23D2E700267E7A /* SearchUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchUseCase.swift; sourceTree = "<group>"; };
 		BB04FD788EF603F7BA89B88D /* MonthlyBookmark.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthlyBookmark.swift; sourceTree = "<group>"; };
 		BD15A37E85BAE3A36B2CE72C /* Domain-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "Domain-Info.plist"; sourceTree = "<group>"; };
 		D41442B97371063DE432F8FD /* Newsletter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Newsletter.swift; sourceTree = "<group>"; };
@@ -169,6 +173,7 @@
 		2BE278B80FDD95404961E580 /* UseCase */ = {
 			isa = PBXGroup;
 			children = (
+				B5371BCD2E23D2E700267E7A /* SearchUseCase.swift */,
 				8F17A05D029E735FED686884 /* Home */,
 				00FDEFD2101FCD0CC9E10CF8 /* ArticleUseCase.swift */,
 				06999DADCB07A6B43F2EE1BC /* NewsletterUseCase.swift */,
@@ -249,6 +254,7 @@
 		D77F035CD6F2D3D73A7C0400 /* Repository */ = {
 			isa = PBXGroup;
 			children = (
+				B5371BCB2E23D1D800267E7A /* SearchRepository.swift */,
 				B16B7317BD5134447322A1FF /* ArticleRepository.swift */,
 				A4BE916AF6CE8F3594C2FC77 /* NewsletterRepository.swift */,
 				E53F01AB1AE9AA1D26882B92 /* UserRepository.swift */,
@@ -328,6 +334,8 @@
 				87633E75309293F26710B847 /* BookmarkedArticles.swift in Sources */,
 				C672B2F134FCA043F15C1667 /* MonthlyBookmark.swift in Sources */,
 				DAF3A18764C03668EC1468B6 /* HomeData.swift in Sources */,
+				B5371BCC2E23D1DF00267E7A /* SearchRepository.swift in Sources */,
+				B5371BCE2E23D2EE00267E7A /* SearchUseCase.swift in Sources */,
 				E99BEDD402FBDACFF16B4D26 /* Brand.swift in Sources */,
 				2F6EC747DE8A2B73C284D19A /* BrandArticle.swift in Sources */,
 				774D8B04B9FEC09381AFC66F /* BrandDetail.swift in Sources */,
@@ -529,10 +537,7 @@
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
 				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = (
-					"$(inherited)",
-					DEBUG,
-				);
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) DEBUG";
 				SWIFT_COMPILATION_MODE = singlefile;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
