@@ -21,6 +21,7 @@ import Bookmark
 import Detail
 import Mypage
 import Recovery
+import Search
 
 public final class AppDIContainer {
     public static let shared = AppDIContainer()
@@ -58,6 +59,11 @@ public final class AppDIContainer {
             return network.makeArticleProvider()
         }.inObjectScope(.container)
         
+        container.register(MoyaProvider<SearchAPI>.self) { r in
+            let network = r.resolve(NetworkProviding.self)!
+            return network.makeSearchProvider()
+        }.inObjectScope(.container)
+
         // MARK: - Repository
         container.register(UserRepository.self) { r in
             print("🧩 [DI] Register: UserRepository")
@@ -76,6 +82,11 @@ public final class AppDIContainer {
             return ArticleRepositoryImpl(provider: provider)
         }.inObjectScope(.container)
         
+        container.register(SearchRepository.self) { r in
+            let provider = r.resolve(MoyaProvider<SearchAPI>.self)!
+            return SearchRepositoryImpl(provider: provider)
+        }.inObjectScope(.container)
+
         // MARK: - UseCase
         container.register(UserUseCase.self) { r in
             print("🧩 [DI] Register: UserUseCase")
@@ -100,7 +111,12 @@ public final class AppDIContainer {
             let repo = r.resolve(NewsletterRepository.self)!
             return NewsletterUseCaseImpl(repository: repo)
         }
-        
+
+        container.register(SearchUseCase.self) { r in
+            let repo = r.resolve(SearchRepository.self)!
+            return SearchUseCaseImpl(searchRepository: repo)
+        }.inObjectScope(.container)
+
         // MARK: - ViewModels
         container.register(SignupViewModel.self) { r in
             print("🧩 [DI] Register: SignupViewModel")
@@ -176,6 +192,13 @@ public final class AppDIContainer {
                 return RecoveryViewModel(useCase: useCase)
             }
         }
+
+        container.register(SearchViewModel.self) { r in
+            let useCase = r.resolve(SearchUseCase.self)!
+            return MainActor.assumeIsolated {
+                SearchViewModel(useCase: useCase)
+            }
+        }.inObjectScope(.container)
     
     }
 }

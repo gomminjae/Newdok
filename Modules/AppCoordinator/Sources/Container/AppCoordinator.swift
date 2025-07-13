@@ -122,7 +122,8 @@ final class AppCoordinator {
     
     
     func makeSearchView() -> some View {
-        return SearchResultView().environmentObject(router)
+        let vm = container.container.resolve(SearchViewModel.self)!
+        return SearchResultView(viewModel: vm).environmentObject(router)
     }
     
     

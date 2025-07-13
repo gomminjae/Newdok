@@ -36,11 +36,11 @@ extension SearchAPI: TargetType {
         switch self {
         case .searchArticles(let brandName):
             return .requestParameters(parameters: [
-                "brandName": brandName,
+                "keyword": brandName,
             ], encoding: URLEncoding.default)
         case .searchNewsletters(let keyword):
             return .requestParameters(parameters: [
-                "keyword": keyword,
+                "brandName": keyword,
             ], encoding: URLEncoding.default)
             
         }

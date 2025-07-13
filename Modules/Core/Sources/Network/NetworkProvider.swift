@@ -14,6 +14,7 @@ public protocol NetworkProviding {
     func makeAuthProvider() -> MoyaProvider<UserAPI>
     func makeArticleProvider() -> MoyaProvider<ArticleAPI>
     func makeNewsletterProvider() -> MoyaProvider<NewsletterAPI>
+    func makeSearchProvider() -> MoyaProvider<SearchAPI>
 }
 
 public final class NetworkProvider: NetworkProviding {
@@ -58,6 +59,18 @@ public final class NetworkProvider: NetworkProviding {
             ]
         )
     }
+    public func makeSearchProvider() -> MoyaProvider<SearchAPI> {
+        return MoyaProvider<SearchAPI>(
+            session: makeSafeSession(),
+            plugins: [
+                NetworkLoggerPlugin(),
+                TokenPlugin(tokenProvider: {
+                    TokenStorage.accessToken
+                })
+            ]
+        )
+    }
+    
     
 
     private func makeSafeSession() -> Session {

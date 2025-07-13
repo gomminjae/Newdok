@@ -6,10 +6,15 @@
 //
 
 import SwiftUI
+import Domain
 
 public struct SearchView: View {
     @Environment(\.dismiss) private var dismiss
-    @State private var searchText = ""
+    @StateObject private var viewModel: SearchViewModel
+    
+    public init(viewModel: SearchViewModel) {
+        _viewModel = StateObject(wrappedValue: viewModel)
+    }
 
     public var body: some View {
         VStack(spacing: 0) {
@@ -22,7 +27,7 @@ public struct SearchView: View {
                         .foregroundStyle(.black)
                 }
 
-                TextField("검색어 입력", text: $searchText)
+                TextField("검색어 입력", text: $viewModel.searchText)
                     .frame(maxWidth: .infinity)
                     .padding(.horizontal, 8)
                     .padding(.vertical, 6)
@@ -30,15 +35,15 @@ public struct SearchView: View {
                     .clipShape(RoundedRectangle(cornerRadius: 8))
 
                 Button(action: {
-                    searchText = ""
+                    viewModel.searchText = ""
                 }) {
                     Image(systemName: "xmark.circle.fill")
                         .foregroundStyle(.gray)
-                        .opacity(searchText.isEmpty ? 0 : 1)
+                        .opacity(viewModel.searchText.isEmpty ? 0 : 1)
                 }
 
                 Button(action: {
-                    // 검색 액션
+                    Task { await viewModel.searchNewsletters() }
                 }) {
                     Image("search")
                         .foregroundStyle(.black)
@@ -49,38 +54,43 @@ public struct SearchView: View {
             
             Divider()
 
-         
-            VStack(alignment: .leading, spacing: 12) {
-                HStack {
-                    Text("인기검색어")
-                        .font(.hanSansNeo(16, .medium))
-                    Spacer()
-                    Text("11/21 업데이트")
-                        .font(.hanSansNeo(11,.regular))
-                        .foregroundColor(.primaryNormal)
+            if viewModel.isLoading {
+                ProgressView()
+            } else if let error = viewModel.errorMessage {
+                Text(error).foregroundColor(.red)
+            } else if !viewModel.searchResults.isEmpty {
+                List(viewModel.searchResults, id: \.id) { result in
+                    Text(result.brandName) // 예시
                 }
-                .padding(.bottom, 10)
-
-                ForEach(1..<7) { num in
-                    HStack(spacing: 16) {
-                        Text("\(num)")
-                            .font(.hanSansNeo(14,.medium))
-                            .foregroundColor(.primaryNormal)
-                            
-                        
-                        Text(sampleWord(num))
-                            .font(.hanSansNeo(14,.regular))
-                            .foregroundColor(Color(hex: "333333"))
-                        
+            } else {
+                VStack(alignment: .leading, spacing: 12) {
+                    HStack {
+                        Text("인기검색어")
+                            .font(.hanSansNeo(16, .medium))
                         Spacer()
+                        Text("11/21 업데이트")
+                            .font(.hanSansNeo(11,.regular))
+                            .foregroundColor(.primaryNormal)
                     }
-                    .padding(.vertical, 4)
-                }
+                    .padding(.bottom, 10)
 
-                Spacer()
+                    ForEach(1..<7) { num in
+                        HStack(spacing: 16) {
+                            Text("\(num)")
+                                .font(.hanSansNeo(14,.medium))
+                                .foregroundColor(.primaryNormal)
+                            
+                            Text(sampleWord(num))
+                                .font(.hanSansNeo(14,.regular))
+                                .foregroundColor(Color(hex: "333333"))
+                            Spacer()
+                        }
+                        .padding(.vertical, 4)
+                    }
+                    Spacer()
+                }
+                .padding()
             }
-            .padding()
-            
             Spacer()
         }
         .navigationBarBackButtonHidden(true)
@@ -101,8 +111,3 @@ public struct SearchView: View {
     }
 }
 
-#Preview {
-    NavigationStack {
-        SearchView()
-    }
-}

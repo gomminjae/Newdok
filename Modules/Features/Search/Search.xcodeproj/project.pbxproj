@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 55;
+	objectVersion = 56;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -13,8 +13,9 @@
 		3F890BA0A9EDA3AC3E95E312 /* Kingfisher.framework in Dependencies */ = {isa = PBXBuildFile; fileRef = 469D051C099D125ABFA94EBD /* Kingfisher.framework */; };
 		4E8760D7F7E6A004FA3AAA06 /* SearchMain.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7814D8BA01A03012E40C5B3 /* SearchMain.swift */; };
 		58F9EC6882E133A97773A8F8 /* Domain.framework in Dependencies */ = {isa = PBXBuildFile; fileRef = F747C519D84FF49DE2A66E27 /* Domain.framework */; };
-		9C6B538CFDB456B982AF0C03 /* SearchResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3554F15AA861A6B98D0BC1 /* SearchResultView.swift */; };
 		AFAC85865A8955E375F37119 /* DesignSystem.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 26CD22AD121507433FA773EF /* DesignSystem.framework */; };
+		B5371BD42E23D82800267E7A /* SearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5371BD32E23D82800267E7A /* SearchViewModel.swift */; };
+		B5371BD62E23DAE300267E7A /* SearchResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5371BD52E23DAE300267E7A /* SearchResultView.swift */; };
 		EC0DE49ED53C716E1554A609 /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47BBAD42EB12AACAC02F1E63 /* SearchView.swift */; };
 /* End PBXBuildFile section */
 
@@ -51,7 +52,8 @@
 		47506C2B8CF716A0AD1E9198 /* Search-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "Search-Info.plist"; sourceTree = "<group>"; };
 		47BBAD42EB12AACAC02F1E63 /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
 		9A1C453C66B2CD564B97D5DA /* NoArticleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoArticleView.swift; sourceTree = "<group>"; };
-		CE3554F15AA861A6B98D0BC1 /* SearchResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultView.swift; sourceTree = "<group>"; };
+		B5371BD32E23D82800267E7A /* SearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewModel.swift; sourceTree = "<group>"; };
+		B5371BD52E23DAE300267E7A /* SearchResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultView.swift; sourceTree = "<group>"; };
 		D7814D8BA01A03012E40C5B3 /* SearchMain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchMain.swift; sourceTree = "<group>"; };
 		DCEA3ABCBA70F49C90FFC61F /* Search.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Search.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F747C519D84FF49DE2A66E27 /* Domain.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Domain.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -126,8 +128,9 @@
 		E1B75F1E2E62F64DFC2636E8 /* Search */ = {
 			isa = PBXGroup;
 			children = (
+				B5371BD52E23DAE300267E7A /* SearchResultView.swift */,
+				B5371BD32E23D82800267E7A /* SearchViewModel.swift */,
 				2BB623F4D43D8DF1D62CDA0B /* Empty */,
-				CE3554F15AA861A6B98D0BC1 /* SearchResultView.swift */,
 				47BBAD42EB12AACAC02F1E63 /* SearchView.swift */,
 			);
 			path = Search;
@@ -210,8 +213,9 @@
 			files = (
 				0CA24716D9F70C942AD25477 /* NewsLetterEmptyView.swift in Sources */,
 				2E50C5AF6A3FC0BDC11908E4 /* NoArticleView.swift in Sources */,
-				9C6B538CFDB456B982AF0C03 /* SearchResultView.swift in Sources */,
 				EC0DE49ED53C716E1554A609 /* SearchView.swift in Sources */,
+				B5371BD62E23DAE300267E7A /* SearchResultView.swift in Sources */,
+				B5371BD42E23D82800267E7A /* SearchViewModel.swift in Sources */,
 				4E8760D7F7E6A004FA3AAA06 /* SearchMain.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -337,10 +341,7 @@
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
 				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = (
-					"$(inherited)",
-					DEBUG,
-				);
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) DEBUG";
 				SWIFT_COMPILATION_MODE = singlefile;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
