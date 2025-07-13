@@ -10,6 +10,7 @@ import SwiftUI
 import Domain
 import Shared
 import Foundation
+import Data // ArticleCalendarDTO 사용을 위해 필요
 
 enum HomeState {
     case none 
@@ -38,6 +39,23 @@ public final class HomeViewModel: ObservableObject {
     @Published public var subscribedNewsletters: [Newsletter] = []
     @Published public var articlesByMonth: [Articles] = []
     @Published public var selectedDate: Date = Date()
+    @Published public var monthlyCache: [String: [Articles]] = [:]
+    @Published var currentMonthKey: String = ""
+    private var latestRequestKey: String = ""
+    
+    public var dataDays: Set<Int> {
+        Set(articlesByMonth.filter { $0.receivedUnread > 0 }.map { $0.publishDate })
+    }
+
+    public func updateCalendarData(_ data: [Articles]) {
+        self.articlesByMonth = data
+    }
+
+    public func selectDate(_ day: Int) {
+        if let articles = articlesByMonth.first(where: { $0.publishDate == day })?.receivedArticleList {
+            self.filteredArticles = articles
+        }
+    }
     
     @AppStorage("isGuest") public var isGuest: Bool = false
     
@@ -96,13 +114,45 @@ public final class HomeViewModel: ObservableObject {
     public func loadArticles(for date: Date) async {
         let year = formatYear(date)
         let month = formatMonth(date)
-        
+        let key = "\(year)-\(month)"
+        currentMonthKey = key
+        latestRequestKey = key
+        if let cached = monthlyCache[key] {
+            self.articlesByMonth = cached
+            self.filterArticles(by: date)
+            return
+        }
         do {
             let monthly = try await useCase.fetchMonthlyData(year: year, month: month)
-            self.articlesByMonth = monthly
-            self.filterArticles(by: date)
+            // 최신 요청만 반영
+            if latestRequestKey == key {
+                self.articlesByMonth = monthly
+                self.monthlyCache[key] = monthly
+                self.filterArticles(by: date)
+                Task { await prefetchAdjacentMonths(for: date) }
+            }
         } catch {
             print("❌ Monthly fetch failed: \(error)")
+        }
+    }
+
+    private func prefetchAdjacentMonths(for date: Date) async {
+        let calendar = Calendar.current
+        if let prev = calendar.date(byAdding: .month, value: -1, to: date) {
+            let key = "\(formatYear(prev))-\(formatMonth(prev))"
+            if monthlyCache[key] == nil {
+                if let monthly = try? await useCase.fetchMonthlyData(year: formatYear(prev), month: formatMonth(prev)) {
+                    monthlyCache[key] = monthly
+                }
+            }
+        }
+        if let next = calendar.date(byAdding: .month, value: 1, to: date) {
+            let key = "\(formatYear(next))-\(formatMonth(next))"
+            if monthlyCache[key] == nil {
+                if let monthly = try? await useCase.fetchMonthlyData(year: formatYear(next), month: formatMonth(next)) {
+                    monthlyCache[key] = monthly
+                }
+            }
         }
     }
     public func filterArticles(by date: Date) {

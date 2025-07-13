@@ -11,15 +11,20 @@ import Signup
 import Shared
 
 struct QABRootView: View {
-    @EnvironmentObject private var router: AppRouter
     @EnvironmentObject private var tabSelection: TabSelection
-    
+    @ObservedObject var router: AppRouter
+    let exploreIntent: ExploreIntent
+
     private var coordinator: AppCoordinator {
-           AppCoordinator(router: router)
+        AppCoordinator(router: router, exploreIntent: exploreIntent)
     }
     
     @State private var launched = false
     
+    init(router: AppRouter, exploreIntent: ExploreIntent) {
+        self.router = router
+        self.exploreIntent = exploreIntent
+    }
     
     var body: some View {
         ZStack {

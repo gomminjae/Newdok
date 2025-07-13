@@ -29,6 +29,7 @@ public struct NewDokTabView: View {
     private let subscribeViewModel: SubscribeViewModel
     private let bookmarkViewModel: BookmarkViewModel
     private let mypageViewModel: MypageViewModel
+    private let exploreIntent: ExploreIntent
 
     private let initialSelectedTab: NewDokTab?
     private let exploreDay: Int?
@@ -40,6 +41,7 @@ public struct NewDokTabView: View {
         subscribeViewModel: SubscribeViewModel,
         bookmarkViewModel: BookmarkViewModel,
         mypageViewModel: MypageViewModel,
+        exploreIntent: ExploreIntent,
         selectedTab: NewDokTab? = nil,
         exploreDay: Int? = nil,
         exploreSelectedTab: Int? = nil
@@ -49,6 +51,7 @@ public struct NewDokTabView: View {
         self.subscribeViewModel = subscribeViewModel
         self.bookmarkViewModel = bookmarkViewModel
         self.mypageViewModel = mypageViewModel
+        self.exploreIntent = exploreIntent
         self.initialSelectedTab = selectedTab
         self.exploreDay = exploreDay
         self.exploreSelectedTab = exploreSelectedTab
@@ -57,26 +60,16 @@ public struct NewDokTabView: View {
     public var body: some View {
         ZStack(alignment: .bottom) {
             TabView(selection: $tabSelection.selectedTab) {
-                
                 ExploreView(viewModel: exploreViewModel)
-                
+                    .environmentObject(exploreIntent)
                     .tag(NewDokTab.explore)
-                
-                
                 SubscribeView(viewModel: subscribeViewModel)
-                
                     .tag(NewDokTab.subscribe)
-                
                 HomeView(viewModel: homeViewModel)
-                
+                    .environmentObject(exploreIntent)
                     .tag(NewDokTab.home)
-                
-                
                 BookmarkView(viewModel: bookmarkViewModel)
-                
                     .tag(NewDokTab.bookmark)
-                
-                
                 MypageView(viewModel: mypageViewModel)
                     .tag(NewDokTab.profile)
             }

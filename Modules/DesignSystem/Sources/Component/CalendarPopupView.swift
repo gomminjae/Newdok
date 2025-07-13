@@ -160,7 +160,7 @@ public struct CalendarPopupView: View {
                     guard !isFuture, hasData, !isSelected else { return }
                     selectedDate = day.date
                     onDateSelected?(day.date)
-                    //isPresented = false
+                    isPresented = false
                 }
             }
         }

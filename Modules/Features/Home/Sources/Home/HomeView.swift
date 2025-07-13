@@ -11,7 +11,7 @@ import Shared
 import Domain
 import PopupView
 import Lottie
-import Explore
+
 
 
 
@@ -20,7 +20,8 @@ public struct HomeView: View {
     @State private var showCalendar = false
     @State private var calendarDisplayedMonth = Date()
     @EnvironmentObject private var router: AppRouter
-    @EnvironmentObject private var exploreViewModel: ExploreViewModel
+    @EnvironmentObject private var tabSelection: TabSelection
+    @EnvironmentObject private var exploreIntent: ExploreIntent
     @AppStorage("isGuest") private var isGuest: Bool = false
     public init(viewModel: HomeViewModel) {
         _viewModel = StateObject(wrappedValue: viewModel)
@@ -56,12 +57,15 @@ public struct HomeView: View {
                        selectedDate: $viewModel.selectedDate,
                        displayedMonthDate: $calendarDisplayedMonth,
                        dataDays: Binding<Set<Int>>(
-                                   get: { Set(viewModel.activeArticeDays)   },
+                                   get: { viewModel.dataDays },
                                    set: { _ in  }
                                ),
-                       onDateSelected: { date in Task { await viewModel.loadArticles(for: date) } },
+                       onDateSelected: { date in
+                           let day = Calendar.current.component(.day, from: date)
+                           viewModel.selectDate(day)
+                           showCalendar = false
+                       },
                        onMonthChanged: { monthDate in
-                           calendarDisplayedMonth = monthDate
                            Task { await viewModel.loadArticles(for: monthDate) }
                        }
                    )
@@ -140,7 +144,11 @@ public struct HomeView: View {
                 NoDataView(type: .noArticles, buttonAction: {
                     let weekday = Calendar.current.component(.weekday, from: viewModel.selectedDate)
                     let dayIndex = convertWeekdayToExploreIndex(weekday)
-                    router.resetTo(.tabbar(selectedTab: .explore, exploreDay: dayIndex, exploreSelectedTab: 1))
+                    exploreIntent.day = dayIndex
+                    exploreIntent.selectedTab = 1
+                    exploreIntent.trigger = UUID()
+                    router.resetTo(.tabbar())
+                    tabSelection.selectedTab = .explore
                 })
             case .articles:
                 articlesSection

@@ -23,10 +23,11 @@ import Search
 final class AppCoordinator {
     private let container = AppDIContainer.shared
     private let router: AppRouter
-    
+    private let exploreIntent: ExploreIntent
 
-    init(router: AppRouter) {
+    init(router: AppRouter, exploreIntent: ExploreIntent) {
         self.router = router
+        self.exploreIntent = exploreIntent
     }
 
     func makeSignupView() -> some View {
@@ -68,6 +69,7 @@ final class AppCoordinator {
             subscribeViewModel: subscribeVm,
             bookmarkViewModel: bookmakrVm,
             mypageViewModel: mypageVm,
+            exploreIntent: exploreIntent,
             selectedTab: selectedTab,
             exploreDay: exploreDay,
             exploreSelectedTab: exploreSelectedTab

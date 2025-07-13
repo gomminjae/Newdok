@@ -4,6 +4,7 @@
 //
 //  Created by 권민재 on 4/13/25.
 //
+
 import Domain
 
 
@@ -84,4 +85,10 @@ public struct ArticleDTO: Decodable, Identifiable {
             status:       status
         )
     }
+}
+
+public struct ArticleCalendarDTO: Decodable {
+    public let publishDate: Int
+    public let receivedUnread: Int
+    public let receivedArticleList: [ArticleDTO]
 }

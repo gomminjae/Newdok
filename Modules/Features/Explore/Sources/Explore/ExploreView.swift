@@ -9,6 +9,7 @@ import DesignSystem
 import Domain
 import Shared
 import Lottie 
+import Combine
 
 public struct ExploreView: View {
     
@@ -16,6 +17,7 @@ public struct ExploreView: View {
     @State private var currentPage: Int = 0
     @State private var isLoaded: Bool = false
     @EnvironmentObject private var router: AppRouter
+    @EnvironmentObject private var exploreIntent: ExploreIntent
     
     
     @AppStorage("nickname") public var nickname = ""
@@ -73,13 +75,21 @@ public struct ExploreView: View {
                 viewModel.industry = nil
                 viewModel.orderOpt = "인기순"
             }
-            .onAppear {
-                if let lastRoute = router.path.last as? AppRoute {
-                    if case let .explore(day, selectedTab) = lastRoute {
-                        if let day = day { viewModel.day = [day] }
-                        if let selectedTab = selectedTab { viewModel.selectedTab = selectedTab }
-                    }
+            .onReceive(Just(exploreIntent.trigger)) { _ in
+                var didUpdate = false
+                if let day = exploreIntent.day, viewModel.day != [day] {
+                    viewModel.day = [day]
+                    exploreIntent.day = nil
+                    didUpdate = true
                 }
+                if let tab = exploreIntent.selectedTab, viewModel.selectedTab != tab {
+                    viewModel.selectedTab = tab
+                    exploreIntent.selectedTab = nil
+                    didUpdate = true
+                }
+                // trigger는 항상 새로 할당되므로 별도 리셋 불필요
+            }
+            .onAppear {
                 Task {
                     if isGuest {
                         await viewModel.fetchGuestAllNewsletters()

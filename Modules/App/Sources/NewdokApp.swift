@@ -17,6 +17,7 @@ struct NewdokApp: App {
     @State private var showUpdateAlert = false
     @StateObject private var router = AppRouter()
     @StateObject private var tabSelection = TabSelection()
+    @StateObject private var exploreIntent = ExploreIntent()
 
     init() {
         DesignSystemFontFamily.registerAllCustomFonts()
@@ -25,10 +26,11 @@ struct NewdokApp: App {
     var body: some Scene {
         WindowGroup {
             OverlayRootView {
-                AppCoordinatorEntry.makeAFlow()
+                AppCoordinatorEntry.makeAFlow(router: router, exploreIntent: exploreIntent)
             }
             .environmentObject(router)
             .environmentObject(tabSelection)
+            .environmentObject(exploreIntent)
             .onAppear(perform: checkVersion)
             .alert(isPresented: $showUpdateAlert) {
                 Alert(
