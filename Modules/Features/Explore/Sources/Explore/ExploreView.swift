@@ -11,7 +11,7 @@ import Shared
 import Lottie 
 
 public struct ExploreView: View {
-    // ViewModel에서 탭 상태를 관리하도록 수정
+    
     @StateObject private var viewModel: ExploreViewModel
     @State private var currentPage: Int = 0
     @State private var isLoaded: Bool = false
