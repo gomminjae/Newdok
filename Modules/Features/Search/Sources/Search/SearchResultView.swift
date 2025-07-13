@@ -26,39 +26,52 @@ public struct SearchResultView: View {
 
     public var body: some View {
         VStack(spacing: 0) {
-            HStack(spacing: 0) {
+            HStack(spacing: 8) {
                 Button(action: { router.pop() }) {
                     Image(asset: DesignSystemAsset.back)
                         .resizable()
                         .frame(width: 24, height: 24)
                         .padding(8)
                 }
+
                 HStack(spacing: 8) {
                     TextField("검색어를 입력하세요", text: $viewModel.searchText)
-                        .font(.system(size: 16))
+                        .font(.hanSansNeo(14, .regular))
                         .disableAutocorrection(true)
+                        .frame(height: 40)
+
+                    if !viewModel.searchText.isEmpty {
+                        Button(action: {
+                            viewModel.searchText = ""
+                        }) {
+                            Image(systemName: "xmark.circle.fill")
+                                .resizable()
+                                .frame(width: 14, height: 14)
+                                .foregroundColor(.gray.opacity(0.6))
+                        }
+                        .padding(.trailing, 4)
+                    }
                 }
-                .padding(.vertical, 8)
                 .padding(.horizontal, 12)
-                .background(Color.gray.opacity(0.1))
+                .padding(.vertical, 6)
+                
                 .cornerRadius(10)
-                Button(action: {
-                    viewModel.searchText = ""
-                }) {
-                    Image(systemName: "xmark.circle.fill")
-                        .foregroundColor(.gray.opacity(0.6))
-                }
                 Button(action: {
                     Task { await viewModel.searchNewsletters() }
                 }) {
-                    Image(systemName: "magnifyingglass")
+                    Image(asset: DesignSystemAsset.lineSearch)
+                        .resizable()
+                        .frame(width: 24, height: 24)
                         .foregroundColor(.primary)
                 }
+                .padding(.leading, 4)
             }
             .padding(.horizontal, 16)
-            .padding(.vertical, 12)
+            .padding(.vertical, 10)
             .background(Color.white)
             .overlay(Divider(), alignment: .bottom)
+            
+            Divider()
 
             ScrollView {
                 VStack(alignment: .leading, spacing: 20) {
@@ -92,15 +105,20 @@ struct SearchNewsletterRow: View {
                 } placeholder: {
                     Color.gray.opacity(0.2)
                 }
-                .frame(width: 58, height: 58)
+                .overlay {
+                    RoundedRectangle(cornerRadius: 10)
+                        .stroke(Color(hex: "#EBEBEB"))
+                }
+                .frame(width: 56, height: 56)
                 .cornerRadius(10)
             }
             VStack(alignment: .leading, spacing: 4) {
                 Text(result.brandName)
-                    .font(.hanSansNeo(16,.medium))
+                    .font(.hanSansNeo(14,.bold))
+                    .foregroundStyle(Color(hex: "#333333"))
                 Text(result.firstDescription)
-                    .font(.hanSansNeo(14,.regular))
-                    .foregroundColor(.gray)
+                    .font(.hanSansNeo(14,.medium))
+                    .foregroundColor(Color(hex:"#363636"))
             }
             Spacer()
         }
@@ -157,20 +175,53 @@ extension SearchResultView {
     }
 
     @ViewBuilder
-    private func articleSection() -> some View {
-        VStack(alignment: .leading, spacing: 12) {
-            Text("아티클 (\(dummyArticles.count))")
-                .font(.hanSansNeo(16,.medium))
-            ForEach(dummyArticles) { article in
-                SearchArticleRow(article: article)
+    private func newsletterEmptySection() -> some View {
+        VStack(alignment: .center, spacing: 16) {
+            Text("검색 결과가 없어요.")
+                .font(.hanSansNeo(16, .bold))
+                .padding(.top, 8)
+            Text("찾는 뉴스레터가 없다면 등록을 요청해보세요.")
+                .font(.hanSansNeo(14, .medium))
+                .foregroundColor(Color(hex: "#565656"))
+            Button(action: {
+                // 등록 요청 액션 (필요시 구현)
+            }) {
+                Text("뉴스레터 등록 요청하기")
+                    .font(.hanSansNeo(14, .bold))
+                    .foregroundColor(.primaryNormal)
+                    .frame(maxWidth: .infinity)
+                    .padding()
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 4)
+                            .stroke(Color.primaryNormal, lineWidth: 1)
+                    )
             }
+            .frame(height: 48)
+            .padding(.horizontal, 24)
         }
-        .padding(.horizontal, 20)
+        .frame(maxWidth: .infinity)
+    }
+
+    @ViewBuilder
+    private func articleSection() -> some View {
+        // 더미 데이터이므로 결과 없음 UI는 제외
+        if !dummyArticles.isEmpty {
+            VStack(alignment: .leading, spacing: 12) {
+                Text("아티클 (\(dummyArticles.count))")
+                    .font(.hanSansNeo(16,.medium))
+                ForEach(dummyArticles) { article in
+                    SearchArticleRow(article: article)
+                }
+            }
+            .padding(.horizontal, 20)
+        }
     }
 
     @ViewBuilder
     private func newsletterSection() -> some View {
-        if !viewModel.searchResults.isEmpty {
+        if viewModel.searchResults.isEmpty {
+            newsletterEmptySection()
+        } else {
             VStack(alignment: .leading, spacing: 12) {
                 Text("뉴스레터")
                     .font(.hanSansNeo(16,.medium))
