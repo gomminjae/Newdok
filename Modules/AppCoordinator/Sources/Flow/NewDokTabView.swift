@@ -79,6 +79,18 @@ public struct NewDokTabView: View {
                     tabSelection.selectedTab = .home
                     router.push(.login)
                 }
+                switch newTab {
+                case .explore:
+                    router.root = .tabbar(selectedTab: .explore)
+                case .home:
+                    router.root = .tabbar(selectedTab: .home)
+                case .subscribe:
+                    router.root = .tabbar(selectedTab: .subscribe)
+                case .bookmark:
+                    router.root = .tabbar(selectedTab: .bookmark)
+                case .profile:
+                    router.root = .tabbar(selectedTab: .profile)
+                }
             }
             
             NewDokTabBar(selectedTab: $tabSelection.selectedTab)

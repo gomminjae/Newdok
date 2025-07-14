@@ -147,7 +147,7 @@ public struct HomeView: View {
                     exploreIntent.day = dayIndex
                     exploreIntent.selectedTab = 1
                     exploreIntent.trigger = UUID()
-                    router.resetTo(.tabbar())
+                    router.resetTo(.tabbar(selectedTab: .explore))
                     tabSelection.selectedTab = .explore
                 })
             case .articles:

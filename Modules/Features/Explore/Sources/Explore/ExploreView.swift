@@ -261,7 +261,7 @@ public struct ExploreView: View {
                 .padding(.top, 20)
                 .padding(.horizontal, 24)
 
-            PagingScrollView(newsletters: viewModel.myRecommendation, currentPage: $currentPage)
+            PagingScrollView(newsletters: viewModel.fixedMyRecommendation, currentPage: $currentPage)
                 .padding(.leading,24)
 
 
@@ -292,7 +292,7 @@ public struct ExploreView: View {
             .padding(.bottom, 16)
 
             VStack(spacing: 12) {
-                ForEach(viewModel.unionRecommendation.shuffled().prefix(6), id: \.id) { newsletter in
+                ForEach(viewModel.fixedUnionRecommendation, id: \.id) { newsletter in
                     NewsletterRow(newsletter: newsletter)
                         .padding(.horizontal, 20)
                         .onTapGesture {
@@ -505,7 +505,7 @@ struct PagingScrollView: View {
    
     init(newsletters: [NewsletterDetail], currentPage: Binding<Int>) {
         self._currentPage = currentPage
-        self.items = Array(newsletters.shuffled().prefix(5))
+        self.items = newsletters
     }
     
     var body: some View {

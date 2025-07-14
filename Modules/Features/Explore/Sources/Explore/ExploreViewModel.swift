@@ -17,7 +17,9 @@ public class ExploreViewModel: ObservableObject {
     
     @Published public var myRecommendation: [NewsletterDetail] = []
     @Published public var unionRecommendation: [NewsletterDetail] = []
-    
+    @Published public var fixedMyRecommendation: [NewsletterDetail] = []
+    @Published public var fixedUnionRecommendation: [NewsletterDetail] = []
+
     @Published public var allNewsletters: [Brand] = []
 
     // 현재 선택된 탭 (0: 추천, 1: 전체)
@@ -57,6 +59,8 @@ public class ExploreViewModel: ObservableObject {
                 
                 myRecommendation = response.intersection
                 unionRecommendation = response.union
+                fixedMyRecommendation = Array(response.intersection.prefix(5))
+                fixedUnionRecommendation = Array(response.union.prefix(6))
             } catch {
                 print("추천 에러")
                 isRecommend = false
