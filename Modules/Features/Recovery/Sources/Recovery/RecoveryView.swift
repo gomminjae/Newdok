@@ -29,10 +29,10 @@ public struct RecoveryView: View {
             ZStack {
                 VStack(spacing: 0) {
                     tabSwitcher
-                    if viewModel.currentPage == 0 {
+                    if selectedTab == 0 {
                         FindIdPagerView(viewModel: viewModel)
                     } else {
-                        FindIdPagerView(viewModel: viewModel)
+                        PasswordRecoveryPagerView(viewModel: viewModel)
                     }
                 }
             }

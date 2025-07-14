@@ -27,6 +27,7 @@
 		963BD2E45D7172CE4BF69364 /* VerificationButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DEFF305135085B93F19593 /* VerificationButtonStyle.swift */; };
 		99AD012E16AE91B0DA8273E7 /* SpoqaHanSansNeo-Thin.otf in Resources */ = {isa = PBXBuildFile; fileRef = 1EAA4A417D2996F4DF2DED40 /* SpoqaHanSansNeo-Thin.otf */; };
 		ABB14811E13F7B1ECCF8B086 /* TuistAssets+DesignSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5263BC75B281154AC0B5A7B /* TuistAssets+DesignSystem.swift */; };
+		B530AD482E254A280085A13C /* NotRegisteredIdPopupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B530AD472E254A280085A13C /* NotRegisteredIdPopupView.swift */; };
 		B593D9A42E19810300FD875C /* loading.lottie in Resources */ = {isa = PBXBuildFile; fileRef = B593D9A32E19810300FD875C /* loading.lottie */; };
 		BC4360B914A0E6C10A4A851E /* CheckSubscribeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CF8A496C7E691DCF3A7C603 /* CheckSubscribeView.swift */; };
 		D077CFC5DD281F26BDA2376F /* AuthFailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41950894E4E9C8FF11201792 /* AuthFailView.swift */; };
@@ -82,6 +83,7 @@
 		9CF8A496C7E691DCF3A7C603 /* CheckSubscribeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckSubscribeView.swift; sourceTree = "<group>"; };
 		A3CC877F7AECA4386F75D208 /* LoginErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginErrorView.swift; sourceTree = "<group>"; };
 		A5263BC75B281154AC0B5A7B /* TuistAssets+DesignSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TuistAssets+DesignSystem.swift"; sourceTree = "<group>"; };
+		B530AD472E254A280085A13C /* NotRegisteredIdPopupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotRegisteredIdPopupView.swift; sourceTree = "<group>"; };
 		B593D9A32E19810300FD875C /* loading.lottie */ = {isa = PBXFileReference; lastKnownFileType = text; path = loading.lottie; sourceTree = "<group>"; };
 		BE4AD9735556ECA8C8008FEC /* TuistBundle+DesignSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TuistBundle+DesignSystem.swift"; sourceTree = "<group>"; };
 		BFD516035027585AFC53F053 /* ColorPalette.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorPalette.swift; sourceTree = "<group>"; };
@@ -124,6 +126,7 @@
 		19EDB96E44056176A3F928A5 /* Popup */ = {
 			isa = PBXGroup;
 			children = (
+				B530AD472E254A280085A13C /* NotRegisteredIdPopupView.swift */,
 				3F575F6FB6F93C8635F2B0A7 /* System */,
 				41950894E4E9C8FF11201792 /* AuthFailView.swift */,
 				9CF8A496C7E691DCF3A7C603 /* CheckSubscribeView.swift */,
@@ -370,6 +373,7 @@
 				85F33B9FC7C90A8C544B7057 /* UpdateView.swift in Sources */,
 				E3003B318BD827C1E876F9C9 /* UnsubscribePopupView.swift in Sources */,
 				D35DFD63D8CD70868B230DA2 /* CustomTextFieldModifier.swift in Sources */,
+				B530AD482E254A280085A13C /* NotRegisteredIdPopupView.swift in Sources */,
 				41412A573756BE6C91B6AA4D /* ToastView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
