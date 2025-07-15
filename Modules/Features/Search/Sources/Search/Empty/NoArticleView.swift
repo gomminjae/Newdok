@@ -7,8 +7,9 @@
 
 import SwiftUI
 import DesignSystem
-
+import Shared
 struct NoArticleView: View {
+    @EnvironmentObject private var router: AppRouter
     var body: some View {
         VStack {
             Text("검색 결과가 없어요.")
@@ -17,6 +18,19 @@ struct NoArticleView: View {
                 .font(.hanSansNeo(14, .regular))
                 .foregroundStyle(Color(hex: "555555"))
                 .padding(.top,4)
+            Button(action: {
+                router.push(.serviceFeedback)
+            }) {
+                Text("문의하기")
+                    .font(.hanSansNeo(14, .bold))
+                    .foregroundColor(.white)
+                    .frame(maxWidth: .infinity)
+                    .frame(height: 44)
+                    .background(Color.primaryNormal)
+                    .cornerRadius(8)
+                    .padding(.top, 20)
+                    .padding(.horizontal, 40)
+            }
         }
     }
 }

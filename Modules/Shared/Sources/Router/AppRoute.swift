@@ -29,6 +29,8 @@ public enum AppRoute: Hashable {
     
     case search
     
+    case serviceFeedback
+    
     
     
    

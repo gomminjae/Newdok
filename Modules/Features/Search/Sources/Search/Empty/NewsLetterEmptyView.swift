@@ -6,8 +6,10 @@
 //
 
 import SwiftUI
+import Shared
 
 struct NewsLetterEmptyView: View {
+    @EnvironmentObject private var router: AppRouter
     var body: some View {
         VStack {
             Text("검색 결과가 없어요.")
@@ -17,7 +19,7 @@ struct NewsLetterEmptyView: View {
                 .foregroundStyle(Color(hex: "555555"))
                 .padding(.top,4)
             Button("뉴스레터 등록 요청하기") {
-                print("regi")
+                router.push(.serviceFeedback)
             }
             .font(.hanSansNeo(16, .bold))
             .frame(maxWidth: .infinity)

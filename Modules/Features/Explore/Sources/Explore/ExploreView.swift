@@ -110,25 +110,23 @@ public struct ExploreView: View {
             Text("둘러보기")
                 .font(.hanSansNeo(16, .bold))
                 .foregroundStyle(Color(hex: "161616"))
-                .padding(.vertical, 17)
-                .padding(.leading, 20)
             Spacer()
             Button {
                 print("검색 버튼 탭")
                 router.push(.search)
             } label: {
                 Image(asset: DesignSystemAsset.lineSearch)
-                    .padding(.vertical, 14)
                     .padding(.trailing, 12)
             }
             Button {
                 print("알람 버튼 탭")
             } label: {
                 Image(asset: DesignSystemAsset.lineBell)
-                    .padding(.vertical, 14)
-                    .padding(.trailing, 20)
             }
         }
+        .padding(.horizontal, 20)
+        .padding(.vertical, 16)
+        .background(Color.white)
     }
 
     // MARK: - 탭 스위처

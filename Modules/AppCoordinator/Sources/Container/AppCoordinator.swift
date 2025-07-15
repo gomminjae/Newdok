@@ -126,8 +126,9 @@ final class AppCoordinator {
         return SearchResultView(viewModel: vm).environmentObject(router)
     }
     
-    
-    
+    func makeServiceFeedbackView() -> some View {
+        FeedbackView()
+    }
     
     
 }

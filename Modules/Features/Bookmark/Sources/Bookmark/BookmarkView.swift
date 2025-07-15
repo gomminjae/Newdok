@@ -57,11 +57,14 @@ public struct BookmarkView: View {
                 
                 ScrollView(showsIndicators: false) {
                     
-                    VStack(alignment: .leading, spacing: 24) {
-                        ForEach(viewModel.bookmarks?.bookmarkForMonth ?? []) { monthly in
+                    VStack(alignment: .leading, spacing: 0) {
+                        ForEach(Array((viewModel.bookmarks?.bookmarkForMonth ?? []).enumerated()), id: \ .1.id) { index, monthly in
                             section(month: monthly.month, articles: monthly.bookmark)
+                                .padding(.top, index == 0 ? 0 : 32)
                         }
                     }
+                    .padding(.top, 20)
+                    .padding(.bottom, 20)
                 }
                 .background(Color(hex: "#F5F5F7"))
             }
@@ -178,9 +181,6 @@ public struct BookmarkView: View {
                     }
             }
         }
-        .padding(.top, 20)
-        .padding(.bottom,12)
-        
     }
 }
 

@@ -15,6 +15,8 @@ public struct FeedbackView: View {
 
     private let faqURL = "https://7xrdp4cp24a.typeform.com/to/Lkh7C9zd"
 
+    public init() {}
+
     public var body: some View {
         VStack(spacing: 0) {
             WebView(urlString: faqURL)

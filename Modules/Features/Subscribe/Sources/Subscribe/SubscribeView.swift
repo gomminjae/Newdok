@@ -160,22 +160,19 @@ public struct SubscribeView: View {
         HStack {
             Text("내 구독")
                 .font(.hanSansNeo(16, .bold))
-                .padding(.leading, 20)
-
             Spacer()
-
             Button(action: {
                 router.push(.search)
             }) {
                 Image(asset: DesignSystemAsset.lineSearch)
-                    .padding(.trailing, 8)
+                    .padding(.trailing, 12)
             }
-
             Button(action: {}) {
                 Image(asset: DesignSystemAsset.lineBell)
-                    .padding(.trailing, 20)
             }
         }
+        .padding(.horizontal, 20)
+        .padding(.vertical, 16)
         .frame(height: 56)
         .background(.white)
     }
