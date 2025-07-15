@@ -103,7 +103,6 @@ public class RecoveryViewModel: ObservableObject {
         }
     }
     func resetPassword() async {
-        // 비밀번호 찾기에서는 prevPassword 없이(빈 문자열) 호출
         do {
             try await userUseCase.updatePassword(loginId: recoveryId, prevPassword: "", newPassword: newPassword)
             passwordResetSuccess = true

@@ -9,7 +9,7 @@
 import SwiftUI
 import WebKit
 import DesignSystem
-
+import UIKit
 
 
 // MARK: - WebView Wrapper
@@ -34,7 +34,10 @@ public struct SubscribeModalView: View {
     @Environment(\.dismiss) var dismiss
     public let title: String
     public let url: String
-
+    
+    @AppStorage("email") private var email: String = ""
+    @State private var showToast: Bool = false
+    
     public init(title: String, url: String) {
         self.title = title
         self.url = url
@@ -42,7 +45,6 @@ public struct SubscribeModalView: View {
 
     public var body: some View {
         VStack(spacing: 0) {
-       
             ZStack {
                 Text("\(title) 구독하기")
                     .font(.hanSansNeo(20, .bold))
@@ -72,6 +74,26 @@ public struct SubscribeModalView: View {
             // 웹뷰 영역
             WebViewWrapper(urlString: url)
                 .ignoresSafeArea(edges: .bottom)
+        }
+        .onAppear {
+            if !email.isEmpty {
+                UIPasteboard.general.string = email
+                showToast = true
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+                    showToast = false
+                }
+            }
+        }
+        .popup(isPresented: $showToast) {
+            ToastView(message: "이메일이 복사되었습니다.")
+                .padding(.bottom, 60)
+        } customize: {
+            $0
+                .type(.toast)
+                .position(.bottom)
+                .autohideIn(1.5)
+                .animation(.easeInOut)
+                .closeOnTapOutside(false)
         }
     }
 }
