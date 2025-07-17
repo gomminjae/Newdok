@@ -64,6 +64,9 @@
          <FileRef
             location = "group:Survey/Survey.xcodeproj">
          </FileRef>
+         <FileRef
+            location = "group:Withdraw/Withdraw.xcodeproj">
+         </FileRef>
       </Group>
       <Group
          location = "group:QA"

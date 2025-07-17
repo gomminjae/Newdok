@@ -30,6 +30,8 @@ public enum NewsletterAPI {
     case fetchGuestAllNewsletterBrand(orderOpt: String?, industry: [Int]?, day: [Int]?)
     case fetchGuestNewsletterBrand(id: String)
     
+    case fetchSubscriptionCount
+    
 }
 
 extension NewsletterAPI: TargetType {
@@ -62,6 +64,8 @@ extension NewsletterAPI: TargetType {
             return "/\(id)/non-member"
         case .fetchGuestAllNewsletterBrand:
             return "/non-member"
+        case .fetchSubscriptionCount:
+            return "/subscription/count"
         
         }
     }
@@ -77,7 +81,7 @@ extension NewsletterAPI: TargetType {
     
     public var task: Moya.Task {
         switch self {
-        case .fetchActiveNewletters, .fetchPausedNewletters,.fetchRecommendationList,.fetchGuestNewsletterBrand, .fetchNewsletterBrand:
+        case .fetchActiveNewletters, .fetchPausedNewletters,.fetchRecommendationList,.fetchGuestNewsletterBrand, .fetchNewsletterBrand, .fetchSubscriptionCount:
             return .requestPlain
         case .search(let brandName):
             return .requestParameters(parameters: ["brandName": brandName], encoding: URLEncoding.default)

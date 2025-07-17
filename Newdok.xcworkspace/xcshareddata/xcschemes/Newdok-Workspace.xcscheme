@@ -518,6 +518,34 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
+               BlueprintIdentifier = "C58A2739FABC9E2F1D41755F"
+               BuildableName = "Withdraw.framework"
+               BlueprintName = "Withdraw"
+               ReferencedContainer = "container:Modules/Features/Withdraw/Withdraw.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "8ECAB822ABCCACE05106038A"
+               BuildableName = "WithdrawTests.xctest"
+               BlueprintName = "WithdrawTests"
+               ReferencedContainer = "container:Modules/Features/Withdraw/Withdraw.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
                BlueprintIdentifier = "C6D8153E58B10ACFF56CE5BC"
                BuildableName = "_LottieStub.framework"
                BlueprintName = "_LottieStub"
@@ -607,6 +635,17 @@
                BuildableName = "SurveyTests.xctest"
                BlueprintName = "SurveyTests"
                ReferencedContainer = "container:Modules/Features/Survey/Survey.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO"
+            parallelizable = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "8ECAB822ABCCACE05106038A"
+               BuildableName = "WithdrawTests.xctest"
+               BlueprintName = "WithdrawTests"
+               ReferencedContainer = "container:Modules/Features/Withdraw/Withdraw.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>

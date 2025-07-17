@@ -139,7 +139,7 @@ struct FindIdResultView: View {
     var body: some View {
             VStack(alignment: .leading, spacing: 0) {
 
-                // ── 헤더 ───────────────
+                
                 Text("입력하신 번호로\n\(viewModel.users.count)개의 계정을 찾았습니다.")
                     .font(.hanSansNeo(20, .bold))
                     .padding(.bottom, 8)
@@ -149,14 +149,14 @@ struct FindIdResultView: View {
                     .foregroundColor(Color(hex: "#565656"))
                     .padding(.bottom, 32)
 
-                // ── 리스트 ─────────────
+               
                 ForEach(viewModel.users) { user in
                     UserRow(user: user)
                         .onTapGesture { router.push(.login) }
                         .padding(.bottom, 12)
                 }
 
-                // ── 문의 라인 ───────────
+                
                 inquiryLine
 
                 Spacer()
@@ -178,6 +178,7 @@ struct FindIdResultView: View {
             .font(.hanSansNeo(14, .medium))
             .foregroundColor(.primaryNormal)
             .underline()
+            
 
         let suffix = Text("로 문의해주세요.")
             .font(.hanSansNeo(14, .medium))
@@ -185,7 +186,7 @@ struct FindIdResultView: View {
 
         return HStack(spacing: 0) {
             prefix
-            Button(action: { /* 문의 페이지 이동 */ }) { link }
+            Button(action: { router.push(.serviceFeedback) }) { link }
             suffix
         }
         .padding(.top, 12)
