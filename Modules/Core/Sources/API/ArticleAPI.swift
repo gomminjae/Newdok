@@ -17,7 +17,7 @@ public enum ArticleAPI {
     case fetchBookmarkedInterest
     case search(keyword: String)
     case fetchArticleDetail(id: String)
-    
+    case fetchReceivedArticleCount
     
 }
 
@@ -43,6 +43,8 @@ extension ArticleAPI: TargetType {
             return "/search"
         case .fetchArticleDetail(let id):
             return "/\(id)"
+        case .fetchReceivedArticleCount:
+            return "/received/count"
         
         }
     }
@@ -75,7 +77,7 @@ extension ArticleAPI: TargetType {
             return .requestPlain
         case .search(let word):
             return .requestParameters(parameters: ["keyword": word], encoding: URLEncoding.default)
-        case .fetchArticleDetail:
+        case .fetchArticleDetail, .fetchReceivedArticleCount:
             return .requestPlain
         }
     }

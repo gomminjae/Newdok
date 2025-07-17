@@ -210,7 +210,12 @@ extension SearchResultView {
                 Text("아티클 (\(dummyArticles.count))")
                     .font(.hanSansNeo(16,.medium))
                 ForEach(dummyArticles) { article in
-                    SearchArticleRow(article: article)
+                    Button(action: {
+                        router.push(.articleDetail(id: String(article.id)))
+                    }) {
+                        SearchArticleRow(article: article)
+                    }
+                    .buttonStyle(PlainButtonStyle())
                 }
             }
             .padding(.horizontal, 20)
@@ -226,7 +231,12 @@ extension SearchResultView {
                 Text("뉴스레터")
                     .font(.hanSansNeo(16,.medium))
                 ForEach(viewModel.searchResults, id: \.id) { result in
-                    SearchNewsletterRow(result: result)
+                    Button(action: {
+                        router.push(.brandDetail(id: result.id))
+                    }) {
+                        SearchNewsletterRow(result: result)
+                    }
+                    .buttonStyle(PlainButtonStyle())
                 }
             }
             .padding(.horizontal, 20)

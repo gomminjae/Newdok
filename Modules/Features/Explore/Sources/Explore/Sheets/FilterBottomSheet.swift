@@ -25,7 +25,7 @@ struct FilterBottomSheet: View {
             Capsule()
                 .frame(width: 40, height: 5)
                 .foregroundColor(Color.gray.opacity(0.5))
-                .padding(.top, 20)
+                .padding(.top, 28)
 
             HStack {
                 Text("필터")
@@ -40,12 +40,11 @@ struct FilterBottomSheet: View {
             .padding(.top, 32)
             .padding(.horizontal, 24)
 
-            VStack(alignment: .leading, spacing: 12) {
+            VStack(alignment: .leading, spacing: 0) {
                 Text("산업 카테고리")
                     .font(.hanSansNeo(14, .medium))
                     .foregroundColor(Color(hex: "565656"))
-                    .padding(.horizontal, 24)
-
+                    .padding(.bottom, 4)
                 FlowLayoutView(data: industries.indices, spacing: 8) { index in
                     SelectableChip(
                         text: industries[index],
@@ -54,28 +53,28 @@ struct FilterBottomSheet: View {
                         toggleSelection(&industry, value: index + 1)
                     }
                 }
-                .padding(.horizontal, 24)
             }
-            .padding(.top, 24)
+            .padding(.top, 36)
+            .padding(.horizontal, 24)
 
-            VStack(alignment: .leading, spacing: 12) {
+            VStack(alignment: .leading, spacing: 0) {
                 Text("발행요일")
                     .font(.hanSansNeo(14, .medium))
                     .foregroundColor(Color(hex: "565656"))
-                    .padding(.horizontal, 24)
-                    .padding(.top, 28)
-
+                    .padding(.bottom, 4)
                 FlowLayoutView(data: weekdays.indices, spacing: 8) { index in
                     SelectableChip(
                         text: weekdays[index],
-                        isSelected: day?.contains(index + 1) ?? false     // ✅ 수정
+                        isSelected: day?.contains(index + 1) ?? false
                     ) {
-                        toggleSelection(&day, value: index + 1)           // ✅ 수정
+                        toggleSelection(&day, value: index + 1)
                     }
                 }
-                .padding(.horizontal, 24)
             }
-            .padding(.top, 28)
+            .padding(.top, 36)
+            .padding(.horizontal, 24)
+
+            Spacer()
 
             HStack(spacing: 12) {
                 Button(action: {
@@ -88,8 +87,7 @@ struct FilterBottomSheet: View {
                             .font(.hanSansNeo(14, .medium))
                             .foregroundStyle(Color(hex: "565656"))
                     }
-                    .frame(width: 78)
-                    .frame(height: 40)
+                    .frame(width: 78, height: 40)
                 }
 
                 Button(action: {
@@ -107,8 +105,8 @@ struct FilterBottomSheet: View {
                         .cornerRadius(4)
                 }
             }
-            .padding(.bottom, 56)
             .padding(.horizontal, 24)
+            .padding(.bottom, 32)
         }
         .frame(maxHeight: .infinity, alignment: .top)
         .background(Color.white)

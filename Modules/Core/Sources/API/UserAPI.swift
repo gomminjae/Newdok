@@ -30,6 +30,9 @@ public enum UserAPI {
     case preInvestigate(industryId: String, interestIds: [String])
     case profile
     
+    //탈퇴
+    case withdraw
+    
     
     
 }
@@ -72,12 +75,15 @@ extension UserAPI: TargetType {
             return "/preInvestigate"
         case .profile:
             return "/my"
+        case .withdraw:
+            return "/withdraw"
         }
+
     }
     
     public var method: Moya.Method {
         switch self {
-        case .updatePassword, .updateIndustry, .updateInterest, .updatePhoneNumber, .updateNickname:
+        case .updatePassword, .updateIndustry, .updateInterest, .updatePhoneNumber, .updateNickname, .withdraw:
             return .patch
         case .login,.signup,.authSMS:
             return .post
@@ -142,7 +148,7 @@ extension UserAPI: TargetType {
             )
 
             return .requestParameters(parameters: parameters, encoding: encoding)
-        case .profile:
+        case .profile, .withdraw:
             return .requestPlain
         }
     }
