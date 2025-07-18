@@ -31,7 +31,7 @@ public enum AppRoute: Hashable {
     
     case serviceFeedback
     
+    case withdraw
     
     
-   
 }

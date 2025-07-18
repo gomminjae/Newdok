@@ -74,6 +74,8 @@ struct QABRootView: View {
                         
                     case .serviceFeedback:
                         coordinator.makeServiceFeedbackView()
+                    case .withdraw:
+                        coordinator.makeWithdrawView()
                     }
                 }
                 .navigationDestination(for: AppRoute.self) { route in
@@ -110,6 +112,8 @@ struct QABRootView: View {
                         coordinator.makeSearchView()
                     case .serviceFeedback:
                         coordinator.makeServiceFeedbackView()
+                    case .withdraw:
+                        coordinator.makeWithdrawView()
                     }
                 }
             }

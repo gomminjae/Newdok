@@ -15,7 +15,7 @@ enum APIEnvironment {
     var baseURL: String {
         switch self {
         case .production:
-            return "https://newdok.store"
+            return "https://newdok.shop"
         case .development:
             return "http://3.38.79.19"
         }

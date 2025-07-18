@@ -60,6 +60,11 @@ public class NewsletterRepositoryImpl: NewsletterRepository {
         try await provider.asyncVoidRequest(.resumeSubscription(newsletterId: newsletterId))
     }
     
+    public func fetchSubscriptionCount() async throws -> Int {
+        let response: NewslettersCountDTO = try await provider.asyncRequest(.fetchSubscriptionCount)
+        return response.count
+    }
+    
     
     public func fetchGuestAllNewsletters(orderOpt: String?, industry: [Int]?, day: [Int]?) async throws -> [Domain.Brand] {
         let response: [BrandDTO] = try await provider.asyncRequest(.fetchGuestAllNewsletterBrand(orderOpt:  orderOpt, industry: industry, day: day))

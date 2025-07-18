@@ -40,6 +40,9 @@ public final class ArticleUseCaseImpl: ArticleUseCase {
         try await articleRepository.fetchArticleDetail(id: articleId)
     }
     
+    public func fetchReceivedArticleCount() async throws -> Int {
+        return try await articleRepository.fetchReceivedArticleCount()
+    }
     
     
 }

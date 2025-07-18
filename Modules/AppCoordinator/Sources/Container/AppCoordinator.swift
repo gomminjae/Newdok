@@ -19,6 +19,7 @@ import Detail
 import Recovery
 import Domain
 import Search
+import Withdraw
 
 final class AppCoordinator {
     private let container = AppDIContainer.shared
@@ -127,7 +128,12 @@ final class AppCoordinator {
     }
     
     func makeServiceFeedbackView() -> some View {
-        FeedbackView()
+        return FeedbackView().environmentObject(router)
+    }
+    
+    func makeWithdrawView() -> some View {
+        let vm = container.container.resolve(WithdrawViewModel.self)!
+        return WithdrawView(viewModel: vm).environmentObject(router)
     }
     
     

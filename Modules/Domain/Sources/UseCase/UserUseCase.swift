@@ -24,4 +24,5 @@ public protocol UserUseCase {
     func preInvestigate(industryId: String, interestIds: [String]) async throws -> [RecommendedBrand]
     
     func getProfile() async throws -> User
+    func withdraw() async throws
 }

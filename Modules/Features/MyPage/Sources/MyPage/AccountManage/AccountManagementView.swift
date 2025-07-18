@@ -51,7 +51,7 @@ public struct AccountManagementView: View {
 
             // 회원탈퇴
             Button(action: {
-                // 회원탈퇴 처리
+                router.push(.withdraw)
             }) {
                 Text("회원탈퇴")
                     .font(.hanSansNeo(13, .regular))

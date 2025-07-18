@@ -49,4 +49,9 @@ public class ArticleRepositoryImpl: ArticleRepository {
         let response: ArticleDetailDTO = try await provider.asyncRequest(.fetchArticleDetail(id: id))
         return response.toDomain()
     }
+    
+    public func fetchReceivedArticleCount() async throws -> Int {
+        let response: ArticlesCountDTO = try await provider.asyncRequest(.fetchReceivedArticleCount)
+        return response.count
+    }
 }

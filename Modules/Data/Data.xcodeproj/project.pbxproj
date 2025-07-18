@@ -16,6 +16,7 @@
 		2F4A90C76257924820EAEA02 /* UserUseCaseImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = E185C004320D65EFB2DC14D4 /* UserUseCaseImpl.swift */; };
 		40EF068D4DC0E9365A1757C3 /* SimpleUserDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E28E018F88597F58569E374 /* SimpleUserDTO.swift */; };
 		4196AC73C8ABBF529103C4C2 /* Domain.framework in Dependencies */ = {isa = PBXBuildFile; fileRef = 06FAA1459D11CCE724C34195 /* Domain.framework */; };
+		494D65EDEAFC5D0D2E1EBC98 /* NewslettersCountDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1E93059A6FB1AA8FCC771B8 /* NewslettersCountDTO.swift */; };
 		49AC7343399F071C56D98301 /* ArticleDetailDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 450B2CD604D667B19E4262B8 /* ArticleDetailDTO.swift */; };
 		5D840ABB5F697CF976BD4EB5 /* LoginResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BC93555A264C6012E62BC34 /* LoginResponseDTO.swift */; };
 		61CCED5BE977A45970B6E05C /* ArticleDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2874747EE0D5B45D9EDD9B8 /* ArticleDTO.swift */; };
@@ -26,6 +27,7 @@
 		83B8A60AE87D0C6A614B3FEF /* BrandArticle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 014A4C75A68A34CBF3B10E33 /* BrandArticle.swift */; };
 		8B926E61ED237D12C233859C /* RecommendedNewsletter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7174AA2251FEAA3D5F28C936 /* RecommendedNewsletter.swift */; };
 		8D2DAB095967265790F9FB7B /* ArticlesResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92A598D87B4E36F44292407E /* ArticlesResponseDTO.swift */; };
+		8D2FC5D92DE70C4C606FD614 /* ArticlesCountDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB541072492D3107B69B95B0 /* ArticlesCountDTO.swift */; };
 		93ABFE8AD5EB1A2A46263AE8 /* MonthlyBookmarkDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0D330D6995209572C3938EF /* MonthlyBookmarkDTO.swift */; };
 		93EDAB86744A493CC5721E1A /* NewsletterUseCaseImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 853720898874975F4BAEC9E8 /* NewsletterUseCaseImpl.swift */; };
 		94F8B94F10CB6581A9D53EC3 /* NewsletterRepositoryImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = E71915548682F3589505EC89 /* NewsletterRepositoryImpl.swift */; };
@@ -103,6 +105,8 @@
 		E630F4F8E5DEF53D9C94324D /* ErrorResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorResponseDTO.swift; sourceTree = "<group>"; };
 		E6799EBC84F4DBDEDB6C2FB0 /* Core.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Core.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E71915548682F3589505EC89 /* NewsletterRepositoryImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsletterRepositoryImpl.swift; sourceTree = "<group>"; };
+		F1E93059A6FB1AA8FCC771B8 /* NewslettersCountDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewslettersCountDTO.swift; sourceTree = "<group>"; };
+		FB541072492D3107B69B95B0 /* ArticlesCountDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticlesCountDTO.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -144,6 +148,7 @@
 			children = (
 				450B2CD604D667B19E4262B8 /* ArticleDetailDTO.swift */,
 				D2874747EE0D5B45D9EDD9B8 /* ArticleDTO.swift */,
+				FB541072492D3107B69B95B0 /* ArticlesCountDTO.swift */,
 				BE3FCA8392C88669DA34A564 /* ArticlesDTO.swift */,
 				92A598D87B4E36F44292407E /* ArticlesResponseDTO.swift */,
 				D5FED6006671C8F393B20F80 /* BookmarkDTO.swift */,
@@ -214,6 +219,7 @@
 				D3050F06DA46CE5FFCFB7639 /* Industry.swift */,
 				506FB0021B4C7976D9DE7168 /* Newsletter.swift */,
 				0AEEF9AEBD3D4976484638ED /* NewsletterDetail.swift */,
+				F1E93059A6FB1AA8FCC771B8 /* NewslettersCountDTO.swift */,
 				7174AA2251FEAA3D5F28C936 /* RecommendedNewsletter.swift */,
 				B9492AF9590C9B43F1CCB214 /* SearchedNewsletter.swift */,
 			);
@@ -322,6 +328,7 @@
 			files = (
 				61CCED5BE977A45970B6E05C /* ArticleDTO.swift in Sources */,
 				49AC7343399F071C56D98301 /* ArticleDetailDTO.swift in Sources */,
+				8D2FC5D92DE70C4C606FD614 /* ArticlesCountDTO.swift in Sources */,
 				768BA2BB78786E369DBC1C6A /* ArticlesDTO.swift in Sources */,
 				8D2DAB095967265790F9FB7B /* ArticlesResponseDTO.swift in Sources */,
 				D8AD045AF601E302914D6D27 /* BookmarkDTO.swift in Sources */,
@@ -333,6 +340,7 @@
 				2286D7839AF6E3930C341945 /* Industry.swift in Sources */,
 				AE3483AC71A29BD63EB6CEA5 /* Newsletter.swift in Sources */,
 				DAAA2A4C504553BB2F5391F8 /* NewsletterDetail.swift in Sources */,
+				494D65EDEAFC5D0D2E1EBC98 /* NewslettersCountDTO.swift in Sources */,
 				8B926E61ED237D12C233859C /* RecommendedNewsletter.swift in Sources */,
 				DC6C0C6D25983E4357EBFBAD /* SearchedNewsletter.swift in Sources */,
 				F6821D6B328FDD11ED010367 /* BrandListResponseDTO.swift in Sources */,

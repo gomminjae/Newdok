@@ -22,6 +22,7 @@ import Detail
 import Mypage
 import Recovery
 import Search
+import Withdraw
 
 public final class AppDIContainer {
     public static let shared = AppDIContainer()
@@ -197,6 +198,20 @@ public final class AppDIContainer {
             let useCase = r.resolve(SearchUseCase.self)!
             return MainActor.assumeIsolated {
                 SearchViewModel(useCase: useCase)
+            }
+        }.inObjectScope(.container)
+
+        container.register(WithdrawViewModel.self) { r in
+            let userUseCase = r.resolve(UserUseCase.self)
+            let newsletterUseCase = r.resolve(NewsletterUseCase.self)
+            let articleUseCase = r.resolve(ArticleUseCase.self)
+            print("[DI] WithdrawViewModel resolve: userUseCase=\(userUseCase != nil), newsletterUseCase=\(newsletterUseCase != nil), articleUseCase=\(articleUseCase != nil)")
+            return MainActor.assumeIsolated {
+                WithdrawViewModel(
+                    userUseCase: userUseCase!,
+                    newsletterUseCase: newsletterUseCase!,
+                    articleUseCase: articleUseCase!
+                )
             }
         }.inObjectScope(.container)
     

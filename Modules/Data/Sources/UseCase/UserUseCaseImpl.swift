@@ -69,5 +69,8 @@ public final class UserUseCaseImpl: UserUseCase {
         return try await userRepository.getProfile()
     }
     
+    public func withdraw() async throws {
+        try await userRepository.withdraw()
+    }
     
 }

@@ -27,4 +27,7 @@ public protocol ArticleUseCase {
 
   
     func fetchArticleDetail(articleId: String) async throws -> ArticleDetail
+
+    func fetchReceivedArticleCount() async throws -> Int
 }
+

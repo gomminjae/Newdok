@@ -33,4 +33,5 @@ public protocol NewsletterUseCase {
     
     func fetchGuestNewsletterBrand(id: String) async throws -> BrandDetail
     
+    func fetchSubscriptionCount() async throws -> Int
 }

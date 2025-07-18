@@ -120,8 +120,9 @@ public final class UserRepositoryImpl: UserRepository {
         return user 
     }
     
-    
-    
+    public func withdraw() async throws {
+        _ = try await provider.asyncVoidRequest(.withdraw)
+    }
     
     
 }
