@@ -76,6 +76,13 @@ struct QABRootView: View {
                         coordinator.makeServiceFeedbackView()
                     case .withdraw:
                         coordinator.makeWithdrawView()
+                    // 고객센터
+                    case .faq:
+                        coordinator.makeFAQView()
+                    case .feedback:
+                        coordinator.makeFeedbackView()
+                    case .termsMenu:
+                        coordinator.makeTermsMenuView()
                     }
                 }
                 .navigationDestination(for: AppRoute.self) { route in
@@ -114,6 +121,13 @@ struct QABRootView: View {
                         coordinator.makeServiceFeedbackView()
                     case .withdraw:
                         coordinator.makeWithdrawView()
+                    // 고객센터
+                    case .faq:
+                        coordinator.makeFAQView()
+                    case .feedback:
+                        coordinator.makeFeedbackView()
+                    case .termsMenu:
+                        coordinator.makeTermsMenuView()
                     }
                 }
             }

@@ -111,18 +111,70 @@ public struct MypageView: View {
                     // MARK: - 고객센터 섹션
                     VStack(spacing: 0) {
                         SectionHeader(title: "고객센터")
-                        NavigationLink("FAQ", destination: FAQView())
-                            .buttonStyle(PlainButtonStyle())
-                            .settingRowStyle()
-                        NavigationLink("서비스 피드백", destination: FeedbackView())
-                            .buttonStyle(PlainButtonStyle())
-                            .settingRowStyle()
-                        NavigationLink("약관 및 정책", destination: TermsMenuView())
-                            .buttonStyle(PlainButtonStyle())
-                            .settingRowStyle()
-                        NavigationLink("버전", destination: Text("버전 화면"))
-                            .buttonStyle(PlainButtonStyle())
-                            .settingRowStyle()
+                        
+                        Button {
+                            router.push(.faq)
+                        } label: {
+                            HStack {
+                                Text("FAQ")
+                                    .font(.hanSansNeo(16, .medium))
+                                    .foregroundStyle(Color(hex: "363636"))
+                                Spacer()
+                                Image(systemName: "chevron.right")
+                                    .foregroundColor(Color(hex: "#B0B0B0"))
+                            }
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .frame(height: 48)
+                            .background(Color.white)
+                        }
+                        .buttonStyle(PlainButtonStyle())
+                        
+                        Button {
+                            router.push(.feedback)
+                        } label: {
+                            HStack {
+                                Text("서비스 피드백")
+                                    .font(.hanSansNeo(16, .medium))
+                                    .foregroundStyle(Color(hex: "363636"))
+                                Spacer()
+                                Image(systemName: "chevron.right")
+                                    .foregroundColor(Color(hex: "#B0B0B0"))
+                            }
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .frame(height: 48)
+                            .background(Color.white)
+                        }
+                        .buttonStyle(PlainButtonStyle())
+                        
+                        Button {
+                            router.push(.termsMenu)
+                        } label: {
+                            HStack {
+                                Text("약관 및 정책")
+                                    .font(.hanSansNeo(16, .medium))
+                                    .foregroundStyle(Color(hex: "363636"))
+                                Spacer()
+                                Image(systemName: "chevron.right")
+                                    .foregroundColor(Color(hex: "#B0B0B0"))
+                            }
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .frame(height: 48)
+                            .background(Color.white)
+                        }
+                        .buttonStyle(PlainButtonStyle())
+                        
+                        HStack {
+                            Text("버전")
+                                .font(.hanSansNeo(16, .medium))
+                                .foregroundStyle(Color(hex: "363636"))
+                            Spacer()
+                            Text("1.0.0")
+                                .font(.hanSansNeo(14, .medium))
+                                .foregroundColor(Color(hex: "#969696"))
+                        }
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .frame(height: 48)
+                        .background(Color.white)
                     }
                     .padding(.horizontal, 20)
 
