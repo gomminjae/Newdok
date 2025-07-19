@@ -128,6 +128,7 @@ public struct WithdrawView: View {
                     Spacer()
                     Button("탈퇴완료") {
                         Task { await viewModel.withdraw() }
+                        router.resetTo(.login)
                     }
                     .frame(maxWidth: .infinity)
                     .frame(height: 48)
