@@ -21,6 +21,7 @@ import Domain
 import Search
 import Withdraw
 
+
 final class AppCoordinator {
     private let container = AppDIContainer.shared
     private let router: AppRouter
@@ -136,5 +137,17 @@ final class AppCoordinator {
         return WithdrawView(viewModel: vm).environmentObject(router)
     }
     
+    // MARK: - 고객센터
+    func makeFAQView() -> some View {
+        return FAQView().environmentObject(router)
+    }
+    
+    func makeFeedbackView() -> some View {
+        return FeedbackView().environmentObject(router)
+    }
+    
+    func makeTermsMenuView() -> some View {
+        return TermsMenuView().environmentObject(router)
+    }
     
 }

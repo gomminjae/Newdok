@@ -38,9 +38,7 @@ public struct ExploreView: View {
                 if isGuest {
                     Group {
                         if viewModel.selectedTab == 0 {
-                            ScrollView(showsIndicators: false) {
-                                allNewsletterSection
-                            }
+                            allNewsletterSection
                         } else {
                             guestSection
                         }
@@ -59,10 +57,8 @@ public struct ExploreView: View {
                                 .background(Color(hex: "#F5F5F7"))
                             }
                         } else {
-                            ScrollView(showsIndicators: false) {
-                                allNewsletterSection
-                            }
-                            .background(Color(hex: "#F5F5F7"))
+                            allNewsletterSection
+                                .background(Color(hex: "#F5F5F7"))
                         }
                     }
                     .padding(.bottom, 0)
@@ -386,6 +382,7 @@ public struct ExploreView: View {
                     viewModel.day = nil
                     viewModel.industry = nil
                     viewModel.orderOpt = "인기순"
+                    viewModel.shouldScrollToTop = true
                     if isGuest {
                         await viewModel.fetchGuestAllNewsletters()
                     } else {
@@ -401,6 +398,7 @@ public struct ExploreView: View {
         }
         .sheet(isPresented: $viewModel.isShowSortSheet) {
             SortBottomSheet(orderOpt: $viewModel.orderOpt) {
+                viewModel.shouldScrollToTop = true
                 if isGuest {
                     await viewModel.fetchGuestAllNewsletters()
                 } else {
@@ -411,6 +409,7 @@ public struct ExploreView: View {
         }
         .sheet(isPresented: $viewModel.isShowFilterSheet) {
             FilterBottomSheet(industry: $viewModel.industry, day: $viewModel.day) {
+                viewModel.shouldScrollToTop = true
                 if isGuest {
                     await viewModel.fetchGuestAllNewsletters()
                 } else {
@@ -427,20 +426,56 @@ public struct ExploreView: View {
     // MARK: - 모든 뉴스레터
     private var allNewsletterSection: some View {
         VStack(spacing: 0) {
-            newsletterFilterSection
-                .padding(.horizontal,20)
-                .padding(.top, 20)
-                .padding(.bottom, 16)
-            LazyVStack(spacing: 12) {
-                
-                ForEach(viewModel.allNewsletters) { brand in
-                    NewsletterDetailRow(brand: brand)
-                        .padding(.horizontal, 20)
-                        .onTapGesture {
-                            print("tapped")
-                            router.push(.brandDetail(id: "\(brand.id)"))
+            // 고정된 필터 섹션
+            VStack(spacing: 0) {
+                newsletterFilterSection
+                    .padding(.horizontal,20)
+                    .padding(.top, 20)
+                    .padding(.bottom, 16)
+            }
+            .background(Color.white)
+            .zIndex(1)
+            
+            // 스크롤 가능한 뉴스레터 리스트
+            ScrollViewReader { proxy in
+                ScrollView {
+                    LazyVStack(spacing: 12) {
+                        // 스크롤 대상이 될 상단 요소
+                        Color.clear
+                            .frame(height: 1)
+                            .id("top")
+                        
+                        ForEach(viewModel.allNewsletters) { brand in
+                            NewsletterDetailRow(brand: brand)
+                                .padding(.horizontal, 20)
+                                .onTapGesture {
+                                    print("tapped")
+                                    router.push(.brandDetail(id: "\(brand.id)"))
+                                }
                         }
-                    
+                    }
+                    .padding(.bottom, 80)
+                }
+                .onChange(of: viewModel.orderOpt) { _ in
+                    // 필터 변경 시 즉시 스크롤하지 않음
+                }
+                .onChange(of: viewModel.industry) { _ in
+                    // 필터 변경 시 즉시 스크롤하지 않음
+                }
+                .onChange(of: viewModel.day) { _ in
+                    // 필터 변경 시 즉시 스크롤하지 않음
+                }
+                .onChange(of: viewModel.shouldScrollToTop) { shouldScroll in
+                    if shouldScroll {
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                            withAnimation(.easeInOut(duration: 0.5)) {
+                                proxy.scrollTo("top", anchor: .top)
+                            }
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.6) {
+                                viewModel.shouldScrollToTop = false
+                            }
+                        }
+                    }
                 }
             }
         }

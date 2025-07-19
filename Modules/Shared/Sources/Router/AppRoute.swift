@@ -33,5 +33,9 @@ public enum AppRoute: Hashable {
     
     case withdraw
     
+    // 고객센터
+    case faq
+    case feedback
+    case termsMenu
     
 }

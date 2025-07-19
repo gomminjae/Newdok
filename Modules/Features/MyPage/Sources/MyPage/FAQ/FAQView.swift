@@ -8,6 +8,7 @@
 
 import SwiftUI
 import DesignSystem
+import Shared
 
 struct FAQItem: Identifiable {
     let id = UUID()
@@ -124,13 +125,15 @@ let sampleFAQs: [FAQItem] = [
 ]
 
 
-struct FAQView: View {
+public struct FAQView: View {
     
     @State private var expandedFAQID: UUID? = nil
     
-    @Environment(\.dismiss) private var dismiss
+    @EnvironmentObject private var router: AppRouter
+    
+    public init() {}
 
-    var body: some View {
+    public var body: some View {
         ScrollView {
             VStack(spacing: 12) {
                 ForEach(sampleFAQs) { item in
@@ -158,7 +161,7 @@ struct FAQView: View {
             
             ToolbarItem(placement: .navigationBarLeading) {
                 Button {
-                    dismiss()
+                    router.pop()
                 } label: {
                     Image(asset: DesignSystemAsset.back)
                         .font(.system(size: 17, weight: .semibold))

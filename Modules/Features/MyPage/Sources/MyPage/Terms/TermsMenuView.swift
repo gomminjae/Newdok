@@ -9,9 +9,10 @@
 
 import SwiftUI
 import DesignSystem
+import Shared
 
 public struct TermsMenuView: View {
-    @Environment(\.dismiss) private var dismiss
+    @EnvironmentObject private var router: AppRouter
 
     public init() {}
 
@@ -55,7 +56,7 @@ public struct TermsMenuView: View {
         .toolbar {
             ToolbarItem(placement: .navigationBarLeading) {
                 Button {
-                    dismiss()
+                    router.pop()
                 } label: {
                     Image(asset: DesignSystemAsset.back)
                         .font(.system(size: 17, weight: .semibold))
@@ -75,7 +76,7 @@ public struct TermsMenuView: View {
 public struct WebLinkView: View {
     public let title: String
     public let urlString: String
-    @Environment(\.dismiss) private var dismiss
+    @EnvironmentObject private var router: AppRouter
 
     public init(title: String, urlString: String) {
         self.title = title
@@ -90,7 +91,7 @@ public struct WebLinkView: View {
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
                     Button(action: {
-                        dismiss()
+                        router.pop()
                     }) {
                         Image(asset: DesignSystemAsset.back)
                             .font(.system(size: 17, weight: .semibold))

@@ -9,9 +9,10 @@
 import SwiftUI
 import DesignSystem
 import WebKit
+import Shared
 
 public struct FeedbackView: View {
-    @Environment(\.dismiss) private var dismiss
+    @EnvironmentObject private var router: AppRouter
 
     private let faqURL = "https://7xrdp4cp24a.typeform.com/to/Lkh7C9zd"
 
@@ -27,7 +28,7 @@ public struct FeedbackView: View {
             // ⬅️ Back 버튼
             ToolbarItem(placement: .navigationBarLeading) {
                 Button {
-                    dismiss()
+                    router.pop()
                 } label: {
                     Image(asset: DesignSystemAsset.back)
                         .font(.system(size: 17, weight: .semibold))

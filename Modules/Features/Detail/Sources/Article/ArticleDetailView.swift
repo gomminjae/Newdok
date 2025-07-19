@@ -17,6 +17,10 @@ public struct ArticleDetailView: View {
     @StateObject private var viewModel: ArticleDetailViewModel
     @EnvironmentObject private var router: AppRouter
     @State private var webViewHeight: CGFloat = 100
+    
+    // 북마크 토스트 상태
+    @State private var showBookmarkToast: Bool = false
+    @State private var bookmarkToastMessage: String = ""
 
     public init(viewModel: ArticleDetailViewModel) {
         _viewModel = StateObject(wrappedValue: viewModel)
@@ -88,7 +92,16 @@ public struct ArticleDetailView: View {
             ToolbarItem(placement: .topBarTrailing) {
                 Button {
                     Task {
+                        let wasBookmarked = viewModel.detail?.isBookmarked ?? false
                         await viewModel.bookmark()
+                        
+                        // 토스트 메시지 설정
+                        if wasBookmarked {
+                            bookmarkToastMessage = "북마크가 해제되었습니다."
+                        } else {
+                            bookmarkToastMessage = "북마크에 추가되었습니다."
+                        }
+                        showBookmarkToast = true
                     }
                 } label: {
                     Image(
@@ -103,6 +116,17 @@ public struct ArticleDetailView: View {
         }
         .task {
             await viewModel.fetch()
+        }
+        .popup(isPresented: $showBookmarkToast) {
+            ToastView(message: bookmarkToastMessage)
+                .padding(.bottom, 50)
+        } customize: {
+            $0
+                .type(.toast)
+                .position(.bottom)
+                .autohideIn(1)
+                .animation(.easeInOut)
+                .closeOnTapOutside(false)
         }
     }
 
