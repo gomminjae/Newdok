@@ -12,8 +12,8 @@ import DesignSystem
 import Shared
 
 public struct EditInterestView: View {
-    @Environment(\.dismiss) private var dismiss
     @ObservedObject private var viewModel: MypageViewModel
+    @EnvironmentObject private var router: AppRouter
 
     @State private var selectedIds: Set<Int> = []
 
@@ -34,10 +34,12 @@ public struct EditInterestView: View {
                     Text("관심사")
                         .font(.hanSansNeo(18, .bold))
                         .foregroundStyle(Color(hex: "1E1E1E"))
+                        .allowsHitTesting(false) // 터치 불가능하게 설정
 
                     Text("최소 3가지 이상을 선택해주세요.")
                         .font(.hanSansNeo(14, .regular))
                         .foregroundColor(Color(hex: "555555"))
+                        .allowsHitTesting(false) // 터치 불가능하게 설정
 
                     LazyVGrid(columns: columns, spacing: 12) {
                         ForEach(interests, id: \.id) { item in
@@ -68,7 +70,7 @@ public struct EditInterestView: View {
                 Task {
                     await viewModel.updateInterests(ids: Array(selectedIds))
                     viewModel.showInterestToast = true
-                    dismiss()
+                    router.pop()
                 }
             }) {
                 Text("변경하기")
@@ -85,7 +87,7 @@ public struct EditInterestView: View {
         .navigationBarBackButtonHidden(true)
         .toolbar {
             ToolbarItem(placement: .navigationBarLeading) {
-                Button { dismiss() } label: {
+                Button { router.pop() } label: {
                     Image(asset: DesignSystemAsset.back)
                         .resizable()
                         .renderingMode(.template)

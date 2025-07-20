@@ -63,6 +63,13 @@ struct QABRootView: View {
                         coordinator.makeEditProfileView()
                     case .recovery:
                         coordinator.makeRecoveryView()
+                    // 프로필 편집
+                    case .editNickname:
+                        coordinator.makeEditNicknameView()
+                    case .editIndustry:
+                        coordinator.makeEditIndustryView()
+                    case .editInterest:
+                        coordinator.makeEditInterestView()
                     case .accountManage:
                         coordinator.makeAccountManageView()
                     case .updatePassword:
@@ -109,6 +116,13 @@ struct QABRootView: View {
                         coordinator.makeEditProfileView()
                     case .recovery:
                         coordinator.makeRecoveryView()
+                    // 프로필 편집
+                    case .editNickname:
+                        coordinator.makeEditNicknameView()
+                    case .editIndustry:
+                        coordinator.makeEditIndustryView()
+                    case .editInterest:
+                        coordinator.makeEditInterestView()
                     case .accountManage:
                         coordinator.makeAccountManageView()
                     case .updatePassword:
