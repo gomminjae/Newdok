@@ -12,6 +12,7 @@ import DesignSystem
 import Foundation
 import Combine
 import Shared
+import Domain
 
 public struct EditNicknameView: View {
     
@@ -62,11 +63,29 @@ public struct EditNicknameView: View {
                 .padding(20)
             }
 
-            // ✅ 하단 고정 버튼
+            
             Button(action: {
                 Task {
                     await viewModel.updateNickname(nickname: draftNickname)
                     await viewModel.fetchuserInfo()
+                    
+                    // UserInfoStore 업데이트
+                    if let updatedUser = viewModel.user {
+                        let userInfo = UserInfo(
+                            id: updatedUser.id,
+                            loginId: updatedUser.loginId,
+                            phoneNumber: updatedUser.phoneNumber,
+                            subscribeEmail: updatedUser.subscribeEmail,
+                            nickname: draftNickname, // 변경된 닉네임 사용
+                            birthYear: updatedUser.birthYear,
+                            gender: updatedUser.gender,
+                            createdAt: updatedUser.createdAt,
+                            industryId: updatedUser.industryId,
+                            interestIds: updatedUser.interests.map { $0.id } ?? []
+                        )
+                        UserInfoStore.shared.save(userInfo)
+                    }
+                    
                     nickname = draftNickname
                     viewModel.shownicknameToast = true
                     router.pop()

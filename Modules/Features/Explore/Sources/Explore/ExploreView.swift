@@ -16,12 +16,15 @@ public struct ExploreView: View {
     @StateObject private var viewModel: ExploreViewModel
     @State private var currentPage: Int = 0
     @State private var isLoaded: Bool = false
+    @State private var userInfo: UserInfo?
     @EnvironmentObject private var router: AppRouter
     @EnvironmentObject private var exploreIntent: ExploreIntent
     
-    
-    @AppStorage("nickname") public var nickname = ""
     @AppStorage("isGuest") private var isGuest: Bool = false
+    
+    private var nickname: String {
+        return userInfo?.nickname ?? ""
+    }
 
     public init(viewModel: ExploreViewModel) {
         _viewModel = StateObject(wrappedValue: viewModel)
@@ -56,7 +59,7 @@ public struct ExploreView: View {
                                 }
                                 .background(Color(hex: "#F5F5F7"))
                             }
-                        } else {
+                        } else if viewModel.selectedTab == 1 {
                             allNewsletterSection
                                 .background(Color(hex: "#F5F5F7"))
                         }
@@ -70,22 +73,23 @@ public struct ExploreView: View {
                 viewModel.day = nil
                 viewModel.industry = nil
                 viewModel.orderOpt = "인기순"
+                // 게스트 상태 변경 시 UserInfo 업데이트
+                userInfo = UserInfoStore.shared.load()
             }
-            .onReceive(Just(exploreIntent.trigger)) { _ in
-                var didUpdate = false
+            .onChange(of: exploreIntent.trigger) { _ in
                 if let day = exploreIntent.day, viewModel.day != [day] {
                     viewModel.day = [day]
                     exploreIntent.day = nil
-                    didUpdate = true
                 }
                 if let tab = exploreIntent.selectedTab, viewModel.selectedTab != tab {
                     viewModel.selectedTab = tab
                     exploreIntent.selectedTab = nil
-                    didUpdate = true
                 }
-                // trigger는 항상 새로 할당되므로 별도 리셋 불필요
             }
             .onAppear {
+                // UserInfo 로드
+                userInfo = UserInfoStore.shared.load()
+                
                 Task {
                     if isGuest {
                         await viewModel.fetchGuestAllNewsletters()
@@ -94,8 +98,11 @@ public struct ExploreView: View {
                         await viewModel.fetchAllNewsletters()
                     }
                     isLoaded = true
-                    
                 }
+            }
+            .onReceive(NotificationCenter.default.publisher(for: UIApplication.willEnterForegroundNotification)) { _ in
+                // 앱이 포그라운드로 올 때 UserInfo 업데이트
+                userInfo = UserInfoStore.shared.load()
             }
         }
     }

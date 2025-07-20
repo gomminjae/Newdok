@@ -80,7 +80,14 @@ struct BookmarkSortBottomSheet: View {
         }
         .frame(maxHeight: .infinity, alignment: .top)
         .background(Color.white)
-        .cornerRadius(20)
+        .clipShape(
+            .rect(
+                topLeadingRadius: 24,
+                bottomLeadingRadius: 0,
+                bottomTrailingRadius: 0,
+                topTrailingRadius: 24
+            )
+        )
         .presentationDetents([.fraction(0.4)])
         .presentationDragIndicator(.visible)
     }

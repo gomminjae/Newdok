@@ -138,7 +138,10 @@ public struct HomeView: View {
                 )
             case .noSubscriptions:
                 NoDataView(type: .noSubscriptions, buttonAction: {
+                    exploreIntent.selectedTab = 0 // 추천 뉴스레터 탭으로 설정
+                    exploreIntent.trigger = UUID()
                     router.resetTo(.tabbar(selectedTab: .explore))
+                    tabSelection.selectedTab = .explore
                 })
             case .noArticles:
                 NoDataView(type: .noArticles, buttonAction: {
