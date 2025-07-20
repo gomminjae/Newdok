@@ -20,6 +20,7 @@ struct QABRootView: View {
     }
     
     @State private var launched = false
+    @State private var showUnauthorizedAlert = false
     
     init(router: AppRouter, exploreIntent: ExploreIntent) {
         self.router = router
@@ -37,112 +38,9 @@ struct QABRootView: View {
             }
             
             NavigationStack(path: $router.path) {
-                Group {
-                    switch router.root {
-                    case .onboarding:
-                        coordinator.makeOnboardingView()
-                    case .signup:
-                        coordinator.makeSignupView()
-                    case .login:
-                        coordinator.makeLoginView()
-                    case .home:
-                        coordinator.makeHomeView()
-                    case let .tabbar(selectedTab, exploreDay, exploreSelectedTab):
-                        coordinator.makeTabView(selectedTab: selectedTab, exploreDay: exploreDay, exploreSelectedTab: exploreSelectedTab)
-                    case .profile:
-                        coordinator.mekeProfileView()
-                    case .explore:
-                        coordinator.makeExploreView()
-                    case .brandDetail(let id):
-                        coordinator.makeBrandDetail(id: id)
-                        
-                    case .articleDetail(let id):
-                        coordinator.makeArticleDetail(id: id)
-                        
-                    case .editProfile:
-                        coordinator.makeEditProfileView()
-                    case .recovery:
-                        coordinator.makeRecoveryView()
-                    // 프로필 편집
-                    case .editNickname:
-                        coordinator.makeEditNicknameView()
-                    case .editIndustry:
-                        coordinator.makeEditIndustryView()
-                    case .editInterest:
-                        coordinator.makeEditInterestView()
-                    case .accountManage:
-                        coordinator.makeAccountManageView()
-                    case .updatePassword:
-                        coordinator.makeChangePasswordView()
-                    case .updatePhoneNumber:
-                        coordinator.makeChangePhoneNumberView()
-                    case .search:
-                        coordinator.makeSearchView()
-                        
-                    case .serviceFeedback:
-                        coordinator.makeServiceFeedbackView()
-                    case .withdraw:
-                        coordinator.makeWithdrawView()
-                    // 고객센터
-                    case .faq:
-                        coordinator.makeFAQView()
-                    case .feedback:
-                        coordinator.makeFeedbackView()
-                    case .termsMenu:
-                        coordinator.makeTermsMenuView()
-                    }
-                }
+                rootView
                 .navigationDestination(for: AppRoute.self) { route in
-                    switch route {
-                    case .onboarding:
-                        coordinator.makeOnboardingView()
-                    case .signup:
-                        coordinator.makeSignupView()
-                    case .login:
-                        coordinator.makeLoginView()
-                    case .home:
-                        coordinator.makeHomeView()
-                    case let .tabbar(selectedTab, exploreDay, exploreSelectedTab):
-                        coordinator.makeTabView(selectedTab: selectedTab, exploreDay: exploreDay, exploreSelectedTab: exploreSelectedTab)
-                    case .profile:
-                        coordinator.mekeProfileView()
-                    case .explore:
-                        coordinator.makeExploreView()
-                    case .brandDetail(let id):
-                        coordinator.makeBrandDetail(id: id)
-                    case .articleDetail(let id):
-                        coordinator.makeArticleDetail(id: id)
-                    case .editProfile:
-                        coordinator.makeEditProfileView()
-                    case .recovery:
-                        coordinator.makeRecoveryView()
-                    // 프로필 편집
-                    case .editNickname:
-                        coordinator.makeEditNicknameView()
-                    case .editIndustry:
-                        coordinator.makeEditIndustryView()
-                    case .editInterest:
-                        coordinator.makeEditInterestView()
-                    case .accountManage:
-                        coordinator.makeAccountManageView()
-                    case .updatePassword:
-                        coordinator.makeChangePasswordView()
-                    case .updatePhoneNumber:
-                        coordinator.makeChangePhoneNumberView()
-                    case .search:
-                        coordinator.makeSearchView()
-                    case .serviceFeedback:
-                        coordinator.makeServiceFeedbackView()
-                    case .withdraw:
-                        coordinator.makeWithdrawView()
-                    // 고객센터
-                    case .faq:
-                        coordinator.makeFAQView()
-                    case .feedback:
-                        coordinator.makeFeedbackView()
-                    case .termsMenu:
-                        coordinator.makeTermsMenuView()
-                    }
+                    destinationView(for: route)
                 }
             }
             .environmentObject(router)
@@ -155,8 +53,130 @@ struct QABRootView: View {
                 withAnimation {
                     launched = true
                     print("QABRootViewView에서 router 인스턴스: \(Unmanaged.passUnretained(router).toOpaque())")
+                    
+                    // 토큰 존재 여부만 확인
+                    if TokenStorage.hasValidToken {
+                        router.resetTo(.tabbar(selectedTab: .home))
+                    } else {
+                        router.resetTo(.login)
+                    }
                 }
             }
+        }
+        .onReceive(NotificationCenter.default.publisher(for: .didReceiveUnauthorized)) { _ in
+            // 401 에러 발생 시 팝업 표시
+            showUnauthorizedAlert = true
+        }
+        .alert("로그인이 필요합니다", isPresented: $showUnauthorizedAlert) {
+            Button("로그인하기") {
+                router.resetTo(.login)
+            }
+        } message: {
+            Text("세션이 만료되었습니다. 다시 로그인해주세요.")
+        }
+    }
+    
+    @ViewBuilder
+    private var rootView: some View {
+        switch router.root {
+        case .onboarding:
+            coordinator.makeOnboardingView()
+        case .signup:
+            coordinator.makeSignupView()
+        case .login:
+            coordinator.makeLoginView()
+        case .home:
+            coordinator.makeHomeView()
+        case let .tabbar(selectedTab, exploreDay, exploreSelectedTab):
+            coordinator.makeTabView(selectedTab: selectedTab, exploreDay: exploreDay, exploreSelectedTab: exploreSelectedTab)
+        case .profile:
+            coordinator.mekeProfileView()
+        case .explore:
+            coordinator.makeExploreView()
+        case .brandDetail(let id):
+            coordinator.makeBrandDetail(id: id)
+        case .articleDetail(let id):
+            coordinator.makeArticleDetail(id: id)
+        case .editProfile:
+            coordinator.makeEditProfileView()
+        case .recovery:
+            coordinator.makeRecoveryView()
+        case .editNickname:
+            coordinator.makeEditNicknameView()
+        case .editIndustry:
+            coordinator.makeEditIndustryView()
+        case .editInterest:
+            coordinator.makeEditInterestView()
+        case .accountManage:
+            coordinator.makeAccountManageView()
+        case .updatePassword:
+            coordinator.makeChangePasswordView()
+        case .updatePhoneNumber:
+            coordinator.makeChangePhoneNumberView()
+        case .search:
+            coordinator.makeSearchView()
+        case .serviceFeedback:
+            coordinator.makeServiceFeedbackView()
+        case .withdraw:
+            coordinator.makeWithdrawView()
+        case .faq:
+            coordinator.makeFAQView()
+        case .feedback:
+            coordinator.makeFeedbackView()
+        case .termsMenu:
+            coordinator.makeTermsMenuView()
+        }
+    }
+    
+    @ViewBuilder
+    private func destinationView(for route: AppRoute) -> some View {
+        switch route {
+        case .onboarding:
+            coordinator.makeOnboardingView()
+        case .signup:
+            coordinator.makeSignupView()
+        case .login:
+            coordinator.makeLoginView()
+        case .home:
+            coordinator.makeHomeView()
+        case let .tabbar(selectedTab, exploreDay, exploreSelectedTab):
+            coordinator.makeTabView(selectedTab: selectedTab, exploreDay: exploreDay, exploreSelectedTab: exploreSelectedTab)
+        case .profile:
+            coordinator.mekeProfileView()
+        case .explore:
+            coordinator.makeExploreView()
+        case .brandDetail(let id):
+            coordinator.makeBrandDetail(id: id)
+        case .articleDetail(let id):
+            coordinator.makeArticleDetail(id: id)
+        case .editProfile:
+            coordinator.makeEditProfileView()
+        case .recovery:
+            coordinator.makeRecoveryView()
+        case .editNickname:
+            coordinator.makeEditNicknameView()
+        case .editIndustry:
+            coordinator.makeEditIndustryView()
+        case .editInterest:
+            coordinator.makeEditInterestView()
+        case .accountManage:
+            coordinator.makeAccountManageView()
+        case .updatePassword:
+            coordinator.makeChangePasswordView()
+        case .updatePhoneNumber:
+            coordinator.makeChangePhoneNumberView()
+        case .search:
+            coordinator.makeSearchView()
+        case .serviceFeedback:
+            coordinator.makeServiceFeedbackView()
+        case .withdraw:
+            coordinator.makeWithdrawView()
+        case .faq:
+            coordinator.makeFAQView()
+        case .feedback:
+            coordinator.makeFeedbackView()
+        case .termsMenu:
+            coordinator.makeTermsMenuView()
         }
     }
 }

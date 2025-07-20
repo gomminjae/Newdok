@@ -26,6 +26,7 @@ public class BookmarkViewModel: ObservableObject, BookmarkViewModelBindable {
     @Published public var interests: [Interest] = []
     
     @Published public var bookmarks: BookmarkedArticles? = nil
+    @Published public var sortOrder: String = "추가순"
     
     private let useCase: ArticleUseCase
     
@@ -33,7 +34,38 @@ public class BookmarkViewModel: ObservableObject, BookmarkViewModelBindable {
         self.useCase = useCase
     }
     
-    
+    // MARK: - 정렬된 북마크 데이터
+    public var sortedBookmarks: BookmarkedArticles? {
+        guard let bookmarks = bookmarks else { return nil }
+        
+        let sortedMonths = bookmarks.bookmarkForMonth.map { monthData in
+            let sortedBookmarks = monthData.bookmark.sorted { first, second in
+                switch sortOrder {
+                case "추가순":
+                    // 북마크 추가 순서 (역순으로 정렬 - 최근 추가된 것이 위로)
+                    return first.articleId > second.articleId
+                case "최근 아티클 순":
+                    // 아티클 발행일 기준 최신순
+                    return first.date > second.date
+                case "오래된 아티클 순":
+                    // 아티클 발행일 기준 오래된순
+                    return first.date < second.date
+                default:
+                    return first.articleId > second.articleId
+                }
+            }
+            
+            return MonthlyBookmark(
+                month: monthData.month,
+                bookmark: sortedBookmarks
+            )
+        }
+        
+        return BookmarkedArticles(
+            totalAmount: bookmarks.totalAmount,
+            bookmarkForMonth: sortedMonths
+        )
+    }
     
     func fetchUserInterests() async  {
         Task {
@@ -52,8 +84,4 @@ public class BookmarkViewModel: ObservableObject, BookmarkViewModelBindable {
             print("북마크 불러오기 실패: \(error)")
         }
     }
-    
-    
-    
-    
 }

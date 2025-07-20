@@ -29,4 +29,13 @@ public enum TokenStorage {
     public static func clear() {
         UserDefaults.standard.removeObject(forKey: Key.accessToken)
     }
+    
+    public static var hasValidToken: Bool {
+        return accessToken != nil && !accessToken!.isEmpty
+    }
+}
+
+// MARK: - Notification Names
+public extension Notification.Name {
+    static let didReceiveUnauthorized = Notification.Name("didReceiveUnauthorized")
 }

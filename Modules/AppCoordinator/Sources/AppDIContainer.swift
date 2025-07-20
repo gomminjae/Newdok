@@ -23,6 +23,7 @@ import Mypage
 import Recovery
 import Search
 import Withdraw
+import Shared
 
 public final class AppDIContainer {
     public static let shared = AppDIContainer()
@@ -90,11 +91,10 @@ public final class AppDIContainer {
 
         // MARK: - UseCase
         container.register(UserUseCase.self) { r in
-            print("🧩 [DI] Register: UserUseCase")
-            let repo = r.resolve(UserRepository.self)!
-            print("🔗 [DI] Injected: UserRepository → UserUseCase")
-            return UserUseCaseImpl(userRepository: repo)
-        }
+            let repository = r.resolve(UserRepository.self)!
+            return UserUseCaseImpl(userRepository: repository)
+        }.inObjectScope(.container)
+        
         container.register(ArticleUseCase.self) { r in
             print("🧩 [DI] Register: UserUseCase")
             let repo = r.resolve(ArticleRepository.self)!

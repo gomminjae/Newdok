@@ -65,7 +65,7 @@ public struct WithdrawView: View {
                             isChecked.toggle()
                         }) {
                             Image(asset: isChecked ?
-                                  DesignSystemAsset.check :
+                                  DesignSystemAsset.allcheck :
                                     DesignSystemAsset.uncheck
                             )
                             .resizable()
@@ -115,7 +115,7 @@ public struct WithdrawView: View {
                             Button(action: {
                                 withdrawReasons[idx].toggle()
                             }) {
-                                Image(asset: withdrawReasons[idx] ? DesignSystemAsset.check : DesignSystemAsset.uncheck)
+                                Image(asset: withdrawReasons[idx] ? DesignSystemAsset.allcheck : DesignSystemAsset.uncheck)
                                     .resizable()
                                     .frame(width: 24, height: 24)
                             }

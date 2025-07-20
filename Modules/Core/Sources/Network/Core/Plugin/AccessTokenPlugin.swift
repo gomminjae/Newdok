@@ -10,10 +10,6 @@ import Moya
 import SwiftUI
 import Shared
 
-extension Notification.Name {
-    static let didReceiveUnauthorized = Notification.Name("didReceiveUnauthorized")
-}
-
 final class AuthPlugin: PluginType {
     
     // 헤더에 토큰 추가
@@ -35,8 +31,14 @@ final class AuthPlugin: PluginType {
             
             print("⚠️ AccessToken 만료됨. 로그인 페이지로 이동.")
 
-            // 예: Notification 발송 or AppState 업데이트
-            NotificationCenter.default.post(name: .didReceiveUnauthorized, object: nil)
+            // 토큰 삭제
+            TokenStorage.clear()
+            UserInfoStore.shared.clear()
+            
+            // 메인 스레드에서 라우터 리셋
+            DispatchQueue.main.async {
+                NotificationCenter.default.post(name: .didReceiveUnauthorized, object: nil)
+            }
         }
     }
 }
