@@ -134,26 +134,38 @@ public struct FAQView: View {
     public init() {}
 
     public var body: some View {
-        ScrollView {
-            VStack(spacing: 12) {
-                ForEach(sampleFAQs) { item in
-                    FAQRow(
-                        faq: item,
-                        isExpanded: expandedFAQID == item.id
-                    )
-                    .onTapGesture {
-                        withAnimation(.easeInOut(duration: 0.25)) {
-                            if expandedFAQID == item.id {
-                                expandedFAQID = nil
-                            } else {
-                                expandedFAQID = item.id
+        ScrollViewReader { proxy in
+            ScrollView {
+                VStack(spacing: 12) {
+                    ForEach(sampleFAQs) { item in
+                        FAQRow(
+                            faq: item,
+                            isExpanded: expandedFAQID == item.id
+                        )
+                        .id(item.id) // ScrollViewReader를 위한 ID
+                        .onTapGesture {
+                            withAnimation(.easeInOut(duration: 0.25)) {
+                                if expandedFAQID == item.id {
+                                    expandedFAQID = nil
+                                } else {
+                                    expandedFAQID = item.id
+                                    // FAQ가 열릴 때 해당 항목으로 스크롤
+                                    Task {
+                                        try? await Task.sleep(for: .milliseconds(100))
+                                        await MainActor.run {
+                                            withAnimation(.easeInOut(duration: 0.3)) {
+                                                proxy.scrollTo(item.id, anchor: .top)
+                                            }
+                                        }
+                                    }
+                                }
                             }
                         }
                     }
                 }
+                .padding(.horizontal, 16)
+                .padding(.vertical, 24)
             }
-            .padding(.horizontal, 16)
-            .padding(.vertical, 24)
         }
         .navigationBarBackButtonHidden(true)
         .navigationBarTitleDisplayMode(.inline)

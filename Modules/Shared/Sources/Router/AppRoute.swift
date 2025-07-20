@@ -21,6 +21,11 @@ public enum AppRoute: Hashable {
     case editProfile
     case recovery
     
+    // 프로필 편집
+    case editNickname
+    case editIndustry
+    case editInterest
+    
     //profile
     case accountManage
     case updatePhoneNumber

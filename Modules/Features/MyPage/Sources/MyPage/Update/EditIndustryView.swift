@@ -20,8 +20,8 @@ public struct EditIndustryView: View {
     @State private var selectedId: Int?
     @State private var isExpanded: Bool = false
 
-    @Environment(\.dismiss) private var dismiss
     @ObservedObject private var viewModel: MypageViewModel
+    @EnvironmentObject private var router: AppRouter
 
     public init(viewModel: MypageViewModel) {
         self.viewModel = viewModel
@@ -33,6 +33,7 @@ public struct EditIndustryView: View {
             Text("종사 산업")
                 .font(.hanSansNeo(14, .medium))
                 .foregroundStyle(Color(hex: "565656"))
+                .allowsHitTesting(false) // 터치 불가능하게 설정
 
             Button(action: {
                 withAnimation { isExpanded.toggle() }
@@ -95,7 +96,7 @@ public struct EditIndustryView: View {
                     guard let selectedId else { return }
                     await viewModel.updateIndustry(id: selectedId)
                     viewModel.showIndustryToast = true
-                    dismiss()
+                    router.pop()
                 }
             }) {
                 Text("변경하기")
@@ -121,7 +122,7 @@ public struct EditIndustryView: View {
         .navigationBarBackButtonHidden(true)
         .toolbar {
             ToolbarItem(placement: .navigationBarLeading) {
-                Button { dismiss() } label: {
+                Button { router.pop() } label: {
                     Image(asset: DesignSystemAsset.back)
                         .resizable()
                         .renderingMode(.template)

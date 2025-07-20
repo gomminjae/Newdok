@@ -18,7 +18,6 @@ public struct EditProfileView: View {
     @AppStorage("nickname") private var nickname: String = ""
     @State private var showEditInterest = false
 
-    @Environment(\.dismiss) private var dismiss
     @EnvironmentObject private var router: AppRouter
 
     @FocusState private var isTextFieldFocused: Bool
@@ -35,20 +34,19 @@ public struct EditProfileView: View {
                 .font(.hanSansNeo(18, .bold))
                 .padding(.top, 24)
                 .padding(.bottom, 40)
+                .allowsHitTesting(false) // 터치 불가능하게 설정
             
             // MARK: 닉네임
-            NavigationLink {
-                EditNicknameView(nickname: $nickname, viewModel: viewModel)
-                    .environmentObject(router)
+            Button {
+                router.push(.editNickname)
             } label: {
                 EditableRow(title: "닉네임", text: viewModel.user?.nickname ?? "")
             }
            
 
             // MARK: 종사산업
-            NavigationLink {
-                EditIndustryView(viewModel: viewModel)
-                    .environmentObject(router)
+            Button {
+                router.push(.editIndustry)
             } label: {
                 EditableRow(
                     title: "종사산업",
@@ -65,6 +63,7 @@ public struct EditProfileView: View {
                     Text("관심사")
                         .font(.hanSansNeo(14, .medium))
                         .foregroundStyle(Color(hex: "#565656"))
+                        .allowsHitTesting(false) // 터치 불가능하게 설정
                     
                     // 1) 원본 이름 리스트 + "+" 아이템
                     let interestNames = interests.compactMap {
@@ -85,7 +84,7 @@ public struct EditProfileView: View {
                                         let item = items[idx]
                                         if item == "+" {
                                             Button {
-                                                showEditInterest = true
+                                                router.push(.editInterest)
                                             } label: {
                                                 Image(asset: DesignSystemAsset.linePlus)
                                                     .renderingMode(.template)
@@ -109,6 +108,7 @@ public struct EditProfileView: View {
                                                     RoundedRectangle(cornerRadius: 16)
                                                         .stroke(Color(hex: "#DADADA"))
                                                 )
+                                                .allowsHitTesting(false) // 터치 불가능하게 설정
                                         }
                                     } else {
                                         // 남는 칸 채우기
@@ -120,22 +120,13 @@ public struct EditProfileView: View {
                             }
                         }
                     }
-                    // 4) 네비게이션 링크 (숨김)
-                    NavigationLink(
-                        destination: EditInterestView(viewModel: viewModel)
-                            .environmentObject(router),
-                        isActive: $showEditInterest
-                    ) {
-                        EmptyView()
-                    }
-                    .hidden()
+                    // 4) 네비게이션 링크 제거 (router.push() 사용)
                 }
                 .padding(.top,24)
             } else {
                 // 관심사 없음 시
-                NavigationLink {
-                    EditInterestView(viewModel: viewModel)
-                        .environmentObject(router)
+                Button {
+                    router.push(.editInterest)
                 } label: {
                     EditableRow(
                         title: "관심사",
@@ -156,7 +147,7 @@ public struct EditProfileView: View {
         .navigationBarBackButtonHidden(true)
         .toolbar {
             ToolbarItem(placement: .navigationBarLeading) {
-                Button { dismiss() } label: {
+                Button { router.pop() } label: {
                     Image(asset: DesignSystemAsset.back)
                         .resizable()
                         .renderingMode(.template)
@@ -177,7 +168,7 @@ public struct EditProfileView: View {
             }
         }
         .hideKeyboardOnTap()
-        // TOASTS…
+        // TOAST
         .popup(isPresented: $viewModel.shownicknameToast) {
             ToastView(message: "닉네임이 변경되었습니다.")
                 .padding(.bottom, 50)

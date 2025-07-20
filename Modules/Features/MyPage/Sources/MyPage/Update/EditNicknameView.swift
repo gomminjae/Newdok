@@ -20,7 +20,6 @@ public struct EditNicknameView: View {
     @State private var validationState: ValidationState = .none
     @FocusState private var isFocused: Bool
     
-    @Environment(\.dismiss) private var dismiss
     @ObservedObject private var viewModel: MypageViewModel
     @EnvironmentObject private var router: AppRouter
     
@@ -36,6 +35,7 @@ public struct EditNicknameView: View {
                 VStack(alignment: .leading, spacing: 12) {
                     Text("닉네임")
                         .font(.hanSansNeo(14, .medium))
+                        .allowsHitTesting(false) // 터치 불가능하게 설정
                     
                     TextField("닉네임을 입력해주세요", text: $draftNickname)
                         .padding()
@@ -55,6 +55,7 @@ public struct EditNicknameView: View {
                     Text(validationState.message)
                         .font(.hanSansNeo(12, .medium))
                         .foregroundColor(validationState.textColor)
+                        .allowsHitTesting(false) // 터치 불가능하게 설정
 
                     Spacer().frame(height: 100) // 변경하기 버튼 여백 확보
                 }
@@ -68,7 +69,7 @@ public struct EditNicknameView: View {
                     await viewModel.fetchuserInfo()
                     nickname = draftNickname
                     viewModel.shownicknameToast = true
-                    dismiss()
+                    router.pop()
                 }
             }) {
                 Text("변경하기")
@@ -88,7 +89,7 @@ public struct EditNicknameView: View {
         .toolbar {
             ToolbarItem(placement: .navigationBarLeading) {
                 Button {
-                    dismiss()
+                    router.pop()
                 } label: {
                     Image(asset: DesignSystemAsset.back)
                         .resizable()

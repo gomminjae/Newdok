@@ -79,7 +79,9 @@ public struct MypageView: View {
                         }
 
                         // 프로필 편집 버튼 (가로 전체)
-                        NavigationLink(destination: EditProfileView(viewModel: viewModel).environmentObject(router)) {
+                        Button {
+                            router.push(.editProfile)
+                        } label: {
                             Text("프로필 편집")
                                 .font(.hanSansNeo(14, .bold))
                                 .foregroundColor(Color(hex: "#565656"))
