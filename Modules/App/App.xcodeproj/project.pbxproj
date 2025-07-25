@@ -12,6 +12,7 @@
 		1DAF338EC3091F9B6BB61A11 /* Detail.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6FB9E693CAE8686756749690 /* Detail.framework */; };
 		2DE80C03EB54000E5739A402 /* Lottie.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D8D0032BDB6056ABD545447D /* Lottie.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		2DECB327F9E1EFE0AE533114 /* Launch.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7E710496E985656C6B2D0826 /* Launch.framework */; };
+		2E743A6F76CCB6064D781210 /* TuistAssets+App.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95D529DAAF6A9D59C44D9D68 /* TuistAssets+App.swift */; };
 		2F849686E3F1AB9940B88C90 /* Explore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 233D852B07E4FC2B2B1F1179 /* Explore.framework */; };
 		30A760CEBD549F168553106C /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E38436ED8889DC7424B93FD /* ContentView.swift */; };
 		326C0B3CADC173970CDF3EAF /* Auth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 709ECB981BF7FB2A9D697179 /* Auth.framework */; };
@@ -44,6 +45,7 @@
 		F099CD980652945E75D48F5F /* Alamofire_Alamofire.bundle in Resources */ = {isa = PBXBuildFile; fileRef = FA19395CE67AB6554BDAFCF5 /* Alamofire_Alamofire.bundle */; };
 		F343BFC34A1F6F392C331803 /* Data.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8AF7E105F5FEC83A7A47F2E7 /* Data.framework */; };
 		F4F71442B9CC6C3E397CD7E8 /* Search.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 460AADA523E2A539BF85F4C6 /* Search.framework */; };
+		FE078F42728C23B77EE02A1B /* TuistBundle+App.swift in Sources */ = {isa = PBXBuildFile; fileRef = 083CD4D343ECF7F321C1905D /* TuistBundle+App.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -76,6 +78,7 @@
 
 /* Begin PBXFileReference section */
 		01E1AA015F9EE84780DE15E5 /* App-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "App-Info.plist"; sourceTree = "<group>"; };
+		083CD4D343ECF7F321C1905D /* TuistBundle+App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TuistBundle+App.swift"; sourceTree = "<group>"; };
 		0E742829AD9D1D2B50EFB2A0 /* NewdokApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewdokApp.swift; sourceTree = "<group>"; };
 		233D852B07E4FC2B2B1F1179 /* Explore.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Explore.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		460AADA523E2A539BF85F4C6 /* Search.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Search.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -98,6 +101,7 @@
 		8AF7E105F5FEC83A7A47F2E7 /* Data.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Data.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8B1527264C4AA3A482CBDF02 /* SwiftUIIntrospect.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SwiftUIIntrospect.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8F7F83A194E1D17030DCA033 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		95D529DAAF6A9D59C44D9D68 /* TuistAssets+App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TuistAssets+App.swift"; sourceTree = "<group>"; };
 		AAE3FEC5495E2E1AF26A4BA3 /* Signup.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Signup.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		AB40F3B3D8E2DCB2AC3C9605 /* Shared.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Shared.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BC0AA1A8806B18EBA97671BC /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
@@ -224,10 +228,20 @@
 			path = Sources;
 			sourceTree = "<group>";
 		};
+		8919B428B639C6AF4BBFE002 /* Sources */ = {
+			isa = PBXGroup;
+			children = (
+				95D529DAAF6A9D59C44D9D68 /* TuistAssets+App.swift */,
+				083CD4D343ECF7F321C1905D /* TuistBundle+App.swift */,
+			);
+			path = Sources;
+			sourceTree = "<group>";
+		};
 		B3BCDE38B26B330C9A04FADE /* Derived */ = {
 			isa = PBXGroup;
 			children = (
 				66EB57D721CBB7D427955C21 /* InfoPlists */,
+				8919B428B639C6AF4BBFE002 /* Sources */,
 			);
 			path = Derived;
 			sourceTree = "<group>";
@@ -352,6 +366,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2E743A6F76CCB6064D781210 /* TuistAssets+App.swift in Sources */,
+				FE078F42728C23B77EE02A1B /* TuistBundle+App.swift in Sources */,
 				30A760CEBD549F168553106C /* ContentView.swift in Sources */,
 				79CC342CF73CCAAFEF0E7A8A /* NewdokApp.swift in Sources */,
 			);

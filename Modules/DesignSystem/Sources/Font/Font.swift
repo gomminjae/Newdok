@@ -10,10 +10,14 @@ import UIKit
 
 // MARK: - Font Registration
 public class DesignSystemFontFamily {
+    private static var isRegistered = false
+
     public static func registerAllCustomFonts() {
+        guard !isRegistered else { return } // 중복 방지
+
         let fontNames = [
             "SpoqaHanSansNeo-Bold",
-            "SpoqaHanSansNeo-Medium", 
+            "SpoqaHanSansNeo-Medium",
             "SpoqaHanSansNeo-Regular",
             "SpoqaHanSansNeo-Light",
             "SpoqaHanSansNeo-Thin"
@@ -24,8 +28,11 @@ public class DesignSystemFontFamily {
                 CTFontManagerRegisterFontsForURL(fontURL as CFURL, .process, nil)
             }
         }
+
+        isRegistered = true
     }
 }
+
 
 public extension Font {
     static func hanSansNeo(_ size: CGFloat, _ weight: Font.Weight = .regular) -> Font {
