@@ -38,13 +38,11 @@ public class FetchHomeDataUseCaseImpl: FetchHomeDataUseCase {
 //        )
 //    }
     public func fetchTodayData() async throws -> Domain.HomeData {
-        let newsletters = try await newsletterRepo.fetchActiveSubscription()
-
-        guard !newsletters.isEmpty else {
-            return HomeData(articles: [], activeNewsletters: [])
-        }
-
+        // 1. today 아티클을 먼저 가져오기
         let articles = try await articleRepo.fetchTodayArticles()
+        
+        // 2. 그 다음에 active 구독 가져오기  
+        let newsletters = try await newsletterRepo.fetchActiveSubscription()
 
         return HomeData(
             articles: articles,

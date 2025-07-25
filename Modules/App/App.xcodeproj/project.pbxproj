@@ -17,6 +17,7 @@
 		326C0B3CADC173970CDF3EAF /* Auth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 709ECB981BF7FB2A9D697179 /* Auth.framework */; };
 		3FE2BD4372A1E20D9D2681C4 /* Recovery.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E53A049CE6F69A633917A902 /* Recovery.framework */; };
 		4787DFDD71F731243F3587AF /* Domain.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6BEB75E9463ACE494A73BD36 /* Domain.framework */; };
+		48469C5111BF762561C9B9B6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8F7F83A194E1D17030DCA033 /* Assets.xcassets */; };
 		59A432F4E898F1FA8C82060B /* AppCoordinator.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A65CE92104CB94E62A35C87 /* AppCoordinator.framework */; };
 		618C5A4BDBBDA7F1A2F8DC93 /* Home.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 76E66C32BAE4D2C1EE4C64CB /* Home.framework */; };
 		700AEC4BAEF5248CFB02D019 /* Signup.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = AAE3FEC5495E2E1AF26A4BA3 /* Signup.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -36,6 +37,7 @@
 		AF9D6DE8E0ADF6A3E1DBC7C1 /* Swinject.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CBAA8A4525B9603900027A00 /* Swinject.framework */; };
 		C096EDCC85582A3605D51A6D /* Kingfisher_Kingfisher.bundle in Dependencies */ = {isa = PBXBuildFile; fileRef = BEA84935B5BCB66E6882A426 /* Kingfisher_Kingfisher.bundle */; };
 		CAC34288B9F9A43D57E874D8 /* Signup.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AAE3FEC5495E2E1AF26A4BA3 /* Signup.framework */; };
+		DFA60B2A737D9DB9D1E28EA9 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BC0AA1A8806B18EBA97671BC /* Preview Assets.xcassets */; };
 		E492654A9AF926A52A47BCCC /* Mypage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6AE449FC872A10DA9227F0A7 /* Mypage.framework */; };
 		E876353B6A37EF48E58A9D39 /* PopupView.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D4C1070D34B90B47363412F /* PopupView.framework */; };
 		EDABF86DD6296CAC9AD96B35 /* _LottieStub.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E102A765D040186A138C3A9 /* _LottieStub.framework */; };
@@ -73,6 +75,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		01E1AA015F9EE84780DE15E5 /* App-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "App-Info.plist"; sourceTree = "<group>"; };
 		0E742829AD9D1D2B50EFB2A0 /* NewdokApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewdokApp.swift; sourceTree = "<group>"; };
 		233D852B07E4FC2B2B1F1179 /* Explore.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Explore.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		460AADA523E2A539BF85F4C6 /* Search.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Search.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -94,15 +97,16 @@
 		87E0141C5CFAEAAED687FD6F /* Withdraw.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Withdraw.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8AF7E105F5FEC83A7A47F2E7 /* Data.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Data.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8B1527264C4AA3A482CBDF02 /* SwiftUIIntrospect.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SwiftUIIntrospect.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		8F7F83A194E1D17030DCA033 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		AAE3FEC5495E2E1AF26A4BA3 /* Signup.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Signup.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		AB40F3B3D8E2DCB2AC3C9605 /* Shared.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Shared.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		BC0AA1A8806B18EBA97671BC /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		BEA84935B5BCB66E6882A426 /* Kingfisher_Kingfisher.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Kingfisher_Kingfisher.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
 		C863CB0D96F66393E87E9112 /* Survey.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Survey.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CBAA8A4525B9603900027A00 /* Swinject.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Swinject.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D8D0032BDB6056ABD545447D /* Lottie.xcframework */ = {isa = PBXFileReference; expectedSignature = "SelfSigned:892F1B43047B50538F2F46EAD92900DD3D4811F3582178C061A5FB20F111CB26"; lastKnownFileType = wrapper.xcframework; path = Lottie.xcframework; sourceTree = "<group>"; };
 		E53A049CE6F69A633917A902 /* Recovery.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Recovery.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E9369BFA2C65412102538303 /* DesignSystem.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = DesignSystem.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		F13E636A9305A42EC91FE66D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		FA19395CE67AB6554BDAFCF5 /* Alamofire_Alamofire.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Alamofire_Alamofire.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -170,11 +174,20 @@
 		52611B11A5E6A7198C4E57A3 /* Project */ = {
 			isa = PBXGroup;
 			children = (
+				B3BCDE38B26B330C9A04FADE /* Derived */,
 				62EFB15EC88C1D2636544B42 /* Resources */,
 				858C4E433DBF0294DFED1B0C /* Sources */,
 				4FFC2DDE62C74F3CF60D4731 /* Tuist */,
 			);
 			name = Project;
+			sourceTree = "<group>";
+		};
+		5496927CB02B7F7C32C4AE47 /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				BC0AA1A8806B18EBA97671BC /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
 			sourceTree = "<group>";
 		};
 		5604A528C75D6AB766A91014 /* lottie-spm */ = {
@@ -188,9 +201,18 @@
 		62EFB15EC88C1D2636544B42 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				F13E636A9305A42EC91FE66D /* Info.plist */,
+				5496927CB02B7F7C32C4AE47 /* Preview Content */,
+				8F7F83A194E1D17030DCA033 /* Assets.xcassets */,
 			);
 			path = Resources;
+			sourceTree = "<group>";
+		};
+		66EB57D721CBB7D427955C21 /* InfoPlists */ = {
+			isa = PBXGroup;
+			children = (
+				01E1AA015F9EE84780DE15E5 /* App-Info.plist */,
+			);
+			path = InfoPlists;
 			sourceTree = "<group>";
 		};
 		858C4E433DBF0294DFED1B0C /* Sources */ = {
@@ -200,6 +222,14 @@
 				0E742829AD9D1D2B50EFB2A0 /* NewdokApp.swift */,
 			);
 			path = Sources;
+			sourceTree = "<group>";
+		};
+		B3BCDE38B26B330C9A04FADE /* Derived */ = {
+			isa = PBXGroup;
+			children = (
+				66EB57D721CBB7D427955C21 /* InfoPlists */,
+			);
+			path = Derived;
 			sourceTree = "<group>";
 		};
 		BC8F91C2FAA18CA0D1391EB7 /* .build */ = {
@@ -308,6 +338,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				48469C5111BF762561C9B9B6 /* Assets.xcassets in Resources */,
+				DFA60B2A737D9DB9D1E28EA9 /* Preview Assets.xcassets in Resources */,
 				F099CD980652945E75D48F5F /* Alamofire_Alamofire.bundle in Resources */,
 				81EB0128D84DCC5895B5438C /* Kingfisher_Kingfisher.bundle in Resources */,
 			);
@@ -338,13 +370,13 @@
 					"$(inherited)",
 					"$(SRCROOT)/../../Tuist/.build/artifacts/lottie-spm/Lottie",
 				);
-				INFOPLIST_FILE = Resources/Info.plist;
+				INFOPLIST_FILE = "Derived/InfoPlists/App-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.minjae.Newdok;
+				PRODUCT_BUNDLE_IDENTIFIER = com.newdok.app;
 				PRODUCT_NAME = App;
 				SDKROOT = iphoneos;
 				SUPPORTS_MACCATALYST = NO;
@@ -421,13 +453,13 @@
 					"$(inherited)",
 					"$(SRCROOT)/../../Tuist/.build/artifacts/lottie-spm/Lottie",
 				);
-				INFOPLIST_FILE = Resources/Info.plist;
+				INFOPLIST_FILE = "Derived/InfoPlists/App-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.minjae.Newdok;
+				PRODUCT_BUNDLE_IDENTIFIER = com.newdok.app;
 				PRODUCT_NAME = App;
 				SDKROOT = iphoneos;
 				SUPPORTS_MACCATALYST = NO;

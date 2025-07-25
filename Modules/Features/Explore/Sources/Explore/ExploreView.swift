@@ -464,13 +464,13 @@ public struct ExploreView: View {
                     .padding(.bottom, 80)
                 }
                 .onChange(of: viewModel.orderOpt) { _ in
-                    // 필터 변경 시 즉시 스크롤하지 않음
+                    // 필터 변경 시 자동 호출 제거 - 적용하기 버튼에서만 호출
                 }
                 .onChange(of: viewModel.industry) { _ in
-                    // 필터 변경 시 즉시 스크롤하지 않음
+                    // 필터 변경 시 자동 호출 제거 - 적용하기 버튼에서만 호출
                 }
                 .onChange(of: viewModel.day) { _ in
-                    // 필터 변경 시 즉시 스크롤하지 않음
+                    // 필터 변경 시 자동 호출 제거 - 적용하기 버튼에서만 호출
                 }
                 .onChange(of: viewModel.shouldScrollToTop) { shouldScroll in
                     if shouldScroll {

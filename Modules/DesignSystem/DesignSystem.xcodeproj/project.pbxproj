@@ -9,13 +9,8 @@
 /* Begin PBXBuildFile section */
 		02CC97ABFD780062F1EB4548 /* Shared.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56A7772AA0518B04428BE5C5 /* Shared.framework */; };
 		07AB90021A70B1D55E233DDA /* NoDataView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AF6A52DBE12C84500829BA2 /* NoDataView.swift */; };
-		0BFDC77A09ED37206E78FD25 /* SpoqaHanSansNeo-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = D45E4F8E9B8A1813A5ADE0C1 /* SpoqaHanSansNeo-Light.otf */; };
-		13DF60422EC2F2B2EBA47DB5 /* SpoqaHanSansNeo-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 56DFA51B1676775D07DC3DD2 /* SpoqaHanSansNeo-Regular.otf */; };
 		1FA24D3FDDFF21AFE5CFC0D9 /* NetworkErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43927DC076C8D16C0564FAD5 /* NetworkErrorView.swift */; };
-		2C2A6F1B0843699ACFE53D23 /* TuistFonts+DesignSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1489E7809DA4DADA471C2CDC /* TuistFonts+DesignSystem.swift */; };
-		317C16F03A5E8BF0EA256954 /* SpoqaHanSansNeo-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = 3A89362609648144517CFE75 /* SpoqaHanSansNeo-Medium.otf */; };
 		41412A573756BE6C91B6AA4D /* ToastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1516FE4B1E4C70074B90CC52 /* ToastView.swift */; };
-		4C768B0DAB889891D8E0145C /* SpoqaHanSansNeo-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 1CFCDF29DFB293A9C3F9D6D9 /* SpoqaHanSansNeo-Bold.otf */; };
 		4D1C8FAC5AA3A85D2B2BFAAF /* Color+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B424097EED4FD25BE22C5E1 /* Color+Extension.swift */; };
 		574EA4DB241751A576797002 /* NotRegisteredIdPopupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDF5531123A3004A8540D621 /* NotRegisteredIdPopupView.swift */; };
 		68B44B93AD7ED2B47CD71A4A /* SubscribeGuestAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F04616C3C5DB23A49097D3BF /* SubscribeGuestAlertView.swift */; };
@@ -26,7 +21,6 @@
 		8A9C0A8F4FB5F65357DC241E /* SubscribeNoticeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 927C881A2F81BA000C05ABEF /* SubscribeNoticeView.swift */; };
 		90D6A5AEB9B8DACDEBE64A29 /* SystemErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE683B09BDE84B3483EE6137 /* SystemErrorView.swift */; };
 		963BD2E45D7172CE4BF69364 /* VerificationButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DEFF305135085B93F19593 /* VerificationButtonStyle.swift */; };
-		99AD012E16AE91B0DA8273E7 /* SpoqaHanSansNeo-Thin.otf in Resources */ = {isa = PBXBuildFile; fileRef = 1EAA4A417D2996F4DF2DED40 /* SpoqaHanSansNeo-Thin.otf */; };
 		ABB14811E13F7B1ECCF8B086 /* TuistAssets+DesignSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5263BC75B281154AC0B5A7B /* TuistAssets+DesignSystem.swift */; };
 		BC4360B914A0E6C10A4A851E /* CheckSubscribeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CF8A496C7E691DCF3A7C603 /* CheckSubscribeView.swift */; };
 		C8D90AC5678D38A5384D18CB /* loading.lottie in Resources */ = {isa = PBXBuildFile; fileRef = 0C918DE4045E4B8B6D6D2217 /* loading.lottie */; };
@@ -62,17 +56,12 @@
 		0B424097EED4FD25BE22C5E1 /* Color+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Extension.swift"; sourceTree = "<group>"; };
 		0B4CDA86843A89A3AD229E60 /* CustomTextFieldModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextFieldModifier.swift; sourceTree = "<group>"; };
 		0C918DE4045E4B8B6D6D2217 /* loading.lottie */ = {isa = PBXFileReference; path = loading.lottie; sourceTree = "<group>"; };
-		1489E7809DA4DADA471C2CDC /* TuistFonts+DesignSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TuistFonts+DesignSystem.swift"; sourceTree = "<group>"; };
 		1516FE4B1E4C70074B90CC52 /* ToastView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastView.swift; sourceTree = "<group>"; };
-		1CFCDF29DFB293A9C3F9D6D9 /* SpoqaHanSansNeo-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SpoqaHanSansNeo-Bold.otf"; sourceTree = "<group>"; };
-		1EAA4A417D2996F4DF2DED40 /* SpoqaHanSansNeo-Thin.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SpoqaHanSansNeo-Thin.otf"; sourceTree = "<group>"; };
-		3A89362609648144517CFE75 /* SpoqaHanSansNeo-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SpoqaHanSansNeo-Medium.otf"; sourceTree = "<group>"; };
 		41950894E4E9C8FF11201792 /* AuthFailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthFailView.swift; sourceTree = "<group>"; };
 		43927DC076C8D16C0564FAD5 /* NetworkErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkErrorView.swift; sourceTree = "<group>"; };
 		4B7519630D4BA8D550F1D471 /* BirthYearPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BirthYearPickerView.swift; sourceTree = "<group>"; };
 		4F6AF114A38FDBD9663A6B1B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		56A7772AA0518B04428BE5C5 /* Shared.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Shared.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		56DFA51B1676775D07DC3DD2 /* SpoqaHanSansNeo-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SpoqaHanSansNeo-Regular.otf"; sourceTree = "<group>"; };
 		69B7BBEAD5472C7195924AC8 /* DesignSystem.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = DesignSystem.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6AF6A52DBE12C84500829BA2 /* NoDataView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoDataView.swift; sourceTree = "<group>"; };
 		72E2C18DBF37D6CEFC146ADE /* UpdateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateView.swift; sourceTree = "<group>"; };
@@ -90,7 +79,6 @@
 		C8C517C8B4DCEC79C458B727 /* OverlayRootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverlayRootView.swift; sourceTree = "<group>"; };
 		CB0349579BBC3ABA50086B52 /* FAQView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FAQView.swift; sourceTree = "<group>"; };
 		CD2A1BFFD4D22BB78D3CF32E /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
-		D45E4F8E9B8A1813A5ADE0C1 /* SpoqaHanSansNeo-Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SpoqaHanSansNeo-Light.otf"; sourceTree = "<group>"; };
 		DE683B09BDE84B3483EE6137 /* SystemErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SystemErrorView.swift; sourceTree = "<group>"; };
 		F04616C3C5DB23A49097D3BF /* SubscribeGuestAlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscribeGuestAlertView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -200,7 +188,6 @@
 		9C29548CCBEAF62FB7951500 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				B26E41B36113DA07FB8E0185 /* Font */,
 				4F6AF114A38FDBD9663A6B1B /* Assets.xcassets */,
 				0C918DE4045E4B8B6D6D2217 /* loading.lottie */,
 			);
@@ -211,18 +198,6 @@
 			isa = PBXGroup;
 			children = (
 				0892589FC56FB3A98055F459 /* Font.swift */,
-			);
-			path = Font;
-			sourceTree = "<group>";
-		};
-		B26E41B36113DA07FB8E0185 /* Font */ = {
-			isa = PBXGroup;
-			children = (
-				1CFCDF29DFB293A9C3F9D6D9 /* SpoqaHanSansNeo-Bold.otf */,
-				D45E4F8E9B8A1813A5ADE0C1 /* SpoqaHanSansNeo-Light.otf */,
-				3A89362609648144517CFE75 /* SpoqaHanSansNeo-Medium.otf */,
-				56DFA51B1676775D07DC3DD2 /* SpoqaHanSansNeo-Regular.otf */,
-				1EAA4A417D2996F4DF2DED40 /* SpoqaHanSansNeo-Thin.otf */,
 			);
 			path = Font;
 			sourceTree = "<group>";
@@ -240,7 +215,6 @@
 			children = (
 				A5263BC75B281154AC0B5A7B /* TuistAssets+DesignSystem.swift */,
 				BE4AD9735556ECA8C8008FEC /* TuistBundle+DesignSystem.swift */,
-				1489E7809DA4DADA471C2CDC /* TuistFonts+DesignSystem.swift */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -333,11 +307,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				D2E21543F5B3B63472BE98A1 /* Assets.xcassets in Resources */,
-				4C768B0DAB889891D8E0145C /* SpoqaHanSansNeo-Bold.otf in Resources */,
-				0BFDC77A09ED37206E78FD25 /* SpoqaHanSansNeo-Light.otf in Resources */,
-				317C16F03A5E8BF0EA256954 /* SpoqaHanSansNeo-Medium.otf in Resources */,
-				13DF60422EC2F2B2EBA47DB5 /* SpoqaHanSansNeo-Regular.otf in Resources */,
-				99AD012E16AE91B0DA8273E7 /* SpoqaHanSansNeo-Thin.otf in Resources */,
 				C8D90AC5678D38A5384D18CB /* loading.lottie in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -351,7 +320,6 @@
 			files = (
 				ABB14811E13F7B1ECCF8B086 /* TuistAssets+DesignSystem.swift in Sources */,
 				F6018B5F7748E322214C52D6 /* TuistBundle+DesignSystem.swift in Sources */,
-				2C2A6F1B0843699ACFE53D23 /* TuistFonts+DesignSystem.swift in Sources */,
 				6F4DC4FB98D3EF58306E1CDA /* BackButton.swift in Sources */,
 				6FA6F7AF062FC90DCAC6940E /* FAQView.swift in Sources */,
 				963BD2E45D7172CE4BF69364 /* VerificationButtonStyle.swift in Sources */,

@@ -12,7 +12,7 @@ let dependencies = Dependencies(
         ), 
         .remote(
             url: "https://github.com/onevcat/Kingfisher", 
-            requirment: .upToNextMajor(from: "8.0.0")
+            requirement: .upToNextMajor(from: "8.0.0")
         ),
 
     ],

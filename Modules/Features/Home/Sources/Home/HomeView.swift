@@ -134,25 +134,34 @@ public struct HomeView: View {
                 NoDataView(
                     type: .requireSignUp,
                     buttonAction: { router.push(.signup) },
-                    loginAction: { router.push(.login) }
+                    loginAction: { router.push(.login) },
+                    refreshAction: { Task { await viewModel.loadToday() } }
                 )
             case .noSubscriptions:
-                NoDataView(type: .noSubscriptions, buttonAction: {
-                    exploreIntent.selectedTab = 0 // 추천 뉴스레터 탭으로 설정
-                    exploreIntent.trigger = UUID()
-                    router.resetTo(.tabbar(selectedTab: .explore))
-                    tabSelection.selectedTab = .explore
-                })
+                NoDataView(
+                    type: .noSubscriptions, 
+                    buttonAction: {
+                        exploreIntent.selectedTab = 0 // 추천 뉴스레터 탭으로 설정
+                        exploreIntent.trigger = UUID()
+                        router.resetTo(.tabbar(selectedTab: .explore))
+                        tabSelection.selectedTab = .explore
+                    },
+                    refreshAction: { Task { await viewModel.loadToday() } }
+                )
             case .noArticles:
-                NoDataView(type: .noArticles, buttonAction: {
-                    let weekday = Calendar.current.component(.weekday, from: viewModel.selectedDate)
-                    let dayIndex = convertWeekdayToExploreIndex(weekday)
-                    exploreIntent.day = dayIndex
-                    exploreIntent.selectedTab = 1
-                    exploreIntent.trigger = UUID()
-                    router.resetTo(.tabbar(selectedTab: .explore))
-                    tabSelection.selectedTab = .explore
-                })
+                NoDataView(
+                    type: .noArticles, 
+                    buttonAction: {
+                        let weekday = Calendar.current.component(.weekday, from: viewModel.selectedDate)
+                        let dayIndex = convertWeekdayToExploreIndex(weekday)
+                        exploreIntent.day = dayIndex
+                        exploreIntent.selectedTab = 1
+                        exploreIntent.trigger = UUID()
+                        router.resetTo(.tabbar(selectedTab: .explore))
+                        tabSelection.selectedTab = .explore
+                    },
+                    refreshAction: { Task { await viewModel.loadToday() } }
+                )
             case .articles:
                 articlesSection
             }

@@ -82,14 +82,22 @@ public final class HomeViewModel: ObservableObject {
             return .none
         }
 
+        // 둘 다 없음 - 구독 안내
         if subscribedNewsletters.isEmpty && filteredArticles.isEmpty {
             return .noSubscriptions
         }
 
+        // 구독은 없지만 아티클은 있음 (구독 확인 메일 온 경우) - 구독 안내
+        if subscribedNewsletters.isEmpty && !filteredArticles.isEmpty {
+            return .noSubscriptions
+        }
+
+        // 구독은 있지만 아티클이 없음 - 아티클 안내
         if filteredArticles.isEmpty {
             return .noArticles
         }
 
+        // 둘 다 있음 - 아티클 표시
         return .articles
     }
     public var activeArticeDays: [Int] {

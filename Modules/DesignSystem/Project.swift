@@ -13,11 +13,17 @@ let project = Project(
             deploymentTargets: .iOS("17.0"),
             infoPlist: .default,
             sources: ["Sources/**"],
-            resources: ["Resources/**"],
+            resources: [
+                "Resources/**"
+            ],
             dependencies: [
                 .project(target: "Shared", path: "../Shared"), 
             ]
         )
+    ],
+    resourceSynthesizers: [
+        .assets(),
+        .fonts()
     ]
 )
 

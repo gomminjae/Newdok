@@ -8,10 +8,58 @@ let project = Project(
             name: "App",
             destinations: .iOS,
             product: .app,
-            bundleId: "com.minjae.Newdok",
+            bundleId: "com.newdok.app",
             deploymentTargets: .iOS("17.0"),
-            infoPlist: "Resources/Info.plist",
+            infoPlist: .extendingDefault(
+                with: [
+                    "CFBundleName": "Newdok",
+                    "CFBundleDisplayName": "Newdok",
+                    "CFBundleShortVersionString": "1.0.0",
+                    "CFBundleVersion": "1",
+                    "UILaunchScreen": [
+                        "UIColorName": "AccentColor",
+                        "UIImageName": "",
+                    ],
+                    "NSAppTransportSecurity": [
+                        "NSAllowsArbitraryLoads": true,
+                        "NSExceptionDomains": [
+                            "localhost": [
+                                "NSExceptionAllowsInsecureHTTPLoads": true
+                            ]
+                        ]
+                    ],
+                    "UIUserInterfaceStyle": "Light",
+                    "UISupportedInterfaceOrientations": [
+                        "UIInterfaceOrientationPortrait"
+                    ],
+                    "UISupportedInterfaceOrientations~ipad": [
+                        "UIInterfaceOrientationPortrait",
+                        "UIInterfaceOrientationPortraitUpsideDown",
+                        "UIInterfaceOrientationLandscapeLeft",
+                        "UIInterfaceOrientationLandscapeRight"
+                    ],
+
+                    "NSCameraUsageDescription": "프로필 사진 촬영을 위해 카메라 접근이 필요합니다.",
+                    "NSPhotoLibraryUsageDescription": "프로필 사진 선택을 위해 사진 라이브러리 접근이 필요합니다.",
+                    "NSUserNotificationsUsageDescription": "새로운 뉴스레터 알림을 받기 위해 알림 권한이 필요합니다.",
+                    "UIBackgroundModes": [
+                        "background-fetch",
+                        "background-processing"
+                    ],
+                    "LSApplicationCategoryType": "public.app-category.news",
+                    "CFBundleURLTypes": [
+                        [
+                            "CFBundleURLName": "com.newdok.app",
+                            "CFBundleURLSchemes": ["newdok"]
+                        ]
+                    ],
+                    "ITSAppUsesNonExemptEncryption": false
+                ]
+            ),
             sources: ["Sources/**"],
+            resources: [
+                "Resources/**"
+            ],
             dependencies: [
                 .project(target: "Core", path: "../Core"),
                 .project(target: "DesignSystem", path: "../DesignSystem"),

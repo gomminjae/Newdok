@@ -78,15 +78,18 @@ public struct NoDataView: View {
     let type: NoDataType
     let buttonAction: () -> Void
     let loginAction: (() -> Void)?
+    let refreshAction: (() -> Void)?
 
     public init(
         type: NoDataType,
         buttonAction: @escaping () -> Void,
-        loginAction: (() -> Void)? = nil
+        loginAction: (() -> Void)? = nil,
+        refreshAction: (() -> Void)? = nil
     ) {
         self.type = type
         self.buttonAction = buttonAction
         self.loginAction = loginAction
+        self.refreshAction = refreshAction
     }
 
     public var body: some View {
@@ -94,7 +97,7 @@ public struct NoDataView: View {
             HStack(spacing: 0) {
                 Spacer()
                 Button(action: {
-                    print("새로고침")
+                    refreshAction?()
                 }) {
                     HStack(spacing: 0) {
                         Image(asset: DesignSystemAsset.lineReload)

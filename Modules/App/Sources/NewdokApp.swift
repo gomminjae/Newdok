@@ -20,8 +20,11 @@ struct NewdokApp: App {
     @StateObject private var exploreIntent = ExploreIntent()
 
     init() {
+        // DesignSystem 폰트 등록
         DesignSystemFontFamily.registerAllCustomFonts()
     }
+
+
 
     var body: some Scene {
         WindowGroup {

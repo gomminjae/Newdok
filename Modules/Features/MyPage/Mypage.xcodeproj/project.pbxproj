@@ -26,6 +26,7 @@
 		B656958EBB2857C9E41E63CD /* MypageBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95FC5124811C98A13DC4817D /* MypageBase.swift */; };
 		CBF69718AE8A11C81D6866A8 /* TermsMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D25F3B57C7648C6733218FC /* TermsMenuView.swift */; };
 		D3512C91296B4597FC511B94 /* FlexibleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6316494CF79FD65F674FEC66 /* FlexibleView.swift */; };
+		D68C19E95FB20F2C9F6BCCC0 /* VersionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64E4CC89F3E7DEA5339C7C78 /* VersionView.swift */; };
 		E53CFA17DB251E18A51C8B33 /* Shared.framework in Dependencies */ = {isa = PBXBuildFile; fileRef = A19D7843FEFE29BD0819145C /* Shared.framework */; };
 		ED2944B1EE07AD35BC8D9B0A /* AccountManagementView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 435A5C982C020CECF6823250 /* AccountManagementView.swift */; };
 		F44A35FE3666BB64FED573AF /* EditNicknameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE20CEB3997ED5CB0105D8D5 /* EditNicknameView.swift */; };
@@ -65,6 +66,7 @@
 		36FB90FC97E0349C5C572A92 /* CurationRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurationRow.swift; sourceTree = "<group>"; };
 		435A5C982C020CECF6823250 /* AccountManagementView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountManagementView.swift; sourceTree = "<group>"; };
 		6316494CF79FD65F674FEC66 /* FlexibleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlexibleView.swift; sourceTree = "<group>"; };
+		64E4CC89F3E7DEA5339C7C78 /* VersionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VersionView.swift; sourceTree = "<group>"; };
 		700B611F8752DF059BFE744C /* EmailInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailInfoView.swift; sourceTree = "<group>"; };
 		734D04D066005B7F09E817DE /* EditProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileView.swift; sourceTree = "<group>"; };
 		8596DB5B78443B0D49B09ED2 /* MypageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MypageViewModel.swift; sourceTree = "<group>"; };
@@ -195,6 +197,7 @@
 				648B0B7938555B666B807868 /* Feedback */,
 				8429B8137F6A35DC5369E555 /* Terms */,
 				6A23E8EBFB91F55C1A3A567D /* Update */,
+				BDAE4E33CEEFEAD8ADBB6670 /* Version */,
 				6316494CF79FD65F674FEC66 /* FlexibleView.swift */,
 				9F90F5BE05980B64F460A361 /* MypageView.swift */,
 				8596DB5B78443B0D49B09ED2 /* MypageViewModel.swift */,
@@ -228,6 +231,14 @@
 				95FC5124811C98A13DC4817D /* MypageBase.swift */,
 			);
 			path = Sources;
+			sourceTree = "<group>";
+		};
+		BDAE4E33CEEFEAD8ADBB6670 /* Version */ = {
+			isa = PBXGroup;
+			children = (
+				64E4CC89F3E7DEA5339C7C78 /* VersionView.swift */,
+			);
+			path = Version;
 			sourceTree = "<group>";
 		};
 		C3F82CF4B71369E063F6F40B /* Derived */ = {
@@ -328,6 +339,7 @@
 				4090826A340B36C8006D4798 /* EditInterestView.swift in Sources */,
 				F44A35FE3666BB64FED573AF /* EditNicknameView.swift in Sources */,
 				5D02205B28C6F24CC4301D82 /* EditProfileView.swift in Sources */,
+				D68C19E95FB20F2C9F6BCCC0 /* VersionView.swift in Sources */,
 				9B0379722DDDED9FB8879AAB /* Wrap.swift in Sources */,
 				B656958EBB2857C9E41E63CD /* MypageBase.swift in Sources */,
 				FAE2D4C0DB1319A4F3523C71 /* CurationRow.swift in Sources */,
