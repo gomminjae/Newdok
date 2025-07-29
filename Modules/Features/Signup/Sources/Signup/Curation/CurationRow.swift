@@ -7,20 +7,28 @@
 
 import SwiftUI
 import DesignSystem
+import Domain
+import Kingfisher
 
 struct CurationRow: View {
+    let newsletter: NewsletterDetail
+    let onSubscribe: () -> Void
+    
     var body: some View {
         VStack(alignment: .leading, spacing: 12) {
             
             HStack(alignment: .top, spacing: 12) {
-                Image("signup")
+                KFImage(URL(string: newsletter.imageUrl))
+                    .placeholder {
+                        Color.gray.opacity(0.2)
+                    }
                     .resizable()
                     .aspectRatio(contentMode: .fill)
                     .frame(width: 45, height: 45)
                     .clipShape(RoundedRectangle(cornerRadius: 12))
 
                 VStack(alignment: .leading, spacing: 4) {
-                    Text("NEWNEEK")
+                    Text(newsletter.brandName)
                         .font(.hanSansNeo(14, .bold))
                         .foregroundStyle(.black)
 
@@ -29,7 +37,7 @@ struct CurationRow: View {
                             .font(.system(size: 12))
                             .foregroundStyle(.gray)
 
-                        Text("매주 평일 아침")
+                        Text(newsletter.publicationCycle)
                             .font(.hanSansNeo(13))
                             .foregroundStyle(.gray)
                     }
@@ -37,7 +45,7 @@ struct CurationRow: View {
 
                 Spacer()
 
-                Button(action: {}) {
+                Button(action: onSubscribe) {
                     Text("구독하기")
                         .font(.hanSansNeo(13, .bold))
                         .foregroundStyle(Color(hex: "#2866D3"))
@@ -56,14 +64,14 @@ struct CurationRow: View {
 
             // 🔹 하단 흰 배경 영역
             VStack(alignment: .leading, spacing: 12) {
-                Text("세상 돌아가는 소식, 뉴닉으로!")
+                Text(newsletter.firstDescription)
                     .font(.hanSansNeo(14,.medium))
                     .foregroundStyle(Color(hex: "#363636"))
 
                 HStack(spacing: 8) {
-                    TagView(text: "시사·상식")
-                    TagView(text: "비즈니스")
-                    TagView(text: "트렌드")
+                    ForEach(newsletter.interests.prefix(3), id: \.id) { interest in
+                        TagView(text: interest.name)
+                    }
                 }
             }
             .padding(.horizontal, 16)
@@ -95,6 +103,23 @@ struct TagView: View {
             )
     }
 }
-#Preview {
-    CurationRow()
-}
+
+//#Preview {
+//    CurationRow(
+//        newsletter: NewsletterDetail(
+//            id: 1,
+//            brandName: "NEWNEEK",
+//            firstDescription: "세상 돌아가는 소식, 뉴닉으로!",
+//            publicationCycle: "매주 평일 아침",
+//            subscribeUrl: "https://example.com",
+//            imageUrl: "https://example.com/image.jpg",
+//            interests: [
+//                Interest(id: 1, name: "경제·시사"),
+//                Interest(id: 2, name: "비즈니스"),
+//                Interest(id: 3, name: "트렌드")
+//            ]
+//        )
+//    ) {
+//        print("구독하기 버튼 클릭")
+//    }
+//}

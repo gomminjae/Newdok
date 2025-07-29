@@ -1,8 +1,8 @@
 //
-//  LoginView.swift
-//  Newdok
+//  LoginViewResult.swift
+//  Auth
 //
-//  Created by 권민재 on 2/15/25.
+//  Created by AI Assistant on 1/14/25.
 //
 
 import SwiftUI
@@ -10,10 +10,8 @@ import DesignSystem
 import Domain
 import Shared
 
-
-
-public struct LoginView: View {
-    @StateObject private var viewModel: LoginViewModel
+public struct LoginViewResult: View {
+    @StateObject private var viewModel: LoginViewModelResult
     @FocusState private var isIdFocused: Bool
     @FocusState private var isPwdFocused: Bool
     @State private var showHomeView = false
@@ -24,7 +22,7 @@ public struct LoginView: View {
     @AppStorage("isGuest") public var isGuest: Bool = false
     @AppStorage("isLoggedIn") public var isLoggedIn: Bool = false
     
-    public init(viewModel: LoginViewModel) {
+    public init(viewModel: LoginViewModelResult) {
         _viewModel = StateObject(wrappedValue: viewModel)
     }
 
@@ -48,11 +46,16 @@ public struct LoginView: View {
                     .customTextFieldStyle(isError: viewModel.isLoginIdError, isFocused: $isIdFocused)
                     .focused($isIdFocused)
                     .contentShape(Rectangle())
-                if viewModel.isLoginIdError {
-                    Text(viewModel.errorMessage ?? "")
-                        .font(.hanSansNeo(12,.medium))
+                
+                // 실시간 ID 검증 메시지 표시
+                if let validationMessage = viewModel.loginIdValidationMessage {
+                    Text(validationMessage.text)
+                        .font(.hanSansNeo(12, .medium))
+                        .foregroundStyle(validationMessage.color)
+                } else if viewModel.isLoginIdError, let errorMessage = viewModel.errorMessage {
+                    Text(errorMessage)
+                        .font(.hanSansNeo(12, .medium))
                         .foregroundStyle(Color(hex: "#E32727"))
-                    
                 }
 
                 Text("비밀번호")
@@ -62,11 +65,8 @@ public struct LoginView: View {
                 Group {
                     if viewModel.isSecurePassword {
                         SecureField("비밀번호를 입력해주세요", text: $viewModel.password)
-                        
-                        
                     } else {
                         TextField("비밀번호를 입력해주세요", text: $viewModel.password)
-                        
                     }
                 }
                 .font(.hanSansNeo(14, .medium))
@@ -78,13 +78,17 @@ public struct LoginView: View {
                     )
                 )
                 .contentShape(Rectangle())
-                if viewModel.isPasswordError {
-                    Text(viewModel.errorMessage ?? "")
-                        .font(.hanSansNeo(12,.medium))
-                        .foregroundStyle(Color(hex: "#E32727"))
-                    
-                }
                 
+                // 실시간 Password 검증 메시지 표시
+                if let passwordMessage = viewModel.passwordValidationMessage {
+                    Text(passwordMessage.text)
+                        .font(.hanSansNeo(12, .medium))
+                        .foregroundStyle(passwordMessage.color)
+                } else if viewModel.isPasswordError, let errorMessage = viewModel.errorMessage {
+                    Text(errorMessage)
+                        .font(.hanSansNeo(12, .medium))
+                        .foregroundStyle(Color(hex: "#E32727"))
+                }
 
                 HStack {
                     Spacer()
@@ -103,23 +107,36 @@ public struct LoginView: View {
                         isLoggedIn = true
                         isGuest = false
                         router.resetTo(.tabbar(selectedTab: .home))
-                        print("LoginView에서 router 인스턴스: \(Unmanaged.passUnretained(router).toOpaque())")
                     }
-                    
                 }
-                .font(.hanSansNeo(16,.bold))
+                .font(.hanSansNeo(16, .bold))
                 .disabled(!viewModel.isLoginEnabled)
                 .frame(maxWidth: .infinity)
                 .frame(height: 48)
                 .background(viewModel.isLoginEnabled ? Color.primaryNormal : Color(hex: "#EBEBEB"))
                 .foregroundColor(viewModel.isLoginEnabled ? .white : Color(hex: "#C0C0C0"))
                 .cornerRadius(4)
+                .opacity(viewModel.isLoading ? 0.6 : 1.0)
+
+                // 로딩 인디케이터
+                if viewModel.isLoading {
+                    HStack {
+                        Spacer()
+                        ProgressView()
+                            .progressViewStyle(CircularProgressViewStyle(tint: .primaryNormal))
+                            .scaleEffect(0.8)
+                        Text("로그인 중...")
+                            .font(.hanSansNeo(12, .medium))
+                            .foregroundStyle(Color(hex: "565656"))
+                        Spacer()
+                    }
+                    .padding(.top, 8)
+                }
 
                 HStack {
                     Button("비회원으로 이용하기") {
+                        isGuest = true
                         TokenStorage.clear()
-                        UserInfoStore.shared.clear()
-                        AppState.shared.switchToGuest()
                         router.resetTo(.tabbar(selectedTab: .home))
                     }
                     .font(.hanSansNeo(14, .medium))
@@ -157,12 +174,16 @@ public struct LoginView: View {
             
             ToolbarItem(placement: .principal) {
                 Text("로그인")
-                    .font(.hanSansNeo(16,.bold))
+                    .font(.hanSansNeo(16, .bold))
                     .foregroundStyle(Color(hex: "161616"))
             }
         }
+        .alert("로그인 오류", isPresented: .constant(viewModel.errorMessage != nil)) {
+            Button("확인") {
+                // 에러 메시지 초기화는 viewModel에서 자동으로 처리됨
+            }
+        } message: {
+            Text(viewModel.errorMessage ?? "")
+        }
     }
-}
-
-
-
+} 

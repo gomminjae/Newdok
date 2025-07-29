@@ -27,11 +27,7 @@ public final class HomeViewModel: ObservableObject {
     
     private let useCase: FetchHomeDataUseCase
     
-    public init(useCase: FetchHomeDataUseCase) {
-        self.useCase = useCase
-    }
-    
-
+   
     
     @Published public var isLoaded: Bool = false
     
@@ -58,6 +54,33 @@ public final class HomeViewModel: ObservableObject {
     }
     
     @AppStorage("isGuest") public var isGuest: Bool = false
+    
+    public init(useCase: FetchHomeDataUseCase) {
+        self.useCase = useCase
+        setupDataClearing()
+    }
+    
+    private func setupDataClearing() {
+        print("🏠 [HomeViewModel] DataClearingService 등록 시작")
+        DataClearingService.shared.register { [weak self] in
+            print("🏠 [HomeViewModel] 데이터 초기화 실행")
+            self?.clearData()
+        }
+        print("🏠 [HomeViewModel] DataClearingService 등록 완료")
+    }
+    
+    private func clearData() {
+        print("🏠 [HomeViewModel] clearData() 실행")
+        isLoaded = false
+        filteredArticles = []
+        subscribedNewsletters = []
+        articlesByMonth = []
+        selectedDate = Date()
+        monthlyCache = [:]
+        currentMonthKey = ""
+        latestRequestKey = ""
+        print("🏠 [HomeViewModel] clearData() 완료")
+    }
     
     
     public var articlesByMonthDates: Set<Date> {

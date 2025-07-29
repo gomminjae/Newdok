@@ -8,7 +8,7 @@
 import Foundation
 import SwiftUI
 import Domain
-
+import Shared
 
 protocol BookmarkViewModelBindable {
     
@@ -32,6 +32,22 @@ public class BookmarkViewModel: ObservableObject, BookmarkViewModelBindable {
     
     public init(useCase: ArticleUseCase) {
         self.useCase = useCase
+        setupDataClearing()
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
+    
+    private func setupDataClearing() {
+        DataClearingService.shared.register { [weak self] in
+            self?.clearData()
+        }
+    }
+    
+    private func clearData() {
+        bookmarks = nil
+        sortOrder = "추가순"
     }
     
     // MARK: - 정렬된 북마크 데이터

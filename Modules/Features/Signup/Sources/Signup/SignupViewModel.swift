@@ -10,6 +10,36 @@ import Domain
 import SwiftUI
 import Shared
 
+public protocol TimerProtocol {
+    func invalidate()
+}
+
+public protocol TimerServiceProtocol {
+    func scheduleTimer(withTimeInterval: TimeInterval, repeats: Bool, block: @escaping () -> Void) -> TimerProtocol
+}
+
+public struct DefaultTimerService: TimerServiceProtocol {
+    public init() {}
+    
+    public func scheduleTimer(withTimeInterval: TimeInterval, repeats: Bool, block: @escaping () -> Void) -> TimerProtocol {
+        let timer = Timer.scheduledTimer(withTimeInterval: withTimeInterval, repeats: repeats) { _ in
+            block()
+        }
+        return DefaultTimer(timer: timer)
+    }
+}
+
+public struct DefaultTimer: TimerProtocol {
+    private let timer: Timer
+    
+    public init(timer: Timer) {
+        self.timer = timer
+    }
+    
+    public func invalidate() {
+        timer.invalidate()
+    }
+}
 public enum IDValidationError: Error {
     case invalidLengthAndCombination
     case invalidLength
@@ -26,6 +56,7 @@ public enum IDValidationError: Error {
         }
     }
 }
+
 public enum NickNameValidationError: Error {
     case tooLong
     case containsSpecialCharacters
@@ -54,23 +85,20 @@ public enum NicknameValidationError: Error {
     }
 }
 
-
 @MainActor
 final public class SignupViewModel: ObservableObject {
 
-    private let userUseCase: UserUseCase
+    public let userUseCase: UserUseCase
+    public let newsletterUseCase: NewsletterUseCase
+    private let timerService: TimerServiceProtocol
     
-    @Published var currentStep: SignupStep = .agreeTerms
+    @Published var currentStep: SignupStep = .phoneVerification
 
-    // MARK: - Form
     @Published public var phoneNumber: String = ""
     @Published public var enteredVerificationCode: String = ""
     private var verificationCode: String = ""
     @Published public var resendFailureCount: Int = 0
     
-    
-    
-    //MARK: - id
     @Published public var loginID: String = "" {
         didSet {
             isIDAvailable = nil
@@ -104,7 +132,6 @@ final public class SignupViewModel: ObservableObject {
         return false
     }
 
-
     var idValidationMessage: (text: String, color: Color)? {
         if let available = isIDAvailable {
             return (
@@ -121,8 +148,6 @@ final public class SignupViewModel: ObservableObject {
         }
     }
     
-
-    // MARK: - State
     @Published public var isLoading = false
     @Published public var errorMessage: String?
     @Published public var userList: [SimpleUser] = []
@@ -133,34 +158,32 @@ final public class SignupViewModel: ObservableObject {
     @Published public var showAlreadyRegisteredAlert = false
     @Published public var showError = false
     
-    
     @Published public var emails: [String] = []
     @Published public var isShowPopup: Bool = false
 
-    private var timer: Timer?
+    private var timer: TimerProtocol?
     
-    
-    //MARK: password
     @Published public var password: String = ""
     @Published public var checkedPassword: String = ""
     
-    //MARK: profile
     @Published public var nickname: String = ""
     @Published public var birthYear: String = ""
     @Published public var gender: String = ""
     
-    
     @Published public var user: User?
     
-    
-    //MARK: Investigate
     @Published public var myIndustry: String = ""
     @Published public var selectedInterests: Set<String> = []
     @Published public var recommendedPost: [RecommendedBrand] = []
     
-
-    public init(userUseCase: UserUseCase) {
+    public init(
+        userUseCase: UserUseCase, 
+        newsletterUseCase: NewsletterUseCase,
+        timerService: TimerServiceProtocol = DefaultTimerService()
+    ) {
         self.userUseCase = userUseCase
+        self.newsletterUseCase = newsletterUseCase
+        self.timerService = timerService
     }
     
     public func goToNextStep() {
@@ -175,46 +198,43 @@ final public class SignupViewModel: ObservableObject {
         }
     }
     
-    
-    
-
     public func sendVerificationCode(skipCheck: Bool = false) {
-            guard resendFailureCount < 3 else {
-                isShowPopup = true
-                return
-            }
-            Task {
-                do {
-                    isLoading = true
-                    userList = []
-                    isShowUserList = false
-                    errorMessage = nil
-                    enteredVerificationCode = ""
-                    showError = false
-                    timerRemaining = 180
-
-                    if !skipCheck {
-                        let users = try await userUseCase.checkPhoneNumber(phoneNumber)
-                        if !users.isEmpty {
-                            userList = users
-                            isShowUserList = true
-                            showAlreadyRegisteredAlert = true
-                            isLoading = false
-                            return
-                        }
-                    }
-
-                    let result = try await userUseCase.authSMS(phoneNumber: phoneNumber)
-                    verificationCode = String(result.code)
-                    isRequestSent = true
-                    startTimer()
-                } catch {
-                    errorMessage = error.localizedDescription
-                }
-                isLoading = false
-            }
+        guard resendFailureCount < 3 else {
+            isShowPopup = true
+            return
         }
+        
+        Task {
+            do {
+                isLoading = true
+                userList = []
+                isShowUserList = false
+                errorMessage = nil
+                enteredVerificationCode = ""
+                showError = false
+                timerRemaining = 180
 
+                if !skipCheck {
+                    let users = try await userUseCase.checkPhoneNumber(phoneNumber)
+                    if !users.isEmpty {
+                        userList = users
+                        isShowUserList = true
+                        showAlreadyRegisteredAlert = true
+                        isLoading = false
+                        return
+                    }
+                }
+
+                let result = try await userUseCase.authSMS(phoneNumber: phoneNumber)
+                verificationCode = String(result.code)
+                isRequestSent = true
+                startTimer()
+            } catch {
+                errorMessage = error.localizedDescription
+            }
+            isLoading = false
+        }
+    }
 
     func verifyCode() -> Bool {
         guard isRequestSent else { return false }
@@ -235,9 +255,9 @@ final public class SignupViewModel: ObservableObject {
     
     private func startTimer() {
         stopTimer()
-        timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { [weak self] _ in
+        timer = timerService.scheduleTimer(withTimeInterval: 1.0, repeats: true) { [weak self] in
             guard let self = self else { return }
-            DispatchQueue.main.async {
+            Task { @MainActor in
                 self.timerRemaining -= 1
                 if self.timerRemaining <= 0 {
                     self.stopTimer()
@@ -252,6 +272,7 @@ final public class SignupViewModel: ObservableObject {
         timer?.invalidate()
         timer = nil
     }
+    
     public func validateID() -> IDValidationError? {
         let id = loginID
         let isValidLength = (6...12).contains(id.count)
@@ -265,19 +286,16 @@ final public class SignupViewModel: ObservableObject {
 
         // case 1: 길이 + 조합 둘 다 틀림
         if !isValidLength && (!isAlphanumeric || !containsOnlyAllowed) {
-            
             return .invalidLengthAndCombination
         }
 
         // case 2: 길이만 틀림
         if !isValidLength {
-            
             return .invalidLength
         }
 
         // case 3: 조합만 틀림
         if !isAlphanumeric || !containsOnlyAllowed {
-            
             return .invalidCombination
         }
 
@@ -315,16 +333,16 @@ final public class SignupViewModel: ObservableObject {
     }
     
     func submitInterests() {
-            Task {
-                do {
-                    let result = try await userUseCase.preInvestigate(industryId: myIndustry, interestIds: Array(selectedInterests))
-                    recommendedPost = result
-                    goToNextStep()
-                } catch {
-                    print("전송 실패: \(error)")
-                }
+        Task {
+            do {
+                let result = try await userUseCase.preInvestigate(industryId: myIndustry, interestIds: Array(selectedInterests))
+                recommendedPost = result
+                goToNextStep()
+            } catch {
+                print("전송 실패: \(error)")
             }
         }
+    }
     
     func signup() {
         Task {
@@ -338,7 +356,4 @@ final public class SignupViewModel: ObservableObject {
             }
         }
     }
-    
-    
-    
 }

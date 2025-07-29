@@ -118,13 +118,19 @@ public final class AppDIContainer {
             return SearchUseCaseImpl(searchRepository: repo)
         }.inObjectScope(.container)
 
+        // MARK: - Services
+        container.register(DataClearingService.self) { _ in
+            return DataClearingService.shared
+        }.inObjectScope(.container)
+        
         // MARK: - ViewModels
         container.register(SignupViewModel.self) { r in
             print("🧩 [DI] Register: SignupViewModel")
-            let useCase = r.resolve(UserUseCase.self)!
-            print("🔗 [DI] Injected: UserUseCase → SignupViewModel")
+            let userUseCase = r.resolve(UserUseCase.self)!
+            let newsletterUseCase = r.resolve(NewsletterUseCase.self)!
+            print("🔗 [DI] Injected: UserUseCase, NewsletterUseCase → SignupViewModel")
             return MainActor.assumeIsolated {
-                SignupViewModel(userUseCase: useCase)
+                SignupViewModel(userUseCase: userUseCase, newsletterUseCase: newsletterUseCase)
             }
         }.inObjectScope(.container)
         

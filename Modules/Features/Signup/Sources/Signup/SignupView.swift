@@ -106,7 +106,30 @@ public struct SignupView: View {
                 case .indutryList:
                   InterestSelectionView(viewModel: viewModel)
                 case .curation:
-                    CurationView()
+                    if let user = viewModel.user {
+                        CurationView(
+                            user: user, 
+                            newsletterUseCase: viewModel.newsletterUseCase
+                        )
+                    } else {
+                        // user가 nil인 경우 처리
+                        VStack {
+                            Text("사용자 정보를 불러올 수 없습니다.")
+                                .font(.hanSansNeo(16, .medium))
+                            Button("다시 시도") {
+                                // 회원가입 다시 시도
+                                viewModel.currentStep = .phoneVerification
+                            }
+                            .font(.hanSansNeo(14, .bold))
+                            .foregroundStyle(Color.white)
+                            .frame(maxWidth: .infinity)
+                            .frame(height: 48)
+                            .background(Color.primaryNormal)
+                            .cornerRadius(4)
+                            .padding(.top, 20)
+                        }
+                        .padding(.horizontal, 24)
+                    }
                        
                 }
             }

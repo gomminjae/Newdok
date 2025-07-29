@@ -88,8 +88,9 @@ public struct AccountManagementView: View {
                 onConfirm: {
                     showLogoutPopup = false
                     TokenStorage.clear()
+                    UserInfoStore.shared.clear()
+                    AppState.shared.logout()
                     router.resetTo(.login)
-                    
                 }
             )
         } customize: {

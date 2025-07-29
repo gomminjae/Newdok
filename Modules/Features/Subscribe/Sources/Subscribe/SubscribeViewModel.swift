@@ -8,6 +8,7 @@
 import SwiftUI
 import Foundation
 import Domain
+import Shared
 
 @MainActor
 public class SubscribeViewModel: ObservableObject {
@@ -19,6 +20,23 @@ public class SubscribeViewModel: ObservableObject {
     
     public init(useCase: NewsletterUseCase) {
         self.useCase = useCase
+        setupDataClearing()
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
+    
+    private func setupDataClearing() {
+        DataClearingService.shared.register { [weak self] in
+            self?.clearData()
+        }
+    }
+    
+    private func clearData() {
+        activeNewsletters = []
+        pausedNewsletters = []
+    
     }
     
     public func fetchActive() async {

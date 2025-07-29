@@ -6,9 +6,9 @@
 //  Copyright © 2025 Newdok. All rights reserved.
 //
 import Combine
-import Shared
 import Domain
 import SwiftUI
+import Shared
 
 
 @MainActor
@@ -45,6 +45,34 @@ public class ExploreViewModel: ObservableObject {
     
     public init(useCase: NewsletterUseCase) {
         self.useCase = useCase
+        setupDataClearing()
+    }
+    
+    private func setupDataClearing() {
+        print("🔍 [ExploreViewModel] DataClearingService 등록 시작")
+        DataClearingService.shared.register { [weak self] in
+            print("🔍 [ExploreViewModel] 데이터 초기화 실행")
+            self?.clearData()
+        }
+        print("🔍 [ExploreViewModel] DataClearingService 등록 완료")
+    }
+    
+    private func clearData() {
+        print("🔍 [ExploreViewModel] clearData() 실행")
+        myRecommendation = []
+        unionRecommendation = []
+        fixedMyRecommendation = []
+        fixedUnionRecommendation = []
+        allNewsletters = []
+        selectedTab = 0
+        orderOpt = "인기순"
+        industry = nil
+        day = nil
+        isShowFilterSheet = false
+        isShowSortSheet = false
+        isRecommend = false
+        shouldScrollToTop = false
+        print("🔍 [ExploreViewModel] clearData() 완료")
     }
     
     
