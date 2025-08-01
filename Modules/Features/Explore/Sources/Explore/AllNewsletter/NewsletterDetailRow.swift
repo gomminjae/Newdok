@@ -67,7 +67,17 @@ struct NewsletterDetailRow: View {
         VStack(alignment: .leading, spacing: 0) {
             HStack(alignment: .top, spacing: 0) {
                 KFImage(URL(string: brand.imageUrl))
+                    .placeholder {
+                        // 로딩 중 표시
+                        RoundedRectangle(cornerRadius: 10)
+                            .fill(Color.gray.opacity(0.2))
+                            .frame(width: 56, height: 56)
+                    }
+                    .onFailure { error in
+                        print("📸 [NewsletterDetailRow] 이미지 로딩 실패: \(error.localizedDescription)")
+                    }
                     .resizable()
+                    .aspectRatio(contentMode: .fill)
                     .frame(width: 56, height: 56)
                     .clipShape(RoundedRectangle(cornerRadius: 10))
                     .overlay {

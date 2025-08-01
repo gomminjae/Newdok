@@ -6,21 +6,37 @@
 //
 
 import SwiftUI
+import Domain
+import Kingfisher
 import DesignSystem
+import Shared
+import Detail
 
 struct CurationRow: View {
+    let brand: RecommendedBrand?
+    let viewModel: SignupViewModel
+    @State private var showSubscribeSheet = false
+    
+    init(brand: RecommendedBrand? = nil, viewModel: SignupViewModel) {
+        self.brand = brand
+        self.viewModel = viewModel
+    }
+    
     var body: some View {
         VStack(alignment: .leading, spacing: 12) {
             
             HStack(alignment: .top, spacing: 12) {
-                Image("signup")
+                KFImage(URL(string: brand?.imageUrl ?? ""))
+                    .placeholder {
+                        Color.gray.opacity(0.2)
+                    }
                     .resizable()
                     .aspectRatio(contentMode: .fill)
                     .frame(width: 45, height: 45)
                     .clipShape(RoundedRectangle(cornerRadius: 12))
 
                 VStack(alignment: .leading, spacing: 4) {
-                    Text("NEWNEEK")
+                    Text(brand?.name ?? "NEWNEEK")
                         .font(.hanSansNeo(14, .bold))
                         .foregroundStyle(.black)
 
@@ -29,7 +45,7 @@ struct CurationRow: View {
                             .font(.system(size: 12))
                             .foregroundStyle(.gray)
 
-                        Text("매주 평일 아침")
+                        Text(brand?.cycle ?? "매주 평일 아침")
                             .font(.hanSansNeo(13))
                             .foregroundStyle(.gray)
                     }
@@ -37,7 +53,13 @@ struct CurationRow: View {
 
                 Spacer()
 
-                Button(action: {}) {
+                Button(action: {
+                    // 사용자의 구독 이메일 복사
+                    if let userEmail = viewModel.user?.subscribeEmail {
+                        UIPasteboard.general.string = userEmail
+                    }
+                    showSubscribeSheet = true
+                }) {
                     Text("구독하기")
                         .font(.hanSansNeo(13, .bold))
                         .foregroundStyle(Color(hex: "#2866D3"))
@@ -56,14 +78,14 @@ struct CurationRow: View {
 
             // 🔹 하단 흰 배경 영역
             VStack(alignment: .leading, spacing: 12) {
-                Text("세상 돌아가는 소식, 뉴닉으로!")
+                Text(brand?.description ?? "핵심만 꾹꾹 눌러 담은 세상 돌아가는 이야기")
                     .font(.hanSansNeo(14,.medium))
                     .foregroundStyle(Color(hex: "#363636"))
 
                 HStack(spacing: 8) {
-                    TagView(text: "시사·상식")
-                    TagView(text: "비즈니스")
-                    TagView(text: "트렌드")
+                    ForEach(brand?.interests.prefix(3) ?? [], id: \.id) { interest in
+                        TagView(text: interest.name)
+                    }
                 }
             }
             .padding(.horizontal, 16)
@@ -76,6 +98,11 @@ struct CurationRow: View {
             RoundedRectangle(cornerRadius: 12)
                 .stroke(Color(hex: "#EBEBEB"), lineWidth: 1)
         )
+        .sheet(isPresented: $showSubscribeSheet) {
+            SubscribeModalView(title: brand?.name ?? "", url: brand?.subscribeUrl ?? "")
+                .presentationDetents([.large])
+                .presentationDragIndicator(.visible)
+        }
     }
 }
 
@@ -95,6 +122,6 @@ struct TagView: View {
             )
     }
 }
-#Preview {
-    CurationRow()
-}
+//#Preview {
+//    CurationRow()
+//}

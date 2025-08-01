@@ -57,7 +57,8 @@ public struct MypageView: View {
                         // 이메일 텍스트 + 복사 버튼
                         HStack(spacing: 6) {
                             Button {
-                                UIPasteboard.general.string = userInfo?.subscribeEmail
+                                let email = viewModel.user?.subscribeEmail ?? userInfo?.subscribeEmail ?? ""
+                                UIPasteboard.general.string = email
                                 isCopy = true
                                 
                                 DispatchQueue.main.asyncAfter(deadline: .now() + 2.1) {
@@ -71,7 +72,7 @@ public struct MypageView: View {
                                     .foregroundStyle(Color.primaryNormal)
                             }
 
-                            Text(userInfo?.subscribeEmail ?? "")
+                            Text(viewModel.user?.subscribeEmail ?? userInfo?.subscribeEmail ?? "")
                                 .font(.system(size: 14))
                                 .foregroundColor(Color(hex: "#161616"))
                                 .lineLimit(1)

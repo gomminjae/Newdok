@@ -9,6 +9,7 @@
 import Foundation
 import Combine
 import Domain
+import Shared
 
 protocol MypageViewModelBindable {
     
@@ -56,6 +57,21 @@ public class MypageViewModel: ObservableObject {
         do {
             let response = try await useCase.getProfile()
             user = response
+            
+            // UserInfoStore 업데이트
+            let userInfo = UserInfo(
+                id: response.id,
+                loginId: response.loginId,
+                phoneNumber: response.phoneNumber,
+                subscribeEmail: response.subscribeEmail,
+                nickname: response.nickname,
+                birthYear: response.birthYear,
+                gender: response.gender,
+                createdAt: response.createdAt,
+                industryId: response.industryId,
+                interestIds: response.interests.map { $0.id }
+            )
+            UserInfoStore.shared.save(userInfo)
         } catch {
             print("프로필 조회 실패")
         }

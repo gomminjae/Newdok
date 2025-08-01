@@ -35,23 +35,13 @@ public struct AgreeView: View {
                 AgreementRow(title: "만 14세 이상 확인 (필수)", isChecked: $isOver14)
 
                 AgreementRow(title: "서비스 이용 동의 (필수)", isChecked: $serviceAgreement) {
-                    if serviceAgreement {
-                        serviceAgreement.toggle()
-                    } else {
-                        serviceAgreement.toggle()
-                        sheetType = .terms
-                        showSheet = true
-                    }
+                    sheetType = .terms
+                    showSheet = true
                 }
 
                 AgreementRow(title: "개인정보 수집 및 이용 동의 (필수)", isChecked: $personalInfoAgreement) {
-                    if personalInfoAgreement {
-                        personalInfoAgreement.toggle()
-                    } else {
-                        personalInfoAgreement.toggle()
-                        sheetType = .privacy
-                        showSheet = true
-                    }
+                    sheetType = .privacy
+                    showSheet = true
                 }
 
                 
@@ -99,6 +89,20 @@ public struct AgreeView: View {
                 PolicyWebSheetView(type: type)
                     .presentationDetents([.large])
                     .presentationDragIndicator(.visible)
+            }
+        }
+        .onChange(of: showSheet) { isPresented in
+            if !isPresented {
+                // 시트가 닫힐 때 해당 약관 체크
+                if let type = sheetType {
+                    switch type {
+                    case .terms:
+                        serviceAgreement = true
+                    case .privacy:
+                        personalInfoAgreement = true
+                    }
+                }
+                sheetType = nil
             }
         }
     }

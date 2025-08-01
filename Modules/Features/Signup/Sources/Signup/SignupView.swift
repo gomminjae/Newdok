@@ -31,6 +31,7 @@ public enum SignupStep: Int, CaseIterable {
         case .myIndustry: return 0.3
         case .indutryList: return 0.7
         case .curation: return 1.0
+        
         default: return 1.0
         }
     }
@@ -57,6 +58,7 @@ public enum SignupStep: Int, CaseIterable {
             return "프로필 설정"
         case .curation:
             return "추천 뉴스레터"
+        
         }
     }
 }
@@ -75,42 +77,40 @@ public struct SignupView: View {
         VStack(spacing: 0) {
             signupHeaderView
 
-            Group {
-                switch viewModel.currentStep {
-                case .phoneVerification:
-                    PhoneVerificationView(viewModel: viewModel)
-                        .environmentObject(router)
+            TabView(selection: $viewModel.currentStep) {
+                PhoneVerificationView(viewModel: viewModel)
+                    .environmentObject(router)
+                    .tag(SignupStep.phoneVerification)
 
+                IDInputView(viewModel: viewModel)
+                    .tag(SignupStep.idInput)
 
-                case .idInput:
-                    IDInputView(viewModel: viewModel)
-                     
+                PwInputView(viewModel: viewModel)
+                    .tag(SignupStep.pwInput)
 
-                case .pwInput:
-                    PwInputView(viewModel: viewModel)
-                     
+                ProfileInputView(viewModel: viewModel)
+                    .tag(SignupStep.enterProfile)
 
-                case .enterProfile:
-                    ProfileInputView(viewModel: viewModel)
-                       
+                AgreeView(viewModel: viewModel)
+                    .tag(SignupStep.agreeTerms)
 
-                case .agreeTerms:
-                    AgreeView(viewModel: viewModel)
-                       
-                case .complete:
-                    CompleteView(viewModel: viewModel)
-                case .recommend:
-                    RecommendView(viewModel: viewModel)
-                case .myIndustry:
-                    MyIndustryView(viewModel: viewModel)
-                case .indutryList:
-                  InterestSelectionView(viewModel: viewModel)
-                case .curation:
-                    CurationView()
-                       
-                }
+                CompleteView(viewModel: viewModel)
+                    .tag(SignupStep.complete)
+
+                RecommendView(viewModel: viewModel)
+                    .tag(SignupStep.recommend)
+
+                MyIndustryView(viewModel: viewModel)
+                    .tag(SignupStep.myIndustry)
+
+                InterestSelectionView(viewModel: viewModel)
+                    .tag(SignupStep.indutryList)
+
+                CurationView(viewModel: viewModel)
+                    .tag(SignupStep.curation)
             }
-            .animation(.easeInOut, value: viewModel.currentStep)
+            .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
+            .animation(.easeInOut(duration: 0.3), value: viewModel.currentStep)
             .interactiveDismissDisabled()
         }
         .ignoresSafeArea(.keyboard)
@@ -151,7 +151,7 @@ public struct SignupView: View {
                 if viewModel.currentStep == .recommend {
                     Button(action: {
                         withAnimation(.easeInOut) {
-                            router.resetTo(.tabbar())
+                            router.resetTo(.tabbar(selectedTab: .home))
                         }
                     }) {
                         Text("건너뛰기")

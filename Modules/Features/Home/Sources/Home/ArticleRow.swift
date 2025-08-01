@@ -15,7 +15,20 @@ struct ArticleRow: View {
     var body: some View {
         HStack(spacing: 12) {
             KFImage(URL(string: article.imageUrl))
+                .placeholder {
+                    // 로딩 중 표시
+                    RoundedRectangle(cornerRadius: 12)
+                        .fill(Color.gray.opacity(0.2))
+                        .frame(width: 56, height: 56)
+                }
+                .onFailure { error in
+                    print("📸 [ArticleRow] 이미지 로딩 실패: \(error.localizedDescription)")
+                }
+                .onSuccess { result in
+                    print("📸 [ArticleRow] 이미지 로딩 성공: \(result.image)")
+                }
                 .resizable()
+                .aspectRatio(contentMode: .fill)
                 .frame(width: 56, height: 56)
                 .clipShape(RoundedRectangle(cornerRadius: 12))
                 .overlay(

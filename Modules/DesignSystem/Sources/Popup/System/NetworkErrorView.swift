@@ -9,6 +9,8 @@
 import SwiftUI
 
 struct NetworkErrorView: View {
+    @ObservedObject private var networkManager = NetworkStatusManager.shared
+    
     var body: some View {
         VStack(spacing: 0) {
             Image(asset: DesignSystemAsset.warning)
@@ -24,7 +26,8 @@ struct NetworkErrorView: View {
                 .foregroundStyle(Color(hex:"#565656"))
                 .padding(.top, 6)
             Button(action: {
-                
+                // 네트워크 상태 재확인
+                networkManager.checkNetworkStatus()
             }) {
                 Text("재시도")
                     .font(.hanSansNeo(14, .bold))

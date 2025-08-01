@@ -7,14 +7,14 @@
 
 import SwiftUI
 import DesignSystem
-
-
+import UserNotifications
 
 struct CompleteView: View {
     var email: String = "newdok12@newdok.site"
     var onNext: () -> Void = {}
     
     @ObservedObject private var viewModel: SignupViewModel
+    @State private var showingNotificationAlert = false
     
     public init(viewModel: SignupViewModel) {
         self.viewModel = viewModel
@@ -26,6 +26,7 @@ struct CompleteView: View {
             Text("뉴스레터 구독을 위한\n이메일이 생성되었어요.")
                 .font(.hanSansNeo(20, .bold))
                 .foregroundColor(.black)
+                .frame(maxWidth: .infinity, alignment: .leading)
                 .padding(.top, 24)
                 .padding(.horizontal, 24)
                 .multilineTextAlignment(.leading)
@@ -40,7 +41,7 @@ struct CompleteView: View {
                 .font(.hanSansNeo(14, .medium))
                 .multilineTextAlignment(.center)
                 .foregroundStyle(Color(hex: "#363636"))
-                .padding(.horizontal, 35)
+                .padding(.horizontal, 24)
                 .padding(.top, 24)
 
             VStack(alignment: .leading, spacing: 4) {
@@ -50,7 +51,7 @@ struct CompleteView: View {
                     .padding(.top,20)
                     .padding(.leading,20)
 
-                Text(viewModel.user?.subscribeEmail ?? "")
+                Text(viewModel.user?.subscribeEmail ?? "newdok12@newdok.site")
                     .font(.hanSansNeo(16, .bold))
                     .foregroundStyle(Color(hex: "#2866D3"))
                     .padding(.top,8)
@@ -67,7 +68,9 @@ struct CompleteView: View {
             Spacer()
 
             // 다음 버튼
-            Button(action: viewModel.goToNextStep) {
+            Button(action: {
+                viewModel.goToNextStep()
+            }) {
                 Text("다음")
                     .font(.hanSansNeo(14, .bold))
                     .frame(maxWidth: .infinity)

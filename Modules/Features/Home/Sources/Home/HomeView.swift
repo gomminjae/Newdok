@@ -12,21 +12,17 @@ import Domain
 import PopupView
 import Lottie
 
-
-
-
 public struct HomeView: View {
     @StateObject private var viewModel: HomeViewModel
     @State private var showCalendar = false
-    @State private var calendarDisplayedMonth = Date()
     @EnvironmentObject private var router: AppRouter
     @EnvironmentObject private var tabSelection: TabSelection
     @EnvironmentObject private var exploreIntent: ExploreIntent
     @AppStorage("isGuest") private var isGuest: Bool = false
+    
     public init(viewModel: HomeViewModel) {
         _viewModel = StateObject(wrappedValue: viewModel)
     }
-    
 
     public var body: some View {
         ZStack {
@@ -52,24 +48,35 @@ public struct HomeView: View {
             }
         }
         .popup(isPresented: $showCalendar) {
-                   CalendarPopupView(
-                       isPresented: $showCalendar,
-                       selectedDate: $viewModel.selectedDate,
-                       displayedMonthDate: $calendarDisplayedMonth,
-                       dataDays: Binding<Set<Int>>(
-                                   get: { viewModel.dataDays },
-                                   set: { _ in  }
-                               ),
-                       onDateSelected: { date in
-                           let day = Calendar.current.component(.day, from: date)
-                           viewModel.selectDate(day)
-                           showCalendar = false
-                       },
-                       onMonthChanged: { monthDate in
-                           Task { await viewModel.loadArticles(for: monthDate) }
-                       }
-                   )
-               } customize: { $0.type(.default).position(.center).animation(.easeInOut).closeOnTap(false).backgroundColor(Color.black.opacity(0.3)) }
+            CalendarPopupView(
+                isPresented: $showCalendar,
+                selectedDate: $viewModel.calendarState.selectedDate,
+                displayedMonthDate: $viewModel.calendarState.displayedMonth,
+                dataDays: $viewModel.calendarState.dataDays,
+                isLoading: $viewModel.calendarState.isLoading,
+                onDateSelected: { date in
+                    // 새로운 메서드 사용 - 월 보장
+                    viewModel.selectDateWithMonthGuarantee(date)
+                    showCalendar = false
+                },
+                onMonthChanged: { monthDate in
+                    // 월 변경 시 displayedMonth는 CalendarPopupView에서 자동으로 업데이트됨
+                    print("📅 [HomeView] 월 변경: \(monthDate), selectedDate 유지: \(viewModel.selectedDate)")
+                    Task { await viewModel.loadArticles(for: monthDate) }
+                }
+            )
+        } customize: { $0.type(.default).position(.center).animation(.easeInOut).closeOnTap(false).backgroundColor(Color.black.opacity(0.3)) }
+        .onChange(of: showCalendar) { isShowing in
+            if isShowing {
+                // 캘린더 팝업이 열릴 때 displayedMonth를 selectedDate로 초기화
+                viewModel.displayedMonth = viewModel.selectedDate
+                print("📅 [HomeView] 캘린더 팝업 열림 - 선택된 날짜: \(viewModel.selectedDate), 표시 월: \(viewModel.displayedMonth)")
+                // 현재 표시된 월의 데이터를 새로고침
+                Task { 
+                    await viewModel.loadCalendarData(for: viewModel.displayedMonth)
+                }
+            }
+        }
     }
 
     private var headerView: some View {
@@ -108,10 +115,10 @@ public struct HomeView: View {
             Spacer()
             Button(action: {
                 Task {
-                    await viewModel.loadArticles(for: viewModel.selectedDate)
+                    // 현재 표시된 월의 데이터를 로드
+                    await viewModel.loadCalendarData(for: viewModel.displayedMonth)
                     showCalendar.toggle()
                 }
-                
             }) {
                 Image(asset: DesignSystemAsset.lineCalendar)
                     .padding(.trailing, 24)

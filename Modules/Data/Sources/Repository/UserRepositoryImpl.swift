@@ -35,7 +35,17 @@ public final class UserRepositoryImpl: UserRepository {
     
     public func signup(loginId: String, password: String, phoneNumber: String, nickname: String, birthYear: String, gender: String) async throws -> Domain.SignupResponse {
         
+        print("📡 [UserRepositoryImpl] 회원가입 API 요청:")
+        print("  - loginId: '\(loginId)'")
+        print("  - password: '\(password)' (길이: \(password.count))")
+        print("  - phoneNumber: '\(phoneNumber)'")
+        print("  - nickname: '\(nickname)'")
+        print("  - birthYear: '\(birthYear)'")
+        print("  - gender: '\(gender)'")
+        
         let response: SignupResponseDTO = try await provider.asyncRequest(.signup(loginId: loginId, password: password, phoneNumber: phoneNumber, nickname: nickname, birthYear: birthYear, gender: gender))
+        
+        print("✅ [UserRepositoryImpl] 회원가입 API 응답 성공")
         
         let signupResponse = response.toDomain()
         

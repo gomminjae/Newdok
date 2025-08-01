@@ -75,7 +75,7 @@ public struct EditNicknameView: View {
                             id: updatedUser.id,
                             loginId: updatedUser.loginId,
                             phoneNumber: updatedUser.phoneNumber,
-                            subscribeEmail: updatedUser.subscribeEmail,
+                            subscribeEmail: updatedUser.subscribeEmail,  // 이미 옵셔널이므로 그대로 전달
                             nickname: draftNickname, // 변경된 닉네임 사용
                             birthYear: updatedUser.birthYear,
                             gender: updatedUser.gender,

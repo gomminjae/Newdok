@@ -99,14 +99,21 @@ extension UserAPI: TargetType {
             return .requestParameters(parameters: ["loginId": loginId, "password": password], encoding: JSONEncoding.default)
             
         case let .signup(loginId, password, phoneNumber, nickname, birthYear, gender):
-            return .requestParameters(parameters: [
+            let parameters = [
                 "loginId": loginId,
                 "password": password,
                 "phoneNumber": phoneNumber,
                 "nickname": nickname,
                 "birthYear": birthYear,
                 "gender": gender
-            ], encoding: JSONEncoding.default)
+            ]
+            
+            print("🌐 [UserAPI] 회원가입 요청 파라미터:")
+            for (key, value) in parameters {
+                print("  - \(key): '\(value)'")
+            }
+            
+            return .requestParameters(parameters: parameters, encoding: JSONEncoding.default)
             
         case let .checkPhoneNumber(phoneNumber):
             return .requestParameters(parameters: ["phoneNumber": phoneNumber], encoding: URLEncoding.default)

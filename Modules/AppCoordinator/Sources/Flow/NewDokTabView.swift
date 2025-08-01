@@ -141,12 +141,15 @@ struct NewDokTabBar: View {
     private func tabItem(_ tab: NewDokTab, normalAsset: DesignSystemImages, selectedAsset: DesignSystemImages, title: String) -> some View {
         VStack(spacing: 4) {
             Image(asset: selectedTab == tab ? selectedAsset : normalAsset)
+                .frame(width: 24, height: 24) // 고정 크기로 설정
                 
             Text(title)
                 .font(.hanSansNeo(11,.medium))
                 .foregroundColor(selectedTab == tab ? Color.primaryNormal : Color.gray)
+                .frame(height: 14) // 텍스트 높이 고정
         }
         .frame(maxWidth: .infinity)
+        .contentShape(Rectangle()) // 터치 영역 확장
         .onTapGesture {
             selectedTab = tab
         }

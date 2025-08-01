@@ -66,4 +66,12 @@ final class NetworkStatusManager: ObservableObject {
         }
         monitor.start(queue: queue)
     }
+    
+    func checkNetworkStatus() {
+        // 네트워크 상태를 즉시 재확인
+        let currentPath = monitor.currentPath
+        DispatchQueue.main.async {
+            self.isConnected = (currentPath.status == .satisfied)
+        }
+    }
 }

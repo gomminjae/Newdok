@@ -19,16 +19,17 @@ struct RecommendView: View {
     
     var body: some View {
         VStack(alignment: .leading) {
-            Text("뉴스레터 추천을 위해\n\("닉네임")님에 대해 \n더 알려주세요")
+            Text("뉴스레터 추천을 위해\n\(viewModel.nickname)님에 대해 \n더 알려주세요")
                 .font(.hanSansNeo(20,.bold))
-                .frame(alignment: .leading)
-                .padding(.leading, 24)
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .padding(.horizontal, 24)
                 .padding(.top,24)
             Text("종사 산업과 관심사를 선택하면,\n내게 도움이 될 뉴스레터를 만나볼 수 있어요!")
                 .font(.hanSansNeo(14,.medium))
                 .foregroundStyle(Color(hex: "#565656"))
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .padding(.horizontal, 24)
                 .padding(.top,8)
-                .padding(.leading, 24)
             Image(asset: DesignSystemAsset.nologin)
                 .resizable()
                 .frame(width: 280,height: 280)

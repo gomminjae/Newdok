@@ -87,13 +87,13 @@ public final class LoginViewModel: LoginViewModelBindable {
                 isLoggedIn = true
                 isGuest = false
                 nickname = user.nickname
-                email = user.subscribeEmail
+                email = user.subscribeEmail ?? ""
                 
                 let userInfo = UserInfo(
                     id: user.id,
                     loginId: user.loginId,
                     phoneNumber: user.phoneNumber,
-                    subscribeEmail: user.subscribeEmail,
+                    subscribeEmail: user.subscribeEmail,  // 이미 옵셔널이므로 그대로 전달
                     nickname: user.nickname,
                     birthYear: user.birthYear,
                     gender: user.gender,

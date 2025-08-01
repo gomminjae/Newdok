@@ -18,7 +18,8 @@ public struct RecommendedBrandListResponseDTO: Decodable {
 public struct RecommendedBrandDTO: Decodable {
     public let id: Int
     public let brandName: String
-    public let briefDescription: String
+    public let firstDescription: String
+    public let secondDescription: String
     public let publicationCycle: String
     public let subscribeUrl: String
     public let imageUrl: String
@@ -28,7 +29,7 @@ public struct RecommendedBrandDTO: Decodable {
         return RecommendedBrand(
             id: id,
             name: brandName,
-            description: briefDescription,
+            description: firstDescription,  // firstDescription을 description으로 사용
             cycle: publicationCycle,
             subscribeUrl: subscribeUrl,
             imageUrl: imageUrl,

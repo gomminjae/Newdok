@@ -37,13 +37,13 @@ public struct UserDTO: Decodable {
         let id: Int
         let loginId: String
         let phoneNumber: String
-        let subscribeEmail: String
+        let subscribeEmail: String?
         let nickname: String
         let birthYear: String
         let gender: String
         let createdAt: String
         let industryId: Int?
-        let interests: [LoginInterestDTO]
+        let interests: [LoginInterestDTO]?
 
     public func toDomain() -> User {
 
@@ -51,13 +51,13 @@ public struct UserDTO: Decodable {
             id: id,
             loginId: loginId,
             phoneNumber: phoneNumber,
-            subscribeEmail: subscribeEmail,
+            subscribeEmail: subscribeEmail,  // 옵셔널 그대로 전달
             nickname: nickname,
             birthYear: birthYear,
             gender: gender,
             createdAt: createdAt,
             industryId: industryId ?? 0,
-            interests: interests.map { $0.toDomain() }
+            interests: interests?.map { $0.toDomain() } ?? []  // nil이면 빈 배열로 처리
         )
     }
 }

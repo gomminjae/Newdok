@@ -60,7 +60,7 @@ final public class SignupViewModel: ObservableObject {
 
     private let userUseCase: UserUseCase
     
-    @Published var currentStep: SignupStep = .agreeTerms
+    @Published var currentStep: SignupStep = .curation
 
     // MARK: - Form
     @Published public var phoneNumber: String = ""
@@ -319,6 +319,24 @@ final public class SignupViewModel: ObservableObject {
                 do {
                     let result = try await userUseCase.preInvestigate(industryId: myIndustry, interestIds: Array(selectedInterests))
                     recommendedPost = result
+                    
+                    // UserInfo 업데이트 (산업과 관심사 정보 추가)
+                    if let currentUserInfo = UserInfoStore.shared.load() {
+                        let updatedUserInfo = UserInfo(
+                            id: currentUserInfo.id,
+                            loginId: currentUserInfo.loginId,
+                            phoneNumber: currentUserInfo.phoneNumber,
+                            subscribeEmail: currentUserInfo.subscribeEmail,
+                            nickname: currentUserInfo.nickname,
+                            birthYear: currentUserInfo.birthYear,
+                            gender: currentUserInfo.gender,
+                            createdAt: currentUserInfo.createdAt,
+                            industryId: Int(myIndustry),
+                            interestIds: selectedInterests.compactMap { Int($0) }
+                        )
+                        UserInfoStore.shared.save(updatedUserInfo)
+                    }
+                    
                     goToNextStep()
                 } catch {
                     print("전송 실패: \(error)")
@@ -327,18 +345,83 @@ final public class SignupViewModel: ObservableObject {
         }
     
     func signup() {
+        // 필드 값 로깅
+        print("📝 [SignupViewModel] 회원가입 필드 값:")
+        print("  - loginId: '\(loginID)'")
+        print("  - password: '\(password)' (길이: \(password.count))")
+        print("  - phoneNumber: '\(phoneNumber)'")
+        print("  - nickname: '\(nickname)'")
+        print("  - birthYear: '\(birthYear)'")
+        print("  - gender: '\(gender)'")
+        
+        // 필드 정제
+        let trimmedNickname = nickname.trimmingCharacters(in: .whitespacesAndNewlines)
+        let birthYearInt = Int(birthYear) ?? 0  // 기본값 0
+        
+        print("  - trimmedNickname: '\(trimmedNickname)'")
+        print("  - gender: '\(gender)'")
+        print("  - birthYearInt: \(birthYearInt)")
+        print("  - birthYear 원본: '\(birthYear)'")
+        
+        // nickname에 영문 포함 여부 확인
+        let containsEnglish = trimmedNickname.range(of: "[A-Za-z]", options: .regularExpression) != nil
+        print("  - nickname에 영문 포함: \(containsEnglish)")
+        
+        // 필드 검증
+        let fields = [
+            ("loginId", loginID),
+            ("password", password),
+            ("phoneNumber", phoneNumber),
+            ("nickname", trimmedNickname),
+            ("birthYear", birthYear),  // String으로 유지
+            ("gender", gender)
+        ]
+        
+        for (fieldName, value) in fields {
+            if let stringValue = value as? String, stringValue.isEmpty {
+                print("❌ [SignupViewModel] \(fieldName) 필드가 비어있음")
+            }
+        }
+        
+        // birthYear 검증
+        if let birthYearInt = Int(birthYear) {
+            print("✅ [SignupViewModel] birthYear 검증 성공: \(birthYearInt)")
+        } else {
+            print("❌ [SignupViewModel] birthYear 형식 오류: '\(birthYear)'")
+        }
+        
         Task {
             do {
-                let result = try await userUseCase.signup(loginId: loginID, password: password, phoneNumber: phoneNumber, nickname: nickname, birthYear: birthYear, gender: gender)
+                let result = try await userUseCase.signup(loginId: loginID, password: password, phoneNumber: phoneNumber, nickname: trimmedNickname, birthYear: birthYear, gender: gender)
+                print("✅ [SignupViewModel] 회원가입 성공")
                 TokenStorage.accessToken = result.accessToken
                 user = result.user
-                goToNextStep()
+                
+                // UserInfo 저장
+                let userInfo = UserInfo(
+                    id: result.user.id,
+                    loginId: result.user.loginId,
+                    phoneNumber: result.user.phoneNumber,
+                    subscribeEmail: result.user.subscribeEmail,
+                    nickname: result.user.nickname,
+                    birthYear: result.user.birthYear,
+                    gender: result.user.gender,
+                    createdAt: result.user.createdAt,
+                    industryId: result.user.industryId,
+                    interestIds: result.user.interests.map { $0.id }
+                )
+                UserInfoStore.shared.save(userInfo)
+                
+                // 회원가입 완료 후 다음 단계로 이동
+                await MainActor.run {
+                    goToNextStep()
+                }
             } catch {
-                print("회원가입 실패: \(error)")
+                print("❌ [SignupViewModel] 회원가입 실패: \(error)")
+                print("❌ [SignupViewModel] 에러 상세: \(error.localizedDescription)")
             }
         }
     }
-    
     
     
 }
