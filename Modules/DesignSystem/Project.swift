@@ -17,13 +17,16 @@ let project = Project(
                 "Resources/**"
             ],
             dependencies: [
-                .project(target: "Shared", path: "../Shared"), 
+                .project(target: "Shared", path: "../Shared"),
+                .external(name: "Lottie")
             ]
         )
     ],
     resourceSynthesizers: [
         .assets(),
-        .fonts()
+        .fonts(),
+        .strings(),
+        .custom(name: "Lottie", parser: .assets, extensions: ["lottie"])
     ]
 )
 

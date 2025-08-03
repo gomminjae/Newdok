@@ -3,12 +3,13 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 55;
+	objectVersion = 60;
 	objects = {
 
 /* Begin PBXBuildFile section */
 		00D23AC972BA7FAF73626DCD /* DesignSystem.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 830F28D182C69C778C203B14 /* DesignSystem.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		11A9784B9A22CEB5C0ED9B00 /* AMain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 803F3FA851075F83F626452F /* AMain.swift */; };
+		91CF511DC6223BB233875DFA /* Lottie.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 52A5B404CB8F1FDDAB75A349 /* Lottie.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		96CEE8366F0FA41EA80555F4 /* DesignSystem.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 830F28D182C69C778C203B14 /* DesignSystem.framework */; };
 		970CBD168BF74249E7F252AF /* Launch.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F1D4D18311B36FB027BF9210 /* Launch.framework */; };
 		A88443ED4E8315310AEE74A9 /* DesignSystem.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 830F28D182C69C778C203B14 /* DesignSystem.framework */; };
@@ -43,6 +44,7 @@
 			dstSubfolderSpec = 10;
 			files = (
 				00D23AC972BA7FAF73626DCD /* DesignSystem.framework in Embed Frameworks */,
+				91CF511DC6223BB233875DFA /* Lottie.xcframework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -52,6 +54,7 @@
 /* Begin PBXFileReference section */
 		241C16AF11D199980D988528 /* A-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "A-Info.plist"; sourceTree = "<group>"; };
 		41B2C26DC943E9425C827A00 /* ATests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ATests.swift; sourceTree = "<group>"; };
+		52A5B404CB8F1FDDAB75A349 /* Lottie.xcframework */ = {isa = PBXFileReference; expectedSignature = "SelfSigned:892F1B43047B50538F2F46EAD92900DD3D4811F3582178C061A5FB20F111CB26"; lastKnownFileType = wrapper.xcframework; path = Lottie.xcframework; sourceTree = "<group>"; };
 		803F3FA851075F83F626452F /* AMain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AMain.swift; sourceTree = "<group>"; };
 		830F28D182C69C778C203B14 /* DesignSystem.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = DesignSystem.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		88D5B88928DBE85D6A3096AD /* A.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = A.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -97,6 +100,22 @@
 			path = Tests;
 			sourceTree = "<group>";
 		};
+		192A6F66CA8C0ACFF5AF4E61 /* artifacts */ = {
+			isa = PBXGroup;
+			children = (
+				6BFFEBB1D88C34F1E2FE327E /* lottie-spm */,
+			);
+			path = artifacts;
+			sourceTree = "<group>";
+		};
+		1EEBF091A5EF97B00C2B2DD7 /* Lottie */ = {
+			isa = PBXGroup;
+			children = (
+				52A5B404CB8F1FDDAB75A349 /* Lottie.xcframework */,
+			);
+			path = Lottie;
+			sourceTree = "<group>";
+		};
 		44AB1D5BF28CEF9AAE324E19 /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -116,12 +135,21 @@
 			path = Sources;
 			sourceTree = "<group>";
 		};
+		6BFFEBB1D88C34F1E2FE327E /* lottie-spm */ = {
+			isa = PBXGroup;
+			children = (
+				1EEBF091A5EF97B00C2B2DD7 /* Lottie */,
+			);
+			path = "lottie-spm";
+			sourceTree = "<group>";
+		};
 		7458E84982D7C0CD4DE9C66F /* Project */ = {
 			isa = PBXGroup;
 			children = (
 				01E124D1AC66A6E525E43A91 /* Derived */,
 				455971A8AE6A4FED797C3145 /* Sources */,
 				0BF2D6B5894407D88E75055E /* Tests */,
+				AD1F0C47689C1C60955B990E /* Tuist */,
 			);
 			name = Project;
 			sourceTree = "<group>";
@@ -134,6 +162,15 @@
 			);
 			sourceTree = "<group>";
 		};
+		AD1F0C47689C1C60955B990E /* Tuist */ = {
+			isa = PBXGroup;
+			children = (
+				EE6F66D668590DCD93454A0E /* .build */,
+			);
+			name = Tuist;
+			path = ../../../Tuist;
+			sourceTree = "<group>";
+		};
 		AE8E6D856B29271F6BDD45CD /* InfoPlists */ = {
 			isa = PBXGroup;
 			children = (
@@ -141,6 +178,14 @@
 				A67E858C9EA62982EC2E2B42 /* ATests-Info.plist */,
 			);
 			path = InfoPlists;
+			sourceTree = "<group>";
+		};
+		EE6F66D668590DCD93454A0E /* .build */ = {
+			isa = PBXGroup;
+			children = (
+				192A6F66CA8C0ACFF5AF4E61 /* artifacts */,
+			);
+			path = .build;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -421,10 +466,7 @@
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
 				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = (
-					"$(inherited)",
-					DEBUG,
-				);
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) DEBUG";
 				SWIFT_COMPILATION_MODE = singlefile;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
@@ -479,10 +521,7 @@
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
 				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = (
-					"$(inherited)",
-					DEBUG,
-				);
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) DEBUG";
 				SWIFT_COMPILATION_MODE = singlefile;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;

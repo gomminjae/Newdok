@@ -28,163 +28,162 @@ public struct MypageView: View {
 
     public var body: some View {
         NavigationStack {
-            ScrollView {
-                VStack(spacing: 0) {
+            VStack(spacing: 0) {
+                
+                // MARK: - 상단 프로필 영역
+                VStack(alignment: .leading, spacing: 16) {
                     
-                    // MARK: - 상단 프로필 영역
-                    VStack(alignment: .leading, spacing: 16) {
-                        
-                        // 닉네임 (최대 2줄)
-                        Text(viewModel.user?.nickname ?? "")
-                            .font(.hanSansNeo(16, .bold))
-                            .lineLimit(2)
-                            .padding(.top, 32)
+                    // 닉네임 (최대 2줄)
+                    Text(viewModel.user?.nickname ?? "")
+                        .font(.hanSansNeo(16, .bold))
+                        .lineLimit(2)
+                        .padding(.top, 32)
 
-                        // 구독이메일 라벨 + 툴팁
-                        HStack(spacing: 4) {
-                            Text("구독이메일")
-                                .font(.hanSansNeo(14, .medium))
-                                .foregroundColor(Color(hex: "#565656"))
-                            Button {
-                                showEmailAlert = true
-                            } label: {
-                                Image(systemName: "questionmark.circle")
-                                    .font(.system(size: 13))
-                                    .foregroundColor(Color(hex: "#565656"))
-                            }
-                        }
-
-                        // 이메일 텍스트 + 복사 버튼
-                        HStack(spacing: 6) {
-                            Button {
-                                let email = viewModel.user?.subscribeEmail ?? userInfo?.subscribeEmail ?? ""
-                                UIPasteboard.general.string = email
-                                isCopy = true
-                                
-                                DispatchQueue.main.asyncAfter(deadline: .now() + 2.1) {
-                                        withAnimation {
-                                            isCopy = false
-                                        }
-                                    }
-                            } label: {
-                                Image(asset: DesignSystemAsset.lineCopy)
-                                    .renderingMode(.template)
-                                    .foregroundStyle(Color.primaryNormal)
-                            }
-
-                            Text(viewModel.user?.subscribeEmail ?? userInfo?.subscribeEmail ?? "")
-                                .font(.system(size: 14))
-                                .foregroundColor(Color(hex: "#161616"))
-                                .lineLimit(1)
-                                .truncationMode(.middle)
-                        }
-
-                        // 프로필 편집 버튼 (가로 전체)
+                    // 구독이메일 라벨 + 툴팁
+                    HStack(spacing: 4) {
+                        Text("구독이메일")
+                            .font(.hanSansNeo(14, .medium))
+                            .foregroundColor(Color(hex: "#565656"))
                         Button {
-                            router.push(.editProfile)
+                            showEmailAlert = true
                         } label: {
-                            Text("프로필 편집")
-                                .font(.hanSansNeo(14, .bold))
+                            Image(systemName: "questionmark.circle")
+                                .font(.system(size: 13))
                                 .foregroundColor(Color(hex: "#565656"))
-                                .frame(maxWidth: .infinity)
-                                .frame(height: 44)
-                                .overlay {
-                                    RoundedRectangle(cornerRadius: 4)
-                                        .stroke(Color(hex: "#EBEBEB"))
-                                }
                         }
-                        .padding(.top, 12)
                     }
-                    .padding(.horizontal, 20)
-                    
-                    // MARK: - 서비스 섹션
-                    VStack(spacing: 0) {
-                        SectionHeader(title: "서비스")
-                        Button("계정 관리") {
-                            router.push(.accountManage)
+
+                    // 이메일 텍스트 + 복사 버튼
+                    HStack(spacing: 6) {
+                        Button {
+                            let email = viewModel.user?.subscribeEmail ?? userInfo?.subscribeEmail ?? ""
+                            UIPasteboard.general.string = email
+                            isCopy = true
+                            
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 2.1) {
+                                    withAnimation {
+                                        isCopy = false
+                                    }
+                                }
+                        } label: {
+                            Image(asset: DesignSystemAsset.lineCopy)
+                                .renderingMode(.template)
+                                .foregroundStyle(Color.primaryNormal)
                         }
+
+                        Text(viewModel.user?.subscribeEmail ?? userInfo?.subscribeEmail ?? "")
+                            .font(.system(size: 14))
+                            .foregroundColor(Color(hex: "#161616"))
+                            .lineLimit(1)
+                            .truncationMode(.middle)
+                    }
+
+                    // 프로필 편집 버튼 (가로 전체)
+                    Button {
+                        router.push(.editProfile)
+                    } label: {
+                        Text("프로필 편집")
+                            .font(.hanSansNeo(14, .bold))
+                            .foregroundColor(Color(hex: "#565656"))
+                            .frame(maxWidth: .infinity)
+                            .frame(height: 44)
+                            .overlay {
+                                RoundedRectangle(cornerRadius: 4)
+                                    .stroke(Color(hex: "#EBEBEB"))
+                            }
+                    }
+                    .padding(.top, 12)
+                }
+                .padding(.horizontal, 20)
+                
+                // MARK: - 서비스 섹션
+                VStack(spacing: 0) {
+                    SectionHeader(title: "서비스")
+                    Button("계정 관리") {
+                        router.push(.accountManage)
+                    }
+                    .buttonStyle(PlainButtonStyle())
+                    .settingRowStyle()
+                    NavigationLink("알림 설정", destination: Text("알림 설정 화면"))
                         .buttonStyle(PlainButtonStyle())
                         .settingRowStyle()
-                        NavigationLink("알림 설정", destination: Text("알림 설정 화면"))
-                            .buttonStyle(PlainButtonStyle())
-                            .settingRowStyle()
-                    }
-                    .padding(.horizontal, 20)
+                }
+                .padding(.horizontal, 20)
+                
+                // MARK: - 고객센터 섹션
+                VStack(spacing: 0) {
+                    SectionHeader(title: "고객센터")
                     
-                    // MARK: - 고객센터 섹션
-                    VStack(spacing: 0) {
-                        SectionHeader(title: "고객센터")
-                        
-                        Button {
-                            router.push(.faq)
-                        } label: {
-                            HStack {
-                                Text("FAQ")
-                                    .font(.hanSansNeo(16, .medium))
-                                    .foregroundStyle(Color(hex: "363636"))
-                                Spacer()
-                                Image(systemName: "chevron.right")
-                                    .foregroundColor(Color(hex: "#B0B0B0"))
-                            }
-                            .frame(maxWidth: .infinity, alignment: .leading)
-                            .frame(height: 48)
-                            .background(Color.white)
-                        }
-                        .buttonStyle(PlainButtonStyle())
-                        
-                        Button {
-                            router.push(.feedback)
-                        } label: {
-                            HStack {
-                                Text("서비스 피드백")
-                                    .font(.hanSansNeo(16, .medium))
-                                    .foregroundStyle(Color(hex: "363636"))
-                                Spacer()
-                                Image(systemName: "chevron.right")
-                                    .foregroundColor(Color(hex: "#B0B0B0"))
-                            }
-                            .frame(maxWidth: .infinity, alignment: .leading)
-                            .frame(height: 48)
-                            .background(Color.white)
-                        }
-                        .buttonStyle(PlainButtonStyle())
-                        
-                        Button {
-                            router.push(.termsMenu)
-                        } label: {
-                            HStack {
-                                Text("약관 및 정책")
-                                    .font(.hanSansNeo(16, .medium))
-                                    .foregroundStyle(Color(hex: "363636"))
-                                Spacer()
-                                Image(systemName: "chevron.right")
-                                    .foregroundColor(Color(hex: "#B0B0B0"))
-                            }
-                            .frame(maxWidth: .infinity, alignment: .leading)
-                            .frame(height: 48)
-                            .background(Color.white)
-                        }
-                        .buttonStyle(PlainButtonStyle())
-                        
+                    Button {
+                        router.push(.faq)
+                    } label: {
                         HStack {
-                            Text("버전")
+                            Text("FAQ")
                                 .font(.hanSansNeo(16, .medium))
                                 .foregroundStyle(Color(hex: "363636"))
                             Spacer()
-                            Text("1.0.0")
-                                .font(.hanSansNeo(14, .medium))
-                                .foregroundColor(Color(hex: "#969696"))
+                            Image(systemName: "chevron.right")
+                                .foregroundColor(Color(hex: "#B0B0B0"))
                         }
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .frame(height: 48)
                         .background(Color.white)
                     }
-                    .padding(.horizontal, 20)
-
-                    Spacer().frame(height: 40)
+                    .buttonStyle(PlainButtonStyle())
+                    
+                    Button {
+                        router.push(.feedback)
+                    } label: {
+                        HStack {
+                            Text("서비스 피드백")
+                                .font(.hanSansNeo(16, .medium))
+                                .foregroundStyle(Color(hex: "363636"))
+                            Spacer()
+                            Image(systemName: "chevron.right")
+                                .foregroundColor(Color(hex: "#B0B0B0"))
+                        }
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .frame(height: 48)
+                        .background(Color.white)
+                    }
+                    .buttonStyle(PlainButtonStyle())
+                    
+                    Button {
+                        router.push(.termsMenu)
+                    } label: {
+                        HStack {
+                            Text("약관 및 정책")
+                                .font(.hanSansNeo(16, .medium))
+                                .foregroundStyle(Color(hex: "363636"))
+                            Spacer()
+                            Image(systemName: "chevron.right")
+                                .foregroundColor(Color(hex: "#B0B0B0"))
+                        }
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .frame(height: 48)
+                        .background(Color.white)
+                    }
+                    .buttonStyle(PlainButtonStyle())
+                    
+                    HStack {
+                        Text("버전")
+                            .font(.hanSansNeo(16, .medium))
+                            .foregroundStyle(Color(hex: "363636"))
+                        Spacer()
+                        Text("1.0.0")
+                            .font(.hanSansNeo(14, .medium))
+                            .foregroundColor(Color(hex: "#969696"))
+                    }
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .frame(height: 48)
+                    .background(Color.white)
                 }
-                .padding(.top, 20)
+                .padding(.horizontal, 20)
+
+                Spacer()
             }
+            .padding(.top, 20)
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
             .navigationTitle("마이페이지")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar(.hidden, for: .navigationBar)

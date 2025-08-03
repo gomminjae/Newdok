@@ -14,7 +14,10 @@ let dependencies = Dependencies(
             url: "https://github.com/onevcat/Kingfisher", 
             requirement: .upToNextMajor(from: "8.0.0")
         ),
-
+        .remote(
+            url: "https://github.com/airbnb/lottie-ios.git",
+            requirement: .upToNextMajor(from: "4.0.0")
+        ),
     ],
     platforms: [.iOS],
     productTypes: [

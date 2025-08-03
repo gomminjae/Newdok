@@ -478,6 +478,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
+					"$(SRCROOT)/../../../Tuist/.build/artifacts/lottie-spm/Lottie",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.newdok.signup.tests;
 				PRODUCT_NAME = SignupTests;
@@ -572,6 +573,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
+					"$(SRCROOT)/../../../Tuist/.build/artifacts/lottie-spm/Lottie",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.newdok.signup.tests;
 				PRODUCT_NAME = SignupTests;

@@ -10,11 +10,11 @@ import DesignSystem
 import Shared
 import Domain
 import PopupView
-import Lottie
 
 public struct HomeView: View {
     @StateObject private var viewModel: HomeViewModel
     @State private var showCalendar = false
+    @State private var isRefreshing = false
     @EnvironmentObject private var router: AppRouter
     @EnvironmentObject private var tabSelection: TabSelection
     @EnvironmentObject private var exploreIntent: ExploreIntent
@@ -30,18 +30,31 @@ public struct HomeView: View {
 
             VStack(spacing: 0) {
                 headerView
-                ScrollView {
-                    dateBarView
-                    contentView
+                PullToRefreshView(
+                    isRefreshing: $isRefreshing,
+                    onRefresh: {
+                        await viewModel.loadToday()
+                    },
+                    lottieAnimation: {
+                        AnyView(
+                            LoadingAnimationView()
+                                .frame(width: 120, height: 40)
+                        )
+                    }
+                ) {
+                    VStack(spacing: 0) {
+                        dateBarView
+                        contentView
+                    }
                 }
-                .background(Color(hex: "#F5F5F7"))
             }
-            .background(Color.white)
-            .cornerRadius(12)
             .padding(.horizontal, 8)
             .padding(.top, 8)
         }
         .navigationBarHidden(true)
+        .onChange(of: isRefreshing) { newValue in
+            print("🔄 isRefreshing 상태 변경: \(newValue)")
+        }
         .onAppear {
             if !isGuest {
                 Task { await viewModel.loadToday() }
@@ -129,6 +142,7 @@ public struct HomeView: View {
             Color.white.clipShape(RoundedRectangle(cornerRadius: 12))
         )
         .padding(.top, 8)
+        .padding(.bottom, 16)
     }
 
     @ViewBuilder
@@ -184,23 +198,36 @@ public struct HomeView: View {
                     .padding(.leading, 28)
                 Spacer()
                 Button(action: {
-                    Task { await viewModel.loadToday() }
+                    print("🔄 새로고침 버튼 클릭됨")
+                    isRefreshing = true
+                    print("🔄 isRefreshing을 true로 설정")
+                    Task {
+                        await viewModel.loadToday()
+                        print("🔄 데이터 로드 완료")
+                        isRefreshing = false
+                        print("🔄 isRefreshing을 false로 설정")
+                    }
                 }) {
                     HStack(spacing: 4) {
-                        Image(asset: DesignSystemAsset.lineReload)
-                            .renderingMode(.template)
-                            .font(.hanSansNeo(14, .medium))
-                            .foregroundStyle(Color.primaryNormal)
-                        Text("새로고침")
-                            .font(.hanSansNeo(14, .medium))
-                            .foregroundStyle(Color.primaryNormal)
+                        if isRefreshing {
+                            LoadingAnimationView()
+                                .frame(width: 60, height: 20)
+                        } else {
+                            Image(asset: DesignSystemAsset.lineReload)
+                                .renderingMode(.template)
+                                .font(.hanSansNeo(14, .medium))
+                                .foregroundStyle(Color.primaryNormal)
+                            Text("새로고침")
+                                .font(.hanSansNeo(14, .medium))
+                                .foregroundStyle(Color.primaryNormal)
+                        }
                     }
                 }
                 .padding(.top, 23)
                 .padding(.trailing, 24)
             }
 
-            VStack(spacing: 8) {
+            VStack(spacing: 4) {
                 ForEach(viewModel.filteredArticles) { article in
                     ArticleRow(article: article)
                         .frame(height: 88)
