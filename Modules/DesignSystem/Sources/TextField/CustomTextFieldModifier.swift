@@ -23,7 +23,6 @@ public struct CustomTextFieldModifier: ViewModifier {
             content
                 .foregroundColor(.primary)
                 .padding(.vertical, 12)
-                //.focused($isFocused)
         }
         .padding(.horizontal)
         .frame(height: 50)
@@ -80,7 +79,6 @@ public struct PasswordFieldModifier: ViewModifier {
                 .renderingMode(.template)
                 .foregroundStyle(isFocused ? Color(hex: "363636") : Color(hex : "969696"))
             content
-                .focused($isFocused)
             Button(action: {
                 isSecure.toggle()
             }) {

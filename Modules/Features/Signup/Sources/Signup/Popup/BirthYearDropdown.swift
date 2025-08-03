@@ -20,6 +20,7 @@ struct DropdownOption: Hashable {
 
 struct DropdownRow: View {
     var option: DropdownOption
+    var isSelected: Bool = false
     var onOptionSelected: ((_ option: DropdownOption) -> Void)?
 
     var body: some View {
@@ -30,36 +31,40 @@ struct DropdownRow: View {
         }) {
             HStack {
                 Text(self.option.value)
-                    .font(.system(size: 14))
-                    .foregroundColor(Color.black)
+                    .font(.hanSansNeo(14, .medium))
+                    .foregroundColor(isSelected ? Color.primaryNormal : Color.black)
                 Spacer()
             }
         }
         .frame(height: 48)
         .padding(.horizontal, 16)
+        .background(isSelected ? Color(hex: "#E9EFFA") : Color.clear)
     }
 }
 
 struct Dropdown: View {
     var options: [DropdownOption]
+    var selectedKey: String? = nil
     var onOptionSelected: ((_ option: DropdownOption) -> Void)?
 
     var body: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: 0) {
                 ForEach(self.options, id: \.self) { option in
-                    DropdownRow(option: option, onOptionSelected: self.onOptionSelected)
+                    DropdownRow(
+                        option: option, 
+                        isSelected: selectedKey == option.key,
+                        onOptionSelected: self.onOptionSelected
+                    )
                 }
             }
         }
         .frame(height: 240)
         .padding(.vertical, 8)
         .background(Color.white)
-        .cornerRadius(5)
-        .overlay(
-            RoundedRectangle(cornerRadius: 5)
-                .stroke(Color.gray, lineWidth: 1)
-        )
+        .cornerRadius(4)
+        .shadow(color: Color(hex: "#191919").opacity(0.12), radius: 20, x: 0, y: 0)
+        // 보더 제거하고 그림자 추가
     }
 }
 
@@ -69,6 +74,7 @@ struct DropdownSelector: View {
     var placeholder: String
     var options: [DropdownOption]
     var onOptionSelected: ((_ option: DropdownOption) -> Void)?
+    var selectedKey: String? = nil
     private let buttonHeight: CGFloat = 48
 
     var body: some View {
@@ -76,9 +82,25 @@ struct DropdownSelector: View {
             self.shouldShowDropdown.toggle()
         }) {
             HStack {
-                Text(selectedOption == nil ? placeholder : selectedOption!.value)
-                    .font(.system(size: 14))
-                    .foregroundColor(selectedOption == nil ? Color.gray: Color.black)
+                Text({
+                    if let selectedKey = selectedKey, let selectedOption = options.first(where: { $0.key == selectedKey }) {
+                        return selectedOption.value
+                    } else if let selectedOption = selectedOption {
+                        return selectedOption.value
+                    } else {
+                        return placeholder
+                    }
+                }())
+                .font(.hanSansNeo(14, .medium))
+                .foregroundColor({
+                    if let selectedKey = selectedKey, let _ = options.first(where: { $0.key == selectedKey }) {
+                        return .black
+                    } else if selectedOption != nil {
+                        return .black
+                    } else {
+                        return .gray
+                    }
+                }())
 
                 Spacer()
 
@@ -89,14 +111,14 @@ struct DropdownSelector: View {
         .frame(height: 48)
         .padding(.horizontal)
         .overlay(
-            RoundedRectangle(cornerRadius: 5)
-                .stroke(Color.gray, lineWidth: 1)
+            RoundedRectangle(cornerRadius: 4)
+                .stroke(shouldShowDropdown ? Color.primaryNormal : Color(hex: "#DADADA"), lineWidth: 1)
         )
         .overlay(
             VStack {
                 if self.shouldShowDropdown {
                     Spacer(minLength: buttonHeight + 10)
-                    Dropdown(options: self.options, onOptionSelected: { option in
+                    Dropdown(options: self.options, selectedKey: selectedKey, onOptionSelected: { option in
                         shouldShowDropdown = false
                         selectedOption = option
                         self.onOptionSelected?(option)

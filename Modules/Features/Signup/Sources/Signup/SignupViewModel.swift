@@ -166,12 +166,16 @@ final public class SignupViewModel: ObservableObject {
     public func goToNextStep() {
         if let next = SignupStep(rawValue: currentStep.rawValue + 1) {
             currentStep = next
+            // 인증 횟수 초기화
+            resendFailureCount = 0
         }
     }
     
     public func goToPreviousStep() {
         if let prev = SignupStep(rawValue: currentStep.rawValue - 1) {
             currentStep = prev
+            // 인증 횟수 초기화
+            resendFailureCount = 0
         }
     }
     

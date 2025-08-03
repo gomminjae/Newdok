@@ -12,6 +12,7 @@ public struct ProfileInputView: View {
     @State private var selectedBirthYear: String? = nil
     @State private var isExpanded: Bool = false
     @State private var dropdownYPosition: CGFloat = 0
+    @FocusState private var isNicknameFocused: Bool
 
     @ObservedObject private var viewModel: SignupViewModel
 
@@ -38,20 +39,26 @@ public struct ProfileInputView: View {
                         .padding(.bottom, 8)
                         .padding(.leading, 4)
 
-                    TextField("12자 이내, 특수문자 사용 불가", text: $viewModel.nickname)
-                        .font(.hanSansNeo(14, .medium))
-                        .padding(.leading, 16)
-                        .frame(height: 50)
-                        .background(viewModel.showNicknameError ? Color(hex: "#FEE6E6") : Color.white)
-                        .overlay(
-                            RoundedRectangle(cornerRadius: 4)
-                                .stroke(
-                                    viewModel.showNicknameError
-                                    ? Color(hex: "#E32727")
-                                    : Color.gray.opacity(0.5),
-                                    lineWidth: 1
-                                )
-                        )
+                    HStack {
+                        Image(asset: DesignSystemAsset.lineUser)
+                            .renderingMode(.template)
+                            .foregroundStyle(isNicknameFocused ? Color(hex: "363636") : Color(hex: "969696"))
+                        TextField("12자 이내, 특수문자 사용 불가", text: $viewModel.nickname)
+                            .font(.hanSansNeo(14, .medium))
+                            .focused($isNicknameFocused)
+                    }
+                    .padding(.horizontal, 16)
+                    .frame(height: 50)
+                    .background(viewModel.showNicknameError ? Color(hex: "#FEE6E6") : Color.white)
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 4)
+                            .stroke(
+                                viewModel.showNicknameError
+                                ? Color(hex: "#E32727")
+                                : (isNicknameFocused ? Color.primaryNormal : Color(hex: "#DADADA")),
+                                lineWidth: 1
+                            )
+                    )
 
                     // 에러 메시지
                     if viewModel.showNicknameError, let error = viewModel.nicknameValidationError {
@@ -88,10 +95,10 @@ public struct ProfileInputView: View {
                         .padding()
                         .frame(height: 48)
                         .background(Color.white)
-                        .cornerRadius(6)
+                        .cornerRadius(4)
                         .overlay(
-                            RoundedRectangle(cornerRadius: 6)
-                                .stroke(Color(hex: "C0C0C0"))
+                            RoundedRectangle(cornerRadius: 4)
+                                .stroke(isExpanded ? Color.primaryNormal : Color(hex: "#DADADA"))
                         )
                         .background(
                             GeometryReader { geo in
@@ -155,6 +162,17 @@ public struct ProfileInputView: View {
                 .padding(.horizontal, 24)
                 .scrollDisabled(true)
                 .ignoresSafeArea(.keyboard)
+                .hideKeyboardOnTap()
+                .toolbar {
+                    ToolbarItemGroup(placement: .keyboard) {
+                        Spacer()
+                        Button("Done") {
+                            isNicknameFocused = false
+                        }
+                        .foregroundStyle(Color.primaryNormal)
+                        .font(.hanSansNeo(17, .medium))
+                    }
+                }
 
                 if isExpanded {
                     VStack(spacing: 0) {
@@ -176,7 +194,7 @@ public struct ProfileInputView: View {
                                         .padding(.horizontal, 20)
                                         .background(
                                             item.value == selectedBirthYear
-                                                ? Color.primaryNormal.opacity(0.1)
+                                                ? Color(hex: "#E9EFFA")
                                                 : Color.white
                                         )
                                     }
@@ -185,16 +203,9 @@ public struct ProfileInputView: View {
                             }
                         }
                         .frame(height: 240)
-                        .background(
-                            RoundedRectangle(cornerRadius: 6)
-                                .stroke(Color(hex: "C0C0C0"))
-                                .background(Color.white)
-                        )
-                        .overlay {
-                            RoundedRectangle(cornerRadius: 6)
-                                .stroke(Color(hex: "C0C0C0"))
-                            
-                        }
+                        .background(Color.white)
+                        .cornerRadius(4)
+                        .shadow(color: Color(hex: "#191919").opacity(0.12), radius: 20, x: 0, y: 0)
                     }
                     .padding(.horizontal, 24)
                     .background(Color.white)
@@ -217,13 +228,13 @@ struct GenderButton: View {
     var body: some View {
         Button(action: action) {
             Text(title)
-                .font(.system(size: 16, weight: .medium))
-                .foregroundColor(isSelected ? Color(hex: "#2866D3") : .gray)
+                .font(.hanSansNeo(16, .medium))
+                .foregroundColor(isSelected ? Color.primaryNormal : Color(hex: "#969696"))
                 .padding(.vertical, 14)
                 .frame(maxWidth: .infinity)
                 .overlay(
                     RoundedRectangle(cornerRadius: 4)
-                        .stroke(isSelected ? Color(hex: "#2866D3") : Color.gray, lineWidth: 1)
+                        .stroke(isSelected ? Color.primaryNormal : Color(hex: "#DADADA"), lineWidth: 1)
                 )
         }
     }

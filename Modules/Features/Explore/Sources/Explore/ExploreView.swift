@@ -328,11 +328,12 @@ public struct ExploreView: View {
                         .cornerRadius(20)
                         .overlay(
                             RoundedRectangle(cornerRadius: 20)
-                                .stroke(Color.gray.opacity(0.3))
+                                .stroke(Color(hex: "EBEBEB"))
                         )
                     }
-                    Divider()
-                        .frame(height: 20)
+                    Rectangle()
+                        .frame(width: 1, height: 20)
+                        .foregroundColor(Color(hex: "EBEBEB"))
 
                     // 산업 필터
                     Button(action: {
@@ -376,7 +377,7 @@ public struct ExploreView: View {
                         .cornerRadius(20)
                         .overlay(
                             RoundedRectangle(cornerRadius: 20)
-                                .stroke(viewModel.day != nil ? Color.primaryNormal : Color.gray.opacity(0.3))
+                                .stroke(viewModel.day != nil ? Color.primaryNormal : Color(hex: "EBEBEB"))
                         )
                     }
                 }

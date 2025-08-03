@@ -82,6 +82,16 @@ public struct IDInputView: View {
             .padding(.bottom, 20)
         }
         .scrollDisabled(true)
+        .toolbar {
+            ToolbarItemGroup(placement: .keyboard) {
+                Spacer()
+                Button("Done") {
+                    isIDFocused = false
+                }
+                .foregroundStyle(Color.primaryNormal)
+                .font(.hanSansNeo(17, .medium))
+            }
+        }
     }
 }
 

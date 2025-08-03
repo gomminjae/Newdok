@@ -47,6 +47,8 @@ public struct PhoneVerificationView: View {
                     HStack(spacing: 8) {
                         HStack {
                             Image(asset: DesignSystemAsset.phone)
+                                .renderingMode(.template)
+                                .foregroundStyle(isPhoneFieldFocused ? Color(hex: "363636") : Color(hex: "969696"))
                                 .padding(.leading, 20)
 
                             TextField("-구분 없이 입력", text: $viewModel.phoneNumber)
@@ -72,7 +74,7 @@ public struct PhoneVerificationView: View {
                         }
                         .font(.hanSansNeo(14, .bold))
                         .foregroundStyle(viewModel.phoneNumber.count < 11 ?  Color(hex: "#BDBDBD") : Color.primaryNormal)
-                        .disabled(viewModel.phoneNumber.count < 11)
+                        .disabled(viewModel.phoneNumber.count < 11 || viewModel.resendFailureCount >= 3)
                         .frame(width: 94, height: 48)
                         .overlay(
                             RoundedRectangle(cornerRadius: 4)
@@ -89,12 +91,17 @@ public struct PhoneVerificationView: View {
                                 .padding(.top, 24)
 
                             HStack {
-                                TextField("6자리 숫자 입력", text: $viewModel.enteredVerificationCode)
-                                    .keyboardType(.numberPad)
-                                    .padding(.leading, 16)
-                                    .frame(height: 50)
-                                    .font(.hanSansNeo(14, .medium))
-                                    .focused($isNumberPadFocused)
+                                HStack {
+                                    Image(asset: DesignSystemAsset.lineLock)
+                                        .renderingMode(.template)
+                                        .foregroundStyle(isNumberPadFocused ? Color(hex: "363636") : Color(hex: "969696"))
+                                    TextField("6자리 숫자 입력", text: $viewModel.enteredVerificationCode)
+                                        .keyboardType(.numberPad)
+                                        .font(.hanSansNeo(14, .medium))
+                                        .focused($isNumberPadFocused)
+                                }
+                                .padding(.horizontal, 16)
+                                .frame(height: 50)
 
                                 Text(viewModel.timerRemaining > 0 ? formatTime(viewModel.timerRemaining) : "만료됨")
                                     .foregroundStyle(Color(hex: "#363636"))
@@ -123,6 +130,7 @@ public struct PhoneVerificationView: View {
                 ToolbarItemGroup(placement: .keyboard) {
                     Spacer()
                     Button("Done") {
+                        isPhoneFieldFocused = false
                         isNumberPadFocused = false
                     }
                     .foregroundStyle(Color.primaryNormal)
@@ -190,7 +198,7 @@ public struct PhoneVerificationView: View {
                 .type(.default)
                 .position(.center)
                 .animation(.easeInOut)
-                .closeOnTapOutside(true)
+                .closeOnTapOutside(false)
                 .backgroundColor(Color(hex: "#25242C").opacity(0.6))
         }
     }

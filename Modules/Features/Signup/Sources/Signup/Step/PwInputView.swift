@@ -116,6 +116,17 @@ public struct PwInputView: View {
             .disabled(!viewModel.isPasswordConfirmed)
         }
         .scrollDisabled(true)
+        .toolbar {
+            ToolbarItemGroup(placement: .keyboard) {
+                Spacer()
+                Button("Done") {
+                    isPasswordFocused = false
+                    isConfirmPasswordFocused = false
+                }
+                .foregroundStyle(Color.primaryNormal)
+                .font(.hanSansNeo(17, .medium))
+            }
+        }
     }
 }
 

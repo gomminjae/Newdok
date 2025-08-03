@@ -57,6 +57,7 @@ public struct BrandDetailView: View {
     @AppStorage("isGuest") private var isGuest = false
     
     @State private var showSubscribeSheet = false
+    @State private var showSubscribeStatePopup = false
     
     
     
@@ -316,6 +317,33 @@ public struct BrandDetailView: View {
                 SubscribeModalView(title: viewModel.detail?.brandName ?? "", url: viewModel.detail?.subscribeUrl ?? "")
                     .presentationDetents([.large])
                     .presentationDragIndicator(.visible)
+            }
+            .onChange(of: showSubscribeSheet) { newValue in
+                // 구독 시트가 닫힐 때 팝업 띄우기
+                if !newValue {
+                    // 오늘 하루 보지 않기 설정 확인
+                    if TokenStorage.shouldShowSubscribeStatePopup {
+                        showSubscribeStatePopup = true
+                    }
+                }
+            }
+            .popup(isPresented: $showSubscribeStatePopup) {
+                SubscribeStatePopupView(
+                    onCancel: {
+                        TokenStorage.hideSubscribeStatePopupForToday()
+                        showSubscribeStatePopup = false
+                    },
+                    onConfirm: {
+                        showSubscribeStatePopup = false
+                    }
+                )
+            } customize: {
+                $0
+                    .type(.default)
+                    .position(.center)
+                    .animation(.easeInOut)
+                    .backgroundColor(Color.black.opacity(0.3))
+                    .closeOnTapOutside(true)
             }
         }
     }

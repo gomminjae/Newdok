@@ -12,6 +12,7 @@ public enum TokenStorage {
     private enum Key {
         static let accessToken = "accessToken"
         static let hasCompletedOnboarding = "hasCompletedOnboarding"
+        static let hideSubscribeStatePopupDate = "hideSubscribeStatePopupDate"
     }
 
     public static var accessToken: String? {
@@ -46,6 +47,29 @@ public enum TokenStorage {
     
     public static func markOnboardingCompleted() {
         hasCompletedOnboarding = true
+    }
+    
+    public static var hideSubscribeStatePopupDate: Date? {
+        get {
+            UserDefaults.standard.object(forKey: Key.hideSubscribeStatePopupDate) as? Date
+        }
+        set {
+            UserDefaults.standard.set(newValue, forKey: Key.hideSubscribeStatePopupDate)
+        }
+    }
+    
+    public static func hideSubscribeStatePopupForToday() {
+        hideSubscribeStatePopupDate = Date()
+    }
+    
+    public static var shouldShowSubscribeStatePopup: Bool {
+        guard let hideDate = hideSubscribeStatePopupDate else { return true }
+        
+        let calendar = Calendar.current
+        let today = Date()
+        
+        // 오늘 날짜와 저장된 날짜가 같은지 확인
+        return !calendar.isDate(hideDate, inSameDayAs: today)
     }
 }
 

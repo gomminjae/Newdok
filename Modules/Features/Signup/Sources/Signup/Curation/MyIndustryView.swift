@@ -53,9 +53,13 @@ struct MyIndustryView: View {
                 .foregroundStyle(Color(hex: "#565656"))
                 .padding(.top,42)
             
-            DropdownSelector(placeholder: "산업군을 선택하세요", options: industryOptions, onOptionSelected: { selected in
-                viewModel.myIndustry = selected.key
-            })
+            DropdownSelector(
+                placeholder: "산업군을 선택하세요", 
+                options: industryOptions, 
+                onOptionSelected: { selected in
+                    viewModel.myIndustry = selected.key
+                }, selectedKey: viewModel.myIndustry.isEmpty ? nil : viewModel.myIndustry
+            )
 
             
             Spacer()

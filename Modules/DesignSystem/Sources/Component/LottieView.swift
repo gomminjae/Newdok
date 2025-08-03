@@ -39,7 +39,7 @@ public struct LottieView: UIViewRepresentable {
         self.contentMode = contentMode
     }
     
-    // 기존 name 기반 초기화도 지원
+    
     public init(
         name: String,
         loopMode: LottieLoopMode = .loop,

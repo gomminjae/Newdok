@@ -89,6 +89,7 @@ struct InterestButton: View {
                 .foregroundColor(isSelected ? .primaryNormal : Color(hex: "#565656"))
                 .padding(.vertical, 12)
                 .frame(maxWidth: .infinity)
+                .frame(height: 48)
                 .background(Color.white)
                 .overlay(
                     RoundedRectangle(cornerRadius: 4)
