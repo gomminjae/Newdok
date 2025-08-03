@@ -70,7 +70,7 @@ public struct HomeView: View {
                 onDateSelected: { date in
                     // 새로운 메서드 사용 - 월 보장
                     viewModel.selectDateWithMonthGuarantee(date)
-                    showCalendar = false
+                    // 팝업은 자동으로 닫히지 않음 - 사용자가 직접 닫아야 함
                 },
                 onMonthChanged: { monthDate in
                     // 월 변경 시 displayedMonth는 CalendarPopupView에서 자동으로 업데이트됨

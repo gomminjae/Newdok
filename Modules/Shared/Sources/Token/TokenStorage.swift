@@ -11,6 +11,7 @@ import Foundation
 public enum TokenStorage {
     private enum Key {
         static let accessToken = "accessToken"
+        static let hasCompletedOnboarding = "hasCompletedOnboarding"
     }
 
     public static var accessToken: String? {
@@ -33,9 +34,23 @@ public enum TokenStorage {
     public static var hasValidToken: Bool {
         return accessToken != nil && !accessToken!.isEmpty
     }
+    
+    public static var hasCompletedOnboarding: Bool {
+        get {
+            UserDefaults.standard.bool(forKey: Key.hasCompletedOnboarding)
+        }
+        set {
+            UserDefaults.standard.set(newValue, forKey: Key.hasCompletedOnboarding)
+        }
+    }
+    
+    public static func markOnboardingCompleted() {
+        hasCompletedOnboarding = true
+    }
 }
 
 // MARK: - Notification Names
 public extension Notification.Name {
     static let didReceiveUnauthorized = Notification.Name("didReceiveUnauthorized")
+    static let didLoginSuccess = Notification.Name("didLoginSuccess")
 }

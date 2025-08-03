@@ -123,7 +123,7 @@ public struct LoginView: View {
                     }
                     .font(.hanSansNeo(14, .medium))
                     .foregroundStyle(Color(hex: "565656"))
-                    .padding(.leading, 97)
+                    .padding(.leading, 80)
 
                     Text("|")
                         .foregroundStyle(Color(hex: "#DADADA"))
@@ -134,6 +134,7 @@ public struct LoginView: View {
                     .font(.hanSansNeo(14, .medium))
                     .foregroundStyle(Color(hex: "#2866D3"))
                 }
+                //.frame(maxWidth: .infinity)
                 .padding(.bottom, 56)
             }
             .padding(.horizontal, 24)

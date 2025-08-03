@@ -29,60 +29,79 @@ public struct EditInterestView: View {
 
     public var body: some View {
         VStack(spacing: 0) {
+            // 헤더
+            VStack(alignment: .leading, spacing: 8) {
+                Text("관심사")
+                    .font(.hanSansNeo(18, .bold))
+                    .foregroundStyle(Color(hex: "1E1E1E"))
+                    .allowsHitTesting(false)
+
+                Text("최소 3가지 이상을 선택해주세요.")
+                    .font(.hanSansNeo(14, .regular))
+                    .foregroundColor(Color(hex: "555555"))
+                    .allowsHitTesting(false)
+            }
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .padding(.horizontal, 24)
+            .padding(.top, 24)
+            .padding(.bottom, 28)
+
+            
             ScrollView {
-                VStack(alignment: .leading) {
-                    Text("관심사")
-                        .font(.hanSansNeo(18, .bold))
-                        .foregroundStyle(Color(hex: "1E1E1E"))
-                        .allowsHitTesting(false) // 터치 불가능하게 설정
-
-                    Text("최소 3가지 이상을 선택해주세요.")
-                        .font(.hanSansNeo(14, .regular))
-                        .foregroundColor(Color(hex: "555555"))
-                        .allowsHitTesting(false) // 터치 불가능하게 설정
-
-                    LazyVGrid(columns: columns, spacing: 12) {
-                        ForEach(interests, id: \.id) { item in
-                            Button(action: {
-                                toggle(id: item.id)
-                            }) {
-                                Text(item.name)
-                                    .font(.hanSansNeo(14, .medium))
-                                    .frame(maxWidth: .infinity)
-                                    .frame(height: 48)
-                                    .background(Color.white)
-                                    .foregroundColor(selectedIds.contains(item.id) ? Color.primaryNormal : Color(hex: "565656"))
-                                    .overlay(
-                                        RoundedRectangle(cornerRadius: 4)
-                                            .stroke(selectedIds.contains(item.id) ? Color.primaryNormal : Color(hex: "EBEBEB"))
-                                    )
-                                    .cornerRadius(4)
-                            }
+                LazyVGrid(columns: columns, spacing: 12) {
+                    ForEach(interests, id: \.id) { item in
+                        Button(action: {
+                            toggle(id: item.id)
+                        }) {
+                            Text(item.name)
+                                .font(.hanSansNeo(14, .medium))
+                                .frame(maxWidth: .infinity)
+                                .frame(height: 48)
+                                .background(Color.white)
+                                .foregroundColor(selectedIds.contains(item.id) ? Color.primaryNormal : Color(hex: "565656"))
+                                .overlay(
+                                    RoundedRectangle(cornerRadius: 4)
+                                        .stroke(selectedIds.contains(item.id) ? Color.primaryNormal : Color(hex: "EBEBEB"))
+                                )
+                                .cornerRadius(4)
                         }
                     }
-                    .padding(.top, 16)
                 }
                 .padding(.horizontal, 24)
+                .padding(.bottom, 100) // 버튼 공간 확보
             }
 
-            // ✅ 저장 버튼 - API 호출만 추가
+          
             Button(action: {
                 Task {
                     await viewModel.updateInterests(ids: Array(selectedIds))
-                    viewModel.showInterestToast = true
+                    await MainActor.run {
+                        viewModel.showInterestToast = true
+                    }
                     router.pop()
                 }
+                
             }) {
                 Text("변경하기")
+                    .font(.hanSansNeo(14, .bold))
                     .frame(maxWidth: .infinity)
                     .frame(height: 48)
                     .background(selectedIds.count >= 3 ? Color.primaryNormal : Color(hex: "#F0F0F0"))
                     .foregroundColor(selectedIds.count >= 3 ? .white : Color(hex: "#B0B0B0"))
-                    .cornerRadius(8)
+                    .cornerRadius(4)
                     .padding(.horizontal, 20)
                     .padding(.vertical, 12)
             }
             .disabled(selectedIds.count < 3)
+        }
+        .onAppear {
+            Task {
+               
+                await viewModel.fetchuserInfo()
+                if let userInterests = viewModel.user?.interests {
+                    selectedIds = Set(userInterests.map { $0.id })
+                }
+            }
         }
         .navigationBarBackButtonHidden(true)
         .toolbar {
@@ -102,7 +121,7 @@ public struct EditInterestView: View {
             }
         }
         .onAppear {
-            // ✅ viewModel.user 기준으로 selectedIds 세팅
+            
             if let interests = viewModel.user?.interests {
                 selectedIds = Set(interests.map { $0.id })
             }

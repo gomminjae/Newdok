@@ -54,10 +54,15 @@ struct QABRootView: View {
                     launched = true
                     print("QABRootViewView에서 router 인스턴스: \(Unmanaged.passUnretained(router).toOpaque())")
                     
-                    // 토큰 존재 여부만 확인
-                    if TokenStorage.hasValidToken {
+                    // 온보딩 완료 여부와 토큰 존재 여부 확인
+                    if !TokenStorage.hasCompletedOnboarding {
+                        // 온보딩을 처음 실행하는 경우
+                        router.resetTo(.onboarding)
+                    } else if TokenStorage.hasValidToken {
+                        // 온보딩 완료 + 토큰 있음 -> 메인 화면
                         router.resetTo(.tabbar(selectedTab: .home))
                     } else {
+                        // 온보딩 완료 + 토큰 없음 -> 로그인
                         router.resetTo(.login)
                     }
                 }

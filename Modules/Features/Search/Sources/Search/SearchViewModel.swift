@@ -22,6 +22,34 @@ public final class SearchViewModel: ObservableObject {
     
     public init(useCase: SearchUseCase) {
         self.useCase = useCase
+        setupTokenObserver()
+    }
+    
+    private func setupTokenObserver() {
+        // 토큰 상태 변화 감지
+        NotificationCenter.default.addObserver(
+            forName: .didReceiveUnauthorized,
+            object: nil,
+            queue: .main
+        ) { [weak self] _ in
+            self?.clearSearchResults()
+        }
+        
+        // 로그인 성공 감지
+        NotificationCenter.default.addObserver(
+            forName: .didLoginSuccess,
+            object: nil,
+            queue: .main
+        ) { [weak self] _ in
+            self?.clearSearchResults()
+        }
+    }
+    
+    public func clearSearchResults() {
+        searchText = ""
+        searchResults = []
+        bookmarkResults = []
+        errorMessage = nil
     }
     
     public func searchNewsletters() async {

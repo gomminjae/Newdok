@@ -142,6 +142,12 @@ public struct EditProfileView: View {
         .onAppear {
             Task { await viewModel.fetchuserInfo() }
         }
+        .onChange(of: viewModel.showIndustryToast) { newValue in
+            print("📱 [EditProfileView] showIndustryToast 변경: \(newValue)")
+        }
+        .onChange(of: viewModel.showInterestToast) { newValue in
+            print("📱 [EditProfileView] showInterestToast 변경: \(newValue)")
+        }
         .padding(.horizontal, 20)
         .navigationBarTitleDisplayMode(.inline)
         .navigationBarBackButtonHidden(true)

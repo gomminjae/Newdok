@@ -75,13 +75,14 @@ public struct SearchResultView: View {
 
             ScrollView {
                 VStack(alignment: .leading, spacing: 20) {
-                    if viewModel.isLoading {
-                        ProgressView()
-                    } else if let error = viewModel.errorMessage {
+                    if let error = viewModel.errorMessage {
                         Text(error).foregroundColor(.red)
                     } else {
                         newsletterSection()
-                        articleSection()
+                        // 비회원일 때는 아티클 섹션 숨김
+                        if TokenStorage.hasValidToken {
+                            articleSection()
+                        }
                     }
                     Spacer(minLength: 50)
                 }
@@ -92,6 +93,14 @@ public struct SearchResultView: View {
         .navigationBarBackButtonHidden(true)
         .navigationBarHidden(true)
         .background(Color.gray.opacity(0.05).ignoresSafeArea())
+        .onReceive(NotificationCenter.default.publisher(for: .didReceiveUnauthorized)) { _ in
+            // 로그아웃 시 검색 결과 초기화
+            viewModel.clearSearchResults()
+        }
+        .onReceive(NotificationCenter.default.publisher(for: .didLoginSuccess)) { _ in
+            // 로그인 성공 시 검색 결과 초기화
+            viewModel.clearSearchResults()
+        }
     }
 }
 
@@ -184,7 +193,8 @@ extension SearchResultView {
                 .font(.hanSansNeo(14, .medium))
                 .foregroundColor(Color(hex: "#565656"))
             Button(action: {
-                // 등록 요청 액션 (필요시 구현)
+               
+                router.push(.feedback)
             }) {
                 Text("뉴스레터 등록 요청하기")
                     .font(.hanSansNeo(14, .bold))

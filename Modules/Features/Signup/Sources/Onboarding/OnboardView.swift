@@ -21,7 +21,7 @@ public struct OnboardingView: View {
     }
 
     public var body: some View {
-        VStack {
+        VStack(spacing: 0) {
             TabView(selection: $currentPage) {
                 OnboardingPageView(
                     title: "너무 많은 뉴스레터 브랜드",
@@ -52,8 +52,9 @@ public struct OnboardingView: View {
             }
             .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
 
-            VStack {
+            VStack(spacing: 0) {
                 Button(action: {
+                    TokenStorage.markOnboardingCompleted()
                     router.push(.signup)
                 }) {
                     Text("회원가입")
@@ -65,7 +66,7 @@ public struct OnboardingView: View {
                         .cornerRadius(4)
                 }
                 .padding(.horizontal, 31)
-                .frame(height: 58)
+                .frame(height: 48)
 
                 HStack {
                     Text("이미 계정이 있나요?")
@@ -73,6 +74,7 @@ public struct OnboardingView: View {
                         .foregroundColor(Color(hex: "#969696"))
 
                     Button(action: {
+                        TokenStorage.markOnboardingCompleted()
                         router.push(.login)
                         
                     }) {

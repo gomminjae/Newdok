@@ -84,7 +84,7 @@ public struct WithdrawView: View {
                         router.resetTo(.login)
                     }
                 }
-                .font(.hanSansNeo(16, .bold))
+                .font(.hanSansNeo(14, .bold))
                 .frame(maxWidth: .infinity)
                 .frame(height: 48)
                 .background(

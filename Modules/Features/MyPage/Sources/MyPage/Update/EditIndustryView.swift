@@ -25,7 +25,6 @@ public struct EditIndustryView: View {
 
     public init(viewModel: MypageViewModel) {
         self.viewModel = viewModel
-        self._selectedId = State(initialValue: viewModel.user?.industryId)
     }
 
     public var body: some View {
@@ -95,7 +94,10 @@ public struct EditIndustryView: View {
                 Task {
                     guard let selectedId else { return }
                     await viewModel.updateIndustry(id: selectedId)
-                    viewModel.showIndustryToast = true
+                    await viewModel.fetchuserInfo()
+                    await MainActor.run {
+                        viewModel.showIndustryToast = true
+                    }
                     router.pop()
                 }
             }) {
@@ -116,6 +118,13 @@ public struct EditIndustryView: View {
                     .cornerRadius(4)
             }
             .disabled(selectedId == viewModel.user?.industryId)
+        }
+        .onAppear {
+            Task {
+                // 사용자 정보 로드 후 현재 선택된 종사산업으로 초기화
+                await viewModel.fetchuserInfo()
+                selectedId = viewModel.user?.industryId
+            }
         }
         .padding(20)
         .navigationBarTitleDisplayMode(.inline)

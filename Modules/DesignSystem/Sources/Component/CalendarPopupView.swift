@@ -76,10 +76,12 @@ public struct CalendarPopupView: View {
                 .padding(.vertical, 8)
                 .padding(.horizontal, 20)
                 .background(Color.white)
+                .clipShape(RoundedRectangle(cornerRadius: 4))
                 .overlay(RoundedRectangle(cornerRadius: 4).stroke(Color.primaryNormal))
             }
             .padding(.top, 20)
         }
+        .padding(.horizontal, 20)
         .background(Color.clear)
         .contentShape(Rectangle())
         .onChange(of: displayedMonthDate) { newDate in
@@ -129,12 +131,12 @@ public struct CalendarPopupView: View {
     }
 
     private var weekdayHeader: some View {
-        HStack(spacing: 0) {
+        HStack(spacing: 10) {
             ForEach(Array(weekdays.enumerated()), id: \.0) { idx, day in
                 Text(day)
-                    .font(.subheadline)
-                    .frame(maxWidth: .infinity)
-                    .foregroundColor(idx == 0 ? .red : (idx == 6 ? .blue : .gray))
+                    .font(.hanSansNeo(16, .regular))
+                    .frame(width: 40, height: 40)
+                    .foregroundColor(idx == 0 ? .red : (idx == 6 ? .blue : .black))
             }
         }
         .padding(.horizontal, 16)
@@ -153,18 +155,24 @@ public struct CalendarPopupView: View {
                         let isSelected = calendar.isDate(day.date, inSameDayAs: selectedDate)
                         let hasData    = dataDays.contains(day.dayInt)
                         let isBlank    = day.dayInt == 0
+                        
+//                        // 디버깅: 8월 1일, 2일이 왜 회색인지 확인
+//                        if day.dayInt == 1 || day.dayInt == 2 {
+//                            print("📅 [CalendarPopupView] 날짜 \(day.dayInt)일 - isFuture: \(isFuture), today: \(today), day.date: \(day.date)")
+//                        }
 
                         VStack(spacing: 4) {
                             Text(day.dayString)
+                                .font(.hanSansNeo(16, .regular))
                                 .frame(width: 40, height: 40)
-                                .foregroundColor(isFuture ? Color(hex: "#C0C0C0") : Color(hex: "#1E1E1E"))
+                                .foregroundColor(
+                                    isFuture ? Color(hex: "#C0C0C0") : 
+                                    (isSelected ? .white : 
+                                     (isToday ? .white : Color(hex: "#171414")))
+                                )
                                 .background(
                                     RoundedRectangle(cornerRadius: 12)
-                                        .fill(isSelected ? Color.blue : .clear)
-                                        .overlay(
-                                            RoundedRectangle(cornerRadius: 12)
-                                                .stroke(isToday && !isSelected ? Color.blue : .clear, lineWidth: 2)
-                                        )
+                                        .fill(isSelected ? Color.blue : (isToday ? Color.primaryNormal : .clear))
                                 )
                             Circle()
                                 .frame(width: 5, height: 5)
@@ -173,17 +181,14 @@ public struct CalendarPopupView: View {
                         }
                         .opacity(isBlank ? 0.3 : 1)
                         .onTapGesture {
-                            // 미래 날짜가 아니고, 빈 칸이 아니면 선택 가능
-                            guard !isFuture, !isBlank else { 
-                                if isFuture {
-                                    print("📅 [CalendarPopupView] 미래 날짜 터치 차단: \(day.date) (today: \(today))")
-                                }
+                            // 빈 칸이 아니면 선택 가능 (과거 날짜도 선택 가능)
+                            guard !isBlank else { 
                                 return 
                             }
                             print("📅 [CalendarPopupView] 날짜 선택: \(day.date)")
                             selectedDate = day.date
                             onDateSelected?(day.date)
-                            isPresented = false
+                            // 팝업은 자동으로 닫히지 않음 - 사용자가 직접 닫아야 함
                         }
                     }
                 }

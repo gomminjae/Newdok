@@ -42,7 +42,7 @@ public struct SubscribeView: View {
                 .padding(.bottom, 18)
                 .padding(.horizontal, 20)
 
-            if filteredSubscriptions.isEmpty || isGuest {
+            if !viewModel.isLoading && (filteredSubscriptions.isEmpty || isGuest) {
                 EmptySubscriptionView(isSubscribedTab: selectedTab == 0, isGuest: isGuest)
             } else {
                 ScrollView {

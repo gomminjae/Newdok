@@ -114,56 +114,23 @@ public struct MypageView: View {
                 VStack(spacing: 0) {
                     SectionHeader(title: "고객센터")
                     
-                    Button {
+                    Button("FAQ") {
                         router.push(.faq)
-                    } label: {
-                        HStack {
-                            Text("FAQ")
-                                .font(.hanSansNeo(16, .medium))
-                                .foregroundStyle(Color(hex: "363636"))
-                            Spacer()
-                            Image(systemName: "chevron.right")
-                                .foregroundColor(Color(hex: "#B0B0B0"))
-                        }
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                        .frame(height: 48)
-                        .background(Color.white)
                     }
                     .buttonStyle(PlainButtonStyle())
+                    .settingRowStyle()
                     
-                    Button {
+                    Button("서비스 피드백") {
                         router.push(.feedback)
-                    } label: {
-                        HStack {
-                            Text("서비스 피드백")
-                                .font(.hanSansNeo(16, .medium))
-                                .foregroundStyle(Color(hex: "363636"))
-                            Spacer()
-                            Image(systemName: "chevron.right")
-                                .foregroundColor(Color(hex: "#B0B0B0"))
-                        }
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                        .frame(height: 48)
-                        .background(Color.white)
                     }
                     .buttonStyle(PlainButtonStyle())
+                    .settingRowStyle()
                     
-                    Button {
+                    Button("약관 및 정책") {
                         router.push(.termsMenu)
-                    } label: {
-                        HStack {
-                            Text("약관 및 정책")
-                                .font(.hanSansNeo(16, .medium))
-                                .foregroundStyle(Color(hex: "363636"))
-                            Spacer()
-                            Image(systemName: "chevron.right")
-                                .foregroundColor(Color(hex: "#B0B0B0"))
-                        }
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                        .frame(height: 48)
-                        .background(Color.white)
                     }
                     .buttonStyle(PlainButtonStyle())
+                    .settingRowStyle()
                     
                     HStack {
                         Text("버전")
@@ -246,7 +213,9 @@ extension View {
                     Image(systemName: "chevron.right")
                         .foregroundColor(Color(hex: "#B0B0B0"))
                         .padding(.trailing, 8)
+                        .allowsHitTesting(false) // 화살표가 터치를 방해하지 않도록
                 }
             )
+            .contentShape(Rectangle()) // overlay 뒤에 배치
     }
 }
