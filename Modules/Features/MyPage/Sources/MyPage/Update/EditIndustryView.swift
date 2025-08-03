@@ -46,17 +46,17 @@ public struct EditIndustryView: View {
                     .foregroundColor(Color(hex: "363636"))
 
                     Spacer()
-                    Image(systemName: isExpanded ? "chevron.up" : "chevron.down")
-                        .foregroundColor(.gray)
+                    Image(asset: isExpanded ? DesignSystemAsset.lineUp : DesignSystemAsset.lineDown)
+                        .foregroundColor(Color(hex: "#363636"))
                 }
-                .padding()
-                .frame(height: 48)
+                .padding(.horizontal, 16)
+                .frame(height: 50)
                 .background(.white)
-                .cornerRadius(6)
-                .overlay {
-                    RoundedRectangle(cornerRadius: 6)
-                        .stroke(Color(hex: "C0C0C0"))
-                }
+                .cornerRadius(4)
+                .overlay(
+                    RoundedRectangle(cornerRadius: 4)
+                        .stroke(isExpanded ? Color.primaryNormal : Color(hex: "#DADADA"), lineWidth: 1)
+                )
             }
 
             if isExpanded {
@@ -69,15 +69,15 @@ public struct EditIndustryView: View {
                             } label: {
                                 HStack {
                                     Text(item.name)
-                                        .foregroundColor(item.id == selectedId ? .primaryNormal : Color(hex: "363636"))
+                                        .foregroundColor(item.id == selectedId ? Color.primaryNormal : Color(hex: "363636"))
                                         .font(.hanSansNeo(14, .medium))
                                     Spacer()
                                 }
                                 .padding(.vertical, 14)
-                                .padding(.horizontal, 20)
+                                .padding(.horizontal, 16)
                                 .background(
                                     item.id == selectedId
-                                        ? Color.primaryNormal.opacity(0.1)
+                                        ? Color(hex: "#E9EFFA")
                                         : Color.white
                                 )
                             }
@@ -85,7 +85,9 @@ public struct EditIndustryView: View {
                     }
                 }
                 .frame(maxHeight: 240)
-                .background(RoundedRectangle(cornerRadius: 6).stroke(Color(hex: "C0C0C0")))
+                .background(Color.white)
+                .cornerRadius(4)
+                .shadow(color: Color(hex: "#191919").opacity(0.12), radius: 20, x: 0, y: 0)
             }
 
             Spacer()

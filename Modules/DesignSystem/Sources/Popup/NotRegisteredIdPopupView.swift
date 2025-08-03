@@ -38,12 +38,12 @@ public struct NotRegisteredIdPopupView: View {
 
             Button(action: onConfirm) {
                 Text("확인")
-                    .font(.hanSansNeo(16, .bold))
+                    .font(.hanSansNeo(14, .bold))
                     .foregroundColor(.white)
                     .frame(maxWidth: .infinity)
                     .frame(height: 48)
                     .background(Color.primaryNormal)
-                    .cornerRadius(8)
+                    .cornerRadius(4)
             }
             .padding(.horizontal, 24)
             .padding(.bottom, 24)

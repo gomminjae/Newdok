@@ -48,25 +48,22 @@ struct FindIdPhoneInputView: View {
                     .padding(.top, 42)
                     .padding(.bottom, 8)
 
-                HStack(spacing: 8) {
-                    Image(asset: DesignSystemAsset.phone)
-                        .padding(.leading, 16)
-
-                    TextField("-구분 없이 입력", text: $viewModel.phoneNumber)
+                HStack {
+                    Image(asset: DesignSystemAsset.lineMobile)
+                        .renderingMode(.template)
+                        .foregroundStyle(isPhoneFieldFocused ? Color(hex: "363636") : Color(hex: "969696"))
+                    TextField("-구분없이 입력", text: $viewModel.phoneNumber)
                         .font(.hanSansNeo(14, .medium))
                         .keyboardType(.numberPad)
                         .focused($isPhoneFieldFocused)
-                        .focused($isNumberPadFocused)
-                        .padding(.vertical, 12)
-                        .padding(.horizontal, 4)
                 }
-                .frame(height: 48)
+                .padding(.horizontal, 16)
+                .frame(height: 50)
                 .background(Color.white)
                 .overlay(
                     RoundedRectangle(cornerRadius: 4)
                         .stroke(isPhoneFieldFocused ? Color.primaryNormal : Color(hex: "#DADADA"), lineWidth: 1)
                 )
-                .cornerRadius(4)
 
                 Spacer()
             }
@@ -101,7 +98,7 @@ struct FindIdPhoneInputView: View {
             ToolbarItemGroup(placement: .keyboard) {
                 Spacer()
                 Button("Done") {
-                    isNumberPadFocused = false
+                    isPhoneFieldFocused = false
                 }
                 .foregroundStyle(Color.primaryNormal)
                 .font(.hanSansNeo(17, .medium))

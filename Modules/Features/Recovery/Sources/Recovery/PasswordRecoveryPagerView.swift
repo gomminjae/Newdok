@@ -43,6 +43,7 @@ struct PasswordRecoveryIdInputView: View {
     @State private var error: String? = nil
     @State private var showNotRegisteredPopup = false
     @FocusState private var isFieldFocused: Bool
+    @FocusState private var isNumberPadFocused: Bool
     var body: some View {
         ZStack(alignment: .bottom) {
                 VStack(alignment: .leading, spacing: 0) {
@@ -55,28 +56,38 @@ struct PasswordRecoveryIdInputView: View {
                         .padding(.top, 42)
                         .padding(.bottom, 8)
                     HStack {
-                        Image(asset: DesignSystemAsset.person)
-                            .padding(.leading, 16)
-                        TextField("아이디 입력", text: $viewModel.recoveryId)
+                        Image(asset: DesignSystemAsset.lineUser)
+                            .renderingMode(.template)
+                            .foregroundStyle(isFieldFocused ? Color(hex: "363636") : Color(hex: "969696"))
+                        TextField("아이디를 입력해주세요", text: $viewModel.recoveryId)
                             .font(.hanSansNeo(14, .medium))
-                            .keyboardType(.numberPad)
                             .focused($isFieldFocused)
-                            .padding(.vertical, 12)
-                            .padding(.horizontal, 4)
+                            .focused($isNumberPadFocused)
                     }
-                    .frame(height: 48)
+                    .padding(.horizontal, 16)
+                    .frame(height: 50)
                     .background(Color.white)
                     .overlay(
                         RoundedRectangle(cornerRadius: 4)
                             .stroke(isFieldFocused ? Color.primaryNormal : Color(hex: "#DADADA"), lineWidth: 1)
                     )
-                    .cornerRadius(4)
                     if let error = error {
                         Text(error).foregroundColor(.red).font(.hanSansNeo(14, .medium))
                     }
                     Spacer()
+                        }
+        .padding(.horizontal, 24)
+        .toolbar {
+            ToolbarItemGroup(placement: .keyboard) {
+                Spacer()
+                Button("Done") {
+                    isNumberPadFocused = false
                 }
-                .padding(.horizontal, 24)
+                .foregroundStyle(Color.primaryNormal)
+                .font(.hanSansNeo(17, .medium))
+            }
+        }
+        .hideKeyboardOnTap()
             Button(action: {
                 Task {
                     if let user = await viewModel.checkIdExists() {
@@ -113,6 +124,18 @@ struct PasswordRecoveryIdInputView: View {
             }
         }
         .ignoresSafeArea(.keyboard)
+        .toolbar {
+            ToolbarItemGroup(placement: .keyboard) {
+                Spacer()
+                Button("Done") {
+                    isFieldFocused = false
+                    isNumberPadFocused = false
+                }
+                .foregroundStyle(Color.primaryNormal)
+                .font(.hanSansNeo(17, .medium))
+            }
+        }
+        .hideKeyboardOnTap()
     }
 }
 
@@ -123,6 +146,7 @@ struct PasswordRecoveryPhoneView: View {
     @State private var timerRunning: Bool = true
     @State private var error: String? = nil
     @State private var resendCount: Int = 0
+    @FocusState private var isNumberPadFocused: Bool
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
             Text("가입 당시 입력한 휴대폰 번호로\n인증번호를 발송했어요.")
@@ -131,19 +155,29 @@ struct PasswordRecoveryPhoneView: View {
             Text("인증번호")
                 .font(.hanSansNeo(14, .medium))
                 .foregroundStyle(Color(hex: "#565656"))
-            HStack(alignment: .center) {
-                TextField("6자리 숫자 입력", text: $viewModel.recoveryCode)
-                    .font(.hanSansNeo(14, .medium))
-                    .keyboardType(.numberPad)
-                    .padding()
-                    .background(Color.white)
-                    .overlay(RoundedRectangle(cornerRadius: 4).stroke(Color(hex: "#DADADA")))
-                    .cornerRadius(4)
+            HStack {
+                HStack {
+                    Image(asset: DesignSystemAsset.lineLock)
+                        .renderingMode(.template)
+                        .foregroundStyle(Color(hex: "969696"))
+                    TextField("6자리 숫자 입력", text: $viewModel.recoveryCode)
+                        .keyboardType(.numberPad)
+                        .font(.hanSansNeo(14, .medium))
+                        .focused($isNumberPadFocused)
+                }
+                .padding(.horizontal, 16)
+                .frame(height: 50)
+
                 Text(String(format: "%02d:%02d", timer/60, timer%60))
-                    .font(.hanSansNeo(14, .medium))
-                    .foregroundColor(.gray)
-                    .frame(width: 60)
+                    .foregroundStyle(Color(hex: "#363636"))
+                    .font(.hanSansNeo(12, .medium))
+                    .padding(.trailing, 10)
             }
+            .background(Color.white)
+            .overlay(
+                RoundedRectangle(cornerRadius: 4)
+                    .stroke(Color(hex: "#DADADA"), lineWidth: 1)
+            )
             .onAppear {
                 timer = 180
                 timerRunning = true
@@ -195,6 +229,17 @@ struct PasswordRecoveryPhoneView: View {
             Spacer()
         }
         .padding(.horizontal, 24)
+        .toolbar {
+            ToolbarItemGroup(placement: .keyboard) {
+                Spacer()
+                Button("Done") {
+                    isNumberPadFocused = false
+                }
+                .foregroundStyle(Color.primaryNormal)
+                .font(.hanSansNeo(17, .medium))
+            }
+        }
+        .hideKeyboardOnTap()
     }
 }
 
