@@ -77,41 +77,32 @@ public struct SignupView: View {
         VStack(spacing: 0) {
             signupHeaderView
 
-            TabView(selection: $viewModel.currentStep) {
-                PhoneVerificationView(viewModel: viewModel)
-                    .environmentObject(router)
-                    .tag(SignupStep.phoneVerification)
-
-                IDInputView(viewModel: viewModel)
-                    .tag(SignupStep.idInput)
-
-                PwInputView(viewModel: viewModel)
-                    .tag(SignupStep.pwInput)
-
-                ProfileInputView(viewModel: viewModel)
-                    .tag(SignupStep.enterProfile)
-
-                AgreeView(viewModel: viewModel)
-                    .tag(SignupStep.agreeTerms)
-
-                CompleteView(viewModel: viewModel)
-                    .tag(SignupStep.complete)
-
-                RecommendView(viewModel: viewModel)
-                    .tag(SignupStep.recommend)
-
-                MyIndustryView(viewModel: viewModel)
-                    .tag(SignupStep.myIndustry)
-
-                InterestSelectionView(viewModel: viewModel)
-                    .tag(SignupStep.indutryList)
-
-                CurationView(viewModel: viewModel)
-                    .tag(SignupStep.curation)
+            Group {
+                switch viewModel.currentStep {
+                case .phoneVerification:
+                    PhoneVerificationView(viewModel: viewModel)
+                        .environmentObject(router)
+                case .idInput:
+                    IDInputView(viewModel: viewModel)
+                case .pwInput:
+                    PwInputView(viewModel: viewModel)
+                case .enterProfile:
+                    ProfileInputView(viewModel: viewModel)
+                case .agreeTerms:
+                    AgreeView(viewModel: viewModel)
+                case .complete:
+                    CompleteView(viewModel: viewModel)
+                case .recommend:
+                    RecommendView(viewModel: viewModel)
+                case .myIndustry:
+                    MyIndustryView(viewModel: viewModel)
+                case .indutryList:
+                    InterestSelectionView(viewModel: viewModel)
+                case .curation:
+                    CurationView(viewModel: viewModel)
+                }
             }
-            .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
             .animation(.easeInOut(duration: 0.3), value: viewModel.currentStep)
-            .interactiveDismissDisabled()
         }
         .ignoresSafeArea(.keyboard)
     }
