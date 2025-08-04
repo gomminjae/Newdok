@@ -195,7 +195,6 @@ public struct BookmarkView: View {
                     Button(action: {
                         withAnimation(.easeInOut(duration: 0.2)) {
                             selectedCategory = name
-                            
                         }
                         Task {
                             viewModel.interest = id != nil ? "\(id!)" : ""
