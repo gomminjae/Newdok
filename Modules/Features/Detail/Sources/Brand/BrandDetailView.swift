@@ -209,10 +209,27 @@ public struct BrandDetailView: View {
                             .clipShape(Capsule())
                             .overlay {
                                 Capsule()
-                                    .stroke(Color(hex: "EBEBEB"))
+                                    .stroke(Color(hex: "EBEBEB"), lineWidth: 1)
+                            }
+                    }
+                    
+                    Spacer()
+                    
+                    // 구독중일 때 "구독중" 표시 추가 (오른쪽 끝에 배치)
+                    if let status = SubscriptionStatus(rawValue: detail.isSubscribed ?? ""), status == .confirmed {
+                        Text("구독중")
+                            .font(.hanSansNeo(11, .medium))
+                            .foregroundStyle(Color.white)
+                            .frame(width: 50, height: 26)
+                            .background(Color(hex: "#5184DB"))
+                            .clipShape(Capsule())
+                            .overlay {
+                                Capsule()
+                                    .stroke(Color.primaryNormal, lineWidth: 1)
                             }
                     }
                 }
+                .padding(.trailing, 16)
                 .padding(.top, 12)
                 .padding(.leading, 16)
 
@@ -250,13 +267,11 @@ public struct BrandDetailView: View {
                                .blur(radius: 8)
                        )
                        .clipShape(RoundedRectangle(cornerRadius: 12))
-
-                       .cornerRadius(8)
                        .shadow(
-                           color: Color.black.opacity(0.04),
-                           radius: 8,
+                           color: Color(hex: "#191919").opacity(0.04),
+                           radius: 4,
                            x: 0,
-                           y: 4
+                           y: 2
                        )
                        .padding(.horizontal)
                        .offset(y: 15)

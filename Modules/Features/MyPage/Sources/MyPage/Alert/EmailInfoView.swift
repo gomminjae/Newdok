@@ -50,40 +50,21 @@ struct EmailInfoModalView: View {
 
 
                 
-                HStack(spacing: 8) {
+               
                     
-                    Button(action: {
-                        isPresented = false
-                    }) {
-                        Text("취소")
-                            .font(.hanSansNeo(14, .bold))
-                            .foregroundColor(Color(hex: "#565656"))
-                            .frame(maxWidth: .infinity, minHeight: 48)
-                            .overlay {
-                                RoundedRectangle(cornerRadius: 4)
-                                    .stroke(Color(hex: "#EBEBEB"), lineWidth: 1)
-                                  
-                                
-                                    
-                            }
-                           
-                    }
-                    
-                    
-                    Button(action: {
-                        isPresented = false 
-                    }) {
-                        Text("확인")
-                            .font(.hanSansNeo(14, .bold))
-                            .foregroundColor(.white)
-                            .frame(maxWidth: .infinity, minHeight: 48)
-                            .background(Color(hex: "#2866D3"))
-                            .cornerRadius(4)
-                    }
+                Button(action: {
+                    isPresented = false
+                }) {
+                    Text("확인")
+                        .font(.hanSansNeo(14, .bold))
+                        .foregroundColor(.white)
+                        .frame(maxWidth: .infinity, minHeight: 48)
+                        .background(Color(hex: "#2866D3"))
+                        .cornerRadius(4)
                 }
                 .padding(.horizontal, 24)
                 .padding(.top, 24)
-                .padding(.bottom, 16)
+                .padding(.bottom, 28)
             }
             .background(Color.white)
             .cornerRadius(12)

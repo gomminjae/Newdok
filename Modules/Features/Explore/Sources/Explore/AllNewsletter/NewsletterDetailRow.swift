@@ -30,6 +30,7 @@ enum SubscriptionStatus: String {
 
     var label: String? {
         switch self {
+        case .check: return "구독확인 중"
         case .confirmed: return "구독중"
         case .paused: return "구독중지"
         default: return nil
@@ -92,6 +93,18 @@ struct NewsletterDetailRow: View {
                     .overlay {
                         RoundedRectangle(cornerRadius: 10)
                             .stroke(Color(hex: "EBEBEB"))
+                    }
+                    .overlay {
+                        // 구독 확인 중일 때 오버레이
+                        if SubscriptionStatus(rawValue: brand.isSubscribed ?? "") == .check {
+                            RoundedRectangle(cornerRadius: 10)
+                                .fill(Color(hex: "#25242C99"))
+                                .overlay {
+                                    Text("구독확인 중")
+                                        .font(.hanSansNeo(16, .medium))
+                                        .foregroundColor(.white)
+                                }
+                        }
                     }
 
                 VStack(alignment: .leading, spacing: 12) {
