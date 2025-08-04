@@ -74,7 +74,7 @@ struct SortBottomSheet: View {
         }
         .frame(maxHeight: .infinity, alignment: .top)
         .background(Color.white)
-        .cornerRadius(20)
+        .presentationCornerRadius(24)
         .presentationDetents([.fraction(0.35)])
         .presentationDragIndicator(.visible)
     }

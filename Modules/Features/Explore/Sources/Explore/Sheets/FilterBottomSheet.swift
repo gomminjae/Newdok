@@ -121,7 +121,7 @@ struct FilterBottomSheet: View {
             tempDay = day
         }
         .background(Color.white)
-        .cornerRadius(20)
+        .presentationCornerRadius(24)
         .presentationDetents([.height(580)])
         .presentationDragIndicator(.visible)
     }
