@@ -37,24 +37,25 @@ public struct EditProfileView: View {
                 .allowsHitTesting(false) // 터치 불가능하게 설정
             
             // MARK: 닉네임
-            Button {
-                router.push(.editNickname)
-            } label: {
-                EditableRow(title: "닉네임", text: viewModel.user?.nickname ?? "")
-            }
+            EditableRow(
+                title: "닉네임", 
+                text: viewModel.user?.nickname ?? "",
+                onEdit: {
+                    router.push(.editNickname)
+                }
+            )
            
 
             // MARK: 종사산업
-            Button {
-                router.push(.editIndustry)
-            } label: {
-                EditableRow(
-                    title: "종사산업",
-                    text: viewModel.user?.industryId
-                        .flatMap { SelectableItemStore.shared.name(for: $0, in: .industry) } ?? "",
-                    placeholder: "산업군을 선택해주세요."
-                )
-            }
+            EditableRow(
+                title: "종사산업",
+                text: viewModel.user?.industryId
+                    .flatMap { SelectableItemStore.shared.name(for: $0, in: .industry) } ?? "",
+                placeholder: "산업군을 선택해주세요.",
+                onEdit: {
+                    router.push(.editIndustry)
+                }
+            )
             .padding(.top,24)
 
             // MARK: 관심사
@@ -201,6 +202,7 @@ struct EditableRow: View {
     let title: String
     let text: String
     var placeholder: String = ""
+    var onEdit: (() -> Void)? = nil
     
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
@@ -212,11 +214,15 @@ struct EditableRow: View {
                     .foregroundColor(text.isEmpty ? Color(hex: "#969696") : Color(hex: "#565656"))
                     .font(.hanSansNeo(14, .medium))
                 Spacer()
-                Image(asset: DesignSystemAsset.lineEdit)
-                    .renderingMode(.template)
-                    .resizable()
-                    .frame(width: 24, height: 24)
-                    .foregroundColor(Color(hex: "#363636"))
+                Button(action: {
+                    onEdit?()
+                }) {
+                    Image(asset: DesignSystemAsset.lineEdit)
+                        .renderingMode(.template)
+                        .resizable()
+                        .frame(width: 24, height: 24)
+                        .foregroundColor(Color(hex: "#363636"))
+                }
             }
             .padding()
             .frame(height: 48)

@@ -12,7 +12,7 @@ import Foundation
 public enum ArticleAPI {
     case fetchArticles(year: String, publicationMonth: String)
     case fetchTodayArticle
-    case fetchBookmarkArticles(interest: String?)
+    case fetchBookmarkArticles(interest: String?, sortBy: String?)
     case changeBookmarkState(articleId: String)
     case fetchBookmarkedInterest
     case search(keyword: String)
@@ -67,10 +67,15 @@ extension ArticleAPI: TargetType {
             ], encoding: URLEncoding.default)
         case .fetchTodayArticle:
             return .requestPlain
-        case .fetchBookmarkArticles(let interest):
-            return .requestParameters(parameters: [
-                "interest": interest ?? ""
-            ], encoding: URLEncoding.default)
+        case .fetchBookmarkArticles(let interest, let sortBy):
+            var parameters: [String: String] = [:]
+            if let interest = interest, !interest.isEmpty {
+                parameters["interestId"] = interest
+            }
+            if let sortBy = sortBy, !sortBy.isEmpty {
+                parameters["sortBy"] = sortBy
+            }
+            return .requestParameters(parameters: parameters, encoding: URLEncoding.default)
         case .changeBookmarkState(let id):
             return .requestParameters(parameters: ["articleId": id], encoding: JSONEncoding.default)
         case .fetchBookmarkedInterest:

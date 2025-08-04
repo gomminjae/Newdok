@@ -40,8 +40,10 @@ public struct PwdUpdateView: View {
                 Group {
                     if isSecureOldPassword {
                         SecureField("8자 이상, 영문/숫자 조합", text: $viewModel.oldPassword)
+                            .focused($isOldPasswordFocused)
                     } else {
                         TextField("8자 이상, 영문/숫자 조합", text: $viewModel.oldPassword)
+                            .focused($isOldPasswordFocused)
                     }
                 }
                 .font(.hanSansNeo(14,.medium))
@@ -62,8 +64,10 @@ public struct PwdUpdateView: View {
                 Group {
                     if isSecureNewPassword {
                         SecureField("8자 이상, 영문/숫자 조합", text: $viewModel.newPassword)
+                            .focused($isNewPasswordFocused)
                     } else {
                         TextField("8자 이상, 영문/숫자 조합", text: $viewModel.newPassword)
+                            .focused($isNewPasswordFocused)
                     }
                 }
                 .font(.hanSansNeo(14,.medium))
@@ -84,8 +88,10 @@ public struct PwdUpdateView: View {
                 Group {
                     if isSecureConfirmPassword {
                         SecureField("8자 이상, 영문/숫자 조합", text: $viewModel.checkedPassword)
+                            .focused($isConfirmPasswordFocused)
                     } else {
                         TextField("8자 이상, 영문/숫자 조합", text: $viewModel.checkedPassword)
+                            .focused($isConfirmPasswordFocused)
                     }
                 }
                 .font(.hanSansNeo(14,.medium))

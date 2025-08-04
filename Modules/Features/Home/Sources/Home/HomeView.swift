@@ -175,11 +175,17 @@ public struct HomeView: View {
                     buttonAction: {
                         let weekday = Calendar.current.component(.weekday, from: viewModel.selectedDate)
                         let dayIndex = convertWeekdayToExploreIndex(weekday)
-                        exploreIntent.day = dayIndex
-                        exploreIntent.selectedTab = 1
-                        exploreIntent.trigger = UUID()
-                        router.resetTo(.tabbar(selectedTab: .explore))
+                        
+                        // 먼저 탭 변경
                         tabSelection.selectedTab = .explore
+                        router.resetTo(.tabbar(selectedTab: .explore))
+                        
+                        // 약간의 지연 후 exploreIntent 설정
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                            exploreIntent.day = dayIndex
+                            exploreIntent.selectedTab = 1
+                            exploreIntent.trigger = UUID()
+                        }
                     },
                     refreshAction: { Task { await viewModel.loadToday() } }
                 )

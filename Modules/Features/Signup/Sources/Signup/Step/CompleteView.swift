@@ -19,6 +19,8 @@ struct CompleteView: View {
     public init(viewModel: SignupViewModel) {
         self.viewModel = viewModel
     }
+    
+
 
     var body: some View {
         VStack(spacing: 0) {
@@ -57,6 +59,11 @@ struct CompleteView: View {
                     .padding(.top,8)
                     .padding(.leading,20)
                     .padding(.bottom,20)
+                    .onAppear {
+                        print("📧 [CompleteView] 이메일 표시:")
+                        print("  - user: \(viewModel.user != nil)")
+                        print("  - subscribeEmail: \(viewModel.user?.subscribeEmail ?? "nil")")
+                    }
             }
             .frame(maxWidth: .infinity, alignment: .leading)
             .frame(height: 90)
@@ -69,6 +76,7 @@ struct CompleteView: View {
 
             // 다음 버튼
             Button(action: {
+                
                 viewModel.goToNextStep()
             }) {
                 Text("다음")

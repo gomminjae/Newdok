@@ -31,8 +31,8 @@ public class ArticleRepositoryImpl: ArticleRepository {
         return response.map { $0.toDomain }
     }
     
-    public func fetchBookmarkArticles(interest: String?) async throws -> Domain.BookmarkedArticles {
-        let response: BookmarkArticlesResponse = try await provider.asyncRequest(.fetchBookmarkArticles(interest: interest))
+    public func fetchBookmarkArticles(interest: String?, sortBy: String?) async throws -> Domain.BookmarkedArticles {
+        let response: BookmarkArticlesResponse = try await provider.asyncRequest(.fetchBookmarkArticles(interest: interest, sortBy: sortBy))
         return response.data.toDomain()
     }
     

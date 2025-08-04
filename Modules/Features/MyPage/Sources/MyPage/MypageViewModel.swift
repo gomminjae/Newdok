@@ -54,8 +54,14 @@ public class MypageViewModel: ObservableObject {
     }
     
     public func fetchuserInfo() async {
+        print("🔄 [MypageViewModel] 프로필 조회 시작")
         do {
             let response = try await useCase.getProfile()
+            print("✅ [MypageViewModel] 프로필 조회 성공")
+            print("  - id: \(response.id)")
+            print("  - nickname: \(response.nickname)")
+            print("  - subscribeEmail: \(response.subscribeEmail ?? "nil")")
+            
             user = response
             
             // UserInfoStore 업데이트
@@ -72,18 +78,39 @@ public class MypageViewModel: ObservableObject {
                 interestIds: response.interests.map { $0.id }
             )
             UserInfoStore.shared.save(userInfo)
+            print("💾 [MypageViewModel] UserInfoStore 저장 완료")
         } catch {
-            print("프로필 조회 실패")
+            print("❌ [MypageViewModel] 프로필 조회 실패: \(error)")
         }
     }
     
     
     
     public func updateNickname(nickname: String) async {
+        print("🔄 [MypageViewModel] 닉네임 변경 시작: \(nickname)")
         do {
             try await useCase.updateNickname(nickname)
+            print("✅ [MypageViewModel] 닉네임 변경 성공")
+            
+            // UserInfoStore 즉시 업데이트
+            if let currentUser = user {
+                let updatedUserInfo = UserInfo(
+                    id: currentUser.id,
+                    loginId: currentUser.loginId,
+                    phoneNumber: currentUser.phoneNumber,
+                    subscribeEmail: currentUser.subscribeEmail,
+                    nickname: nickname, // 변경된 닉네임 사용
+                    birthYear: currentUser.birthYear,
+                    gender: currentUser.gender,
+                    createdAt: currentUser.createdAt,
+                    industryId: currentUser.industryId,
+                    interestIds: currentUser.interests.map { $0.id }
+                )
+                UserInfoStore.shared.save(updatedUserInfo)
+                print("💾 [MypageViewModel] UserInfoStore 닉네임 업데이트 완료")
+            }
         } catch {
-            print("닉네임 변경 실패")
+            print("❌ [MypageViewModel] 닉네임 변경 실패: \(error)")
         }
     }
     

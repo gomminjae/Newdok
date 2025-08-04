@@ -24,6 +24,15 @@ public struct NewsletterRow: View {
                 .placeholder {
                     Color.gray.opacity(0.2)
                 }
+                .onFailure { _ in
+                    // 실패 시 기본 이미지 표시
+                    Image(systemName: "photo")
+                        .font(.system(size: 24))
+                        .foregroundColor(Color.gray.opacity(0.5))
+                        .frame(width: 56, height: 56)
+                        .background(Color.gray.opacity(0.1))
+                        .clipShape(RoundedRectangle(cornerRadius: 10))
+                }
                 .resizable()
                 .frame(width: 56, height: 56)
                 .clipShape(RoundedRectangle(cornerRadius: 10))

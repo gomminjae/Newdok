@@ -77,11 +77,19 @@ public struct ExploreView: View {
                 userInfo = UserInfoStore.shared.load()
             }
             .onChange(of: exploreIntent.trigger) { _ in
+                print("🔄 [ExploreView] exploreIntent 변경 감지:")
+                print("  - day: \(exploreIntent.day ?? -1)")
+                print("  - selectedTab: \(exploreIntent.selectedTab ?? -1)")
+                print("  - 현재 viewModel.day: \(viewModel.day ?? [])")
+                print("  - 현재 viewModel.selectedTab: \(viewModel.selectedTab)")
+                
                 if let day = exploreIntent.day, viewModel.day != [day] {
+                    print("  ✅ day 설정: \(day)")
                     viewModel.day = [day]
                     exploreIntent.day = nil
                 }
                 if let tab = exploreIntent.selectedTab, viewModel.selectedTab != tab {
+                    print("  ✅ tab 설정: \(tab)")
                     viewModel.selectedTab = tab
                     exploreIntent.selectedTab = nil
                 }

@@ -69,23 +69,6 @@ public struct EditNicknameView: View {
                     await viewModel.updateNickname(nickname: draftNickname)
                     await viewModel.fetchuserInfo()
                     
-                    // UserInfoStore 업데이트
-                    if let updatedUser = viewModel.user {
-                        let userInfo = UserInfo(
-                            id: updatedUser.id,
-                            loginId: updatedUser.loginId,
-                            phoneNumber: updatedUser.phoneNumber,
-                            subscribeEmail: updatedUser.subscribeEmail,  // 이미 옵셔널이므로 그대로 전달
-                            nickname: draftNickname, // 변경된 닉네임 사용
-                            birthYear: updatedUser.birthYear,
-                            gender: updatedUser.gender,
-                            createdAt: updatedUser.createdAt,
-                            industryId: updatedUser.industryId,
-                            interestIds: updatedUser.interests.map { $0.id } ?? []
-                        )
-                        UserInfoStore.shared.save(userInfo)
-                    }
-                    
                     nickname = draftNickname
                     viewModel.shownicknameToast = true
                     router.pop()

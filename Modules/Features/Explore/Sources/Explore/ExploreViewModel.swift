@@ -42,9 +42,20 @@ public class ExploreViewModel: ObservableObject {
     
     
     private let useCase: NewsletterUseCase
+    private var cancellables = Set<AnyCancellable>()
     
     public init(useCase: NewsletterUseCase) {
         self.useCase = useCase
+        
+        // AppState 구독
+        AppState.shared.$authState
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] authState in
+                if authState == .guest {
+                    self?.clearData()
+                }
+            }
+            .store(in: &cancellables)
     }
     
     
@@ -98,7 +109,20 @@ public class ExploreViewModel: ObservableObject {
         }
     }
     
-    
-    
-    
+    // 로그아웃 시 데이터 초기화
+    private func clearData() {
+        myRecommendation = []
+        unionRecommendation = []
+        fixedMyRecommendation = []
+        fixedUnionRecommendation = []
+        allNewsletters = []
+        selectedTab = 0
+        orderOpt = "인기순"
+        industry = nil
+        day = nil
+        isShowFilterSheet = false
+        isShowSortSheet = false
+        isRecommend = false
+        shouldScrollToTop = false
+    }
 }

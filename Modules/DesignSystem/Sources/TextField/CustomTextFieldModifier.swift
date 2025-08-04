@@ -20,9 +20,11 @@ public struct CustomTextFieldModifier: ViewModifier {
             Image(asset: DesignSystemAsset.lineUser)
                 .renderingMode(.template)
                 .foregroundStyle(isFocused ? Color(hex: "363636") : Color(hex : "969696"))
+                .allowsHitTesting(false) // 아이콘 터치 방지
             content
                 .foregroundColor(.primary)
                 .padding(.vertical, 12)
+                .contentShape(Rectangle()) // 텍스트필드 터치 영역 확장
         }
         .padding(.horizontal)
         .frame(height: 50)
@@ -35,17 +37,16 @@ public struct CustomTextFieldModifier: ViewModifier {
                     lineWidth: 1
                 )
         )
+        .contentShape(Rectangle()) // 전체 영역 터치 가능하게
     }
 
     private var borderColor: Color {
-        if isFocused {
-            return Color.primaryNormal
-        } else if isError == false {
-            return Color(hex: "#DADADA")
-        } else if isError == true {
+        if isError {
             return Color(hex: "#E32727")
+        } else if isFocused {
+            return Color.primaryNormal
         } else {
-            return Color.gray.opacity(0.5)
+            return Color(hex: "#DADADA")
         }
     }
 }
@@ -78,7 +79,9 @@ public struct PasswordFieldModifier: ViewModifier {
             Image(asset: DesignSystemAsset.lineLock)
                 .renderingMode(.template)
                 .foregroundStyle(isFocused ? Color(hex: "363636") : Color(hex : "969696"))
+                .allowsHitTesting(false) // 아이콘 터치 방지
             content
+                .contentShape(Rectangle()) // 텍스트필드 터치 영역 확장
             Button(action: {
                 isSecure.toggle()
             }) {
@@ -94,15 +97,16 @@ public struct PasswordFieldModifier: ViewModifier {
             RoundedRectangle(cornerRadius: 4)
                 .stroke(borderColor, lineWidth: 1)
         )
+        .contentShape(Rectangle()) // 전체 영역 터치 가능하게
     }
 
     private var borderColor: Color {
         if isError {
-            return .red
+            return Color(hex: "#E32727")
         } else if isFocused {
             return Color.primaryNormal
         } else {
-            return Color.gray.opacity(0.5)
+            return Color(hex: "#DADADA")
         }
     }
 }
@@ -113,5 +117,17 @@ extension View {
         self.onTapGesture {
             UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
         }
+        .allowsHitTesting(true)
+    }
+    
+    // 텍스트필드 영역을 제외하고 키보드 숨기기
+    public func hideKeyboardOnTapExcludingTextField() -> some View {
+        self.background(
+            Color.clear
+                .contentShape(Rectangle())
+                .onTapGesture {
+                    UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+                }
+        )
     }
 }

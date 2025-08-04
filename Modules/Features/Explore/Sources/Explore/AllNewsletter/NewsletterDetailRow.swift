@@ -76,6 +76,15 @@ struct NewsletterDetailRow: View {
                     .onFailure { error in
                         print("📸 [NewsletterDetailRow] 이미지 로딩 실패: \(error.localizedDescription)")
                     }
+                    .onFailure { _ in
+                        // 실패 시 기본 이미지 표시
+                        Image(systemName: "photo")
+                            .font(.system(size: 24))
+                            .foregroundColor(Color.gray.opacity(0.5))
+                            .frame(width: 56, height: 56)
+                            .background(Color.gray.opacity(0.1))
+                            .clipShape(RoundedRectangle(cornerRadius: 10))
+                    }
                     .resizable()
                     .aspectRatio(contentMode: .fill)
                     .frame(width: 56, height: 56)

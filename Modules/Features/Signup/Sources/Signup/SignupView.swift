@@ -141,6 +141,7 @@ public struct SignupView: View {
 
                 if viewModel.currentStep == .recommend {
                     Button(action: {
+                        
                         withAnimation(.easeInOut) {
                             router.resetTo(.tabbar(selectedTab: .home))
                         }

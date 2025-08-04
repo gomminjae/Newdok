@@ -34,7 +34,7 @@ public struct MypageView: View {
                 VStack(alignment: .leading, spacing: 16) {
                     
                     // 닉네임 (최대 2줄)
-                    Text(viewModel.user?.nickname ?? "")
+                    Text(viewModel.user?.nickname ?? userInfo?.nickname ?? "")
                         .font(.hanSansNeo(16, .bold))
                         .lineLimit(2)
                         .padding(.top, 32)
@@ -156,11 +156,16 @@ public struct MypageView: View {
             .toolbar(.hidden, for: .navigationBar)
         }
         .onAppear {
+            print("🔄 [MypageView] onAppear 시작")
             DispatchQueue.main.async {
                 userInfo = UserInfoStore.shared.load()
+                print("📱 [MypageView] UserInfoStore 로드 완료")
+                print("  - nickname: \(userInfo?.nickname ?? "nil")")
+                print("  - subscribeEmail: \(userInfo?.subscribeEmail ?? "nil")")
             }
             Task {
                 await viewModel.fetchuserInfo()
+                print("✅ [MypageView] fetchuserInfo 완료")
             }
         }
         .popup(isPresented: $showEmailAlert) {

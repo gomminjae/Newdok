@@ -17,7 +17,7 @@ public protocol ArticleUseCase {
     
     func fetchTodayArticles() async throws -> [Article]
 
-    func fetchBookmarkedArticles(interest: String?) async throws -> BookmarkedArticles
+    func fetchBookmarkedArticles(interest: String?, sortBy: String?) async throws -> BookmarkedArticles
 
   
     func toggleBookmarkStatus(articleId: String) async throws

@@ -87,9 +87,20 @@ public struct AccountManagementView: View {
                 onCancel: { showLogoutPopup = false },
                 onConfirm: {
                     showLogoutPopup = false
+                    // 로그아웃 시 모든 사용자 데이터 초기화
                     TokenStorage.clear()
-                    router.resetTo(.login)
+                    UserInfoStore.shared.clear()
                     
+                    // 앱 상태 초기화
+                    @AppStorage("isGuest") var isGuest: Bool = true
+                    @AppStorage("isLoggedIn") var isLoggedIn: Bool = false
+                    isGuest = true
+                    isLoggedIn = false
+                    
+                    // AppState를 통한 중앙 집중식 상태 관리
+                    AppState.shared.logout()
+                    
+                    router.resetTo(.login)
                 }
             )
         } customize: {

@@ -62,10 +62,12 @@ public struct LoginView: View {
                 Group {
                     if viewModel.isSecurePassword {
                         SecureField("비밀번호를 입력해주세요", text: $viewModel.password)
+                            .focused($isPwdFocused)
                         
                         
                     } else {
                         TextField("비밀번호를 입력해주세요", text: $viewModel.password)
+                            .focused($isPwdFocused)
                         
                     }
                 }

@@ -18,6 +18,10 @@ struct FilterBottomSheet: View {
     @Binding var industry: [Int]?
     @Binding var day: [Int]?
     
+    // 임시 필터 상태 (실제 필터에 반영되지 않음)
+    @State private var tempIndustry: [Int]?
+    @State private var tempDay: [Int]?
+    
     var onApply: () async -> Void
 
     var body: some View {
@@ -44,42 +48,42 @@ struct FilterBottomSheet: View {
                 Text("산업 카테고리")
                     .font(.hanSansNeo(14, .medium))
                     .foregroundColor(Color(hex: "565656"))
-                    .padding(.bottom, 4)
+                    .padding(.bottom, 8)
                 FlowLayoutView(data: industries.indices, spacing: 8) { index in
                     SelectableChip(
                         text: industries[index],
-                        isSelected: industry?.contains(index + 1) ?? false
+                        isSelected: tempIndustry?.contains(index + 1) ?? false
                     ) {
-                        toggleSelection(&industry, value: index + 1)
+                        toggleSelection(&tempIndustry, value: index + 1)
                     }
                 }
             }
-            .padding(.top, 36)
+            .padding(.top, 24)
             .padding(.horizontal, 24)
 
             VStack(alignment: .leading, spacing: 0) {
                 Text("발행요일")
                     .font(.hanSansNeo(14, .medium))
                     .foregroundColor(Color(hex: "565656"))
-                    .padding(.bottom, 4)
+                    .padding(.bottom, 8)
                 FlowLayoutView(data: weekdays.indices, spacing: 8) { index in
                     SelectableChip(
                         text: weekdays[index],
-                        isSelected: day?.contains(index + 1) ?? false
+                        isSelected: tempDay?.contains(index + 1) ?? false
                     ) {
-                        toggleSelection(&day, value: index + 1)
+                        toggleSelection(&tempDay, value: index + 1)
                     }
                 }
             }
-            .padding(.top, 36)
+            .padding(.top, 20)
             .padding(.horizontal, 24)
 
-            Spacer()
+            
 
             HStack(spacing: 12) {
                 Button(action: {
-                    industry = nil
-                    day = nil
+                    tempIndustry = nil
+                    tempDay = nil
                 }) {
                     HStack {
                         Image(asset: DesignSystemAsset.lineReload)
@@ -91,6 +95,9 @@ struct FilterBottomSheet: View {
                 }
 
                 Button(action: {
+                    // 적용하기 버튼을 눌렀을 때만 실제 필터에 반영
+                    industry = tempIndustry
+                    day = tempDay
                     Task {
                         await onApply()
                         dismiss()
@@ -106,12 +113,16 @@ struct FilterBottomSheet: View {
                 }
             }
             .padding(.horizontal, 24)
-            .padding(.bottom, 32)
+            .padding(.bottom, 56)
         }
-        .frame(maxHeight: .infinity, alignment: .top)
+        .onAppear {
+            // 시트가 나타날 때 현재 필터 상태를 임시 상태로 복사
+            tempIndustry = industry
+            tempDay = day
+        }
         .background(Color.white)
         .cornerRadius(20)
-        .presentationDetents([.fraction(0.7)])
+        .presentationDetents([.height(580)])
         .presentationDragIndicator(.visible)
     }
 

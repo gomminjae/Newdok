@@ -153,7 +153,10 @@ public struct BookmarkView: View {
         .background(.white)
         .sheet(isPresented: $showSortSheet) {
             BookmarkSortBottomSheet(sortOrder: $viewModel.sortOrder) {
-                // 정렬 변경 시 ViewModel의 sortOrder가 업데이트되어 자동으로 재정렬됨
+                // 정렬 변경 시 API를 다시 호출
+                Task {
+                    await viewModel.fetchUserBookmarks()
+                }
             }
             .presentationDragIndicator(.hidden)
         }

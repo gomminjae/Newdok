@@ -8,6 +8,8 @@
 import Foundation
 import SwiftUI
 import Domain
+import Combine
+import Shared
 
 
 protocol BookmarkViewModelBindable {
@@ -29,42 +31,24 @@ public class BookmarkViewModel: ObservableObject, BookmarkViewModelBindable {
     @Published public var sortOrder: String = "추가순"
     
     private let useCase: ArticleUseCase
+    private var cancellables = Set<AnyCancellable>()
     
     public init(useCase: ArticleUseCase) {
         self.useCase = useCase
-    }
-    
-    // MARK: - 정렬된 북마크 데이터
-    public var sortedBookmarks: BookmarkedArticles? {
-        guard let bookmarks = bookmarks else { return nil }
         
-        let sortedMonths = bookmarks.bookmarkForMonth.map { monthData in
-            let sortedBookmarks = monthData.bookmark.sorted { first, second in
-                switch sortOrder {
-                case "추가순":
-                    // 북마크 추가 순서 (역순으로 정렬 - 최근 추가된 것이 위로)
-                    return first.articleId > second.articleId
-                case "최근 아티클 순":
-                    // 아티클 발행일 기준 최신순
-                    return first.date > second.date
-                case "오래된 아티클 순":
-                    // 아티클 발행일 기준 오래된순
-                    return first.date < second.date
-                default:
-                    return first.articleId > second.articleId
+        AppState.shared.$authState
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] authState in
+                if authState == .guest {
+                    self?.clearData()
                 }
             }
-            
-            return MonthlyBookmark(
-                month: monthData.month,
-                bookmark: sortedBookmarks
-            )
-        }
-        
-        return BookmarkedArticles(
-            totalAmount: bookmarks.totalAmount,
-            bookmarkForMonth: sortedMonths
-        )
+            .store(in: &cancellables)
+    }
+    
+    // MARK: - 정렬된 북마크 데이터 (API에서 정렬된 데이터 사용)
+    public var sortedBookmarks: BookmarkedArticles? {
+        return bookmarks
     }
     
     func fetchUserInterests() async  {
@@ -78,10 +62,34 @@ public class BookmarkViewModel: ObservableObject, BookmarkViewModelBindable {
     
     func fetchUserBookmarks() async {
         do {
-            let response = try await useCase.fetchBookmarkedArticles(interest: interest)
+            
+            let sortBy = convertSortOrderToOption(sortOrder)
+            let response = try await useCase.fetchBookmarkedArticles(interest: interest, sortBy: sortBy)
             bookmarks = response
         } catch {
             print("북마크 불러오기 실패: \(error)")
         }
+    }
+    
+    // 정렬 기준을 API 형식으로 변환
+    private func convertSortOrderToOption(_ sortOrder: String) -> String {
+        switch sortOrder {
+        case "추가순":
+            return "bookmark_date"
+        case "최근 아티클 순":
+            return "article_date_desc"
+        case "오래된 아티클 순":
+            return "article_date_asc"
+        default:
+            return "bookmark_date"
+        }
+    }
+    
+    // 로그아웃 시 데이터 초기화
+    private func clearData() {
+        interest = ""
+        interests = []
+        bookmarks = nil
+        sortOrder = "추가순"
     }
 }

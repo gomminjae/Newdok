@@ -60,7 +60,7 @@ final public class SignupViewModel: ObservableObject {
 
     private let userUseCase: UserUseCase
     
-    @Published var currentStep: SignupStep = .curation
+    @Published var currentStep: SignupStep = .phoneVerification
 
     // MARK: - Form
     @Published public var phoneNumber: String = ""
@@ -398,6 +398,10 @@ final public class SignupViewModel: ObservableObject {
             do {
                 let result = try await userUseCase.signup(loginId: loginID, password: password, phoneNumber: phoneNumber, nickname: trimmedNickname, birthYear: birthYear, gender: gender)
                 print("✅ [SignupViewModel] 회원가입 성공")
+                print("📧 [SignupViewModel] 사용자 정보:")
+                print("  - id: \(result.user.id)")
+                print("  - loginId: \(result.user.loginId)")
+                print("  - subscribeEmail: \(result.user.subscribeEmail ?? "nil")")
                 TokenStorage.accessToken = result.accessToken
                 user = result.user
                 
