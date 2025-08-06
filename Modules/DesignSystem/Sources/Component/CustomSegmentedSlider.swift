@@ -1,10 +1,3 @@
-//
-//  SegmentPickerView.swift
-//  Newdok
-//
-//  Created by 권민재 on 3/3/25.
-//
-
 import SwiftUI
 import DesignSystem
 

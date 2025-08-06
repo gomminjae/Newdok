@@ -44,6 +44,8 @@ public class BookmarkViewModel: ObservableObject, BookmarkViewModelBindable {
                 }
             }
             .store(in: &cancellables)
+        
+
     }
     
     // MARK: - 정렬된 북마크 데이터 (API에서 정렬된 데이터 사용)
@@ -92,4 +94,6 @@ public class BookmarkViewModel: ObservableObject, BookmarkViewModelBindable {
         bookmarks = nil
         sortOrder = "추가순"
     }
+    
+
 }

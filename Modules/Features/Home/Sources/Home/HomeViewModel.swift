@@ -94,20 +94,20 @@ public final class HomeViewModel: ObservableObject {
     }
     
     private func updateDataDays() {
-        let daysWithArticles = articlesByMonth.filter { $0.receivedUnread > 0 }
+        let daysWithArticles = articlesByMonth.filter { !$0.receivedArticleList.isEmpty }
         let newDataDays = Set(daysWithArticles.map { $0.publishDate })
         
         print("📅 [HomeViewModel] dataDays 업데이트:")
         print("  - 총 날짜 수: \(articlesByMonth.count)")
         print("  - 아티클 있는 날짜 수: \(daysWithArticles.count)")
-        print("  - 아티클 있는 날짜: \(daysWithArticles.map { "\($0.publishDate)일(\($0.receivedUnread)개)" }.sorted())")
+        print("  - 아티클 있는 날짜: \(daysWithArticles.map { "\($0.publishDate)일(\($0.receivedArticleList.count)개)" }.sorted())")
         print("  - 이전 dataDays: \(dataDays.sorted())")
         print("  - 새로운 dataDays: \(newDataDays.sorted())")
         
         // 디버깅: 모든 날짜의 상태 출력
         for article in articlesByMonth.sorted(by: { $0.publishDate < $1.publishDate }) {
-            if article.receivedUnread > 0 {
-                print("  ✅ \(article.publishDate)일: \(article.receivedUnread)개 아티클")
+            if !article.receivedArticleList.isEmpty {
+                print("  ✅ \(article.publishDate)일: \(article.receivedArticleList.count)개 아티클")
             } else {
                 print("  ❌ \(article.publishDate)일: 아티클 없음")
             }
@@ -132,9 +132,8 @@ public final class HomeViewModel: ObservableObject {
         
         print("📅 [HomeViewModel] 날짜 선택: \(date)")
         
-        // 즉시 calendarState 업데이트 (UI 반영)
+        // 선택된 날짜만 업데이트 (월은 변경하지 않음)
         calendarState.selectedDate = date
-        calendarState.displayedMonth = date
         
         // 해당 날짜의 아티클 로드
         Task {
@@ -426,8 +425,6 @@ public final class HomeViewModel: ObservableObject {
                 self.articlesByMonth = updatedMonthArticles
             }
         }
-        
-
     }
     
 

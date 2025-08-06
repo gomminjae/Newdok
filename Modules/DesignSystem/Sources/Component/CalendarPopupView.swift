@@ -6,6 +6,7 @@
 //
 import SwiftUI
 import UIKit
+import Combine
 
 // MARK: - CalendarPopupView
 struct RoundedCorners: Shape {
@@ -27,7 +28,8 @@ public struct CalendarPopupView: View {
     @Binding var displayedMonthDate: Date
     @Binding var isLoading: Bool
     @Binding var dataDays: Set<Int>
-    @State private var forceUpdate: Bool = false
+    @State private var localSelectedDate: Date
+    @State private var localDisplayedMonthDate: Date
 
     public var onDateSelected: ((Date) -> Void)?
     public var onMonthChanged: ((Date) -> Void)?
@@ -50,6 +52,8 @@ public struct CalendarPopupView: View {
         self._displayedMonthDate = displayedMonthDate
         self._dataDays = dataDays
         self._isLoading = isLoading
+        self._localSelectedDate = State(initialValue: selectedDate.wrappedValue)
+        self._localDisplayedMonthDate = State(initialValue: displayedMonthDate.wrappedValue)
         self.onDateSelected = onDateSelected
         self.onMonthChanged = onMonthChanged
     }
@@ -83,28 +87,56 @@ public struct CalendarPopupView: View {
         }
         .background(Color.clear)
         .contentShape(Rectangle())
-        .onChange(of: displayedMonthDate) { _ in forceUpdate.toggle() }
-        .onChange(of: dataDays) { _ in forceUpdate.toggle() }
-        .onChange(of: selectedDate) { _ in forceUpdate.toggle() } // React to selection change
+        .onChange(of: displayedMonthDate) { newValue in
+            localDisplayedMonthDate = newValue
+        }
+        .onChange(of: dataDays) { _ in 
+            // 데이터가 변경되면 강제로 뷰 업데이트
+        }
+        .onChange(of: selectedDate) { newValue in
+            localSelectedDate = newValue
+            // selectedDate가 변경되면 displayedMonth도 같은 월로 맞춤
+            let newMonthDate = calendar.date(from: calendar.dateComponents([.year, .month], from: newValue)) ?? newValue
+            if !calendar.isDate(localDisplayedMonthDate, equalTo: newMonthDate, toGranularity: .month) {
+                localDisplayedMonthDate = newMonthDate
+                displayedMonthDate = newMonthDate
+                print("📅 [CalendarPopupView] selectedDate 변경으로 월 동기화: \(newMonthDate)")
+            }
+        }
     }
 
     private var headerView: some View {
         ZStack {
             HStack {
                 Spacer()
-                Button(action: previousMonth) {
+                Button(action: {
+                    print("📅 [CalendarPopupView] 이전 월 버튼 클릭")
+                    previousMonth()
+                }) {
                     Image(systemName: "chevron.left")
                         .foregroundStyle(Color(hex: "#333333"))
+                        .frame(width: 44, height: 44)
+                        .contentShape(Rectangle())
                 }
+                .buttonStyle(PlainButtonStyle())
+                
                 Text(yearMonthTitle)
                     .frame(width: 120, height: 20)
                     .font(.hanSansNeo(14, .medium))
                     .foregroundStyle(Color(hex: "#1E1E1E"))
-                    .id("month-title-\(displayedMonthDate)-\(forceUpdate)-\(selectedDate)")
-                Button(action: nextMonth) {
+                    .id("month-title-\(localDisplayedMonthDate)")
+                
+                Button(action: {
+                    print("📅 [CalendarPopupView] 다음 월 버튼 클릭")
+                    nextMonth()
+                }) {
                     Image(systemName: "chevron.right")
                         .foregroundStyle(Color(hex: "#333333"))
+                        .frame(width: 44, height: 44)
+                        .contentShape(Rectangle())
                 }
+                .buttonStyle(PlainButtonStyle())
+                
                 Spacer()
             }
 
@@ -149,7 +181,7 @@ public struct CalendarPopupView: View {
                         let day = days[weekIndex * 7 + dayIndex]
                         let isFuture = calendar.startOfDay(for: day.date) > today
                         let isToday = calendar.isDate(day.date, inSameDayAs: today)
-                        let isSelected = calendar.isDate(day.date, inSameDayAs: selectedDate)
+                        let isSelected = calendar.isDate(day.date, inSameDayAs: localSelectedDate)
                         let hasData = dataDays.contains(day.dayInt)
                         let isBlank = day.dayInt == 0
 
@@ -159,14 +191,20 @@ public struct CalendarPopupView: View {
                                 .frame(width: 40, height: 40)
                                 .foregroundColor(
                                     isFuture ? Color(hex: "#C0C0C0") :
-                                    (isSelected ? .white :
-                                     (isToday ? .white : Color(hex: "#171414")))
+                                    (isToday ? .white :
+                                     (isSelected ? Color(hex: "#171414") : Color(hex: "#171414")))
                                 )
                                 .background(
                                     RoundedRectangle(cornerRadius: 12)
                                         .fill(
-                                            isSelected ? Color.blue :
-                                            (isToday ? Color.primaryNormal : .clear)
+                                            isToday ? Color.primaryNormal : .clear
+                                        )
+                                )
+                                .overlay(
+                                    RoundedRectangle(cornerRadius: 12)
+                                        .stroke(
+                                            isSelected && !isToday ? Color(hex: "#052B6C") : Color.clear,
+                                            lineWidth: 1
                                         )
                                 )
                             Circle()
@@ -177,8 +215,11 @@ public struct CalendarPopupView: View {
                         .opacity(isBlank ? 0.3 : 1)
                         .onTapGesture {
                             guard !isBlank else { return }
+                            localSelectedDate = day.date
                             selectedDate = day.date
                             onDateSelected?(day.date)
+                            // 날짜 선택 후 팝업 닫기
+                            isPresented = false
                         }
                     }
                 }
@@ -186,27 +227,27 @@ public struct CalendarPopupView: View {
         }
         .padding(.vertical, 20)
         .padding(.horizontal, 16)
-        .id("calendar-grid-\(displayedMonthDate)-\(forceUpdate)-\(selectedDate)")
+        .id("calendar-grid-\(localDisplayedMonthDate)")
     }
 
     private var yearMonthTitle: String {
         let fmt = DateFormatter()
         fmt.dateFormat = "yyyy년 M월"
-        return fmt.string(from: displayedMonthDate)
+        return fmt.string(from: localDisplayedMonthDate)
     }
 
     private func generateDays() -> [CalendarDay] {
         var days = [CalendarDay]()
         let startOfMonth = calendar.date(from:
-            calendar.dateComponents([.year, .month], from: displayedMonthDate))!
+            calendar.dateComponents([.year, .month], from: localDisplayedMonthDate))!
         let firstWeekday = calendar.component(.weekday, from: startOfMonth)
-        let range = calendar.range(of: .day, in: .month, for: displayedMonthDate)!
+        let range = calendar.range(of: .day, in: .month, for: localDisplayedMonthDate)!
 
         for _ in 1..<firstWeekday {
             days.append(CalendarDay(date: .distantPast, dayString: "", dayInt: 0))
         }
         for d in range {
-            let date = calendar.date(bySetting: .day, value: d, of: displayedMonthDate)!
+            let date = calendar.date(bySetting: .day, value: d, of: localDisplayedMonthDate)!
             days.append(CalendarDay(date: date, dayString: "\(d)", dayInt: d))
         }
         while days.count % 7 != 0 {
@@ -216,18 +257,18 @@ public struct CalendarPopupView: View {
     }
 
     private func previousMonth() {
-        let newDate = calendar.date(byAdding: .month, value: -1, to: displayedMonthDate)!
+        let newDate = calendar.date(byAdding: .month, value: -1, to: localDisplayedMonthDate)!
+        print("📅 [CalendarPopupView] 이전 월: \(localDisplayedMonthDate) -> \(newDate)")
+        localDisplayedMonthDate = newDate
         displayedMonthDate = newDate
-        forceUpdate.toggle()
-        DispatchQueue.main.async { forceUpdate.toggle() }
         onMonthChanged?(displayedMonthDate)
     }
     
     private func nextMonth() {
-        let newDate = calendar.date(byAdding: .month, value: 1, to: displayedMonthDate)!
+        let newDate = calendar.date(byAdding: .month, value: 1, to: localDisplayedMonthDate)!
+        print("📅 [CalendarPopupView] 다음 월: \(localDisplayedMonthDate) -> \(newDate)")
+        localDisplayedMonthDate = newDate
         displayedMonthDate = newDate
-        forceUpdate.toggle()
-        DispatchQueue.main.async { forceUpdate.toggle() }
         onMonthChanged?(displayedMonthDate)
     }
     

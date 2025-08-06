@@ -58,7 +58,7 @@ public struct HomeView: View {
                     isPresented: $showCalendar,
                     selectedDate: $viewModel.calendarState.selectedDate,
                     displayedMonthDate: $viewModel.calendarState.displayedMonth,
-                    dataDays: $viewModel.calendarState.dataDays,
+                    dataDays: $viewModel.dataDays,
                     onDateSelected: { date in
                         viewModel.selectDateWithMonthGuarantee(date)
                     },
@@ -189,7 +189,8 @@ public struct HomeView: View {
                         exploreIntent.trigger = UUID()
                     }
                 },
-                refreshAction: { Task { await viewModel.loadToday() } }
+                refreshAction: { Task { await viewModel.loadToday() } },
+                selectedDate: viewModel.selectedDate
             )
         case .articles:
             articlesSection

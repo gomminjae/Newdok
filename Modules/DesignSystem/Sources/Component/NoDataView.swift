@@ -38,10 +38,11 @@ public enum NoDataType {
         }
     }
 
-    var buttonTitle: String {
+    func buttonTitle(for date: Date?) -> String {
         switch self {
         case .noArticles:
-            let weekday = Calendar.current.component(.weekday, from: Date())
+            let targetDate = date ?? Date()
+            let weekday = Calendar.current.component(.weekday, from: targetDate)
             let weekdayString = Self.localizedWeekday(weekday)
             return "\(weekdayString)에 발행되는 뉴스레터 보기"
         case .noSubscriptions:
@@ -79,17 +80,20 @@ public struct NoDataView: View {
     let buttonAction: () -> Void
     let loginAction: (() -> Void)?
     let refreshAction: (() -> Void)?
+    let selectedDate: Date?
 
     public init(
         type: NoDataType,
         buttonAction: @escaping () -> Void,
         loginAction: (() -> Void)? = nil,
-        refreshAction: (() -> Void)? = nil
+        refreshAction: (() -> Void)? = nil,
+        selectedDate: Date? = nil
     ) {
         self.type = type
         self.buttonAction = buttonAction
         self.loginAction = loginAction
         self.refreshAction = refreshAction
+        self.selectedDate = selectedDate
     }
 
     public var body: some View {
@@ -134,7 +138,7 @@ public struct NoDataView: View {
             }
 
             Button(action: buttonAction) {
-                Text(type.buttonTitle)
+                Text(type.buttonTitle(for: selectedDate))
                     .font(.hanSansNeo(14, .bold))
                     .foregroundStyle(Color.white)
                     .frame(maxWidth: .infinity)
