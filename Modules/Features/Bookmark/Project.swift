@@ -19,6 +19,21 @@ import ProjectDescription
                    .project(target: "Domain", path: "../../Domain"),
                    .external(name: "Kingfisher"),
                 ]
+           ),
+           .target(
+               name: "BookmarkTests",
+               destinations: .iOS,
+               product: .unitTests,
+               bundleId: "com.newdok.bookmark.tests",
+               deploymentTargets: .iOS("17.0"),
+               infoPlist: .default,
+               sources: ["Tests/**"],
+               dependencies: [
+                   .target(name: "Bookmark"),
+                   .project(target: "DesignSystem", path: "../../DesignSystem"),
+                   .project(target: "Shared", path: "../../Shared"),
+                   .project(target: "Domain", path: "../../Domain"),
+               ]
            )
        ]
    )

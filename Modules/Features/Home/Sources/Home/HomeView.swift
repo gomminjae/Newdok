@@ -11,6 +11,7 @@ import Shared
 import Domain
 import PopupView
 
+
 public struct HomeView: View {
     @StateObject private var viewModel: HomeViewModel
     @State private var showCalendar = false
@@ -19,79 +20,81 @@ public struct HomeView: View {
     @EnvironmentObject private var tabSelection: TabSelection
     @EnvironmentObject private var exploreIntent: ExploreIntent
     @AppStorage("isGuest") private var isGuest: Bool = false
-    
+
     public init(viewModel: HomeViewModel) {
         _viewModel = StateObject(wrappedValue: viewModel)
     }
 
     public var body: some View {
-        ZStack {
-            Color(hex: "F5F5F7").ignoresSafeArea()
+            ZStack {
+                // 1) 메인 배경+컨텐츠
+                Color(hex: "F5F5F7").ignoresSafeArea().zIndex(0)
 
-            VStack(spacing: 0) {
-                headerView
-                PullToRefreshView(
-                    isRefreshing: $isRefreshing,
-                    onRefresh: {
-                        await viewModel.loadToday()
+                VStack(spacing: 0) {
+                    headerView
+
+                    PullToRefreshView(
+                        isRefreshing: $isRefreshing,
+                        onRefresh: { await viewModel.loadToday() },
+                        lottieAnimation: {
+                            AnyView(
+                                LoadingAnimationView()
+                                    .frame(width: 120, height: 40)
+                            )
+                        }
+                    ) {
+                        VStack(spacing: 0) {
+                            dateBarView
+                            contentView
+                        }
+                    }
+                }
+                .padding(.horizontal, 8)
+                .padding(.top, 8)
+                .zIndex(0)
+            }
+            .popup(isPresented: $showCalendar) {
+                CalendarPopupView(
+                    isPresented: $showCalendar,
+                    selectedDate: $viewModel.calendarState.selectedDate,
+                    displayedMonthDate: $viewModel.calendarState.displayedMonth,
+                    dataDays: $viewModel.calendarState.dataDays,
+                    onDateSelected: { date in
+                        viewModel.selectDateWithMonthGuarantee(date)
                     },
-                    lottieAnimation: {
-                        AnyView(
-                            LoadingAnimationView()
-                                .frame(width: 120, height: 40)
-                        )
+                    onMonthChanged: { month in
+                        viewModel.calendarState.displayedMonth = month
+                        Task { await viewModel.loadArticles(for: month) }
                     }
-                ) {
-                    VStack(spacing: 0) {
-                        dateBarView
-                        contentView
-                    }
+                )
+                .frame(maxWidth: UIScreen.main.bounds.width - 40)
+                 
+              
+            } customize: {
+                $0
+                  .type(.default)
+                  .position(.center)
+                  .animation(.easeInOut)
+                  .closeOnTap(false)
+                  .closeOnTapOutside(false)
+                  .backgroundColor(Color(hex: "#25242C").opacity(0.6))
+                 
+            }
+            .onChange(of: showCalendar) { isShowing in
+                if isShowing {
+                    viewModel.calendarState.displayedMonth = viewModel.selectedDate
+                    Task { await viewModel.loadCalendarData(for: viewModel.calendarState.displayedMonth) }
                 }
             }
-            .padding(.horizontal, 8)
-            .padding(.top, 8)
-        }
-        .navigationBarHidden(true)
-        .onChange(of: isRefreshing) { newValue in
-            print("🔄 isRefreshing 상태 변경: \(newValue)")
-        }
-        .onAppear {
-            if !isGuest {
-                Task { await viewModel.loadToday() }
-            }
-        }
-        .popup(isPresented: $showCalendar) {
-            CalendarPopupView(
-                isPresented: $showCalendar,
-                selectedDate: $viewModel.calendarState.selectedDate,
-                displayedMonthDate: $viewModel.calendarState.displayedMonth,
-                dataDays: $viewModel.calendarState.dataDays,
-                isLoading: $viewModel.calendarState.isLoading,
-                onDateSelected: { date in
-                    // 새로운 메서드 사용 - 월 보장
-                    viewModel.selectDateWithMonthGuarantee(date)
-                    // 팝업은 자동으로 닫히지 않음 - 사용자가 직접 닫아야 함
-                },
-                onMonthChanged: { monthDate in
-                    // 월 변경 시 displayedMonth는 CalendarPopupView에서 자동으로 업데이트됨
-                    print("📅 [HomeView] 월 변경: \(monthDate), selectedDate 유지: \(viewModel.selectedDate)")
-                    Task { await viewModel.loadArticles(for: monthDate) }
-                }
-            )
-        } customize: { $0.type(.default).position(.center).animation(.easeInOut).closeOnTap(false).backgroundColor(Color.black.opacity(0.3)) }
-        .onChange(of: showCalendar) { isShowing in
-            if isShowing {
-                // 캘린더 팝업이 열릴 때 displayedMonth를 selectedDate로 초기화
-                viewModel.displayedMonth = viewModel.selectedDate
-                print("📅 [HomeView] 캘린더 팝업 열림 - 선택된 날짜: \(viewModel.selectedDate), 표시 월: \(viewModel.displayedMonth)")
-                // 현재 표시된 월의 데이터를 새로고침
-                Task { 
-                    await viewModel.loadCalendarData(for: viewModel.displayedMonth)
+            .navigationBarHidden(true)
+            .onAppear {
+                if !isGuest {
+                    Task { await viewModel.loadToday() }
                 }
             }
         }
-    }
 
+    // MARK: — 헤더
     private var headerView: some View {
         HStack {
             Image(asset: DesignSystemAsset.logo)
@@ -99,7 +102,9 @@ public struct HomeView: View {
                 .frame(width: 126, height: 24)
                 .padding(.vertical, 18)
                 .padding(.leading, 20)
+
             Spacer()
+
             HStack(spacing: 16) {
                 Button(action: { router.push(.search) }) {
                     Image(asset: DesignSystemAsset.lineSearch)
@@ -119,17 +124,19 @@ public struct HomeView: View {
         .background(Color(hex: "#F5F5F7"))
     }
 
+    // MARK: — 날짜 바
     private var dateBarView: some View {
         HStack(spacing: 0) {
             Text(viewModel.formattedDate)
                 .font(.hanSansNeo(16, .bold))
                 .foregroundStyle(Color(hex: "#363636"))
                 .padding(.leading, 24)
+
             Spacer()
+
             Button(action: {
                 Task {
-                    // 현재 표시된 월의 데이터를 로드
-                    await viewModel.loadCalendarData(for: viewModel.displayedMonth)
+                    await viewModel.loadCalendarData(for: viewModel.calendarState.displayedMonth)
                     showCalendar.toggle()
                 }
             }) {
@@ -138,63 +145,57 @@ public struct HomeView: View {
             }
         }
         .frame(height: 52)
-        .background(
-            Color.white.clipShape(RoundedRectangle(cornerRadius: 12))
-        )
+        .background(Color.white.clipShape(RoundedRectangle(cornerRadius: 12)))
         .padding(.top, 8)
         .padding(.bottom, 16)
     }
 
+    // MARK: — 본문 컨텐츠
     @ViewBuilder
     private var contentView: some View {
-        VStack {
-            switch viewModel.homeState {
-            case .none:
-                EmptyView()
-            case .guest:
-                NoDataView(
-                    type: .requireSignUp,
-                    buttonAction: { router.push(.signup) },
-                    loginAction: { router.push(.login) },
-                    refreshAction: { Task { await viewModel.loadToday() } }
-                )
-            case .noSubscriptions:
-                NoDataView(
-                    type: .noSubscriptions, 
-                    buttonAction: {
-                        exploreIntent.selectedTab = 0 // 추천 뉴스레터 탭으로 설정
+        switch viewModel.homeState {
+        case .none:
+            EmptyView()
+        case .guest:
+            NoDataView(
+                type: .requireSignUp,
+                buttonAction: { router.push(.signup) },
+                loginAction: { router.push(.login) },
+                refreshAction: { Task { await viewModel.loadToday() } }
+            )
+        case .noSubscriptions:
+            NoDataView(
+                type: .noSubscriptions,
+                buttonAction: {
+                    exploreIntent.selectedTab = 0
+                    exploreIntent.trigger = UUID()
+                    router.resetTo(.tabbar(selectedTab: .explore))
+                    tabSelection.selectedTab = .explore
+                },
+                refreshAction: { Task { await viewModel.loadToday() } }
+            )
+        case .noArticles:
+            NoDataView(
+                type: .noArticles,
+                buttonAction: {
+                    let weekday = Calendar.current.component(.weekday, from: viewModel.selectedDate)
+                    let dayIndex = convertWeekdayToExploreIndex(weekday)
+                    tabSelection.selectedTab = .explore
+                    router.resetTo(.tabbar(selectedTab: .explore))
+                    DispatchQueue.main.asyncAfter(deadline: .now()+0.1) {
+                        exploreIntent.day = dayIndex
+                        exploreIntent.selectedTab = 1
                         exploreIntent.trigger = UUID()
-                        router.resetTo(.tabbar(selectedTab: .explore))
-                        tabSelection.selectedTab = .explore
-                    },
-                    refreshAction: { Task { await viewModel.loadToday() } }
-                )
-            case .noArticles:
-                NoDataView(
-                    type: .noArticles, 
-                    buttonAction: {
-                        let weekday = Calendar.current.component(.weekday, from: viewModel.selectedDate)
-                        let dayIndex = convertWeekdayToExploreIndex(weekday)
-                        
-                        // 먼저 탭 변경
-                        tabSelection.selectedTab = .explore
-                        router.resetTo(.tabbar(selectedTab: .explore))
-                        
-                        // 약간의 지연 후 exploreIntent 설정
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-                            exploreIntent.day = dayIndex
-                            exploreIntent.selectedTab = 1
-                            exploreIntent.trigger = UUID()
-                        }
-                    },
-                    refreshAction: { Task { await viewModel.loadToday() } }
-                )
-            case .articles:
-                articlesSection
-            }
+                    }
+                },
+                refreshAction: { Task { await viewModel.loadToday() } }
+            )
+        case .articles:
+            articlesSection
         }
     }
 
+    // MARK: — 아티클 리스트
     private var articlesSection: some View {
         VStack {
             HStack {
@@ -202,16 +203,14 @@ public struct HomeView: View {
                     .font(.hanSansNeo(18, .bold))
                     .padding(.top, 20)
                     .padding(.leading, 28)
+
                 Spacer()
+
                 Button(action: {
-                    print("🔄 새로고침 버튼 클릭됨")
                     isRefreshing = true
-                    print("🔄 isRefreshing을 true로 설정")
                     Task {
                         await viewModel.loadToday()
-                        print("🔄 데이터 로드 완료")
                         isRefreshing = false
-                        print("🔄 isRefreshing을 false로 설정")
                     }
                 }) {
                     HStack(spacing: 4) {
@@ -246,21 +245,20 @@ public struct HomeView: View {
             .padding(.horizontal, 20)
             .padding(.bottom, 16)
         }
-        .background(
-            Color.white.clipShape(RoundedRectangle(cornerRadius: 12))
-        )
+        .background(Color.white.clipShape(RoundedRectangle(cornerRadius: 12)))
     }
 
     private func convertWeekdayToExploreIndex(_ weekday: Int) -> Int {
         switch weekday {
         case 1: return 7
-        case 2: return 1 
+        case 2: return 1
         case 3: return 2
         case 4: return 3
         case 5: return 4
         case 6: return 5
         case 7: return 6
-        default: return 8
+        default: return 0
         }
     }
 }
+

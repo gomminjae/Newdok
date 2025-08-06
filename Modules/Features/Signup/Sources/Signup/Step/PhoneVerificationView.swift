@@ -115,7 +115,7 @@ public struct PhoneVerificationView: View {
                             )
                             .padding(.horizontal, 24)
 
-                            Text(viewModel.timerRemaining <= 0 ? "인증번호가 만료되었습니다. 재전송해주세요." : (viewModel.showError ? "인증번호를 다시 확인해주세요." : "문자가 오지 않는다면 '재전송'을 눌러주세요."))
+                            Text(viewModel.timerRemaining <= 0 ? "인증번호를 재전송해주세요." : (viewModel.showError ? "인증번호를 다시 확인해주세요." : "문자가 오지 않는다면 '재전송'을 눌러주세요."))
                                 .font(.hanSansNeo(12, .medium))
                                 .foregroundStyle(viewModel.timerRemaining <= 0 || viewModel.showError ? .red : Color(hex: "555555"))
                                 .padding(.leading, 24)

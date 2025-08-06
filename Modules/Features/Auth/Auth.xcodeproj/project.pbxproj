@@ -391,6 +391,7 @@
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SRCROOT = /Users/minjae/Desktop/Newdok/Modules/Features/Auth;
 			};
 			name = Debug;
 		};
@@ -481,6 +482,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SRCROOT = /Users/minjae/Desktop/Newdok/Modules/Features/Auth;
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;

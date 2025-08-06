@@ -7,21 +7,49 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		00B562FAD9D2D7D0DDB85017 /* Domain.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DE52F60F7D201E28F2B73788 /* Domain.framework */; };
 		041E31D70D5CEF8FC84F8A6A /* BookmarkViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F66F6C2D2FE5931531949059 /* BookmarkViewModel.swift */; };
 		17D27226B3ACEBBA22B67FA4 /* BookmarkGuestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A47C7D14746696637C609C95 /* BookmarkGuestView.swift */; };
 		2892A5E3959641B7EB88CFB9 /* StopSubscribeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0899174EB9AB87E665590C43 /* StopSubscribeView.swift */; };
 		292A125709A1026D71045F7A /* NewsLetterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 518BAAA65BF35C6106E2FA43 /* NewsLetterView.swift */; };
 		4B8E741C0553FA36707879DF /* BookmarkCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A4FB4C4A723601828C258CC /* BookmarkCard.swift */; };
 		5127FD4C0CEB2BA908E3CCA4 /* DesignSystem.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F2A5BEA1A83032F8516C05FC /* DesignSystem.framework */; };
+		52645DC713DA5763373B841A /* DesignSystem.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F2A5BEA1A83032F8516C05FC /* DesignSystem.framework */; };
+		6144DD3831CAE3E3A2D7FB45 /* Kingfisher.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 722BE9794BB696843B2378B9 /* Kingfisher.framework */; };
+		61AF57048C6B4DDBC8302B65 /* Shared.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22775B642171631175E5C887 /* Shared.framework */; };
 		74BC714D5520B898AC4F91AE /* Domain.framework in Dependencies */ = {isa = PBXBuildFile; fileRef = DE52F60F7D201E28F2B73788 /* Domain.framework */; };
+		7652C855138383F04772CE1D /* Kingfisher_Kingfisher.bundle in Dependencies */ = {isa = PBXBuildFile; fileRef = EA2C9B2AE62343CD2F8D5609 /* Kingfisher_Kingfisher.bundle */; };
 		9D7C75A36F3F477772BD7FBE /* BookmarkEmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 962531354FC80D68BEDB100B /* BookmarkEmptyView.swift */; };
 		B077BEF4EBFB5B47890445A2 /* BookmarkView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A67016F7ECAD609354E68E6 /* BookmarkView.swift */; };
+		BB3583AB8AFF5A8582A7EA5C /* Bookmark.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 76BD577AD93EFB89FF1662CC /* Bookmark.framework */; };
 		C6D2F181D424BE4BA0E205C4 /* BookmarkMain.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8CAFD478C6DDC83E089E3A7 /* BookmarkMain.swift */; };
 		C9713249EFF54B95D5957871 /* Shared.framework in Dependencies */ = {isa = PBXBuildFile; fileRef = 22775B642171631175E5C887 /* Shared.framework */; };
+		E5164B2889523A1E7FCCA93E /* BookmarkTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D833BD260020B2F30A7E7FC8 /* BookmarkTests.swift */; };
 		F9DF24B5012C0CCF46AF885D /* Kingfisher.framework in Dependencies */ = {isa = PBXBuildFile; fileRef = 722BE9794BB696843B2378B9 /* Kingfisher.framework */; };
+		FA46436B3936C0C159BED822 /* Kingfisher_Kingfisher.bundle in Resources */ = {isa = PBXBuildFile; fileRef = EA2C9B2AE62343CD2F8D5609 /* Kingfisher_Kingfisher.bundle */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		2B20B2F8B9E69BB9B6B3B2C5 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BA9CA0EB5A140F1EAC9980AE /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = CA3BDA5CCBC32BFCAFE328FB;
+			remoteInfo = Bookmark;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXCopyFilesBuildPhase section */
+		9BC99EC1B32ACA3FFCFA4EAA /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		B58E5D26D72EC6411D28175B /* Dependencies */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 8;
@@ -30,6 +58,16 @@
 				74BC714D5520B898AC4F91AE /* Domain.framework in Dependencies */,
 				F9DF24B5012C0CCF46AF885D /* Kingfisher.framework in Dependencies */,
 				C9713249EFF54B95D5957871 /* Shared.framework in Dependencies */,
+			);
+			name = Dependencies;
+			runOnlyForDeploymentPostprocessing = 1;
+		};
+		BF69A515542BB9C5AB004EB7 /* Dependencies */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 8;
+			dstSubfolderSpec = 16;
+			files = (
+				7652C855138383F04772CE1D /* Kingfisher_Kingfisher.bundle in Dependencies */,
 			);
 			name = Dependencies;
 			runOnlyForDeploymentPostprocessing = 1;
@@ -48,6 +86,7 @@
 
 /* Begin PBXFileReference section */
 		0899174EB9AB87E665590C43 /* StopSubscribeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StopSubscribeView.swift; sourceTree = "<group>"; };
+		16BF1ECB8E46A46B46E4DEC0 /* BookmarkTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "BookmarkTests-Info.plist"; sourceTree = "<group>"; };
 		22775B642171631175E5C887 /* Shared.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Shared.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4A4FB4C4A723601828C258CC /* BookmarkCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkCard.swift; sourceTree = "<group>"; };
 		518BAAA65BF35C6106E2FA43 /* NewsLetterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsLetterView.swift; sourceTree = "<group>"; };
@@ -56,7 +95,10 @@
 		7A67016F7ECAD609354E68E6 /* BookmarkView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkView.swift; sourceTree = "<group>"; };
 		962531354FC80D68BEDB100B /* BookmarkEmptyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkEmptyView.swift; sourceTree = "<group>"; };
 		A47C7D14746696637C609C95 /* BookmarkGuestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkGuestView.swift; sourceTree = "<group>"; };
+		D833BD260020B2F30A7E7FC8 /* BookmarkTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkTests.swift; sourceTree = "<group>"; };
 		DE52F60F7D201E28F2B73788 /* Domain.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Domain.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		EA2C9B2AE62343CD2F8D5609 /* Kingfisher_Kingfisher.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Kingfisher_Kingfisher.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
+		F1105013526F13651EC442F5 /* BookmarkTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BookmarkTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		F2A5BEA1A83032F8516C05FC /* DesignSystem.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = DesignSystem.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F66F6C2D2FE5931531949059 /* BookmarkViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkViewModel.swift; sourceTree = "<group>"; };
 		F8CAFD478C6DDC83E089E3A7 /* BookmarkMain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkMain.swift; sourceTree = "<group>"; };
@@ -64,6 +106,18 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		20B520E08F0B31EDFD381617 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BB3583AB8AFF5A8582A7EA5C /* Bookmark.framework in Frameworks */,
+				52645DC713DA5763373B841A /* DesignSystem.framework in Frameworks */,
+				00B562FAD9D2D7D0DDB85017 /* Domain.framework in Frameworks */,
+				6144DD3831CAE3E3A2D7FB45 /* Kingfisher.framework in Frameworks */,
+				61AF57048C6B4DDBC8302B65 /* Shared.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		94DF660E2CB09CB8FA620707 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -79,8 +133,10 @@
 			isa = PBXGroup;
 			children = (
 				76BD577AD93EFB89FF1662CC /* Bookmark.framework */,
+				F1105013526F13651EC442F5 /* BookmarkTests.xctest */,
 				F2A5BEA1A83032F8516C05FC /* DesignSystem.framework */,
 				DE52F60F7D201E28F2B73788 /* Domain.framework */,
+				EA2C9B2AE62343CD2F8D5609 /* Kingfisher_Kingfisher.bundle */,
 				722BE9794BB696843B2378B9 /* Kingfisher.framework */,
 				22775B642171631175E5C887 /* Shared.framework */,
 			);
@@ -128,6 +184,7 @@
 			isa = PBXGroup;
 			children = (
 				FA7E6E621EE96CAB99C31F5D /* Bookmark-Info.plist */,
+				16BF1ECB8E46A46B46E4DEC0 /* BookmarkTests-Info.plist */,
 			);
 			path = InfoPlists;
 			sourceTree = "<group>";
@@ -150,11 +207,20 @@
 			path = Component;
 			sourceTree = "<group>";
 		};
+		E3E4583B02DE03FED25E9F88 /* Tests */ = {
+			isa = PBXGroup;
+			children = (
+				D833BD260020B2F30A7E7FC8 /* BookmarkTests.swift */,
+			);
+			path = Tests;
+			sourceTree = "<group>";
+		};
 		F13653EAB299DFFD57EC2680 /* Project */ = {
 			isa = PBXGroup;
 			children = (
 				56B796AD55F4230C2FB1CFD2 /* Derived */,
 				548D75079954AD79DF67E9EF /* Sources */,
+				E3E4583B02DE03FED25E9F88 /* Tests */,
 			);
 			name = Project;
 			sourceTree = "<group>";
@@ -183,6 +249,28 @@
 			productReference = 76BD577AD93EFB89FF1662CC /* Bookmark.framework */;
 			productType = "com.apple.product-type.framework";
 		};
+		F69E4FDDBAA3D5291A5F3DE4 /* BookmarkTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 0A18DBBEC7017735D102CBDC /* Build configuration list for PBXNativeTarget "BookmarkTests" */;
+			buildPhases = (
+				5EFFDB4EC5FB6743045AF095 /* Sources */,
+				ACE72C6E428CCBA07334E279 /* Resources */,
+				20B520E08F0B31EDFD381617 /* Frameworks */,
+				9BC99EC1B32ACA3FFCFA4EAA /* Embed Frameworks */,
+				BF69A515542BB9C5AB004EB7 /* Dependencies */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				F1A964ABA79C9BAEE4117CDF /* PBXTargetDependency */,
+			);
+			name = BookmarkTests;
+			packageProductDependencies = (
+			);
+			productName = BookmarkTests;
+			productReference = F1105013526F13651EC442F5 /* BookmarkTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -206,6 +294,7 @@
 			projectRoot = "";
 			targets = (
 				CA3BDA5CCBC32BFCAFE328FB /* Bookmark */,
+				F69E4FDDBAA3D5291A5F3DE4 /* BookmarkTests */,
 			);
 		};
 /* End PBXProject section */
@@ -215,6 +304,14 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		ACE72C6E428CCBA07334E279 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FA46436B3936C0C159BED822 /* Kingfisher_Kingfisher.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -236,7 +333,24 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		5EFFDB4EC5FB6743045AF095 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E5164B2889523A1E7FCCA93E /* BookmarkTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		F1A964ABA79C9BAEE4117CDF /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = Bookmark;
+			target = CA3BDA5CCBC32BFCAFE328FB /* Bookmark */;
+			targetProxy = 2B20B2F8B9E69BB9B6B3B2C5 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		2CDAC3FEE005812D05D20DE7 /* Release */ = {
@@ -288,9 +402,64 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SRCROOT = /Users/minjae/Desktop/Newdok/Modules/Features/Bookmark;
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
+		};
+		39C22938EA8C0C8DC035662C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				INFOPLIST_FILE = "Derived/InfoPlists/BookmarkTests-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+					"$(SRCROOT)/../../../Tuist/.build/artifacts/lottie-spm/Lottie",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.newdok.bookmark.tests;
+				PRODUCT_NAME = BookmarkTests;
+				SDKROOT = iphoneos;
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		4CCBD3075236C6B09263C94A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				INFOPLIST_FILE = "Derived/InfoPlists/BookmarkTests-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+					"$(SRCROOT)/../../../Tuist/.build/artifacts/lottie-spm/Lottie",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.newdok.bookmark.tests;
+				PRODUCT_NAME = BookmarkTests;
+				SDKROOT = iphoneos;
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = (
+					"$(inherited)",
+					DEBUG,
+				);
+				SWIFT_COMPILATION_MODE = singlefile;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
 		};
 		A0760B07562EAC4931522D53 /* Debug */ = {
 			isa = XCBuildConfiguration;
@@ -420,12 +589,22 @@
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SRCROOT = /Users/minjae/Desktop/Newdok/Modules/Features/Bookmark;
 			};
 			name = Debug;
 		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		0A18DBBEC7017735D102CBDC /* Build configuration list for PBXNativeTarget "BookmarkTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4CCBD3075236C6B09263C94A /* Debug */,
+				39C22938EA8C0C8DC035662C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		4732B36C07F2E4F4AAC9B5F6 /* Build configuration list for PBXNativeTarget "Bookmark" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

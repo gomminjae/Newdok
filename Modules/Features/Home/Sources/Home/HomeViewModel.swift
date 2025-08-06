@@ -129,28 +129,16 @@ public final class HomeViewModel: ObservableObject {
     public func selectDateWithMonthGuarantee(_ date: Date) {
         let calendar = Calendar.current
         let selectedDay = calendar.component(.day, from: date)
-        let selectedMonth = calendar.component(.month, from: date)
-        let selectedYear = calendar.component(.year, from: date)
         
-        print("📅 [HomeViewModel] 날짜 선택 (월 보장): \(date)")
-        print("📅 [HomeViewModel] 선택된 날짜 정보: \(selectedYear)년 \(selectedMonth)월 \(selectedDay)일")
+        print("📅 [HomeViewModel] 날짜 선택: \(date)")
         
-        // 현재 로드된 월과 선택된 월이 다르면 해당 월 데이터를 먼저 로드
-        let currentMonth = calendar.component(.month, from: selectedDate)
-        if currentMonth != selectedMonth {
-            print("📅 [HomeViewModel] 월이 다름 - 데이터 로드 후 날짜 선택")
-            Task {
-                await loadArticles(for: date)
-                // 데이터 로드 완료 후 날짜 선택
-                await MainActor.run {
-                    self.selectedDate = date
-                    self.selectDate(selectedDay)
-                }
-            }
-        } else {
-            // 같은 월이면 바로 선택
-            print("📅 [HomeViewModel] 같은 월 - 바로 날짜 선택")
-            self.selectedDate = date
+        // 즉시 calendarState 업데이트 (UI 반영)
+        calendarState.selectedDate = date
+        calendarState.displayedMonth = date
+        
+        // 해당 날짜의 아티클 로드
+        Task {
+            await loadArticles(for: date)
             self.selectDate(selectedDay)
         }
     }

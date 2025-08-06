@@ -44,6 +44,8 @@ public class MypageViewModel: ObservableObject {
     @Published public var oldPassword: String = ""
     @Published public var newPassword: String = ""
     @Published public var checkedPassword: String = ""
+    @Published public var isPasswordUpdateSuccess: Bool = false
+    @Published public var isPhoneUpdateSuccess: Bool = false
     
     
     
@@ -135,16 +137,50 @@ public class MypageViewModel: ObservableObject {
     public func updatePhoneNumber() async {
         do {
             try await useCase.updatePhoneNumber(phoneNumber)
+            print("✅ [MypageViewModel] 휴대폰 번호 변경 성공")
+            
+            // 성공 시 플래그 설정
+            isPhoneUpdateSuccess = true
+            
+            // 성공 토스트 표시
+            DispatchQueue.main.async {
+                NotificationCenter.default.post(name: .showToast, object: "휴대폰 번호가 변경되었습니다.")
+            }
         } catch {
-            print("비밀번호 변경실패")
+            print("❌ [MypageViewModel] 휴대폰 번호 변경 실패: \(error)")
+            isPhoneUpdateSuccess = false
+            
+            // 실패 토스트 표시
+            DispatchQueue.main.async {
+                NotificationCenter.default.post(name: .showToast, object: "휴대폰 번호 변경에 실패했습니다.")
+            }
         }
     }
     
     public func updatePassword() async {
         do {
-            try await useCase.updatePassword(loginId: user?.loginId ?? "", prevPassword: oldPassword, newPassword: newPassword)
+            // UserInfoStore에서 loginId 가져오기
+            let userInfo = UserInfoStore.shared.load()
+            let loginId = userInfo?.loginId ?? user?.loginId ?? ""
+            
+            print("🔄 [MypageViewModel] 비밀번호 변경 시작")
+            print("  - loginId: \(loginId)")
+            print("  - oldPassword: \(oldPassword)")
+            print("  - newPassword: \(newPassword)")
+            
+            try await useCase.updatePassword(loginId: loginId, prevPassword: oldPassword, newPassword: newPassword)
+            print("✅ [MypageViewModel] 비밀번호 변경 성공")
+            
+            // 성공 시 플래그 설정
+            isPasswordUpdateSuccess = true
+            
+            // 입력 필드 초기화
+            oldPassword = ""
+            newPassword = ""
+            checkedPassword = ""
         } catch {
-            print("패스워드 변경 오류")
+            print("❌ [MypageViewModel] 비밀번호 변경 실패: \(error)")
+            isPasswordUpdateSuccess = false
         }
     }
     
@@ -159,8 +195,14 @@ public class MypageViewModel: ObservableObject {
             let response = try await useCase.authSMS(phoneNumber: phoneNumber)
             verificationCode = String(response.code)
             isRequestSent = true
+            
+            // 타이머 시작
+            timerRemaining = 180 // 3분 = 180초
+            startTimer()
+            
+            print("✅ [MypageViewModel] 인증번호 전송 성공, 타이머 시작")
         } catch {
-            print("번호가 안보내짐")
+            print("❌ [MypageViewModel] 인증번호 전송 실패: \(error)")
         }
     }
 

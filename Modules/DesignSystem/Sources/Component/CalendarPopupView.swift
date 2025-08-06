@@ -81,16 +81,11 @@ public struct CalendarPopupView: View {
             }
             .padding(.top, 20)
         }
-        .padding(.horizontal, 20)
         .background(Color.clear)
         .contentShape(Rectangle())
-        .onChange(of: displayedMonthDate) { newDate in
-            print("📅 [CalendarPopupView] displayedMonthDate 변경 감지: \(newDate)")
-            forceUpdate.toggle()  // UI 업데이트 트리거
-        }
-        .onChange(of: dataDays) { newDataDays in
-            print("📅 [CalendarPopupView] dataDays 변경 감지: \(newDataDays.sorted())")
-        }
+        .onChange(of: displayedMonthDate) { _ in forceUpdate.toggle() }
+        .onChange(of: dataDays) { _ in forceUpdate.toggle() }
+        .onChange(of: selectedDate) { _ in forceUpdate.toggle() } // React to selection change
     }
 
     private var headerView: some View {
@@ -101,12 +96,11 @@ public struct CalendarPopupView: View {
                     Image(systemName: "chevron.left")
                         .foregroundStyle(Color(hex: "#333333"))
                 }
-                
                 Text(yearMonthTitle)
-                    .font(.headline)
+                    .frame(width: 120, height: 20)
+                    .font(.hanSansNeo(14, .medium))
                     .foregroundStyle(Color(hex: "#1E1E1E"))
-                    .id("month-title-\(displayedMonthDate)-\(forceUpdate)")
-                
+                    .id("month-title-\(displayedMonthDate)-\(forceUpdate)-\(selectedDate)")
                 Button(action: nextMonth) {
                     Image(systemName: "chevron.right")
                         .foregroundStyle(Color(hex: "#333333"))
@@ -119,11 +113,11 @@ public struct CalendarPopupView: View {
                     Image(systemName: "xmark")
                         .foregroundStyle(Color(hex: "#333333"))
                 }
-                .padding(.trailing, 16)
+                .padding()
             }
         }
         .frame(maxWidth: .infinity)
-        .padding()
+        .padding(.horizontal, 8)
         .background(
             Color(hex: "#FAFAFA")
                 .clipShape(RoundedCorners(radius: 16, corners: [.topLeft, .topRight]))
@@ -150,29 +144,27 @@ public struct CalendarPopupView: View {
                 HStack(spacing: 10) {
                     ForEach(0..<7, id: \.self) { dayIndex in
                         let day = days[weekIndex * 7 + dayIndex]
-                        let isFuture   = calendar.startOfDay(for: day.date) > today
-                        let isToday    = calendar.isDate(day.date, inSameDayAs: today)
+                        let isFuture = calendar.startOfDay(for: day.date) > today
+                        let isToday = calendar.isDate(day.date, inSameDayAs: today)
                         let isSelected = calendar.isDate(day.date, inSameDayAs: selectedDate)
-                        let hasData    = dataDays.contains(day.dayInt)
-                        let isBlank    = day.dayInt == 0
-                        
-//                        // 디버깅: 8월 1일, 2일이 왜 회색인지 확인
-//                        if day.dayInt == 1 || day.dayInt == 2 {
-//                            print("📅 [CalendarPopupView] 날짜 \(day.dayInt)일 - isFuture: \(isFuture), today: \(today), day.date: \(day.date)")
-//                        }
+                        let hasData = dataDays.contains(day.dayInt)
+                        let isBlank = day.dayInt == 0
 
                         VStack(spacing: 4) {
                             Text(day.dayString)
                                 .font(.hanSansNeo(16, .regular))
                                 .frame(width: 40, height: 40)
                                 .foregroundColor(
-                                    isFuture ? Color(hex: "#C0C0C0") : 
-                                    (isSelected ? .white : 
+                                    isFuture ? Color(hex: "#C0C0C0") :
+                                    (isSelected ? .white :
                                      (isToday ? .white : Color(hex: "#171414")))
                                 )
                                 .background(
                                     RoundedRectangle(cornerRadius: 12)
-                                        .fill(isSelected ? Color.blue : (isToday ? Color.primaryNormal : .clear))
+                                        .fill(
+                                            isSelected ? Color.blue :
+                                            (isToday ? Color.primaryNormal : .clear)
+                                        )
                                 )
                             Circle()
                                 .frame(width: 5, height: 5)
@@ -181,14 +173,9 @@ public struct CalendarPopupView: View {
                         }
                         .opacity(isBlank ? 0.3 : 1)
                         .onTapGesture {
-                            // 빈 칸이 아니면 선택 가능 (과거 날짜도 선택 가능)
-                            guard !isBlank else { 
-                                return 
-                            }
-                            print("📅 [CalendarPopupView] 날짜 선택: \(day.date)")
+                            guard !isBlank else { return }
                             selectedDate = day.date
                             onDateSelected?(day.date)
-                            // 팝업은 자동으로 닫히지 않음 - 사용자가 직접 닫아야 함
                         }
                     }
                 }
@@ -196,7 +183,7 @@ public struct CalendarPopupView: View {
         }
         .padding(.vertical, 20)
         .padding(.horizontal, 16)
-        .id("calendar-grid-\(displayedMonthDate)-\(forceUpdate)")
+        .id("calendar-grid-\(displayedMonthDate)-\(forceUpdate)-\(selectedDate)")
     }
 
     private var yearMonthTitle: String {
@@ -226,41 +213,23 @@ public struct CalendarPopupView: View {
     }
 
     private func previousMonth() {
-        let oldMonth = yearMonthTitle
         let newDate = calendar.date(byAdding: .month, value: -1, to: displayedMonthDate)!
         displayedMonthDate = newDate
-        forceUpdate.toggle()  // UI 업데이트 트리거
-        print("📅 [CalendarPopupView] 이전 월로 변경: \(oldMonth) → \(yearMonthTitle)")
-        print("📅 [CalendarPopupView] displayedMonthDate 업데이트: \(newDate)")
-        
-        // 추가 UI 업데이트 트리거
-        DispatchQueue.main.async {
-            forceUpdate.toggle()
-        }
-        
+        forceUpdate.toggle()
+        DispatchQueue.main.async { forceUpdate.toggle() }
         onMonthChanged?(displayedMonthDate)
     }
     
     private func nextMonth() {
-        let oldMonth = yearMonthTitle
         let newDate = calendar.date(byAdding: .month, value: 1, to: displayedMonthDate)!
         displayedMonthDate = newDate
-        forceUpdate.toggle()  // UI 업데이트 트리거
-        print("📅 [CalendarPopupView] 다음 월로 변경: \(oldMonth) → \(yearMonthTitle)")
-        print("📅 [CalendarPopupView] displayedMonthDate 업데이트: \(newDate)")
-        
-        // 추가 UI 업데이트 트리거
-        DispatchQueue.main.async {
-            forceUpdate.toggle()
-        }
-        
+        forceUpdate.toggle()
+        DispatchQueue.main.async { forceUpdate.toggle() }
         onMonthChanged?(displayedMonthDate)
     }
     
     private func selectToday() {
         selectedDate = today
-        // displayedMonthDate는 변경하지 않음 (현재 표시된 월 유지)
-        print("📅 [CalendarPopupView] 오늘 선택: selectedDate = \(today), displayedMonthDate 유지")
         onDateSelected?(today)
         isPresented = false
     }
@@ -270,4 +239,20 @@ struct CalendarDay: Hashable {
     let date: Date
     let dayString: String
     let dayInt: Int
+}
+
+struct CalendarPopupView_Previews: PreviewProvider {
+    static var previews: some View {
+        let today = Date()
+        let firstOfMonth = Calendar.current.date(from: Calendar.current.dateComponents([.year, .month], from: today))!
+        return CalendarPopupView(
+            isPresented: .constant(true),
+            selectedDate: .constant(today),
+            displayedMonthDate: .constant(firstOfMonth),
+            dataDays: .constant([1,5,10,15])
+        )
+        .padding(.horizontal, 20)
+        .previewLayout(.sizeThatFits)
+        .background(Color.gray.opacity(0.2))
+    }
 }

@@ -13,6 +13,7 @@ import Shared
 public struct PwdUpdateView: View {
     
     @Environment(\.dismiss) private var dismiss
+    @EnvironmentObject private var router: AppRouter
 
     @State private var isSecureOldPassword: Bool = true
     @State private var isSecureNewPassword: Bool = true
@@ -111,7 +112,10 @@ public struct PwdUpdateView: View {
             Button(action: {
                 Task {
                     await viewModel.updatePassword()
-                    dismiss()
+                    // 성공 시에만 화면 닫기
+                    if viewModel.isPasswordUpdateSuccess {
+                        router.pop()
+                    }
                 }
             }) {
                 Text("변경하기")
@@ -131,7 +135,7 @@ public struct PwdUpdateView: View {
         .toolbar {
             ToolbarItem(placement: .navigationBarLeading) {
                 Button {
-                    dismiss()
+                   router.pop()
                 } label: {
                     Image(asset: DesignSystemAsset.back)
                         .font(.system(size: 17, weight: .semibold))

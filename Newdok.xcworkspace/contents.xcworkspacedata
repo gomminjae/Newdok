@@ -68,16 +68,6 @@
             location = "group:Withdraw/Withdraw.xcodeproj">
          </FileRef>
       </Group>
-      <Group
-         location = "group:QA"
-         name = "QA">
-         <FileRef
-            location = "group:A/A.xcodeproj">
-         </FileRef>
-         <FileRef
-            location = "group:B/B.xcodeproj">
-         </FileRef>
-      </Group>
    </Group>
    <Group
       location = "container:"

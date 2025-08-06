@@ -9,6 +9,7 @@ import SwiftUI
 import DesignSystem
 import Domain
 import Shared
+import PopupView
 
 
 
@@ -17,6 +18,8 @@ public struct LoginView: View {
     @FocusState private var isIdFocused: Bool
     @FocusState private var isPwdFocused: Bool
     @State private var showHomeView = false
+    @State private var showToast: Bool = false
+    @State private var toastMessage: String = ""
     
     @EnvironmentObject private var router: AppRouter
     @EnvironmentObject private var tabSelection: TabSelection
@@ -148,6 +151,23 @@ public struct LoginView: View {
         .navigationBarBackButtonHidden()
         .navigationBarTitleDisplayMode(.inline)
         .navigationBarBackButtonHidden(true)
+        .onReceive(NotificationCenter.default.publisher(for: .showToast)) { notification in
+            if let message = notification.object as? String {
+                toastMessage = message
+                showToast = true
+            }
+        }
+        .popup(isPresented: $showToast) {
+            ToastView(message: toastMessage)
+                .padding(.bottom, 50)
+        } customize: {
+            $0
+                .type(.toast)
+                .position(.bottom)
+                .autohideIn(3)
+                .animation(.easeInOut)
+                .closeOnTapOutside(false)
+        }
         .toolbar {
             ToolbarItem(placement: .navigationBarLeading) {
                 if !router.path.isEmpty {

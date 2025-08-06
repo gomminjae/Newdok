@@ -39,9 +39,11 @@ public struct PhoneUpdateView: View {
                     HStack(spacing: 8) {
                         HStack {
                             Image(asset: DesignSystemAsset.phone)
+                                .renderingMode(.template)
+                                .foregroundColor(isPhoneFieldFocused ? Color.captionStrong : Color.captionAssistive)
                                 .padding(.leading, 20)
 
-                            TextField("-구분 없이 입력", text: $viewModel.phoneNumber)
+                            TextField("숫자만 입력", text: $viewModel.phoneNumber)
                                 .font(.hanSansNeo(14, .medium))
                                 .keyboardType(.numberPad)
                                 .focused($isPhoneFieldFocused)
@@ -49,9 +51,10 @@ public struct PhoneUpdateView: View {
                                 .padding(.vertical, 12)
                                 .padding(.horizontal, 8)
                                 .onReceive(Just(viewModel.phoneNumber)) { new in
-                                    let formatted = formatPhoneNumber(new)
-                                    if formatted != viewModel.phoneNumber {
-                                        viewModel.phoneNumber = formatted
+                                    // 숫자만 필터링
+                                    let filtered = new.filter { $0.isNumber }
+                                    if filtered != viewModel.phoneNumber {
+                                        viewModel.phoneNumber = filtered
                                     }
                                 }
                         }
@@ -67,15 +70,20 @@ public struct PhoneUpdateView: View {
                                 viewModel.enteredVerificationCode = ""
                                 viewModel.showError = false
                                 await viewModel.sendVerificationCode()
+                                
+                                // 인증번호 전송 후 인증번호 입력칸에 포커스
+                                if viewModel.isRequestSent {
+                                    isNumberPadFocused = true
+                                }
                             }
                         }
                         .font(.hanSansNeo(14, .bold))
-                        .foregroundStyle(viewModel.phoneNumber.count < 13 ?  Color(hex: "#BDBDBD") : Color.primaryNormal)
-                        .disabled(viewModel.phoneNumber.count < 13)
+                        .foregroundStyle(viewModel.phoneNumber.count < 11 ?  Color(hex: "#BDBDBD") : Color.primaryNormal)
+                        .disabled(viewModel.phoneNumber.count < 11)
                         .frame(width: 94, height: 48)
                         .overlay(
                             RoundedRectangle(cornerRadius: 4)
-                                .stroke(viewModel.phoneNumber.count < 13 ? Color(hex: "#C0C0C0") : Color.primaryNormal, lineWidth: 1)
+                                .stroke(viewModel.phoneNumber.count < 11 ? Color(hex: "#C0C0C0") : Color.primaryNormal, lineWidth: 1)
                         )
                     }
                     .padding(.horizontal, 24)
@@ -103,7 +111,7 @@ public struct PhoneUpdateView: View {
                             .background(viewModel.showError || viewModel.timerRemaining <= 0 ? Color.red.opacity(0.1) : .white)
                             .overlay(
                                 RoundedRectangle(cornerRadius: 5)
-                                    .stroke(viewModel.showError || viewModel.timerRemaining <= 0 ? .red : Color(hex: "EBEBEB"), lineWidth: 2)
+                                    .stroke(viewModel.showError || viewModel.timerRemaining <= 0 ? .red : (isNumberPadFocused ? Color.primaryNormal : Color(hex: "EBEBEB")), lineWidth: 2)
                             )
                             .padding(.horizontal, 24)
 
@@ -122,7 +130,7 @@ public struct PhoneUpdateView: View {
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
                     Button {
-                        dismiss()
+                        router.pop()
                     } label: {
                         Image(asset: DesignSystemAsset.back)
                             .font(.system(size: 17, weight: .semibold))
@@ -150,7 +158,13 @@ public struct PhoneUpdateView: View {
 
             if viewModel.isRequestSent {
                 Button(action: {
-                   
+                    Task {
+                        await viewModel.updatePhoneNumber()
+                        // 성공 시에만 화면 닫기
+                        if viewModel.isPhoneUpdateSuccess {
+                            router.pop()
+                        }
+                    }
                 }) {
                     Text("변경하기")
                         .font(.hanSansNeo(14, .bold))
@@ -170,19 +184,7 @@ public struct PhoneUpdateView: View {
         .ignoresSafeArea(.keyboard)
     }
 
-    private func formatPhoneNumber(_ number: String) -> String {
-        let digits = number.filter { $0.isNumber }
-        let maxLength = 11
-        var formattedNumber = ""
 
-        for (index, ch) in digits.prefix(maxLength).enumerated() {
-            if index == 3 || index == 7 {
-                formattedNumber.append("-")
-            }
-            formattedNumber.append(String(ch))
-        }
-        return formattedNumber
-    }
 
     private func formatTime(_ seconds: Int) -> String {
         String(format: "%02d:%02d", seconds / 60, seconds % 60)
