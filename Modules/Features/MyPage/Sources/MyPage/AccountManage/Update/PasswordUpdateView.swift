@@ -48,12 +48,19 @@ public struct PwdUpdateView: View {
                     }
                 }
                 .font(.hanSansNeo(14,.medium))
-                .modifier(PasswordFieldModifier(isSecure: $isSecureOldPassword, isFocused: $isOldPasswordFocused))
+                .modifier(PasswordFieldModifier(isSecure: $isSecureOldPassword, isFocused: $isOldPasswordFocused, isError: viewModel.passwordError != nil))
 
                 if let error = viewModel.oldPasswordError {
                     Text(error)
                         .font(.hanSansNeo(12, .medium))
                         .foregroundColor(.red)
+                }
+                
+                if let error = viewModel.passwordError {
+                    Text(error)
+                        .font(.hanSansNeo(12, .medium))
+                        .foregroundColor(Color(hex: "#E32727"))
+                        .padding(.top, 4)
                 }
 
                 // 새 비밀번호
@@ -110,11 +117,19 @@ public struct PwdUpdateView: View {
 
             // 하단 버튼
             Button(action: {
+                // 에러 초기화
+                viewModel.passwordError = nil
+                
                 Task {
                     await viewModel.updatePassword()
                     // 성공 시에만 화면 닫기
                     if viewModel.isPasswordUpdateSuccess {
                         router.pop()
+                        // 토스트 메시지 전송
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                            print("📤 [PasswordUpdateView] 토스트 메시지 전송: 비밀번호가 변경되었습니다.")
+                            NotificationCenter.default.post(name: .showToast, object: "비밀번호가 변경되었습니다.")
+                        }
                     }
                 }
             }) {

@@ -110,11 +110,11 @@ public struct PhoneUpdateView: View {
                             }
                             .background(viewModel.showError || viewModel.timerRemaining <= 0 ? Color.red.opacity(0.1) : .white)
                             .overlay(
-                                RoundedRectangle(cornerRadius: 5)
-                                    .stroke(viewModel.showError || viewModel.timerRemaining <= 0 ? .red : (isNumberPadFocused ? Color.primaryNormal : Color(hex: "EBEBEB")), lineWidth: 2)
+                                RoundedRectangle(cornerRadius: 4)
+                                    .stroke(viewModel.showError || viewModel.timerRemaining <= 0 ? .red : (isNumberPadFocused ? Color.primaryNormal : Color(hex: "EBEBEB")), lineWidth: 1)
                             )
                             .padding(.horizontal, 24)
-
+ 
                             Text(viewModel.timerRemaining <= 0 ? "인증번호가 만료되었습니다. 재전송해주세요." : (viewModel.showError ? "인증번호를 다시 확인해주세요." : "문자가 오지 않는다면 '재전송'을 눌러주세요."))
                                 .font(.hanSansNeo(12, .medium))
                                 .foregroundStyle(viewModel.timerRemaining <= 0 || viewModel.showError ? .red : Color(hex: "555555"))
@@ -163,6 +163,11 @@ public struct PhoneUpdateView: View {
                         // 성공 시에만 화면 닫기
                         if viewModel.isPhoneUpdateSuccess {
                             router.pop()
+                            // 토스트 메시지 전송
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                                print("📤 [PhoneUpdateView] 토스트 메시지 전송: 휴대폰 번호가 변경되었습니다.")
+                                NotificationCenter.default.post(name: .showToast, object: "휴대폰 번호가 변경되었습니다.")
+                            }
                         }
                     }
                 }) {

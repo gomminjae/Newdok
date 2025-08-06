@@ -46,6 +46,7 @@ public class MypageViewModel: ObservableObject {
     @Published public var checkedPassword: String = ""
     @Published public var isPasswordUpdateSuccess: Bool = false
     @Published public var isPhoneUpdateSuccess: Bool = false
+    @Published public var passwordError: String? = nil
     
     
     
@@ -181,6 +182,9 @@ public class MypageViewModel: ObservableObject {
         } catch {
             print("❌ [MypageViewModel] 비밀번호 변경 실패: \(error)")
             isPasswordUpdateSuccess = false
+            
+            // 에러 메시지 설정
+            passwordError = "현재 비밀번호가 일치하지 않습니다"
         }
     }
     

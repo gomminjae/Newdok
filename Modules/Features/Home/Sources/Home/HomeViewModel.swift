@@ -207,11 +207,15 @@ public final class HomeViewModel: ObservableObject {
     }
     
     public func loadArticles(for date: Date) async {
+        await loadArticles(for: date, forceRefresh: false)
+    }
+    
+    public func loadArticles(for date: Date, forceRefresh: Bool) async {
         let year = formatYear(date)
         let month = formatMonth(date)
         let key = "\(year)-\(month)"
         
-        print("📅 [HomeViewModel] 월 데이터 로드 시작: \(year)년 \(month)월, 키: \(key)")
+        print("📅 [HomeViewModel] 월 데이터 로드 시작: \(year)년 \(month)월, 키: \(key), 강제 새로고침: \(forceRefresh)")
         print("📅 [HomeViewModel] 현재 selectedDate: \(selectedDate)")
         
         // 이미 로딩 중인 요청이 있으면 취소
@@ -226,8 +230,8 @@ public final class HomeViewModel: ObservableObject {
         
         print("📅 [HomeViewModel] selectedDate 유지됨: \(selectedDate)")
         
-        // 캐시된 데이터가 있으면 즉시 사용
-        if let cached = monthlyCache[key] {
+        // 강제 새로고침이 아니고 캐시된 데이터가 있으면 즉시 사용
+        if !forceRefresh, let cached = monthlyCache[key] {
             print("📅 [HomeViewModel] 캐시된 데이터 사용: \(key), 캐시 크기: \(cached.count)")
             self.articlesByMonth = cached
             self.updateDataDays()
@@ -381,6 +385,52 @@ public final class HomeViewModel: ObservableObject {
             .first(where: { $0.publishDate == day })?
             .receivedArticleList ?? []
     }
+    
+    public func markArticleAsRead(articleId: Int) {
+        // filteredArticles에서 즉시 업데이트
+        if let index = filteredArticles.firstIndex(where: { $0.articleId == articleId }) {
+            var updatedArticles = filteredArticles
+            let article = updatedArticles[index]
+            let updatedArticle = Article(
+                brandName: article.brandName,
+                imageUrl: article.imageUrl,
+                articleTitle: article.articleTitle,
+                articleId: article.articleId,
+                status: "Read"
+            )
+            updatedArticles[index] = updatedArticle
+            self.filteredArticles = updatedArticles
+        }
+        
+        // articlesByMonth에서도 업데이트
+        let day = Calendar.current.component(.day, from: selectedDate)
+        if let monthIndex = articlesByMonth.firstIndex(where: { $0.publishDate == day }) {
+            var updatedMonthArticles = articlesByMonth
+            var updatedArticleList = updatedMonthArticles[monthIndex].receivedArticleList
+            
+            if let articleIndex = updatedArticleList.firstIndex(where: { $0.articleId == articleId }) {
+                let article = updatedArticleList[articleIndex]
+                let updatedArticle = Article(
+                    brandName: article.brandName,
+                    imageUrl: article.imageUrl,
+                    articleTitle: article.articleTitle,
+                    articleId: article.articleId,
+                    status: "Read"
+                )
+                updatedArticleList[articleIndex] = updatedArticle
+                updatedMonthArticles[monthIndex] = Articles(
+                    publishDate: updatedMonthArticles[monthIndex].publishDate,
+                    receivedUnread: updatedMonthArticles[monthIndex].receivedUnread,
+                    receivedArticleList: updatedArticleList
+                )
+                self.articlesByMonth = updatedMonthArticles
+            }
+        }
+        
+
+    }
+    
+
    
     // MARK: - 날짜 포맷터
     public var formattedDate: String {

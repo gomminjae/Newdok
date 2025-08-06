@@ -92,6 +92,7 @@ public struct HomeView: View {
                     Task { await viewModel.loadToday() }
                 }
             }
+
         }
 
     // MARK: — 헤더
@@ -237,6 +238,8 @@ public struct HomeView: View {
                     ArticleRow(article: article)
                         .frame(height: 88)
                         .onTapGesture {
+                            // 로컬에서 먼저 읽음 상태로 변경
+                            viewModel.markArticleAsRead(articleId: article.articleId)
                             router.push(.articleDetail(id: "\(article.articleId)"))
                         }
                 }

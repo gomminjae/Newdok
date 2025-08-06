@@ -62,7 +62,7 @@ public struct CalendarPopupView: View {
                 dateGrid
             }
             .background(RoundedRectangle(cornerRadius: 16).fill(Color.white))
-            .padding(.horizontal, 20)
+            
 
             Button(action: selectToday) {
                 HStack(spacing: 4) {
@@ -107,22 +107,25 @@ public struct CalendarPopupView: View {
                 }
                 Spacer()
             }
+
             HStack {
-                Spacer()
+                Spacer() // 왼쪽 여백
                 Button(action: { isPresented = false }) {
                     Image(systemName: "xmark")
                         .foregroundStyle(Color(hex: "#333333"))
+                        .padding(.trailing,24)
                 }
-                .padding()
             }
         }
+        .padding(.vertical, 12)
         .frame(maxWidth: .infinity)
-        .padding(.horizontal, 8)
+        
         .background(
             Color(hex: "#FAFAFA")
                 .clipShape(RoundedCorners(radius: 16, corners: [.topLeft, .topRight]))
         )
     }
+
 
     private var weekdayHeader: some View {
         HStack(spacing: 10) {
@@ -167,7 +170,7 @@ public struct CalendarPopupView: View {
                                         )
                                 )
                             Circle()
-                                .frame(width: 5, height: 5)
+                                .frame(width: 6, height: 6)
                                 .foregroundColor(Color.blue)
                                 .opacity(hasData && !isBlank ? 1 : 0)
                         }
