@@ -12,6 +12,8 @@ import Domain
 import PopupView
 
 
+
+
 public struct HomeView: View {
     @StateObject private var viewModel: HomeViewModel
     @State private var showCalendar = false
@@ -26,34 +28,33 @@ public struct HomeView: View {
     }
 
     public var body: some View {
-            ZStack {
-                // 1) 메인 배경+컨텐츠
-                Color(hex: "F5F5F7").ignoresSafeArea().zIndex(0)
-
-                VStack(spacing: 0) {
-                    headerView
-
-                    PullToRefreshView(
-                        isRefreshing: $isRefreshing,
-                        onRefresh: { await viewModel.loadToday() },
-                        lottieAnimation: {
-                            AnyView(
-                                LoadingAnimationView()
-                                    .frame(width: 120, height: 40)
-                            )
-                        }
-                    ) {
+        ZStack {
+            // 1) 메인 배경+컨텐츠
+            Color(hex: "F5F5F7").ignoresSafeArea().zIndex(0)
+            
+            VStack(spacing: 0) {
+                headerView
+                
+                PullToRefreshView(
+                    content: {
                         VStack(spacing: 0) {
                             dateBarView
                             contentView
                         }
+                    },
+                    animationView: {
+                        AnyView(LoadingView())
+                    },
+                    onRefresh: {
+                        await viewModel.loadToday()
                     }
-                }
-                .padding(.horizontal, 8)
-                .padding(.top, 8)
-                .zIndex(0)
+                )
             }
-            .popup(isPresented: $showCalendar) {
+            .padding(.horizontal, 8)
+            .padding(.top, 8)
+            .zIndex(0)
+        }
+        .popup(isPresented: $showCalendar) {
                 CalendarPopupView(
                     isPresented: $showCalendar,
                     selectedDate: $viewModel.calendarState.selectedDate,
@@ -216,19 +217,16 @@ public struct HomeView: View {
                     }
                 }) {
                     HStack(spacing: 4) {
-                        if isRefreshing {
-                            LoadingAnimationView()
-                                .frame(width: 60, height: 20)
-                        } else {
-                            Image(asset: DesignSystemAsset.lineReload)
-                                .renderingMode(.template)
-                                .font(.hanSansNeo(14, .medium))
-                                .foregroundStyle(Color.primaryNormal)
-                            Text("새로고침")
-                                .font(.hanSansNeo(14, .medium))
-                                .foregroundStyle(Color.primaryNormal)
-                        }
+                        
+                        Image(asset: DesignSystemAsset.lineReload)
+                            .renderingMode(.template)
+                            .font(.hanSansNeo(14, .medium))
+                            .foregroundStyle(Color.primaryNormal)
+                        Text("새로고침")
+                            .font(.hanSansNeo(14, .medium))
+                            .foregroundStyle(Color.primaryNormal)
                     }
+                    
                 }
                 .padding(.top, 23)
                 .padding(.trailing, 24)

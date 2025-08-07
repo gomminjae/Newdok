@@ -1,4 +1,14 @@
-struct PullToRefreshView<Content: View>: View {
+//
+//  PullToRefreshView.swift
+//  DesignSystem
+//
+//  Created by 권민재 on 8/8/25.
+//  Copyright © 2025 Your Organization Name. All rights reserved.
+//
+import SwiftUI
+
+
+public struct PullToRefreshView<Content: View>: View {
     let content: Content
     let threshold: CGFloat
     let onRefresh: () async -> Void
@@ -8,7 +18,7 @@ struct PullToRefreshView<Content: View>: View {
     @State private var isRefreshing = false
     @State private var hasTriggered = false
 
-    init(
+    public init(
         threshold: CGFloat = 80,
         @ViewBuilder content: () -> Content,
         @ViewBuilder animationView: @escaping () -> AnyView,
@@ -20,7 +30,7 @@ struct PullToRefreshView<Content: View>: View {
         self.onRefresh = onRefresh
     }
 
-    var body: some View {
+    public var body: some View {
         ScrollView(showsIndicators: false) {
             GeometryReader { geo -> Color in
                 let offset = geo.frame(in: .global).minY
