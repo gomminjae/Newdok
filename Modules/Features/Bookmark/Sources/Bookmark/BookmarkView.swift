@@ -108,40 +108,49 @@ public struct BookmarkView: View {
             categoryFilter
             sortInfo
             
-            if isGuest {
-                VStack {
-                    BookmarkGuestView(onLogin: {
-                        router.push(.login)
-                    })
-                        .frame(maxWidth: .infinity)
-                        .frame(maxHeight: .infinity)
-                        .background(Color(hex: "#F5F5F7"))
-                }
-                .background(Color(hex: "#F5F5F7"))
-            }
-            else if !isGuest && viewModel.bookmarks?.totalAmount == 0 {
-                VStack {
-                    BookmarkEmptyView()
-                        .frame(maxWidth: .infinity)
-                        .frame(maxHeight: .infinity)
-                        .background(Color(hex: "#F5F5F7"))
-                }
-                .background(Color(hex: "#F5F5F7"))
-            } else {
-                
-                ScrollView(showsIndicators: false) {
-                    
-                    VStack(alignment: .leading, spacing: 0) {
-                        ForEach(Array((viewModel.sortedBookmarks?.bookmarkForMonth ?? []).enumerated()), id: \.1.id) { index, monthly in
-                            section(month: monthly.month, articles: monthly.bookmark)
-                                .padding(.top, index == 0 ? 0 : 32)
+                            PullToRefreshView(
+                    content: {
+                        if isGuest {
+                            VStack {
+                                BookmarkGuestView(onLogin: {
+                                    router.push(.login)
+                                })
+                                    .frame(maxWidth: .infinity)
+                                    .frame(maxHeight: .infinity)
+                                    .background(Color(hex: "#F5F5F7"))
+                            }
+                            .background(Color(hex: "#F5F5F7"))
                         }
+                        else if viewModel.bookmarks?.totalAmount == 0 {
+                            VStack {
+                                BookmarkEmptyView()
+                                    .frame(maxWidth: .infinity)
+                                    .frame(maxHeight: .infinity)
+                                    .background(Color(hex: "#F5F5F7"))
+                            }
+                            .background(Color(hex: "#F5F5F7"))
+                        } else {
+                            VStack(alignment: .leading, spacing: 0) {
+                                ForEach(Array((viewModel.sortedBookmarks?.bookmarkForMonth ?? []).enumerated()), id: \.1.id) { index, monthly in
+                                    section(month: monthly.month, articles: monthly.bookmark)
+                                        .padding(.top, index == 0 ? 0 : 32)
+                                }
+                            }
+                            .padding(.top, 20)
+                            .padding(.bottom, 20)
+                            .background(Color(hex: "#F5F5F7"))
+                        }
+                    },
+                animationView: {
+                    AnyView(LoadingView())
+                },
+                onRefresh: {
+                    if !isGuest {
+                        await viewModel.fetchUserInterests()
+                        await viewModel.fetchUserBookmarks()
                     }
-                    .padding(.top, 20)
-                    .padding(.bottom, 20)
                 }
-                .background(Color(hex: "#F5F5F7"))
-            }
+            )
         }
         .background(.white)
         .sheet(isPresented: $showSortSheet) {

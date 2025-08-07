@@ -17,6 +17,7 @@ public struct SubscribeView: View {
     
     @State private var showUnsubscribeAlert: Bool = false
     @State private var selectedNewsletter: Newsletter? = nil
+    @State private var isRefreshing = false
     
     @EnvironmentObject private var router: AppRouter
     
@@ -42,43 +43,58 @@ public struct SubscribeView: View {
                 .padding(.bottom, 18)
                 .padding(.horizontal, 20)
 
-            if !viewModel.isLoading && (filteredSubscriptions.isEmpty || isGuest) {
-                EmptySubscriptionView(isSubscribedTab: selectedTab == 0, isGuest: isGuest)
-            } else {
-                ScrollView {
-                    VStack(alignment: .leading, spacing: 0) {
-                        listHeaderView()
-                            .padding(.horizontal, 20)
-                            .padding(.bottom, 20)
+                            PullToRefreshView(
+                    content: {
+                        if viewModel.isLoading {
+                            // 로딩 중에는 빈 뷰
+                            Color.clear
+                        } else if filteredSubscriptions.isEmpty || isGuest {
+                            EmptySubscriptionView(isSubscribedTab: selectedTab == 0, isGuest: isGuest)
+                        } else {
+                            VStack(alignment: .leading, spacing: 0) {
+                                listHeaderView()
+                                    .padding(.horizontal, 20)
+                                    .padding(.bottom, 20)
 
-                        ForEach(filteredSubscriptions, id: \.id) { newsletter in
-                            SubscribeRow(newsletter: newsletter, isSubscribed: selectedTab == 0) {
-                                if selectedTab == 0 {
-                                    selectedNewsletter = newsletter
-                                    showUnsubscribeAlert = true
-                                } else {
-                                    Task {
-                                        await viewModel.resume(newsletterId: String(newsletter.id ?? 0))
-                                        await viewModel.fetchPaused()
-                                        await viewModel.fetchActive()
-                                        showSubscribeToast = true
-                                        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-                                            
-                                            showSubscribeToast = false
-                                            print("토스트 끝났음")
+                                ForEach(filteredSubscriptions, id: \.id) { newsletter in
+                                    SubscribeRow(newsletter: newsletter, isSubscribed: selectedTab == 0) {
+                                        if selectedTab == 0 {
+                                            selectedNewsletter = newsletter
+                                            showUnsubscribeAlert = true
+                                        } else {
+                                            Task {
+                                                await viewModel.resume(newsletterId: String(newsletter.id ?? 0))
+                                                await viewModel.fetchPaused()
+                                                await viewModel.fetchActive()
+                                                showSubscribeToast = true
+                                                DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                                                    
+                                                    showSubscribeToast = false
+                                                    print("토스트 끝났음")
+                                                }
+                                            }
                                         }
                                     }
+                                    .padding(.horizontal, 20)
+                                    .padding(.bottom, 12)
                                 }
                             }
-                            .padding(.horizontal, 20)
-                            .padding(.bottom, 12)
-
-                            
+                            .background(Color(hex: "#F5F5F7"))
                         }
+                    },
+                animationView: {
+                    AnyView(LoadingView())
+                },
+                onRefresh: {
+                    if selectedTab == 0 {
+                        // 구독 중 탭: 활성 구독만 새로고침
+                        await viewModel.fetchActive()
+                    } else {
+                        // 구독 중지 탭: 중지된 구독만 새로고침
+                        await viewModel.fetchPaused()
                     }
                 }
-                .background(Color(hex: "#F5F5F7"))
-            }
+            )
         }
         .onAppear {
             Task {

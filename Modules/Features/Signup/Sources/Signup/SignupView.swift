@@ -92,6 +92,7 @@ public struct SignupView: View {
                     AgreeView(viewModel: viewModel)
                 case .complete:
                     CompleteView(viewModel: viewModel)
+                        .environmentObject(router)
                 case .recommend:
                     RecommendView(viewModel: viewModel)
                 case .myIndustry:

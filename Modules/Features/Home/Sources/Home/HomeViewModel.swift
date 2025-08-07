@@ -189,21 +189,35 @@ public final class HomeViewModel: ObservableObject {
     
     // MARK: - Data Loading Methods
     public func loadToday() async {
-        isLoaded = false
+        // 배치 업데이트를 위한 임시 변수
+        var tempArticles: [Article] = []
+        var tempNewsletters: [Newsletter] = []
+        
         do {
             // 1단계: 먼저 오늘 데이터 로드 (구독 상태 확인)
             let data = try await useCase.fetchTodayData()
-            self.filteredArticles = data.articles
-            self.subscribedNewsletters = data.activeNewsletters
+            tempArticles = data.articles
+            tempNewsletters = data.activeNewsletters
             
             // 2단계: 구독이 있을 때만 캘린더 데이터 로드
-            if !subscribedNewsletters.isEmpty || !filteredArticles.isEmpty {
+            if !tempNewsletters.isEmpty || !tempArticles.isEmpty {
                 await loadArticles(for: selectedDate)
+            }
+            
+            // 배치 업데이트로 UI 렉 최소화
+            await MainActor.run {
+                withAnimation(.easeInOut(duration: 0.3)) {
+                    self.filteredArticles = tempArticles
+                    self.subscribedNewsletters = tempNewsletters
+                    self.isLoaded = true
+                }
             }
         } catch {
             print("today fetch error: \(error)")
+            await MainActor.run {
+                self.isLoaded = true
+            }
         }
-        isLoaded = true
     }
     
     public func loadArticles(for date: Date) async {
@@ -261,12 +275,18 @@ public final class HomeViewModel: ObservableObject {
                 await MainActor.run {
                     print("📅 [HomeViewModel] 새 데이터 로드 완료: \(key), 아티클 수: \(monthly.count)")
                     print("📅 [HomeViewModel] selectedDate 여전히 유지: \(selectedDate)")
-                    self.articlesByMonth = monthly
+                    
+                    // 배치 업데이트로 UI 렉 최소화
+                    withAnimation(.easeInOut(duration: 0.3)) {
+                        self.articlesByMonth = monthly
+                        self.monthlyCache[key] = monthly
+                        self.isLoadingMonth = false
+                        self.calendarState.isLoading = false
+                    }
+                    
+                    // 데이터 업데이트 후 필터링
                     self.updateDataDays()
-                    self.monthlyCache[key] = monthly
                     self.filterArticles(by: selectedDate)
-                    self.isLoadingMonth = false
-                    self.calendarState.isLoading = false
                 }
                 
                 // 인접 월 프리페치

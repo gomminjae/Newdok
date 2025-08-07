@@ -23,13 +23,13 @@ struct CurationView: View {
             Text("\(viewModel.nickname)님을 위한\n맞춤형 뉴스레터가 도착했어요!")
                 .font(.hanSansNeo(20,.bold))
                 .frame(maxWidth: .infinity, alignment: .leading)
-                .padding(.horizontal, 24)
+                
                 .padding(.top, 24)
             Text("구독한 뉴스레터는 발행일에 맞춰 홈으로 배달해드려요.\n구독하기를 누르면 구독 이메일이 자동으로 복사돼요.")
                 .font(.hanSansNeo(14, .medium))
                 .foregroundStyle(Color(hex: "#565656"))
                 .frame(maxWidth: .infinity, alignment: .leading)
-                .padding(.horizontal, 24)
+                
                 .padding(.top, 8)
             ScrollView {
                 VStack(spacing: 12) {
@@ -43,6 +43,8 @@ struct CurationView: View {
             .scrollIndicators(.hidden)
             
             Button("메인으로") {
+                // SignupViewModel 초기화
+                viewModel.reset()
                 // 홈 화면으로 이동
                 router.resetTo(.tabbar(selectedTab: .home))
             }

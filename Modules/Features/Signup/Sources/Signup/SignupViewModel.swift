@@ -420,6 +420,45 @@ final public class SignupViewModel: ObservableObject {
                 )
                 UserInfoStore.shared.save(userInfo)
                 
+                // 자동 로그인 처리 - 이메일 정보를 받기 위해 로그인 API 호출
+                print("🔐 [SignupViewModel] 자동 로그인 시작")
+                do {
+                    let (loginUser, loginToken) = try await userUseCase.login(loginId: loginID, password: password)
+                    TokenStorage.accessToken = loginToken
+                    UserDefaults.standard.set(true, forKey: "isLoggedIn")
+                    UserDefaults.standard.set(false, forKey: "isGuest")
+                    UserDefaults.standard.set(loginUser.nickname, forKey: "nickname")
+                    UserDefaults.standard.set(loginUser.subscribeEmail ?? "", forKey: "email")
+                    
+                    // UserInfo 업데이트 (로그인 응답의 완전한 정보로)
+                    let updatedUserInfo = UserInfo(
+                        id: loginUser.id,
+                        loginId: loginUser.loginId,
+                        phoneNumber: loginUser.phoneNumber,
+                        subscribeEmail: loginUser.subscribeEmail,
+                        nickname: loginUser.nickname,
+                        birthYear: loginUser.birthYear,
+                        gender: loginUser.gender,
+                        createdAt: loginUser.createdAt,
+                        industryId: loginUser.industryId,
+                        interestIds: loginUser.interests.map { $0.id }
+                    )
+                    UserInfoStore.shared.save(updatedUserInfo)
+                    
+                    // ViewModel의 user도 업데이트
+                    self.user = loginUser
+                    
+                    print("🔐 [SignupViewModel] 자동 로그인 완료")
+                    print("📧 [SignupViewModel] 이메일 저장: \(loginUser.subscribeEmail ?? "nil")")
+                } catch {
+                    print("❌ [SignupViewModel] 자동 로그인 실패: \(error)")
+                    // 로그인 실패해도 회원가입은 성공했으므로 기본 정보로 진행
+                    TokenStorage.accessToken = result.accessToken
+                    UserDefaults.standard.set(true, forKey: "isLoggedIn")
+                    UserDefaults.standard.set(false, forKey: "isGuest")
+                    UserDefaults.standard.set(result.user.nickname, forKey: "nickname")
+                }
+                
                 // 회원가입 완료 후 다음 단계로 이동
                 await MainActor.run {
                     goToNextStep()
@@ -429,6 +468,41 @@ final public class SignupViewModel: ObservableObject {
                 print("❌ [SignupViewModel] 에러 상세: \(error.localizedDescription)")
             }
         }
+    }
+    
+    // MARK: - 초기화 메서드
+    public func reset() {
+        print("🔄 [SignupViewModel] 상태 초기화")
+        currentStep = .phoneVerification
+        
+        // 폼 데이터 초기화
+        phoneNumber = ""
+        enteredVerificationCode = ""
+        verificationCode = ""
+        resendFailureCount = 0
+        
+        loginID = ""
+        isIDAvailable = nil
+        password = ""
+        nickname = ""
+        birthYear = ""
+        gender = ""
+        
+        // 상태 초기화
+        user = nil
+        recommendedPost = []
+        selectedInterests.removeAll()
+        myIndustry = ""
+        
+        // 에러 상태 초기화
+        errorMessage = nil
+        showError = false
+        isLoading = false
+        isRequestSent = false
+        timerRemaining = 180
+        
+        // 타이머 정리
+        stopTimer()
     }
     
     

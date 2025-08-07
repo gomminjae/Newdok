@@ -8,6 +8,7 @@
 import SwiftUI
 import DesignSystem
 import UserNotifications
+import Shared
 
 struct CompleteView: View {
     var email: String = "newdok12@newdok.site"
@@ -15,6 +16,7 @@ struct CompleteView: View {
     
     @ObservedObject private var viewModel: SignupViewModel
     @State private var showingNotificationAlert = false
+    @EnvironmentObject private var router: AppRouter
     
     public init(viewModel: SignupViewModel) {
         self.viewModel = viewModel
