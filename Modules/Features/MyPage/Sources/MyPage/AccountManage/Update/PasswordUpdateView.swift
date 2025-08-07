@@ -50,12 +50,6 @@ public struct PwdUpdateView: View {
                 .font(.hanSansNeo(14,.medium))
                 .modifier(PasswordFieldModifier(isSecure: $isSecureOldPassword, isFocused: $isOldPasswordFocused, isError: viewModel.passwordError != nil))
 
-                if let error = viewModel.oldPasswordError {
-                    Text(error)
-                        .font(.hanSansNeo(12, .medium))
-                        .foregroundColor(.red)
-                }
-                
                 if let error = viewModel.passwordError {
                     Text(error)
                         .font(.hanSansNeo(12, .medium))
@@ -79,7 +73,7 @@ public struct PwdUpdateView: View {
                     }
                 }
                 .font(.hanSansNeo(14,.medium))
-                .modifier(PasswordFieldModifier(isSecure: $isSecureNewPassword, isFocused: $isNewPasswordFocused))
+                .modifier(PasswordFieldModifier(isSecure: $isSecureNewPassword, isFocused: $isNewPasswordFocused, isError: viewModel.newPasswordError != nil))
 
                 if let error = viewModel.newPasswordError {
                     Text(error)
@@ -103,7 +97,7 @@ public struct PwdUpdateView: View {
                     }
                 }
                 .font(.hanSansNeo(14,.medium))
-                .modifier(PasswordFieldModifier(isSecure: $isSecureConfirmPassword, isFocused: $isConfirmPasswordFocused))
+                .modifier(PasswordFieldModifier(isSecure: $isSecureConfirmPassword, isFocused: $isConfirmPasswordFocused, isError: viewModel.confirmPasswordError != nil))
 
                 if let error = viewModel.confirmPasswordError {
                     Text(error)
