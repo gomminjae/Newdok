@@ -160,15 +160,6 @@ public struct PhoneUpdateView: View {
                 Button(action: {
                     Task {
                         await viewModel.updatePhoneNumber()
-                        // 성공 시에만 화면 닫기
-                        if viewModel.isPhoneUpdateSuccess {
-                            router.pop()
-                            // 토스트 메시지 전송
-                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-                                print("📤 [PhoneUpdateView] 토스트 메시지 전송: 휴대폰 번호가 변경되었습니다.")
-                                NotificationCenter.default.post(name: .showToast, object: "휴대폰 번호가 변경되었습니다.")
-                            }
-                        }
                     }
                 }) {
                     Text("변경하기")
@@ -187,6 +178,12 @@ public struct PhoneUpdateView: View {
         }
         .scrollDisabled(true)
         .ignoresSafeArea(.keyboard)
+        .onChange(of: viewModel.isPhoneUpdateSuccess) { success in
+            if success {
+                router.pop()
+            }
+        }
+
     }
 
 

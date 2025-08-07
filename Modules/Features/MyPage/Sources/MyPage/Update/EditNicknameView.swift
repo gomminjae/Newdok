@@ -70,8 +70,12 @@ public struct EditNicknameView: View {
                     await viewModel.fetchuserInfo()
                     
                     nickname = draftNickname
-                    viewModel.shownicknameToast = true
                     router.pop()
+                    
+                    // EditProfileView 새로고침 알림
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                        NotificationCenter.default.post(name: .init("RefreshProfile"), object: nil)
+                    }
                 }
             }) {
                 Text("변경하기")

@@ -11,7 +11,7 @@ import Domain
 public struct NicknameResponseDTO: Decodable {
     let id: Int
     let loginId: String
-    let nickname: Bool
+    let nickname: String
     
     public func toDomain() -> NicknameResponse {
         return NicknameResponse(id: id, loginId: loginId, nickname: nickname)

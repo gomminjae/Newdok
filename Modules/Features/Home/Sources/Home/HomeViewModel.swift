@@ -59,10 +59,7 @@ public final class HomeViewModel: ObservableObject {
         self.calendarState = CalendarState()
         self.dataDays = []
         
-        // 초기화 시 현재 월의 데이터를 미리 로드
-        Task {
-            await loadArticles(for: calendarState.selectedDate)
-        }
+        // 초기화 시 별도 로딩 제거 - onAppear에서 loadToday()로 통합
     }
     
     @Published public var isLoaded: Bool = false
@@ -194,11 +191,15 @@ public final class HomeViewModel: ObservableObject {
     public func loadToday() async {
         isLoaded = false
         do {
+            // 1단계: 먼저 오늘 데이터 로드 (구독 상태 확인)
             let data = try await useCase.fetchTodayData()
             self.filteredArticles = data.articles
             self.subscribedNewsletters = data.activeNewsletters
-            // 오늘 데이터 로드 후 현재 월의 캘린더 데이터도 로드
-            await loadArticles(for: selectedDate)
+            
+            // 2단계: 구독이 있을 때만 캘린더 데이터 로드
+            if !subscribedNewsletters.isEmpty || !filteredArticles.isEmpty {
+                await loadArticles(for: selectedDate)
+            }
         } catch {
             print("today fetch error: \(error)")
         }

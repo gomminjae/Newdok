@@ -122,15 +122,6 @@ public struct PwdUpdateView: View {
                 
                 Task {
                     await viewModel.updatePassword()
-                    // 성공 시에만 화면 닫기
-                    if viewModel.isPasswordUpdateSuccess {
-                        router.pop()
-                        // 토스트 메시지 전송
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-                            print("📤 [PasswordUpdateView] 토스트 메시지 전송: 비밀번호가 변경되었습니다.")
-                            NotificationCenter.default.post(name: .showToast, object: "비밀번호가 변경되었습니다.")
-                        }
-                    }
                 }
             }) {
                 Text("변경하기")
@@ -163,5 +154,11 @@ public struct PwdUpdateView: View {
                     .foregroundColor(.black)
             }
         }
+        .onChange(of: viewModel.isPasswordUpdateSuccess) { success in
+            if success {
+                router.pop()
+            }
+        }
+
     }
 }

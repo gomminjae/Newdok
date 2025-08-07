@@ -10,9 +10,9 @@ import Foundation
 public struct NicknameResponse {
     let id: Int
     let loginId: String
-    let nickname: Bool
+    let nickname: String
     
-    public init(id: Int, loginId: String, nickname: Bool) {
+    public init(id: Int, loginId: String, nickname: String) {
         self.id = id
         self.loginId = loginId
         self.nickname = nickname

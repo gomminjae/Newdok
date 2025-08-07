@@ -94,13 +94,25 @@ public struct EditIndustryView: View {
 
             Button(action: {
                 Task {
-                    guard let selectedId else { return }
-                    await viewModel.updateIndustry(id: selectedId)
-                    await viewModel.fetchuserInfo()
-                    await MainActor.run {
-                        viewModel.showIndustryToast = true
+                    do {
+                        guard let selectedId else { return }
+                        try await viewModel.updateIndustry(id: selectedId)
+                        await viewModel.fetchuserInfo()
+                        
+                        await MainActor.run {
+                            router.pop()
+                        }
+                        
+                        // pop 후 뷰가 전환되도록 약간의 지연을 줌 (300ms)
+                        try await Task.sleep(nanoseconds: 300_000_000)
+                        
+                        await MainActor.run {
+                            print("📱 [EditIndustryView] 토스트 표시")
+                            NotificationCenter.default.post(name: .showToast, object: "종사산업이 변경되었습니다.")
+                        }
+                    } catch {
+                        print("❌ [EditIndustryView] 종사산업 변경 실패: \(error)")
                     }
-                    router.pop()
                 }
             }) {
                 Text("변경하기")
@@ -145,6 +157,12 @@ public struct EditIndustryView: View {
                 Text("종사 산업 변경")
                     .font(.hanSansNeo(16, .bold))
                     .foregroundColor(.black)
+            }
+        }
+        .onChange(of: viewModel.showIndustrySuccess) { showToast in
+            if showToast {
+                NotificationCenter.default.post(name: .showToast, object: "종사산업이 변경되었습니다.")
+                viewModel.showIndustrySuccess = false
             }
         }
     }

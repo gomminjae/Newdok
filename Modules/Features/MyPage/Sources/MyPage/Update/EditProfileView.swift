@@ -143,12 +143,40 @@ public struct EditProfileView: View {
         .onAppear {
             Task { await viewModel.fetchuserInfo() }
         }
+        .onReceive(NotificationCenter.default.publisher(for: .init("RefreshProfile"))) { _ in
+            Task { 
+                await viewModel.fetchuserInfo()
+            }
+        }
         .onChange(of: viewModel.showIndustryToast) { newValue in
             print("📱 [EditProfileView] showIndustryToast 변경: \(newValue)")
         }
         .onChange(of: viewModel.showInterestToast) { newValue in
             print("📱 [EditProfileView] showInterestToast 변경: \(newValue)")
         }
+        .onChange(of: viewModel.showPasswordSuccess) { showToast in
+            if showToast {
+                NotificationCenter.default.post(name: .showToast, object: "비밀번호가 변경되었습니다.")
+                viewModel.showPasswordSuccess = false
+            }
+        }
+        .onChange(of: viewModel.showPhoneNumberSuccess) { showToast in
+            if showToast {
+                NotificationCenter.default.post(name: .showToast, object: "휴대폰 번호가 변경되었습니다.")
+                viewModel.showPhoneNumberSuccess = false
+            }
+        }
+        .onChange(of: viewModel.showNicknameSuccess) { showToast in
+            if showToast {
+                NotificationCenter.default.post(name: .showToast, object: "닉네임이 변경되었습니다.")
+                viewModel.showNicknameSuccess = false
+                // 닉네임 변경 후 사용자 정보 다시 로드
+                Task {
+                    await viewModel.fetchuserInfo()
+                }
+            }
+        }
+
         .padding(.horizontal, 20)
         .navigationBarTitleDisplayMode(.inline)
         .navigationBarBackButtonHidden(true)

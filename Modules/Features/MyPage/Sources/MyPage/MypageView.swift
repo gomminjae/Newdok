@@ -99,14 +99,44 @@ public struct MypageView: View {
                 // MARK: - 서비스 섹션
                 VStack(spacing: 0) {
                     SectionHeader(title: "서비스")
-                    Button("계정 관리") {
+                    
+                    Button {
+                        print("🔘 계정 관리 버튼 탭됨!")
                         router.push(.accountManage)
+                    } label: {
+                        HStack {
+                            Text("계정 관리")
+                                .font(.hanSansNeo(16, .medium))
+                                .foregroundStyle(Color(hex: "363636"))
+                            Spacer()
+                            Image(asset: DesignSystemAsset.lineRight)
+                                .foregroundColor(Color(hex: "#565656"))
+                                .frame(width: 24, height: 24)
+                        }
+                        .padding(.horizontal, 0)
+                        .frame(height: 48)
+                        .background(Color.white)
                     }
                     .buttonStyle(PlainButtonStyle())
-                    .settingRowStyle()
-                    NavigationLink("알림 설정", destination: Text("알림 설정 화면"))
-                        .buttonStyle(PlainButtonStyle())
-                        .settingRowStyle()
+                    
+                    Button {
+                        print("🔘 알림 설정 버튼 탭됨!")
+                        // 알림 설정 화면 네비게이션 (임시로 빈 동작)
+                    } label: {
+                        HStack {
+                            Text("알림 설정")
+                                .font(.hanSansNeo(16, .medium))
+                                .foregroundStyle(Color(hex: "363636"))
+                            Spacer()
+                            Image(asset: DesignSystemAsset.lineRight)
+                                .foregroundColor(Color(hex: "#565656"))
+                                .frame(width: 24, height: 24)
+                        }
+                        .padding(.horizontal, 0)
+                        .frame(height: 48)
+                        .background(Color.white)
+                    }
+                    .buttonStyle(PlainButtonStyle())
                 }
                 .padding(.horizontal, 20)
                 
@@ -114,23 +144,62 @@ public struct MypageView: View {
                 VStack(spacing: 0) {
                     SectionHeader(title: "고객센터")
                     
-                    Button("FAQ") {
+                    Button {
+                        print("🔘 FAQ 버튼 탭됨!")
                         router.push(.faq)
+                    } label: {
+                        HStack {
+                            Text("FAQ")
+                                .font(.hanSansNeo(16, .medium))
+                                .foregroundStyle(Color(hex: "363636"))
+                            Spacer()
+                            Image(asset: DesignSystemAsset.lineRight)
+                                .foregroundColor(Color(hex: "#565656"))
+                                .frame(width: 24, height: 24)
+                        }
+                        .padding(.horizontal, 0)
+                        .frame(height: 48)
+                        .background(Color.white)
                     }
                     .buttonStyle(PlainButtonStyle())
-                    .settingRowStyle()
                     
-                    Button("서비스 피드백") {
+                    Button {
+                        print("🔘 서비스 피드백 버튼 탭됨!")
                         router.push(.feedback)
+                    } label: {
+                        HStack {
+                            Text("서비스 피드백")
+                                .font(.hanSansNeo(16, .medium))
+                                .foregroundStyle(Color(hex: "363636"))
+                            Spacer()
+                            Image(asset: DesignSystemAsset.lineRight)
+                                .foregroundColor(Color(hex: "#565656"))
+                                .frame(width: 24, height: 24)
+                        }
+                        .padding(.horizontal, 0)
+                        .frame(height: 48)
+                        .background(Color.white)
                     }
                     .buttonStyle(PlainButtonStyle())
-                    .settingRowStyle()
                     
-                    Button("약관 및 정책") {
+                    Button {
+                        print("🔘 약관 및 정책 버튼 탭됨!")
                         router.push(.termsMenu)
+                    } label: {
+                        HStack {
+                            Text("약관 및 정책")
+                                .font(.hanSansNeo(16, .medium))
+                                .foregroundStyle(Color(hex: "363636"))
+                            Spacer()
+                            Image(asset: DesignSystemAsset.lineRight)
+                                .foregroundColor(Color(hex: "#565656"))
+                                .frame(width: 24, height: 24)
+                        }
+                        .padding(.horizontal, 0)
+                        .frame(height: 48)
+                        .background(Color.white)
                     }
                     .buttonStyle(PlainButtonStyle())
-                    .settingRowStyle()
                     
                     HStack {
                         Text("버전")
@@ -203,24 +272,4 @@ public struct MypageView: View {
     }
 }
 
-extension View {
-    func settingRowStyle() -> some View {
-        self
-            .font(.hanSansNeo(16, .medium))
-            .foregroundStyle(Color(hex: "363636"))
-            .frame(maxWidth: .infinity, alignment: .leading)
-            .frame(height: 48)
-            //.padding(.horizontal, 16)
-            .background(Color.white)
-            .overlay(
-                HStack {
-                    Spacer()
-                    Image(systemName: "chevron.right")
-                        .foregroundColor(Color(hex: "#B0B0B0"))
-                        .padding(.trailing, 8)
-                        .allowsHitTesting(false) // 화살표가 터치를 방해하지 않도록
-                }
-            )
-            .contentShape(Rectangle()) // overlay 뒤에 배치
-    }
-}
+

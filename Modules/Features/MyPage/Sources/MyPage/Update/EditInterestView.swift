@@ -74,13 +74,24 @@ public struct EditInterestView: View {
           
             Button(action: {
                 Task {
-                    await viewModel.updateInterests(ids: Array(selectedIds))
-                    await MainActor.run {
-                        viewModel.showInterestToast = true
+                    do {
+                        try await viewModel.updateInterests(ids: Array(selectedIds))
+                        
+                        await MainActor.run {
+                            router.pop()
+                        }
+                        
+                        // pop 후 뷰가 전환되도록 약간의 지연을 줌 (300ms)
+                        try await Task.sleep(nanoseconds: 300_000_000)
+                        
+                        await MainActor.run {
+                            print("📱 [EditInterestView] 토스트 표시")
+                            NotificationCenter.default.post(name: .showToast, object: "관심사가 변경되었습니다.")
+                        }
+                    } catch {
+                        print("❌ [EditInterestView] 관심사 변경 실패: \(error)")
                     }
-                    router.pop()
                 }
-                
             }) {
                 Text("변경하기")
                     .font(.hanSansNeo(14, .bold))
@@ -124,6 +135,12 @@ public struct EditInterestView: View {
             
             if let interests = viewModel.user?.interests {
                 selectedIds = Set(interests.map { $0.id })
+            }
+        }
+        .onChange(of: viewModel.showInterestSuccess) { showToast in
+            if showToast {
+                NotificationCenter.default.post(name: .showToast, object: "관심사가 변경되었습니다.")
+                viewModel.showInterestSuccess = false
             }
         }
     }
