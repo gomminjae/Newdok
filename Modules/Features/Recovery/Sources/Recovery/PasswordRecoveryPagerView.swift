@@ -183,7 +183,7 @@ struct PasswordRecoveryPhoneView: View {
                     }
                 }
                 if let error = error {
-                    Text("인증번호를 다시 확인해주세요.").foregroundColor(.red).font(.hanSansNeo(12, .medium))
+                    Text(error).foregroundColor(.red).font(.hanSansNeo(12, .medium))
                         .padding(.top, 8)
                 }
                 
@@ -197,6 +197,7 @@ struct PasswordRecoveryPhoneView: View {
                             timer = 180
                             timerRunning = true
                             resendCount += 1
+                            error = nil // 재전송 시 에러 메시지 초기화
                         }
                     }) {
                         Text("재전송")
@@ -218,7 +219,7 @@ struct PasswordRecoveryPhoneView: View {
                     if viewModel.recoveryCodeVerified == true {
                         viewModel.passwordRecoveryStep = 2
                     } else {
-                        error = "인증번호가 올바르지 않습니다."
+                        error = "인증번호를 다시 확인해주세요."
                     }
                 }
             }) {

@@ -183,6 +183,17 @@ public struct LoginView: View {
                     .foregroundStyle(Color(hex: "161616"))
             }
         }
+        .toolbar {
+            ToolbarItemGroup(placement: .keyboard) {
+                Spacer()
+                Button("Done") {
+                    isIdFocused = false
+                    isPwdFocused = false
+                }
+                .foregroundStyle(Color.primaryNormal)
+                .font(.hanSansNeo(17, .medium))
+            }
+        }
     }
 }
 

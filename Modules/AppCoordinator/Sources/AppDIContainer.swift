@@ -126,7 +126,7 @@ public final class AppDIContainer {
             return MainActor.assumeIsolated {
                 SignupViewModel(userUseCase: useCase)
             }
-        }.inObjectScope(.container)
+        }.inObjectScope(.transient)
         
         container.register(LoginViewModel.self) { r in
             print("🧩 [DI] Register: LoginViewModel")
@@ -135,7 +135,7 @@ public final class AppDIContainer {
             return MainActor.assumeIsolated {
                 LoginViewModel(userUserCase: useCase)
             }
-        }.inObjectScope(.container)
+        }.inObjectScope(.transient)
         
         container.register(HomeViewModel.self) { r in
             let useCase = r.resolve(FetchHomeDataUseCase.self)!

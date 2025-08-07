@@ -8,7 +8,6 @@ import SwiftUI
 import UIKit
 import Combine
 
-// MARK: - CalendarPopupView
 struct RoundedCorners: Shape {
     var radius: CGFloat = 16
     var corners: UIRectCorner = .allCorners
@@ -68,6 +67,7 @@ public struct CalendarPopupView: View {
             .background(RoundedRectangle(cornerRadius: 16).fill(Color.white))
             
 
+            //오늘 버튼
             Button(action: selectToday) {
                 HStack(spacing: 4) {
                     Image(systemName: "arrow.clockwise")
@@ -106,52 +106,55 @@ public struct CalendarPopupView: View {
     }
 
     private var headerView: some View {
-        ZStack {
-            HStack {
-                Spacer()
-                Button(action: {
-                    print("📅 [CalendarPopupView] 이전 월 버튼 클릭")
-                    previousMonth()
-                }) {
-                    Image(systemName: "chevron.left")
-                        .foregroundStyle(Color(hex: "#333333"))
-                        .frame(width: 44, height: 44)
-                        .contentShape(Rectangle())
+        GeometryReader { geo in
+            ZStack {
+                HStack {
+                    Spacer()
+                    Button(action: {
+                        print("📅 [CalendarPopupView] 이전 월 버튼 클릭")
+                        previousMonth()
+                    }) {
+                        Image(systemName: "chevron.left")
+                            .foregroundStyle(Color(hex: "#333333"))
+                            .frame(width: 44, height: 44)
+                            .contentShape(Rectangle())
+                    }
+                    .buttonStyle(PlainButtonStyle())
+                    
+                    Text(yearMonthTitle)
+                        .frame(width: 120, height: 20)
+                        .font(.hanSansNeo(14, .medium))
+                        .foregroundStyle(Color(hex: "#1E1E1E"))
+                        .id("month-title-\(localDisplayedMonthDate)")
+                    
+                    Button(action: {
+                        print("📅 [CalendarPopupView] 다음 월 버튼 클릭")
+                        nextMonth()
+                    }) {
+                        Image(systemName: "chevron.right")
+                            .foregroundStyle(Color(hex: "#333333"))
+                            .frame(width: 44, height: 44)
+                            .contentShape(Rectangle())
+                    }
+                    .buttonStyle(PlainButtonStyle())
+                    
+                    Spacer()
                 }
-                .buttonStyle(PlainButtonStyle())
                 
-                Text(yearMonthTitle)
-                    .frame(width: 120, height: 20)
-                    .font(.hanSansNeo(14, .medium))
-                    .foregroundStyle(Color(hex: "#1E1E1E"))
-                    .id("month-title-\(localDisplayedMonthDate)")
-                
-                Button(action: {
-                    print("📅 [CalendarPopupView] 다음 월 버튼 클릭")
-                    nextMonth()
-                }) {
-                    Image(systemName: "chevron.right")
-                        .foregroundStyle(Color(hex: "#333333"))
-                        .frame(width: 44, height: 44)
-                        .contentShape(Rectangle())
+                HStack {
+                    Spacer()
+                    Button(action: { isPresented = false }) {
+                        Image(asset: DesignSystemAsset.lineClose)
+                        
+                    }
                 }
-                .buttonStyle(PlainButtonStyle())
+                .frame(maxWidth: .infinity)
+                .padding(.trailing, 18)
                 
-                Spacer()
-            }
-
-            HStack {
-                Spacer() // 왼쪽 여백
-                Button(action: { isPresented = false }) {
-                    Image(systemName: "xmark")
-                        .foregroundStyle(Color(hex: "#333333"))
-                        .padding(.trailing,24)
-                }
+                
             }
         }
-        .padding(.vertical, 12)
-        .frame(maxWidth: .infinity)
-        
+        .frame(height: 44)
         .background(
             Color(hex: "#FAFAFA")
                 .clipShape(RoundedCorners(radius: 16, corners: [.topLeft, .topRight]))
@@ -160,15 +163,18 @@ public struct CalendarPopupView: View {
 
 
     private var weekdayHeader: some View {
-        HStack(spacing: 10) {
+        HStack(spacing: 0) {
             ForEach(Array(weekdays.enumerated()), id: \.0) { idx, day in
                 Text(day)
                     .font(.hanSansNeo(16, .regular))
-                    .frame(width: 40, height: 40)
+                    .frame(maxWidth: .infinity)
+                    .frame(height: 20)
                     .foregroundColor(idx == 0 ? .red : (idx == 6 ? .blue : .black))
             }
         }
-        .padding(.horizontal, 16)
+        .frame(maxWidth: .infinity)
+        .padding(.vertical, 14)
+        .padding(.horizontal, 8)
         .background(Color.white)
     }
 
@@ -176,7 +182,7 @@ public struct CalendarPopupView: View {
         let days = generateDays()
         return VStack(spacing: 10) {
             ForEach(0..<(days.count / 7), id: \.self) { weekIndex in
-                HStack(spacing: 10) {
+                HStack(spacing: 0) {  // ✅ spacing: 0 로 간격 제거
                     ForEach(0..<7, id: \.self) { dayIndex in
                         let day = days[weekIndex * 7 + dayIndex]
                         let isFuture = calendar.startOfDay(for: day.date) > today
@@ -184,11 +190,12 @@ public struct CalendarPopupView: View {
                         let isSelected = calendar.isDate(day.date, inSameDayAs: localSelectedDate)
                         let hasData = dataDays.contains(day.dayInt)
                         let isBlank = day.dayInt == 0
-
+                        
                         VStack(spacing: 4) {
                             Text(day.dayString)
                                 .font(.hanSansNeo(16, .regular))
-                                .frame(width: 40, height: 40)
+                                .frame(maxWidth: .infinity, maxHeight: 40) // ✅ 가로 flex
+                                .aspectRatio(1, contentMode: .fit) // ✅ 정사각형 셀 유지
                                 .foregroundColor(
                                     isFuture ? Color(hex: "#C0C0C0") :
                                     (isToday ? .white :
@@ -207,28 +214,32 @@ public struct CalendarPopupView: View {
                                             lineWidth: 1
                                         )
                                 )
+                            
                             Circle()
                                 .frame(width: 6, height: 6)
                                 .foregroundColor(Color.blue)
                                 .opacity(hasData && !isBlank ? 1 : 0)
                         }
+                        .frame(maxWidth: .infinity)
+                       
                         .opacity(isBlank ? 0.3 : 1)
+                        .contentShape(Rectangle())
                         .onTapGesture {
                             guard !isBlank else { return }
                             localSelectedDate = day.date
                             selectedDate = day.date
                             onDateSelected?(day.date)
-                            // 날짜 선택 후 팝업 닫기
                             isPresented = false
                         }
                     }
                 }
             }
         }
+        .padding(.horizontal, 8)
         .padding(.vertical, 20)
-        .padding(.horizontal, 16)
         .id("calendar-grid-\(localDisplayedMonthDate)")
     }
+
 
     private var yearMonthTitle: String {
         let fmt = DateFormatter()
@@ -295,7 +306,7 @@ struct CalendarPopupView_Previews: PreviewProvider {
             displayedMonthDate: .constant(firstOfMonth),
             dataDays: .constant([1,5,10,15])
         )
-        .padding(.horizontal, 20)
+        
         .previewLayout(.sizeThatFits)
         .background(Color.gray.opacity(0.2))
     }

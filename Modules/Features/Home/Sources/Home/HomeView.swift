@@ -67,7 +67,7 @@ public struct HomeView: View {
                         Task { await viewModel.loadArticles(for: month) }
                     }
                 )
-                .frame(maxWidth: UIScreen.main.bounds.width - 40)
+                .padding(.horizontal, 24)
                  
               
             } customize: {
