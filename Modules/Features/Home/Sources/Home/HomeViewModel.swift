@@ -80,6 +80,21 @@ public final class HomeViewModel: ObservableObject {
     private var latestRequestKey: String = ""
     private var loadingTasks: [String: Task<Void, Never>] = [:]
     
+    // 캐시 업데이트 시 현재 표시 중인 월 확인
+    private func checkAndUpdateCurrentMonth() {
+        let currentKey = "\(formatYear(displayedMonth))-\(formatMonth(displayedMonth))"
+        print("📅 [HomeViewModel] 현재 표시 중인 월 확인: \(currentKey)")
+        print("📅 [HomeViewModel] 캐시 상태: \(dataDaysByMonthCache.keys.sorted())")
+        
+        if let cachedDays = dataDaysByMonthCache[currentKey] {
+            self.dataDays = cachedDays
+            self.calendarState.updateDataDays(cachedDays)
+            print("📅 [HomeViewModel] 캐시 업데이트로 현재 월 갱신: \(currentKey), days=\(cachedDays.sorted())")
+        } else {
+            print("📅 [HomeViewModel] 현재 월 캐시 없음: \(currentKey)")
+        }
+    }
+    
     // MARK: - Computed Properties
     public var selectedDate: Date {
         get { calendarState.selectedDate }
@@ -220,11 +235,25 @@ public final class HomeViewModel: ObservableObject {
                     self.isLoaded = true
                 }
             }
-            // 3단계: 올해 월간 데이터 백그라운드 캐싱(1월~현재월)
+            // 3단계: 올해 + 작년 데이터 동시 백그라운드 캐싱
             Task.detached(priority: .background) { [weak self] in
                 // 초기 화면 안정화 시간을 조금 부여
                 try? await Task.sleep(nanoseconds: 300_000_000)
+                
+                // 올해 데이터 로드
                 await self?.warmupYearCache(for: today)
+                
+                // 올해 데이터 로드 완료 후 바로 작년 데이터 로드
+                let lastYear = Calendar.current.component(.year, from: today) - 1
+                await self?.warmupYearCache(year: lastYear, targetMonth: 12)
+            }
+            
+            // 4단계: 작년 데이터 빠른 로드 (사용자 경험 우선)
+            Task.detached(priority: .userInitiated) { [weak self] in
+                // 더 빠른 작년 데이터 로드
+                try? await Task.sleep(nanoseconds: 200_000_000) // 0.2초만 대기
+                let lastYear = Calendar.current.component(.year, from: today) - 1
+                await self?.warmupYearCache(year: lastYear, targetMonth: 12)
             }
         } catch {
             print("today fetch error: \(error)")
@@ -293,10 +322,17 @@ public final class HomeViewModel: ObservableObject {
 
     // Swift 6 Task Group을 활용한 지정 연도 동시성 워밍업
     private func warmupYearCache(year: Int, targetMonth: Int) async {
-        if warmedYears.contains(year) { return }
+        if warmedYears.contains(year) { 
+            print("🔥 [HomeViewModel] 이미 워밍업된 연도: \(year)")
+            return 
+        }
+        
         let cal = Calendar.current
         let months = max(1, min(12, targetMonth))
-        print("🔥 [HomeViewModel] 지정 연도 Task Group 워밍업 시작: \(year)년 1..\(months)월")
+        let currentYear = Calendar.current.component(.year, from: Date())
+        let isPastYear = year < currentYear
+        
+        print("🔥 [HomeViewModel] 지정 연도 Task Group 워밍업 시작: \(year)년 1..\(months)월 (작년: \(isPastYear))")
         
         // Swift 6: Task Group을 활용한 동시 실행
         await withTaskGroup(of: (String, Result<[Articles], Error>).self) { group in
@@ -332,6 +368,16 @@ public final class HomeViewModel: ObservableObject {
                         let days = Set(monthly.filter { !$0.receivedArticleList.isEmpty }.map { $0.publishDate })
                         self.dataDaysByMonthCache[key] = days
                         print("🔥 [HomeViewModel] 지정 연도 Task Group 캐시 저장: \(key), days=\(days.sorted())")
+                        
+                        // 작년 데이터인 경우 현재 표시 중인 월과 비교하여 즉시 업데이트
+                        if isPastYear {
+                            let currentKey = "\(formatYear(self.displayedMonth))-\(formatMonth(self.displayedMonth))"
+                            if currentKey == key {
+                                self.dataDays = days
+                                self.calendarState.updateDataDays(days)
+                                print("📅 [HomeViewModel] 작년 데이터 즉시 UI 업데이트: \(key), days=\(days.sorted())")
+                            }
+                        }
                     }
                 case .failure(let error):
                     print("⚠️ [HomeViewModel] 지정 연도 Task Group 캐시 저장 실패: \(key), error=\(error)")
@@ -341,6 +387,13 @@ public final class HomeViewModel: ObservableObject {
         
         warmedYears.insert(year)
         print("✅ [HomeViewModel] 지정 연도 Task Group 워밍업 완료: \(year)")
+        
+        // 작년 데이터인 경우 완료 후 현재 월 확인
+        if isPastYear {
+            await MainActor.run {
+                self.checkAndUpdateCurrentMonth()
+            }
+        }
     }
     
     // 아티클 상세에서 돌아올 때 사용할 메서드 - 현재 선택된 날짜 유지
@@ -353,10 +406,87 @@ public final class HomeViewModel: ObservableObject {
     // 주어진 월에 대해 캐싱된 점 세트를 즉시 적용
     public func applyDataDaysForMonth(_ date: Date) {
         let key = "\(formatYear(date))-\(formatMonth(date))"
-        let set = dataDaysByMonthCache[key] ?? []
-        self.dataDays = set
-        self.calendarState.updateDataDays(set)
-        print("📅 [HomeViewModel] applyDataDaysForMonth: key=\(key), days=\(set.sorted())")
+        
+        // 1. 캐시에서 즉시 확인
+        if let cachedDays = dataDaysByMonthCache[key] {
+            self.dataDays = cachedDays
+            self.calendarState.updateDataDays(cachedDays)
+            print("📅 [HomeViewModel] 캐시에서 즉시 적용: key=\(key), days=\(cachedDays.sorted())")
+            return
+        }
+        
+        // 2. 작년 데이터인지 확인하고 워밍업 시작
+        let currentYear = Calendar.current.component(.year, from: Date())
+        let targetYear = Int(formatYear(date)) ?? currentYear
+        
+        print("📅 [HomeViewModel] 연도 확인: 현재=\(currentYear), 대상=\(targetYear)")
+        
+        if targetYear < currentYear {
+            print("📅 [HomeViewModel] 작년 데이터 감지: \(targetYear)년")
+            
+            // 작년 데이터가 아직 로드되지 않았다면 워밍업 시작
+            if !warmedYears.contains(targetYear) {
+                print("📅 [HomeViewModel] 작년 데이터 미로드, 워밍업 시작: \(targetYear)년")
+                Task {
+                    await warmupYearCache(year: targetYear, targetMonth: 12)
+                    await MainActor.run {
+                        self.checkAndUpdateCurrentMonth()
+                    }
+                }
+            } else {
+                print("📅 [HomeViewModel] 작년 데이터 이미 로드됨: \(targetYear)년")
+            }
+        } else {
+            print("📅 [HomeViewModel] 올해 또는 미래 데이터: \(targetYear)년")
+        }
+        
+        // 3. 캐시가 없으면 즉시 로드 시작
+        print("📅 [HomeViewModel] 캐시 없음, 즉시 로드 시작: key=\(key)")
+        
+        // 작년 데이터인 경우 강제로 해당 월 로드
+        if targetYear < currentYear {
+            print("📅 [HomeViewModel] 작년 데이터 강제 로드: \(key)")
+            Task {
+                await loadMonthDataImmediately(for: date)
+            }
+        } else {
+            Task {
+                await loadMonthDataImmediately(for: date)
+            }
+        }
+        
+        // 4. 로딩 중에는 빈 상태로 표시
+        self.dataDays = []
+        self.calendarState.updateDataDays([])
+    }
+    
+    // 즉시 로드 및 UI 업데이트
+    private func loadMonthDataImmediately(for date: Date) async {
+        let key = "\(formatYear(date))-\(formatMonth(date))"
+        
+        do {
+            let monthly = try await useCase.fetchMonthlyData(year: formatYear(date), month: formatMonth(date))
+            
+            await MainActor.run {
+                // 캐시 저장
+                self.monthlyCache[key] = monthly
+                let days = Set(monthly.filter { !$0.receivedArticleList.isEmpty }.map { $0.publishDate })
+                self.dataDaysByMonthCache[key] = days
+                
+                // 현재 표시 중인 월이 로드된 월과 같은지 확인
+                let currentKey = "\(formatYear(self.displayedMonth))-\(formatMonth(self.displayedMonth))"
+                if currentKey == key {
+                    // 같은 월이면 즉시 UI 업데이트
+                    self.dataDays = days
+                    self.calendarState.updateDataDays(days)
+                    print("📅 [HomeViewModel] 즉시 로드 완료 및 UI 업데이트: key=\(key), days=\(days.sorted())")
+                } else {
+                    print("📅 [HomeViewModel] 즉시 로드 완료 (UI 업데이트 생략): key=\(key), 현재 표시: \(currentKey)")
+                }
+            }
+        } catch {
+            print("⚠️ [HomeViewModel] 즉시 로드 실패: key=\(key), error=\(error)")
+        }
     }
     
     // 캘린더 버튼용: selectedDate는 변경하지 않고 해당 월 데이터만 로드
@@ -606,12 +736,35 @@ public final class HomeViewModel: ObservableObject {
     // 캘린더에서 사용할 캐시된 점 데이터 조회
     public func getDataDaysForMonth(_ date: Date) -> Set<Int>? {
         let key = "\(formatYear(date))-\(formatMonth(date))"
-        // 캐시된 데이터가 있으면 반환, 없으면 nil
+        
+        // 캐시된 데이터가 있으면 반환
         if let cachedDays = dataDaysByMonthCache[key] {
             print("📅 [HomeViewModel] 캐시된 점 데이터 반환: \(key), days=\(cachedDays.sorted())")
             return cachedDays
         } else {
             print("📅 [HomeViewModel] 캐시된 점 데이터 없음: \(key)")
+            
+            // 작년 데이터인지 확인하고 워밍업 시작
+            let currentYear = Calendar.current.component(.year, from: Date())
+            let targetYear = Int(formatYear(date)) ?? currentYear
+            
+            if targetYear < currentYear {
+                print("📅 [HomeViewModel] 작년 데이터 감지 (getDataDaysForMonth): \(targetYear)년")
+                
+                // 작년 데이터가 아직 로드되지 않았다면 즉시 로드
+                if !warmedYears.contains(targetYear) {
+                    print("📅 [HomeViewModel] 작년 데이터 미로드, 즉시 워밍업 시작: \(targetYear)년")
+                    Task {
+                        await warmupYearCache(year: targetYear, targetMonth: 12)
+                        await MainActor.run {
+                            self.checkAndUpdateCurrentMonth()
+                        }
+                    }
+                } else {
+                    print("📅 [HomeViewModel] 작년 데이터 이미 로드됨: \(targetYear)년")
+                }
+            }
+            
             // 실기기에서 캐시가 없으면 현재 메모리의 dataDays 반환 (임시 해결)
             if !dataDays.isEmpty {
                 print("📅 [HomeViewModel] 현재 메모리 dataDays 반환: \(dataDays.sorted())")
