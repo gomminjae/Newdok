@@ -88,6 +88,8 @@ public struct ArticleDetailView: View {
             // 뒤로가기
             ToolbarItem(placement: .navigationBarLeading) {
                 Button {
+                    // 홈 화면 새로고침 알림 전송 (아티클 상세 조회 자체가 읽음 처리)
+                    NotificationCenter.default.post(name: .init("RefreshHome"), object: nil)
                     router.pop()
                 } label: {
                     Image(asset: DesignSystemAsset.back)

@@ -29,9 +29,12 @@ public struct CalendarPopupView: View {
     @Binding var dataDays: Set<Int>
     @State private var localSelectedDate: Date
     @State private var localDisplayedMonthDate: Date
+    @State private var dataVersion: Int = 0
+    @State private var localDataDays: Set<Int> = []
+    @State private var isLoadingLocal: Bool = false
 
     public var onDateSelected: ((Date) -> Void)?
-    public var onMonthChanged: ((Date) -> Void)?
+    public var onMonthChanged: ((Date) -> Set<Int>)?
     
     private let calendar = Calendar.current
     private let weekdays = ["일","월","화","수","목","금","토"]
@@ -44,7 +47,7 @@ public struct CalendarPopupView: View {
         dataDays: Binding<Set<Int>>,
         isLoading: Binding<Bool> = .constant(false),
         onDateSelected: ((Date) -> Void)? = nil,
-        onMonthChanged: ((Date) -> Void)? = nil
+        onMonthChanged: ((Date) -> Set<Int>)? = nil
     ) {
         self._isPresented = isPresented
         self._selectedDate = selectedDate
@@ -91,15 +94,17 @@ public struct CalendarPopupView: View {
             localDisplayedMonthDate = newValue
         }
         .onChange(of: dataDays) { _ in 
-            // 데이터가 변경되면 강제로 뷰 업데이트
+            // 데이터가 변경되면 강제로 뷰 업데이트 트리거
+            dataVersion &+= 1
+            // 초기 데이터를 로컬에 복사
+            localDataDays = dataDays
         }
         .onChange(of: selectedDate) { newValue in
             localSelectedDate = newValue
-            // selectedDate가 변경되면 displayedMonth도 같은 월로 맞춤
-            let newMonthDate = calendar.date(from: calendar.dateComponents([.year, .month], from: newValue)) ?? newValue
-            localDisplayedMonthDate = newMonthDate
-            displayedMonthDate = newMonthDate
-            print("📅 [CalendarPopupView] selectedDate 변경으로 월 동기화: \(newMonthDate)")
+        }
+        .onAppear {
+            // 초기 로컬 데이터 설정
+            localDataDays = dataDays
         }
     }
 
@@ -186,7 +191,7 @@ public struct CalendarPopupView: View {
                         let isFuture = calendar.startOfDay(for: day.date) > today
                         let isToday = calendar.isDate(day.date, inSameDayAs: today)
                         let isSelected = calendar.isDate(day.date, inSameDayAs: localSelectedDate)
-                        let hasData = dataDays.contains(day.dayInt)
+                        let hasData = localDataDays.contains(day.dayInt)
                         let isBlank = day.dayInt == 0
                         
                         VStack(spacing: 4) {
@@ -235,7 +240,7 @@ public struct CalendarPopupView: View {
         }
         .padding(.horizontal, 8)
         .padding(.vertical, 20)
-        .id("calendar-grid-\(localDisplayedMonthDate)")
+        .id("calendar-grid-\(localDisplayedMonthDate)-v\(dataVersion)")
     }
 
 
@@ -269,16 +274,34 @@ public struct CalendarPopupView: View {
         let newDate = calendar.date(byAdding: .month, value: -1, to: localDisplayedMonthDate)!
         print("📅 [CalendarPopupView] 이전 월: \(localDisplayedMonthDate) -> \(newDate)")
         localDisplayedMonthDate = newDate
-        displayedMonthDate = newDate
-        onMonthChanged?(displayedMonthDate)
+        loadLocalMonthData(for: newDate)
+        onMonthChanged?(localDisplayedMonthDate)
     }
     
     private func nextMonth() {
         let newDate = calendar.date(byAdding: .month, value: 1, to: localDisplayedMonthDate)!
         print("📅 [CalendarPopupView] 다음 월: \(localDisplayedMonthDate) -> \(newDate)")
         localDisplayedMonthDate = newDate
-        displayedMonthDate = newDate
-        onMonthChanged?(displayedMonthDate)
+        loadLocalMonthData(for: newDate)
+        onMonthChanged?(localDisplayedMonthDate)
+    }
+    
+    private func loadLocalMonthData(for date: Date) {
+        // 캘린더 내부에서만 사용할 로컬 데이터 로드
+        // 실제 홈 화면에는 영향 주지 않음
+        print("📅 [CalendarPopupView] 로컬 월 데이터 로드: \(date)")
+        guard let monthChangedCallback = onMonthChanged else {
+            localDataDays = []
+            isLoadingLocal = false
+            return
+        }
+        
+        // 부모로부터 해당 월의 점 데이터를 받아옴
+        localDataDays = monthChangedCallback(date)
+        print("📅 [CalendarPopupView] 월 데이터 받음: \(localDataDays.sorted())")
+        
+        isLoadingLocal = false
+        dataVersion &+= 1 // 뷰 강제 업데이트
     }
     
     private func selectToday() {
@@ -294,18 +317,4 @@ struct CalendarDay: Hashable {
     let dayInt: Int
 }
 
-struct CalendarPopupView_Previews: PreviewProvider {
-    static var previews: some View {
-        let today = Date()
-        let firstOfMonth = Calendar.current.date(from: Calendar.current.dateComponents([.year, .month], from: today))!
-        return CalendarPopupView(
-            isPresented: .constant(true),
-            selectedDate: .constant(today),
-            displayedMonthDate: .constant(firstOfMonth),
-            dataDays: .constant([1,5,10,15])
-        )
-        
-        .previewLayout(.sizeThatFits)
-        .background(Color.gray.opacity(0.2))
-    }
-}
+

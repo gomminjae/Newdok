@@ -57,15 +57,24 @@ public struct HomeView: View {
         .popup(isPresented: $showCalendar) {
                 CalendarPopupView(
                     isPresented: $showCalendar,
-                    selectedDate: $viewModel.calendarState.selectedDate,
-                    displayedMonthDate: $viewModel.calendarState.displayedMonth,
-                    dataDays: $viewModel.dataDays,
+                    selectedDate: Binding(
+                        get: { viewModel.calendarState.selectedDate },
+                        set: { viewModel.calendarState.selectedDate = $0 }
+                    ),
+                    displayedMonthDate: Binding(
+                        get: { viewModel.calendarState.displayedMonth },
+                        set: { viewModel.calendarState.displayedMonth = $0 }
+                    ),
+                    dataDays: Binding(
+                        get: { viewModel.dataDays },
+                        set: { viewModel.dataDays = $0 }
+                    ),
                     onDateSelected: { date in
                         viewModel.selectDateWithMonthGuarantee(date)
                     },
                     onMonthChanged: { month in
-                        viewModel.calendarState.displayedMonth = month
-                        Task { await viewModel.loadArticles(for: month) }
+                        // 캐시된 점 데이터를 반환 (홈 화면에는 영향 없음)
+                        return viewModel.getDataDaysForMonth(month) ?? []
                     }
                 )
                 .padding(.horizontal, 24)
@@ -81,19 +90,18 @@ public struct HomeView: View {
                   .backgroundColor(Color(hex: "#25242C").opacity(0.6))
                  
             }
-            .onChange(of: showCalendar) { isShowing in
-                if isShowing {
-                    // 캘린더가 열릴 때 selectedDate와 displayedMonth를 동기화
-                    let calendar = Calendar.current
-                    let monthDate = calendar.date(from: calendar.dateComponents([.year, .month], from: viewModel.selectedDate)) ?? viewModel.selectedDate
-                    viewModel.calendarState.displayedMonth = monthDate
-                    Task { await viewModel.loadCalendarData(for: monthDate) }
-                }
-            }
             .navigationBarHidden(true)
             .onAppear {
                 if !isGuest {
-                    Task { await viewModel.loadToday() }
+                    // 최초 1회만 로드. 상세에서 pop하여 다시 나타날 때는 상태를 유지
+                    if !viewModel.isLoaded {
+                        Task { await viewModel.loadToday() }
+                    }
+                }
+            }
+            .onReceive(NotificationCenter.default.publisher(for: .init("RefreshHome"))) { _ in
+                if !isGuest {
+                    Task { await viewModel.refreshCurrentData() }
                 }
             }
 
@@ -139,10 +147,18 @@ public struct HomeView: View {
 
             Spacer()
 
-            Button(action: {
+            Button(action:
+            {
+                let calendar = Calendar.current
+                let monthDate = calendar.date(from: calendar.dateComponents([.year, .month], from: viewModel.selectedDate)) ?? viewModel.selectedDate
+                // 먼저 헤더/캘린더의 월을 동기화
+                viewModel.calendarState.displayedMonth = monthDate
+                // 캐시된 점을 즉시 적용
+                viewModel.applyDataDaysForMonth(monthDate)
+                let vm = viewModel
                 Task {
-                    await viewModel.loadCalendarData(for: viewModel.calendarState.displayedMonth)
-                    showCalendar.toggle()
+                    await vm.loadCalendarData(for: monthDate)
+                    await MainActor.run { showCalendar = true }
                 }
             }) {
                 Image(asset: DesignSystemAsset.lineCalendar)
@@ -203,7 +219,7 @@ public struct HomeView: View {
 
     // MARK: — 아티클 리스트
     private var articlesSection: some View {
-        VStack {
+        VStack(spacing: 8) {
             HStack {
                 Text("\(viewModel.filteredArticles.count)개의 아티클이 도착했어요.")
                     .font(.hanSansNeo(18, .bold))
