@@ -234,7 +234,7 @@ public final class HomeViewModel: ObservableObject {
         }
     }
     
-    // 올해(1월~현재월) 월간 데이터를 백그라운드로 미리 캐시
+    // 올해(1월~현재월) 월간 데이터를 포그라운드로 미리 캐시 (실기기 호환)
     private func warmupYearCache(for date: Date) async {
         // 중복 실행 방지
         if isWarmingCache { return }
@@ -245,70 +245,72 @@ public final class HomeViewModel: ObservableObject {
         let year = Int(formatYear(date)) ?? cal.component(.year, from: date)
         let currentMonth = cal.component(.month, from: date)
         warmedYears.insert(year)
-        print("🔥 [HomeViewModel] 연간 캐시 워밍업 시작: \(year)년 1..\(currentMonth)월")
-        // 동시성 제한 (최대 3개 동시)
-        let semaphore = DispatchSemaphore(value: 3)
-        await withTaskGroup(of: Void.self) { group in
-            for month in 1...currentMonth {
-                group.addTask { [weak self] in
-                    guard let self else { return }
-                    let monthStr = String(format: "%02d", month)
-                    let key = "\(year)-\(monthStr)"
-                    // 이미 캐시되어 있으면 스킵
-                    let hasCache = await MainActor.run { self.monthlyCache[key] != nil }
-                    if hasCache { return }
-                    semaphore.wait()
-                    defer { semaphore.signal() }
-                    do {
-                        let monthly = try await self.useCase.fetchMonthlyData(year: String(year), month: monthStr)
-                        await MainActor.run {
-                            self.monthlyCache[key] = monthly
-                            // 점 세트 캐시도 계산/저장
-                            let days = Set(monthly.filter { !$0.receivedArticleList.isEmpty }.map { $0.publishDate })
-                            self.dataDaysByMonthCache[key] = days
-                        }
-                    } catch {
-                        print("⚠️ [HomeViewModel] 연간 캐시 워밍업 실패: \(key), error=\(error)")
-                    }
-                }
+        print("🔥 [HomeViewModel] 포그라운드 캐시 워밍업 시작: \(year)년 1..\(currentMonth)월")
+        
+        // 순차적으로 실행 (실기기 호환)
+        for month in 1...currentMonth {
+            let monthStr = String(format: "%02d", month)
+            let key = "\(year)-\(monthStr)"
+            
+            // 이미 캐시되어 있으면 스킵
+            if monthlyCache[key] != nil { 
+                print("🔥 [HomeViewModel] 이미 캐시됨: \(key)")
+                continue 
             }
-            await group.waitForAll()
+            
+            do {
+                print("🔥 [HomeViewModel] 포그라운드 워밍업 시작: \(key)")
+                let monthly = try await useCase.fetchMonthlyData(year: String(year), month: monthStr)
+                print("🔥 [HomeViewModel] 포그라운드 데이터 로드 완료: \(key), 아티클 수: \(monthly.count)")
+                
+                // 메인 스레드에서 캐시 저장
+                monthlyCache[key] = monthly
+                let days = Set(monthly.filter { !$0.receivedArticleList.isEmpty }.map { $0.publishDate })
+                dataDaysByMonthCache[key] = days
+                print("🔥 [HomeViewModel] 캐시 저장 완료: \(key), days=\(days.sorted())")
+                
+            } catch {
+                print("⚠️ [HomeViewModel] 포그라운드 캐시 워밍업 실패: \(key), error=\(error)")
+            }
         }
-        print("✅ [HomeViewModel] 연간 캐시 워밍업 완료")
+        print("✅ [HomeViewModel] 포그라운드 캐시 워밍업 완료")
     }
 
-    // 임의 연도에 대해 1..targetMonth(과거연도는 12)까지 워밍업
+    // 임의 연도에 대해 1..targetMonth(과거연도는 12)까지 포그라운드 워밍업 (실기기 호환)
     private func warmupYearCache(year: Int, targetMonth: Int) async {
         if warmedYears.contains(year) { return }
         let cal = Calendar.current
         let months = max(1, min(12, targetMonth))
-        print("🔥 [HomeViewModel] 지정 연도 워밍업 시작: \(year)년 1..\(months)월")
-        let semaphore = DispatchSemaphore(value: 3)
-        await withTaskGroup(of: Void.self) { group in
-            for month in 1...months {
-                group.addTask { [weak self] in
-                    guard let self else { return }
-                    let monthStr = String(format: "%02d", month)
-                    let key = "\(year)-\(monthStr)"
-                    let hasCache = await MainActor.run { self.monthlyCache[key] != nil }
-                    if hasCache { return }
-                    semaphore.wait(); defer { semaphore.signal() }
-                    do {
-                        let monthly = try await self.useCase.fetchMonthlyData(year: String(year), month: monthStr)
-                        await MainActor.run {
-                            self.monthlyCache[key] = monthly
-                            let days = Set(monthly.filter { !$0.receivedArticleList.isEmpty }.map { $0.publishDate })
-                            self.dataDaysByMonthCache[key] = days
-                        }
-                    } catch {
-                        print("⚠️ [HomeViewModel] 지정 연도 워밍업 실패: \(key), error=\(error)")
-                    }
-                }
+        print("🔥 [HomeViewModel] 지정 연도 포그라운드 워밍업 시작: \(year)년 1..\(months)월")
+        
+        // 순차적으로 실행 (실기기 호환)
+        for month in 1...months {
+            let monthStr = String(format: "%02d", month)
+            let key = "\(year)-\(monthStr)"
+            
+            // 이미 캐시되어 있으면 스킵
+            if monthlyCache[key] != nil { 
+                print("🔥 [HomeViewModel] 이미 캐시됨: \(key)")
+                continue 
             }
-            await group.waitForAll()
+            
+            do {
+                print("🔥 [HomeViewModel] 지정 연도 포그라운드 워밍업 시작: \(key)")
+                let monthly = try await useCase.fetchMonthlyData(year: String(year), month: monthStr)
+                print("🔥 [HomeViewModel] 지정 연도 포그라운드 데이터 로드 완료: \(key), 아티클 수: \(monthly.count)")
+                
+                // 메인 스레드에서 캐시 저장
+                monthlyCache[key] = monthly
+                let days = Set(monthly.filter { !$0.receivedArticleList.isEmpty }.map { $0.publishDate })
+                dataDaysByMonthCache[key] = days
+                print("🔥 [HomeViewModel] 지정 연도 캐시 저장 완료: \(key), days=\(days.sorted())")
+                
+            } catch {
+                print("⚠️ [HomeViewModel] 지정 연도 포그라운드 워밍업 실패: \(key), error=\(error)")
+            }
         }
         warmedYears.insert(year)
-        print("✅ [HomeViewModel] 지정 연도 워밍업 완료: \(year)")
+        print("✅ [HomeViewModel] 지정 연도 포그라운드 워밍업 완료: \(year)")
     }
     
     // 아티클 상세에서 돌아올 때 사용할 메서드 - 현재 선택된 날짜 유지
@@ -580,6 +582,11 @@ public final class HomeViewModel: ObservableObject {
             return cachedDays
         } else {
             print("📅 [HomeViewModel] 캐시된 점 데이터 없음: \(key)")
+            // 실기기에서 캐시가 없으면 현재 메모리의 dataDays 반환 (임시 해결)
+            if !dataDays.isEmpty {
+                print("📅 [HomeViewModel] 현재 메모리 dataDays 반환: \(dataDays.sorted())")
+                return dataDays
+            }
             return nil
         }
     }
