@@ -67,6 +67,7 @@
 	<array>
 		<string>background-fetch</string>
 		<string>background-processing</string>
+		<string>location</string>
 	</array>
 	<key>UILaunchScreen</key>
 	<dict>

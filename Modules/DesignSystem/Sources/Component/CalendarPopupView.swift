@@ -97,11 +97,9 @@ public struct CalendarPopupView: View {
             localSelectedDate = newValue
             // selectedDate가 변경되면 displayedMonth도 같은 월로 맞춤
             let newMonthDate = calendar.date(from: calendar.dateComponents([.year, .month], from: newValue)) ?? newValue
-            if !calendar.isDate(localDisplayedMonthDate, equalTo: newMonthDate, toGranularity: .month) {
-                localDisplayedMonthDate = newMonthDate
-                displayedMonthDate = newMonthDate
-                print("📅 [CalendarPopupView] selectedDate 변경으로 월 동기화: \(newMonthDate)")
-            }
+            localDisplayedMonthDate = newMonthDate
+            displayedMonthDate = newMonthDate
+            print("📅 [CalendarPopupView] selectedDate 변경으로 월 동기화: \(newMonthDate)")
         }
     }
 

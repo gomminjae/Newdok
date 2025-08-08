@@ -83,8 +83,11 @@ public struct HomeView: View {
             }
             .onChange(of: showCalendar) { isShowing in
                 if isShowing {
-                    viewModel.calendarState.displayedMonth = viewModel.selectedDate
-                    Task { await viewModel.loadCalendarData(for: viewModel.calendarState.displayedMonth) }
+                    // 캘린더가 열릴 때 selectedDate와 displayedMonth를 동기화
+                    let calendar = Calendar.current
+                    let monthDate = calendar.date(from: calendar.dateComponents([.year, .month], from: viewModel.selectedDate)) ?? viewModel.selectedDate
+                    viewModel.calendarState.displayedMonth = monthDate
+                    Task { await viewModel.loadCalendarData(for: monthDate) }
                 }
             }
             .navigationBarHidden(true)

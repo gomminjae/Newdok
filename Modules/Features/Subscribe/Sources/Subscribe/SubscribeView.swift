@@ -45,38 +45,42 @@ public struct SubscribeView: View {
 
                             PullToRefreshView(
                     content: {
-                        if viewModel.isLoading {
-                            // 로딩 중에는 빈 뷰
-                            Color.clear
-                        } else if filteredSubscriptions.isEmpty || isGuest {
-                            EmptySubscriptionView(isSubscribedTab: selectedTab == 0, isGuest: isGuest)
-                        } else {
-                            VStack(alignment: .leading, spacing: 0) {
-                                listHeaderView()
-                                    .padding(.horizontal, 20)
-                                    .padding(.bottom, 20)
+                        VStack(spacing: 0) {
+                            if viewModel.isLoading {
+                                // 로딩 중에는 빈 뷰
+                                Color.clear
+                                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                            } else if filteredSubscriptions.isEmpty || isGuest {
+                                EmptySubscriptionView(isSubscribedTab: selectedTab == 0, isGuest: isGuest)
+                                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                            } else {
+                                VStack(alignment: .leading, spacing: 0) {
+                                    listHeaderView()
+                                        .padding(.horizontal, 20)
+                                        .padding(.bottom, 20)
 
-                                ForEach(filteredSubscriptions, id: \.id) { newsletter in
-                                    SubscribeRow(newsletter: newsletter, isSubscribed: selectedTab == 0) {
-                                        if selectedTab == 0 {
-                                            selectedNewsletter = newsletter
-                                            showUnsubscribeAlert = true
-                                        } else {
-                                            Task {
-                                                await viewModel.resume(newsletterId: String(newsletter.id ?? 0))
-                                                await viewModel.fetchPaused()
-                                                await viewModel.fetchActive()
-                                                showSubscribeToast = true
-                                                DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-                                                    
-                                                    showSubscribeToast = false
-                                                    print("토스트 끝났음")
+                                    ForEach(filteredSubscriptions, id: \.id) { newsletter in
+                                        SubscribeRow(newsletter: newsletter, isSubscribed: selectedTab == 0) {
+                                            if selectedTab == 0 {
+                                                selectedNewsletter = newsletter
+                                                showUnsubscribeAlert = true
+                                            } else {
+                                                Task {
+                                                    await viewModel.resume(newsletterId: String(newsletter.id ?? 0))
+                                                    await viewModel.fetchPaused()
+                                                    await viewModel.fetchActive()
+                                                    showSubscribeToast = true
+                                                    DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                                                        
+                                                        showSubscribeToast = false
+                                                        print("토스트 끝났음")
+                                                    }
                                                 }
                                             }
                                         }
+                                        .padding(.horizontal, 20)
+                                        .padding(.bottom, 12)
                                     }
-                                    .padding(.horizontal, 20)
-                                    .padding(.bottom, 12)
                                 }
                             }
                         }

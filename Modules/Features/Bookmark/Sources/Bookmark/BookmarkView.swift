@@ -110,24 +110,26 @@ public struct BookmarkView: View {
             
                             PullToRefreshView(
                     content: {
-                        if isGuest {
-                            BookmarkGuestView(onLogin: {
-                                router.push(.login)
-                            })
-                                .frame(maxWidth: .infinity, maxHeight: .infinity)
-                        }
-                        else if viewModel.bookmarks?.totalAmount == 0 {
-                            BookmarkEmptyView()
-                                .frame(maxWidth: .infinity, maxHeight: .infinity)
-                        } else {
-                            VStack(alignment: .leading, spacing: 0) {
-                                ForEach(Array((viewModel.sortedBookmarks?.bookmarkForMonth ?? []).enumerated()), id: \.1.id) { index, monthly in
-                                    section(month: monthly.month, articles: monthly.bookmark)
-                                        .padding(.top, index == 0 ? 0 : 32)
-                                }
+                        VStack(spacing: 0) {
+                            if isGuest {
+                                BookmarkGuestView(onLogin: {
+                                    router.push(.login)
+                                })
+                                    .frame(maxWidth: .infinity, maxHeight: .infinity)
                             }
-                            .padding(.top, 20)
-                            .padding(.bottom, 20)
+                            else if viewModel.bookmarks?.totalAmount == 0 {
+                                BookmarkEmptyView()
+                                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                            } else {
+                                VStack(alignment: .leading, spacing: 0) {
+                                    ForEach(Array((viewModel.sortedBookmarks?.bookmarkForMonth ?? []).enumerated()), id: \.1.id) { index, monthly in
+                                        section(month: monthly.month, articles: monthly.bookmark)
+                                            .padding(.top, index == 0 ? 0 : 32)
+                                    }
+                                }
+                                .padding(.top, 20)
+                                .padding(.bottom, 20)
+                            }
                         }
                     },
                 animationView: {

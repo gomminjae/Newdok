@@ -199,10 +199,8 @@ public final class HomeViewModel: ObservableObject {
             tempArticles = data.articles
             tempNewsletters = data.activeNewsletters
             
-            // 2단계: 구독이 있을 때만 캘린더 데이터 로드
-            if !tempNewsletters.isEmpty || !tempArticles.isEmpty {
-                await loadArticles(for: selectedDate)
-            }
+            // 2단계: 항상 캘린더 데이터 로드 (구독 여부와 관계없이)
+            await loadArticles(for: selectedDate)
             
             // 배치 업데이트로 UI 렉 최소화
             await MainActor.run {
