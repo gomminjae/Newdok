@@ -21,13 +21,12 @@ public struct EditNicknameView: View {
     @State private var validationState: ValidationState = .none
     @FocusState private var isFocused: Bool
     
-    @ObservedObject private var viewModel: MypageViewModel
+    @EnvironmentObject private var viewModel: MypageViewModel
     @EnvironmentObject private var router: AppRouter
     
-    public init(nickname: Binding<String>, viewModel: MypageViewModel) {
+    public init(nickname: Binding<String>) {
         self._nickname = nickname
         self._draftNickname = State(initialValue: nickname.wrappedValue)
-        self.viewModel = viewModel
     }
     
     public var body: some View {
@@ -36,7 +35,6 @@ public struct EditNicknameView: View {
                 VStack(alignment: .leading, spacing: 12) {
                     Text("닉네임")
                         .font(.hanSansNeo(14, .medium))
-                        .allowsHitTesting(false) // 터치 불가능하게 설정
                     
                     TextField("닉네임을 입력해주세요", text: $draftNickname)
                         .padding()
@@ -46,17 +44,24 @@ public struct EditNicknameView: View {
                         .overlay(
                             RoundedRectangle(cornerRadius: 4)
                                 .stroke(
-                                    isFocused ? .primaryNormal : validationState.borderColor,
+                                    validationState == .invalidChar || validationState == .tooLong || validationState == .tooShort 
+                                    ? Color(hex: "E32727") 
+                                    : isFocused ? .primaryNormal : Color(hex: "DADADA"),
                                     lineWidth: 1
                                 )
                         )
                         .focused($isFocused)
                         .onChange(of: draftNickname, perform: validate)
+                        .onTapGesture {
+                            isFocused = true
+                        }
 
-                    Text(validationState.message)
-                        .font(.hanSansNeo(12, .medium))
-                        .foregroundColor(validationState.textColor)
-                        .allowsHitTesting(false) // 터치 불가능하게 설정
+                    if validationState != .none {
+                        Text(validationState.message)
+                            .font(.hanSansNeo(12, .medium))
+                            .foregroundColor(validationState.textColor)
+                            
+                    }
 
                     Spacer().frame(height: 100) // 변경하기 버튼 여백 확보
                 }
@@ -70,12 +75,11 @@ public struct EditNicknameView: View {
                     await viewModel.fetchuserInfo()
                     
                     nickname = draftNickname
-                    router.pop()
                     
-                    // EditProfileView 새로고침 알림
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-                        NotificationCenter.default.post(name: .init("RefreshProfile"), object: nil)
-                    }
+                    // showNicknameSuccess 플래그 설정으로 EditProfileView에서 토스트 표시 및 업데이트 트리거
+                    viewModel.showNicknameSuccess = true
+                    
+                    router.pop()
                 }
             }) {
                 Text("변경하기")
@@ -122,6 +126,12 @@ public struct EditNicknameView: View {
         }
         .hideKeyboardOnTap()
         .ignoresSafeArea(.keyboard)
+        .onAppear {
+            // 닉네임 필드에 자동 포커스
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                isFocused = true
+            }
+        }
     }
     
     private var isButtonEnabled: Bool {
@@ -164,7 +174,7 @@ enum ValidationState {
         switch self {
         case .valid: return .primaryNormal
         case .invalidChar, .tooLong, .tooShort: return Color(hex: "E32727")
-        case .none: return .gray
+        case .none: return Color(hex: "969696")
         }
     }
 

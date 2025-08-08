@@ -20,12 +20,10 @@ public struct EditIndustryView: View {
     @State private var selectedId: Int?
     @State private var isExpanded: Bool = false
 
-    @ObservedObject private var viewModel: MypageViewModel
+    @EnvironmentObject private var viewModel: MypageViewModel
     @EnvironmentObject private var router: AppRouter
 
-    public init(viewModel: MypageViewModel) {
-        self.viewModel = viewModel
-    }
+    public init() {}
 
     public var body: some View {
         VStack(alignment: .leading, spacing: 12) {
@@ -99,16 +97,11 @@ public struct EditIndustryView: View {
                         try await viewModel.updateIndustry(id: selectedId)
                         await viewModel.fetchuserInfo()
                         
+                        // showIndustrySuccess 플래그 설정으로 EditProfileView에서 토스트 표시 및 업데이트 트리거
+                        viewModel.showIndustrySuccess = true
+                        
                         await MainActor.run {
                             router.pop()
-                        }
-                        
-                        // pop 후 뷰가 전환되도록 약간의 지연을 줌 (300ms)
-                        try await Task.sleep(nanoseconds: 300_000_000)
-                        
-                        await MainActor.run {
-                            print("📱 [EditIndustryView] 토스트 표시")
-                            NotificationCenter.default.post(name: .showToast, object: "종사산업이 변경되었습니다.")
                         }
                     } catch {
                         print("❌ [EditIndustryView] 종사산업 변경 실패: \(error)")

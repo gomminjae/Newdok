@@ -606,5 +606,3 @@ struct PagingScrollView: View {
         .frame(height: itemHeight + 60)
     }
 }
-
-

@@ -156,7 +156,7 @@ public final class AppDIContainer {
             return MainActor.assumeIsolated {
                 SubscribeViewModel(useCase: useCase)
             }
-        }.inObjectScope(.container)
+        }.inObjectScope(.transient)
         
         container.register(BookmarkViewModel.self) { r in
             let useCase = r.resolve(ArticleUseCase.self)!
@@ -185,7 +185,7 @@ public final class AppDIContainer {
             return MainActor.assumeIsolated {
                 return MypageViewModel(useCase: useCase)
             }
-        }
+        }.inObjectScope(.transient)
         
         container.register(RecoveryViewModel.self) { r in
             let useCase = r.resolve(UserUseCase.self)!

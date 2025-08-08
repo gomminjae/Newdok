@@ -20,13 +20,13 @@ public final class CalendarState: ObservableObject {
     @Published public var isLoading: Bool = false
     
     public init() {
-        // 초기화 시 selectedDate와 displayedMonth를 동기화
+      
         displayedMonth = selectedDate
     }
     
     public func updateSelectedDate(_ date: Date) {
         selectedDate = date
-        // displayedMonth 자동 동기화 제거 - 캘린더에서 월 변경이 제대로 작동하도록
+        
     }
     
     public func updateDisplayedMonth(_ date: Date) {

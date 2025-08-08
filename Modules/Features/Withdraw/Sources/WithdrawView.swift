@@ -72,7 +72,7 @@ public struct WithdrawView: View {
                 }
                 .font(.hanSansNeo(14, .bold))
                 .frame(maxWidth: .infinity)
-                .frame(height: 48)  // 높이 48 고정
+                .frame(height: 48)
                 .background(isChecked ? Color.primaryNormal : Color(hex: "#EBEBEB"))
                 .foregroundColor(isChecked ? .white : Color(hex: "#BDBDBD"))
                 .cornerRadius(4)
@@ -81,7 +81,7 @@ public struct WithdrawView: View {
                 Button("탈퇴완료") {
                     Task {
                         await viewModel.withdraw()
-                        router.resetTo(.login)
+                        router.resetTo(.onboarding)
                     }
                 }
                 .font(.hanSansNeo(14, .bold))

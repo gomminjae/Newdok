@@ -36,6 +36,7 @@ public struct HomeView: View {
                 headerView
                 
                 PullToRefreshView(
+                    cooldownInterval: 2.0, // 2초 제한으로 조절
                     content: {
                         VStack(spacing: 0) {
                             dateBarView
@@ -49,6 +50,7 @@ public struct HomeView: View {
                         await viewModel.loadToday()
                     }
                 )
+                
             }
             .padding(.horizontal, 8)
             .padding(.top, 8)
@@ -149,14 +151,14 @@ public struct HomeView: View {
 
             Button(action:
             {
-                let calendar = Calendar.current
-                let monthDate = calendar.date(from: calendar.dateComponents([.year, .month], from: viewModel.selectedDate)) ?? viewModel.selectedDate
-                // 먼저 헤더/캘린더의 월을 동기화
-                viewModel.calendarState.displayedMonth = monthDate
-                // 캐시된 점을 즉시 적용
-                viewModel.applyDataDaysForMonth(monthDate)
-                let vm = viewModel
                 Task {
+                    let calendar = Calendar.current
+                    let monthDate = calendar.date(from: calendar.dateComponents([.year, .month], from: viewModel.selectedDate)) ?? viewModel.selectedDate
+                    // 먼저 헤더/캘린더의 월을 동기화
+                    await MainActor.run { viewModel.calendarState.displayedMonth = monthDate }
+                    // 캐시된 점을 즉시 적용
+                    await MainActor.run { viewModel.applyDataDaysForMonth(monthDate) }
+                    let vm = viewModel
                     await vm.loadCalendarData(for: monthDate)
                     await MainActor.run { showCalendar = true }
                 }
@@ -167,7 +169,6 @@ public struct HomeView: View {
         }
         .frame(height: 52)
         .background(Color.white.clipShape(RoundedRectangle(cornerRadius: 12)))
-        .padding(.top, 8)
         .padding(.bottom, 16)
     }
 
@@ -229,10 +230,8 @@ public struct HomeView: View {
                 Spacer()
 
                 Button(action: {
-                    isRefreshing = true
                     Task {
                         await viewModel.loadToday()
-                        isRefreshing = false
                     }
                 }) {
                     HStack(spacing: 4) {

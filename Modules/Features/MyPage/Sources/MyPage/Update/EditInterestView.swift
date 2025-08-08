@@ -12,7 +12,7 @@ import DesignSystem
 import Shared
 
 public struct EditInterestView: View {
-    @ObservedObject private var viewModel: MypageViewModel
+    @EnvironmentObject private var viewModel: MypageViewModel
     @EnvironmentObject private var router: AppRouter
 
     @State private var selectedIds: Set<Int> = []
@@ -23,9 +23,7 @@ public struct EditInterestView: View {
         GridItem(.flexible(), spacing: 12)
     ]
 
-    public init(viewModel: MypageViewModel) {
-        self.viewModel = viewModel
-    }
+    public init() {}
 
     public var body: some View {
         VStack(spacing: 0) {
@@ -76,17 +74,13 @@ public struct EditInterestView: View {
                 Task {
                     do {
                         try await viewModel.updateInterests(ids: Array(selectedIds))
+                        await viewModel.fetchuserInfo()
+                        
+                        // showInterestSuccess 플래그 설정으로 EditProfileView에서 토스트 표시 및 업데이트 트리거
+                        viewModel.showInterestSuccess = true
                         
                         await MainActor.run {
                             router.pop()
-                        }
-                        
-                        // pop 후 뷰가 전환되도록 약간의 지연을 줌 (300ms)
-                        try await Task.sleep(nanoseconds: 300_000_000)
-                        
-                        await MainActor.run {
-                            print("📱 [EditInterestView] 토스트 표시")
-                            NotificationCenter.default.post(name: .showToast, object: "관심사가 변경되었습니다.")
                         }
                     } catch {
                         print("❌ [EditInterestView] 관심사 변경 실패: \(error)")

@@ -12,8 +12,8 @@ let project = Project(
             deploymentTargets: .iOS("17.0"),
             infoPlist: .extendingDefault(
                 with: [
-                    "CFBundleName": "Newdok",
-                    "CFBundleDisplayName": "Newdok",
+                    "CFBundleName": "뉴독 - 나를 위한 뉴스레터 큐레이션",
+                    "CFBundleDisplayName": "뉴독 - 나를 위한 뉴스레터 큐레이션",
                     "CFBundleShortVersionString": "1.0.0",
                     "CFBundleVersion": "1",
                     "UILaunchScreen": [

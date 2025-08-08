@@ -29,7 +29,7 @@ public struct User {
         birthYear: String,
         gender: String,
         createdAt: String,
-        industryId: Int,
+        industryId: Int?,
         interests: [Interest]
     ) {
         self.id = id

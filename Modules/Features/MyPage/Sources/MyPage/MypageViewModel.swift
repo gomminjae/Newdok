@@ -30,8 +30,6 @@ public class MypageViewModel: ObservableObject {
     @Published public var showIndustrySuccess: Bool = false
     @Published public var showInterestSuccess: Bool = false
 
-    
-    
     @Published var phoneNumber: String = ""
     @Published public var isRequestSent = false
     @Published public var isTimerActive = false
@@ -44,7 +42,6 @@ public class MypageViewModel: ObservableObject {
     private var timer: Timer?
     @Published public var isShowPopup: Bool = false
     
-    
     @Published public var oldPassword: String = ""
     @Published public var newPassword: String = ""
     @Published public var checkedPassword: String = ""
@@ -53,8 +50,6 @@ public class MypageViewModel: ObservableObject {
     @Published public var passwordError: String? = nil
     @Published public var showPasswordSuccess: Bool = false
     @Published public var showPhoneNumberSuccess: Bool = false
-    
-    
     
     private let useCase: UserUseCase
     
@@ -93,179 +88,195 @@ public class MypageViewModel: ObservableObject {
         }
     }
     
-    
-    
     public func updateNickname(nickname: String) async {
-        Task {
-            do {
-                print("🔄 [MypageViewModel] 닉네임 변경 시작: \(nickname)")
-                try await useCase.updateNickname(nickname)
-                print("✅ [MypageViewModel] 닉네임 변경 성공")
-                
-                await MainActor.run {
-                    // UserInfoStore 즉시 업데이트
-                    if let currentUser = user {
-                        let updatedUserInfo = UserInfo(
-                            id: currentUser.id,
-                            loginId: currentUser.loginId,
-                            phoneNumber: currentUser.phoneNumber,
-                            subscribeEmail: currentUser.subscribeEmail,
-                            nickname: nickname, // 변경된 닉네임 사용
-                            birthYear: currentUser.birthYear,
-                            gender: currentUser.gender,
-                            createdAt: currentUser.createdAt,
-                            industryId: currentUser.industryId,
-                            interestIds: currentUser.interests.map { $0.id }
-                        )
-                        UserInfoStore.shared.save(updatedUserInfo)
-                        print("💾 [MypageViewModel] UserInfoStore 닉네임 업데이트 완료")
-                    }
-                }
-                
-                // pop 후 뷰가 전환되도록 약간의 지연을 줌 (300ms)
-                try await Task.sleep(nanoseconds: 300_000_000)
-                
-                await MainActor.run {
-                    print("🎉 [MypageViewModel] 닉네임 토스트 트리거 설정")
-                    showNicknameSuccess = true
-                }
-            } catch {
-                print("❌ [MypageViewModel] 닉네임 변경 실패: \(error)")
+        do {
+            print("🔄 [MypageViewModel] 닉네임 변경 시작: \(nickname)")
+            try await useCase.updateNickname(nickname)
+            print("✅ [MypageViewModel] 닉네임 변경 성공")
+            
+            // UserInfoStore 즉시 업데이트
+            if let currentUser = user {
+                let updatedUserInfo = UserInfo(
+                    id: currentUser.id,
+                    loginId: currentUser.loginId,
+                    phoneNumber: currentUser.phoneNumber,
+                    subscribeEmail: currentUser.subscribeEmail,
+                    nickname: nickname, // 변경된 닉네임 사용
+                    birthYear: currentUser.birthYear,
+                    gender: currentUser.gender,
+                    createdAt: currentUser.createdAt,
+                    industryId: currentUser.industryId,
+                    interestIds: currentUser.interests.map { $0.id }
+                )
+                UserInfoStore.shared.save(updatedUserInfo)
+                print("💾 [MypageViewModel] UserInfoStore 닉네임 업데이트 완료")
             }
+            
+            print("🎉 [MypageViewModel] 닉네임 토스트 트리거 설정")
+            showNicknameSuccess = true
+        } catch {
+            print("❌ [MypageViewModel] 닉네임 변경 실패: \(error)")
         }
     }
     
-
-    
     public func updateIndustry(id: Int) async {
-        Task {
-            do {
-                print("🔄 [MypageViewModel] 종사산업 변경 시작: \(id)")
-                try await useCase.updateIndustry(id)
-                print("✅ [MypageViewModel] 종사산업 변경 성공")
+        do {
+            print("🔄 [MypageViewModel] 종사산업 변경 시작: \(id)")
+            try await useCase.updateIndustry(id)
+            print("✅ [MypageViewModel] 종사산업 변경 성공")
+            
+            // UserInfoStore 즉시 업데이트
+            if let currentUser = user {
+                let updatedUserInfo = UserInfo(
+                    id: currentUser.id,
+                    loginId: currentUser.loginId,
+                    phoneNumber: currentUser.phoneNumber,
+                    subscribeEmail: currentUser.subscribeEmail,
+                    nickname: currentUser.nickname,
+                    birthYear: currentUser.birthYear,
+                    gender: currentUser.gender,
+                    createdAt: currentUser.createdAt,
+                    industryId: id, // 변경된 종사산업 ID 사용
+                    interestIds: currentUser.interests.map { $0.id }
+                )
+                UserInfoStore.shared.save(updatedUserInfo)
+                print("💾 [MypageViewModel] UserInfoStore 종사산업 업데이트 완료")
                 
-                // pop 후 뷰가 전환되도록 약간의 지연을 줌 (300ms)
-                try await Task.sleep(nanoseconds: 300_000_000)
-                
-                await MainActor.run {
-                    print("🎉 [MypageViewModel] 종사산업 토스트 트리거 설정")
-                    showIndustrySuccess = true
-                }
-            } catch {
-                print("❌ [MypageViewModel] 종사산업 변경 실패: \(error)")
+                // 새로운 User 객체 생성하여 할당
+                let updatedUser = User(
+                    id: currentUser.id,
+                    loginId: currentUser.loginId,
+                    phoneNumber: currentUser.phoneNumber,
+                    subscribeEmail: currentUser.subscribeEmail,
+                    nickname: currentUser.nickname,
+                    birthYear: currentUser.birthYear,
+                    gender: currentUser.gender,
+                    createdAt: currentUser.createdAt,
+                    industryId: id, // 변경된 종사산업 ID 사용
+                    interests: currentUser.interests
+                )
+                user = updatedUser
+                print("🔄 [MypageViewModel] user 객체 종사산업 업데이트 완료")
             }
+            
+            print("🎉 [MypageViewModel] 종사산업 토스트 트리거 설정")
+            showIndustrySuccess = true
+        } catch {
+            print("❌ [MypageViewModel] 종사산업 변경 실패: \(error)")
         }
     }
     
     public func updateInterests(ids: [Int]) async {
-        Task {
-            do {
-                print("🔄 [MypageViewModel] 관심사 변경 시작: \(ids)")
-                try await useCase.updateInterest(ids)
-                print("✅ [MypageViewModel] 관심사 변경 성공")
+        do {
+            print("🔄 [MypageViewModel] 관심사 변경 시작: \(ids)")
+            try await useCase.updateInterest(ids)
+            print("✅ [MypageViewModel] 관심사 변경 성공")
+            
+            // UserInfoStore 즉시 업데이트
+            if let currentUser = user {
+                let updatedUserInfo = UserInfo(
+                    id: currentUser.id,
+                    loginId: currentUser.loginId,
+                    phoneNumber: currentUser.phoneNumber,
+                    subscribeEmail: currentUser.subscribeEmail,
+                    nickname: currentUser.nickname,
+                    birthYear: currentUser.birthYear,
+                    gender: currentUser.gender,
+                    createdAt: currentUser.createdAt,
+                    industryId: currentUser.industryId,
+                    interestIds: ids // 변경된 관심사 ID들 사용
+                )
+                UserInfoStore.shared.save(updatedUserInfo)
+                print("💾 [MypageViewModel] UserInfoStore 관심사 업데이트 완료")
                 
-                // pop 후 뷰가 전환되도록 약간의 지연을 줌 (300ms)
-                try await Task.sleep(nanoseconds: 300_000_000)
-                
-                await MainActor.run {
-                    print("🎉 [MypageViewModel] 관심사 토스트 트리거 설정")
-                    showInterestSuccess = true
-                }
-            } catch {
-                print("❌ [MypageViewModel] 관심사 변경 실패: \(error)")
+                // 새로운 User 객체 생성하여 할당
+                let updatedInterests = ids.map { Interest(id: $0, name: SelectableItemStore.shared.name(for: $0, in: .interest) ?? "") }
+                let updatedUser = User(
+                    id: currentUser.id,
+                    loginId: currentUser.loginId,
+                    phoneNumber: currentUser.phoneNumber,
+                    subscribeEmail: currentUser.subscribeEmail,
+                    nickname: currentUser.nickname,
+                    birthYear: currentUser.birthYear,
+                    gender: currentUser.gender,
+                    createdAt: currentUser.createdAt,
+                    industryId: currentUser.industryId ?? 0,
+                    interests: updatedInterests
+                )
+                user = updatedUser
+                print("🔄 [MypageViewModel] user 객체 관심사 업데이트 완료")
             }
+            
+            print("🎉 [MypageViewModel] 관심사 토스트 트리거 설정")
+            showInterestSuccess = true
+        } catch {
+            print("❌ [MypageViewModel] 관심사 변경 실패: \(error)")
         }
     }
     
     public func updatePhoneNumber() async {
-        Task {
-            do {
-                print("🔄 [MypageViewModel] 휴대폰 번호 변경 시작")
-                print("  - 입력된 인증번호: \(enteredVerificationCode)")
-                print("  - 실제 인증번호: \(verificationCode)")
-                
-                // 인증번호 검증
-                guard verifyCode() else {
-                    print("❌ [MypageViewModel] 인증번호 검증 실패")
-                    await MainActor.run {
-                        showError = true
-                        isPhoneUpdateSuccess = false
-                    }
-                    return
-                }
-                
-                print("✅ [MypageViewModel] 인증번호 검증 성공")
-                try await useCase.updatePhoneNumber(phoneNumber)
-                print("✅ [MypageViewModel] 휴대폰 번호 변경 성공")
-                
-                await MainActor.run {
-                    // 성공 시 플래그 설정
-                    isPhoneUpdateSuccess = true
-                }
-                
-                // pop 후 뷰가 전환되도록 약간의 지연을 줌 (300ms)
-                try await Task.sleep(nanoseconds: 300_000_000)
-                
-                await MainActor.run {
-                    showPhoneNumberSuccess = true
-                }
-            } catch {
-                print("❌ [MypageViewModel] 휴대폰 번호 변경 실패: \(error)")
-                await MainActor.run {
-                    isPhoneUpdateSuccess = false
-                }
-                
-                // 실패 토스트 표시
-                DispatchQueue.main.async {
-                    NotificationCenter.default.post(name: .showToast, object: "휴대폰 번호 변경에 실패했습니다.")
-                }
+        do {
+            print("🔄 [MypageViewModel] 휴대폰 번호 변경 시작")
+            print("  - 입력된 인증번호: \(enteredVerificationCode)")
+            print("  - 실제 인증번호: \(verificationCode)")
+            
+            // 인증번호 검증
+            guard verifyCode() else {
+                print("❌ [MypageViewModel] 인증번호 검증 실패")
+                showError = true
+                isPhoneUpdateSuccess = false
+                return
+            }
+            
+            print("✅ [MypageViewModel] 인증번호 검증 성공")
+            try await useCase.updatePhoneNumber(phoneNumber)
+            print("✅ [MypageViewModel] 휴대폰 번호 변경 성공")
+            
+            // 성공 시 플래그 설정
+            isPhoneUpdateSuccess = true
+            showPhoneNumberSuccess = true
+        } catch {
+            print("❌ [MypageViewModel] 휴대폰 번호 변경 실패: \(error)")
+            isPhoneUpdateSuccess = false
+            
+            // 실패 토스트 표시
+            DispatchQueue.main.async {
+                NotificationCenter.default.post(name: .showToast, object: "휴대폰 번호 변경에 실패했습니다.")
             }
         }
     }
     
     public func updatePassword() async {
-        Task {
-            do {
-                // UserInfoStore에서 loginId 가져오기
-                let userInfo = UserInfoStore.shared.load()
-                let loginId = userInfo?.loginId ?? user?.loginId ?? ""
-                
-                print("🔄 [MypageViewModel] 비밀번호 변경 시작")
-                print("  - loginId: \(loginId)")
-                print("  - oldPassword: \(oldPassword)")
-                print("  - newPassword: \(newPassword)")
-                
-                try await useCase.updatePassword(loginId: loginId, prevPassword: oldPassword, newPassword: newPassword)
-                print("✅ [MypageViewModel] 비밀번호 변경 성공")
-                
-                await MainActor.run {
-                    // 성공 시 플래그 설정
-                    isPasswordUpdateSuccess = true
-                    
-                    // 입력 필드 초기화
-                    oldPassword = ""
-                    newPassword = ""
-                    checkedPassword = ""
-                }
-                
-                // pop 후 뷰가 전환되도록 약간의 지연을 줌 (300ms)
-                try await Task.sleep(nanoseconds: 300_000_000)
-                
-                await MainActor.run {
-                    showPasswordSuccess = true
-                }
-            } catch {
-                print("❌ [MypageViewModel] 비밀번호 변경 실패: \(error)")
-                await MainActor.run {
-                    isPasswordUpdateSuccess = false
-                    
-                    // 에러 메시지 설정
-                    passwordError = "현재 비밀번호가 일치하지 않습니다"
-                }
-            }
+        do {
+            // UserInfoStore에서 loginId 가져오기
+            let userInfo = UserInfoStore.shared.load()
+            let loginId = userInfo?.loginId ?? user?.loginId ?? ""
+            
+            print("🔄 [MypageViewModel] 비밀번호 변경 시작")
+            print("  - loginId: \(loginId)")
+            print("  - oldPassword: \(oldPassword)")
+            print("  - newPassword: \(newPassword)")
+            
+            try await useCase.updatePassword(loginId: loginId, prevPassword: oldPassword, newPassword: newPassword)
+            print("✅ [MypageViewModel] 비밀번호 변경 성공")
+            
+            // 성공 시 플래그 설정
+            isPasswordUpdateSuccess = true
+            
+            // 입력 필드 초기화
+            oldPassword = ""
+            newPassword = ""
+            checkedPassword = ""
+            
+            showPasswordSuccess = true
+        } catch {
+            print("❌ [MypageViewModel] 비밀번호 변경 실패: \(error)")
+            isPasswordUpdateSuccess = false
+            
+            // 에러 메시지 설정
+            passwordError = "현재 비밀번호가 일치하지 않습니다"
         }
     }
-    
     
     public func sendVerificationCode() async {
         guard resendFailureCount < 3 else {
@@ -355,8 +366,4 @@ public class MypageViewModel: ObservableObject {
         if checkedPassword.isEmpty || isNewPasswordConfirmed { return nil }
         return "비밀번호가 일치하지 않습니다."
     }
-    
-    
-    
-    
 }

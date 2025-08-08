@@ -98,23 +98,31 @@ final class AppCoordinator {
     
     func makeEditProfileView() -> some View {
         let vm = container.container.resolve(MypageViewModel.self)!
-        return EditProfileView(viewModel: vm).environmentObject(router)
+        return EditProfileView()
+            .environmentObject(router)
+            .environmentObject(vm)
     }
     
     // MARK: - 프로필 편집
     func makeEditNicknameView() -> some View {
         let vm = container.container.resolve(MypageViewModel.self)!
-        return EditNicknameView(nickname: .constant(""), viewModel: vm).environmentObject(router)
+        return EditNicknameView(nickname: .constant(""))
+            .environmentObject(router)
+            .environmentObject(vm)
     }
     
     func makeEditIndustryView() -> some View {
         let vm = container.container.resolve(MypageViewModel.self)!
-        return EditIndustryView(viewModel: vm).environmentObject(router)
+        return EditIndustryView()
+            .environmentObject(router)
+            .environmentObject(vm)
     }
     
     func makeEditInterestView() -> some View {
         let vm = container.container.resolve(MypageViewModel.self)!
-        return EditInterestView(viewModel: vm).environmentObject(router)
+        return EditInterestView()
+            .environmentObject(router)
+            .environmentObject(vm)
     }
     
     

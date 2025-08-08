@@ -65,7 +65,7 @@ struct FilterBottomSheet: View {
                 Text("발행요일")
                     .font(.hanSansNeo(14, .medium))
                     .foregroundColor(Color(hex: "565656"))
-                    .padding(.bottom, 8)
+                    
                 FlowLayoutView(data: weekdays.indices, spacing: 8) { index in
                     SelectableChip(
                         text: weekdays[index],
@@ -74,6 +74,7 @@ struct FilterBottomSheet: View {
                         toggleSelection(&tempDay, value: index + 1)
                     }
                 }
+                .padding(.top, 8)
             }
             .padding(.top, 20)
             .padding(.horizontal, 24)
@@ -113,7 +114,7 @@ struct FilterBottomSheet: View {
                 }
             }
             .padding(.horizontal, 24)
-            .padding(.bottom, 56)
+            .padding(.bottom, 40)
         }
         .onAppear {
             // 시트가 나타날 때 현재 필터 상태를 임시 상태로 복사
@@ -196,8 +197,12 @@ struct FlowLayoutView<Data: RandomAccessCollection, Content: View>: View where D
         var rows: [[Data.Element]] = [[]]
 
         for element in data {
-            let elementSize = CGSize(width: 80, height: 30)
-            if width + elementSize.width + spacing > geometry.size.width {
+            // 각 줄에 4개까지 들어가도록 계산
+            let availableWidth = geometry.size.width - 48 // 좌우 패딩 제외
+            let elementWidth = (availableWidth - (spacing * 3)) / 4 // 4개 칩 + 3개 간격
+            let elementSize = CGSize(width: elementWidth, height: 30)
+            
+            if width + elementSize.width + spacing > availableWidth {
                 width = 0
                 rows.append([])
             }
@@ -211,6 +216,7 @@ struct FlowLayoutView<Data: RandomAccessCollection, Content: View>: View where D
                     ForEach(row, id: \.self) { element in
                         content(element)
                     }
+                    Spacer() // 남은 공간을 채움
                 }
             }
         }
