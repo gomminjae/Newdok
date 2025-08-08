@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		02CC97ABFD780062F1EB4548 /* Shared.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56A7772AA0518B04428BE5C5 /* Shared.framework */; };
 		07AB90021A70B1D55E233DDA /* NoDataView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AF6A52DBE12C84500829BA2 /* NoDataView.swift */; };
+		08F42EAD70342095163AEA8E /* SDWebImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CAC3D6C4B33E5AB73921E3EA /* SDWebImage.framework */; };
 		0BFDC77A09ED37206E78FD25 /* SpoqaHanSansNeo-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = D45E4F8E9B8A1813A5ADE0C1 /* SpoqaHanSansNeo-Light.otf */; };
 		13DF60422EC2F2B2EBA47DB5 /* SpoqaHanSansNeo-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 56DFA51B1676775D07DC3DD2 /* SpoqaHanSansNeo-Regular.otf */; };
 		156419437DCB12B7D3568717 /* _LottieStub.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E83FB3D05729C6408D617220 /* _LottieStub.framework */; };
@@ -36,9 +37,9 @@
 		963BD2E45D7172CE4BF69364 /* VerificationButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DEFF305135085B93F19593 /* VerificationButtonStyle.swift */; };
 		99AD012E16AE91B0DA8273E7 /* SpoqaHanSansNeo-Thin.otf in Resources */ = {isa = PBXBuildFile; fileRef = 1EAA4A417D2996F4DF2DED40 /* SpoqaHanSansNeo-Thin.otf */; };
 		ABB14811E13F7B1ECCF8B086 /* TuistAssets+DesignSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5263BC75B281154AC0B5A7B /* TuistAssets+DesignSystem.swift */; };
-		B574B68E2E44F8FD001B4E06 /* load.gif in Resources */ = {isa = PBXBuildFile; fileRef = B574B68D2E44F8FD001B4E06 /* load.gif */; };
-		B574B6902E44FF70001B4E06 /* PullToRefreshView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B574B68F2E44FF70001B4E06 /* PullToRefreshView.swift */; };
 		BC4360B914A0E6C10A4A851E /* CheckSubscribeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CF8A496C7E691DCF3A7C603 /* CheckSubscribeView.swift */; };
+		BDD988384DEC9A8C4E1B5F71 /* PullToRefreshView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 480127A043369072FC6A4A0E /* PullToRefreshView.swift */; };
+		C76B2F629431891F99DAB0A3 /* load.gif in Resources */ = {isa = PBXBuildFile; fileRef = 48854A6B16F3CFBA5DA0F0AD /* load.gif */; };
 		C7896448ED5FDC37EDC43F92 /* TuistLottie+DesignSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4A5ED9678398324570CCA4F /* TuistLottie+DesignSystem.swift */; };
 		D077CFC5DD281F26BDA2376F /* AuthFailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41950894E4E9C8FF11201792 /* AuthFailView.swift */; };
 		D2E21543F5B3B63472BE98A1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4F6AF114A38FDBD9663A6B1B /* Assets.xcassets */; };
@@ -82,6 +83,8 @@
 		43927DC076C8D16C0564FAD5 /* NetworkErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkErrorView.swift; sourceTree = "<group>"; };
 		45320748B2FE9321CE465FDF /* ptr.lottie */ = {isa = PBXFileReference; lastKnownFileType = file; path = ptr.lottie; sourceTree = "<group>"; };
 		470F5079EDDB033641E50DED /* SubscribeCheckPopupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscribeCheckPopupView.swift; sourceTree = "<group>"; };
+		480127A043369072FC6A4A0E /* PullToRefreshView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PullToRefreshView.swift; sourceTree = "<group>"; };
+		48854A6B16F3CFBA5DA0F0AD /* load.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = load.gif; sourceTree = "<group>"; };
 		4B7519630D4BA8D550F1D471 /* BirthYearPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BirthYearPickerView.swift; sourceTree = "<group>"; };
 		4F6AF114A38FDBD9663A6B1B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		56A7772AA0518B04428BE5C5 /* Shared.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Shared.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -99,12 +102,11 @@
 		A3CC877F7AECA4386F75D208 /* LoginErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginErrorView.swift; sourceTree = "<group>"; };
 		A5263BC75B281154AC0B5A7B /* TuistAssets+DesignSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TuistAssets+DesignSystem.swift"; sourceTree = "<group>"; };
 		B4A5ED9678398324570CCA4F /* TuistLottie+DesignSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TuistLottie+DesignSystem.swift"; sourceTree = "<group>"; };
-		B574B68D2E44F8FD001B4E06 /* load.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = load.gif; sourceTree = "<group>"; };
-		B574B68F2E44FF70001B4E06 /* PullToRefreshView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PullToRefreshView.swift; sourceTree = "<group>"; };
 		BDF5531123A3004A8540D621 /* NotRegisteredIdPopupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotRegisteredIdPopupView.swift; sourceTree = "<group>"; };
 		BE4AD9735556ECA8C8008FEC /* TuistBundle+DesignSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TuistBundle+DesignSystem.swift"; sourceTree = "<group>"; };
 		BFD516035027585AFC53F053 /* ColorPalette.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorPalette.swift; sourceTree = "<group>"; };
 		C8C517C8B4DCEC79C458B727 /* OverlayRootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverlayRootView.swift; sourceTree = "<group>"; };
+		CAC3D6C4B33E5AB73921E3EA /* SDWebImage.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SDWebImage.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CB0349579BBC3ABA50086B52 /* FAQView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FAQView.swift; sourceTree = "<group>"; };
 		CCE4C52744BC5AEDA5913B79 /* SubscribeStatePopupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscribeStatePopupView.swift; sourceTree = "<group>"; };
 		D45E4F8E9B8A1813A5ADE0C1 /* SpoqaHanSansNeo-Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SpoqaHanSansNeo-Light.otf"; sourceTree = "<group>"; };
@@ -120,6 +122,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				08F42EAD70342095163AEA8E /* SDWebImage.framework in Frameworks */,
 				02CC97ABFD780062F1EB4548 /* Shared.framework in Frameworks */,
 				156419437DCB12B7D3568717 /* _LottieStub.framework in Frameworks */,
 				54A924B531517CC6DEB9D62E /* Lottie.xcframework in Frameworks */,
@@ -172,7 +175,6 @@
 		1D7DAFC035EC8A7E2AAE52AE /* Component */ = {
 			isa = PBXGroup;
 			children = (
-				B574B68F2E44FF70001B4E06 /* PullToRefreshView.swift */,
 				4B7519630D4BA8D550F1D471 /* BirthYearPickerView.swift */,
 				743901F00E06BB210FBD1E5B /* CalendarPopupView.swift */,
 				1A381D7F2C70367E5C3D8005 /* CustomSegmentedSlider.swift */,
@@ -180,6 +182,7 @@
 				F249E8F2A7648435125CF681 /* LottieView.swift */,
 				6AF6A52DBE12C84500829BA2 /* NoDataView.swift */,
 				C8C517C8B4DCEC79C458B727 /* OverlayRootView.swift */,
+				480127A043369072FC6A4A0E /* PullToRefreshView.swift */,
 			);
 			path = Component;
 			sourceTree = "<group>";
@@ -227,6 +230,7 @@
 			children = (
 				E83FB3D05729C6408D617220 /* _LottieStub.framework */,
 				69B7BBEAD5472C7195924AC8 /* DesignSystem.framework */,
+				CAC3D6C4B33E5AB73921E3EA /* SDWebImage.framework */,
 				56A7772AA0518B04428BE5C5 /* Shared.framework */,
 			);
 			name = Products;
@@ -256,7 +260,7 @@
 			children = (
 				B26E41B36113DA07FB8E0185 /* Font */,
 				4F6AF114A38FDBD9663A6B1B /* Assets.xcassets */,
-				B574B68D2E44F8FD001B4E06 /* load.gif */,
+				48854A6B16F3CFBA5DA0F0AD /* load.gif */,
 				F202258DD4A01F64A19325AC /* loading.gif */,
 				45320748B2FE9321CE465FDF /* ptr.lottie */,
 			);
@@ -405,13 +409,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B574B68E2E44F8FD001B4E06 /* load.gif in Resources */,
 				D2E21543F5B3B63472BE98A1 /* Assets.xcassets in Resources */,
 				4C768B0DAB889891D8E0145C /* SpoqaHanSansNeo-Bold.otf in Resources */,
 				0BFDC77A09ED37206E78FD25 /* SpoqaHanSansNeo-Light.otf in Resources */,
 				317C16F03A5E8BF0EA256954 /* SpoqaHanSansNeo-Medium.otf in Resources */,
 				13DF60422EC2F2B2EBA47DB5 /* SpoqaHanSansNeo-Regular.otf in Resources */,
 				99AD012E16AE91B0DA8273E7 /* SpoqaHanSansNeo-Thin.otf in Resources */,
+				C76B2F629431891F99DAB0A3 /* load.gif in Resources */,
 				6EB58194BAEE4CBCD6D8EA90 /* loading.gif in Resources */,
 				235CB81F1A6A330AADE6BEFA /* ptr.lottie in Resources */,
 			);
@@ -440,6 +444,7 @@
 				70C7D51B82F95045C9DDF2D0 /* LottieView.swift in Sources */,
 				07AB90021A70B1D55E233DDA /* NoDataView.swift in Sources */,
 				E76992BBB4AB0B14426864B0 /* OverlayRootView.swift in Sources */,
+				BDD988384DEC9A8C4E1B5F71 /* PullToRefreshView.swift in Sources */,
 				72415CF40FB9EA2BE53157FD /* Font.swift in Sources */,
 				D077CFC5DD281F26BDA2376F /* AuthFailView.swift in Sources */,
 				BC4360B914A0E6C10A4A851E /* CheckSubscribeView.swift in Sources */,
@@ -452,7 +457,6 @@
 				1FA24D3FDDFF21AFE5CFC0D9 /* NetworkErrorView.swift in Sources */,
 				90D6A5AEB9B8DACDEBE64A29 /* SystemErrorView.swift in Sources */,
 				85F33B9FC7C90A8C544B7057 /* UpdateView.swift in Sources */,
-				B574B6902E44FF70001B4E06 /* PullToRefreshView.swift in Sources */,
 				E3003B318BD827C1E876F9C9 /* UnsubscribePopupView.swift in Sources */,
 				D35DFD63D8CD70868B230DA2 /* CustomTextFieldModifier.swift in Sources */,
 				41412A573756BE6C91B6AA4D /* ToastView.swift in Sources */,
@@ -475,6 +479,12 @@
 					"$(inherited)",
 					"$(SRCROOT)/../../Tuist/.build/artifacts/lottie-spm/Lottie",
 				);
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)/../../Tuist/.build/checkouts/SDWebImage/SDWebImage/Core",
+					"$(SRCROOT)/../../Tuist/.build/checkouts/SDWebImage/SDWebImage/Private",
+					"$(SRCROOT)/../../Tuist/.build/checkouts/SDWebImage/SDWebImage/include",
+				);
 				INFOPLIST_FILE = "Derived/InfoPlists/DesignSystem-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
@@ -483,6 +493,11 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
+				OTHER_CFLAGS = (
+					"$(inherited)",
+					"-fmodule-map-file=$(SRCROOT)/../../Tuist/.build/tuist-derived/SDWebImage/SDWebImage.modulemap",
+				);
+				OTHER_SWIFT_FLAGS = "$(inherited) -Xcc -fmodule-map-file=$(SRCROOT)/../../Tuist/.build/tuist-derived/SDWebImage/SDWebImage.modulemap";
 				PRODUCT_BUNDLE_IDENTIFIER = com.minjae.designsystem;
 				PRODUCT_NAME = DesignSystem;
 				SDKROOT = iphoneos;
@@ -513,6 +528,12 @@
 					"$(inherited)",
 					"$(SRCROOT)/../../Tuist/.build/artifacts/lottie-spm/Lottie",
 				);
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)/../../Tuist/.build/checkouts/SDWebImage/SDWebImage/Core",
+					"$(SRCROOT)/../../Tuist/.build/checkouts/SDWebImage/SDWebImage/Private",
+					"$(SRCROOT)/../../Tuist/.build/checkouts/SDWebImage/SDWebImage/include",
+				);
 				INFOPLIST_FILE = "Derived/InfoPlists/DesignSystem-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
@@ -521,6 +542,11 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
+				OTHER_CFLAGS = (
+					"$(inherited)",
+					"-fmodule-map-file=$(SRCROOT)/../../Tuist/.build/tuist-derived/SDWebImage/SDWebImage.modulemap",
+				);
+				OTHER_SWIFT_FLAGS = "$(inherited) -Xcc -fmodule-map-file=$(SRCROOT)/../../Tuist/.build/tuist-derived/SDWebImage/SDWebImage.modulemap";
 				PRODUCT_BUNDLE_IDENTIFIER = com.minjae.designsystem;
 				PRODUCT_NAME = DesignSystem;
 				SDKROOT = iphoneos;

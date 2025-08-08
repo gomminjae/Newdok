@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		30E38E7D55799F213AD60DFF /* SDWebImage_SDWebImage.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 3A57AD50A0BC48299D30E2A2 /* SDWebImage_SDWebImage.bundle */; };
+		32061DCA3F32C6148654C91A /* SDWebImage_SDWebImage.bundle in Dependencies */ = {isa = PBXBuildFile; fileRef = 3A57AD50A0BC48299D30E2A2 /* SDWebImage_SDWebImage.bundle */; };
 		ADAB00D90C745D1B520C70BD /* SurveyMain.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1957E61D0F92B13C9D06D9C /* SurveyMain.swift */; };
 		B173CF7EDFA0725851501A4D /* SurveyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23A050A6322FE1A422FE3045 /* SurveyTests.swift */; };
 		F28C9E3265EBCF43415D36C3 /* Survey.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8978804A1885621F914F866A /* Survey.framework */; };
@@ -24,6 +26,16 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
+		B93CC2FCA058120891C13450 /* Dependencies */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 8;
+			dstSubfolderSpec = 16;
+			files = (
+				32061DCA3F32C6148654C91A /* SDWebImage_SDWebImage.bundle in Dependencies */,
+			);
+			name = Dependencies;
+			runOnlyForDeploymentPostprocessing = 1;
+		};
 		E5AAC51FAA606E5E5C684F83 /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -49,6 +61,7 @@
 /* Begin PBXFileReference section */
 		06A01EDB6FD9DB0E8A4F7809 /* Survey-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "Survey-Info.plist"; sourceTree = "<group>"; };
 		23A050A6322FE1A422FE3045 /* SurveyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SurveyTests.swift; sourceTree = "<group>"; };
+		3A57AD50A0BC48299D30E2A2 /* SDWebImage_SDWebImage.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SDWebImage_SDWebImage.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
 		4FF035E9E7D35EB77233BFDE /* SurveyTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "SurveyTests-Info.plist"; sourceTree = "<group>"; };
 		727F7D83813FA7F64C222B0F /* SurveyTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SurveyTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		8978804A1885621F914F866A /* Survey.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Survey.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -106,6 +119,7 @@
 			isa = PBXGroup;
 			children = (
 				CF891DF34D4455956C2DCD87 /* DesignSystem.framework */,
+				3A57AD50A0BC48299D30E2A2 /* SDWebImage_SDWebImage.bundle */,
 				8978804A1885621F914F866A /* Survey.framework */,
 				727F7D83813FA7F64C222B0F /* SurveyTests.xctest */,
 			);
@@ -148,6 +162,7 @@
 				2751CDD4E0F83EB33F8E0E63 /* Resources */,
 				827414FFCE0AB4A1BD5754FE /* Frameworks */,
 				ED5D7924B0EF482201D78315 /* Embed Frameworks */,
+				B93CC2FCA058120891C13450 /* Dependencies */,
 			);
 			buildRules = (
 			);
@@ -214,6 +229,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				30E38E7D55799F213AD60DFF /* SDWebImage_SDWebImage.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -318,6 +334,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)/../../../Tuist/.build/checkouts/SDWebImage/SDWebImage/Core",
+					"$(SRCROOT)/../../../Tuist/.build/checkouts/SDWebImage/SDWebImage/Private",
+					"$(SRCROOT)/../../../Tuist/.build/checkouts/SDWebImage/SDWebImage/include",
+				);
 				INFOPLIST_FILE = "Derived/InfoPlists/SurveyTests-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -325,6 +347,15 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 					"$(SRCROOT)/../../../Tuist/.build/artifacts/lottie-spm/Lottie",
+				);
+				OTHER_CFLAGS = (
+					"$(inherited)",
+					"-fmodule-map-file=$(SRCROOT)/../../../Tuist/.build/tuist-derived/SDWebImage/SDWebImage.modulemap",
+				);
+				OTHER_SWIFT_FLAGS = (
+					"$(inherited)",
+					"-Xcc",
+					"-fmodule-map-file=$(SRCROOT)/../../../Tuist/.build/tuist-derived/SDWebImage/SDWebImage.modulemap",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.newdok.survey.tests;
 				PRODUCT_NAME = SurveyTests;
@@ -472,6 +503,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)/../../../Tuist/.build/checkouts/SDWebImage/SDWebImage/Core",
+					"$(SRCROOT)/../../../Tuist/.build/checkouts/SDWebImage/SDWebImage/Private",
+					"$(SRCROOT)/../../../Tuist/.build/checkouts/SDWebImage/SDWebImage/include",
+				);
 				INFOPLIST_FILE = "Derived/InfoPlists/SurveyTests-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -479,6 +516,15 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 					"$(SRCROOT)/../../../Tuist/.build/artifacts/lottie-spm/Lottie",
+				);
+				OTHER_CFLAGS = (
+					"$(inherited)",
+					"-fmodule-map-file=$(SRCROOT)/../../../Tuist/.build/tuist-derived/SDWebImage/SDWebImage.modulemap",
+				);
+				OTHER_SWIFT_FLAGS = (
+					"$(inherited)",
+					"-Xcc",
+					"-fmodule-map-file=$(SRCROOT)/../../../Tuist/.build/tuist-derived/SDWebImage/SDWebImage.modulemap",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.newdok.survey.tests;
 				PRODUCT_NAME = SurveyTests;

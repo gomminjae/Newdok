@@ -79,7 +79,6 @@ public struct SubscribeView: View {
                                     .padding(.bottom, 12)
                                 }
                             }
-                            .background(Color(hex: "#F5F5F7"))
                         }
                     },
                 animationView: {
@@ -95,6 +94,7 @@ public struct SubscribeView: View {
                     }
                 }
             )
+            .background(Color(hex: "#F5F5F7"))
         }
         .onAppear {
             Task {

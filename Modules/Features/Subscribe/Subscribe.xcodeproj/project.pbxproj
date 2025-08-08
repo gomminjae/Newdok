@@ -232,6 +232,12 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)/../../../Tuist/.build/checkouts/SDWebImage/SDWebImage/Core",
+					"$(SRCROOT)/../../../Tuist/.build/checkouts/SDWebImage/SDWebImage/Private",
+					"$(SRCROOT)/../../../Tuist/.build/checkouts/SDWebImage/SDWebImage/include",
+				);
 				INFOPLIST_FILE = "Derived/InfoPlists/Subscribe-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
@@ -241,6 +247,15 @@
 					"@loader_path/Frameworks",
 				);
 				MACH_O_TYPE = staticlib;
+				OTHER_CFLAGS = (
+					"$(inherited)",
+					"-fmodule-map-file=$(SRCROOT)/../../../Tuist/.build/tuist-derived/SDWebImage/SDWebImage.modulemap",
+				);
+				OTHER_SWIFT_FLAGS = (
+					"$(inherited)",
+					"-Xcc",
+					"-fmodule-map-file=$(SRCROOT)/../../../Tuist/.build/tuist-derived/SDWebImage/SDWebImage.modulemap",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.newdok.subscribe;
 				PRODUCT_NAME = Subscribe;
 				SDKROOT = iphoneos;
@@ -323,6 +338,12 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)/../../../Tuist/.build/checkouts/SDWebImage/SDWebImage/Core",
+					"$(SRCROOT)/../../../Tuist/.build/checkouts/SDWebImage/SDWebImage/Private",
+					"$(SRCROOT)/../../../Tuist/.build/checkouts/SDWebImage/SDWebImage/include",
+				);
 				INFOPLIST_FILE = "Derived/InfoPlists/Subscribe-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
@@ -332,6 +353,15 @@
 					"@loader_path/Frameworks",
 				);
 				MACH_O_TYPE = staticlib;
+				OTHER_CFLAGS = (
+					"$(inherited)",
+					"-fmodule-map-file=$(SRCROOT)/../../../Tuist/.build/tuist-derived/SDWebImage/SDWebImage.modulemap",
+				);
+				OTHER_SWIFT_FLAGS = (
+					"$(inherited)",
+					"-Xcc",
+					"-fmodule-map-file=$(SRCROOT)/../../../Tuist/.build/tuist-derived/SDWebImage/SDWebImage.modulemap",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.newdok.subscribe;
 				PRODUCT_NAME = Subscribe;
 				SDKROOT = iphoneos;

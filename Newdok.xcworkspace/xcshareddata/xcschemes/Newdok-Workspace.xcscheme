@@ -364,6 +364,34 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
+               BlueprintIdentifier = "4522BA1E69969A14ADA602B2"
+               BuildableName = "SDWebImage.framework"
+               BlueprintName = "SDWebImage"
+               ReferencedContainer = "container:Tuist/.build/tuist-derived/SDWebImage/SDWebImage.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "7AC7961179CFF2AFE9AE6B22"
+               BuildableName = "SDWebImage_SDWebImage.bundle"
+               BlueprintName = "SDWebImage_SDWebImage"
+               ReferencedContainer = "container:Tuist/.build/tuist-derived/SDWebImage/SDWebImage.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
                BlueprintIdentifier = "C8340F58B0B1AD7EA1B1F833"
                BuildableName = "Search.framework"
                BlueprintName = "Search"

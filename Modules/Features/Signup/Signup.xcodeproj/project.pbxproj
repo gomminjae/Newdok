@@ -31,10 +31,12 @@
 		A4A277FA4721AB8CDE43C338 /* SignupPopupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ABEABE28310CE0292D59F63 /* SignupPopupView.swift */; };
 		A7AFEAB83825765A36460505 /* CurationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4C00B9CE842613DC8064D51 /* CurationView.swift */; };
 		B4E0568FCA17131599446939 /* ProfileInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B79FCDAD449A29D3F0A535F0 /* ProfileInputView.swift */; };
+		B6EDEAFB299A3A4027D199A0 /* SDWebImage_SDWebImage.bundle in Resources */ = {isa = PBXBuildFile; fileRef = F829710FCABE6A748B395556 /* SDWebImage_SDWebImage.bundle */; };
 		BDA0D54B46073681B1A470D5 /* Alamofire_Alamofire.bundle in Dependencies */ = {isa = PBXBuildFile; fileRef = A8DC766D028A253557F32C96 /* Alamofire_Alamofire.bundle */; };
 		C873E2D58FF8D05328EE13FC /* AuthFailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A187A8B863D8C5F16E60F3EA /* AuthFailView.swift */; };
 		CFE2DF464C54967700865649 /* SignupViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0566089A8FEF046632274744 /* SignupViewModel.swift */; };
 		D013C95EB375DEEFF94E37C4 /* RecommendView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EEB58F54776CECFC9D5195E /* RecommendView.swift */; };
+		D15E2519A59217BC6CE484A9 /* SDWebImage_SDWebImage.bundle in Dependencies */ = {isa = PBXBuildFile; fileRef = F829710FCABE6A748B395556 /* SDWebImage_SDWebImage.bundle */; };
 		D8C1273648D92C59C2B10512 /* DesignSystem.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 85C21E5E41B25BF1296FDC62 /* DesignSystem.framework */; };
 		F2E3E965C3F1EF60D1C2016D /* Auth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 766F8951B640B8EBDABB6323 /* Auth.framework */; };
 		FB5361C96950EADD04686876 /* SignupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADA3F2B0CCAC12C073E7692A /* SignupView.swift */; };
@@ -57,6 +59,7 @@
 			dstSubfolderSpec = 16;
 			files = (
 				BDA0D54B46073681B1A470D5 /* Alamofire_Alamofire.bundle in Dependencies */,
+				D15E2519A59217BC6CE484A9 /* SDWebImage_SDWebImage.bundle in Dependencies */,
 			);
 			name = Dependencies;
 			runOnlyForDeploymentPostprocessing = 1;
@@ -115,6 +118,7 @@
 		D4C00B9CE842613DC8064D51 /* CurationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurationView.swift; sourceTree = "<group>"; };
 		D8362585C58EFC538FE2604A /* PhoneVerificationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneVerificationView.swift; sourceTree = "<group>"; };
 		DCE511B3491C3DAC5E3DA08F /* CurationRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurationRow.swift; sourceTree = "<group>"; };
+		F829710FCABE6A748B395556 /* SDWebImage_SDWebImage.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SDWebImage_SDWebImage.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
 		FD7BC4B0AB5A6C65118659F6 /* PolicyWebSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PolicyWebSheetView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -153,6 +157,7 @@
 				53086A13DE300ED094DF02EE /* Data.framework */,
 				85C21E5E41B25BF1296FDC62 /* DesignSystem.framework */,
 				7F2F420D386240A6785E95C2 /* Domain.framework */,
+				F829710FCABE6A748B395556 /* SDWebImage_SDWebImage.bundle */,
 				31810BC9814938F0F30C9204 /* Shared.framework */,
 				8B64B94EDDD988EA78DBF160 /* Signup.framework */,
 				90725C7D56052890B752FF5A /* SignupTests.xctest */,
@@ -349,6 +354,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				40B211FAFB83F068BD1064F9 /* Alamofire_Alamofire.bundle in Resources */,
+				B6EDEAFB299A3A4027D199A0 /* SDWebImage_SDWebImage.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -472,6 +478,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)/../../../Tuist/.build/checkouts/SDWebImage/SDWebImage/Core",
+					"$(SRCROOT)/../../../Tuist/.build/checkouts/SDWebImage/SDWebImage/Private",
+					"$(SRCROOT)/../../../Tuist/.build/checkouts/SDWebImage/SDWebImage/include",
+				);
 				INFOPLIST_FILE = "Derived/InfoPlists/SignupTests-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -479,6 +491,15 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 					"$(SRCROOT)/../../../Tuist/.build/artifacts/lottie-spm/Lottie",
+				);
+				OTHER_CFLAGS = (
+					"$(inherited)",
+					"-fmodule-map-file=$(SRCROOT)/../../../Tuist/.build/tuist-derived/SDWebImage/SDWebImage.modulemap",
+				);
+				OTHER_SWIFT_FLAGS = (
+					"$(inherited)",
+					"-Xcc",
+					"-fmodule-map-file=$(SRCROOT)/../../../Tuist/.build/tuist-derived/SDWebImage/SDWebImage.modulemap",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.newdok.signup.tests;
 				PRODUCT_NAME = SignupTests;
@@ -502,6 +523,12 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)/../../../Tuist/.build/checkouts/SDWebImage/SDWebImage/Core",
+					"$(SRCROOT)/../../../Tuist/.build/checkouts/SDWebImage/SDWebImage/Private",
+					"$(SRCROOT)/../../../Tuist/.build/checkouts/SDWebImage/SDWebImage/include",
+				);
 				INFOPLIST_FILE = "Derived/InfoPlists/Signup-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
@@ -509,6 +536,15 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
+				);
+				OTHER_CFLAGS = (
+					"$(inherited)",
+					"-fmodule-map-file=$(SRCROOT)/../../../Tuist/.build/tuist-derived/SDWebImage/SDWebImage.modulemap",
+				);
+				OTHER_SWIFT_FLAGS = (
+					"$(inherited)",
+					"-Xcc",
+					"-fmodule-map-file=$(SRCROOT)/../../../Tuist/.build/tuist-derived/SDWebImage/SDWebImage.modulemap",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.newdok.signup;
 				PRODUCT_NAME = Signup;
@@ -535,6 +571,12 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)/../../../Tuist/.build/checkouts/SDWebImage/SDWebImage/Core",
+					"$(SRCROOT)/../../../Tuist/.build/checkouts/SDWebImage/SDWebImage/Private",
+					"$(SRCROOT)/../../../Tuist/.build/checkouts/SDWebImage/SDWebImage/include",
+				);
 				INFOPLIST_FILE = "Derived/InfoPlists/Signup-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
@@ -542,6 +584,15 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
+				);
+				OTHER_CFLAGS = (
+					"$(inherited)",
+					"-fmodule-map-file=$(SRCROOT)/../../../Tuist/.build/tuist-derived/SDWebImage/SDWebImage.modulemap",
+				);
+				OTHER_SWIFT_FLAGS = (
+					"$(inherited)",
+					"-Xcc",
+					"-fmodule-map-file=$(SRCROOT)/../../../Tuist/.build/tuist-derived/SDWebImage/SDWebImage.modulemap",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.newdok.signup;
 				PRODUCT_NAME = Signup;
@@ -567,6 +618,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)/../../../Tuist/.build/checkouts/SDWebImage/SDWebImage/Core",
+					"$(SRCROOT)/../../../Tuist/.build/checkouts/SDWebImage/SDWebImage/Private",
+					"$(SRCROOT)/../../../Tuist/.build/checkouts/SDWebImage/SDWebImage/include",
+				);
 				INFOPLIST_FILE = "Derived/InfoPlists/SignupTests-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -574,6 +631,15 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 					"$(SRCROOT)/../../../Tuist/.build/artifacts/lottie-spm/Lottie",
+				);
+				OTHER_CFLAGS = (
+					"$(inherited)",
+					"-fmodule-map-file=$(SRCROOT)/../../../Tuist/.build/tuist-derived/SDWebImage/SDWebImage.modulemap",
+				);
+				OTHER_SWIFT_FLAGS = (
+					"$(inherited)",
+					"-Xcc",
+					"-fmodule-map-file=$(SRCROOT)/../../../Tuist/.build/tuist-derived/SDWebImage/SDWebImage.modulemap",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.newdok.signup.tests;
 				PRODUCT_NAME = SignupTests;

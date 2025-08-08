@@ -18,7 +18,8 @@ let project = Project(
             ],
             dependencies: [
                 .project(target: "Shared", path: "../Shared"),
-                .external(name: "Lottie")
+                .external(name: "Lottie"), 
+                .external(name: "SDWebImage"),
             ]
         )
     ],

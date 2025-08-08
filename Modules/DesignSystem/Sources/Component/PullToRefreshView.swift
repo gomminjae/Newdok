@@ -52,10 +52,6 @@ public struct PullToRefreshView<Content: View>: View {
                     if !isRefreshing && !hasTriggered && dragDistance > threshold {
                         print("🔄 [PullToRefresh] Triggering refresh! dragDistance: \(dragDistance)")
                         
-                        // 햅틱 진동 추가
-                        let impactFeedback = UIImpactFeedbackGenerator(style: .medium)
-                        impactFeedback.impactOccurred()
-                        
                         hasTriggered = true
                         isRefreshing = true
                         

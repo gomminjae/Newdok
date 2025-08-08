@@ -9,5 +9,6 @@ let package = Package(
         .package(url: "https://github.com/onevcat/Kingfisher.git", from: "8.0.0"),
         .package(url: "https://github.com/exyte/PopupView.git", from: "4.1.3"), 
         .package(url: "https://github.com/airbnb/lottie-spm.git", from: "4.5.2"),
+        .package(url: "https://github.com/SDWebImage/SDWebImageSwiftUI.git", from: "3.0.0"),
     ]
 )

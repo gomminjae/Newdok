@@ -111,24 +111,14 @@ public struct BookmarkView: View {
                             PullToRefreshView(
                     content: {
                         if isGuest {
-                            VStack {
-                                BookmarkGuestView(onLogin: {
-                                    router.push(.login)
-                                })
-                                    .frame(maxWidth: .infinity)
-                                    .frame(maxHeight: .infinity)
-                                    .background(Color(hex: "#F5F5F7"))
-                            }
-                            .background(Color(hex: "#F5F5F7"))
+                            BookmarkGuestView(onLogin: {
+                                router.push(.login)
+                            })
+                                .frame(maxWidth: .infinity, maxHeight: .infinity)
                         }
                         else if viewModel.bookmarks?.totalAmount == 0 {
-                            VStack {
-                                BookmarkEmptyView()
-                                    .frame(maxWidth: .infinity)
-                                    .frame(maxHeight: .infinity)
-                                    .background(Color(hex: "#F5F5F7"))
-                            }
-                            .background(Color(hex: "#F5F5F7"))
+                            BookmarkEmptyView()
+                                .frame(maxWidth: .infinity, maxHeight: .infinity)
                         } else {
                             VStack(alignment: .leading, spacing: 0) {
                                 ForEach(Array((viewModel.sortedBookmarks?.bookmarkForMonth ?? []).enumerated()), id: \.1.id) { index, monthly in
@@ -138,7 +128,6 @@ public struct BookmarkView: View {
                             }
                             .padding(.top, 20)
                             .padding(.bottom, 20)
-                            .background(Color(hex: "#F5F5F7"))
                         }
                     },
                 animationView: {
@@ -151,6 +140,7 @@ public struct BookmarkView: View {
                     }
                 }
             )
+            .background(Color(hex: "#F5F5F7"))
         }
         .background(.white)
         .sheet(isPresented: $showSortSheet) {

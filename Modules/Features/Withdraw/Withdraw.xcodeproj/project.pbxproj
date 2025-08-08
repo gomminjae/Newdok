@@ -9,7 +9,9 @@
 /* Begin PBXBuildFile section */
 		354513DA721D578F735D38E4 /* Data.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B1F79A91D5670D151BDE54A /* Data.framework */; };
 		3FBAE78DBBEDC4B11D3D534C /* Alamofire_Alamofire.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 0A301D2FAA6B0A34FDDF1338 /* Alamofire_Alamofire.bundle */; };
+		5FFCBF7424EEC932D31668FA /* SDWebImage_SDWebImage.bundle in Dependencies */ = {isa = PBXBuildFile; fileRef = FF02098A6030CE176CCC02D8 /* SDWebImage_SDWebImage.bundle */; };
 		6614A452572132F7EB3685BC /* Core.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B996AA86F4CDF4A8556B8CB4 /* Core.framework */; };
+		69CB91318F5F1B9E0BF7FAE5 /* SDWebImage_SDWebImage.bundle in Resources */ = {isa = PBXBuildFile; fileRef = FF02098A6030CE176CCC02D8 /* SDWebImage_SDWebImage.bundle */; };
 		6E6D6DCC2B3B1168C4B444E1 /* Data.framework in Dependencies */ = {isa = PBXBuildFile; fileRef = 3B1F79A91D5670D151BDE54A /* Data.framework */; };
 		7FD33A325D43AA6E4D713840 /* WithdrawViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB8FBD7CC05A319F70CEB0E9 /* WithdrawViewModel.swift */; };
 		97B4348CB9D4223157D4AC73 /* DesignSystem.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 174B34F64DF1E6C20297D8C8 /* DesignSystem.framework */; };
@@ -49,6 +51,7 @@
 			dstSubfolderSpec = 16;
 			files = (
 				B0653FE95A1F93D329C45A1F /* Alamofire_Alamofire.bundle in Dependencies */,
+				5FFCBF7424EEC932D31668FA /* SDWebImage_SDWebImage.bundle in Dependencies */,
 			);
 			name = Dependencies;
 			runOnlyForDeploymentPostprocessing = 1;
@@ -89,6 +92,7 @@
 		AB8FBD7CC05A319F70CEB0E9 /* WithdrawViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WithdrawViewModel.swift; sourceTree = "<group>"; };
 		B996AA86F4CDF4A8556B8CB4 /* Core.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Core.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CD87DB4C7401FE168BF2AB9F /* Domain.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Domain.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		FF02098A6030CE176CCC02D8 /* SDWebImage_SDWebImage.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SDWebImage_SDWebImage.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -141,6 +145,7 @@
 				3B1F79A91D5670D151BDE54A /* Data.framework */,
 				174B34F64DF1E6C20297D8C8 /* DesignSystem.framework */,
 				CD87DB4C7401FE168BF2AB9F /* Domain.framework */,
+				FF02098A6030CE176CCC02D8 /* SDWebImage_SDWebImage.bundle */,
 				7587B7E7541913506F73587E /* Shared.framework */,
 				285FA32AA1896DA12F39D7F0 /* Withdraw.framework */,
 				960701B5983F3A4D30AE731D /* WithdrawTests.xctest */,
@@ -261,6 +266,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3FBAE78DBBEDC4B11D3D534C /* Alamofire_Alamofire.bundle in Resources */,
+				69CB91318F5F1B9E0BF7FAE5 /* SDWebImage_SDWebImage.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -357,6 +363,12 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)/../../../Tuist/.build/checkouts/SDWebImage/SDWebImage/Core",
+					"$(SRCROOT)/../../../Tuist/.build/checkouts/SDWebImage/SDWebImage/Private",
+					"$(SRCROOT)/../../../Tuist/.build/checkouts/SDWebImage/SDWebImage/include",
+				);
 				INFOPLIST_FILE = "Derived/InfoPlists/Withdraw-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
@@ -366,6 +378,15 @@
 					"@loader_path/Frameworks",
 				);
 				MACH_O_TYPE = staticlib;
+				OTHER_CFLAGS = (
+					"$(inherited)",
+					"-fmodule-map-file=$(SRCROOT)/../../../Tuist/.build/tuist-derived/SDWebImage/SDWebImage.modulemap",
+				);
+				OTHER_SWIFT_FLAGS = (
+					"$(inherited)",
+					"-Xcc",
+					"-fmodule-map-file=$(SRCROOT)/../../../Tuist/.build/tuist-derived/SDWebImage/SDWebImage.modulemap",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.newdok.withdraw;
 				PRODUCT_NAME = Withdraw;
 				SDKROOT = iphoneos;
@@ -386,6 +407,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)/../../../Tuist/.build/checkouts/SDWebImage/SDWebImage/Core",
+					"$(SRCROOT)/../../../Tuist/.build/checkouts/SDWebImage/SDWebImage/Private",
+					"$(SRCROOT)/../../../Tuist/.build/checkouts/SDWebImage/SDWebImage/include",
+				);
 				INFOPLIST_FILE = "Derived/InfoPlists/WithdrawTests-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -393,6 +420,15 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 					"$(SRCROOT)/../../../Tuist/.build/artifacts/lottie-spm/Lottie",
+				);
+				OTHER_CFLAGS = (
+					"$(inherited)",
+					"-fmodule-map-file=$(SRCROOT)/../../../Tuist/.build/tuist-derived/SDWebImage/SDWebImage.modulemap",
+				);
+				OTHER_SWIFT_FLAGS = (
+					"$(inherited)",
+					"-Xcc",
+					"-fmodule-map-file=$(SRCROOT)/../../../Tuist/.build/tuist-derived/SDWebImage/SDWebImage.modulemap",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.newdok.withdraw.tests;
 				PRODUCT_NAME = WithdrawTests;
@@ -420,6 +456,12 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)/../../../Tuist/.build/checkouts/SDWebImage/SDWebImage/Core",
+					"$(SRCROOT)/../../../Tuist/.build/checkouts/SDWebImage/SDWebImage/Private",
+					"$(SRCROOT)/../../../Tuist/.build/checkouts/SDWebImage/SDWebImage/include",
+				);
 				INFOPLIST_FILE = "Derived/InfoPlists/Withdraw-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
@@ -429,6 +471,15 @@
 					"@loader_path/Frameworks",
 				);
 				MACH_O_TYPE = staticlib;
+				OTHER_CFLAGS = (
+					"$(inherited)",
+					"-fmodule-map-file=$(SRCROOT)/../../../Tuist/.build/tuist-derived/SDWebImage/SDWebImage.modulemap",
+				);
+				OTHER_SWIFT_FLAGS = (
+					"$(inherited)",
+					"-Xcc",
+					"-fmodule-map-file=$(SRCROOT)/../../../Tuist/.build/tuist-derived/SDWebImage/SDWebImage.modulemap",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.newdok.withdraw;
 				PRODUCT_NAME = Withdraw;
 				SDKROOT = iphoneos;
@@ -453,6 +504,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)/../../../Tuist/.build/checkouts/SDWebImage/SDWebImage/Core",
+					"$(SRCROOT)/../../../Tuist/.build/checkouts/SDWebImage/SDWebImage/Private",
+					"$(SRCROOT)/../../../Tuist/.build/checkouts/SDWebImage/SDWebImage/include",
+				);
 				INFOPLIST_FILE = "Derived/InfoPlists/WithdrawTests-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -460,6 +517,15 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 					"$(SRCROOT)/../../../Tuist/.build/artifacts/lottie-spm/Lottie",
+				);
+				OTHER_CFLAGS = (
+					"$(inherited)",
+					"-fmodule-map-file=$(SRCROOT)/../../../Tuist/.build/tuist-derived/SDWebImage/SDWebImage.modulemap",
+				);
+				OTHER_SWIFT_FLAGS = (
+					"$(inherited)",
+					"-Xcc",
+					"-fmodule-map-file=$(SRCROOT)/../../../Tuist/.build/tuist-derived/SDWebImage/SDWebImage.modulemap",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.newdok.withdraw.tests;
 				PRODUCT_NAME = WithdrawTests;

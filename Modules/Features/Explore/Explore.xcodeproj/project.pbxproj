@@ -13,8 +13,10 @@
 		09783F763339FDD665D20027 /* ExploreBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 888F76455723B0BB93117B37 /* ExploreBase.swift */; };
 		14BA57CA933058F9B079ECEA /* Kingfisher.framework in Dependencies */ = {isa = PBXBuildFile; fileRef = 9CC6C36B01EE7E27AAE4D727 /* Kingfisher.framework */; };
 		1568857A0C158C8FD24EA4A4 /* NewsletterDetailRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A8975011C35FA609F5AD763 /* NewsletterDetailRow.swift */; };
+		16187620CE020C48B5B1955C /* SDWebImage_SDWebImage.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 56861470FC7877008D05805C /* SDWebImage_SDWebImage.bundle */; };
 		17C36C1FA64A43AE83E20678 /* RecommendedNewsLetterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BCDA9A9CBE8807820971B4C /* RecommendedNewsLetterView.swift */; };
 		3443025F4E3653FC3F79977A /* ExploreViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 593A758FB76F8B18C48BD981 /* ExploreViewModel.swift */; };
+		463E49F5DC9E7AA79A3E9B79 /* SDWebImage_SDWebImage.bundle in Dependencies */ = {isa = PBXBuildFile; fileRef = 56861470FC7877008D05805C /* SDWebImage_SDWebImage.bundle */; };
 		49F97C0213567A1BFB6F4BE6 /* Explore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5C38C04CFD92482D29D36740 /* Explore.framework */; };
 		655E69A7CF7BAE0041456773 /* Shared.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EB6BFB9C49D58077BC4C3EE7 /* Shared.framework */; };
 		71F3F5FBB3C658D7FF1A0274 /* Kingfisher.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9CC6C36B01EE7E27AAE4D727 /* Kingfisher.framework */; };
@@ -55,6 +57,7 @@
 			dstSubfolderSpec = 16;
 			files = (
 				9082AE94679896F25E88EFD2 /* Kingfisher_Kingfisher.bundle in Dependencies */,
+				463E49F5DC9E7AA79A3E9B79 /* SDWebImage_SDWebImage.bundle in Dependencies */,
 			);
 			name = Dependencies;
 			runOnlyForDeploymentPostprocessing = 1;
@@ -88,6 +91,7 @@
 		106FBE9628A98AC4385CDF3E /* ExploreTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ExploreTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		10CFB9C1CC03AC6BABA81506 /* FilterBottomSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterBottomSheet.swift; sourceTree = "<group>"; };
 		4F358D13829D312F2BAD5833 /* NewletterRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewletterRow.swift; sourceTree = "<group>"; };
+		56861470FC7877008D05805C /* SDWebImage_SDWebImage.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SDWebImage_SDWebImage.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
 		593A758FB76F8B18C48BD981 /* ExploreViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreViewModel.swift; sourceTree = "<group>"; };
 		5C38C04CFD92482D29D36740 /* Explore.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Explore.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7A8975011C35FA609F5AD763 /* NewsletterDetailRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsletterDetailRow.swift; sourceTree = "<group>"; };
@@ -178,6 +182,7 @@
 				106FBE9628A98AC4385CDF3E /* ExploreTests.xctest */,
 				C0B93F7C7E6E825D48CA2699 /* Kingfisher_Kingfisher.bundle */,
 				9CC6C36B01EE7E27AAE4D727 /* Kingfisher.framework */,
+				56861470FC7877008D05805C /* SDWebImage_SDWebImage.bundle */,
 				EB6BFB9C49D58077BC4C3EE7 /* Shared.framework */,
 			);
 			name = Products;
@@ -309,6 +314,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0297EE21EA3DEA8D769890A5 /* Kingfisher_Kingfisher.bundle in Resources */,
+				16187620CE020C48B5B1955C /* SDWebImage_SDWebImage.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -358,6 +364,12 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)/../../../Tuist/.build/checkouts/SDWebImage/SDWebImage/Core",
+					"$(SRCROOT)/../../../Tuist/.build/checkouts/SDWebImage/SDWebImage/Private",
+					"$(SRCROOT)/../../../Tuist/.build/checkouts/SDWebImage/SDWebImage/include",
+				);
 				INFOPLIST_FILE = "Derived/InfoPlists/Explore-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
@@ -367,6 +379,15 @@
 					"@loader_path/Frameworks",
 				);
 				MACH_O_TYPE = staticlib;
+				OTHER_CFLAGS = (
+					"$(inherited)",
+					"-fmodule-map-file=$(SRCROOT)/../../../Tuist/.build/tuist-derived/SDWebImage/SDWebImage.modulemap",
+				);
+				OTHER_SWIFT_FLAGS = (
+					"$(inherited)",
+					"-Xcc",
+					"-fmodule-map-file=$(SRCROOT)/../../../Tuist/.build/tuist-derived/SDWebImage/SDWebImage.modulemap",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.newdok.Explore;
 				PRODUCT_NAME = Explore;
 				SDKROOT = iphoneos;
@@ -391,6 +412,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)/../../../Tuist/.build/checkouts/SDWebImage/SDWebImage/Core",
+					"$(SRCROOT)/../../../Tuist/.build/checkouts/SDWebImage/SDWebImage/Private",
+					"$(SRCROOT)/../../../Tuist/.build/checkouts/SDWebImage/SDWebImage/include",
+				);
 				INFOPLIST_FILE = "Derived/InfoPlists/ExploreTests-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -398,6 +425,15 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 					"$(SRCROOT)/../../../Tuist/.build/artifacts/lottie-spm/Lottie",
+				);
+				OTHER_CFLAGS = (
+					"$(inherited)",
+					"-fmodule-map-file=$(SRCROOT)/../../../Tuist/.build/tuist-derived/SDWebImage/SDWebImage.modulemap",
+				);
+				OTHER_SWIFT_FLAGS = (
+					"$(inherited)",
+					"-Xcc",
+					"-fmodule-map-file=$(SRCROOT)/../../../Tuist/.build/tuist-derived/SDWebImage/SDWebImage.modulemap",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.newdok.explore.tests;
 				PRODUCT_NAME = ExploreTests;
@@ -416,6 +452,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)/../../../Tuist/.build/checkouts/SDWebImage/SDWebImage/Core",
+					"$(SRCROOT)/../../../Tuist/.build/checkouts/SDWebImage/SDWebImage/Private",
+					"$(SRCROOT)/../../../Tuist/.build/checkouts/SDWebImage/SDWebImage/include",
+				);
 				INFOPLIST_FILE = "Derived/InfoPlists/ExploreTests-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -423,6 +465,15 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 					"$(SRCROOT)/../../../Tuist/.build/artifacts/lottie-spm/Lottie",
+				);
+				OTHER_CFLAGS = (
+					"$(inherited)",
+					"-fmodule-map-file=$(SRCROOT)/../../../Tuist/.build/tuist-derived/SDWebImage/SDWebImage.modulemap",
+				);
+				OTHER_SWIFT_FLAGS = (
+					"$(inherited)",
+					"-Xcc",
+					"-fmodule-map-file=$(SRCROOT)/../../../Tuist/.build/tuist-derived/SDWebImage/SDWebImage.modulemap",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.newdok.explore.tests;
 				PRODUCT_NAME = ExploreTests;
@@ -509,6 +560,12 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)/../../../Tuist/.build/checkouts/SDWebImage/SDWebImage/Core",
+					"$(SRCROOT)/../../../Tuist/.build/checkouts/SDWebImage/SDWebImage/Private",
+					"$(SRCROOT)/../../../Tuist/.build/checkouts/SDWebImage/SDWebImage/include",
+				);
 				INFOPLIST_FILE = "Derived/InfoPlists/Explore-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
@@ -518,6 +575,15 @@
 					"@loader_path/Frameworks",
 				);
 				MACH_O_TYPE = staticlib;
+				OTHER_CFLAGS = (
+					"$(inherited)",
+					"-fmodule-map-file=$(SRCROOT)/../../../Tuist/.build/tuist-derived/SDWebImage/SDWebImage.modulemap",
+				);
+				OTHER_SWIFT_FLAGS = (
+					"$(inherited)",
+					"-Xcc",
+					"-fmodule-map-file=$(SRCROOT)/../../../Tuist/.build/tuist-derived/SDWebImage/SDWebImage.modulemap",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.newdok.Explore;
 				PRODUCT_NAME = Explore;
 				SDKROOT = iphoneos;
