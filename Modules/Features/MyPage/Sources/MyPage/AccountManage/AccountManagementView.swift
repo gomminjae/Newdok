@@ -14,9 +14,7 @@ import Shared
 public struct AccountManagementView: View {
     @Environment(\.dismiss) private var dismiss
     @State private var showLogoutPopup = false
-    @State private var showToast: Bool = false
-    @State private var toastMessage: String = ""
-    @State private var currentToastMessage: String = ""
+    // 전역 ToastCenter 사용으로 로컬 토스트 상태 제거
     @EnvironmentObject private var router: AppRouter
     
     
@@ -114,41 +112,10 @@ public struct AccountManagementView: View {
                 .backgroundColor(Color.black.opacity(0.3))
         }
         .onReceive(NotificationCenter.default.publisher(for: .showToast)) { notification in
-            if let message = notification.object as? String {
-                print("🔔 [AccountManagementView] 토스트 메시지 수신: \(message)")
-                print("🔔 [AccountManagementView] 메시지 길이: \(message.count)")
-                print("🔔 [AccountManagementView] 메시지가 비어있나?: \(message.isEmpty)")
-                
-                // 메시지 설정 후 토스트 표시
-                DispatchQueue.main.async {
-                    currentToastMessage = message
-                    toastMessage = message
-                    showToast = true
-                    print("🔔 [AccountManagementView] toastMessage 설정 후: '\(toastMessage)'")
-                    print("🔔 [AccountManagementView] currentToastMessage 설정 후: '\(currentToastMessage)'")
-                }
-            } else {
-                print("❌ [AccountManagementView] 토스트 메시지 파싱 실패")
-                print("❌ [AccountManagementView] notification.object: \(String(describing: notification.object))")
+            guard let message = notification.object as? String else { return }
+            Task { @MainActor in
+                ToastCenter.shared.show(message)
             }
-        }
-        .popup(isPresented: $showToast) {
-            ToastView(message: currentToastMessage.isEmpty ? toastMessage : currentToastMessage)
-                .padding(.bottom, 50)
-                .onAppear {
-                    print("🎯 [AccountManagementView] 토스트 표시: \(currentToastMessage.isEmpty ? toastMessage : currentToastMessage)")
-                    print("🎯 [AccountManagementView] showToast 상태: \(showToast)")
-                    print("🎯 [AccountManagementView] currentToastMessage 길이: \(currentToastMessage.count)")
-                    print("🎯 [AccountManagementView] toastMessage 길이: \(toastMessage.count)")
-                }
-                .id(currentToastMessage.isEmpty ? toastMessage : currentToastMessage) // 메시지가 변경될 때마다 뷰를 새로 생성
-        } customize: {
-            $0
-                .type(.toast)
-                .position(.bottom)
-                .autohideIn(3)
-                .animation(.easeInOut)
-                .closeOnTapOutside(false)
         }
     }
 

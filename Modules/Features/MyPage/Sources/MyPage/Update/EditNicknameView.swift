@@ -22,6 +22,7 @@ public struct EditNicknameView: View {
     @FocusState private var isFocused: Bool
     
     @EnvironmentObject private var viewModel: MypageViewModel
+    @EnvironmentObject private var toast: ToastCenter
     @EnvironmentObject private var router: AppRouter
     
     public init(nickname: Binding<String>) {
@@ -75,13 +76,14 @@ public struct EditNicknameView: View {
                 Task {
                     await viewModel.updateNickname(nickname: draftNickname)
                     await viewModel.fetchuserInfo()
-                    
                     nickname = draftNickname
-                    
-                    // showNicknameSuccess 플래그 설정으로 EditProfileView에서 토스트 표시 및 업데이트 트리거
-                    viewModel.showNicknameSuccess = true
-                    
-                    router.pop()
+                    // 먼저 화면을 닫고, 다음 프레임에서 토스트 노출(팝된 뷰에서 보이도록)
+                    await MainActor.run { router.pop() }
+                    // pop 이후에도 살아있는 전역 싱글톤을 통해 토스트 표시 (뷰 생명주기와 분리)
+                    Task.detached { @MainActor in
+                        try? await Task.sleep(nanoseconds: 150_000_000)
+                        ToastCenter.shared.show("닉네임이 변경되었습니다.")
+                    }
                 }
             }) {
                 Text("변경하기")

@@ -29,9 +29,6 @@ public struct CalendarPopupView: View {
     @Binding var dataDays: Set<Int>
     @State private var localSelectedDate: Date
     @State private var localDisplayedMonthDate: Date
-    @State private var dataVersion: Int = 0
-    @State private var localDataDays: Set<Int> = []
-    @State private var isLoadingLocal: Bool = false
 
     public var onDateSelected: ((Date) -> Void)?
     public var onMonthChanged: ((Date) -> Set<Int>)?
@@ -93,18 +90,12 @@ public struct CalendarPopupView: View {
         .onChange(of: displayedMonthDate) { _, newValue in
             localDisplayedMonthDate = newValue
         }
-        .onChange(of: dataDays) {
-            // 데이터가 변경되면 강제로 뷰 업데이트 트리거
-            dataVersion &+= 1
-            // 초기 데이터를 로컬에 복사
-            localDataDays = dataDays
-        }
+        .onChange(of: dataDays) { _ in }
         .onChange(of: selectedDate) { _, newValue in
             localSelectedDate = newValue
         }
         .onAppear {
-            // 초기 로컬 데이터 설정
-            localDataDays = dataDays
+            // 초기 설정만 수행
         }
     }
 
@@ -191,7 +182,7 @@ public struct CalendarPopupView: View {
                         let isFuture = calendar.startOfDay(for: day.date) > today
                         let isToday = calendar.isDate(day.date, inSameDayAs: today)
                         let isSelected = calendar.isDate(day.date, inSameDayAs: localSelectedDate)
-                        let hasData = localDataDays.contains(day.dayInt)
+                        let hasData = dataDays.contains(day.dayInt)
                         let isBlank = day.dayInt == 0
                         
                         VStack(spacing: 4) {
@@ -240,7 +231,7 @@ public struct CalendarPopupView: View {
         }
         .padding(.horizontal, 8)
         .padding(.vertical, 20)
-        .id("calendar-grid-\(localDisplayedMonthDate)-v\(dataVersion)")
+        .id("calendar-grid-\(localDisplayedMonthDate.timeIntervalSince1970)-\(dataDays.hashValue)")
     }
 
 
@@ -274,6 +265,7 @@ public struct CalendarPopupView: View {
         let newDate = calendar.date(byAdding: .month, value: -1, to: localDisplayedMonthDate)!
         print("📅 [CalendarPopupView] 이전 월: \(localDisplayedMonthDate) -> \(newDate)")
         localDisplayedMonthDate = newDate
+        displayedMonthDate = newDate
         loadLocalMonthData(for: newDate)
         onMonthChanged?(localDisplayedMonthDate)
     }
@@ -282,6 +274,7 @@ public struct CalendarPopupView: View {
         let newDate = calendar.date(byAdding: .month, value: 1, to: localDisplayedMonthDate)!
         print("📅 [CalendarPopupView] 다음 월: \(localDisplayedMonthDate) -> \(newDate)")
         localDisplayedMonthDate = newDate
+        displayedMonthDate = newDate
         loadLocalMonthData(for: newDate)
         onMonthChanged?(localDisplayedMonthDate)
     }
@@ -290,18 +283,12 @@ public struct CalendarPopupView: View {
         // 캘린더 내부에서만 사용할 로컬 데이터 로드
         // 실제 홈 화면에는 영향 주지 않음
         print("📅 [CalendarPopupView] 로컬 월 데이터 로드: \(date)")
-        guard let monthChangedCallback = onMonthChanged else {
-            localDataDays = []
-            isLoadingLocal = false
-            return
-        }
-        
-        // 부모로부터 해당 월의 점 데이터를 받아옴
-        localDataDays = monthChangedCallback(date)
-        print("📅 [CalendarPopupView] 월 데이터 받음: \(localDataDays.sorted())")
-        
-        isLoadingLocal = false
-        dataVersion &+= 1 // 뷰 강제 업데이트
+        guard let monthChangedCallback = onMonthChanged else { return }
+        // 부모로부터 해당 월의 즉시 표시 가능한 점 세트를 받아옴 (캐시 기반)
+        let cached = monthChangedCallback(date)
+        // 바인딩을 단일 소스로 사용: 부모가 dataDays를 갱신해야 최종 반영됨
+        // 여기서는 캐시가 있다면 즉시 바인딩에 대입해 바로 찍히게 함
+        dataDays = cached
     }
     
     private func selectToday() {

@@ -151,6 +151,10 @@ public struct PwdUpdateView: View {
         .onChange(of: viewModel.isPasswordUpdateSuccess) { _, success in
             if success {
                 router.pop()
+                Task { @MainActor in
+                    try? await Task.sleep(nanoseconds: 150_000_000)
+                    ToastCenter.shared.show("비밀번호가 변경되었습니다.")
+                }
             }
         }
 

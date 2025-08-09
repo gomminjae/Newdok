@@ -10,7 +10,8 @@ import Core
 import Shared
 import AppCoordinator
 import DesignSystem
-
+import PopupView
+import PopupView
 @main
 struct NewdokApp: App {
 
@@ -34,6 +35,13 @@ struct NewdokApp: App {
             .environmentObject(router)
             .environmentObject(tabSelection)
             .environmentObject(exploreIntent)
+            .environmentObject(ToastCenter.shared)
+            // ToastHost가 상위에서 환경 객체를 못 물려받는 경우가 있어 직접 주입
+            .overlay(
+                AppToastHost()
+                    .environmentObject(ToastCenter.shared)
+                    .allowsHitTesting(false)
+            )
             .onAppear(perform: checkVersion)
             .alert(isPresented: $showUpdateAlert) {
                 Alert(

@@ -82,17 +82,23 @@ public struct NewDokTabView: View {
                     tabSelection.selectedTab = .home
                     router.push(.login)
                 }
+                // 홈 이탈 시 홈 워밍업 취소, 홈 진입 시 재시작
                 switch newTab {
                 case .explore:
                     router.root = .tabbar(selectedTab: .explore)
+                    homeViewModel.cancelWarmups()
                 case .home:
                     router.root = .tabbar(selectedTab: .home)
+                    homeViewModel.startWarmup(for: Date())
                 case .subscribe:
                     router.root = .tabbar(selectedTab: .subscribe)
+                    homeViewModel.cancelWarmups()
                 case .bookmark:
                     router.root = .tabbar(selectedTab: .bookmark)
+                    homeViewModel.cancelWarmups()
                 case .profile:
                     router.root = .tabbar(selectedTab: .profile)
+                    homeViewModel.cancelWarmups()
                 }
             }
             

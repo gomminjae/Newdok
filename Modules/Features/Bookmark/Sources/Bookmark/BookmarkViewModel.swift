@@ -53,6 +53,10 @@ public class BookmarkViewModel: ObservableObject, BookmarkViewModelBindable {
         return bookmarks
     }
     
+    private var loadTask: Task<Void, Never>?
+
+    func cancelLoads() { loadTask?.cancel(); loadTask = nil }
+
     func fetchUserInterests() async  {
         do {
             let response = try await useCase.fetchBookmarkedInterests()
@@ -64,12 +68,29 @@ public class BookmarkViewModel: ObservableObject, BookmarkViewModelBindable {
     
     func fetchUserBookmarks() async {
         do {
-            
             let sortBy = convertSortOrderToOption(sortOrder)
             let response = try await useCase.fetchBookmarkedArticles(interest: interest, sortBy: sortBy)
             bookmarks = response
         } catch {
             print("북마크 불러오기 실패: \(error)")
+        }
+    }
+
+    // 최초 로드: 관심사/목록 병렬 + 스켈레톤 표시용 플래그
+    @Published public var isLoading: Bool = false
+    func loadInitial() {
+        cancelLoads()
+        loadTask = Task { @MainActor in
+            isLoading = true
+            async let interests = useCase.fetchBookmarkedInterests()
+            async let articles = useCase.fetchBookmarkedArticles(interest: interest, sortBy: convertSortOrderToOption(sortOrder))
+            do {
+                self.interests = try await interests
+                self.bookmarks = try await articles
+            } catch {
+                print("초기 로드 실패: \(error)")
+            }
+            isLoading = false
         }
     }
     
