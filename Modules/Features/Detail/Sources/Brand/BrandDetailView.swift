@@ -12,6 +12,19 @@ import Domain
 import Shared
 import PopupView
 
+struct RoundedCorner: Shape {
+    var radius: CGFloat = 0
+    var corners: UIRectCorner = .allCorners
+    func path(in rect: CGRect) -> Path {
+        let p = UIBezierPath(
+            roundedRect: rect,
+            byRoundingCorners: corners,
+            cornerRadii: CGSize(width: radius, height: radius)
+        )
+        return Path(p.cgPath)
+    }
+}
+
 enum SubscriptionStatus: String {
     case initial = "INITIAL"
     case check = "CHECK"
@@ -185,17 +198,24 @@ public struct BrandDetailView: View {
                     .resizable()
                     .frame(maxWidth: .infinity)
                     .frame(height: 260)
-                    .overlay(
-                        LinearGradient(
-                            gradient: Gradient(stops: [
-                                .init(color: Color.black.opacity(0.0), location: 0.0),
-                                .init(color: Color.black.opacity(1.0), location: 1.0)
-                            ]),
-                            startPoint: .top,
-                            endPoint: .bottom
-                        )
-                        .opacity(0.06)
-                    )
+                    .overlay( // 🔻 상단 0% → 하단 6% 블랙 그라데이션
+                           LinearGradient(
+                               gradient: Gradient(stops: [
+                                   .init(color: Color.black.opacity(0.0), location: 0.0),
+                                   .init(color: Color.black.opacity(0.06), location: 1.0)
+                               ]),
+                               startPoint: .top,
+                               endPoint: .bottom
+                           )
+                       )
+                       .mask( // 🔻 하단 모서리만 12
+                           RoundedCorner(radius: 12, corners: [.bottomLeft, .bottomRight])
+                       )
+                       .clipped()
+                       .shadow( // 🔻 Elevation 2_Bottom
+                               color: Color(red: 0x19/255, green: 0x19/255, blue: 0x19/255).opacity(0.04),
+                               radius: 4, x: 0, y: 2
+                           )
                 
 
                 HStack(spacing: 4) {
@@ -215,7 +235,7 @@ public struct BrandDetailView: View {
                     
                     Spacer()
                     
-                    // 구독중일 때 "구독중" 표시 추가 (오른쪽 끝에 배치)
+           
                     if let status = SubscriptionStatus(rawValue: detail.isSubscribed ?? ""), status == .confirmed {
                         Text("구독중")
                             .font(.hanSansNeo(11, .medium))
@@ -259,23 +279,34 @@ public struct BrandDetailView: View {
                         }
                     }
                     .padding(.top, 20)
-                       .padding(.horizontal, 24)
-                       .padding(.bottom, 21)
-                       .background(
-                           Color.white.opacity(0.6)
-                               .background(.ultraThinMaterial)
-                               .blur(radius: 8)
-                       )
-                       .clipShape(RoundedRectangle(cornerRadius: 12))
-                       .shadow(
-                           color: Color(hex: "#191919").opacity(0.04),
-                           radius: 4,
-                           x: 0,
-                           y: 2
-                       )
-                       .padding(.horizontal)
-                       .offset(y: 15)
-                       .padding(.bottom, 12)
+                    .padding(.horizontal, 24)
+                    .padding(.bottom, 21)
+//                    .background(
+//                        Color.white.opacity(0.6)
+//                            
+//                            .blur(radius: 8)
+//                    )
+                    .background(
+                        ZStack {
+                            // Background Blur
+                            Color.clear
+                                //.background(.regularMaterial) // ultraThin보다 진함
+                                .blur(radius: 8)
+
+                            // White overlay with 60% opacity
+                            Color.white.opacity(0.6)
+                        }
+                    )
+                    .clipShape(RoundedRectangle(cornerRadius: 12))
+                    .shadow(
+                        color: Color.black.opacity(0.04),
+                        radius: 8,
+                        x: 0,
+                        y: 4
+                    )
+                    .padding(.horizontal)
+                    .offset(y: 20)
+                    .padding(.bottom, 12)
 
                 }
             }
