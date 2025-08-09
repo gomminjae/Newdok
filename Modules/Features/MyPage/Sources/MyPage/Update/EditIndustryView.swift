@@ -21,6 +21,7 @@ public struct EditIndustryView: View {
     @State private var isExpanded: Bool = false
 
     @EnvironmentObject private var viewModel: MypageViewModel
+    @EnvironmentObject private var toast: ToastCenter
     @EnvironmentObject private var router: AppRouter
 
     public init() {}
@@ -96,12 +97,10 @@ public struct EditIndustryView: View {
                         guard let selectedId else { return }
                         try await viewModel.updateIndustry(id: selectedId)
                         await viewModel.fetchuserInfo()
-                        
-                        // showIndustrySuccess 플래그 설정으로 EditProfileView에서 토스트 표시 및 업데이트 트리거
-                        viewModel.showIndustrySuccess = true
-                        
-                        await MainActor.run {
-                            router.pop()
+                        await MainActor.run { router.pop() }
+                        Task.detached { @MainActor in
+                            try? await Task.sleep(nanoseconds: 150_000_000)
+                            ToastCenter.shared.show("종사산업이 변경되었습니다.")
                         }
                     } catch {
                         print("❌ [EditIndustryView] 종사산업 변경 실패: \(error)")

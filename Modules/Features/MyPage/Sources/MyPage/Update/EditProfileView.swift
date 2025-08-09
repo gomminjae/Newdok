@@ -75,40 +75,11 @@ public struct EditProfileView: View {
             Spacer()
         }
         .onAppear {
+            // [CHANGED] 전역 ToastCenter만 사용. 지역 체크/NotificationCenter 제거
             Task { await viewModel.fetchuserInfo() }
         }
         .onReceive(NotificationCenter.default.publisher(for: .init("RefreshProfile"))) { _ in
             Task { await viewModel.fetchuserInfo() }
-        }
-        .onChange(of: viewModel.showPasswordSuccess) { _, showToast in
-            if showToast {
-                NotificationCenter.default.post(name: .showToast, object: "비밀번호가 변경되었습니다.")
-                viewModel.showPasswordSuccess = false
-            }
-        }
-        .onChange(of: viewModel.showPhoneNumberSuccess) { _, showToast in
-            if showToast {
-                NotificationCenter.default.post(name: .showToast, object: "휴대폰 번호가 변경되었습니다.")
-                viewModel.showPhoneNumberSuccess = false
-            }
-        }
-        .onChange(of: viewModel.showNicknameSuccess) { _, showToast in
-            if showToast {
-                NotificationCenter.default.post(name: .showToast, object: "닉네임이 변경되었습니다.")
-                viewModel.showNicknameSuccess = false
-            }
-        }
-        .onChange(of: viewModel.showIndustrySuccess) { _, showToast in
-            if showToast {
-                NotificationCenter.default.post(name: .showToast, object: "종사산업이 변경되었습니다.")
-                viewModel.showIndustrySuccess = false
-            }
-        }
-        .onChange(of: viewModel.showInterestSuccess) { _, showToast in
-            if showToast {
-                NotificationCenter.default.post(name: .showToast, object: "관심사가 변경되었습니다.")
-                viewModel.showInterestSuccess = false
-            }
         }
         .padding(.horizontal, 20)
         .navigationBarTitleDisplayMode(.inline)
@@ -136,25 +107,7 @@ public struct EditProfileView: View {
             }
         }
         .hideKeyboardOnTap()
-        // TOAST
-        .popup(isPresented: $viewModel.shownicknameToast) {
-            ToastView(message: "닉네임이 변경되었습니다.")
-                .padding(.bottom, 50)
-        } customize: {
-            $0.type(.toast).position(.bottom).autohideIn(1).animation(.easeInOut)
-        }
-        .popup(isPresented: $viewModel.showIndustryToast) {
-            ToastView(message: "종사산업이 변경되었습니다.")
-                .padding(.bottom, 50)
-        } customize: {
-            $0.type(.toast).position(.bottom).autohideIn(1).animation(.easeInOut)
-        }
-        .popup(isPresented: $viewModel.showInterestToast) {
-            ToastView(message: "관심사가 변경되었습니다.")
-                .padding(.bottom, 50)
-        } customize: {
-            $0.type(.toast).position(.bottom).autohideIn(1).animation(.easeInOut)
-        }
+        // [CHANGED] 로컬 .popup 토스트 제거. 전역 PopupView(루트) 하나만 사용
     }
 
     // MARK: - Helper

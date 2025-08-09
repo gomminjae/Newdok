@@ -13,6 +13,7 @@ import Shared
 
 public struct EditInterestView: View {
     @EnvironmentObject private var viewModel: MypageViewModel
+    @EnvironmentObject private var toast: ToastCenter
     @EnvironmentObject private var router: AppRouter
 
     @State private var selectedIds: Set<Int> = []
@@ -75,12 +76,10 @@ public struct EditInterestView: View {
                     do {
                         try await viewModel.updateInterests(ids: Array(selectedIds))
                         await viewModel.fetchuserInfo()
-                        
-                        // showInterestSuccess 플래그 설정으로 EditProfileView에서 토스트 표시 및 업데이트 트리거
-                        viewModel.showInterestSuccess = true
-                        
-                        await MainActor.run {
-                            router.pop()
+                        await MainActor.run { router.pop() }
+                        Task.detached { @MainActor in
+                            try? await Task.sleep(nanoseconds: 150_000_000)
+                            ToastCenter.shared.show("관심사가 변경되었습니다.")
                         }
                     } catch {
                         print("❌ [EditInterestView] 관심사 변경 실패: \(error)")

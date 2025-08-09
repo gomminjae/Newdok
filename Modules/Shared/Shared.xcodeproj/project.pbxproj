@@ -15,6 +15,7 @@
 		72104A94ACE064372DD74143 /* UserInfoStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABD09C1E8E179695F3A17A71 /* UserInfoStore.swift */; };
 		73A91ABEF61282418D59684A /* UserInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 675DC976D9F58E8233DABE05 /* UserInfo.swift */; };
 		7D04C850BB0BAE64479467A3 /* AppRoute.swift in Sources */ = {isa = PBXBuildFile; fileRef = 990582F8C227FE7665BA5DC8 /* AppRoute.swift */; };
+		7EA17643B1BF737840760B76 /* ToastCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0DE4CC8E8325473FA349E3F /* ToastCenter.swift */; };
 		817D96211910CBF827E43430 /* ExploreIntent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B096E627FE70C90AF4A1A2C /* ExploreIntent.swift */; };
 		96CFE788CBFC80C85178485A /* CheckResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0616F85852A726E9E6A1E31B /* CheckResult.swift */; };
 		986650F906C2F56D536CFFAA /* SelectableItemStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1743374E82CFD282451B401 /* SelectableItemStore.swift */; };
@@ -52,6 +53,7 @@
 		D72BA6AE8B9AF02B56D8FC04 /* Shared-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "Shared-Info.plist"; sourceTree = "<group>"; };
 		E8A1EBAD9AC767B12A003540 /* SelectableItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectableItem.swift; sourceTree = "<group>"; };
 		EABBA1D82B5FD64F3A9B1FE3 /* TokenStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenStorage.swift; sourceTree = "<group>"; };
+		F0DE4CC8E8325473FA349E3F /* ToastCenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastCenter.swift; sourceTree = "<group>"; };
 		FDF80E5080EED4A4B010B1F2 /* TabSelection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabSelection.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -66,6 +68,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		06F9475E0808F77C02FAB5B6 /* Toast */ = {
+			isa = PBXGroup;
+			children = (
+				F0DE4CC8E8325473FA349E3F /* ToastCenter.swift */,
+			);
+			path = Toast;
+			sourceTree = "<group>";
+		};
 		18761086C2A2199A9552439D /* Store */ = {
 			isa = PBXGroup;
 			children = (
@@ -123,6 +133,7 @@
 				B009AEDC1F84E55C19868CE1 /* Router */,
 				45C65DDCE81E59F709DCE1CA /* State */,
 				18761086C2A2199A9552439D /* Store */,
+				06F9475E0808F77C02FAB5B6 /* Toast */,
 				3FAE17830536DDA6AD6B5910 /* Token */,
 				8F54AA9A9618928650E31805 /* User */,
 				D77A96AA7BCEFDC332DFE329 /* Views */,
@@ -249,6 +260,7 @@
 				73A91ABEF61282418D59684A /* UserInfo.swift in Sources */,
 				72104A94ACE064372DD74143 /* UserInfoStore.swift in Sources */,
 				21D0255E1B97374B99BD13EA /* SwipeBackHandler.swift in Sources */,
+				7EA17643B1BF737840760B76 /* ToastCenter.swift in Sources */,
 				56E86C3A63173151BE4B29EC /* TokenStorage.swift in Sources */,
 				5A3D4395DDCD980070A0BE03 /* SelectableCategoryType.swift in Sources */,
 				C1F55CCE5F47EFD7E182822F /* SelectableItem.swift in Sources */,
