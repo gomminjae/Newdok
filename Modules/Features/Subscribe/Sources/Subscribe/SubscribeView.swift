@@ -96,13 +96,16 @@ public struct SubscribeView: View {
         PullToRefreshView(
             content: {
                 VStack(spacing: 0) {
-                    if !viewModel.initialLoaded {
+                    if isGuest {
+                        EmptySubscriptionView(isSubscribedTab: selectedTab == 0, isGuest: true)
+                            .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    } else if !viewModel.initialLoaded {
                         // 최초 진입만 로딩 화면
                         ProgressView()
                             .frame(maxWidth: .infinity, maxHeight: .infinity)
-                    } else if filteredSubscriptions.isEmpty && !viewModel.isRefreshing && !isGuest {
+                    } else if filteredSubscriptions.isEmpty && !viewModel.isRefreshing {
                         // 리프레시 중이 아닐 때만 빈상태 표시
-                        EmptySubscriptionView(isSubscribedTab: selectedTab == 0, isGuest: isGuest)
+                        EmptySubscriptionView(isSubscribedTab: selectedTab == 0, isGuest: false)
                             .frame(maxWidth: .infinity, maxHeight: .infinity)
                     } else {
                         VStack(alignment: .leading, spacing: 0) {
