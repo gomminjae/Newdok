@@ -74,7 +74,7 @@ public struct PhoneVerificationView: View {
                         }
                         .font(.hanSansNeo(14, .bold))
                         .foregroundStyle(viewModel.phoneNumber.count < 11 ?  Color(hex: "#BDBDBD") : Color.primaryNormal)
-                        .disabled(viewModel.phoneNumber.count < 11 || viewModel.resendFailureCount >= 3)
+                        .disabled(viewModel.phoneNumber.count < 11)
                         .frame(width: 94, height: 48)
                         .overlay(
                             RoundedRectangle(cornerRadius: 4)
@@ -149,11 +149,11 @@ public struct PhoneVerificationView: View {
                         .font(.hanSansNeo(14, .bold))
                         .frame(height: 48)
                         .frame(maxWidth: .infinity)
-                        .background(viewModel.enteredVerificationCode.count < 6 ? Color.lineNeutral : Color.primaryNormal)
+                        .background((viewModel.enteredVerificationCode.count < 6 || viewModel.timerRemaining <= 0) ? Color.lineNeutral : Color.primaryNormal)
                         .foregroundColor(.white)
                         .cornerRadius(4)
                 }
-                .disabled(viewModel.enteredVerificationCode.count < 6)
+                .disabled(viewModel.enteredVerificationCode.count < 6 || viewModel.timerRemaining <= 0)
                 .padding(.horizontal, 24)
                 .padding(.bottom, 20)
                 .contentShape(Rectangle())
@@ -185,21 +185,17 @@ public struct PhoneVerificationView: View {
                 .backgroundColor(Color(hex: "#25242C").opacity(0.6))
         }
         
-        .popup(isPresented: Binding(
-            get: { viewModel.resendFailureCount >= 3 },
-            set: { newValue in if !newValue { viewModel.resendFailureCount = 0 } }
-        )) {
+        .popup(isPresented: $viewModel.isShowPopup) {
             AuthFailView(onClose: {
-                viewModel.resendFailureCount = 0
-                router.push(.login)
+                viewModel.resetVerificationState()
             })
         } customize: {
             $0
-                .type(.default)
-                .position(.center)
-                .animation(.easeInOut)
-                .closeOnTapOutside(false)
-                .backgroundColor(Color(hex: "#25242C").opacity(0.6))
+              .type(.default)
+              .position(.center)
+              .animation(.easeInOut)
+              .closeOnTapOutside(false)
+              .backgroundColor(Color(hex: "#25242C").opacity(0.6))
         }
     }
 

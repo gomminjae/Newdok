@@ -55,6 +55,7 @@ public enum NicknameValidationError: Error {
 }
 
 
+
 @MainActor
 final public class SignupViewModel: ObservableObject {
 
@@ -68,13 +69,9 @@ final public class SignupViewModel: ObservableObject {
     private var verificationCode: String = ""
     @Published public var resendFailureCount: Int = 0
     
-    
-    
-    //MARK: - id
+    //MARK: - ID
     @Published public var loginID: String = "" {
-        didSet {
-            isIDAvailable = nil
-        }
+        didSet { isIDAvailable = nil }
     }
     @Published public var isIDAvailable: Bool? = nil
     
@@ -83,45 +80,26 @@ final public class SignupViewModel: ObservableObject {
         return validateID()
     }
 
-    var isIDCheckEnabled: Bool {
-        return validateID() == nil
-    }
+    var isIDCheckEnabled: Bool { validateID() == nil }
 
     var isIDErrorState: Bool {
-        // 0. 입력이 아예 없으면 에러 표시 안 함
         guard !loginID.isEmpty else { return false }
-
-        // 1. 중복 확인 실패
-        if isIDAvailable == false {
-            return true
-        }
-
-        // 2. 중복 확인을 안 했고, 형식 에러가 있는 경우
-        if isIDAvailable == nil, validateID() != nil {
-            return true
-        }
-
+        if isIDAvailable == false { return true }
+        if isIDAvailable == nil, validateID() != nil { return true }
         return false
     }
 
-
     var idValidationMessage: (text: String, color: Color)? {
         if let available = isIDAvailable {
-            return (
-                text: available ? "사용 가능한 아이디입니다" : "이미 사용중인 아이디입니다",
-                color: available ? Color(hex: "#2866D3") : Color(hex: "#E32727")
-            )
+            return (available ? "사용 가능한 아이디입니다" : "이미 사용중인 아이디입니다",
+                    available ? Color(hex: "#2866D3") : Color(hex: "#E32727"))
         } else if let error = idValidationError {
-            return (
-                text: error.message,
-                color: Color(hex: "#E32727")
-            )
+            return (error.message, Color(hex: "#E32727"))
         } else {
             return nil
         }
     }
     
-
     // MARK: - State
     @Published public var isLoading = false
     @Published public var errorMessage: String?
@@ -133,12 +111,10 @@ final public class SignupViewModel: ObservableObject {
     @Published public var showAlreadyRegisteredAlert = false
     @Published public var showError = false
     
-    
     @Published public var emails: [String] = []
     @Published public var isShowPopup: Bool = false
 
     private var timer: Timer?
-    
     
     //MARK: password
     @Published public var password: String = ""
@@ -149,87 +125,113 @@ final public class SignupViewModel: ObservableObject {
     @Published public var birthYear: String = ""
     @Published public var gender: String = ""
     
-    
     @Published public var user: User?
-    
     
     //MARK: Investigate
     @Published public var myIndustry: String = ""
     @Published public var selectedInterests: Set<String> = []
     @Published public var recommendedPost: [RecommendedBrand] = []
     
-
     public init(userUseCase: UserUseCase) {
         self.userUseCase = userUseCase
+    }
+    
+    deinit {
+    
+        timer?.invalidate()
+        timer = nil
     }
     
     public func goToNextStep() {
         if let next = SignupStep(rawValue: currentStep.rawValue + 1) {
             currentStep = next
-            // 인증 횟수 초기화
+            // 인증 관련 상태 초기화
             resendFailureCount = 0
+            stopTimer()
+            isRequestSent = false
+            timerRemaining = 180
+            showError = false
         }
     }
     
     public func goToPreviousStep() {
         if let prev = SignupStep(rawValue: currentStep.rawValue - 1) {
             currentStep = prev
-            // 인증 횟수 초기화
+            // 인증 관련 상태 초기화
             resendFailureCount = 0
+            stopTimer()
+            isRequestSent = false
+            timerRemaining = 180
+            showError = false
         }
     }
     
-    
-    
+    public func resetVerificationState() {
+           stopTimer()
+           isShowPopup = false
+           isRequestSent = false
+           timerRemaining = 180
+           showError = false
+           enteredVerificationCode = ""
+           resendFailureCount = 0
+           verificationCode = ""
+       }
 
+    // MARK: - 인증코드 전송 (초기/재전송 공통)
     public func sendVerificationCode(skipCheck: Bool = false) {
-            guard resendFailureCount < 3 else {
-                isShowPopup = true
-                return
-            }
-            Task {
-                do {
-                    isLoading = true
-                    userList = []
-                    isShowUserList = false
-                    errorMessage = nil
-                    enteredVerificationCode = ""
-                    showError = false
-                    timerRemaining = 180
+        // 재전송 3회 초과 시, 다음 버튼 클릭(재전송 시점)에 팝업 표시
+        guard resendFailureCount < 3 else {
+            isShowPopup = true
+            return
+        }
+        Task {
+            do {
+                isLoading = true
+                userList = []
+                isShowUserList = false
+                errorMessage = nil
+                enteredVerificationCode = ""
+                showError = false
+                timerRemaining = 180
 
-                    if !skipCheck {
-                        let users = try await userUseCase.checkPhoneNumber(phoneNumber)
-                        if !users.isEmpty {
-                            userList = users
-                            isShowUserList = true
-                            showAlreadyRegisteredAlert = true
-                            isLoading = false
-                            return
-                        }
+                if !skipCheck {
+                    let users = try await userUseCase.checkPhoneNumber(phoneNumber)
+                    if !users.isEmpty {
+                        userList = users
+                        isShowUserList = true
+                        showAlreadyRegisteredAlert = true
+                        isLoading = false
+                        return
                     }
+                }
 
-                    let result = try await userUseCase.authSMS(phoneNumber: phoneNumber)
-                    verificationCode = String(result.code)
+                let result = try await userUseCase.authSMS(phoneNumber: phoneNumber)
+                verificationCode = String(result.code)
+                await MainActor.run {
                     isRequestSent = true
                     startTimer()
-                } catch {
-                    errorMessage = error.localizedDescription
                 }
-                isLoading = false
+            } catch {
+                errorMessage = error.localizedDescription
+                // 전송 실패 카운트 추가 (팝업은 다음 재전송 시점에서 표시)
+                resendFailureCount += 1
             }
+            isLoading = false
         }
+    }
 
-
+    // MARK: - 인증번호 검증
     func verifyCode() -> Bool {
         guard isRequestSent else { return false }
-        
         if timerRemaining <= 0 {
             showError = true
             return false
         }
-        
         if enteredVerificationCode == verificationCode {
             stopTimer()
+            // 성공 시 제한/에러 상태 초기화
+            resendFailureCount = 0
+            showError = false
             return true
         } else {
             showError = true
@@ -237,25 +239,39 @@ final public class SignupViewModel: ObservableObject {
         }
     }
     
+    // MARK: - Timer
     private func startTimer() {
         stopTimer()
-        timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { [weak self] _ in
-            guard let self = self else { return }
-            DispatchQueue.main.async {
+        isTimerActive = true
+
+        // 명시적으로 main runloop(common mode)에 등록
+        let t = Timer(timeInterval: 1.0, repeats: true) { [weak self] _ in
+            guard let self else { return }
+            // ✅ 타이머 콜백 → 메인 액터로 전환 후 상태 변경
+            Task { @MainActor in
                 self.timerRemaining -= 1
                 if self.timerRemaining <= 0 {
                     self.stopTimer()
                     self.showError = true
                     self.resendFailureCount += 1
+                    // 3회 도달 시 팝업
+                    if self.resendFailureCount >= 3 {
+                        self.isShowPopup = true
+                    }
                 }
             }
         }
+        timer = t
+        RunLoop.main.add(t, forMode: .common)
     }
     
     private func stopTimer() {
+        isTimerActive = false
         timer?.invalidate()
         timer = nil
     }
+
+    // MARK: - ID Validation / Dup Check
     public func validateID() -> IDValidationError? {
         let id = loginID
         let isValidLength = (6...12).contains(id.count)
@@ -263,28 +279,14 @@ final public class SignupViewModel: ObservableObject {
         let hasNumber = id.rangeOfCharacter(from: .decimalDigits) != nil
         let isAlphanumeric = hasLetter && hasNumber
 
-        // 특수문자 제거 (영문+숫자만 허용)
         let allowedCharset = CharacterSet.alphanumerics
         let containsOnlyAllowed = id.rangeOfCharacter(from: allowedCharset.inverted) == nil
 
-        // case 1: 길이 + 조합 둘 다 틀림
         if !isValidLength && (!isAlphanumeric || !containsOnlyAllowed) {
-            
             return .invalidLengthAndCombination
         }
-
-        // case 2: 길이만 틀림
-        if !isValidLength {
-            
-            return .invalidLength
-        }
-
-        // case 3: 조합만 틀림
-        if !isAlphanumeric || !containsOnlyAllowed {
-            
-            return .invalidCombination
-        }
-
+        if !isValidLength { return .invalidLength }
+        if !isAlphanumeric || !containsOnlyAllowed { return .invalidCombination }
         return nil
     }
     
@@ -310,6 +312,7 @@ final public class SignupViewModel: ObservableObject {
         }
     }
     
+    // MARK: - Interests
     func toggleInterest(_ key: String) {
         if selectedInterests.contains(key) {
             selectedInterests.remove(key)
@@ -319,93 +322,55 @@ final public class SignupViewModel: ObservableObject {
     }
     
     func submitInterests() {
-            Task {
-                do {
-                    let result = try await userUseCase.preInvestigate(industryId: myIndustry, interestIds: Array(selectedInterests))
-                    recommendedPost = result
-                    
-                    // UserInfo 업데이트 (산업과 관심사 정보 추가)
-                    if let currentUserInfo = UserInfoStore.shared.load() {
-                        let updatedUserInfo = UserInfo(
-                            id: currentUserInfo.id,
-                            loginId: currentUserInfo.loginId,
-                            phoneNumber: currentUserInfo.phoneNumber,
-                            subscribeEmail: currentUserInfo.subscribeEmail,
-                            nickname: currentUserInfo.nickname,
-                            birthYear: currentUserInfo.birthYear,
-                            gender: currentUserInfo.gender,
-                            createdAt: currentUserInfo.createdAt,
-                            industryId: Int(myIndustry),
-                            interestIds: selectedInterests.compactMap { Int($0) }
-                        )
-                        UserInfoStore.shared.save(updatedUserInfo)
-                    }
-                    
-                    goToNextStep()
-                } catch {
-                    print("전송 실패: \(error)")
+        Task {
+            do {
+                let result = try await userUseCase.preInvestigate(
+                    industryId: myIndustry,
+                    interestIds: Array(selectedInterests)
+                )
+                recommendedPost = result
+                
+                if let currentUserInfo = UserInfoStore.shared.load() {
+                    let updatedUserInfo = UserInfo(
+                        id: currentUserInfo.id,
+                        loginId: currentUserInfo.loginId,
+                        phoneNumber: currentUserInfo.phoneNumber,
+                        subscribeEmail: currentUserInfo.subscribeEmail,
+                        nickname: currentUserInfo.nickname,
+                        birthYear: currentUserInfo.birthYear,
+                        gender: currentUserInfo.gender,
+                        createdAt: currentUserInfo.createdAt,
+                        industryId: Int(myIndustry),
+                        interestIds: selectedInterests.compactMap { Int($0) }
+                    )
+                    UserInfoStore.shared.save(updatedUserInfo)
                 }
+                
+                goToNextStep()
+            } catch {
+                print("전송 실패: \(error)")
             }
         }
+    }
     
+    // MARK: - Signup
     func signup() {
-        // 필드 값 로깅
-        print("📝 [SignupViewModel] 회원가입 필드 값:")
-        print("  - loginId: '\(loginID)'")
-        print("  - password: '\(password)' (길이: \(password.count))")
-        print("  - phoneNumber: '\(phoneNumber)'")
-        print("  - nickname: '\(nickname)'")
-        print("  - birthYear: '\(birthYear)'")
-        print("  - gender: '\(gender)'")
-        
-        // 필드 정제
         let trimmedNickname = nickname.trimmingCharacters(in: .whitespacesAndNewlines)
-        let birthYearInt = Int(birthYear) ?? 0  // 기본값 0
-        
-        print("  - trimmedNickname: '\(trimmedNickname)'")
-        print("  - gender: '\(gender)'")
-        print("  - birthYearInt: \(birthYearInt)")
-        print("  - birthYear 원본: '\(birthYear)'")
-        
-        // nickname에 영문 포함 여부 확인
-        let containsEnglish = trimmedNickname.range(of: "[A-Za-z]", options: .regularExpression) != nil
-        print("  - nickname에 영문 포함: \(containsEnglish)")
-        
-        // 필드 검증
-        let fields = [
-            ("loginId", loginID),
-            ("password", password),
-            ("phoneNumber", phoneNumber),
-            ("nickname", trimmedNickname),
-            ("birthYear", birthYear),  // String으로 유지
-            ("gender", gender)
-        ]
-        
-        for (fieldName, value) in fields {
-            if let stringValue = value as? String, stringValue.isEmpty {
-                print("❌ [SignupViewModel] \(fieldName) 필드가 비어있음")
-            }
-        }
-        
-        // birthYear 검증
-        if let birthYearInt = Int(birthYear) {
-            print("✅ [SignupViewModel] birthYear 검증 성공: \(birthYearInt)")
-        } else {
-            print("❌ [SignupViewModel] birthYear 형식 오류: '\(birthYear)'")
-        }
+        _ = Int(birthYear) ?? 0
         
         Task {
             do {
-                let result = try await userUseCase.signup(loginId: loginID, password: password, phoneNumber: phoneNumber, nickname: trimmedNickname, birthYear: birthYear, gender: gender)
-                print("✅ [SignupViewModel] 회원가입 성공")
-                print("📧 [SignupViewModel] 사용자 정보:")
-                print("  - id: \(result.user.id)")
-                print("  - loginId: \(result.user.loginId)")
-                print("  - subscribeEmail: \(result.user.subscribeEmail ?? "nil")")
+                let result = try await userUseCase.signup(
+                    loginId: loginID,
+                    password: password,
+                    phoneNumber: phoneNumber,
+                    nickname: trimmedNickname,
+                    birthYear: birthYear,
+                    gender: gender
+                )
                 TokenStorage.accessToken = result.accessToken
                 user = result.user
                 
-                // UserInfo 저장
                 let userInfo = UserInfo(
                     id: result.user.id,
                     loginId: result.user.loginId,
@@ -420,8 +385,7 @@ final public class SignupViewModel: ObservableObject {
                 )
                 UserInfoStore.shared.save(userInfo)
                 
-                // 자동 로그인 처리 - 이메일 정보를 받기 위해 로그인 API 호출
-                print("🔐 [SignupViewModel] 자동 로그인 시작")
+                // 자동 로그인
                 do {
                     let (loginUser, loginToken) = try await userUseCase.login(loginId: loginID, password: password)
                     TokenStorage.accessToken = loginToken
@@ -430,7 +394,6 @@ final public class SignupViewModel: ObservableObject {
                     UserDefaults.standard.set(loginUser.nickname, forKey: "nickname")
                     UserDefaults.standard.set(loginUser.subscribeEmail ?? "", forKey: "email")
                     
-                    // UserInfo 업데이트 (로그인 응답의 완전한 정보로)
                     let updatedUserInfo = UserInfo(
                         id: loginUser.id,
                         loginId: loginUser.loginId,
@@ -444,38 +407,27 @@ final public class SignupViewModel: ObservableObject {
                         interestIds: loginUser.interests.map { $0.id }
                     )
                     UserInfoStore.shared.save(updatedUserInfo)
-                    
-                    // ViewModel의 user도 업데이트
                     self.user = loginUser
-                    
-                    print("🔐 [SignupViewModel] 자동 로그인 완료")
-                    print("📧 [SignupViewModel] 이메일 저장: \(loginUser.subscribeEmail ?? "nil")")
                 } catch {
-                    print("❌ [SignupViewModel] 자동 로그인 실패: \(error)")
-                    // 로그인 실패해도 회원가입은 성공했으므로 기본 정보로 진행
+                    // 로그인 실패해도 회원가입은 성공했으므로 최소 상태 유지
                     TokenStorage.accessToken = result.accessToken
                     UserDefaults.standard.set(true, forKey: "isLoggedIn")
                     UserDefaults.standard.set(false, forKey: "isGuest")
                     UserDefaults.standard.set(result.user.nickname, forKey: "nickname")
                 }
                 
-                // 회원가입 완료 후 다음 단계로 이동
-                await MainActor.run {
-                    goToNextStep()
-                }
+                await MainActor.run { goToNextStep() }
             } catch {
                 print("❌ [SignupViewModel] 회원가입 실패: \(error)")
-                print("❌ [SignupViewModel] 에러 상세: \(error.localizedDescription)")
+                print("❌ 상세: \(error.localizedDescription)")
             }
         }
     }
     
     // MARK: - 초기화 메서드
     public func reset() {
-        print("🔄 [SignupViewModel] 상태 초기화")
         currentStep = .phoneVerification
         
-        // 폼 데이터 초기화
         phoneNumber = ""
         enteredVerificationCode = ""
         verificationCode = ""
@@ -488,22 +440,18 @@ final public class SignupViewModel: ObservableObject {
         birthYear = ""
         gender = ""
         
-        // 상태 초기화
         user = nil
         recommendedPost = []
         selectedInterests.removeAll()
         myIndustry = ""
         
-        // 에러 상태 초기화
         errorMessage = nil
         showError = false
         isLoading = false
         isRequestSent = false
         timerRemaining = 180
+        isShowPopup = false
         
-        // 타이머 정리
         stopTimer()
     }
-    
-    
 }

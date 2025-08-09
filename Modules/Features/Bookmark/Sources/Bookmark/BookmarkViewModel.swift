@@ -54,11 +54,11 @@ public class BookmarkViewModel: ObservableObject, BookmarkViewModelBindable {
     }
     
     func fetchUserInterests() async  {
-        Task {
-            do {
-                let response = try await useCase.fetchBookmarkedInterests()
-                interests = response
-            }
+        do {
+            let response = try await useCase.fetchBookmarkedInterests()
+            interests = response
+        } catch {
+            print("관심사 불러오기 실패: \(error)")
         }
     }
     

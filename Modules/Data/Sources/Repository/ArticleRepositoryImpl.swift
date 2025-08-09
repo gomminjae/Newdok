@@ -41,8 +41,9 @@ public class ArticleRepositoryImpl: ArticleRepository {
     }
     
     public func fetchBookmarkedInterest() async throws -> [Domain.Interest] {
-        let response: [InterestDTO] = try await provider.asyncRequest(.fetchBookmarkedInterest)
-        return response.map { $0.toDomain() }
+        struct InterestListResponse: Decodable { let data: [InterestDTO] }
+        let response: InterestListResponse = try await provider.asyncRequest(.fetchBookmarkedInterest)
+        return response.data.map { $0.toDomain() }
     }
     
     public func fetchArticleDetail(id: String) async throws -> Domain.ArticleDetail {

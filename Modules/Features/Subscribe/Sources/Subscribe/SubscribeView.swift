@@ -105,7 +105,6 @@ public struct SubscribeView: View {
                         EmptySubscriptionView(isSubscribedTab: selectedTab == 0, isGuest: isGuest)
                             .frame(maxWidth: .infinity, maxHeight: .infinity)
                     } else {
-                        // ✅ 리프레시 중에도 목록은 유지
                         VStack(alignment: .leading, spacing: 0) {
                             listHeaderView()
                                 .padding(.horizontal, 20)

@@ -283,16 +283,18 @@ public class MypageViewModel: ObservableObject {
             isShowPopup = true
             return
         }
-        
+
+        defer { resendFailureCount += 1 }
+
         do {
             let response = try await useCase.authSMS(phoneNumber: phoneNumber)
             verificationCode = String(response.code)
             isRequestSent = true
-            
+
             // 타이머 시작
             timerRemaining = 180 // 3분 = 180초
             startTimer()
-            
+
             print("✅ [MypageViewModel] 인증번호 전송 성공, 타이머 시작")
         } catch {
             print("❌ [MypageViewModel] 인증번호 전송 실패: \(error)")
@@ -325,7 +327,6 @@ public class MypageViewModel: ObservableObject {
                 if self.timerRemaining <= 0 {
                     self.stopTimer()
                     self.showError = true
-                    self.resendFailureCount += 1
                 }
             }
         }

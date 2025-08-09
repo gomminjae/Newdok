@@ -185,7 +185,7 @@ public struct CalendarPopupView: View {
         let days = generateDays()
         return VStack(spacing: 10) {
             ForEach(0..<(days.count / 7), id: \.self) { weekIndex in
-                HStack(spacing: 0) {  // ✅ spacing: 0 로 간격 제거
+                HStack(spacing: 0) {
                     ForEach(0..<7, id: \.self) { dayIndex in
                         let day = days[weekIndex * 7 + dayIndex]
                         let isFuture = calendar.startOfDay(for: day.date) > today
@@ -197,8 +197,8 @@ public struct CalendarPopupView: View {
                         VStack(spacing: 4) {
                             Text(day.dayString)
                                 .font(.hanSansNeo(16, .regular))
-                                .frame(maxWidth: .infinity, maxHeight: 40) // ✅ 가로 flex
-                                .aspectRatio(1, contentMode: .fit) // ✅ 정사각형 셀 유지
+                                .frame(maxWidth: .infinity, maxHeight: 40)
+                                .aspectRatio(1, contentMode: .fit)
                                 .foregroundColor(
                                     isFuture ? Color(hex: "#C0C0C0") :
                                     (isToday ? .white :

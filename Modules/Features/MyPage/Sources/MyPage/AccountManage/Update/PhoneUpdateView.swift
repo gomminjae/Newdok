@@ -8,6 +8,7 @@ import SwiftUI
 import Combine
 import DesignSystem
 import Shared
+import PopupView
 
 
 
@@ -166,11 +167,11 @@ public struct PhoneUpdateView: View {
                         .font(.hanSansNeo(14, .bold))
                         .frame(height: 48)
                         .frame(maxWidth: .infinity)
-                        .background(viewModel.enteredVerificationCode.count < 6 ? Color.lineNeutral : Color.primaryNormal)
+                        .background((viewModel.enteredVerificationCode.count < 6 || viewModel.timerRemaining <= 0) ? Color.lineNeutral : Color.primaryNormal)
                         .foregroundColor(.white)
                         .cornerRadius(4)
                 }
-                .disabled(viewModel.enteredVerificationCode.count < 6)
+                .disabled(viewModel.enteredVerificationCode.count < 6 || viewModel.timerRemaining <= 0)
                 .padding(.horizontal, 24)
                 .padding(.bottom, 20)
                 .contentShape(Rectangle())
@@ -182,6 +183,19 @@ public struct PhoneUpdateView: View {
             if success {
                 router.pop()
             }
+        }
+        .popup(isPresented: $viewModel.isShowPopup) {
+            AuthFailView(onClose: {
+                viewModel.isShowPopup = false
+                router.pop()
+            })
+        } customize: {
+            $0
+                .type(.default)
+                .position(.center)
+                .animation(.easeInOut)
+                .closeOnTapOutside(false)
+                .backgroundColor(Color(hex: "#25242C").opacity(0.6))
         }
 
     }

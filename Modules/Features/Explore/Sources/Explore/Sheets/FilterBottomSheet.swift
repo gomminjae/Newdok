@@ -127,7 +127,6 @@ struct FilterBottomSheet: View {
         .presentationDragIndicator(.visible)
     }
 
-    // ✅ 선택/해제 토글 함수
     private func toggleSelection(_ selection: inout [Int]?, value: Int) {
         if selection?.contains(value) == true {
             selection?.removeAll(where: { $0 == value })

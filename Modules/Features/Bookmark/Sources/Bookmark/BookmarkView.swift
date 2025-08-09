@@ -162,6 +162,11 @@ public struct BookmarkView: View {
                 }
             }
         }
+        .onChange(of: isGuest) { _, newValue in
+            if newValue == false {
+                Task { await viewModel.fetchUserInterests() }
+            }
+        }
     }
     
     private func headerView() -> some View {
@@ -192,7 +197,7 @@ public struct BookmarkView: View {
 
         return ScrollView(.horizontal, showsIndicators: false) {
             HStack(spacing: 4) {
-                ForEach(sortedCategories, id: \.1) { (id, name) in
+                ForEach(sortedCategories, id: \.0) { (id, name) in
                     Button(action: {
                         withAnimation(.easeInOut(duration: 0.2)) {
                             selectedCategory = name
