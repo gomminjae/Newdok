@@ -108,7 +108,7 @@ public struct BookmarkView: View {
             categoryFilter
             sortInfo
             
-                            PullToRefreshView(
+            PullToRefreshView(
                     content: {
                         VStack(spacing: 0) {
                             if isGuest {
@@ -116,12 +116,11 @@ public struct BookmarkView: View {
                                     router.push(.login)
                                 })
                                     .frame(maxWidth: .infinity, maxHeight: .infinity)
-                            }
-                            else if viewModel.bookmarks?.totalAmount == 0 {
+                            } else if viewModel.bookmarks?.totalAmount == 0 {
                                 BookmarkEmptyView()
                                     .frame(maxWidth: .infinity, maxHeight: .infinity)
                             } else {
-                                VStack(alignment: .leading, spacing: 0) {
+                                LazyVStack(alignment: .leading, spacing: 0) {
                                     ForEach(Array((viewModel.sortedBookmarks?.bookmarkForMonth ?? []).enumerated()), id: \.1.id) { index, monthly in
                                         section(month: monthly.month, articles: monthly.bookmark)
                                             .padding(.top, index == 0 ? 0 : 32)
@@ -156,17 +155,15 @@ public struct BookmarkView: View {
         }
         .onAppear {
             if !isGuest {
-                Task {
-                    await viewModel.fetchUserInterests()
-                    await viewModel.fetchUserBookmarks()
-                }
+                viewModel.loadInitial()
             }
         }
         .onChange(of: isGuest) { _, newValue in
             if newValue == false {
-                Task { await viewModel.fetchUserInterests() }
+                viewModel.loadInitial()
             }
         }
+        .onDisappear { viewModel.cancelLoads() }
     }
     
     private func headerView() -> some View {

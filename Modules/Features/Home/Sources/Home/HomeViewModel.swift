@@ -79,6 +79,8 @@ public final class HomeViewModel: ObservableObject {
     @Published public var isLoadingMonth: Bool = false
     private var latestRequestKey: String = ""
     private var loadingTasks: [String: Task<Void, Never>] = [:]
+    // 홈 백그라운드 워밍업 루트 태스크 (탭 전환 시 일괄 취소)
+    private var warmupRootTask: Task<Void, Never>?
     
     // 캐시 업데이트 시 현재 표시 중인 월 확인
     private func checkAndUpdateCurrentMonth() {
@@ -135,6 +137,14 @@ public final class HomeViewModel: ObservableObject {
             dataDaysByMonthCache[currentMonthKey] = newDataDays
         }
         print("📅 [HomeViewModel] dataDays UI 업데이트 완료: \(self.dataDays.sorted())")
+    }
+
+    private func applyDotsIfMatches(key: String, days: Set<Int>) {
+        let currentKey = "\(formatYear(displayedMonth))-\(formatMonth(displayedMonth))"
+        if currentKey == key {
+            self.dataDays = days
+            self.calendarState.updateDataDays(days)
+        }
     }
 
     public func selectDate(_ day: Int) {
@@ -235,32 +245,36 @@ public final class HomeViewModel: ObservableObject {
                     self.isLoaded = true
                 }
             }
-            // 3단계: 올해 + 작년 데이터 동시 백그라운드 캐싱
-            Task.detached(priority: .background) { [weak self] in
-                // 초기 화면 안정화 시간을 조금 부여
-                try? await Task.sleep(nanoseconds: 300_000_000)
-                
-                // 올해 데이터 로드
-                await self?.warmupYearCache(for: today)
-                
-                // 올해 데이터 로드 완료 후 바로 작년 데이터 로드
-                let lastYear = Calendar.current.component(.year, from: today) - 1
-                await self?.warmupYearCache(year: lastYear, targetMonth: 12)
-            }
-            
-            // 4단계: 작년 데이터 빠른 로드 (사용자 경험 우선)
-            Task.detached(priority: .userInitiated) { [weak self] in
-                // 더 빠른 작년 데이터 로드
-                try? await Task.sleep(nanoseconds: 200_000_000) // 0.2초만 대기
-                let lastYear = Calendar.current.component(.year, from: today) - 1
-                await self?.warmupYearCache(year: lastYear, targetMonth: 12)
-            }
+            // 백그라운드 캐싱 시작 (단일 루트 태스크로 관리)
+            startWarmup(for: today)
         } catch {
             print("today fetch error: \(error)")
             await MainActor.run {
                 self.isLoaded = true
             }
         }
+    }
+
+    // MARK: - 워밍업 제어
+    public func startWarmup(for date: Date) {
+        // 기존 워밍업 취소 후 시작
+        warmupRootTask?.cancel()
+        warmupRootTask = Task.detached(priority: .background) { [weak self] in
+            guard let self else { return }
+            if Task.isCancelled { return }
+            // 약간의 안정화 시간 부여
+            try? await Task.sleep(nanoseconds: 100_000_000)
+            if Task.isCancelled { return }
+            await self.warmupYearCache(for: date)
+            if Task.isCancelled { return }
+            let lastYear = Calendar.current.component(.year, from: date) - 1
+            await self.warmupYearCache(year: lastYear, targetMonth: 12)
+        }
+    }
+
+    public func cancelWarmups() {
+        warmupRootTask?.cancel()
+        warmupRootTask = nil
     }
 
     // 인증 상태 변경(로그아웃/다른 계정 로그인) 시 홈 상태 초기화
@@ -305,43 +319,47 @@ public final class HomeViewModel: ObservableObject {
         warmedYears.insert(year)
         print("🔥 [HomeViewModel] Task Group 워밍업 시작: \(year)년 1..\(currentMonth)월")
         
-        // Swift 6: Task Group을 활용한 동시 실행
-        await withTaskGroup(of: (String, Result<[Articles], Error>).self) { group in
-            for month in 1...currentMonth {
-                let monthStr = String(format: "%02d", month)
-                let key = "\(year)-\(monthStr)"
-                
-                // 이미 캐시되어 있으면 스킵
-                if monthlyCache[key] != nil { 
-                    print("🔥 [HomeViewModel] 이미 캐시됨: \(key)")
-                    continue 
-                }
-                
-                group.addTask {
-                    print("🔥 [HomeViewModel] Task 시작: \(key)")
-                    do {
-                        let monthly = try await self.useCase.fetchMonthlyData(year: String(year), month: monthStr)
-                        print("🔥 [HomeViewModel] Task 완료: \(key), 아티클 수: \(monthly.count)")
-                        return (key, Result.success(monthly))
-                    } catch {
-                        print("⚠️ [HomeViewModel] Task 실패: \(key), error=\(error)")
-                        return (key, Result.failure(error))
+        // 월 작업을 3개씩 배치 처리하여 동시성 제한
+        let months = Array(1...currentMonth)
+        let chunkSize = 3
+        for start in stride(from: 0, to: months.count, by: chunkSize) {
+            if Task.isCancelled { return }
+            let end = min(start + chunkSize, months.count)
+            let chunk = months[start..<end]
+            await withTaskGroup(of: (String, Result<[Articles], Error>).self) { group in
+                for month in chunk {
+                    let monthStr = String(format: "%02d", month)
+                    let key = "\(year)-\(monthStr)"
+                    if monthlyCache[key] != nil { 
+                        print("🔥 [HomeViewModel] 이미 캐시됨: \(key)")
+                        continue 
+                    }
+                    group.addTask {
+                        if Task.isCancelled { return (key, Result.failure(CancellationError())) }
+                        print("🔥 [HomeViewModel] Task 시작: \(key)")
+                        do {
+                            let monthly = try await self.useCase.fetchMonthlyData(year: String(year), month: monthStr)
+                            print("🔥 [HomeViewModel] Task 완료: \(key), 아티클 수: \(monthly.count)")
+                            return (key, Result.success(monthly))
+                        } catch {
+                            print("⚠️ [HomeViewModel] Task 실패: \(key), error=\(error)")
+                            return (key, Result.failure(error))
+                        }
                     }
                 }
-            }
-            
-            // 결과 수집 및 캐시 저장
-            for await (key, result) in group {
-                switch result {
-                case .success(let monthly):
-                    await MainActor.run {
-                        self.monthlyCache[key] = monthly
-                        let days = Set(monthly.filter { !$0.receivedArticleList.isEmpty }.map { $0.publishDate })
-                        self.dataDaysByMonthCache[key] = days
-                        print("🔥 [HomeViewModel] Task Group 캐시 저장: \(key), days=\(days.sorted())")
+                for await (key, result) in group {
+                    switch result {
+                    case .success(let monthly):
+                        await MainActor.run {
+                            self.monthlyCache[key] = monthly
+                            let days = Set(monthly.filter { !$0.receivedArticleList.isEmpty }.map { $0.publishDate })
+                            self.dataDaysByMonthCache[key] = days
+                            print("🔥 [HomeViewModel] Task Group 캐시 저장: \(key), days=\(days.sorted())")
+                            self.applyDotsIfMatches(key: key, days: days)
+                        }
+                    case .failure(let error):
+                        print("⚠️ [HomeViewModel] Task Group 캐시 저장 실패: \(key), error=\(error)")
                     }
-                case .failure(let error):
-                    print("⚠️ [HomeViewModel] Task Group 캐시 저장 실패: \(key), error=\(error)")
                 }
             }
         }
@@ -363,53 +381,55 @@ public final class HomeViewModel: ObservableObject {
         
         print("🔥 [HomeViewModel] 지정 연도 Task Group 워밍업 시작: \(year)년 1..\(months)월 (작년: \(isPastYear))")
         
-        // Swift 6: Task Group을 활용한 동시 실행
-        await withTaskGroup(of: (String, Result<[Articles], Error>).self) { group in
-            for month in 1...months {
-                let monthStr = String(format: "%02d", month)
-                let key = "\(year)-\(monthStr)"
-                
-                // 이미 캐시되어 있으면 스킵
-                if monthlyCache[key] != nil { 
-                    print("🔥 [HomeViewModel] 이미 캐시됨: \(key)")
-                    continue 
-                }
-                
-                group.addTask {
-                    print("🔥 [HomeViewModel] 지정 연도 Task 시작: \(key)")
-                    do {
-                        let monthly = try await self.useCase.fetchMonthlyData(year: String(year), month: monthStr)
-                        print("🔥 [HomeViewModel] 지정 연도 Task 완료: \(key), 아티클 수: \(monthly.count)")
-                        return (key, Result.success(monthly))
-                    } catch {
-                        print("⚠️ [HomeViewModel] 지정 연도 Task 실패: \(key), error=\(error)")
-                        return (key, Result.failure(error))
+        // 월 작업을 3개씩 배치 처리하여 동시성 제한
+        let monthList = Array(1...months)
+        let chunkSize = 3
+        for start in stride(from: 0, to: monthList.count, by: chunkSize) {
+            if Task.isCancelled { return }
+            let end = min(start + chunkSize, monthList.count)
+            let chunk = monthList[start..<end]
+            await withTaskGroup(of: (String, Result<[Articles], Error>).self) { group in
+                for month in chunk {
+                    let monthStr = String(format: "%02d", month)
+                    let key = "\(year)-\(monthStr)"
+                    if monthlyCache[key] != nil { 
+                        print("🔥 [HomeViewModel] 이미 캐시됨: \(key)")
+                        continue 
                     }
-                }
-            }
-            
-            // 결과 수집 및 캐시 저장
-            for await (key, result) in group {
-                switch result {
-                case .success(let monthly):
-                    await MainActor.run {
-                        self.monthlyCache[key] = monthly
-                        let days = Set(monthly.filter { !$0.receivedArticleList.isEmpty }.map { $0.publishDate })
-                        self.dataDaysByMonthCache[key] = days
-                        print("🔥 [HomeViewModel] 지정 연도 Task Group 캐시 저장: \(key), days=\(days.sorted())")
-                        
-                        // 작년 데이터인 경우 현재 표시 중인 월과 비교하여 즉시 업데이트
-                        if isPastYear {
-                            let currentKey = "\(formatYear(self.displayedMonth))-\(formatMonth(self.displayedMonth))"
-                            if currentKey == key {
-                                self.dataDays = days
-                                self.calendarState.updateDataDays(days)
-                                print("📅 [HomeViewModel] 작년 데이터 즉시 UI 업데이트: \(key), days=\(days.sorted())")
-                            }
+                    group.addTask {
+                        if Task.isCancelled { return (key, Result.failure(CancellationError())) }
+                        print("🔥 [HomeViewModel] 지정 연도 Task 시작: \(key)")
+                        do {
+                            let monthly = try await self.useCase.fetchMonthlyData(year: String(year), month: monthStr)
+                            print("🔥 [HomeViewModel] 지정 연도 Task 완료: \(key), 아티클 수: \(monthly.count)")
+                            return (key, Result.success(monthly))
+                        } catch {
+                            print("⚠️ [HomeViewModel] 지정 연도 Task 실패: \(key), error=\(error)")
+                            return (key, Result.failure(error))
                         }
                     }
-                case .failure(let error):
-                    print("⚠️ [HomeViewModel] 지정 연도 Task Group 캐시 저장 실패: \(key), error=\(error)")
+                }
+                for await (key, result) in group {
+                    switch result {
+                    case .success(let monthly):
+                        await MainActor.run {
+                            self.monthlyCache[key] = monthly
+                            let days = Set(monthly.filter { !$0.receivedArticleList.isEmpty }.map { $0.publishDate })
+                            self.dataDaysByMonthCache[key] = days
+                            print("🔥 [HomeViewModel] 지정 연도 Task Group 캐시 저장: \(key), days=\(days.sorted())")
+                            if isPastYear {
+                                let currentKey = "\(formatYear(self.displayedMonth))-\(formatMonth(self.displayedMonth))"
+                                if currentKey == key {
+                                    self.dataDays = days
+                                    self.calendarState.updateDataDays(days)
+                                    print("📅 [HomeViewModel] 작년 데이터 즉시 UI 업데이트: \(key), days=\(days.sorted())")
+                                }
+                            }
+                            self.applyDotsIfMatches(key: key, days: days)
+                        }
+                    case .failure(let error):
+                        print("⚠️ [HomeViewModel] 지정 연도 Task Group 캐시 저장 실패: \(key), error=\(error)")
+                    }
                 }
             }
         }
