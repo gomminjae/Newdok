@@ -57,6 +57,8 @@ public struct NewDokTabView: View {
         self.exploreSelectedTab = exploreSelectedTab
     }
     
+    @AppStorage("userId") private var userId: Int = 0
+
     public var body: some View {
         ZStack(alignment: .bottom) {
             TabView(selection: $tabSelection.selectedTab) {
@@ -74,6 +76,7 @@ public struct NewDokTabView: View {
                     .tag(NewDokTab.profile)
             }
             .edgesIgnoringSafeArea(.bottom)
+            .id(userId == 0 ? "guest" : "user_\(userId)")
             .onChange(of: tabSelection.selectedTab) { _, newTab in
                 if isGuest && newTab == .profile {
                     tabSelection.selectedTab = .home

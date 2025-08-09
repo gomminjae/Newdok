@@ -106,6 +106,12 @@ public struct HomeView: View {
                     Task { await viewModel.refreshCurrentData() }
                 }
             }
+            .onChange(of: isGuest) { _, newValue in
+                viewModel.resetForAuthChange()
+                if newValue == false {
+                    Task { await viewModel.loadToday() }
+                }
+            }
 
         }
 

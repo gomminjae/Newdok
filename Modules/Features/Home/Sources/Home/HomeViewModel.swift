@@ -262,6 +262,35 @@ public final class HomeViewModel: ObservableObject {
             }
         }
     }
+
+    // 인증 상태 변경(로그아웃/다른 계정 로그인) 시 홈 상태 초기화
+    public func resetForAuthChange() {
+        // 진행 중 태스크 취소 및 정리
+        for (_, task) in loadingTasks { task.cancel() }
+        loadingTasks.removeAll()
+        latestRequestKey = ""
+
+        // 캐시/워밍업 상태 초기화
+        isWarmingCache = false
+        warmedYears.removeAll()
+        monthlyCache.removeAll()
+        dataDaysByMonthCache.removeAll()
+
+        // 데이터/UI 상태 초기화
+        articlesByMonth = []
+        filteredArticles = []
+        subscribedNewsletters = []
+        dataDays = []
+        currentMonthKey = ""
+        isLoadingMonth = false
+        calendarState.isLoading = false
+        isLoaded = false
+
+        // 캘린더 기본값으로 재설정
+        let today = Date()
+        calendarState.selectedDate = today
+        calendarState.displayedMonth = Calendar.current.date(from: Calendar.current.dateComponents([.year, .month], from: today)) ?? today
+    }
     
     // Swift 6 Task Group을 활용한 동시성 워밍업
     private func warmupYearCache(for date: Date) async {
