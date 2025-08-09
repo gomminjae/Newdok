@@ -16,6 +16,7 @@ public struct LoadingView: View {
         HStack(spacing: 4) {
             ForEach(0..<5, id: \.self) { _ in
                 GIFImageView(gifName: "load")
+                    .frame(width: 50, height: 50)
                     
             }
         }

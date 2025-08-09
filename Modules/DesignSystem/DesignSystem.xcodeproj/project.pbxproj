@@ -40,7 +40,6 @@
 		A202EC13E48DCA48C5318D26 /* PopupView.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B6654808CA89C3FC25B33948 /* PopupView.framework */; };
 		ABB14811E13F7B1ECCF8B086 /* TuistAssets+DesignSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5263BC75B281154AC0B5A7B /* TuistAssets+DesignSystem.swift */; };
 		B574B6932E46DC73001B4E06 /* EmailInfoModalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B574B6922E46DC73001B4E06 /* EmailInfoModalView.swift */; };
-		B574B6972E46E199001B4E06 /* EditAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B574B6962E46E199001B4E06 /* EditAlertView.swift */; };
 		BC4360B914A0E6C10A4A851E /* CheckSubscribeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CF8A496C7E691DCF3A7C603 /* CheckSubscribeView.swift */; };
 		BDD988384DEC9A8C4E1B5F71 /* PullToRefreshView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 480127A043369072FC6A4A0E /* PullToRefreshView.swift */; };
 		C76B2F629431891F99DAB0A3 /* load.gif in Resources */ = {isa = PBXBuildFile; fileRef = 48854A6B16F3CFBA5DA0F0AD /* load.gif */; };
@@ -108,7 +107,6 @@
 		A5263BC75B281154AC0B5A7B /* TuistAssets+DesignSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TuistAssets+DesignSystem.swift"; sourceTree = "<group>"; };
 		B4A5ED9678398324570CCA4F /* TuistLottie+DesignSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TuistLottie+DesignSystem.swift"; sourceTree = "<group>"; };
 		B574B6922E46DC73001B4E06 /* EmailInfoModalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailInfoModalView.swift; sourceTree = "<group>"; };
-		B574B6962E46E199001B4E06 /* EditAlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditAlertView.swift; sourceTree = "<group>"; };
 		B6654808CA89C3FC25B33948 /* PopupView.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = PopupView.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BDF5531123A3004A8540D621 /* NotRegisteredIdPopupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotRegisteredIdPopupView.swift; sourceTree = "<group>"; };
 		BE4AD9735556ECA8C8008FEC /* TuistBundle+DesignSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TuistBundle+DesignSystem.swift"; sourceTree = "<group>"; };
@@ -186,7 +184,6 @@
 		1D7DAFC035EC8A7E2AAE52AE /* Component */ = {
 			isa = PBXGroup;
 			children = (
-				B574B6962E46E199001B4E06 /* EditAlertView.swift */,
 				4B7519630D4BA8D550F1D471 /* BirthYearPickerView.swift */,
 				743901F00E06BB210FBD1E5B /* CalendarPopupView.swift */,
 				1A381D7F2C70367E5C3D8005 /* CustomSegmentedSlider.swift */,
@@ -463,7 +460,6 @@
 				72415CF40FB9EA2BE53157FD /* Font.swift in Sources */,
 				D077CFC5DD281F26BDA2376F /* AuthFailView.swift in Sources */,
 				BC4360B914A0E6C10A4A851E /* CheckSubscribeView.swift in Sources */,
-				B574B6972E46E199001B4E06 /* EditAlertView.swift in Sources */,
 				574EA4DB241751A576797002 /* NotRegisteredIdPopupView.swift in Sources */,
 				1A358594D74B1F60E1BF9612 /* SubscribeCheckPopupView.swift in Sources */,
 				68B44B93AD7ED2B47CD71A4A /* SubscribeGuestAlertView.swift in Sources */,

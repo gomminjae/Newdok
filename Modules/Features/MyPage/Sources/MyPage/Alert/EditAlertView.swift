@@ -98,7 +98,7 @@ public struct EditAlertView: View {
                     Color(hex: "#F5F5F7"),
                     in: RoundedRectangle(cornerRadius: 12, style: .continuous)
                 )
-                .padding(.bottom, 208) 
+                .padding(.bottom, 208)
             }
             .frame(maxWidth: .infinity, alignment: .topLeading)
             .padding(.horizontal, 24)
