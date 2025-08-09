@@ -174,4 +174,8 @@ final class AppCoordinator {
         return TermsMenuView().environmentObject(router)
     }
     
+    func makeEditAlert() -> some View {
+        return EditAlertView().environmentObject(router)
+    }
+    
 }

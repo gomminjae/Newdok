@@ -14,6 +14,7 @@
 		13DF60422EC2F2B2EBA47DB5 /* SpoqaHanSansNeo-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 56DFA51B1676775D07DC3DD2 /* SpoqaHanSansNeo-Regular.otf */; };
 		156419437DCB12B7D3568717 /* _LottieStub.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E83FB3D05729C6408D617220 /* _LottieStub.framework */; };
 		1A358594D74B1F60E1BF9612 /* SubscribeCheckPopupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 470F5079EDDB033641E50DED /* SubscribeCheckPopupView.swift */; };
+		1F4CB60213AC30949511BBE1 /* SwiftUIIntrospect.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 168518071DBADAF114CEBE27 /* SwiftUIIntrospect.framework */; };
 		1FA24D3FDDFF21AFE5CFC0D9 /* NetworkErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43927DC076C8D16C0564FAD5 /* NetworkErrorView.swift */; };
 		235CB81F1A6A330AADE6BEFA /* ptr.lottie in Resources */ = {isa = PBXBuildFile; fileRef = 45320748B2FE9321CE465FDF /* ptr.lottie */; };
 		2C2A6F1B0843699ACFE53D23 /* TuistFonts+DesignSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1489E7809DA4DADA471C2CDC /* TuistFonts+DesignSystem.swift */; };
@@ -36,7 +37,10 @@
 		90D6A5AEB9B8DACDEBE64A29 /* SystemErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE683B09BDE84B3483EE6137 /* SystemErrorView.swift */; };
 		963BD2E45D7172CE4BF69364 /* VerificationButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DEFF305135085B93F19593 /* VerificationButtonStyle.swift */; };
 		99AD012E16AE91B0DA8273E7 /* SpoqaHanSansNeo-Thin.otf in Resources */ = {isa = PBXBuildFile; fileRef = 1EAA4A417D2996F4DF2DED40 /* SpoqaHanSansNeo-Thin.otf */; };
+		A202EC13E48DCA48C5318D26 /* PopupView.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B6654808CA89C3FC25B33948 /* PopupView.framework */; };
 		ABB14811E13F7B1ECCF8B086 /* TuistAssets+DesignSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5263BC75B281154AC0B5A7B /* TuistAssets+DesignSystem.swift */; };
+		B574B6932E46DC73001B4E06 /* EmailInfoModalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B574B6922E46DC73001B4E06 /* EmailInfoModalView.swift */; };
+		B574B6972E46E199001B4E06 /* EditAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B574B6962E46E199001B4E06 /* EditAlertView.swift */; };
 		BC4360B914A0E6C10A4A851E /* CheckSubscribeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CF8A496C7E691DCF3A7C603 /* CheckSubscribeView.swift */; };
 		BDD988384DEC9A8C4E1B5F71 /* PullToRefreshView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 480127A043369072FC6A4A0E /* PullToRefreshView.swift */; };
 		C76B2F629431891F99DAB0A3 /* load.gif in Resources */ = {isa = PBXBuildFile; fileRef = 48854A6B16F3CFBA5DA0F0AD /* load.gif */; };
@@ -74,6 +78,7 @@
 		0B4CDA86843A89A3AD229E60 /* CustomTextFieldModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextFieldModifier.swift; sourceTree = "<group>"; };
 		1489E7809DA4DADA471C2CDC /* TuistFonts+DesignSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TuistFonts+DesignSystem.swift"; sourceTree = "<group>"; };
 		1516FE4B1E4C70074B90CC52 /* ToastView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastView.swift; sourceTree = "<group>"; };
+		168518071DBADAF114CEBE27 /* SwiftUIIntrospect.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SwiftUIIntrospect.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		1A381D7F2C70367E5C3D8005 /* CustomSegmentedSlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSegmentedSlider.swift; sourceTree = "<group>"; };
 		1CFCDF29DFB293A9C3F9D6D9 /* SpoqaHanSansNeo-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SpoqaHanSansNeo-Bold.otf"; sourceTree = "<group>"; };
 		1EAA4A417D2996F4DF2DED40 /* SpoqaHanSansNeo-Thin.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SpoqaHanSansNeo-Thin.otf"; sourceTree = "<group>"; };
@@ -102,6 +107,9 @@
 		A3CC877F7AECA4386F75D208 /* LoginErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginErrorView.swift; sourceTree = "<group>"; };
 		A5263BC75B281154AC0B5A7B /* TuistAssets+DesignSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TuistAssets+DesignSystem.swift"; sourceTree = "<group>"; };
 		B4A5ED9678398324570CCA4F /* TuistLottie+DesignSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TuistLottie+DesignSystem.swift"; sourceTree = "<group>"; };
+		B574B6922E46DC73001B4E06 /* EmailInfoModalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailInfoModalView.swift; sourceTree = "<group>"; };
+		B574B6962E46E199001B4E06 /* EditAlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditAlertView.swift; sourceTree = "<group>"; };
+		B6654808CA89C3FC25B33948 /* PopupView.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = PopupView.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BDF5531123A3004A8540D621 /* NotRegisteredIdPopupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotRegisteredIdPopupView.swift; sourceTree = "<group>"; };
 		BE4AD9735556ECA8C8008FEC /* TuistBundle+DesignSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TuistBundle+DesignSystem.swift"; sourceTree = "<group>"; };
 		BFD516035027585AFC53F053 /* ColorPalette.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorPalette.swift; sourceTree = "<group>"; };
@@ -122,8 +130,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A202EC13E48DCA48C5318D26 /* PopupView.framework in Frameworks */,
 				08F42EAD70342095163AEA8E /* SDWebImage.framework in Frameworks */,
 				02CC97ABFD780062F1EB4548 /* Shared.framework in Frameworks */,
+				1F4CB60213AC30949511BBE1 /* SwiftUIIntrospect.framework in Frameworks */,
 				156419437DCB12B7D3568717 /* _LottieStub.framework in Frameworks */,
 				54A924B531517CC6DEB9D62E /* Lottie.xcframework in Frameworks */,
 			);
@@ -159,6 +169,7 @@
 		19EDB96E44056176A3F928A5 /* Popup */ = {
 			isa = PBXGroup;
 			children = (
+				B574B6922E46DC73001B4E06 /* EmailInfoModalView.swift */,
 				3F575F6FB6F93C8635F2B0A7 /* System */,
 				41950894E4E9C8FF11201792 /* AuthFailView.swift */,
 				9CF8A496C7E691DCF3A7C603 /* CheckSubscribeView.swift */,
@@ -175,6 +186,7 @@
 		1D7DAFC035EC8A7E2AAE52AE /* Component */ = {
 			isa = PBXGroup;
 			children = (
+				B574B6962E46E199001B4E06 /* EditAlertView.swift */,
 				4B7519630D4BA8D550F1D471 /* BirthYearPickerView.swift */,
 				743901F00E06BB210FBD1E5B /* CalendarPopupView.swift */,
 				1A381D7F2C70367E5C3D8005 /* CustomSegmentedSlider.swift */,
@@ -230,8 +242,10 @@
 			children = (
 				E83FB3D05729C6408D617220 /* _LottieStub.framework */,
 				69B7BBEAD5472C7195924AC8 /* DesignSystem.framework */,
+				B6654808CA89C3FC25B33948 /* PopupView.framework */,
 				CAC3D6C4B33E5AB73921E3EA /* SDWebImage.framework */,
 				56A7772AA0518B04428BE5C5 /* Shared.framework */,
+				168518071DBADAF114CEBE27 /* SwiftUIIntrospect.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -439,6 +453,7 @@
 				EA14ADB3FF1DCA11D8B9D962 /* ColorPalette.swift in Sources */,
 				EBF8A05ADDF1FF48833C370E /* BirthYearPickerView.swift in Sources */,
 				D748D56D7CAC703E51B32DD4 /* CalendarPopupView.swift in Sources */,
+				B574B6932E46DC73001B4E06 /* EmailInfoModalView.swift in Sources */,
 				81691FB03997BD9E75987B6E /* CustomSegmentedSlider.swift in Sources */,
 				3C49F77F8ACF1FC3BD37A181 /* LoadingView.swift in Sources */,
 				70C7D51B82F95045C9DDF2D0 /* LottieView.swift in Sources */,
@@ -448,6 +463,7 @@
 				72415CF40FB9EA2BE53157FD /* Font.swift in Sources */,
 				D077CFC5DD281F26BDA2376F /* AuthFailView.swift in Sources */,
 				BC4360B914A0E6C10A4A851E /* CheckSubscribeView.swift in Sources */,
+				B574B6972E46E199001B4E06 /* EditAlertView.swift in Sources */,
 				574EA4DB241751A576797002 /* NotRegisteredIdPopupView.swift in Sources */,
 				1A358594D74B1F60E1BF9612 /* SubscribeCheckPopupView.swift in Sources */,
 				68B44B93AD7ED2B47CD71A4A /* SubscribeGuestAlertView.swift in Sources */,

@@ -91,7 +91,7 @@ public struct AgreeView: View {
                     .presentationDragIndicator(.visible)
             }
         }
-        .onChange(of: showSheet) { isPresented in
+        .onChange(of: showSheet) { _, isPresented in
             if !isPresented {
                 // 시트가 닫힐 때 해당 약관 체크
                 if let type = sheetType {

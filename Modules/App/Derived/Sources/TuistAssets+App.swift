@@ -21,10 +21,6 @@
 
 // swiftlint:disable identifier_name line_length nesting type_body_length type_name
 public enum AppAsset: Sendable {
-  public enum Assets {
-  }
-  public enum PreviewAssets {
-  }
 }
 // swiftlint:enable identifier_name line_length nesting type_body_length type_name
 

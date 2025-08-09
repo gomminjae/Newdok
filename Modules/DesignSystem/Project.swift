@@ -20,6 +20,7 @@ let project = Project(
                 .project(target: "Shared", path: "../Shared"),
                 .external(name: "Lottie"), 
                 .external(name: "SDWebImage"),
+                .external(name: "PopupView"),
             ]
         )
     ],

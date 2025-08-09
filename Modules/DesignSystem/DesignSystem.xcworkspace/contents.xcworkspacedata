@@ -17,5 +17,14 @@
       <FileRef
          location = "group:../../Tuist/.build/tuist-derived/Lottie/Lottie.xcodeproj">
       </FileRef>
+      <FileRef
+         location = "group:../../Tuist/.build/tuist-derived/PopupView/PopupView.xcodeproj">
+      </FileRef>
+      <FileRef
+         location = "group:../../Tuist/.build/tuist-derived/SDWebImage/SDWebImage.xcodeproj">
+      </FileRef>
+      <FileRef
+         location = "group:../../Tuist/.build/tuist-derived/swiftui-introspect/swiftui-introspect.xcodeproj">
+      </FileRef>
    </Group>
 </Workspace>

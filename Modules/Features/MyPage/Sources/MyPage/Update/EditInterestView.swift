@@ -131,7 +131,7 @@ public struct EditInterestView: View {
                 selectedIds = Set(interests.map { $0.id })
             }
         }
-        .onChange(of: viewModel.showInterestSuccess) { showToast in
+        .onChange(of: viewModel.showInterestSuccess) { _, showToast in
             if showToast {
                 NotificationCenter.default.post(name: .showToast, object: "관심사가 변경되었습니다.")
                 viewModel.showInterestSuccess = false

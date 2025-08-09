@@ -148,7 +148,7 @@ public struct PwdUpdateView: View {
                     .foregroundColor(.black)
             }
         }
-        .onChange(of: viewModel.isPasswordUpdateSuccess) { success in
+        .onChange(of: viewModel.isPasswordUpdateSuccess) { _, success in
             if success {
                 router.pop()
             }

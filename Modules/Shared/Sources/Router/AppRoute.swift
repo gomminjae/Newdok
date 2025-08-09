@@ -42,5 +42,6 @@ public enum AppRoute: Hashable {
     case faq
     case feedback
     case termsMenu
+    case editAlert
     
 }

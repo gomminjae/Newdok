@@ -152,7 +152,7 @@ public struct EditIndustryView: View {
                     .foregroundColor(.black)
             }
         }
-        .onChange(of: viewModel.showIndustrySuccess) { showToast in
+        .onChange(of: viewModel.showIndustrySuccess) { _, showToast in
             if showToast {
                 NotificationCenter.default.post(name: .showToast, object: "종사산업이 변경되었습니다.")
                 viewModel.showIndustrySuccess = false

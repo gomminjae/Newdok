@@ -40,7 +40,6 @@
 		C096EDCC85582A3605D51A6D /* Kingfisher_Kingfisher.bundle in Dependencies */ = {isa = PBXBuildFile; fileRef = BEA84935B5BCB66E6882A426 /* Kingfisher_Kingfisher.bundle */; };
 		CAC34288B9F9A43D57E874D8 /* Signup.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AAE3FEC5495E2E1AF26A4BA3 /* Signup.framework */; };
 		CDF3B923C91076A14EA6265B /* SDWebImage_SDWebImage.bundle in Resources */ = {isa = PBXBuildFile; fileRef = FC59088EC058225912B8E1D1 /* SDWebImage_SDWebImage.bundle */; };
-		DFA60B2A737D9DB9D1E28EA9 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BC0AA1A8806B18EBA97671BC /* Preview Assets.xcassets */; };
 		E492654A9AF926A52A47BCCC /* Mypage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6AE449FC872A10DA9227F0A7 /* Mypage.framework */; };
 		E876353B6A37EF48E58A9D39 /* PopupView.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D4C1070D34B90B47363412F /* PopupView.framework */; };
 		EDABF86DD6296CAC9AD96B35 /* _LottieStub.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E102A765D040186A138C3A9 /* _LottieStub.framework */; };
@@ -107,7 +106,6 @@
 		95D529DAAF6A9D59C44D9D68 /* TuistAssets+App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TuistAssets+App.swift"; sourceTree = "<group>"; };
 		AAE3FEC5495E2E1AF26A4BA3 /* Signup.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Signup.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		AB40F3B3D8E2DCB2AC3C9605 /* Shared.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Shared.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		BC0AA1A8806B18EBA97671BC /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		BEA84935B5BCB66E6882A426 /* Kingfisher_Kingfisher.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Kingfisher_Kingfisher.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
 		C863CB0D96F66393E87E9112 /* Survey.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Survey.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CBAA8A4525B9603900027A00 /* Swinject.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Swinject.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -190,14 +188,6 @@
 			name = Project;
 			sourceTree = "<group>";
 		};
-		5496927CB02B7F7C32C4AE47 /* Preview Content */ = {
-			isa = PBXGroup;
-			children = (
-				BC0AA1A8806B18EBA97671BC /* Preview Assets.xcassets */,
-			);
-			path = "Preview Content";
-			sourceTree = "<group>";
-		};
 		5604A528C75D6AB766A91014 /* lottie-spm */ = {
 			isa = PBXGroup;
 			children = (
@@ -209,7 +199,6 @@
 		62EFB15EC88C1D2636544B42 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				5496927CB02B7F7C32C4AE47 /* Preview Content */,
 				8F7F83A194E1D17030DCA033 /* Assets.xcassets */,
 			);
 			path = Resources;
@@ -358,7 +347,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				48469C5111BF762561C9B9B6 /* Assets.xcassets in Resources */,
-				DFA60B2A737D9DB9D1E28EA9 /* Preview Assets.xcassets in Resources */,
 				F099CD980652945E75D48F5F /* Alamofire_Alamofire.bundle in Resources */,
 				81EB0128D84DCC5895B5438C /* Kingfisher_Kingfisher.bundle in Resources */,
 				CDF3B923C91076A14EA6265B /* SDWebImage_SDWebImage.bundle in Resources */,
@@ -413,14 +401,15 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.newdok.app;
 				PRODUCT_NAME = App;
 				SDKROOT = iphoneos;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
-				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) DEBUG";
 				SWIFT_COMPILATION_MODE = singlefile;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -508,13 +497,14 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.newdok.app;
 				PRODUCT_NAME = App;
 				SDKROOT = iphoneos;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
-				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

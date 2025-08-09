@@ -90,16 +90,16 @@ public struct CalendarPopupView: View {
         }
         .background(Color.clear)
         .contentShape(Rectangle())
-        .onChange(of: displayedMonthDate) { newValue in
+        .onChange(of: displayedMonthDate) { _, newValue in
             localDisplayedMonthDate = newValue
         }
-        .onChange(of: dataDays) { _ in 
+        .onChange(of: dataDays) {
             // 데이터가 변경되면 강제로 뷰 업데이트 트리거
             dataVersion &+= 1
             // 초기 데이터를 로컬에 복사
             localDataDays = dataDays
         }
-        .onChange(of: selectedDate) { newValue in
+        .onChange(of: selectedDate) { _, newValue in
             localSelectedDate = newValue
         }
         .onAppear {

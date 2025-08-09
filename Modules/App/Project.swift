@@ -32,20 +32,11 @@ let project = Project(
                     "UISupportedInterfaceOrientations": [
                         "UIInterfaceOrientationPortrait"
                     ],
-                    "UISupportedInterfaceOrientations~ipad": [
-                        "UIInterfaceOrientationPortrait",
-                        "UIInterfaceOrientationPortraitUpsideDown",
-                        "UIInterfaceOrientationLandscapeLeft",
-                        "UIInterfaceOrientationLandscapeRight"
-                    ],
 
                     "NSCameraUsageDescription": "프로필 사진 촬영을 위해 카메라 접근이 필요합니다.",
                     "NSPhotoLibraryUsageDescription": "프로필 사진 선택을 위해 사진 라이브러리 접근이 필요합니다.",
                     "NSUserNotificationsUsageDescription": "새로운 뉴스레터 알림을 받기 위해 알림 권한이 필요합니다.",
-                    "UIBackgroundModes": [
-                        "background-fetch",
-                        "background-processing"
-                    ],
+
                     "LSApplicationCategoryType": "public.app-category.news",
                     "CFBundleURLTypes": [
                         [

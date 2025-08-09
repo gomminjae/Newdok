@@ -130,6 +130,8 @@ struct QABRootView: View {
             coordinator.makeFeedbackView()
         case .termsMenu:
             coordinator.makeTermsMenuView()
+        case .editAlert:
+            coordinator.makeEditAlert()
         }
     }
     
@@ -182,6 +184,8 @@ struct QABRootView: View {
             coordinator.makeFeedbackView()
         case .termsMenu:
             coordinator.makeTermsMenuView()
+        case .editAlert:
+            coordinator.makeEditAlert()
         }
     }
 }

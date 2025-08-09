@@ -80,31 +80,31 @@ public struct EditProfileView: View {
         .onReceive(NotificationCenter.default.publisher(for: .init("RefreshProfile"))) { _ in
             Task { await viewModel.fetchuserInfo() }
         }
-        .onChange(of: viewModel.showPasswordSuccess) { showToast in
+        .onChange(of: viewModel.showPasswordSuccess) { _, showToast in
             if showToast {
                 NotificationCenter.default.post(name: .showToast, object: "비밀번호가 변경되었습니다.")
                 viewModel.showPasswordSuccess = false
             }
         }
-        .onChange(of: viewModel.showPhoneNumberSuccess) { showToast in
+        .onChange(of: viewModel.showPhoneNumberSuccess) { _, showToast in
             if showToast {
                 NotificationCenter.default.post(name: .showToast, object: "휴대폰 번호가 변경되었습니다.")
                 viewModel.showPhoneNumberSuccess = false
             }
         }
-        .onChange(of: viewModel.showNicknameSuccess) { showToast in
+        .onChange(of: viewModel.showNicknameSuccess) { _, showToast in
             if showToast {
                 NotificationCenter.default.post(name: .showToast, object: "닉네임이 변경되었습니다.")
                 viewModel.showNicknameSuccess = false
             }
         }
-        .onChange(of: viewModel.showIndustrySuccess) { showToast in
+        .onChange(of: viewModel.showIndustrySuccess) { _, showToast in
             if showToast {
                 NotificationCenter.default.post(name: .showToast, object: "종사산업이 변경되었습니다.")
                 viewModel.showIndustrySuccess = false
             }
         }
-        .onChange(of: viewModel.showInterestSuccess) { showToast in
+        .onChange(of: viewModel.showInterestSuccess) { _, showToast in
             if showToast {
                 NotificationCenter.default.post(name: .showToast, object: "관심사가 변경되었습니다.")
                 viewModel.showInterestSuccess = false

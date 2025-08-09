@@ -51,7 +51,9 @@ public struct EditNicknameView: View {
                                 )
                         )
                         .focused($isFocused)
-                        .onChange(of: draftNickname, perform: validate)
+                        .onChange(of: draftNickname) { _, newValue in
+                            validate(newValue)
+                        }
                         .onTapGesture {
                             isFocused = true
                         }

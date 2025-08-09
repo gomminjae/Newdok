@@ -178,7 +178,7 @@ public struct PhoneUpdateView: View {
         }
         .scrollDisabled(true)
         .ignoresSafeArea(.keyboard)
-        .onChange(of: viewModel.isPhoneUpdateSuccess) { success in
+        .onChange(of: viewModel.isPhoneUpdateSuccess) { _, success in
             if success {
                 router.pop()
             }

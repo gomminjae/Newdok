@@ -333,7 +333,7 @@ public struct BrandDetailView: View {
                     .presentationDetents([.large])
                     .presentationDragIndicator(.visible)
             }
-            .onChange(of: showSubscribeSheet) { newValue in
+            .onChange(of: showSubscribeSheet) { _, newValue in
                 // 구독 시트가 닫힐 때 팝업 띄우기
                 if !newValue {
                     // 오늘 하루 보지 않기 설정 확인

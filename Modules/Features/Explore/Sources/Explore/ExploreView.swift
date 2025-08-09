@@ -76,7 +76,7 @@ public struct ExploreView: View {
                 // 게스트 상태 변경 시 UserInfo 업데이트
                 userInfo = UserInfoStore.shared.load()
             }
-            .onChange(of: exploreIntent.trigger) { _ in
+            .onChange(of: exploreIntent.trigger) {
                 print("🔄 [ExploreView] exploreIntent 변경 감지:")
                 print("  - day: \(exploreIntent.day ?? -1)")
                 print("  - selectedTab: \(exploreIntent.selectedTab ?? -1)")
@@ -472,16 +472,16 @@ public struct ExploreView: View {
                     }
                     .padding(.bottom, 80)
                 }
-                .onChange(of: viewModel.orderOpt) { _ in
+                .onChange(of: viewModel.orderOpt) {
                     // 필터 변경 시 자동 호출 제거 - 적용하기 버튼에서만 호출
                 }
-                .onChange(of: viewModel.industry) { _ in
+                .onChange(of: viewModel.industry) {
                     // 필터 변경 시 자동 호출 제거 - 적용하기 버튼에서만 호출
                 }
-                .onChange(of: viewModel.day) { _ in
+                .onChange(of: viewModel.day) {
                     // 필터 변경 시 자동 호출 제거 - 적용하기 버튼에서만 호출
                 }
-                .onChange(of: viewModel.shouldScrollToTop) { shouldScroll in
+                .onChange(of: viewModel.shouldScrollToTop) { _, shouldScroll in
                     if shouldScroll {
                         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
                             withAnimation(.easeInOut(duration: 0.5)) {
@@ -584,7 +584,7 @@ struct PagingScrollView: View {
                 }
                 .scrollTargetBehavior(.viewAligned)
                 .scrollPosition(id: $scrollID)
-                .onChange(of: scrollID) { newValue in
+                .onChange(of: scrollID) { _, newValue in
                     currentPage = newValue ?? 0
                 }
                 .frame(height: itemHeight)

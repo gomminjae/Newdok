@@ -74,7 +74,7 @@ public struct NewDokTabView: View {
                     .tag(NewDokTab.profile)
             }
             .edgesIgnoringSafeArea(.bottom)
-            .onChange(of: tabSelection.selectedTab) { newTab in
+            .onChange(of: tabSelection.selectedTab) { _, newTab in
                 if isGuest && newTab == .profile {
                     tabSelection.selectedTab = .home
                     router.push(.login)

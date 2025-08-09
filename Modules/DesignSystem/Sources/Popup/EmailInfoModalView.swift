@@ -1,18 +1,22 @@
 //
-//  EmailInfoView.swift
-//  Newdok
+//  EmailInfoModalView.swift
+//  DesignSystem
 //
-//  Created by 권민재 on 2/28/25.
+//  Created by 권민재 on 8/9/25.
+//  Copyright © 2025 Your Organization Name. All rights reserved.
 //
 import SwiftUI
-import DesignSystem
 
-struct EmailInfoModalView: View {
+public struct EmailInfoModalView: View {
     
     @Binding var isPresented: Bool
     
+    public init(isPresented: Binding<Bool>) {
+        self._isPresented = isPresented
+    }
     
-    var body: some View {
+    
+    public var body: some View {
    
             VStack(alignment: .leading, spacing: 0) {
                 

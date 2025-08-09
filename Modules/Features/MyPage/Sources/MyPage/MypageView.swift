@@ -122,9 +122,10 @@ public struct MypageView: View {
                     Button {
                         print("🔘 알림 설정 버튼 탭됨!")
                         // 시스템 알림 설정으로 이동
-                        if let settingsUrl = URL(string: UIApplication.openSettingsURLString) {
-                            UIApplication.shared.open(settingsUrl)
-                        }
+//                        if let settingsUrl = URL(string: UIApplication.openSettingsURLString) {
+//                            UIApplication.shared.open(settingsUrl)
+//                        }
+                        router.push(.editAlert)
                     } label: {
                         HStack {
                             Text("알림 설정")
