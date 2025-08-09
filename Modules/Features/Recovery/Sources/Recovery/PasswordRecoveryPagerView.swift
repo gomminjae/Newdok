@@ -15,33 +15,28 @@ import Domain
 
 struct PasswordRecoveryPagerView: View {
     @ObservedObject var viewModel: RecoveryViewModel
-    @EnvironmentObject private var router: AppRouter
     
     var body: some View {
         VStack {
             switch viewModel.passwordRecoveryStep {
-            case 0:
-                PasswordRecoveryIdInputView(viewModel: viewModel)
-            case 1:
-                PasswordRecoveryPhoneView(viewModel: viewModel)
-            case 2:
-                PasswordRecoveryNewPasswordView(viewModel: viewModel)
-            default:
-                EmptyView()
+            case 0: PasswordRecoveryIdInputView(viewModel: viewModel)
+            case 1: PasswordRecoveryPhoneView(viewModel: viewModel)
+            case 2: PasswordRecoveryNewPasswordView(viewModel: viewModel)
+            case 3: PasswordRecoveryResultView(viewModel: viewModel)
+            default: EmptyView()
             }
         }
     }
 }
 
-
-
-// 1단계: 아이디 입력
+// 1단계
 struct PasswordRecoveryIdInputView: View {
     @ObservedObject var viewModel: RecoveryViewModel
     @State private var error: String? = nil
     @State private var showNotRegisteredPopup = false
     @FocusState private var isFieldFocused: Bool
     @FocusState private var isNumberPadFocused: Bool
+    
     var body: some View {
         VStack {
             VStack(alignment: .leading, spacing: 0) {
@@ -78,22 +73,21 @@ struct PasswordRecoveryIdInputView: View {
             
             Spacer()
             
-            Button(action: {
+            Button {
                 Task {
                     if let user = await viewModel.checkIdExists() {
                         viewModel.recoveryPhone = user.phoneNumber
                         viewModel.passwordRecoveryStep = 1
-                        await viewModel.sendRecoveryCode()
+                        await viewModel.sendRecoveryCode(isResend: false)
                     } else {
                         showNotRegisteredPopup = true
                     }
                 }
-            }) {
+            } label: {
                 Text("다음")
                     .font(.hanSansNeo(16, .bold))
                     .foregroundColor(.white)
-                    .frame(maxWidth: .infinity)
-                    .frame(height: 48)
+                    .frame(maxWidth: .infinity, minHeight: 48)
                     .background(viewModel.recoveryId.isEmpty ? Color(hex: "#EBEBEB") : Color.primaryNormal)
                     .cornerRadius(4)
             }
@@ -103,18 +97,14 @@ struct PasswordRecoveryIdInputView: View {
         }
         .hideKeyboardOnTap()
         .popup(isPresented: $showNotRegisteredPopup) {
-            NotRegisteredIdPopupView {
-                showNotRegisteredPopup = false
-            }
+            NotRegisteredIdPopupView { showNotRegisteredPopup = false }
         } customize: {
-            $0
-                .type(.default)
-                .position(.center)
-                .animation(.easeInOut)
-                .backgroundColor(Color.black.opacity(0.3))
-                .closeOnTapOutside(false)
+            $0.type(.default)
+             .position(.center)
+             .animation(.easeInOut)
+             .backgroundColor(Color.black.opacity(0.3))
+             .closeOnTapOutside(false)
         }
-    
         .ignoresSafeArea(.keyboard)
         .toolbar {
             ToolbarItemGroup(placement: .keyboard) {
@@ -127,18 +117,19 @@ struct PasswordRecoveryIdInputView: View {
                 .font(.hanSansNeo(17, .medium))
             }
         }
-        .hideKeyboardOnTap()
     }
 }
 
-// 2단계: 인증번호 입력
+// 2단계 (재전송 4번째/3회 만료 팝업)
 struct PasswordRecoveryPhoneView: View {
     @ObservedObject var viewModel: RecoveryViewModel
-    @State private var timer: Int = 180
-    @State private var timerRunning: Bool = true
-    @State private var error: String? = nil
-    @State private var resendCount: Int = 0
     @FocusState private var isNumberPadFocused: Bool
+    @State private var error: String? = nil
+    
+    private func mmss(_ sec: Int) -> String {
+        String(format: "%02d:%02d", sec/60, sec%60)
+    }
+    
     var body: some View {
         VStack {
             VStack(alignment: .leading, spacing: 0) {
@@ -151,83 +142,84 @@ struct PasswordRecoveryPhoneView: View {
                     .padding(.top, 42)
                     .padding(.bottom, 8)
                 HStack {
-                    HStack {
-                       
-                        TextField("6자리 숫자 입력", text: $viewModel.recoveryCode)
-                            .keyboardType(.numberPad)
-                            .font(.hanSansNeo(14, .medium))
-                            .focused($isNumberPadFocused)
-                    }
-                    .padding(.horizontal, 16)
-                    .frame(height: 50)
-                    
-                    Text(String(format: "%02d:%02d", timer/60, timer%60))
+                    TextField("6자리 숫자 입력", text: $viewModel.recoveryCode)
+                        .keyboardType(.numberPad)
+                        .font(.hanSansNeo(14, .medium))
+                        .focused($isNumberPadFocused)
+                    Text(mmss(viewModel.timerRemaining))
                         .foregroundStyle(Color(hex: "#363636"))
                         .font(.hanSansNeo(12, .medium))
                         .padding(.trailing, 10)
                 }
+                .padding(.horizontal, 16)
+                .frame(height: 50)
                 .background(error != nil ? Color(hex: "#FEE6E6") : Color.white)
                 .overlay(
-                    RoundedRectangle(cornerRadius: 4)
-                        .stroke(
-                            error != nil ? Color.red :
-                                (isNumberPadFocused ? Color.primaryNormal : Color(hex: "#DADADA")),
-                            lineWidth: 1
-                        )
+                    RoundedRectangle(cornerRadius: 4).stroke(
+                        error != nil ? .red :
+                        (isNumberPadFocused ? Color.primaryNormal : Color(hex: "#DADADA")),
+                        lineWidth: 1
+                    )
                 )
-                .onAppear {
-                    timer = 180
-                    timerRunning = true
-                    Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { t in
-                        if timer > 0 { timer -= 1 } else { t.invalidate(); timerRunning = false }
-                    }
-                }
-                if let error = error {
-                    Text(error).foregroundColor(.red).font(.hanSansNeo(12, .medium))
-                        .padding(.top, 8)
-                }
-                
-                HStack(spacing: 0) {
-                    Text("재전송은 3회까지만 가능해요. ")
-                        .font(.hanSansNeo(12, .medium))
-                        .foregroundColor(Color(hex: "#565656"))
-                    Button(action: {
-                        if resendCount < 3 {
-                            Task { await viewModel.sendRecoveryCode() }
-                            timer = 180
-                            timerRunning = true
-                            resendCount += 1
-                            error = nil // 재전송 시 에러 메시지 초기화
-                        }
-                    }) {
-                        Text("재전송")
+                if let message = error {
+                    HStack(spacing: 0) {
+                        Text(message.replacingOccurrences(of: "\n", with: " "))
+                            .foregroundColor(.red)
                             .font(.hanSansNeo(12, .medium))
-                            .foregroundColor(resendCount < 3 ? Color.primaryNormal : Color(hex: "#C0C0C0"))
-                            .underline()
+                            .lineLimit(1)
+                            .truncationMode(.tail)
+                        Button {
+                            Task {
+                                await viewModel.sendRecoveryCode(isResend: true)
+                                // 재전송 시도 → VM에서 한도 체크/팝업 처리, 성공 시 에러 초기화
+                                self.error = nil
+                            }
+                        } label: {
+                            Text(" 재전송")
+                                .font(.hanSansNeo(12, .medium))
+                                .foregroundColor(Color.primaryNormal)
+                                .underline()
+                        }
+                        
                     }
-                    .disabled(resendCount >= 3)
+                    .padding(.top, 8)
+                } else {
+                    HStack(spacing: 0) {
+                        Text("재전송은 3회까지만 가능해요. ")
+                            .font(.hanSansNeo(12, .medium))
+                            .foregroundColor(Color(hex: "#565656"))
+                        Button {
+                            Task {
+                                await viewModel.sendRecoveryCode(isResend: true)
+                                error = nil
+                            }
+                        } label: {
+                            Text("재전송")
+                                .font(.hanSansNeo(12, .medium))
+                                .foregroundColor(Color.primaryNormal)
+                                .underline()
+                        }
+                        
+                    }
+                    .padding(.top, 8)
                 }
-                .padding(.top, 8)
             }
             .padding(.horizontal, 24)
             
             Spacer()
             
-            Button(action: {
-                Task {
-                    await viewModel.verifyRecoveryCode()
-                    if viewModel.recoveryCodeVerified == true {
-                        viewModel.passwordRecoveryStep = 2
-                    } else {
-                        error = "인증번호를 다시 확인해주세요."
-                    }
+            Button {
+                viewModel.verifyRecoveryCode()
+                if viewModel.recoveryCodeVerified == true {
+                    viewModel.passwordRecoveryStep = 2
+                } else {
+                    error = "인증번호를 다시 확인해주세요."
                 }
-            }) {
+            } label: {
                 Text("다음")
                     .font(.hanSansNeo(16, .bold))
                     .foregroundColor(.white)
-                    .frame(maxWidth: .infinity)
-                    .frame(height: 48)
+                    .frame(maxWidth: .infinity, minHeight: 48)
                     .background(viewModel.recoveryCode.isEmpty ? Color(hex: "#EBEBEB") : Color.primaryNormal)
                     .cornerRadius(4)
             }
@@ -237,19 +229,32 @@ struct PasswordRecoveryPhoneView: View {
             .toolbar {
                 ToolbarItemGroup(placement: .keyboard) {
                     Spacer()
-                    Button("Done") {
-                        isNumberPadFocused = false
-                    }
-                    .foregroundStyle(Color.primaryNormal)
-                    .font(.hanSansNeo(17, .medium))
+                    Button("Done") { isNumberPadFocused = false }
+                        .foregroundStyle(Color.primaryNormal)
+                        .font(.hanSansNeo(17, .medium))
                 }
             }
             .hideKeyboardOnTap()
         }
+        .popup(isPresented: $viewModel.isShowPopup) {
+            AuthFailView(onClose: {
+                viewModel.isShowPopup = false
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.25) {
+                    viewModel.resetVerificationStateAndRestart()
+                }
+            })
+        } customize: {
+            $0.type(.default)
+             .position(.center)
+             .animation(.easeInOut)
+             .backgroundColor(Color.black.opacity(0.3))
+             .closeOnTapOutside(false)
+        }
+       
     }
 }
 
-// 3단계: 새 비밀번호 입력
+// 3단계
 struct PasswordRecoveryNewPasswordView: View {
     @ObservedObject var viewModel: RecoveryViewModel
     @EnvironmentObject private var router: AppRouter
@@ -259,38 +264,30 @@ struct PasswordRecoveryNewPasswordView: View {
     @FocusState private var isPasswordFocused: Bool
     @FocusState private var isPasswordCheckFocused: Bool
     
-    // Validation computed properties
     private var isPasswordValid: Bool {
-        let passwordRegex = "^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{8,}$"
-        return NSPredicate(format: "SELF MATCHES %@", passwordRegex).evaluate(with: viewModel.newPassword)
+        let regex = "^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{8,}$"
+        return NSPredicate(format: "SELF MATCHES %@", regex).evaluate(with: viewModel.newPassword)
     }
-    
     private var isPasswordMatch: Bool {
-        return !viewModel.newPasswordCheck.isEmpty && viewModel.newPassword == viewModel.newPasswordCheck
+        !viewModel.newPasswordCheck.isEmpty && viewModel.newPassword == viewModel.newPasswordCheck
     }
+    private var isPasswordInputError: Bool { !viewModel.newPassword.isEmpty && !isPasswordValid }
+    private var isConfirmPasswordError: Bool { !viewModel.newPasswordCheck.isEmpty && !isPasswordMatch }
     
-    private var isPasswordInputError: Bool {
-        return !viewModel.newPassword.isEmpty && !isPasswordValid
-    }
-    
-    private var isConfirmPasswordError: Bool {
-        return !viewModel.newPasswordCheck.isEmpty && !isPasswordMatch
-    }
-        
-        var body: some View {
-            VStack {
-                VStack(alignment: .leading, spacing: 0) {
-                    Text("새로운 비밀번호를\n입력해주세요.")
-                        .font(.hanSansNeo(20, .bold))
-                        .padding(.top, 24)
-                    
-                    Text("비밀번호")
-                        .font(.hanSansNeo(14, .medium))
-                        .foregroundStyle(Color(hex: "#565656"))
-                        .padding(.top, 42)
-                        .padding(.bottom, 8)
-                    
-                                    Group {
+    var body: some View {
+        VStack {
+            VStack(alignment: .leading, spacing: 0) {
+                Text("새로운 비밀번호를\n입력해주세요.")
+                    .font(.hanSansNeo(20, .bold))
+                    .padding(.top, 24)
+                
+                Text("비밀번호")
+                    .font(.hanSansNeo(14, .medium))
+                    .foregroundStyle(Color(hex: "#565656"))
+                    .padding(.top, 42)
+                    .padding(.bottom, 8)
+                
+                Group {
                     if isSecurePassword {
                         SecureField("8자 이상, 영문/숫자 조합", text: $viewModel.newPassword)
                             .font(.hanSansNeo(14, .medium))
@@ -299,13 +296,11 @@ struct PasswordRecoveryNewPasswordView: View {
                             .font(.hanSansNeo(14, .medium))
                     }
                 }
-                .modifier(
-                    PasswordFieldModifier(
-                        isSecure: $isSecurePassword,
-                        isFocused: $isPasswordFocused,
-                        isError: isPasswordInputError
-                    )
-                )
+                .modifier(PasswordFieldModifier(
+                    isSecure: $isSecurePassword,
+                    isFocused: $isPasswordFocused,
+                    isError: isPasswordInputError
+                ))
                 .focused($isPasswordFocused)
                 
                 if isPasswordInputError {
@@ -314,7 +309,7 @@ struct PasswordRecoveryNewPasswordView: View {
                         .foregroundColor(.red)
                         .padding(.top, 4)
                 }
-                    
+                
                 Text("비밀번호 확인")
                     .font(.hanSansNeo(14, .medium))
                     .foregroundStyle(Color(hex: "#565656"))
@@ -330,13 +325,11 @@ struct PasswordRecoveryNewPasswordView: View {
                             .font(.hanSansNeo(14, .medium))
                     }
                 }
-                .modifier(
-                    PasswordFieldModifier(
-                        isSecure: $isSecureConfirmPassword,
-                        isFocused: $isPasswordCheckFocused,
-                        isError: isConfirmPasswordError
-                    )
-                )
+                .modifier(PasswordFieldModifier(
+                    isSecure: $isSecureConfirmPassword,
+                    isFocused: $isPasswordCheckFocused,
+                    isError: isConfirmPasswordError
+                ))
                 .focused($isPasswordCheckFocused)
                 
                 if isConfirmPasswordError {
@@ -345,96 +338,89 @@ struct PasswordRecoveryNewPasswordView: View {
                         .foregroundColor(.red)
                         .padding(.top, 4)
                 }
-                }
-                .padding(.horizontal, 24)
-                
-                Spacer()
-                
-                Button(action: {
-                    Task {
-                        await viewModel.resetPassword()
-                        if viewModel.passwordResetSuccess == true {
-                            // 성공 시 바로 로그인 화면으로 이동
-                            router.resetTo(.login)
-                            // 토스트 메시지 표시
-                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                                // 토스트 메시지 표시 로직 (AppState나 NotificationCenter 사용)
-                                NotificationCenter.default.post(name: .showToast, object: "비밀번호가 재설정되었습니다.")
-                            }
-                        } else {
-                            error = "비밀번호가 일치하지 않거나 조건에 맞지 않습니다."
-                        }
-                    }
-                }) {
-                    Text("비밀번호 재설정")
-                        .font(.hanSansNeo(16, .bold))
-                        .foregroundColor(.white)
-                        .frame(maxWidth: .infinity)
-                        .frame(height: 48)
-                        .background(isPasswordValid && isPasswordMatch ? Color.primaryNormal : Color(hex: "#EBEBEB"))
-                        .cornerRadius(4)
-                }
-                .disabled(!isPasswordValid || !isPasswordMatch)
-                .padding(.horizontal, 24)
-                .padding(.bottom, 32)
-            }
-            .toolbar {
-                ToolbarItemGroup(placement: .keyboard) {
-                    Spacer()
-                    Button("Done") {
-                        isPasswordFocused = false
-                        isPasswordCheckFocused = false
-                    }
-                    .foregroundStyle(Color.primaryNormal)
-                    .font(.hanSansNeo(17, .medium))
-                }
-            }
-            .hideKeyboardOnTap()
-        }
-    }
-
-
-// 4단계: 완료/실패 안내
-struct PasswordRecoveryResultView: View {
-        @ObservedObject var viewModel: RecoveryViewModel
-        @EnvironmentObject private var router: AppRouter
-        var body: some View {
-            VStack(spacing: 24) {
-                if viewModel.passwordResetSuccess == true {
-                    Text("비밀번호가 성공적으로 변경되었습니다.")
-                        .font(.hanSansNeo(20, .bold))
-                        .padding(.top, 24)
-                    Button(action: {
-                        router.resetTo(.login)
-                    }) {
-                        Text("로그인하러 가기")
-                            .font(.hanSansNeo(16, .bold))
-                            .foregroundColor(.white)
-                            .frame(maxWidth: .infinity)
-                            .frame(height: 48)
-                            .background(Color.primaryNormal)
-                            .cornerRadius(4)
-                    }
-                } else {
-                    Text("비밀번호 변경에 실패했습니다.")
-                        .font(.hanSansNeo(20, .bold))
-                        .foregroundColor(.red)
-                        .padding(.top, 24)
-                    Button(action: {
-                        viewModel.passwordRecoveryStep = 2
-                    }) {
-                        Text("다시 시도하기")
-                            .font(.hanSansNeo(16, .bold))
-                            .foregroundColor(.white)
-                            .frame(maxWidth: .infinity)
-                            .frame(height: 48)
-                            .background(Color.primaryNormal)
-                            .cornerRadius(4)
-                    }
-                }
-                Spacer()
             }
             .padding(.horizontal, 24)
+            
+            Spacer()
+            
+            Button {
+                Task {
+                    await viewModel.resetPassword()
+                    if viewModel.passwordResetSuccess == true {
+                        router.resetTo(.login)
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                            NotificationCenter.default.post(name: .showToast, object: "비밀번호가 재설정되었습니다.")
+                        }
+                    } else {
+                        error = "비밀번호가 일치하지 않거나 조건에 맞지 않습니다."
+                    }
+                }
+            } label: {
+                Text("비밀번호 재설정")
+                    .font(.hanSansNeo(16, .bold))
+                    .foregroundColor(.white)
+                    .frame(maxWidth: .infinity, minHeight: 48)
+                    .background(isPasswordValid && isPasswordMatch ? Color.primaryNormal : Color(hex: "#EBEBEB"))
+                    .cornerRadius(4)
+            }
+            .disabled(!isPasswordValid || !isPasswordMatch)
+            .padding(.horizontal, 24)
+            .padding(.bottom, 32)
         }
+        .toolbar {
+            ToolbarItemGroup(placement: .keyboard) {
+                Spacer()
+                Button("Done") {
+                    isPasswordFocused = false
+                    isPasswordCheckFocused = false
+                }
+                .foregroundStyle(Color.primaryNormal)
+                .font(.hanSansNeo(17, .medium))
+            }
+        }
+        .hideKeyboardOnTap()
     }
+}
 
+// 4단계
+struct PasswordRecoveryResultView: View {
+    @ObservedObject var viewModel: RecoveryViewModel
+    @EnvironmentObject private var router: AppRouter
+    
+    var body: some View {
+        VStack(spacing: 24) {
+            if viewModel.passwordResetSuccess == true {
+                Text("비밀번호가 성공적으로 변경되었습니다.")
+                    .font(.hanSansNeo(20, .bold))
+                    .padding(.top, 24)
+                Button {
+                    router.resetTo(.login)
+                } label: {
+                    Text("로그인하러 가기")
+                        .font(.hanSansNeo(16, .bold))
+                        .foregroundColor(.white)
+                        .frame(maxWidth: .infinity, minHeight: 48)
+                        .background(Color.primaryNormal)
+                        .cornerRadius(4)
+                }
+            } else {
+                Text("비밀번호 변경에 실패했습니다.")
+                    .font(.hanSansNeo(20, .bold))
+                    .foregroundColor(.red)
+                    .padding(.top, 24)
+                Button {
+                    viewModel.passwordRecoveryStep = 2
+                } label: {
+                    Text("다시 시도하기")
+                        .font(.hanSansNeo(16, .bold))
+                        .foregroundColor(.white)
+                        .frame(maxWidth: .infinity, minHeight: 48)
+                        .background(Color.primaryNormal)
+                        .cornerRadius(4)
+                }
+            }
+            Spacer()
+        }
+        .padding(.horizontal, 24)
+    }
+}

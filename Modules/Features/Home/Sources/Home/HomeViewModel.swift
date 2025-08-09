@@ -356,7 +356,7 @@ public final class HomeViewModel: ObservableObject {
             return 
         }
         
-        let cal = Calendar.current
+        //let cal = Calendar.current
         let months = max(1, min(12, targetMonth))
         let currentYear = Calendar.current.component(.year, from: Date())
         let isPastYear = year < currentYear

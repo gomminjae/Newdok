@@ -186,7 +186,6 @@ struct FindIdResultView: View {
             Button(action: { router.push(.serviceFeedback) }) { link }
             suffix
         }
-        .padding(.top, 12)
         .padding(.leading, 4)
     }
 }
@@ -197,17 +196,21 @@ private struct UserRow: View {
         HStack {
             VStack(alignment: .leading, spacing: 4) {
                 Text(user.maskedLoginId)
-                    .font(.hanSansNeo(15, .bold))
+                    .font(.hanSansNeo(16, .medium))
+                    .foregroundStyle(Color(hex: "#363636"))
                 Text(user.formattedCreatedAt)
-                    .font(.hanSansNeo(13, .regular))
-                    .foregroundColor(.gray)
+                    .font(.hanSansNeo(12, .medium))
+                    .foregroundColor(Color(hex: "#969696"))
             }
+            .padding(.leading, 20)
             Spacer()
             Image(asset: DesignSystemAsset.lineRight)
+                .renderingMode(.template)
+                .foregroundStyle(Color(hex: "#565656"))
                 .padding(.vertical, 26)
                 .padding(.trailing, 20)
         }
-        .padding()
+       
         .frame(maxWidth: .infinity, alignment: .leading)
         .frame(height: 76)
         .background(Color.white)
