@@ -108,11 +108,12 @@ public struct SubscribeView: View {
                         // 최초 진입만 로딩 화면
                         ProgressView()
                             .frame(maxWidth: .infinity, maxHeight: .infinity)
-                    } else if filteredSubscriptions.isEmpty && !viewModel.isRefreshing {
-                        // 리프레시 중이 아닐 때만 빈상태 표시
+                    } else if filteredSubscriptions.isEmpty {
+                        // 데이터가 없을 때 빈상태 표시
                         EmptySubscriptionView(isSubscribedTab: selectedTab == 0, isGuest: false)
                             .frame(maxWidth: .infinity, maxHeight: .infinity)
                     } else {
+                        // 데이터가 있을 때만 구독리스트 표시
                         VStack(alignment: .leading, spacing: 0) {
                             listHeaderView()
                                 .padding(.horizontal, 20)
@@ -139,7 +140,8 @@ public struct SubscribeView: View {
                                 .padding(.bottom, 12)
                             }
                         }
-                        .contentTransition(.identity)
+                        .transition(.opacity.combined(with: .move(edge: .bottom)))
+                        .animation(.easeInOut(duration: 0.3), value: filteredSubscriptions.count)
                     }
                 }
             },
@@ -162,7 +164,9 @@ public struct SubscribeView: View {
     }
 
     private var filteredSubscriptions: [Newsletter] {
-        selectedTab == 0 ? viewModel.activeNewsletters : viewModel.pausedNewsletters
+        // 초기 로딩이 완료되지 않았으면 빈 배열 반환
+        guard viewModel.initialLoaded else { return [] }
+        return selectedTab == 0 ? viewModel.activeNewsletters : viewModel.pausedNewsletters
     }
 
     // MARK: - Header / listHeaderView 그대로…

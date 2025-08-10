@@ -31,17 +31,24 @@ public final class SubscribeViewModel: ObservableObject {
         guard !initialLoaded else { return }
         isLoadingActive = true
         isLoadingPaused = true
-        async let active = useCase.fetchActiveSubscription()
-        async let paused = useCase.fetchPausedSubscription()
+        
         do {
+            async let active = useCase.fetchActiveSubscription()
+            async let paused = useCase.fetchPausedSubscription()
+            
             activeNewsletters = try await active
             pausedNewsletters = try await paused
+            
+            // 데이터 로딩 완료 후 초기 로딩 상태 설정
+            initialLoaded = true
         } catch {
             print("초기 로딩 실패:", error)
+            // 에러가 발생해도 초기 로딩은 완료된 것으로 처리
+            initialLoaded = true
         }
+        
         isLoadingActive = false
         isLoadingPaused = false
-        initialLoaded = true
     }
 
     public func refresh(tab: Int) async {
