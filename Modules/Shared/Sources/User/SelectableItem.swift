@@ -8,7 +8,7 @@
 
 import Foundation
 
-public struct SelectableItem: Identifiable, Codable, Equatable {
+public struct SelectableItem: Identifiable, Codable, Equatable, Hashable {
     public let id: Int
     public let name: String
 }

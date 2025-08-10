@@ -83,15 +83,37 @@ public struct ExploreView: View {
                 print("  - 현재 viewModel.day: \(viewModel.day ?? [])")
                 print("  - 현재 viewModel.selectedTab: \(viewModel.selectedTab)")
                 
+                // 모든 설정을 한 번에 처리
+                var newDay: Int? = nil
+                var newTab: Int? = nil
+                
                 if let day = exploreIntent.day, viewModel.day != [day] {
                     print("  ✅ day 설정: \(day)")
-                    viewModel.day = [day]
+                    newDay = day
                     exploreIntent.day = nil
                 }
+                
                 if let tab = exploreIntent.selectedTab, viewModel.selectedTab != tab {
                     print("  ✅ tab 설정: \(tab)")
-                    viewModel.selectedTab = tab
+                    newTab = tab
                     exploreIntent.selectedTab = nil
+                }
+                
+                // 데이터 로딩 후 UI 업데이트
+                Task {
+                    if let day = newDay {
+                        viewModel.day = [day]
+                    }
+                    if let tab = newTab {
+                        viewModel.selectedTab = tab
+                    }
+                    
+                    if isGuest {
+                        await viewModel.fetchGuestAllNewsletters()
+                    } else {
+                        await viewModel.fetchRecommendation()
+                        await viewModel.fetchAllNewsletters()
+                    }
                 }
             }
             .onAppear {
@@ -425,6 +447,11 @@ public struct ExploreView: View {
         }
         .sheet(isPresented: $viewModel.isShowFilterSheet) {
             FilterBottomSheet(industry: $viewModel.industry, day: $viewModel.day) {
+                print("🔍 [ExploreView] 필터 적용:")
+                print("  - industry: \(viewModel.industry ?? [])")
+                print("  - day: \(viewModel.day ?? [])")
+                print("  - orderOpt: \(viewModel.orderOpt ?? "nil")")
+                
                 viewModel.shouldScrollToTop = true
                 if isGuest {
                     await viewModel.fetchGuestAllNewsletters()
@@ -513,14 +540,26 @@ public struct ExploreView: View {
     
     private var industryText: String {
         guard let selected = viewModel.industry else { return "산업" }
-        let labels = ["IT·게임·통신", "F&B", "패션", "유통·무역", "의료", "자영업", "생활·서비스", "건설", "광고", "교육", "금융·부동산", "미디어", "문화·예술·엔터", "생산·제조", "기타"]
-        return selected.count == 1 ? labels[selected.first! - 1] : "산업 \(selected.count)"
+        
+        if selected.count == 1 {
+            let industryName = SelectableItemStore.shared.name(for: selected.first!, in: .industry)
+            return industryName.isEmpty ? "산업" : industryName
+        } else {
+            return "산업 \(selected.count)"
+        }
     }
 
     private var dayText: String {
         guard let selected = viewModel.day else { return "발행요일" }
+        
         let labels = ["월요일", "화요일", "수요일", "목요일", "금요일", "토요일", "일요일", "기타"]
-        return selected.count == 1 ? labels[selected.first! - 1] : "발행요일 \(selected.count)"
+        
+        if selected.count == 1 {
+            let index = selected.first! - 1
+            return index >= 0 && index < labels.count ? labels[index] : "발행요일"
+        } else {
+            return "발행요일 \(selected.count)"
+        }
     }
 
     // 배열 안전 서브스크립트

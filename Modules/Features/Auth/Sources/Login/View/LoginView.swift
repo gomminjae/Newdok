@@ -51,6 +51,9 @@ public struct LoginView: View {
                     .customTextFieldStyle(isError: viewModel.isLoginIdError, isFocused: $isIdFocused)
                     .focused($isIdFocused)
                     .contentShape(Rectangle())
+                    .onTapGesture {
+                        isIdFocused = true
+                    }
                 if viewModel.isLoginIdError {
                     Text(viewModel.errorMessage ?? "")
                         .font(.hanSansNeo(12,.medium))
@@ -83,6 +86,9 @@ public struct LoginView: View {
                     )
                 )
                 .contentShape(Rectangle())
+                .onTapGesture {
+                    isPwdFocused = true
+                }
                 if viewModel.isPasswordError {
                     Text(viewModel.errorMessage ?? "")
                         .font(.hanSansNeo(12,.medium))
@@ -115,10 +121,11 @@ public struct LoginView: View {
                 .font(.hanSansNeo(16,.bold))
                 .disabled(!viewModel.isLoginEnabled)
                 .frame(maxWidth: .infinity)
-                .frame(height: 48)
+                .frame(height: 56)
                 .background(viewModel.isLoginEnabled ? Color.primaryNormal : Color(hex: "#EBEBEB"))
                 .foregroundColor(viewModel.isLoginEnabled ? .white : Color(hex: "#C0C0C0"))
                 .cornerRadius(4)
+                .contentShape(Rectangle())
 
                 HStack {
                     Button("비회원으로 이용하기") {

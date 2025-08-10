@@ -64,39 +64,40 @@ public class ExploreViewModel: ObservableObject {
     
     
     public func fetchRecommendation() async {
-        Task {
-            do {
-                let response = try await useCase.fetchRecommendation()
-                
-                myRecommendation = response.intersection
-                unionRecommendation = response.union
-                fixedMyRecommendation = Array(response.intersection.prefix(5))
-                fixedUnionRecommendation = Array(response.union.prefix(6))
-            } catch {
-                print("추천 에러")
-                isRecommend = false
-            }
+        do {
+            let response = try await useCase.fetchRecommendation()
+            
+            myRecommendation = response.intersection
+            unionRecommendation = response.union
+            fixedMyRecommendation = Array(response.intersection.prefix(5))
+            fixedUnionRecommendation = Array(response.union.prefix(6))
+        } catch {
+            print("❌ [ExploreViewModel] 추천 에러:", error)
+            isRecommend = false
         }
     }
     
     public func fetchAllNewsletters() async {
-        Task {
-            do {
-                let response = try await useCase.fetchNewsletters(orderOpt: orderOpt, industry: industry, day: day)
-                allNewsletters = response
-                
-            } catch {
-                print("모든 뉴스레터 에러",error)
-            }
+        do {
+            print("🔍 [ExploreViewModel] fetchAllNewsletters 호출:")
+            print("  - orderOpt: \(orderOpt ?? "nil")")
+            print("  - industry: \(industry ?? [])")
+            print("  - day: \(day ?? [])")
+            
+            let response = try await useCase.fetchNewsletters(orderOpt: orderOpt, industry: industry, day: day)
+            allNewsletters = response
+            
+            print("✅ [ExploreViewModel] 데이터 로딩 완료: \(response.count)개")
+        } catch {
+            print("❌ [ExploreViewModel] 모든 뉴스레터 에러:", error)
         }
     }
     
     public func fetchBrandDetail(id: String) async {
-        Task {
-            do {
-                _ = try await useCase.fetchNewsletterBrand(id: id)
-                
-            }
+        do {
+            _ = try await useCase.fetchNewsletterBrand(id: id)
+        } catch {
+            print("❌ [ExploreViewModel] 브랜드 상세 에러:", error)
         }
     }
     

@@ -8,95 +8,137 @@
 
 import SwiftUI
 import DesignSystem
+import Shared
+import UIKit
 
+// MARK: - Layout constants (rename: Layout -> L)
+private enum L {
+    static let horizontal: CGFloat = 24
+    static let titleToChips: CGFloat = 8
+    static let sectionGap: CGFloat = 22
+    static let chipRowSpacing: CGFloat = 10
+    static let weekdaysToButtons: CGFloat = 28
+    static let top: CGFloat = 16
+    static let bottom: CGFloat = 16
+}
+
+// MARK: - Height measuring (for iOS16/17)
+private struct HeightKey: PreferenceKey {
+    static var defaultValue: CGFloat = 0
+    static func reduce(value: inout CGFloat, nextValue: () -> CGFloat) {
+        value = max(value, nextValue())
+    }
+}
+private extension View {
+    func reportHeight(_ onChange: @escaping (CGFloat) -> Void) -> some View {
+        background(
+            GeometryReader { proxy in
+                Color.clear.preference(key: HeightKey.self, value: proxy.size.height)
+            }
+        )
+        .onPreferenceChange(HeightKey.self, perform: onChange)
+    }
+}
+
+// MARK: - Main View (iOS 17)
 struct FilterBottomSheet: View {
     @Environment(\.dismiss) private var dismiss
 
-    let industries = ["IT·게임·통신", "F&B", "패션", "유통·무역", "의료", "자영업", "생활·서비스", "건설", "광고", "교육", "금융·부동산", "미디어", "문화·예술·엔터", "생산·제조", "기타"]
-    let weekdays = ["월요일", "화요일", "수요일", "목요일", "금요일", "토요일", "일요일", "기타"]
+    let industries = SelectableItemStore.shared.industries
+    let weekdays = ["월요일","화요일","수요일","목요일","금요일","토요일","일요일","기타"]
 
     @Binding var industry: [Int]?
     @Binding var day: [Int]?
-    
-    // 임시 필터 상태 (실제 필터에 반영되지 않음)
+
     @State private var tempIndustry: [Int]?
     @State private var tempDay: [Int]?
-    
+
+    @State private var sheetHeight: CGFloat = 360
+
     var onApply: () async -> Void
 
     var body: some View {
         VStack(spacing: 0) {
+            // Grabber
             Capsule()
                 .frame(width: 40, height: 5)
                 .foregroundColor(Color.gray.opacity(0.5))
-                .padding(.top, 28)
+                //.padding(.top, 12)
 
+            // Title bar
             HStack {
                 Text("필터")
                     .font(.hanSansNeo(20, .bold))
                 Spacer()
-                Button(action: {
-                    dismiss()
-                }) {
+                Button(action: { dismiss() }) {
                     Image(asset: DesignSystemAsset.lineClose)
                 }
             }
-            .padding(.top, 32)
-            .padding(.horizontal, 24)
+            .padding(.top, 16)
+            .padding(.horizontal, L.horizontal)
 
+            // 산업 카테고리
             VStack(alignment: .leading, spacing: 0) {
                 Text("산업 카테고리")
                     .font(.hanSansNeo(14, .medium))
                     .foregroundColor(Color(hex: "565656"))
-                    .padding(.bottom, 8)
-                FlowLayoutView(data: industries.indices, spacing: 8) { index in
-                    SelectableChip(
-                        text: industries[index],
-                        isSelected: tempIndustry?.contains(index + 1) ?? false
-                    ) {
-                        toggleSelection(&tempIndustry, value: index + 1)
+                    .padding(.bottom, L.titleToChips)
+
+                // ⬇️ Layout 컨테이너는 callAsFunction로 호출해야 View가 됩니다.
+                FlowRowsLayout(spacing: L.chipRowSpacing).callAsFunction {
+                    ForEach(industries, id: \.id) { item in
+                        SelectableChip(
+                            text: item.name,
+                            isSelected: tempIndustry?.contains(item.id) ?? false
+                        ) { toggleSelection(&tempIndustry, value: item.id) }
+                        .frame(height: 36)
                     }
                 }
+                .frame(maxWidth: .infinity, alignment: .leading)
             }
-            .padding(.top, 24)
-            .padding(.horizontal, 24)
+            .padding(.top, L.top)
+            .padding(.horizontal, L.horizontal)
+            .padding(.bottom, L.sectionGap)
 
+            // 발행요일
             VStack(alignment: .leading, spacing: 0) {
                 Text("발행요일")
                     .font(.hanSansNeo(14, .medium))
                     .foregroundColor(Color(hex: "565656"))
-                    
-                FlowLayoutView(data: weekdays.indices, spacing: 8) { index in
-                    SelectableChip(
-                        text: weekdays[index],
-                        isSelected: tempDay?.contains(index + 1) ?? false
-                    ) {
-                        toggleSelection(&tempDay, value: index + 1)
+                    .padding(.bottom, L.titleToChips)
+
+                FlowRowsLayout(spacing: L.chipRowSpacing).callAsFunction {
+                    ForEach(Array(weekdays.enumerated()), id: \.offset) { idx, name in
+                        let id = idx + 1
+                        SelectableChip(
+                            text: name,
+                            isSelected: tempDay?.contains(id) ?? false
+                        ) { toggleSelection(&tempDay, value: id) }
+                        .frame(height: 36)
                     }
                 }
-                .padding(.top, 8)
+                .frame(maxWidth: .infinity, alignment: .leading)
             }
-            .padding(.top, 20)
-            .padding(.horizontal, 24)
+            .padding(.horizontal, L.horizontal)
+            .padding(.bottom, L.weekdaysToButtons)
 
-            
-
+            // 버튼 영역
             HStack(spacing: 12) {
                 Button(action: {
                     tempIndustry = nil
                     tempDay = nil
                 }) {
-                    HStack {
+                    HStack(spacing: 6) {
                         Image(asset: DesignSystemAsset.lineReload)
                         Text("재설정")
                             .font(.hanSansNeo(14, .medium))
                             .foregroundStyle(Color(hex: "565656"))
                     }
-                    .frame(width: 78, height: 40)
+                    .frame(width: 88, height: 40)
+                   
                 }
 
                 Button(action: {
-                    // 적용하기 버튼을 눌렀을 때만 실제 필터에 반영
                     industry = tempIndustry
                     day = tempDay
                     Task {
@@ -113,37 +155,50 @@ struct FilterBottomSheet: View {
                         .cornerRadius(4)
                 }
             }
-            .padding(.horizontal, 24)
-            .padding(.bottom, 40)
+            .padding(.horizontal, L.horizontal)
+            .padding(.bottom, L.bottom)
+        }
+        // 콘텐츠 높이 측정
+        .reportHeight { h in
+            let safeBottom = UIApplication.shared.connectedScenes
+                .compactMap { $0 as? UIWindowScene }
+                .flatMap { $0.windows }
+                .first(where: { $0.isKeyWindow })?
+                .safeAreaInsets.bottom ?? 0
+
+            let screenH = UIScreen.main.bounds.height
+            let minH: CGFloat = 280
+            let maxH: CGFloat = min(screenH * 0.9, 900)
+
+            var clamped = h + safeBottom + 1
+            clamped = min(max(clamped, minH), maxH)
+
+            if abs(clamped - sheetHeight) > 0.5 {
+                sheetHeight = (clamped * 2).rounded() / 2
+            }
         }
         .onAppear {
-            // 시트가 나타날 때 현재 필터 상태를 임시 상태로 복사
             tempIndustry = industry
             tempDay = day
         }
         .background(Color.white)
         .presentationCornerRadius(24)
-        .presentationDetents([.height(580)])
         .presentationDragIndicator(.visible)
+        .presentationDetents([.height(sheetHeight)])
     }
 
     private func toggleSelection(_ selection: inout [Int]?, value: Int) {
         if selection?.contains(value) == true {
             selection?.removeAll(where: { $0 == value })
-            if selection?.isEmpty == true {
-                selection = nil
-            }
+            if selection?.isEmpty == true { selection = nil }
         } else {
-            if selection == nil {
-                selection = []
-            }
+            if selection == nil { selection = [] }
             selection?.append(value)
         }
     }
 }
 
-
-
+// MARK: - Chip
 struct SelectableChip: View {
     let text: String
     let isSelected: Bool
@@ -161,64 +216,60 @@ struct SelectableChip: View {
                     .stroke(isSelected ? .primaryNormal : Color(hex: "EBEBEB"))
             )
             .cornerRadius(16)
-            .onTapGesture {
-                action()
-            }
+            .contentShape(Rectangle())
+            .onTapGesture { action() }
     }
 }
 
-struct FlowLayoutView<Data: RandomAccessCollection, Content: View>: View where Data.Element: Hashable {
-    let data: Data
-    let spacing: CGFloat
-    let alignment: HorizontalAlignment
-    let content: (Data.Element) -> Content
+// MARK: - Flow layout (iOS 16/17 호환, GeometryReader 미사용)
+struct FlowRowsLayout: Layout {
+    var spacing: CGFloat = 12
 
-    @State private var totalHeight: CGFloat = .zero
+    struct Cache { var frames: [CGRect] = []; var size: CGSize = .zero }
 
-    init(data: Data,
-         spacing: CGFloat = 8,
-         alignment: HorizontalAlignment = .leading,
-         @ViewBuilder content: @escaping (Data.Element) -> Content) {
-        self.data = data
-        self.spacing = spacing
-        self.alignment = alignment
-        self.content = content
+    func makeCache(subviews: SwiftUI.LayoutSubviews) -> Cache { Cache() }
+
+    func sizeThatFits(
+        proposal: ProposedViewSize,
+        subviews: SwiftUI.LayoutSubviews,
+        cache: inout Cache
+    ) -> CGSize {
+        // 제안된 너비가 없으면 안전한 기본값(좌우 패딩 고려)
+        let fallbackW = UIScreen.main.bounds.width - L.horizontal * 2
+        let maxW = proposal.width ?? fallbackW
+
+        var x: CGFloat = 0, y: CGFloat = 0, rowH: CGFloat = 0
+        var frames: [CGRect] = []
+
+        for v in subviews {
+            var sz = v.sizeThatFits(.unspecified)
+            sz.width = min(sz.width, maxW)
+            if x > 0, x + sz.width > maxW { // 줄바꿈
+                x = 0; y += rowH + spacing; rowH = 0
+            }
+            frames.append(CGRect(x: x, y: y, width: sz.width, height: sz.height))
+            x += sz.width + spacing
+            rowH = max(rowH, sz.height)
+        }
+
+        let totalH = y + rowH
+        cache.frames = frames
+        cache.size = CGSize(width: maxW, height: totalH)
+        return cache.size
     }
 
-    var body: some View {
-        GeometryReader { geometry in
-            self.generateContent(in: geometry)
+    func placeSubviews(
+        in bounds: CGRect,
+        proposal: ProposedViewSize,
+        subviews: SwiftUI.LayoutSubviews,
+        cache: inout Cache
+    ) {
+        for (i, v) in subviews.enumerated() {
+            let f = cache.frames[i].offsetBy(dx: bounds.minX, dy: bounds.minY)
+            v.place(
+                at: CGPoint(x: f.minX, y: f.minY),
+                proposal: ProposedViewSize(width: f.width, height: f.height)
+            )
         }
-    }
-
-    private func generateContent(in geometry: GeometryProxy) -> some View {
-        var width = CGFloat.zero
-        var rows: [[Data.Element]] = [[]]
-
-        for element in data {
-            // 각 줄에 4개까지 들어가도록 계산
-            let availableWidth = geometry.size.width - 48 // 좌우 패딩 제외
-            let elementWidth = (availableWidth - (spacing * 3)) / 4 // 4개 칩 + 3개 간격
-            let elementSize = CGSize(width: elementWidth, height: 30)
-            
-            if width + elementSize.width + spacing > availableWidth {
-                width = 0
-                rows.append([])
-            }
-            width += elementSize.width + spacing
-            rows[rows.count - 1].append(element)
-        }
-
-        return VStack(alignment: alignment, spacing: spacing) {
-            ForEach(rows, id: \.self) { row in
-                HStack(spacing: spacing) {
-                    ForEach(row, id: \.self) { element in
-                        content(element)
-                    }
-                    Spacer() // 남은 공간을 채움
-                }
-            }
-        }
-        .frame(maxWidth: .infinity, alignment: .leading)
     }
 }

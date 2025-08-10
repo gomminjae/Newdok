@@ -43,6 +43,11 @@ public struct SubscribeView: View {
                 .background(Color(hex: "#F5F5F7"))
         }
         .task { await viewModel.loadInitial() }
+        .onChange(of: selectedTab) { _, newTab in
+            Task {
+                await viewModel.refresh(tab: newTab)
+            }
+        }
         // 팝업/토스트들 기존 그대로…
         .popup(isPresented: Binding(
             get: { showUnsubscribeAlert && selectedNewsletter != nil },
@@ -122,6 +127,7 @@ public struct SubscribeView: View {
                                         Task {
                                             await viewModel.resume(newsletterId: String(newsletter.id ?? 0))
                                             await viewModel.refresh(tab: 0) // 재개 후 활성 갱신
+                                            await viewModel.refresh(tab: 1) // 현재 탭(구독 중지) 갱신
                                             showSubscribeToast = true
                                             DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
                                                 showSubscribeToast = false
