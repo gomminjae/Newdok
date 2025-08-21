@@ -121,7 +121,7 @@ public struct HomeView: View {
             Image(asset: DesignSystemAsset.logo)
                 .resizable()
                 .frame(width: 126, height: 24)
-                .padding(.vertical, 18)
+                .padding(.vertical, 16)
                 .padding(.leading, 20)
 
             Spacer()
@@ -131,14 +131,14 @@ public struct HomeView: View {
                     Image(asset: DesignSystemAsset.lineSearch)
                         .resizable()
                         .frame(width: 28, height: 28)
-                        .padding(.vertical, 18)
+                        .padding(.vertical, 14)
                 }
                 Button(action: { print("알람") }) {
                     Image(asset: DesignSystemAsset.lineBell)
                         .resizable()
                         .frame(width: 28, height: 28)
-                        .padding(.vertical, 18)
-                        .padding(.trailing, 17.8)
+                        .padding(.vertical, 14)
+                        .padding(.trailing, 20)
                 }
             }
         }

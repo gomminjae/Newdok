@@ -158,7 +158,7 @@ public struct ExploreView: View {
             }
         }
         .padding(.horizontal, 20)
-        .padding(.vertical, 16)
+        .padding(.vertical, 17)
         .background(Color.white)
     }
 

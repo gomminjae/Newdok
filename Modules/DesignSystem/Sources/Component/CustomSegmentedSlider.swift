@@ -1,5 +1,5 @@
 import SwiftUI
-import DesignSystem
+
 
 public struct CustomSegmentedSlider: View {
     @Binding var selectedIndex: Int

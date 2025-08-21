@@ -110,6 +110,8 @@ final public class SignupViewModel: ObservableObject {
     @Published public var timerRemaining = 180
     @Published public var showAlreadyRegisteredAlert = false
     @Published public var showError = false
+    @Published public var skipUserCheck = false
+    @Published public var shouldFocusVerificationCode = false
     
     @Published public var emails: [String] = []
     @Published public var isShowPopup: Bool = false
@@ -151,6 +153,8 @@ final public class SignupViewModel: ObservableObject {
             isRequestSent = false
             timerRemaining = 180
             showError = false
+            skipUserCheck = false
+            shouldFocusVerificationCode = false
         }
     }
     
@@ -163,6 +167,8 @@ final public class SignupViewModel: ObservableObject {
             isRequestSent = false
             timerRemaining = 180
             showError = false
+            skipUserCheck = false
+            shouldFocusVerificationCode = false
         }
     }
     
@@ -175,14 +181,21 @@ final public class SignupViewModel: ObservableObject {
            enteredVerificationCode = ""
            resendFailureCount = 0
            verificationCode = ""
+           skipUserCheck = false
+           shouldFocusVerificationCode = false
        }
 
     // MARK: - 인증코드 전송 (초기/재전송 공통)
     public func sendVerificationCode(skipCheck: Bool = false) {
-        // 재전송 3회 초과 시, 다음 버튼 클릭(재전송 시점)에 팝업 표시
+        // 재전송 3회 초과 시, 팝업 표시
         guard resendFailureCount < 3 else {
             isShowPopup = true
             return
+        }
+        
+        // 재전송인 경우 카운트 증가 (초기 전송이 아닌 경우)
+        if isRequestSent {
+            resendFailureCount += 1
         }
         Task {
             do {
@@ -194,7 +207,7 @@ final public class SignupViewModel: ObservableObject {
                 showError = false
                 timerRemaining = 180
 
-                if !skipCheck {
+                if !skipCheck && !skipUserCheck {
                     let users = try await userUseCase.checkPhoneNumber(phoneNumber)
                     if !users.isEmpty {
                         userList = users
@@ -210,10 +223,11 @@ final public class SignupViewModel: ObservableObject {
                 await MainActor.run {
                     isRequestSent = true
                     startTimer()
+                    shouldFocusVerificationCode = true  // 인증번호 입력 필드로 포커스
                 }
             } catch {
                 errorMessage = error.localizedDescription
-                // 전송 실패 카운트 추가 (팝업은 다음 재전송 시점에서 표시)
+                // 전송 실패 시에만 카운트 증가
                 resendFailureCount += 1
             }
             isLoading = false
@@ -253,11 +267,7 @@ final public class SignupViewModel: ObservableObject {
                 if self.timerRemaining <= 0 {
                     self.stopTimer()
                     self.showError = true
-                    self.resendFailureCount += 1
-                    // 3회 도달 시 팝업
-                    if self.resendFailureCount >= 3 {
-                        self.isShowPopup = true
-                    }
+                    // 타이머 만료 시에는 카운트 증가하지 않음 (재전송 버튼 클릭 시에만 증가)
                 }
             }
         }

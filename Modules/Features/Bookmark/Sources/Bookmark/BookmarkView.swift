@@ -103,7 +103,7 @@ public struct BookmarkView: View {
     
     public var body: some View {
         VStack(spacing: 0) {
-            headerView()
+            headerView
             
             categoryFilter
             sortInfo
@@ -166,26 +166,27 @@ public struct BookmarkView: View {
         .onDisappear { viewModel.cancelLoads() }
     }
     
-    private func headerView() -> some View {
+    private var headerView: some View {
         HStack {
             Text("북마크함")
                 .font(.hanSansNeo(16, .bold))
-            
+                .foregroundStyle(Color(hex: "161616"))
             Spacer()
-            
-            Button(action: {
+            Button {
+                print("검색 버튼 탭")
                 router.push(.search)
-            }) {
+            } label: {
                 Image(asset: DesignSystemAsset.lineSearch)
+                    .padding(.trailing, 12)
             }
-            .padding(.trailing, 12)
-            
-            Button(action: {}) {
+            Button {
+                print("알람 버튼 탭")
+            } label: {
                 Image(asset: DesignSystemAsset.lineBell)
             }
         }
         .padding(.horizontal, 20)
-        .padding(.vertical, 16)
+        .padding(.vertical, 17)
         .background(Color.white)
     }
     

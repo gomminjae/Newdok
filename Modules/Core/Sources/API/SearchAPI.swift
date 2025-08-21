@@ -16,7 +16,7 @@ public enum SearchAPI {
 
 extension SearchAPI: TargetType {
     public var baseURL: URL {
-        return URL(string: "\(APIEnvironment.development.baseURL)/search")!
+        return URL(string: "\(APIEnvironment.current.baseURL)/search")!
     }
     
     public var path: String {

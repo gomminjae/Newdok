@@ -38,7 +38,7 @@ extension NewsletterAPI: TargetType {
     
     public var baseURL: URL {
         return URL(string:
-                    "\(APIEnvironment.development.baseURL)/newsletters")!
+                    "\(APIEnvironment.current.baseURL)/newsletters")!
     }
     
     

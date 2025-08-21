@@ -15,6 +15,7 @@ public struct SignupPopupView: View {
     var infos: [SimpleUser]
     var onClose: () -> Void
     var onLogin: () -> Void
+    var onRecovery: () -> Void
 
     public var body: some View {
         VStack(spacing: 0) {
@@ -58,28 +59,55 @@ public struct SignupPopupView: View {
                 .padding(.horizontal, 20)
 
                 HStack(spacing: 12) {
-                    Button(infos.count < 3 ? "계속 진행하기" : "ID/PW 찾기") {
-                        print("계속 진행하기 클릭됨")
-                        onClose()
-                    }
-                    .frame(height: 44)
-                    .frame(maxWidth: .infinity)
-                    .overlay(
-                        RoundedRectangle(cornerRadius: 4)
-                            .stroke(Color.primaryNormal, lineWidth: 1)
-                    )
-                    .font(.hanSansNeo(14, .bold))
-                    .foregroundColor(Color.primaryNormal)
+                    if infos.count < 3 {
+                        // 3명 미만일 때: 계속 진행하기 + 로그인
+                        Button("계속 진행하기") {
+                            print("계속 진행하기 클릭됨")
+                            onClose()
+                        }
+                        .frame(height: 44)
+                        .frame(maxWidth: .infinity)
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 4)
+                                .stroke(Color.primaryNormal, lineWidth: 1)
+                        )
+                        .font(.hanSansNeo(14, .bold))
+                        .foregroundColor(Color.primaryNormal)
 
-                    Button("로그인") {
-                        onLogin()
+                        Button("로그인") {
+                            onLogin()
+                        }
+                        .frame(height: 44)
+                        .frame(maxWidth: .infinity)
+                        .background(Color.primaryNormal)
+                        .foregroundColor(.white)
+                        .cornerRadius(4)
+                        .font(.hanSansNeo(14, .bold))
+                    } else {
+                        // 3명 이상일 때: ID/PW 찾기 + 로그인
+                        Button("ID/PW 찾기") {
+                            print("ID/PW 찾기 클릭됨")
+                            onRecovery() // ID/PW 찾기 화면으로 이동
+                        }
+                        .frame(height: 44)
+                        .frame(maxWidth: .infinity)
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 4)
+                                .stroke(Color.primaryNormal, lineWidth: 1)
+                        )
+                        .font(.hanSansNeo(14, .bold))
+                        .foregroundColor(Color.primaryNormal)
+
+                        Button("로그인") {
+                            onLogin()
+                        }
+                        .frame(height: 44)
+                        .frame(maxWidth: .infinity)
+                        .background(Color.primaryNormal)
+                        .foregroundColor(.white)
+                        .cornerRadius(4)
+                        .font(.hanSansNeo(14, .bold))
                     }
-                    .frame(height: 44)
-                    .frame(maxWidth: .infinity)
-                    .background(Color.primaryNormal)
-                    .foregroundColor(.white)
-                    .cornerRadius(4)
-                    .font(.hanSansNeo(14, .bold))
                 }
                 .padding(.horizontal, 20)
                 .padding(.top, 24)

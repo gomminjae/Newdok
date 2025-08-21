@@ -32,7 +32,7 @@ public struct SubscribeView: View {
 
     public var body: some View {
         VStack(spacing: 0) {
-            headerView()
+            headerView
 
             CustomSegmentedSlider(selectedIndex: $selectedTab, titles: ["구독 중", "구독 중지"])
                 .padding(.top, 8)
@@ -106,8 +106,17 @@ public struct SubscribeView: View {
                             .frame(maxWidth: .infinity, maxHeight: .infinity)
                     } else if !viewModel.initialLoaded {
                         // 최초 진입만 로딩 화면
-                        ProgressView()
-                            .frame(maxWidth: .infinity, maxHeight: .infinity)
+                        VStack(spacing: 16) {
+                            Spacer()
+                            ProgressView()
+                                .scaleEffect(1.2)
+                                .tint(Color.primaryNormal)
+                            Text("구독 정보를 불러오는 중...")
+                                .font(.hanSansNeo(14, .medium))
+                                .foregroundColor(Color(hex: "#555555"))
+                            Spacer()
+                        }
+                        .frame(maxWidth: .infinity, maxHeight: .infinity)
                     } else if filteredSubscriptions.isEmpty {
                         // 데이터가 없을 때 빈상태 표시
                         EmptySubscriptionView(isSubscribedTab: selectedTab == 0, isGuest: false)
@@ -170,18 +179,29 @@ public struct SubscribeView: View {
     }
 
     // MARK: - Header / listHeaderView 그대로…
-    private func headerView() -> some View { /* 기존 그대로 */ HStack {
-        Text("내 구독").font(.hanSansNeo(16, .bold))
-        Spacer()
-        Button { router.push(.search) } label: {
-            Image(asset: DesignSystemAsset.lineSearch).padding(.trailing, 12)
+    private var headerView: some View {
+        HStack {
+            Text("내 구독")
+                .font(.hanSansNeo(16, .bold))
+                .foregroundStyle(Color(hex: "161616"))
+            Spacer()
+            Button {
+                print("검색 버튼 탭")
+                router.push(.search)
+            } label: {
+                Image(asset: DesignSystemAsset.lineSearch)
+                    .padding(.trailing, 12)
+            }
+            Button {
+                print("알람 버튼 탭")
+            } label: {
+                Image(asset: DesignSystemAsset.lineBell)
+            }
         }
-        Button(action: {}) { Image(asset: DesignSystemAsset.lineBell) }
+        .padding(.horizontal, 20)
+        .padding(.vertical, 17)
+        .background(Color.white)
     }
-    .padding(.horizontal, 20)
-    .padding(.vertical, 16)
-    .frame(height: 56)
-    .background(.white) }
 
     private func listHeaderView() -> some View {
         VStack(alignment: .leading, spacing: 8) {

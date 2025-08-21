@@ -20,7 +20,7 @@ public struct PhoneVerificationView: View {
     
 
     @FocusState private var isPhoneFieldFocused: Bool
-    @FocusState private var isNumberPadFocused: Bool
+    @FocusState private var isVerificationCodeFocused: Bool
 
     @ObservedObject private var viewModel: SignupViewModel
     
@@ -55,7 +55,6 @@ public struct PhoneVerificationView: View {
                                 .font(.hanSansNeo(14, .medium))
                                 .keyboardType(.numberPad)
                                 .focused($isPhoneFieldFocused)
-                                .focused($isNumberPadFocused)
                                 .padding(.vertical, 12)
                                 .padding(.horizontal, 8)
                                 
@@ -67,10 +66,16 @@ public struct PhoneVerificationView: View {
                                 .stroke(isPhoneFieldFocused ? Color.primaryNormal : Color(hex: "#DADADA"), lineWidth: 1)
                         )
 
+                        // 일반적인 인증 요청/재전송 버튼 (항상 표시)
                         Button(viewModel.isRequestSent ? "재전송" : "인증 요청") {
                             viewModel.enteredVerificationCode = ""
                             viewModel.showError = false
-                            viewModel.sendVerificationCode()
+                            // 재전송인 경우 skipCheck: true로 호출
+                            if viewModel.isRequestSent {
+                                viewModel.sendVerificationCode(skipCheck: true)
+                            } else {
+                                viewModel.sendVerificationCode()
+                            }
                         }
                         .font(.hanSansNeo(14, .bold))
                         .foregroundStyle(viewModel.phoneNumber.count < 11 ?  Color(hex: "#BDBDBD") : Color.primaryNormal)
@@ -94,11 +99,17 @@ public struct PhoneVerificationView: View {
                                 HStack {
                                     Image(asset: DesignSystemAsset.lineLock)
                                         .renderingMode(.template)
-                                        .foregroundStyle(isNumberPadFocused ? Color(hex: "363636") : Color(hex: "969696"))
+                                        .foregroundStyle(isVerificationCodeFocused ? Color(hex: "363636") : Color(hex: "969696"))
                                     TextField("6자리 숫자 입력", text: $viewModel.enteredVerificationCode)
                                         .keyboardType(.numberPad)
                                         .font(.hanSansNeo(14, .medium))
-                                        .focused($isNumberPadFocused)
+                                        .focused($isVerificationCodeFocused)
+                                        .onChange(of: viewModel.enteredVerificationCode) { _, newValue in
+                                            // 6자리까지만 입력 허용
+                                            if newValue.count > 6 {
+                                                viewModel.enteredVerificationCode = String(newValue.prefix(6))
+                                            }
+                                        }
                                 }
                                 .padding(.horizontal, 16)
                                 .frame(height: 50)
@@ -111,7 +122,7 @@ public struct PhoneVerificationView: View {
                             .background(viewModel.showError || viewModel.timerRemaining <= 0 ? Color.red.opacity(0.1) : .white)
                             .overlay(
                                 RoundedRectangle(cornerRadius: 5)
-                                    .stroke(viewModel.showError || viewModel.timerRemaining <= 0 ? .red : Color(hex: "EBEBEB"), lineWidth: 2)
+                                    .stroke(viewModel.showError || viewModel.timerRemaining <= 0 ? .red : (isVerificationCodeFocused ? Color.primaryNormal : Color(hex: "#DADADA")), lineWidth: 1)
                             )
                             .padding(.horizontal, 24)
 
@@ -131,13 +142,22 @@ public struct PhoneVerificationView: View {
                     Spacer()
                     Button("Done") {
                         isPhoneFieldFocused = false
-                        isNumberPadFocused = false
+                        isVerificationCodeFocused = false
                     }
                     .foregroundStyle(Color.primaryNormal)
                     .font(.hanSansNeo(17, .medium))
                 }
             }
             .hideKeyboardOnTap()
+            .onChange(of: viewModel.shouldFocusVerificationCode) { _, shouldFocus in
+                if shouldFocus {
+                    // UI 업데이트 완료를 위한 약간의 지연
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                        isVerificationCodeFocused = true
+                    }
+                    viewModel.shouldFocusVerificationCode = false  // 상태 리셋
+                }
+            }
 
             if viewModel.isRequestSent {
                 Button(action: {
@@ -163,17 +183,28 @@ public struct PhoneVerificationView: View {
         }
         .scrollDisabled(true)
         .ignoresSafeArea(.keyboard)
+        .onAppear {
+            // 화면 진입 시 휴대폰 번호 입력 필드로 포커스
+            isPhoneFieldFocused = true
+        }
         .popup(isPresented: $viewModel.isShowUserList) {
             SignupPopupView(
                 infos: viewModel.userList,
                 onClose: {
                     viewModel.isShowUserList = false
-                    viewModel.sendVerificationCode(skipCheck: true)
-                    
+                    // 기존 사용자가 3명 미만일 때만 계속 진행
+                    if viewModel.userList.count < 3 {
+                        viewModel.skipUserCheck = true
+                        viewModel.sendVerificationCode(skipCheck: true)
+                    }
                 },
                 onLogin: {
                     viewModel.isShowUserList = false
                     router.push(.login)
+                },
+                onRecovery: {
+                    viewModel.isShowUserList = false
+                    router.push(.recovery)
                 }
             )
         } customize: {

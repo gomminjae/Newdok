@@ -109,23 +109,25 @@ public struct LoginView: View {
 
                 Spacer()
 
-                Button("로그인") {
+                Button {
                     viewModel.login() {
                         isLoggedIn = true
                         isGuest = false
                         router.resetTo(.tabbar(selectedTab: .home))
                         print("LoginView에서 router 인스턴스: \(Unmanaged.passUnretained(router).toOpaque())")
                     }
-                    
+                } label: {
+                    Text("로그인")
+                        .font(.hanSansNeo(16, .bold))
+                        .disabled(!viewModel.isLoginEnabled)
+                        .frame(maxWidth: .infinity)
+                        .frame(height: 48)
+                        .background(viewModel.isLoginEnabled ? Color.primaryNormal : Color(hex: "#EBEBEB"))
+                        .foregroundColor(viewModel.isLoginEnabled ? .white : Color(hex: "#C0C0C0"))
+                        .cornerRadius(4)
+                        .contentShape(Rectangle())
                 }
-                .font(.hanSansNeo(16,.bold))
-                .disabled(!viewModel.isLoginEnabled)
-                .frame(maxWidth: .infinity)
-                .frame(height: 56)
-                .background(viewModel.isLoginEnabled ? Color.primaryNormal : Color(hex: "#EBEBEB"))
-                .foregroundColor(viewModel.isLoginEnabled ? .white : Color(hex: "#C0C0C0"))
-                .cornerRadius(4)
-                .contentShape(Rectangle())
+              
 
                 HStack {
                     Button("비회원으로 이용하기") {

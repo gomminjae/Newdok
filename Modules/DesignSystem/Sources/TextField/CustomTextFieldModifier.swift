@@ -20,11 +20,11 @@ public struct CustomTextFieldModifier: ViewModifier {
             Image(asset: DesignSystemAsset.lineUser)
                 .renderingMode(.template)
                 .foregroundStyle(isFocused ? Color(hex: "363636") : Color(hex : "969696"))
-                .allowsHitTesting(false) // 아이콘 터치 방지
+                .allowsHitTesting(false)
             content
                 .foregroundColor(.primary)
                 .padding(.vertical, 12)
-                .contentShape(Rectangle()) // 텍스트필드 터치 영역 확장
+                .contentShape(Rectangle())
         }
         .padding(.horizontal)
         .frame(height: 50)
@@ -33,11 +33,11 @@ public struct CustomTextFieldModifier: ViewModifier {
             RoundedRectangle(cornerRadius: 4)
                 .stroke(
                     isError ? Color(hex: "#E32727") :
-                        (isFocused ? Color.primaryNormal : Color.gray.opacity(0.5)),
+                        (isFocused ? Color.primaryNormal : Color(hex: "#DADADA")),
                     lineWidth: 1
                 )
         )
-        .contentShape(Rectangle()) // 전체 영역 터치 가능하게
+        .contentShape(Rectangle())
     }
 
     private var borderColor: Color {
@@ -79,9 +79,9 @@ public struct PasswordFieldModifier: ViewModifier {
             Image(asset: DesignSystemAsset.lineLock)
                 .renderingMode(.template)
                 .foregroundStyle(isFocused ? Color(hex: "363636") : Color(hex : "969696"))
-                .allowsHitTesting(false) // 아이콘 터치 방지
+                .allowsHitTesting(false)
             content
-                .contentShape(Rectangle()) // 텍스트필드 터치 영역 확장
+                .contentShape(Rectangle())
             Button(action: {
                 isSecure.toggle()
             }) {
@@ -97,7 +97,7 @@ public struct PasswordFieldModifier: ViewModifier {
             RoundedRectangle(cornerRadius: 4)
                 .stroke(borderColor, lineWidth: 1)
         )
-        .contentShape(Rectangle()) // 전체 영역 터치 가능하게
+        .contentShape(Rectangle())
     }
 
     private var borderColor: Color {
@@ -111,7 +111,6 @@ public struct PasswordFieldModifier: ViewModifier {
     }
 }
 
-
 extension View {
     public func hideKeyboardOnTap() -> some View {
         self.onTapGesture {
@@ -120,7 +119,7 @@ extension View {
         .allowsHitTesting(true)
     }
     
-    // 텍스트필드 영역을 제외하고 키보드 숨기기
+    
     public func hideKeyboardOnTapExcludingTextField() -> some View {
         self.background(
             Color.clear
