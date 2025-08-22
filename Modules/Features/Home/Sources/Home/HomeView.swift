@@ -53,7 +53,6 @@ public struct HomeView: View {
                 
             }
             .padding(.horizontal, 8)
-            .padding(.top, 8)
             .zIndex(0)
         }
         .popup(isPresented: $showCalendar) {
@@ -119,29 +118,27 @@ public struct HomeView: View {
     private var headerView: some View {
         HStack {
             Image(asset: DesignSystemAsset.logo)
-                .resizable()
-                .frame(width: 126, height: 24)
-                .padding(.vertical, 16)
-                .padding(.leading, 20)
+                .padding(.leading, 12)
+                
 
             Spacer()
 
-            HStack(spacing: 16) {
-                Button(action: { router.push(.search) }) {
-                    Image(asset: DesignSystemAsset.lineSearch)
-                        .resizable()
-                        .frame(width: 28, height: 28)
-                        .padding(.vertical, 14)
-                }
-                Button(action: { print("알람") }) {
-                    Image(asset: DesignSystemAsset.lineBell)
-                        .resizable()
-                        .frame(width: 28, height: 28)
-                        .padding(.vertical, 14)
-                        .padding(.trailing, 20)
-                }
+            Button {
+                print("검색 버튼 탭")
+                router.push(.search)
+            } label: {
+                Image(asset: DesignSystemAsset.lineSearch)
+                    .padding(.trailing, 12)
+            }
+            Button {
+                print("알람 버튼 탭")
+            } label: {
+                Image(asset: DesignSystemAsset.lineBell)
             }
         }
+        .padding(.trailing, 20)
+        .padding(.vertical, 16)
+        
         .background(Color(hex: "#F5F5F7"))
     }
 

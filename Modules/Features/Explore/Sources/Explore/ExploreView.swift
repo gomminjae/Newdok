@@ -355,11 +355,11 @@ public struct ExploreView: View {
                         .padding(.horizontal, 12)
                         .padding(.vertical, 8)
                         .background(Color.white)
-                        .cornerRadius(20)
                         .overlay(
                             RoundedRectangle(cornerRadius: 20)
                                 .stroke(Color(hex: "EBEBEB"))
                         )
+                        .clipShape(RoundedRectangle(cornerRadius: 20))
                     }
                     Rectangle()
                         .frame(width: 1, height: 20)
@@ -381,11 +381,11 @@ public struct ExploreView: View {
                         .padding(.horizontal, 12)
                         .padding(.vertical, 8)
                         .background(Color.white)
-                        .cornerRadius(20)
                         .overlay(
                             RoundedRectangle(cornerRadius: 20)
                                 .stroke(viewModel.industry != nil ? Color.primaryNormal : Color(hex :"EBEBEB"))
                         )
+                        .clipShape(RoundedRectangle(cornerRadius: 20))
                     }
 
                     // 요일 필터
@@ -404,11 +404,11 @@ public struct ExploreView: View {
                         .padding(.horizontal, 12)
                         .padding(.vertical, 8)
                         .background(Color.white)
-                        .cornerRadius(20)
                         .overlay(
                             RoundedRectangle(cornerRadius: 20)
                                 .stroke(viewModel.day != nil ? Color.primaryNormal : Color(hex: "EBEBEB"))
                         )
+                        .clipShape(RoundedRectangle(cornerRadius: 20))
                     }
                 }
             }

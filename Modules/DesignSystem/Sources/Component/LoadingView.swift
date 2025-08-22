@@ -13,13 +13,8 @@ public struct LoadingView: View {
     public init() {}
 
     public var body: some View {
-        HStack(spacing: 4) {
-            ForEach(0..<5, id: \.self) { _ in
-                GIFImageView(gifName: "load")
-                    .frame(width: 50, height: 50)
-                    
-            }
-        }
+        GIFImageView(gifName: "load")
+            .frame(width: 50, height: 50)
     }
 }
 

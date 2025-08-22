@@ -104,19 +104,6 @@ public struct SubscribeView: View {
                     if isGuest {
                         EmptySubscriptionView(isSubscribedTab: selectedTab == 0, isGuest: true)
                             .frame(maxWidth: .infinity, maxHeight: .infinity)
-                    } else if !viewModel.initialLoaded {
-                        // 최초 진입만 로딩 화면
-                        VStack(spacing: 16) {
-                            Spacer()
-                            ProgressView()
-                                .scaleEffect(1.2)
-                                .tint(Color.primaryNormal)
-                            Text("구독 정보를 불러오는 중...")
-                                .font(.hanSansNeo(14, .medium))
-                                .foregroundColor(Color(hex: "#555555"))
-                            Spacer()
-                        }
-                        .frame(maxWidth: .infinity, maxHeight: .infinity)
                     } else if filteredSubscriptions.isEmpty {
                         // 데이터가 없을 때 빈상태 표시
                         EmptySubscriptionView(isSubscribedTab: selectedTab == 0, isGuest: false)
@@ -178,7 +165,7 @@ public struct SubscribeView: View {
         return selectedTab == 0 ? viewModel.activeNewsletters : viewModel.pausedNewsletters
     }
 
-    // MARK: - Header / listHeaderView 그대로…
+    // MARK: - Header
     private var headerView: some View {
         HStack {
             Text("내 구독")

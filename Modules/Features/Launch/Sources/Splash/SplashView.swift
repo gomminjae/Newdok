@@ -12,9 +12,7 @@ public struct SplashView: View {
     public init() {}
     public var body: some View {
         VStack {
-            Spacer()
-            Image(asset: DesignSystemAsset.logo)
-            Spacer()
+            Image(asset: DesignSystemAsset.splash)
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(Color.white)

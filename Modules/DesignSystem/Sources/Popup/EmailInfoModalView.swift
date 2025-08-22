@@ -25,14 +25,14 @@ public struct EmailInfoModalView: View {
                     .font(.hanSansNeo(20, .bold))
                     .foregroundStyle(Color(hex: "#161616"))
                     .padding(.top, 24)
-                    .padding(.horizontal, 24)
+                    .padding(.leading, 20)
                 
                 
                 Text("회원가입 시 자동으로 생성되는\n뉴스레터 구독을 위한 이메일 주소예요.")
                     .font(.hanSansNeo(14, .medium))
                     .foregroundColor(Color(hex: "#161616"))
                     .padding(.top, 8)
-                    .padding(.horizontal, 24)
+                    .padding(.leading, 20)
                 
                 VStack(alignment: .leading, spacing: 0) {
                     Text("""
@@ -49,7 +49,8 @@ public struct EmailInfoModalView: View {
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .background(Color(hex: "#F5F5F5"))
                 .cornerRadius(6)
-                .padding(.horizontal, 20)
+                .padding(.leading, 20)
+                .padding(.trailing, 20)
                 .padding(.top, 16)
 
 
@@ -66,7 +67,8 @@ public struct EmailInfoModalView: View {
                         .background(Color(hex: "#2866D3"))
                         .cornerRadius(4)
                 }
-                .padding(.horizontal, 24)
+                .padding(.leading, 20)
+                .padding(.trailing, 24)
                 .padding(.top, 24)
                 .padding(.bottom, 28)
             }
