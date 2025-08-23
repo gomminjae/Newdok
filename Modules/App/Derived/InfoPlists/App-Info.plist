@@ -87,5 +87,9 @@
 	</array>
 	<key>UIUserInterfaceStyle</key>
 	<string>Light</string>
+	<key>APIBaseURLProduction</key>
+	<string>https://newdok.shop</string>
+	<key>APIBaseURLDevelopment</key>
+	<string>http://3.38.79.19</string>
 </dict>
 </plist>
