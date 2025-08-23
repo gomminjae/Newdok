@@ -52,7 +52,6 @@ public struct HomeView: View {
                 )
                 
             }
-            .padding(.horizontal, 8)
             .zIndex(0)
         }
         .popup(isPresented: $showCalendar) {
@@ -118,7 +117,6 @@ public struct HomeView: View {
     private var headerView: some View {
         HStack {
             Image(asset: DesignSystemAsset.logo)
-                .padding(.leading, 12)
                 
 
             Spacer()
@@ -136,9 +134,8 @@ public struct HomeView: View {
                 Image(asset: DesignSystemAsset.lineBell)
             }
         }
-        .padding(.trailing, 20)
-        .padding(.vertical, 16)
-        
+        .padding(.horizontal, 20)
+        .padding(.vertical, 17)
         .background(Color(hex: "#F5F5F7"))
     }
 

@@ -18,9 +18,15 @@ enum APIEnvironment {
     var baseURL: String {
         switch self {
         case .production:
-            return "https://newdok.shop"
+            guard let url = Bundle.main.object(forInfoDictionaryKey: "APIBaseURLProduction") as? String else {
+                fatalError("APIBaseURLProduction not found in Info.plist")
+            }
+            return url
         case .development:
-            return "http://3.38.79.19"
+            guard let url = Bundle.main.object(forInfoDictionaryKey: "APIBaseURLDevelopment") as? String else {
+                fatalError("APIBaseURLDevelopment not found in Info.plist")
+            }
+            return url
         }
     }
 }
