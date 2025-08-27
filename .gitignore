@@ -1,2 +1,5 @@
 Tuist/.build/
 
+# Configuration files with sensitive data
+Modules/App/Resources/Config.plist
+

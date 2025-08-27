@@ -18,13 +18,17 @@ enum APIEnvironment {
     var baseURL: String {
         switch self {
         case .production:
-            guard let url = Bundle.main.object(forInfoDictionaryKey: "APIBaseURLProduction") as? String else {
-                fatalError("APIBaseURLProduction not found in Info.plist")
+            guard let path = Bundle.main.path(forResource: "Config", ofType: "plist"),
+                  let config = NSDictionary(contentsOfFile: path),
+                  let url = config["APIBaseURLProduction"] as? String else {
+                fatalError("APIBaseURLProduction not found in Config.plist")
             }
             return url
         case .development:
-            guard let url = Bundle.main.object(forInfoDictionaryKey: "APIBaseURLDevelopment") as? String else {
-                fatalError("APIBaseURLDevelopment not found in Info.plist")
+            guard let path = Bundle.main.path(forResource: "Config", ofType: "plist"),
+                  let config = NSDictionary(contentsOfFile: path),
+                  let url = config["APIBaseURLDevelopment"] as? String else {
+                fatalError("APIBaseURLDevelopment not found in Config.plist")
             }
             return url
         }
