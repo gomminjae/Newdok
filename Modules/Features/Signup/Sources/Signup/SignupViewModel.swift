@@ -71,7 +71,12 @@ final public class SignupViewModel: ObservableObject {
     
     //MARK: - ID
     @Published public var loginID: String = "" {
-        didSet { isIDAvailable = nil }
+        didSet { 
+            // 실제로 값이 변경되었을 때만 초기화
+            if oldValue != loginID {
+                isIDAvailable = nil 
+            }
+        }
     }
     @Published public var isIDAvailable: Bool? = nil
     

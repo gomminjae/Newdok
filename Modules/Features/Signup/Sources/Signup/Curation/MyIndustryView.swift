@@ -8,27 +8,13 @@
 
 import SwiftUI
 import DesignSystem
+import Shared
 
 struct MyIndustryView: View {
     
-    let industryOptions: [DropdownOption] = [
-        DropdownOption(key: "1", value: "모든 산업"),
-        DropdownOption(key: "2", value: "IT・게임・통신"),
-        DropdownOption(key: "3", value: "F&B"),
-        DropdownOption(key: "4", value: "건설・건축"),
-        DropdownOption(key: "5", value: "광고"),
-        DropdownOption(key: "6", value: "교육"),
-        DropdownOption(key: "7", value: "금융・부동산"),
-        DropdownOption(key: "8", value: "문화・예술・엔터테인먼트"),
-        DropdownOption(key: "9", value: "미디어・출판"),
-        DropdownOption(key: "10", value: "생산・제조"),
-        DropdownOption(key: "11", value: "생활・서비스"),
-        DropdownOption(key: "12", value: "유통・무역"),
-        DropdownOption(key: "13", value: "의료"),
-        DropdownOption(key: "14", value: "패션"),
-        DropdownOption(key: "15", value: "자영업"),
-        DropdownOption(key: "16", value: "기타")
-    ]
+    let industryOptions: [DropdownOption] = SelectableItemStore.shared.industries.map {
+        DropdownOption(key: "\($0.id)", value: $0.name)
+    }
 
     
     @ObservedObject private var viewModel: SignupViewModel

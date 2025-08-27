@@ -20,6 +20,7 @@ public struct LoginView: View {
     @State private var showHomeView = false
     @State private var showToast: Bool = false
     @State private var toastMessage: String = ""
+    @State private var keyboardHeight: CGFloat = 0
     
     @EnvironmentObject private var router: AppRouter
     @EnvironmentObject private var tabSelection: TabSelection
@@ -32,7 +33,8 @@ public struct LoginView: View {
     }
 
     public var body: some View {
-        VStack {
+        ZStack {
+            VStack {
             HStack {
                 Image(asset: DesignSystemAsset.logo)
                     .frame(alignment: .leading)
@@ -152,6 +154,17 @@ public struct LoginView: View {
                 .padding(.bottom, 56)
             }
             .padding(.horizontal, 24)
+            }
+            
+            // 키보드 오버레이
+            if keyboardHeight > 0 {
+                VStack {
+                    Spacer()
+                    Color.clear
+                        .frame(height: keyboardHeight)
+                }
+                .ignoresSafeArea(.keyboard)
+            }
         }
         .safeAreaInset(edge: .top, spacing: 0) {
             Color.clear.frame(height: 20)
@@ -165,6 +178,14 @@ public struct LoginView: View {
                 toastMessage = message
                 showToast = true
             }
+        }
+        .onReceive(NotificationCenter.default.publisher(for: UIResponder.keyboardWillShowNotification)) { notification in
+            if let keyboardFrame = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect {
+                keyboardHeight = keyboardFrame.height
+            }
+        }
+        .onReceive(NotificationCenter.default.publisher(for: UIResponder.keyboardWillHideNotification)) { _ in
+            keyboardHeight = 0
         }
         .popup(isPresented: $showToast) {
             ToastView(message: toastMessage)

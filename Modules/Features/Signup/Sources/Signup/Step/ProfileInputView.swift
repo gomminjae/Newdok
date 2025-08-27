@@ -16,9 +16,15 @@ public struct ProfileInputView: View {
 
     @ObservedObject private var viewModel: SignupViewModel
 
-    let birthYearOptions: [DropdownOption] = (1990...2025).map {
-        DropdownOption(key: "\($0)", value: "\($0)")
-    }
+    let birthYearOptions: [DropdownOption] = {
+        let currentYear = Calendar.current.component(.year, from: Date())
+        let minYear = currentYear - 14  // 14세 이상
+        let maxYear = 1950  // 최대 연도
+        
+        return (maxYear...minYear).reversed().map {
+            DropdownOption(key: "\($0)", value: "\($0)")
+        }
+    }()
 
     public init(viewModel: SignupViewModel) {
         self.viewModel = viewModel

@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 60;
+	objectVersion = 55;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -12,7 +12,6 @@
 		08F42EAD70342095163AEA8E /* SDWebImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CAC3D6C4B33E5AB73921E3EA /* SDWebImage.framework */; };
 		0BFDC77A09ED37206E78FD25 /* SpoqaHanSansNeo-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = D45E4F8E9B8A1813A5ADE0C1 /* SpoqaHanSansNeo-Light.otf */; };
 		13DF60422EC2F2B2EBA47DB5 /* SpoqaHanSansNeo-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 56DFA51B1676775D07DC3DD2 /* SpoqaHanSansNeo-Regular.otf */; };
-		156419437DCB12B7D3568717 /* _LottieStub.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E83FB3D05729C6408D617220 /* _LottieStub.framework */; };
 		1A358594D74B1F60E1BF9612 /* SubscribeCheckPopupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 470F5079EDDB033641E50DED /* SubscribeCheckPopupView.swift */; };
 		1F4CB60213AC30949511BBE1 /* SwiftUIIntrospect.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 168518071DBADAF114CEBE27 /* SwiftUIIntrospect.framework */; };
 		1FA24D3FDDFF21AFE5CFC0D9 /* NetworkErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43927DC076C8D16C0564FAD5 /* NetworkErrorView.swift */; };
@@ -22,7 +21,6 @@
 		41412A573756BE6C91B6AA4D /* ToastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1516FE4B1E4C70074B90CC52 /* ToastView.swift */; };
 		4C768B0DAB889891D8E0145C /* SpoqaHanSansNeo-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 1CFCDF29DFB293A9C3F9D6D9 /* SpoqaHanSansNeo-Bold.otf */; };
 		4D1C8FAC5AA3A85D2B2BFAAF /* Color+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B424097EED4FD25BE22C5E1 /* Color+Extension.swift */; };
-		54A924B531517CC6DEB9D62E /* Lottie.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 345F0AF321438A80675BCA4B /* Lottie.xcframework */; };
 		574EA4DB241751A576797002 /* NotRegisteredIdPopupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDF5531123A3004A8540D621 /* NotRegisteredIdPopupView.swift */; };
 		68B44B93AD7ED2B47CD71A4A /* SubscribeGuestAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F04616C3C5DB23A49097D3BF /* SubscribeGuestAlertView.swift */; };
 		6F4DC4FB98D3EF58306E1CDA /* BackButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86103BCC821FCC1FE2B9F3CD /* BackButton.swift */; };
@@ -79,7 +77,6 @@
 		1A381D7F2C70367E5C3D8005 /* CustomSegmentedSlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSegmentedSlider.swift; sourceTree = "<group>"; };
 		1CFCDF29DFB293A9C3F9D6D9 /* SpoqaHanSansNeo-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SpoqaHanSansNeo-Bold.otf"; sourceTree = "<group>"; };
 		1EAA4A417D2996F4DF2DED40 /* SpoqaHanSansNeo-Thin.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SpoqaHanSansNeo-Thin.otf"; sourceTree = "<group>"; };
-		345F0AF321438A80675BCA4B /* Lottie.xcframework */ = {isa = PBXFileReference; expectedSignature = "SelfSigned:892F1B43047B50538F2F46EAD92900DD3D4811F3582178C061A5FB20F111CB26"; lastKnownFileType = wrapper.xcframework; path = Lottie.xcframework; sourceTree = "<group>"; };
 		3A89362609648144517CFE75 /* SpoqaHanSansNeo-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SpoqaHanSansNeo-Medium.otf"; sourceTree = "<group>"; };
 		41950894E4E9C8FF11201792 /* AuthFailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthFailView.swift; sourceTree = "<group>"; };
 		43927DC076C8D16C0564FAD5 /* NetworkErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkErrorView.swift; sourceTree = "<group>"; };
@@ -112,7 +109,6 @@
 		CCE4C52744BC5AEDA5913B79 /* SubscribeStatePopupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscribeStatePopupView.swift; sourceTree = "<group>"; };
 		D45E4F8E9B8A1813A5ADE0C1 /* SpoqaHanSansNeo-Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SpoqaHanSansNeo-Light.otf"; sourceTree = "<group>"; };
 		DE683B09BDE84B3483EE6137 /* SystemErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SystemErrorView.swift; sourceTree = "<group>"; };
-		E83FB3D05729C6408D617220 /* _LottieStub.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = _LottieStub.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F04616C3C5DB23A49097D3BF /* SubscribeGuestAlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscribeGuestAlertView.swift; sourceTree = "<group>"; };
 		F249E8F2A7648435125CF681 /* LottieView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LottieView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -126,23 +122,12 @@
 				08F42EAD70342095163AEA8E /* SDWebImage.framework in Frameworks */,
 				02CC97ABFD780062F1EB4548 /* Shared.framework in Frameworks */,
 				1F4CB60213AC30949511BBE1 /* SwiftUIIntrospect.framework in Frameworks */,
-				156419437DCB12B7D3568717 /* _LottieStub.framework in Frameworks */,
-				54A924B531517CC6DEB9D62E /* Lottie.xcframework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		0C0E5657E6CE697691227C50 /* Tuist */ = {
-			isa = PBXGroup;
-			children = (
-				4AC580DE693A01B7F74BFAED /* .build */,
-			);
-			name = Tuist;
-			path = ../../Tuist;
-			sourceTree = "<group>";
-		};
 		0E1288659896D0CFF98DA5AA /* Sources */ = {
 			isa = PBXGroup;
 			children = (
@@ -196,7 +181,6 @@
 				8753C5EB21B15584438290E8 /* Derived */,
 				9C29548CCBEAF62FB7951500 /* Resources */,
 				0E1288659896D0CFF98DA5AA /* Sources */,
-				0C0E5657E6CE697691227C50 /* Tuist */,
 			);
 			name = Project;
 			sourceTree = "<group>";
@@ -212,26 +196,9 @@
 			path = System;
 			sourceTree = "<group>";
 		};
-		4AC580DE693A01B7F74BFAED /* .build */ = {
-			isa = PBXGroup;
-			children = (
-				6ADE3F5364D26AC0DAE462EC /* artifacts */,
-			);
-			path = .build;
-			sourceTree = "<group>";
-		};
-		6ADE3F5364D26AC0DAE462EC /* artifacts */ = {
-			isa = PBXGroup;
-			children = (
-				F242DAD8B950C24A7DD5910E /* lottie-spm */,
-			);
-			path = artifacts;
-			sourceTree = "<group>";
-		};
 		82664F67710540CBDEBE5B11 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				E83FB3D05729C6408D617220 /* _LottieStub.framework */,
 				69B7BBEAD5472C7195924AC8 /* DesignSystem.framework */,
 				B6654808CA89C3FC25B33948 /* PopupView.framework */,
 				CAC3D6C4B33E5AB73921E3EA /* SDWebImage.framework */,
@@ -308,14 +275,6 @@
 			path = Sources;
 			sourceTree = "<group>";
 		};
-		D6131332FB581F15FFC09138 /* Lottie */ = {
-			isa = PBXGroup;
-			children = (
-				345F0AF321438A80675BCA4B /* Lottie.xcframework */,
-			);
-			path = Lottie;
-			sourceTree = "<group>";
-		};
 		EC9821EEC8CC800276475F6C = {
 			isa = PBXGroup;
 			children = (
@@ -330,14 +289,6 @@
 				BFD516035027585AFC53F053 /* ColorPalette.swift */,
 			);
 			path = Color;
-			sourceTree = "<group>";
-		};
-		F242DAD8B950C24A7DD5910E /* lottie-spm */ = {
-			isa = PBXGroup;
-			children = (
-				D6131332FB581F15FFC09138 /* Lottie */,
-			);
-			path = "lottie-spm";
 			sourceTree = "<group>";
 		};
 		F2F0D6EECE384EBEC3AFDEB4 /* InfoPlists */ = {
@@ -475,10 +426,6 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(SRCROOT)/../../Tuist/.build/artifacts/lottie-spm/Lottie",
-				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../../Tuist/.build/checkouts/SDWebImage/SDWebImage/Core",
@@ -497,7 +444,11 @@
 					"$(inherited)",
 					"-fmodule-map-file=$(SRCROOT)/../../Tuist/.build/tuist-derived/SDWebImage/SDWebImage.modulemap",
 				);
-				OTHER_SWIFT_FLAGS = "$(inherited) -Xcc -fmodule-map-file=$(SRCROOT)/../../Tuist/.build/tuist-derived/SDWebImage/SDWebImage.modulemap";
+				OTHER_SWIFT_FLAGS = (
+					"$(inherited)",
+					"-Xcc",
+					"-fmodule-map-file=$(SRCROOT)/../../Tuist/.build/tuist-derived/SDWebImage/SDWebImage.modulemap",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.minjae.designsystem;
 				PRODUCT_NAME = DesignSystem;
 				SDKROOT = iphoneos;
@@ -505,7 +456,10 @@
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
 				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) DEBUG";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = (
+					"$(inherited)",
+					DEBUG,
+				);
 				SWIFT_COMPILATION_MODE = singlefile;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
@@ -524,10 +478,6 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(SRCROOT)/../../Tuist/.build/artifacts/lottie-spm/Lottie",
-				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../../Tuist/.build/checkouts/SDWebImage/SDWebImage/Core",
@@ -546,7 +496,11 @@
 					"$(inherited)",
 					"-fmodule-map-file=$(SRCROOT)/../../Tuist/.build/tuist-derived/SDWebImage/SDWebImage.modulemap",
 				);
-				OTHER_SWIFT_FLAGS = "$(inherited) -Xcc -fmodule-map-file=$(SRCROOT)/../../Tuist/.build/tuist-derived/SDWebImage/SDWebImage.modulemap";
+				OTHER_SWIFT_FLAGS = (
+					"$(inherited)",
+					"-Xcc",
+					"-fmodule-map-file=$(SRCROOT)/../../Tuist/.build/tuist-derived/SDWebImage/SDWebImage.modulemap",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.minjae.designsystem;
 				PRODUCT_NAME = DesignSystem;
 				SDKROOT = iphoneos;

@@ -12,6 +12,7 @@ let project = Project(
             deploymentTargets: .iOS("17.0"),
             infoPlist: .extendingDefault(
                 with: [
+                    "API_BASE_URL": "$(API_BASE_URL)",
                     "CFBundleName": "뉴독 - 나를 위한 뉴스레터 큐레이션",
                     "CFBundleDisplayName": "뉴독 - 나를 위한 뉴스레터 큐레이션",
                     "CFBundleShortVersionString": "1.0.0",
@@ -56,7 +57,12 @@ let project = Project(
                 .project(target: "DesignSystem", path: "../DesignSystem"),
                 .project(target: "AppCoordinator", path: "../AppCoordinator"),
                 .project(target: "Shared", path: "../Shared"),
-            ]
+            ],
+            settings: .settings(
+                base: [
+                    "API_BASE_URL": "https://newdok.shop"
+                ]
+            )
         )
     ]
 )

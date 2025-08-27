@@ -23,18 +23,21 @@ struct PolicyWebSheetView: View {
 //                .padding(.top, 8)
 
             // 커스텀 헤더
-            HStack {
-                Spacer()
+            ZStack {
                 Text(type.title)
                     .font(.hanSansNeo(20, .bold))
                     .foregroundColor(.black)
-                Spacer()
-                Button(action: {
-                    dismiss()
-                }) {
-                    Image(asset: DesignSystemAsset.lineClose)
-                        .renderingMode(.template)
-                        .foregroundColor(.black)
+                    .multilineTextAlignment(.center)
+                
+                HStack {
+                    Spacer()
+                    Button(action: {
+                        dismiss()
+                    }) {
+                        Image(asset: DesignSystemAsset.lineClose)
+                            .renderingMode(.template)
+                            .foregroundColor(.black)
+                    }
                 }
             }
             .padding(.horizontal, 20)

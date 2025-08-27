@@ -16,21 +16,14 @@ enum APIEnvironment {
     static let current: APIEnvironment = .production
     
     var baseURL: String {
-        switch self {
-        case .production:
-            guard let path = Bundle.main.path(forResource: "Config", ofType: "plist"),
-                  let config = NSDictionary(contentsOfFile: path),
-                  let url = config["APIBaseURLProduction"] as? String else {
-                fatalError("APIBaseURLProduction not found in Config.plist")
-            }
-            return url
-        case .development:
-            guard let path = Bundle.main.path(forResource: "Config", ofType: "plist"),
-                  let config = NSDictionary(contentsOfFile: path),
-                  let url = config["APIBaseURLDevelopment"] as? String else {
-                fatalError("APIBaseURLDevelopment not found in Config.plist")
-            }
+        // Info.plist에서 빌드 시점에 설정된 API_BASE_URL 읽기
+        if let url = Bundle.main.object(forInfoDictionaryKey: "API_BASE_URL") as? String, url != "$(API_BASE_URL)" {
+            print("🔧 [APIEnvironment] Info.plist에서 URL 읽음: \(url)")
             return url
         }
+        
+        // xcconfig가 제대로 적용되지 않은 경우 기본값 사용
+        print("🔧 [APIEnvironment] 기본값 사용: https://newdok.shop")
+        return "https://newdok.shop"
     }
 }

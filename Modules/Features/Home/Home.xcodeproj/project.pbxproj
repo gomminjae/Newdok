@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 60;
+	objectVersion = 55;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -14,19 +14,15 @@
 		0FC7D8641112F3785DC1F282 /* Shared.framework in Dependencies */ = {isa = PBXBuildFile; fileRef = 5D35F66BCBA8EB427B5DE027 /* Shared.framework */; };
 		14734CE5E79B71DCC1BC08CF /* Kingfisher.framework in Dependencies */ = {isa = PBXBuildFile; fileRef = EDB4C3569E3D5CCC18BE7FD7 /* Kingfisher.framework */; };
 		269DAC6E999F4D87706612D6 /* Home.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9290645AFD421A6E8E0A3C77 /* Home.framework */; };
-		26C280CB2E358804BB46BE70 /* Lottie.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = BD102A2BA40EFE62B8FD7D7F /* Lottie.xcframework */; };
 		2B8F29F0ED90A533AB1AEC24 /* HomeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CADBDBCE22FDE304B4127596 /* HomeTests.swift */; };
 		30D2AC437EAEB059AF6636D7 /* DesignSystem.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8C3EBAC2F650C65DE1069CB5 /* DesignSystem.framework */; };
 		3D7D557DF0D7ADF0575949B0 /* DesignSystem.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8C3EBAC2F650C65DE1069CB5 /* DesignSystem.framework */; };
 		5BC163E8AAE46124A7EEE0DC /* HomeMain.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF03E4A61F76015E77430AF5 /* HomeMain.swift */; };
-		69D2C50385829487CA513B81 /* _LottieStub.framework in Dependencies */ = {isa = PBXBuildFile; fileRef = BDF28C1DA4B8DE1F40FA36DF /* _LottieStub.framework */; };
 		6AF94EE489A31CAB497CC765 /* Shared.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5D35F66BCBA8EB427B5DE027 /* Shared.framework */; };
 		71030EF79D191BF92B54CA94 /* Domain.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 719F7A4D0214C31A88FDE196 /* Domain.framework */; };
-		9607635A2830A94C5751D280 /* Lottie.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = BD102A2BA40EFE62B8FD7D7F /* Lottie.xcframework */; };
 		A05BDC4C3F8D50C667469855 /* Domain.framework in Dependencies */ = {isa = PBXBuildFile; fileRef = 719F7A4D0214C31A88FDE196 /* Domain.framework */; };
 		B6924E20A9BF2A8861BA0F53 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B902ED9ABC9C57E5C6F9A2D /* HomeView.swift */; };
 		D389D3BFCC5162BF6BF2F449 /* SDWebImage_SDWebImage.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 288839B54CB18C6E0903651C /* SDWebImage_SDWebImage.bundle */; };
-		DE907E7919D49517EE5547F3 /* _LottieStub.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BDF28C1DA4B8DE1F40FA36DF /* _LottieStub.framework */; };
 		E0D05510B8ADFA2344AB601B /* SDWebImage_SDWebImage.bundle in Dependencies */ = {isa = PBXBuildFile; fileRef = 288839B54CB18C6E0903651C /* SDWebImage_SDWebImage.bundle */; };
 		FFC8FCCA16E79951DFD5AA8D /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAD2FE377459D687CCBCE3E0 /* HomeViewModel.swift */; };
 /* End PBXBuildFile section */
@@ -81,7 +77,6 @@
 				A05BDC4C3F8D50C667469855 /* Domain.framework in Dependencies */,
 				14734CE5E79B71DCC1BC08CF /* Kingfisher.framework in Dependencies */,
 				0FC7D8641112F3785DC1F282 /* Shared.framework in Dependencies */,
-				69D2C50385829487CA513B81 /* _LottieStub.framework in Dependencies */,
 			);
 			name = Dependencies;
 			runOnlyForDeploymentPostprocessing = 1;
@@ -100,8 +95,6 @@
 		719F7A4D0214C31A88FDE196 /* Domain.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Domain.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8C3EBAC2F650C65DE1069CB5 /* DesignSystem.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = DesignSystem.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9290645AFD421A6E8E0A3C77 /* Home.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Home.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		BD102A2BA40EFE62B8FD7D7F /* Lottie.xcframework */ = {isa = PBXFileReference; expectedSignature = "SelfSigned:892F1B43047B50538F2F46EAD92900DD3D4811F3582178C061A5FB20F111CB26"; lastKnownFileType = wrapper.xcframework; path = Lottie.xcframework; sourceTree = "<group>"; };
-		BDF28C1DA4B8DE1F40FA36DF /* _LottieStub.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = _LottieStub.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CADBDBCE22FDE304B4127596 /* HomeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTests.swift; sourceTree = "<group>"; };
 		CF03E4A61F76015E77430AF5 /* HomeMain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeMain.swift; sourceTree = "<group>"; };
 		EAD2FE377459D687CCBCE3E0 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
@@ -114,7 +107,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				3D7D557DF0D7ADF0575949B0 /* DesignSystem.framework in Frameworks */,
-				9607635A2830A94C5751D280 /* Lottie.xcframework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -127,8 +119,6 @@
 				269DAC6E999F4D87706612D6 /* Home.framework in Frameworks */,
 				0B433E96036502589F160DC0 /* Kingfisher.framework in Frameworks */,
 				6AF94EE489A31CAB497CC765 /* Shared.framework in Frameworks */,
-				DE907E7919D49517EE5547F3 /* _LottieStub.framework in Frameworks */,
-				26C280CB2E358804BB46BE70 /* Lottie.xcframework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -138,7 +128,6 @@
 		156072FA40260C0FBAAE35F3 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				BDF28C1DA4B8DE1F40FA36DF /* _LottieStub.framework */,
 				8C3EBAC2F650C65DE1069CB5 /* DesignSystem.framework */,
 				719F7A4D0214C31A88FDE196 /* Domain.framework */,
 				9290645AFD421A6E8E0A3C77 /* Home.framework */,
@@ -149,14 +138,6 @@
 				5D35F66BCBA8EB427B5DE027 /* Shared.framework */,
 			);
 			name = Products;
-			sourceTree = "<group>";
-		};
-		3C41EB64100DC28F0AA12A5F /* Lottie */ = {
-			isa = PBXGroup;
-			children = (
-				BD102A2BA40EFE62B8FD7D7F /* Lottie.xcframework */,
-			);
-			path = Lottie;
 			sourceTree = "<group>";
 		};
 		400DC7E225B26D6ADA5EE8F1 /* Tests */ = {
@@ -185,14 +166,6 @@
 			path = Derived;
 			sourceTree = "<group>";
 		};
-		7A93EBB52ED32B2B34AE5DBC /* lottie-spm */ = {
-			isa = PBXGroup;
-			children = (
-				3C41EB64100DC28F0AA12A5F /* Lottie */,
-			);
-			path = "lottie-spm";
-			sourceTree = "<group>";
-		};
 		7EE17195DCED3B55274927B6 = {
 			isa = PBXGroup;
 			children = (
@@ -207,17 +180,8 @@
 				70BB71A4919E9DCCA3DEA54A /* Derived */,
 				B74810073A3D8A4993EE22B2 /* Sources */,
 				400DC7E225B26D6ADA5EE8F1 /* Tests */,
-				EE34F61447600A894CC58169 /* Tuist */,
 			);
 			name = Project;
-			sourceTree = "<group>";
-		};
-		A3D247EF4EB86CA84944AC25 /* artifacts */ = {
-			isa = PBXGroup;
-			children = (
-				7A93EBB52ED32B2B34AE5DBC /* lottie-spm */,
-			);
-			path = artifacts;
 			sourceTree = "<group>";
 		};
 		B74810073A3D8A4993EE22B2 /* Sources */ = {
@@ -229,14 +193,6 @@
 			path = Sources;
 			sourceTree = "<group>";
 		};
-		C448FEDC4C34DDB82F7E569F /* .build */ = {
-			isa = PBXGroup;
-			children = (
-				A3D247EF4EB86CA84944AC25 /* artifacts */,
-			);
-			path = .build;
-			sourceTree = "<group>";
-		};
 		C7DAD5517A15CCB12559D52C /* InfoPlists */ = {
 			isa = PBXGroup;
 			children = (
@@ -244,15 +200,6 @@
 				016FDC511C6D703D44CFE3D6 /* HomeTests-Info.plist */,
 			);
 			path = InfoPlists;
-			sourceTree = "<group>";
-		};
-		EE34F61447600A894CC58169 /* Tuist */ = {
-			isa = PBXGroup;
-			children = (
-				C448FEDC4C34DDB82F7E569F /* .build */,
-			);
-			name = Tuist;
-			path = ../../../Tuist;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -389,10 +336,6 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(SRCROOT)/../../../Tuist/.build/artifacts/lottie-spm/Lottie",
-				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../../../Tuist/.build/checkouts/SDWebImage/SDWebImage/Core",
@@ -412,7 +355,11 @@
 					"$(inherited)",
 					"-fmodule-map-file=$(SRCROOT)/../../../Tuist/.build/tuist-derived/SDWebImage/SDWebImage.modulemap",
 				);
-				OTHER_SWIFT_FLAGS = "$(inherited) -Xcc -fmodule-map-file=$(SRCROOT)/../../../Tuist/.build/tuist-derived/SDWebImage/SDWebImage.modulemap";
+				OTHER_SWIFT_FLAGS = (
+					"$(inherited)",
+					"-Xcc",
+					"-fmodule-map-file=$(SRCROOT)/../../../Tuist/.build/tuist-derived/SDWebImage/SDWebImage.modulemap",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.newdok.home;
 				PRODUCT_NAME = Home;
 				SDKROOT = iphoneos;
@@ -420,7 +367,10 @@
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
 				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) DEBUG";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = (
+					"$(inherited)",
+					DEBUG,
+				);
 				SWIFT_COMPILATION_MODE = singlefile;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
@@ -498,10 +448,6 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(SRCROOT)/../../../Tuist/.build/artifacts/lottie-spm/Lottie",
-				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../../../Tuist/.build/checkouts/SDWebImage/SDWebImage/Core",
@@ -521,7 +467,11 @@
 					"$(inherited)",
 					"-fmodule-map-file=$(SRCROOT)/../../../Tuist/.build/tuist-derived/SDWebImage/SDWebImage.modulemap",
 				);
-				OTHER_SWIFT_FLAGS = "$(inherited) -Xcc -fmodule-map-file=$(SRCROOT)/../../../Tuist/.build/tuist-derived/SDWebImage/SDWebImage.modulemap";
+				OTHER_SWIFT_FLAGS = (
+					"$(inherited)",
+					"-Xcc",
+					"-fmodule-map-file=$(SRCROOT)/../../../Tuist/.build/tuist-derived/SDWebImage/SDWebImage.modulemap",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.newdok.home;
 				PRODUCT_NAME = Home;
 				SDKROOT = iphoneos;
@@ -542,10 +492,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(SRCROOT)/../../../Tuist/.build/artifacts/lottie-spm/Lottie",
-				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../../../Tuist/.build/checkouts/SDWebImage/SDWebImage/Core",
@@ -558,13 +504,16 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
-					"$(SRCROOT)/../../../Tuist/.build/artifacts/lottie-spm/Lottie",
 				);
 				OTHER_CFLAGS = (
 					"$(inherited)",
 					"-fmodule-map-file=$(SRCROOT)/../../../Tuist/.build/tuist-derived/SDWebImage/SDWebImage.modulemap",
 				);
-				OTHER_SWIFT_FLAGS = "$(inherited) -Xcc -fmodule-map-file=$(SRCROOT)/../../../Tuist/.build/tuist-derived/SDWebImage/SDWebImage.modulemap";
+				OTHER_SWIFT_FLAGS = (
+					"$(inherited)",
+					"-Xcc",
+					"-fmodule-map-file=$(SRCROOT)/../../../Tuist/.build/tuist-derived/SDWebImage/SDWebImage.modulemap",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.newdok.home.tests;
 				PRODUCT_NAME = HomeTests;
 				SDKROOT = iphoneos;
@@ -582,10 +531,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(SRCROOT)/../../../Tuist/.build/artifacts/lottie-spm/Lottie",
-				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../../../Tuist/.build/checkouts/SDWebImage/SDWebImage/Core",
@@ -598,20 +543,26 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
-					"$(SRCROOT)/../../../Tuist/.build/artifacts/lottie-spm/Lottie",
 				);
 				OTHER_CFLAGS = (
 					"$(inherited)",
 					"-fmodule-map-file=$(SRCROOT)/../../../Tuist/.build/tuist-derived/SDWebImage/SDWebImage.modulemap",
 				);
-				OTHER_SWIFT_FLAGS = "$(inherited) -Xcc -fmodule-map-file=$(SRCROOT)/../../../Tuist/.build/tuist-derived/SDWebImage/SDWebImage.modulemap";
+				OTHER_SWIFT_FLAGS = (
+					"$(inherited)",
+					"-Xcc",
+					"-fmodule-map-file=$(SRCROOT)/../../../Tuist/.build/tuist-derived/SDWebImage/SDWebImage.modulemap",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.newdok.home.tests;
 				PRODUCT_NAME = HomeTests;
 				SDKROOT = iphoneos;
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
 				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) DEBUG";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = (
+					"$(inherited)",
+					DEBUG,
+				);
 				SWIFT_COMPILATION_MODE = singlefile;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;

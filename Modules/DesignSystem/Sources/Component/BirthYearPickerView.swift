@@ -8,7 +8,13 @@ import SwiftUI
 
 struct BirthYearDropdown: View {
     @Binding var selectedYear: String?
-    let years: [String] = (2025...1900).reversed().map { "\($0)" }
+    let years: [String] = {
+        let currentYear = Calendar.current.component(.year, from: Date())
+        let minYear = currentYear - 14  // 14세 이상
+        let maxYear = 1950  // 최대 연도
+        
+        return (maxYear...minYear).reversed().map { "\($0)" }
+    }()
 
     var body: some View {
         Menu {

@@ -41,7 +41,6 @@ public final class SelectableItemStore {
     ]
 
     public let industries: [SelectableItem] = [
-        .init(id: 1, name: "모든 산업"),
         .init(id: 2, name: "IT・게임・통신"),
         .init(id: 3, name: "F&B"),
         .init(id: 4, name: "건설・건축"),

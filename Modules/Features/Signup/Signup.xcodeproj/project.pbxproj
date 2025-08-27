@@ -486,7 +486,6 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
-					"$(SRCROOT)/../../../Tuist/.build/artifacts/lottie-spm/Lottie",
 				);
 				OTHER_CFLAGS = (
 					"$(inherited)",
@@ -626,7 +625,6 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
-					"$(SRCROOT)/../../../Tuist/.build/artifacts/lottie-spm/Lottie",
 				);
 				OTHER_CFLAGS = (
 					"$(inherited)",

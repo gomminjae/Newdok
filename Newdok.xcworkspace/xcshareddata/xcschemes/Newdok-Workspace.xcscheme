@@ -538,20 +538,6 @@
                ReferencedContainer = "container:Modules/Features/Withdraw/Withdraw.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
-         <BuildActionEntry
-            buildForTesting = "YES"
-            buildForRunning = "YES"
-            buildForProfiling = "YES"
-            buildForArchiving = "YES"
-            buildForAnalyzing = "YES">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "C6D8153E58B10ACFF56CE5BC"
-               BuildableName = "_LottieStub.framework"
-               BlueprintName = "_LottieStub"
-               ReferencedContainer = "container:Tuist/.build/tuist-derived/Lottie/Lottie.xcodeproj">
-            </BuildableReference>
-         </BuildActionEntry>
       </BuildActionEntries>
    </BuildAction>
    <TestAction
