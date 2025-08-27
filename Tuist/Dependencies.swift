@@ -17,6 +17,7 @@ let dependencies = Dependencies(
     ],
     platforms: [.iOS],
     productTypes: [
-        "Moya": .staticFramework
+        "Moya": .staticFramework,
+        "Alamofire": .staticFramework
     ]
 )
