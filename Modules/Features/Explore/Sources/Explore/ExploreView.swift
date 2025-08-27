@@ -8,7 +8,7 @@ import SwiftUI
 import DesignSystem
 import Domain
 import Shared
-import Lottie 
+
 import Combine
 
 public struct ExploreView: View {
