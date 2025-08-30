@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 55;
+	objectVersion = 56;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -337,6 +337,7 @@
 				API_BASE_URL = "https://newdok.shop";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				DEVELOPMENT_TEAM = AU24ZRJ649;
 				ENABLE_PREVIEWS = YES;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -345,6 +346,7 @@
 					"$(SRCROOT)/../../Tuist/.build/checkouts/SDWebImage/SDWebImage/include",
 				);
 				INFOPLIST_FILE = "Derived/InfoPlists/App-Info.plist";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -354,25 +356,19 @@
 					"$(inherited)",
 					"-fmodule-map-file=$(SRCROOT)/../../Tuist/.build/tuist-derived/SDWebImage/SDWebImage.modulemap",
 				);
-				OTHER_SWIFT_FLAGS = (
-					"$(inherited)",
-					"-Xcc",
-					"-fmodule-map-file=$(SRCROOT)/../../Tuist/.build/tuist-derived/SDWebImage/SDWebImage.modulemap",
-				);
+				OTHER_SWIFT_FLAGS = "$(inherited) -Xcc -fmodule-map-file=$(SRCROOT)/../../Tuist/.build/tuist-derived/SDWebImage/SDWebImage.modulemap";
 				PRODUCT_BUNDLE_IDENTIFIER = com.newdok.app;
 				PRODUCT_NAME = App;
 				SDKROOT = iphoneos;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
-				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = (
-					"$(inherited)",
-					DEBUG,
-				);
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) DEBUG";
 				SWIFT_COMPILATION_MODE = singlefile;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -435,6 +431,7 @@
 				API_BASE_URL = "https://newdok.shop";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				DEVELOPMENT_TEAM = AU24ZRJ649;
 				ENABLE_PREVIEWS = YES;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -443,6 +440,7 @@
 					"$(SRCROOT)/../../Tuist/.build/checkouts/SDWebImage/SDWebImage/include",
 				);
 				INFOPLIST_FILE = "Derived/InfoPlists/App-Info.plist";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -452,21 +450,18 @@
 					"$(inherited)",
 					"-fmodule-map-file=$(SRCROOT)/../../Tuist/.build/tuist-derived/SDWebImage/SDWebImage.modulemap",
 				);
-				OTHER_SWIFT_FLAGS = (
-					"$(inherited)",
-					"-Xcc",
-					"-fmodule-map-file=$(SRCROOT)/../../Tuist/.build/tuist-derived/SDWebImage/SDWebImage.modulemap",
-				);
+				OTHER_SWIFT_FLAGS = "$(inherited) -Xcc -fmodule-map-file=$(SRCROOT)/../../Tuist/.build/tuist-derived/SDWebImage/SDWebImage.modulemap";
 				PRODUCT_BUNDLE_IDENTIFIER = com.newdok.app;
 				PRODUCT_NAME = App;
 				SDKROOT = iphoneos;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
-				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
