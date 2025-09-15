@@ -302,20 +302,22 @@ public struct ExploreView: View {
                     .font(.hanSansNeo(16, .bold))
                 Spacer()
                 Button(action: {
+                    print("🔄 [ExploreView] 새로고침 버튼 클릭")
                     Task {
-                        await viewModel.fetchRecommendation()
+                        await viewModel.fetchRecommendation(forceRefresh: true)
                     }
                 }) {
-                    Image(asset: DesignSystemAsset.lineReload)
-                       
-                        .renderingMode(.template)
-                        .resizable()
-                        .frame(width:20, height: 20)
-                        .font(.hanSansNeo(14,.bold))
-                        .foregroundStyle(Color.primaryNormal)
-                    Text("새로고침")
-                        .font(.hanSansNeo(14, .medium))
-                        .foregroundStyle(Color.primaryNormal)
+                    HStack(spacing: 4) {
+                        Image(asset: DesignSystemAsset.lineReload)
+                            .renderingMode(.template)
+                            .resizable()
+                            .frame(width: 20, height: 20)
+                            .font(.hanSansNeo(14, .bold))
+                            .foregroundStyle(Color.primaryNormal)
+                        Text("새로고침")
+                            .font(.hanSansNeo(14, .medium))
+                            .foregroundStyle(Color.primaryNormal)
+                    }
                 }
             }
             .padding(.top, 20)
