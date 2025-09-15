@@ -18,6 +18,10 @@ public class ExploreViewModel: ObservableObject {
     @Published public var unionRecommendation: [NewsletterDetail] = []
     @Published public var fixedMyRecommendation: [NewsletterDetail] = []
     @Published public var fixedUnionRecommendation: [NewsletterDetail] = []
+    
+    // 캐시된 데이터 (메모리 최적화)
+    private var cachedRecommendation: NewsletterRecommendationResponse?
+    private var lastFetchTime: Date?
 
     @Published public var allNewsletters: [Brand] = []
 
@@ -63,18 +67,47 @@ public class ExploreViewModel: ObservableObject {
     
     
     
-    public func fetchRecommendation() async {
+    public func fetchRecommendation(forceRefresh: Bool = false) async {
+        // 캐시된 데이터가 있고 5분 이내라면 캐시 사용 (강제 새로고침 제외)
+        if !forceRefresh, 
+           let cached = cachedRecommendation,
+           let lastTime = lastFetchTime,
+           Date().timeIntervalSince(lastTime) < 300 { // 5분 캐시
+            
+            print("🔄 [ExploreViewModel] 캐시된 추천 데이터 사용")
+            updateRecommendationData(from: cached)
+            return
+        }
+        
         do {
             let response = try await useCase.fetchRecommendation()
             
-            myRecommendation = response.intersection
-            unionRecommendation = response.union
-            fixedMyRecommendation = Array(response.intersection.prefix(5))
-            fixedUnionRecommendation = Array(response.union.prefix(6))
+            // 캐시 업데이트
+            cachedRecommendation = response
+            lastFetchTime = Date()
+            
+            print("🔄 [ExploreViewModel] fetchRecommendation 성공:")
+            print("  - intersection count: \(response.intersection.count)")
+            print("  - union count: \(response.union.count)")
+            
+            updateRecommendationData(from: response)
+            
         } catch {
             print("❌ [ExploreViewModel] 추천 에러:", error)
             isRecommend = false
         }
+    }
+    
+    private func updateRecommendationData(from response: NewsletterRecommendationResponse) {
+        myRecommendation = response.intersection
+        unionRecommendation = response.union
+        fixedMyRecommendation = Array(response.intersection.prefix(5))
+        
+        // 랜덤하게 섞어서 6개 선택 (매번 다른 추천을 위해)
+        let shuffledUnion = response.union.shuffled()
+        fixedUnionRecommendation = Array(shuffledUnion.prefix(6))
+        
+        print("  - fixedUnionRecommendation count: \(fixedUnionRecommendation.count)")
     }
     
     public func fetchAllNewsletters() async {
@@ -125,5 +158,9 @@ public class ExploreViewModel: ObservableObject {
         isShowSortSheet = false
         isRecommend = false
         shouldScrollToTop = false
+        
+        // 캐시도 초기화
+        cachedRecommendation = nil
+        lastFetchTime = nil
     }
 }
