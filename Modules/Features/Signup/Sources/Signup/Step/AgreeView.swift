@@ -32,26 +32,39 @@ public struct AgreeView: View {
                 .padding(.horizontal, 24)
 
             VStack(spacing: 16) {
-                AgreementRow(title: "만 14세 이상 확인 (필수)", isChecked: $isOver14)
-
-                AgreementRow(title: "서비스 이용 동의 (필수)", isChecked: $serviceAgreement) {
-                    sheetType = .terms
-                    showSheet = true
-                }
-
-                AgreementRow(title: "개인정보 수집 및 이용 동의 (필수)", isChecked: $personalInfoAgreement) {
-                    sheetType = .privacy
-                    showSheet = true
-                }
-
+                // 버튼 없는 행
+                SimpleAgreementRow(title: "만 14세 이상 확인", required: true, isChecked: $isOver14)
                 
-
-                AgreementRow(title: "마케팅 활용/광고성 정보 수신 동의 (선택)", isChecked: $marketingAgreement)
+                // 버튼 있는 행
+                TappableAgreementRow(
+                    mainText: "서비스 이용",
+                    required: true,
+                    isChecked: $serviceAgreement,
+                    onTextTap: {
+                        sheetType = .terms
+                        showSheet = true
+                    }
+                )
+                
+                TappableAgreementRow(
+                    mainText: "개인정보 수집 및 이용",
+                    required: true,
+                    isChecked: $personalInfoAgreement,
+                    onTextTap: {
+                        sheetType = .privacy
+                        showSheet = true
+                    }
+                )
+                
+                // 버튼 없는 행
+                SimpleAgreementRow(title: "마케팅 활용/광고성 정보 수신", required: false, isChecked: $marketingAgreement)
             }
-            .padding(.top, 32)
+            .padding(.top, 8)
             .padding(.horizontal, 24)
 
-            Divider().padding(.horizontal, 24)
+            Divider()
+                .background(Color(hex: "C0C0C0"))
+                .padding(.horizontal, 24)
 
             HStack {
                 Text("전체 약관 동의")
@@ -95,15 +108,6 @@ public struct AgreeView: View {
         }
         .onChange(of: showSheet) { _, isPresented in
             if !isPresented {
-                // 시트가 닫힐 때 해당 약관 체크
-                if let type = sheetType {
-                    switch type {
-                    case .terms:
-                        serviceAgreement = true
-                    case .privacy:
-                        personalInfoAgreement = true
-                    }
-                }
                 sheetType = nil
             }
         }
@@ -140,21 +144,66 @@ public struct AgreeView: View {
 }
 
 
-struct AgreementRow: View {
+// 버튼 없는 단순 행 (만 14세, 마케팅)
+struct SimpleAgreementRow: View {
     let title: String
+    let required: Bool
     @Binding var isChecked: Bool
-    var onTap: (() -> Void)? = nil
-
+    
     var body: some View {
         HStack {
-            Text(title)
-                .font(.hanSansNeo(14, .medium))
-                .foregroundColor(.black)
-
+            HStack(spacing: 0) {
+                Text(title)
+                    .font(.hanSansNeo(14, .medium))
+                    .foregroundColor(Color(hex: "363636"))
+                
+                Text(required ? " (필수)" : " (선택)")
+                    .font(.hanSansNeo(14, .medium))
+                    .foregroundColor(Color(hex: "969696"))
+            }
+            
             Spacer()
-
+            
             Button(action: {
-                onTap?() ?? isChecked.toggle()
+                isChecked.toggle()
+            }) {
+                Image(asset: isChecked ? DesignSystemAsset.check : DesignSystemAsset.uncheck)
+            }
+        }
+    }
+}
+
+// 클릭 가능한 행 (서비스 이용, 개인정보)
+struct TappableAgreementRow: View {
+    let mainText: String
+    let required: Bool
+    @Binding var isChecked: Bool
+    let onTextTap: () -> Void
+    
+    var body: some View {
+        HStack {
+            Button(action: onTextTap) {
+                HStack(spacing: 0) {
+                    Text(mainText)
+                        .font(.hanSansNeo(14, .medium))
+                        .foregroundColor(Color(hex: "363636"))
+                        .underline(true, color: Color(hex: "363636"))
+                    
+                    Text(" 동의")
+                        .font(.hanSansNeo(14, .medium))
+                        .foregroundColor(Color(hex: "363636"))
+                    
+                    Text(required ? " (필수)" : " (선택)")
+                        .font(.hanSansNeo(14, .medium))
+                        .foregroundColor(Color(hex: "969696"))
+                }
+            }
+            .buttonStyle(PlainButtonStyle())
+            
+            Spacer()
+            
+            Button(action: {
+                isChecked.toggle()
             }) {
                 Image(asset: isChecked ? DesignSystemAsset.check : DesignSystemAsset.uncheck)
             }
