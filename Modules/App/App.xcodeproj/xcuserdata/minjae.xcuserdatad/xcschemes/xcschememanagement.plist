@@ -11,6 +11,20 @@
 			<key>orderHint</key>
 			<integer>0</integer>
 		</dict>
+		<key>Newdok-Debug.xcscheme_^#shared#^_</key>
+		<dict>
+			<key>isShown</key>
+			<true/>
+			<key>orderHint</key>
+			<integer>13</integer>
+		</dict>
+		<key>Newdok-Release.xcscheme_^#shared#^_</key>
+		<dict>
+			<key>isShown</key>
+			<true/>
+			<key>orderHint</key>
+			<integer>14</integer>
+		</dict>
 	</dict>
 </dict>
 </plist>

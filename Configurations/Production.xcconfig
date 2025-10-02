@@ -1,4 +1,8 @@
-BASE_URL = https://newdok.store
+BASE_URL = https://newdok.shop
+PRODUCT_BUNDLE_IDENTIFIER = com.newdok.app
+ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon
+CFBundleDisplayName = 뉴독
+DEVELOPMENT_TEAM = AU24ZRJ649
 SWIFT_INCLUDE_PATHS = $(inherited)
 FRAMEWORK_SEARCH_PATHS = $(inherited)
 LIBRARY_SEARCH_PATHS = $(inherited)

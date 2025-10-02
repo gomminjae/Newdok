@@ -363,6 +363,7 @@ public struct ExploreView: View {
                         )
                         .clipShape(RoundedRectangle(cornerRadius: 20))
                     }
+                    .buttonStyle(PlainButtonStyle())
                     Rectangle()
                         .frame(width: 1, height: 20)
                         .foregroundColor(Color(hex: "EBEBEB"))
@@ -389,6 +390,7 @@ public struct ExploreView: View {
                         )
                         .clipShape(RoundedRectangle(cornerRadius: 20))
                     }
+                    .buttonStyle(PlainButtonStyle())
 
                     // 요일 필터
                     Button(action: {
@@ -412,6 +414,7 @@ public struct ExploreView: View {
                         )
                         .clipShape(RoundedRectangle(cornerRadius: 20))
                     }
+                    .buttonStyle(PlainButtonStyle())
                 }
             }
             .frame(maxWidth: .infinity)
@@ -445,7 +448,10 @@ public struct ExploreView: View {
                     await viewModel.fetchAllNewsletters()
                 }
             }
+            .background(Color.white)
             .presentationDragIndicator(.hidden)
+            
+            
         }
         .sheet(isPresented: $viewModel.isShowFilterSheet) {
             FilterBottomSheet(industry: $viewModel.industry, day: $viewModel.day) {
@@ -461,7 +467,7 @@ public struct ExploreView: View {
                     await viewModel.fetchAllNewsletters()
                 }
             }
-            .presentationDragIndicator(.hidden)
+            
         }
     }
 

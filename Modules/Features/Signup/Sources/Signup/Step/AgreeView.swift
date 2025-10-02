@@ -88,7 +88,9 @@ public struct AgreeView: View {
             if let type = sheetType {
                 PolicyWebSheetView(type: type)
                     .presentationDetents([.large])
-                    .presentationDragIndicator(.visible)
+                    .presentationDragIndicator(.hidden)
+                    .presentationBackground(.clear)
+                    .interactiveDismissDisabled(false)
             }
         }
         .onChange(of: showSheet) { _, isPresented in
