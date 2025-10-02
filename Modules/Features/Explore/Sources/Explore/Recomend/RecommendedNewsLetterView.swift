@@ -22,12 +22,15 @@ struct RecommendedNewsLetterView: View {
                 .frame(height: 210)
                 .clipped()
                 .cornerRadius(12)
+            
+            Divider()
 
             VStack(alignment: .leading, spacing: 0) {
                 Text(recommendation.brandName)
                     .font(.hanSansNeo(16, .bold))
                     .padding(.top, 16)
                     .padding(.bottom, 8)
+                    .foregroundStyle(Color(hex: "#161616"))
 
                 Text(recommendation.firstDescription)
                     .font(.hanSansNeo(14, .medium))
@@ -35,6 +38,7 @@ struct RecommendedNewsLetterView: View {
                     .truncationMode(.tail)
                     .frame(height: 40, alignment: .top)
                     .padding(.bottom, 12)
+                    .foregroundStyle(Color(hex: "#565656"))
 
                 ScrollView(.horizontal, showsIndicators: false) {
                     HStack(spacing: 6) {

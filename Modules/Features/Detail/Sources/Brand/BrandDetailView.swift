@@ -198,7 +198,7 @@ public struct BrandDetailView: View {
                     .resizable()
                     .frame(maxWidth: .infinity)
                     .frame(height: 260)
-                    .overlay( // 🔻 상단 0% → 하단 6% 블랙 그라데이션
+                    .overlay(
                            LinearGradient(
                                gradient: Gradient(stops: [
                                    .init(color: Color.black.opacity(0.0), location: 0.0),
@@ -281,11 +281,6 @@ public struct BrandDetailView: View {
                     .padding(.top, 20)
                     .padding(.horizontal, 24)
                     .padding(.bottom, 21)
-//                    .background(
-//                        Color.white.opacity(0.6)
-//                            
-//                            .blur(radius: 8)
-//                    )
                     .background(
                         ZStack {
                             // Background Blur
@@ -317,7 +312,7 @@ public struct BrandDetailView: View {
                 .lineSpacing(4)
                 .foregroundStyle(Color(hex: "555555"))
                 .padding(.horizontal)
-                .padding(.vertical, 12)
+                .padding(.vertical, 24)
                 
             VStack(alignment: .leading, spacing: 8) {
                 Text("지난 아티클 보기")
@@ -358,6 +353,7 @@ public struct BrandDetailView: View {
                     
                 }
             }
+            .frame(maxWidth: .infinity, alignment: .leading)
             .padding(.bottom, 32)
             .sheet(isPresented: $showSubscribeSheet) {
                 SubscribeModalView(title: viewModel.detail?.brandName ?? "", url: viewModel.detail?.subscribeUrl ?? "")

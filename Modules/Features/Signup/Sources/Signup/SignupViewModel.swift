@@ -192,6 +192,18 @@ final public class SignupViewModel: ObservableObject {
 
     // MARK: - 인증코드 전송 (초기/재전송 공통)
     public func sendVerificationCode(skipCheck: Bool = false) {
+        // 테스트 앱에서는 API 호출 없이 바로 인증 상태로 전환
+        #if DEBUG
+        enteredVerificationCode = ""
+        showError = false
+        timerRemaining = 180
+        isRequestSent = true
+        startTimer()
+        shouldFocusVerificationCode = true
+        verificationCode = "121212" // 테스트용 고정 코드
+        return
+        #endif
+        
         // 재전송 3회 초과 시, 팝업 표시
         guard resendFailureCount < 3 else {
             isShowPopup = true
@@ -246,6 +258,17 @@ final public class SignupViewModel: ObservableObject {
             showError = true
             return false
         }
+        
+        // 테스트 앱에서는 121212도 통과
+        #if DEBUG
+        if enteredVerificationCode == "121212" {
+            stopTimer()
+            resendFailureCount = 0
+            showError = false
+            return true
+        }
+        #endif
+        
         if enteredVerificationCode == verificationCode {
             stopTimer()
             // 성공 시 제한/에러 상태 초기화
