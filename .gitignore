@@ -2,4 +2,19 @@ Tuist/.build/
 
 # Configuration files with sensitive data
 Modules/App/Configs/*.xcconfig
+Configurations/*.xcconfig
+
+# Xcode user-specific files
+*.xcuserdata
+*.xcuserdatad
+xcuserdata/
+*.xcworkspace/xcuserdata/
+*.xcodeproj/xcuserdata/
+*.xcodeproj/project.xcworkspace/xcuserdata/
+
+# Xcode scheme files
+*.xcscheme
+
+# Derived data
+Modules/App/Derived/
 
