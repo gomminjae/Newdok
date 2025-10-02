@@ -36,6 +36,10 @@ public struct SearchResultView: View {
 
                 HStack(spacing: 8) {
                     TextField("검색어를 입력하세요", text: $viewModel.searchText)
+                        .submitLabel(.search)
+                        .onSubmit {
+                            Task { await viewModel.searchNewsletters() }
+                        }
                         .font(.hanSansNeo(14, .regular))
                         .disableAutocorrection(true)
                         .frame(height: 40)

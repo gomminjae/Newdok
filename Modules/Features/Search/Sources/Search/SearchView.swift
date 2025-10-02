@@ -28,6 +28,10 @@ public struct SearchView: View {
                 }
 
                 TextField("검색어 입력", text: $viewModel.searchText)
+                    .submitLabel(.search)
+                    .onSubmit {
+                        Task { await viewModel.searchNewsletters() }
+                    }
                     .frame(maxWidth: .infinity)
                     .padding(.horizontal, 8)
                     .padding(.vertical, 6)
