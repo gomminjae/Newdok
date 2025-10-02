@@ -153,8 +153,8 @@ struct NewDokTabBar: View {
                 .frame(width: 24, height: 24) // 고정 크기로 설정
                 
             Text(title)
-                .font(.hanSansNeo(11,.medium))
-                .foregroundColor(selectedTab == tab ? Color.primaryNormal : Color.gray)
+                .font(.hanSansNeo(11, selectedTab == tab ? .bold : .medium))
+                .foregroundColor(selectedTab == tab ? Color.primaryNormal : Color.captionAssistive)
                 .frame(height: 14) // 텍스트 높이 고정
         }
         .frame(maxWidth: .infinity)
