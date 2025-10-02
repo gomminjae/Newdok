@@ -26,6 +26,7 @@ struct BookmarkSortBottomSheet: View {
 
     var body: some View {
         VStack(spacing: 0) {
+            // 커스텀 그랩바
             Capsule()
                 .frame(width: 40, height: 5)
                 .foregroundColor(Color.gray.opacity(0.5))
@@ -81,8 +82,8 @@ struct BookmarkSortBottomSheet: View {
         .frame(maxHeight: .infinity, alignment: .top)
         .background(Color.white)
         .presentationCornerRadius(24)
-        .presentationDetents([.fraction(0.4)])
-        .presentationDragIndicator(.visible)
+        .presentationDetents([.height(320)])
+        .presentationDragIndicator(.hidden)
     }
 }
 

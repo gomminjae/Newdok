@@ -22,7 +22,6 @@ private enum L {
     static let bottom: CGFloat = 16
 }
 
-// MARK: - Height measuring (for iOS16/17)
 private struct HeightKey: PreferenceKey {
     static var defaultValue: CGFloat = 0
     static func reduce(value: inout CGFloat, nextValue: () -> CGFloat) {
@@ -40,7 +39,6 @@ private extension View {
     }
 }
 
-// MARK: - Main View (iOS 17)
 struct FilterBottomSheet: View {
     @Environment(\.dismiss) private var dismiss
 
@@ -59,13 +57,12 @@ struct FilterBottomSheet: View {
 
     var body: some View {
         VStack(spacing: 0) {
-            // Grabber
+            // 커스텀 그랩바
             Capsule()
                 .frame(width: 40, height: 5)
                 .foregroundColor(Color.gray.opacity(0.5))
-                //.padding(.top, 12)
-
-            // Title bar
+                .padding(.top, 20)
+           
             HStack {
                 Text("필터")
                     .font(.hanSansNeo(20, .bold))
@@ -135,7 +132,6 @@ struct FilterBottomSheet: View {
                             .foregroundStyle(Color(hex: "565656"))
                     }
                     .frame(width: 88, height: 40)
-                   
                 }
 
                 Button(action: {
@@ -158,19 +154,14 @@ struct FilterBottomSheet: View {
             .padding(.horizontal, L.horizontal)
             .padding(.bottom, L.bottom)
         }
-        // 콘텐츠 높이 측정
+        // 콘텐츠 높이 측정 (⬇️ safeArea.bottom 중복 가산 제거)
         .reportHeight { h in
-            let safeBottom = UIApplication.shared.connectedScenes
-                .compactMap { $0 as? UIWindowScene }
-                .flatMap { $0.windows }
-                .first(where: { $0.isKeyWindow })?
-                .safeAreaInsets.bottom ?? 0
-
             let screenH = UIScreen.main.bounds.height
             let minH: CGFloat = 280
             let maxH: CGFloat = min(screenH * 0.9, 900)
 
-            var clamped = h + safeBottom + 1
+            // 시스템이 시트 하단을 이미 보정하므로 safeBottom 더하지 않음
+            var clamped = h + 1
             clamped = min(max(clamped, minH), maxH)
 
             if abs(clamped - sheetHeight) > 0.5 {
@@ -181,10 +172,14 @@ struct FilterBottomSheet: View {
             tempIndustry = industry
             tempDay = day
         }
+        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
         .background(Color.white)
         .presentationCornerRadius(24)
-        .presentationDragIndicator(.visible)
         .presentationDetents([.height(sheetHeight)])
+        .presentationDragIndicator(.hidden)
+        .safeAreaInset(edge: .bottom) {
+            Color.clear.frame(height: 6) // 필요시 0~10 사이 조정
+        }
     }
 
     private func toggleSelection(_ selection: inout [Int]?, value: Int) {

@@ -72,10 +72,11 @@ struct SortBottomSheet: View {
 
             Spacer()
         }
-        .frame(maxHeight: .infinity, alignment: .top)
+        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
         .background(Color.white)
         .presentationCornerRadius(24)
-        .presentationDetents([.fraction(0.35)])
-        .presentationDragIndicator(.visible)
+        .presentationDetents([.height(280)])
+        .presentationDragIndicator(.hidden)
+        .edgesIgnoringSafeArea(.horizontal)
     }
 }

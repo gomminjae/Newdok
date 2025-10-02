@@ -20,7 +20,7 @@ public class ExploreViewModel: ObservableObject {
     @Published public var fixedUnionRecommendation: [NewsletterDetail] = []
     
     // 캐시된 데이터 (메모리 최적화)
-    private var cachedRecommendation: NewsletterRecommendationResponse?
+    private var cachedRecommendation: RecommendedNewsletter?
     private var lastFetchTime: Date?
 
     @Published public var allNewsletters: [Brand] = []
@@ -98,7 +98,7 @@ public class ExploreViewModel: ObservableObject {
         }
     }
     
-    private func updateRecommendationData(from response: NewsletterRecommendationResponse) {
+    private func updateRecommendationData(from response: RecommendedNewsletter) {
         myRecommendation = response.intersection
         unionRecommendation = response.union
         fixedMyRecommendation = Array(response.intersection.prefix(5))

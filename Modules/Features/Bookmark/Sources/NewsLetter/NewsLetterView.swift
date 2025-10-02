@@ -41,34 +41,45 @@ public struct NewsLetterView: View {
                 }
                 .frame(maxWidth: .infinity)
 
+                // 프로필 카드
                 profileCardView
                     .offset(y: -20)
                     .zIndex(1)
 
-                VStack(alignment: .leading, spacing: 16) {
-                    Divider()
-                        .padding(.top, 30)
+                // 메인 컨텐츠
+                VStack(alignment: .leading, spacing: 20) {
+                    // 구분선과 설명
+                    VStack(alignment: .leading, spacing: 16) {
+                        Divider()
+                            .padding(.top, 30)
+                        
+                        Text("세상 돌아가는 소식은 궁금한데, 시간이 없다고요? <뉴닉>은 신문 볼 새 없이 바쁘지만, 세상과의 연결고리는 튼튼하게 유지하고 싶은 여러분들을 위해 세상 돌아가는 소식을 모두 담아 간단하게 정리해드려요.")
+                            .font(.callout)
+                            .foregroundColor(.gray)
+                    }
+                    .padding(.horizontal, 20)
                     
-                    Text("세상 돌아가는 소식은 궁금한데, 시간이 없다고요? <뉴닉>은 신문 볼 새 없이 바쁘지만, 세상과의 연결고리는 튼튼하게 유지하고 싶은 여러분들을 위해 세상 돌아가는 소식을 모두 담아 간단하게 정리해드려요.")
-                        .font(.callout)
-                        .foregroundColor(.gray)
-                    
-                    Text("지난 아티클 보기")
-                        .font(.hanSansNeo(14, .medium))
-                        .padding(.top, 12)
-                    
-                    VStack(spacing: 12) {
-                        ArticleCard(title: "🦔정원 늘어난다 쭉쭉쭉쭉~?", date: "6월 12일 (월) 오전 7:06")
-                        ArticleCard(title: "(광고)🦔우리 사이 멀어질까 두려워", date: "6월 9일 (금) 오전 5:57")
-                        ArticleCard(title: "🦔또 내 지갑만 진심(으론 텅텅)이지만", date: "6월 8일 (목) 오전 6:34")
+                    // 지난 아티클 섹션
+                    VStack(alignment: .leading, spacing: 16) {
+                        Text("지난 아티클 보기")
+                            .font(.hanSansNeo(16, .bold))
+                            .foregroundColor(Color(hex: "#161616"))
+                            .padding(.horizontal, 20)
+                        
+                        VStack(spacing: 12) {
+                            ArticleCard(title: "🦔정원 늘어난다 쭉쭉쭉쭉~?", date: "6월 12일 (월) 오전 7:06")
+                            ArticleCard(title: "(광고)🦔우리 사이 멀어질까 두려워", date: "6월 9일 (금) 오전 5:57")
+                            ArticleCard(title: "🦔또 내 지갑만 진심(으론 텅텅)이지만", date: "6월 8일 (목) 오전 6:34")
+                        }
+                        .padding(.horizontal, 20)
                     }
                 }
-                .padding()
                 .background(Color.white)
                 .cornerRadius(20)
-                .offset(y: -70) // 프로필 카드 높이만큼 추가로 올라가기
+                .offset(y: -50)
+                .padding(.horizontal, 16)
             }
-            .background(Color(UIColor.systemGroupedBackground))
+            .background(Color(hex: "#F5F5F7"))
         }
     }
     
@@ -119,31 +130,30 @@ public struct LetterTagView: View {
 }
 
 // 개별 아티클 카드 뷰
-public  struct ArticleCard: View {
+public struct ArticleCard: View {
     var title: String
     var date: String
     
     public var body: some View {
-        VStack(alignment: .leading, spacing: 4) {
+        VStack(alignment: .leading, spacing: 8) {
             Text(title)
-                .font(.subheadline)
-                .lineLimit(1)
-                .padding(.top, 16)
-                .padding(.horizontal, 16)
+                .font(.hanSansNeo(14, .medium))
+                .foregroundColor(Color(hex: "#161616"))
+                .lineLimit(2)
+                .multilineTextAlignment(.leading)
             
             Text(date)
-                .font(.caption)
-                .foregroundColor(.gray)
-                .padding(.bottom, 16)
-                .padding(.horizontal, 16)
+                .font(.hanSansNeo(12, .regular))
+                .foregroundColor(Color(hex: "#565656"))
         }
-        
         .frame(maxWidth: .infinity, alignment: .leading)
-        .background(Color(hex: "#FFFFFF"))
+        .padding(.horizontal, 16)
+        .padding(.vertical, 16)
+        .background(Color.white)
         .overlay(
             RoundedRectangle(cornerRadius: 12)
                 .stroke(Color(hex: "#EBEBEB"), lineWidth: 1)
         )
-       
+        .cornerRadius(12)
     }
 }

@@ -362,7 +362,9 @@ public struct BrandDetailView: View {
             .sheet(isPresented: $showSubscribeSheet) {
                 SubscribeModalView(title: viewModel.detail?.brandName ?? "", url: viewModel.detail?.subscribeUrl ?? "")
                     .presentationDetents([.large])
-                    .presentationDragIndicator(.visible)
+                    .presentationDragIndicator(.hidden)
+                    .presentationBackground(.clear)
+                    .interactiveDismissDisabled(false)
             }
             .onChange(of: showSubscribeSheet) { _, newValue in
                 // 구독 시트가 닫힐 때 팝업 띄우기

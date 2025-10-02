@@ -3,19 +3,23 @@ import ProjectDescription
 let project = Project(
     name: "App",
     organizationName: "Your Organization Name",
+    settings: .settings(configurations: [
+        .debug(name: "Debug", xcconfig: "../../Configurations/Development.xcconfig"),
+        .release(name: "Release", xcconfig: "../../Configurations/Production.xcconfig")
+    ]),
     targets: [
         .target(
             name: "App",
             destinations: .iOS,
             product: .app,
-            bundleId: "com.newdok.app",
+            bundleId: "$(PRODUCT_BUNDLE_IDENTIFIER)",
             deploymentTargets: .iOS("17.0"),
             infoPlist: .extendingDefault(
                 with: [
-                    "API_BASE_URL": "$(API_BASE_URL)",
-                    "CFBundleName": "뉴독 - 나를 위한 뉴스레터 큐레이션",
-                    "CFBundleDisplayName": "뉴독 - 나를 위한 뉴스레터 큐레이션",
-                    "CFBundleShortVersionString": "1.0.0",
+                    "BASE_URL": "$(BASE_URL)",
+                    "CFBundleName": "$(CFBundleDisplayName)",
+                    "CFBundleDisplayName": "$(CFBundleDisplayName)",
+                    "CFBundleShortVersionString": "1.0.1",
                     "CFBundleVersion": "1",
                     "UILaunchScreen": [
                         "UIColorName": "AccentColor",
@@ -25,6 +29,9 @@ let project = Project(
                         "NSAllowsArbitraryLoads": true,
                         "NSExceptionDomains": [
                             "localhost": [
+                                "NSExceptionAllowsInsecureHTTPLoads": true
+                            ],
+                            "3.38.79.19": [
                                 "NSExceptionAllowsInsecureHTTPLoads": true
                             ]
                         ]
@@ -60,9 +67,30 @@ let project = Project(
             ],
             settings: .settings(
                 base: [
-                    "API_BASE_URL": "https://newdok.shop"
+                    "ASSETCATALOG_COMPILER_APPICON_NAME": "$(ASSETCATALOG_COMPILER_APPICON_NAME)",
+                    "DEVELOPMENT_TEAM": "$(DEVELOPMENT_TEAM)"
                 ]
             )
+        )
+    ],
+    schemes: [
+        .scheme(
+            name: "Newdok-Debug",
+            shared: true,
+            buildAction: .buildAction(targets: ["App"]),
+            runAction: .runAction(configuration: "Debug"),
+            archiveAction: .archiveAction(configuration: "Debug"),
+            profileAction: .profileAction(configuration: "Debug"),
+            analyzeAction: .analyzeAction(configuration: "Debug")
+        ),
+        .scheme(
+            name: "Newdok-Release", 
+            shared: true,
+            buildAction: .buildAction(targets: ["App"]),
+            runAction: .runAction(configuration: "Release"),
+            archiveAction: .archiveAction(configuration: "Release"),
+            profileAction: .profileAction(configuration: "Release"),
+            analyzeAction: .analyzeAction(configuration: "Release")
         )
     ]
 )

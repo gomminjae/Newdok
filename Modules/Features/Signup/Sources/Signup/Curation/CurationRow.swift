@@ -101,7 +101,9 @@ struct CurationRow: View {
         .sheet(isPresented: $showSubscribeSheet) {
             SubscribeModalView(title: brand?.name ?? "", url: brand?.subscribeUrl ?? "")
                 .presentationDetents([.large])
-                .presentationDragIndicator(.visible)
+                .presentationDragIndicator(.hidden)
+                .presentationBackground(.clear)
+                .interactiveDismissDisabled(false)
         }
     }
 }
