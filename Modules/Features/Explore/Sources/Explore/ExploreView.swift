@@ -326,12 +326,15 @@ public struct ExploreView: View {
 
             VStack(spacing: 12) {
                 ForEach(viewModel.fixedUnionRecommendation, id: \.id) { newsletter in
-                    NewsletterRow(newsletter: newsletter)
-                        .padding(.horizontal, 20)
-                        .onTapGesture {
-                            router.push(.brandDetail(id: "\(newsletter.id)"))
-                        }
-                        
+                    NewsletterRow(
+                        newsletter: newsletter,
+                        prioritizedInterests: viewModel.prioritizeInterestsForNewsletter(newsletter)
+                    )
+                    .padding(.horizontal, 20)
+                    .onTapGesture {
+                        router.push(.brandDetail(id: "\(newsletter.id)"))
+                    }
+                    
                 }
             }
             .padding(.bottom, 80)
@@ -590,6 +593,7 @@ struct PagingScrollView: View {
     
     @EnvironmentObject private var router: AppRouter
     @State private var scrollID: Int?
+    @State private var dynamicItems: [NewsletterDetail] = []
     
   
     private let itemWidth: CGFloat = 320
@@ -604,18 +608,27 @@ struct PagingScrollView: View {
         self.items = newsletters
     }
     
+    private func initializeItems() {
+        dynamicItems = items
+    }
+    
+    private func checkAndExpandItems() {
+        // 4개 정도 남았을 때 복사
+        if currentPage >= dynamicItems.count - 4 {
+            dynamicItems.append(contentsOf: items)
+        }
+    }
+    
     var body: some View {
         GeometryReader { geo in
-            
-        
             let trailingSpace = max(0, geo.size.width - itemWidth - leadingMargin + 12)
             
             VStack(spacing: 12) {
                 // MARK: - 캐러셀
                 ScrollView(.horizontal, showsIndicators: false) {
                     LazyHStack(spacing: itemSpacing) {
-                        ForEach(items.indices, id: \.self) { index in
-                            let newsletter = items[index]
+                        ForEach(dynamicItems.indices, id: \.self) { index in
+                            let newsletter = dynamicItems[index]
                             RecommendedNewsLetterView(recommendation: newsletter)
                                 .frame(width: itemWidth, height: itemHeight)
                                 .id(index)
@@ -633,14 +646,18 @@ struct PagingScrollView: View {
                 .scrollPosition(id: $scrollID)
                 .onChange(of: scrollID) { _, newValue in
                     currentPage = newValue ?? 0
+                    checkAndExpandItems()
+                }
+                .onAppear {
+                    initializeItems()
                 }
                 .frame(height: itemHeight)
                 
-                // MARK: - 페이지 인디케이터
+                // MARK: - 페이지 인디케이터 (5개 고정)
                 HStack(spacing: 6) {
-                    ForEach(items.indices, id: \.self) { idx in
+                    ForEach(0..<5, id: \.self) { idx in
                         Circle()
-                            .fill(idx == currentPage
+                            .fill(idx == (currentPage % 5)
                                   ? Color.primaryNormal
                                   : Color(hex: "#CCDFFF"))
                             .frame(width: 6, height: 6)

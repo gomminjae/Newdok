@@ -13,54 +13,82 @@ import Domain
 
 public struct NewsletterRow: View {
     public let newsletter: NewsletterDetail
+    public let prioritizedInterests: [Interest]
 
-    public init(newsletter: NewsletterDetail) {
+    public init(newsletter: NewsletterDetail, prioritizedInterests: [Interest]? = nil) {
         self.newsletter = newsletter
+        self.prioritizedInterests = prioritizedInterests ?? newsletter.interests
     }
+    
 
     public var body: some View {
-        HStack(alignment: .top, spacing: 12) {
-            KFImage(URL(string: newsletter.imageUrl))
-                .placeholder {
-                    Color.gray.opacity(0.2)
-                }
-                .onFailure { _ in
-                    // 실패 시 기본 이미지 표시
-                    Image(systemName: "photo")
-                        .font(.system(size: 24))
-                        .foregroundColor(Color.gray.opacity(0.5))
-                        .frame(width: 56, height: 56)
-                        .background(Color.gray.opacity(0.1))
-                        .clipShape(RoundedRectangle(cornerRadius: 10))
-                }
-                .resizable()
-                .frame(width: 56, height: 56)
-                .clipShape(RoundedRectangle(cornerRadius: 10))
-                .overlay(
-                        RoundedRectangle(cornerRadius: 8)
-                            .stroke(Color(hex: "#EBEBEB"), lineWidth: 1)
-                    )
+        VStack(alignment: .leading, spacing: 0) {
+            HStack(alignment: .top, spacing: 0) {
+                KFImage(URL(string: newsletter.imageUrl))
+                    .placeholder {
+                        // 로딩 중 표시
+                        RoundedRectangle(cornerRadius: 10)
+                            .fill(Color.gray.opacity(0.2))
+                            .frame(width: 56, height: 56)
+                    }
+                    .onFailure { error in
+                        print("📸 [NewsletterRow] 이미지 로딩 실패: \(error.localizedDescription)")
+                    }
+                    .onFailure { _ in
+                        // 실패 시 기본 이미지 표시
+                        Image(systemName: "photo")
+                            .font(.system(size: 24))
+                            .foregroundColor(Color.gray.opacity(0.5))
+                            .frame(width: 56, height: 56)
+                            .background(Color.gray.opacity(0.1))
+                            .clipShape(RoundedRectangle(cornerRadius: 10))
+                    }
+                    .resizable()
+                    .aspectRatio(contentMode: .fill)
+                    .frame(width: 56, height: 56)
+                    .clipShape(RoundedRectangle(cornerRadius: 10))
+                    .overlay {
+                        RoundedRectangle(cornerRadius: 10)
+                            .stroke(Color(hex: "EBEBEB"))
+                    }
 
-            VStack(alignment: .leading, spacing: 4) {
-                Text(newsletter.brandName)
-                    .font(.hanSansNeo(14, .bold))
-                    .foregroundColor(Color(hex: "#333333"))
+                VStack(alignment: .leading, spacing: 12) {
+                    Text(newsletter.brandName)
+                        .font(.hanSansNeo(16, .bold))
+                        .foregroundColor(Color(hex: "#161616"))
+                        .padding(.leading, 8)
+                        .padding(.top, 2)
 
-                Text(newsletter.firstDescription)
-                    .font(.hanSansNeo(14, .medium))
-                    .foregroundColor(Color(hex: "#363636"))
-                    .lineLimit(2)
+                    Text(newsletter.firstDescription)
+                        .font(.hanSansNeo(14, .medium))
+                        .foregroundColor(Color(hex: "#565656"))
+                        .lineLimit(2)
+                        .multilineTextAlignment(.leading)
+                        .padding(.leading, 8)
+                }
+
+                Spacer()
             }
-
-            Spacer()
+            .padding(.bottom, 18)
+            
+            // 관심사 태그 3개 표시 (우선순위 정렬된 관심사)
+            if !prioritizedInterests.isEmpty {
+                HStack(spacing: 8) {
+                    ForEach(prioritizedInterests.prefix(3)) { interest in
+                        TagView(text: interest.name)
+                    }
+                }
+                .padding(.vertical, 4)
+                .padding(.bottom, 16)
+            }
         }
-        .padding(16)
+        .padding(.horizontal, 20)
+        .padding(.top, 16)
         .background(Color.white)
-        .clipShape(RoundedRectangle(cornerRadius: 12))
+        .clipShape(RoundedRectangle(cornerRadius: 8))
         .overlay {
-            RoundedRectangle(cornerRadius: 12)
+            RoundedRectangle(cornerRadius: 8)
                 .stroke(Color(hex: "EBEBEB"))
         }
-        //.shadow(color: .clear, radius: 0) // 필요 시 그림자
     }
 }

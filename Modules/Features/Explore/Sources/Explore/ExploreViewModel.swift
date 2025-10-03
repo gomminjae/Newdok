@@ -101,13 +101,77 @@ public class ExploreViewModel: ObservableObject {
     private func updateRecommendationData(from response: RecommendedNewsletter) {
         myRecommendation = response.intersection
         unionRecommendation = response.union
-        fixedMyRecommendation = Array(response.intersection.prefix(5))
         
-        // 랜덤하게 섞어서 6개 선택 (매번 다른 추천을 위해)
-        let shuffledUnion = response.union.shuffled()
-        fixedUnionRecommendation = Array(shuffledUnion.prefix(6))
+        // 교집합도 랜덤하게 섞어서 5개 선택 (매번 다른 추천을 위해)
+        let shuffledIntersection = response.intersection.shuffled()
+        fixedMyRecommendation = createCircularRecommendation(from: shuffledIntersection)
         
+        // 사용자 관심사 우선순위로 정렬된 union 추천
+        let prioritizedUnion = prioritizeInterests(for: response.union)
+        fixedUnionRecommendation = Array(prioritizedUnion.prefix(6))
+        
+        print("  - fixedMyRecommendation count: \(fixedMyRecommendation.count)")
         print("  - fixedUnionRecommendation count: \(fixedUnionRecommendation.count)")
+    }
+    
+    // 사용자 관심사 우선순위로 뉴스레터 정렬
+    private func prioritizeInterests(for newsletters: [NewsletterDetail]) -> [NewsletterDetail] {
+        guard let userInterests = UserInfoStore.shared.load()?.interestIds else {
+            // 사용자 관심사가 없으면 랜덤하게 섞어서 반환
+            return newsletters.shuffled()
+        }
+        
+        return newsletters.sorted { newsletter1, newsletter2 in
+            let userMatchedCount1 = newsletter1.interests.filter { userInterests.contains($0.id) }.count
+            let userMatchedCount2 = newsletter2.interests.filter { userInterests.contains($0.id) }.count
+            
+            // 사용자 관심사 매칭 개수가 많은 순으로 정렬
+            if userMatchedCount1 != userMatchedCount2 {
+                return userMatchedCount1 > userMatchedCount2
+            }
+            
+            // 매칭 개수가 같으면 랜덤하게
+            return Bool.random()
+        }
+    }
+    
+    // 뉴스레터의 관심사를 사용자 관심사 우선순위로 정렬
+    public func prioritizeInterestsForNewsletter(_ newsletter: NewsletterDetail) -> [Interest] {
+        guard let userInterests = UserInfoStore.shared.load()?.interestIds else {
+            // 사용자 관심사가 없으면 랜덤하게 섞어서 반환
+            return newsletter.interests.shuffled()
+        }
+        
+        // 사용자가 선택한 관심사와 매칭되는 것들을 우선순위로
+        let userMatchedInterests = newsletter.interests.filter { interest in
+            userInterests.contains(interest.id)
+        }
+        
+        // 사용자 관심사와 매칭되지 않는 것들
+        let remainingInterests = newsletter.interests.filter { interest in
+            !userInterests.contains(interest.id)
+        }.shuffled()
+        
+        // 사용자 관심사 우선 + 나머지 랜덤
+        return userMatchedInterests + remainingInterests
+    }
+    
+    // 원형큐처럼 무한 스크롤을 위한 추천 데이터 생성 (5개 유지)
+    private func createCircularRecommendation(from items: [NewsletterDetail]) -> [NewsletterDetail] {
+        guard !items.isEmpty else { return [] }
+        
+        // 5개 미만이면 복사해서 5개로 늘리기
+        if items.count < 5 {
+            var expandedItems: [NewsletterDetail] = []
+            for i in 0..<5 {
+                let sourceIndex = i % items.count
+                expandedItems.append(items[sourceIndex])
+            }
+            return expandedItems
+        }
+        
+        // 5개 이상이면 5개만 반환
+        return Array(items.prefix(5))
     }
     
     public func fetchAllNewsletters() async {
