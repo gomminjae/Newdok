@@ -226,6 +226,13 @@ public struct MypageView: View {
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .navigationTitle("마이페이지")
             .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .principal) {
+                    Text("마이페이지")
+                        .font(.hanSansNeo(18, .bold))
+                        .foregroundColor(.black)
+                }
+            }
             .toolbar(.hidden, for: .navigationBar)
         }
         .onAppear {

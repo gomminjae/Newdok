@@ -11,7 +11,7 @@ public enum AppCoordinatorEntry {
 
     @MainActor
     public static func makeAFlow(router: AppRouter, exploreIntent: ExploreIntent) -> some View {
-        QABRootView(router: router, exploreIntent: exploreIntent)
+        AppRootView(router: router, exploreIntent: exploreIntent)
     }
 }
 

@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workspace
+   version = "1.0">
+   <Group
+      location = "group:.."
+      name = "Modules">
+      <FileRef
+         location = "group:App/App.xcodeproj">
+      </FileRef>
+      <FileRef
+         location = "group:AppCoordinator/AppCoordinator.xcodeproj">
+      </FileRef>
+      <FileRef
+         location = "group:Core/Core.xcodeproj">
+      </FileRef>
+      <FileRef
+         location = "group:Data/Data.xcodeproj">
+      </FileRef>
+      <FileRef
+         location = "group:DesignSystem/DesignSystem.xcodeproj">
+      </FileRef>
+      <FileRef
+         location = "group:Domain/Domain.xcodeproj">
+      </FileRef>
+      <FileRef
+         location = "group:Shared/Shared.xcodeproj">
+      </FileRef>
+      <Group
+         location = "group:Features"
+         name = "Features">
+         <FileRef
+            location = "group:Auth/Auth.xcodeproj">
+         </FileRef>
+         <FileRef
+            location = "group:Bookmark/Bookmark.xcodeproj">
+         </FileRef>
+         <FileRef
+            location = "group:Detail/Detail.xcodeproj">
+         </FileRef>
+         <FileRef
+            location = "group:Explore/Explore.xcodeproj">
+         </FileRef>
+         <FileRef
+            location = "group:Home/Home.xcodeproj">
+         </FileRef>
+         <FileRef
+            location = "group:Launch/Launch.xcodeproj">
+         </FileRef>
+         <FileRef
+            location = "group:Mypage/Mypage.xcodeproj">
+         </FileRef>
+         <FileRef
+            location = "group:Recovery/Recovery.xcodeproj">
+         </FileRef>
+         <FileRef
+            location = "group:Search/Search.xcodeproj">
+         </FileRef>
+         <FileRef
+            location = "group:Signup/Signup.xcodeproj">
+         </FileRef>
+         <FileRef
+            location = "group:Subscribe/Subscribe.xcodeproj">
+         </FileRef>
+         <FileRef
+            location = "group:Survey/Survey.xcodeproj">
+         </FileRef>
+         <FileRef
+            location = "group:Withdraw/Withdraw.xcodeproj">
+         </FileRef>
+      </Group>
+   </Group>
+   <Group
+      location = "container:"
+      name = "Dependencies">
+      <FileRef
+         location = "group:../../Tuist/.build/tuist-derived/Alamofire/Alamofire.xcodeproj">
+      </FileRef>
+      <FileRef
+         location = "group:../../Tuist/.build/tuist-derived/Kingfisher/Kingfisher.xcodeproj">
+      </FileRef>
+      <FileRef
+         location = "group:../../Tuist/.build/tuist-derived/Moya/Moya.xcodeproj">
+      </FileRef>
+      <FileRef
+         location = "group:../../Tuist/.build/tuist-derived/PopupView/PopupView.xcodeproj">
+      </FileRef>
+      <FileRef
+         location = "group:../../Tuist/.build/tuist-derived/SDWebImage/SDWebImage.xcodeproj">
+      </FileRef>
+      <FileRef
+         location = "group:../../Tuist/.build/tuist-derived/Swinject/Swinject.xcodeproj">
+      </FileRef>
+      <FileRef
+         location = "group:../../Tuist/.build/tuist-derived/swiftui-introspect/swiftui-introspect.xcodeproj">
+      </FileRef>
+   </Group>
+</Workspace>

@@ -19,7 +19,7 @@ let project = Project(
                     "BASE_URL": "$(BASE_URL)",
                     "CFBundleName": "$(CFBundleDisplayName)",
                     "CFBundleDisplayName": "$(CFBundleDisplayName)",
-                    "CFBundleShortVersionString": "1.0.1",
+                    "CFBundleShortVersionString": "1.0.0",
                     "CFBundleVersion": "1",
                     "UILaunchScreen": [
                         "UIColorName": "AccentColor",

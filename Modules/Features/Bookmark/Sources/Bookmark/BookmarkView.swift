@@ -170,7 +170,7 @@ public struct BookmarkView: View {
     private var headerView: some View {
         HStack {
             Text("북마크함")
-                .font(.hanSansNeo(16, .bold))
+                .font(.hanSansNeo(18, .bold))
                 .foregroundStyle(Color(hex: "161616"))
             Spacer()
             Button {

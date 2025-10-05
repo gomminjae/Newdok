@@ -130,6 +130,8 @@ public struct BrandDetailView: View {
         }
         .navigationBarBackButtonHidden(true)
         .navigationBarTitleDisplayMode(.inline)
+        .toolbarBackground(Color.white, for: .navigationBar)
+        .toolbarBackground(.visible, for: .navigationBar)
         .popup(isPresented: $isShowPauseAlert) {
             UnsubscribePopupView(brandName: viewModel.detail?.brandName ?? "",
                                  onCancel: {
@@ -271,6 +273,7 @@ public struct BrandDetailView: View {
                                     .font(.hanSansNeo(12, .medium))
                                     .foregroundStyle(Color(hex: "565656"))
                             }
+                            .frame(maxWidth: .infinity, alignment: .leading)
                         }
 
                         Spacer()

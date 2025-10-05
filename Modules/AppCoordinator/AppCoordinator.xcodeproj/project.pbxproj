@@ -12,7 +12,7 @@
 		13C9A534034C115EDB4A8D03 /* AppDIContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3792451C4D850095AD92560 /* AppDIContainer.swift */; };
 		34A2F59BAF7B9E5834D8DE20 /* AppCoordinatorEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93A25D25F6C1F4D5F26B3F2E /* AppCoordinatorEntry.swift */; };
 		47A95E00D8121476916FABE8 /* Auth.framework in Dependencies */ = {isa = PBXBuildFile; fileRef = 238DA4510E0083E8A5FFD06E /* Auth.framework */; };
-		49D495033DE0E6D4EB14972B /* QABFlowCoordinatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAF18C459220DE6C55396D1A /* QABFlowCoordinatorView.swift */; };
+		49D495033DE0E6D4EB14972B /* AppFlowCoordinatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAF18C459220DE6C55396D1A /* AppFlowCoordinatorView.swift */; };
 		62DF4A4A32DA7766EDA7A631 /* Search.framework in Dependencies */ = {isa = PBXBuildFile; fileRef = E5244020C7F599E67FE05B1C /* Search.framework */; };
 		699BB6C4DC2DA0583A195BE3 /* Bookmark.framework in Dependencies */ = {isa = PBXBuildFile; fileRef = 40DEF26D6CCE1D89E30673E3 /* Bookmark.framework */; };
 		71B73EACEC5BC6931DBF87D3 /* Explore.framework in Dependencies */ = {isa = PBXBuildFile; fileRef = 9C494B729F6FC9CAA8002E73 /* Explore.framework */; };
@@ -93,7 +93,7 @@
 		C5B28670747B57E0B2D559B2 /* Recovery.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Recovery.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C6C889D7AF6FDD3318DA6F1D /* Subscribe.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Subscribe.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D908C008AEFA0721CDA34C29 /* Swinject.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Swinject.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		DAF18C459220DE6C55396D1A /* QABFlowCoordinatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QABFlowCoordinatorView.swift; sourceTree = "<group>"; };
+		DAF18C459220DE6C55396D1A /* AppFlowCoordinatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppFlowCoordinatorView.swift; sourceTree = "<group>"; };
 		E3792451C4D850095AD92560 /* AppDIContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDIContainer.swift; sourceTree = "<group>"; };
 		E5244020C7F599E67FE05B1C /* Search.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Search.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E8AE92AE3530D16E11F67BC8 /* Shared.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Shared.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -161,7 +161,7 @@
 		95F4FED3D6EAB4EC0630A50C /* AuthFlow */ = {
 			isa = PBXGroup;
 			children = (
-				DAF18C459220DE6C55396D1A /* QABFlowCoordinatorView.swift */,
+				DAF18C459220DE6C55396D1A /* AppFlowCoordinatorView.swift */,
 			);
 			path = AuthFlow;
 			sourceTree = "<group>";
@@ -294,7 +294,7 @@
 				34A2F59BAF7B9E5834D8DE20 /* AppCoordinatorEntry.swift in Sources */,
 				13C9A534034C115EDB4A8D03 /* AppDIContainer.swift in Sources */,
 				A758B6D31329B917EAE2FA37 /* AppCoordinator.swift in Sources */,
-				49D495033DE0E6D4EB14972B /* QABFlowCoordinatorView.swift in Sources */,
+				49D495033DE0E6D4EB14972B /* AppFlowCoordinatorView.swift in Sources */,
 				AD5F078346B48782AE8F2F45 /* NewDokTabView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -14,6 +14,11 @@ public struct VersionView: View {
     
     public init() {}
     
+    // 앱 버전 정보 가져오기
+    private var appVersion: String {
+        Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "1.0.0"
+    }
+    
     public var body: some View {
         VStack(spacing: 0) {
             // 헤더
@@ -31,7 +36,7 @@ public struct VersionView: View {
                 Spacer()
                 
                 Text("버전")
-                    .font(.hanSansNeo(16, .bold))
+                    .font(.hanSansNeo(18, .bold))
                     .foregroundColor(.black)
                 
                 Spacer()
@@ -57,7 +62,7 @@ public struct VersionView: View {
                         .font(.hanSansNeo(14, .medium))
                         .foregroundColor(Color(hex: "#565656"))
                     
-                    Text("1.0.0")
+                    Text(appVersion)
                         .font(.hanSansNeo(20, .bold))
                         .foregroundColor(Color(hex: "#161616"))
                 }

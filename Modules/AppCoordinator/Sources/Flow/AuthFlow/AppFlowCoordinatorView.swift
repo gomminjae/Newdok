@@ -1,5 +1,5 @@
 //
-//  QABFlowCoordinatorView.swift
+//  AppFlowCoordinatorView.swift
 //  AppCoordinator
 //
 //  Created by 권민재 on 4/6/25.
@@ -10,7 +10,7 @@ import Auth
 import Signup
 import Shared
 
-struct QABRootView: View {
+struct AppRootView: View {
     @EnvironmentObject private var tabSelection: TabSelection
     @ObservedObject var router: AppRouter
     let exploreIntent: ExploreIntent
@@ -43,6 +43,16 @@ struct QABRootView: View {
                     destinationView(for: route)
                 }
             }
+            .onAppear {
+                // 전역적으로 swipe back 활성화
+                DispatchQueue.main.async {
+                    if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+                       let window = windowScene.windows.first,
+                       let rootViewController = window.rootViewController {
+                        enableSwipeBackGlobally(in: rootViewController)
+                    }
+                }
+            }
             .environmentObject(router)
             .environmentObject(tabSelection)
             .opacity(launched ? 1 : 0) // Splash 후 메인뷰 서서히 등장
@@ -52,7 +62,7 @@ struct QABRootView: View {
             DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
                 withAnimation {
                     launched = true
-                    print("QABRootViewView에서 router 인스턴스: \(Unmanaged.passUnretained(router).toOpaque())")
+                    print("AppRootView에서 router 인스턴스: \(Unmanaged.passUnretained(router).toOpaque())")
                     
                     // 토큰 존재 여부 확인 (로그인 여부)
                     if TokenStorage.hasValidToken {
@@ -183,6 +193,49 @@ struct QABRootView: View {
             coordinator.makeTermsMenuView()
         case .editAlert:
             coordinator.makeEditAlert()
+        }
+    }
+}
+
+// MARK: - 전역 Swipe Back 설정
+private func enableSwipeBackGlobally(in viewController: UIViewController) {
+    // NavigationController 찾기
+    func findNavigationController(in vc: UIViewController) -> UINavigationController? {
+        if let nav = vc as? UINavigationController {
+            return nav
+        }
+        for child in vc.children {
+            if let nav = findNavigationController(in: child) {
+                return nav
+            }
+        }
+        return nil
+    }
+    
+    if let navController = findNavigationController(in: viewController) {
+        // 기본 swipe back 활성화
+        navController.interactivePopGestureRecognizer?.isEnabled = true
+        navController.interactivePopGestureRecognizer?.delegate = nil
+        
+        // 커스텀 swipe back 처리
+        let panGesture = UIPanGestureRecognizer()
+        panGesture.addTarget(SwipeBackHandler.self, action: #selector(SwipeBackHandler.handleSwipeBack(_:)))
+        viewController.view.addGestureRecognizer(panGesture)
+    }
+}
+
+// MARK: - Swipe Back Handler
+private class SwipeBackHandler: NSObject {
+    @objc static func handleSwipeBack(_ gesture: UIPanGestureRecognizer) {
+        let translation = gesture.translation(in: gesture.view)
+        let velocity = gesture.velocity(in: gesture.view)
+        
+        // 오른쪽에서 왼쪽으로 스와이프 (뒤로가기)
+        if translation.x > 50 && velocity.x > 0 {
+            // AppRouter의 pop 메서드 호출
+            DispatchQueue.main.async {
+                NotificationCenter.default.post(name: .init("SwipeBack"), object: nil)
+            }
         }
     }
 }

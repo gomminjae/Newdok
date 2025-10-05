@@ -141,7 +141,7 @@ public struct ExploreView: View {
     private var headerView: some View {
         HStack {
             Text("둘러보기")
-                .font(.hanSansNeo(16, .bold))
+                .font(.hanSansNeo(18, .bold))
                 .foregroundStyle(Color(hex: "161616"))
             Spacer()
             Button {
