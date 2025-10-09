@@ -231,7 +231,7 @@ public struct BrandDetailView: View {
                             .clipShape(Capsule())
                             .overlay {
                                 Capsule()
-                                    .stroke(Color(hex: "EBEBEB"), lineWidth: 1)
+                                    .stroke(Color(hex: "EBEBEB"), lineWidth: 1.5)
                             }
                     }
                     
@@ -247,7 +247,7 @@ public struct BrandDetailView: View {
                             .clipShape(Capsule())
                             .overlay {
                                 Capsule()
-                                    .stroke(Color.primaryNormal, lineWidth: 1)
+                                    .stroke(Color.primaryNormal, lineWidth: 1.5)
                             }
                     }
                 }
@@ -348,7 +348,7 @@ public struct BrandDetailView: View {
                     .padding(.vertical, 16)
                     .background(Color.white)
                     .clipShape(RoundedRectangle(cornerRadius: 8))
-                    .overlay(RoundedRectangle(cornerRadius: 8).stroke(Color(hex: "EBEBEB")))
+                    .overlay(RoundedRectangle(cornerRadius: 8).stroke(Color(hex: "EBEBEB"), lineWidth: 1.5))
                     .padding(.horizontal)
                     .onTapGesture {
                         router.push(.articleDetail(id: "\(article.id)"))
@@ -410,7 +410,7 @@ public struct BrandDetailView: View {
                 .clipShape(RoundedRectangle(cornerRadius: 4))
                 .overlay(
                     RoundedRectangle(cornerRadius: 4)
-                        .stroke(style.border)
+                        .stroke(style.border, lineWidth: 1.5)
                 )
         }
         .disabled(!status.isActionable)

@@ -89,7 +89,7 @@ public struct MypageView: View {
                             .frame(height: 44)
                             .overlay {
                                 RoundedRectangle(cornerRadius: 4)
-                                    .stroke(Color(hex: "#EBEBEB"))
+                                    .stroke(Color(hex: "#EBEBEB"), lineWidth: 1.5)
                             }
                     }
                     .padding(.top, 12)

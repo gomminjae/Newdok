@@ -314,11 +314,19 @@ public struct ExploreView: View {
                             .frame(width: 20, height: 20)
                             .font(.hanSansNeo(14, .bold))
                             .foregroundStyle(Color.primaryNormal)
+                            .rotationEffect(.degrees(viewModel.isRefreshingRecommendation ? 360 : 0))
+                            .animation(
+                                viewModel.isRefreshingRecommendation 
+                                    ? .linear(duration: 1.0)
+                                    : .default,
+                                value: viewModel.isRefreshingRecommendation
+                            )
                         Text("새로고침")
                             .font(.hanSansNeo(14, .medium))
                             .foregroundStyle(Color.primaryNormal)
                     }
                 }
+                .disabled(viewModel.isRefreshingRecommendation)
             }
             .padding(.top, 20)
             .padding(.horizontal, 24)
@@ -362,7 +370,7 @@ public struct ExploreView: View {
                         .background(Color.white)
                         .overlay(
                             RoundedRectangle(cornerRadius: 20)
-                                .stroke(Color(hex: "EBEBEB"))
+                                .stroke(Color(hex: "EBEBEB"), lineWidth: 1.5)
                         )
                         .clipShape(RoundedRectangle(cornerRadius: 20))
                     }
@@ -389,7 +397,7 @@ public struct ExploreView: View {
                         .background(Color.white)
                         .overlay(
                             RoundedRectangle(cornerRadius: 20)
-                                .stroke(viewModel.industry != nil ? Color.primaryNormal : Color(hex :"EBEBEB"))
+                                .stroke(viewModel.industry != nil ? Color.primaryNormal : Color(hex :"EBEBEB"), lineWidth: 1.5)
                         )
                         .clipShape(RoundedRectangle(cornerRadius: 20))
                     }
@@ -413,7 +421,7 @@ public struct ExploreView: View {
                         .background(Color.white)
                         .overlay(
                             RoundedRectangle(cornerRadius: 20)
-                                .stroke(viewModel.day != nil ? Color.primaryNormal : Color(hex: "EBEBEB"))
+                                .stroke(viewModel.day != nil ? Color.primaryNormal : Color(hex: "EBEBEB"), lineWidth: 1.5)
                         )
                         .clipShape(RoundedRectangle(cornerRadius: 20))
                     }

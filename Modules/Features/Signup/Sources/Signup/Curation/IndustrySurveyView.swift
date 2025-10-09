@@ -93,7 +93,7 @@ struct InterestButton: View {
                 .background(Color.white)
                 .overlay(
                     RoundedRectangle(cornerRadius: 4)
-                        .stroke(isSelected ? Color(hex: "#2866D3") : Color.gray.opacity(0.3), lineWidth: 1)
+                        .stroke(isSelected ? Color(hex: "#2866D3") : Color.gray.opacity(0.3), lineWidth: 1.5)
                 )
         }
     }

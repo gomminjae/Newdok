@@ -92,19 +92,7 @@ struct NewsletterDetailRow: View {
                     .clipShape(RoundedRectangle(cornerRadius: 10))
                     .overlay {
                         RoundedRectangle(cornerRadius: 10)
-                            .stroke(Color(hex: "EBEBEB"))
-                    }
-                    .overlay {
-                        // 구독 확인 중일 때 오버레이
-                        if SubscriptionStatus(rawValue: brand.isSubscribed ?? "") == .check {
-                            RoundedRectangle(cornerRadius: 10)
-                                .fill(Color(hex: "#25242C99"))
-                                .overlay {
-                                    Text("구독확인 중")
-                                        .font(.hanSansNeo(16, .medium))
-                                        .foregroundColor(.white)
-                                }
-                        }
+                            .stroke(Color(hex: "EBEBEB"), lineWidth: 1.5)
                     }
 
                 VStack(alignment: .leading, spacing: 12) {
@@ -134,7 +122,7 @@ struct NewsletterDetailRow: View {
                         .clipShape(Capsule())
                         .overlay {
                             Capsule()
-                                .stroke(SubscriptionStatus(rawValue: brand.isSubscribed ?? "").borderColor)
+                                .stroke(SubscriptionStatus(rawValue: brand.isSubscribed ?? "").borderColor, lineWidth: 1.5)
                         }
                 }
             }
@@ -154,7 +142,7 @@ struct NewsletterDetailRow: View {
         .clipShape(RoundedRectangle(cornerRadius: 8))
         .overlay {
             RoundedRectangle(cornerRadius: 8)
-                .stroke(Color(hex: "EBEBEB"))
+                .stroke(Color(hex: "EBEBEB"), lineWidth: 1.5)
         }
         
         

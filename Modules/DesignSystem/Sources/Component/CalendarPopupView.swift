@@ -81,7 +81,7 @@ public struct CalendarPopupView: View {
                 .padding(.horizontal, 20)
                 .background(Color.white)
                 .clipShape(RoundedRectangle(cornerRadius: 4))
-                .overlay(RoundedRectangle(cornerRadius: 4).stroke(Color.primaryNormal))
+                .overlay(RoundedRectangle(cornerRadius: 4).stroke(Color.primaryNormal, lineWidth: 1.5))
             }
             .padding(.top, 20)
         }

@@ -104,7 +104,7 @@ public struct ProfileInputView: View {
                         .cornerRadius(4)
                         .overlay(
                             RoundedRectangle(cornerRadius: 4)
-                                .stroke(isExpanded ? Color.primaryNormal : Color(hex: "#DADADA"))
+                                .stroke(isExpanded ? Color.primaryNormal : Color(hex: "#DADADA"), lineWidth: 1.5)
                         )
                         .background(
                             GeometryReader { geo in
@@ -240,7 +240,7 @@ struct GenderButton: View {
                 .frame(maxWidth: .infinity)
                 .overlay(
                     RoundedRectangle(cornerRadius: 4)
-                        .stroke(isSelected ? Color.primaryNormal : Color(hex: "#DADADA"), lineWidth: 1)
+                        .stroke(isSelected ? Color.primaryNormal : Color(hex: "#DADADA"), lineWidth: 1.5)
                 )
         }
     }

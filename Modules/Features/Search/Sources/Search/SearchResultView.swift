@@ -120,7 +120,7 @@ struct SearchNewsletterRow: View {
                 }
                 .overlay {
                     RoundedRectangle(cornerRadius: 10)
-                        .stroke(Color(hex: "#EBEBEB"))
+                        .stroke(Color(hex: "#EBEBEB"), lineWidth: 1.5)
                 }
                 .frame(width: 56, height: 56)
                 .cornerRadius(10)
@@ -207,7 +207,7 @@ extension SearchResultView {
                     .padding()
                     .overlay(
                         RoundedRectangle(cornerRadius: 4)
-                            .stroke(Color.primaryNormal, lineWidth: 1)
+                            .stroke(Color.primaryNormal, lineWidth: 1.5)
                     )
             }
             .frame(height: 48)

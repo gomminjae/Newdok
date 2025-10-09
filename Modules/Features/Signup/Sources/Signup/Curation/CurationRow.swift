@@ -67,7 +67,7 @@ struct CurationRow: View {
                         .background(Color.white)
                         .overlay(
                             RoundedRectangle(cornerRadius: 4)
-                                .stroke(Color(hex: "#2866D3"), lineWidth: 1)
+                                .stroke(Color(hex: "#2866D3"), lineWidth: 1.5)
                         )
                 }
             }
@@ -96,7 +96,7 @@ struct CurationRow: View {
         .cornerRadius(12)
         .overlay(
             RoundedRectangle(cornerRadius: 12)
-                .stroke(Color(hex: "#EBEBEB"), lineWidth: 1)
+                .stroke(Color(hex: "#EBEBEB"), lineWidth: 1.5)
         )
         .sheet(isPresented: $showSubscribeSheet) {
             SubscribeModalView(title: brand?.name ?? "", url: brand?.subscribeUrl ?? "")
@@ -120,7 +120,7 @@ struct TagView: View {
             .background(Color.white)
             .overlay(
                 RoundedRectangle(cornerRadius: 16)
-                    .stroke(Color(hex: "#EBEBEB"), lineWidth: 1)
+                    .stroke(Color(hex: "#EBEBEB"), lineWidth: 1.5)
             )
     }
 }

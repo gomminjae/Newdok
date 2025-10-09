@@ -216,7 +216,7 @@ public struct BookmarkView: View {
                             )
                             .overlay(
                                 RoundedRectangle(cornerRadius: 16)
-                                    .stroke(selectedCategory == name ? Color.primaryNormal : Color(hex: "#EBEBEB"), lineWidth: 1)
+                                    .stroke(selectedCategory == name ? Color.primaryNormal : Color(hex: "#EBEBEB"), lineWidth: 1.5)
                             )
                             .foregroundColor(selectedCategory == name ? Color.primaryNormal : Color(hex: "#363636"))
                     }

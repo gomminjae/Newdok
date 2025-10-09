@@ -112,7 +112,7 @@ struct DropdownSelector: View {
         .padding(.horizontal)
         .overlay(
             RoundedRectangle(cornerRadius: 4)
-                .stroke(shouldShowDropdown ? Color.primaryNormal : Color(hex: "#DADADA"), lineWidth: 1)
+                .stroke(shouldShowDropdown ? Color.primaryNormal : Color(hex: "#DADADA"), lineWidth: 1.5)
         )
         .overlay(
             VStack {

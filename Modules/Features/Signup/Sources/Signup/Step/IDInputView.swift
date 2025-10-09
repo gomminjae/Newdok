@@ -47,7 +47,7 @@ public struct IDInputView: View {
                         .foregroundStyle(viewModel.isIDCheckEnabled ? Color.primaryNormal : Color(hex: "C0C0C0"))
                         .overlay {
                             RoundedRectangle(cornerRadius: 4)
-                                .stroke(viewModel.isIDCheckEnabled ? Color.primaryNormal : Color(hex: "C0C0C0"))
+                                .stroke(viewModel.isIDCheckEnabled ? Color.primaryNormal : Color(hex: "C0C0C0"), lineWidth: 1.5)
                         }
                         .disabled(!viewModel.isIDCheckEnabled)
                     }

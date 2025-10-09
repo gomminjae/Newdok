@@ -63,7 +63,7 @@ public struct PhoneVerificationView: View {
                         .background(Color.white)
                         .overlay(
                             RoundedRectangle(cornerRadius: 4)
-                                .stroke(isPhoneFieldFocused ? Color.primaryNormal : Color(hex: "#DADADA"), lineWidth: 1)
+                                .stroke(isPhoneFieldFocused ? Color.primaryNormal : Color(hex: "#DADADA"), lineWidth: 1.5)
                         )
 
                         // 일반적인 인증 요청/재전송 버튼 (항상 표시)
@@ -83,7 +83,7 @@ public struct PhoneVerificationView: View {
                         .frame(width: 94, height: 48)
                         .overlay(
                             RoundedRectangle(cornerRadius: 4)
-                                .stroke(viewModel.phoneNumber.count < 11 ? Color(hex: "#C0C0C0") : Color.primaryNormal, lineWidth: 1)
+                                .stroke(viewModel.phoneNumber.count < 11 ? Color(hex: "#C0C0C0") : Color.primaryNormal, lineWidth: 1.5)
                         )
                     }
                     .padding(.horizontal, 24)
@@ -122,7 +122,7 @@ public struct PhoneVerificationView: View {
                             .background(viewModel.showError || viewModel.timerRemaining <= 0 ? Color.red.opacity(0.1) : .white)
                             .overlay(
                                 RoundedRectangle(cornerRadius: 5)
-                                    .stroke(viewModel.showError || viewModel.timerRemaining <= 0 ? .red : (isVerificationCodeFocused ? Color.primaryNormal : Color(hex: "#DADADA")), lineWidth: 1)
+                                    .stroke(viewModel.showError || viewModel.timerRemaining <= 0 ? .red : (isVerificationCodeFocused ? Color.primaryNormal : Color(hex: "#DADADA")), lineWidth: 1.5)
                             )
                             .padding(.horizontal, 24)
 

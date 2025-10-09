@@ -208,7 +208,7 @@ struct SelectableChip: View {
             .foregroundColor(isSelected ? .primaryNormal : Color(hex: "363636"))
             .overlay(
                 RoundedRectangle(cornerRadius: 16)
-                    .stroke(isSelected ? .primaryNormal : Color(hex: "EBEBEB"))
+                    .stroke(isSelected ? .primaryNormal : Color(hex: "EBEBEB"), lineWidth: 1.5)
             )
             .cornerRadius(16)
             .contentShape(Rectangle())

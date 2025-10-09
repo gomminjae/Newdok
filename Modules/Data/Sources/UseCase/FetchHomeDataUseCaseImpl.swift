@@ -22,21 +22,6 @@ public class FetchHomeDataUseCaseImpl: FetchHomeDataUseCase {
     }
     
     
-//    public func fetchTodayData() async throws -> Domain.HomeData {
-//        
-//        async let articlesTask = articleRepo.fetchTodayArticles()
-//        async let newslettersTask = newsletterRepo.fetchActiveSubscription()
-//        
-//        let articles = try await articlesTask
-//        let newsletters = try await newslettersTask
-//        
-//        let articleList = articles
-//        
-//        return HomeData(
-//            articles: articleList,
-//            activeNewsletters: newsletters
-//        )
-//    }
     public func fetchTodayData() async throws -> Domain.HomeData {
         // 1. today 아티클을 먼저 가져오기
         let articles = try await articleRepo.fetchTodayArticles()

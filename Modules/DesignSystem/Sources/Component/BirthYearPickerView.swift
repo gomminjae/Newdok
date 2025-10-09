@@ -35,7 +35,7 @@ struct BirthYearDropdown: View {
             .frame(height: 48)
             .overlay(
                 RoundedRectangle(cornerRadius: 4)
-                    .stroke(Color.gray.opacity(0.5), lineWidth: 1)
+                    .stroke(Color.gray.opacity(0.5), lineWidth: 1.5)
             )
         }
     }

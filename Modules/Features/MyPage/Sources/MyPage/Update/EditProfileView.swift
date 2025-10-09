@@ -150,7 +150,7 @@ public struct EditProfileView: View {
                                             .clipShape(Circle())
                                             .overlay(
                                                 Circle()
-                                                    .stroke(Color.primaryNormal, lineWidth: 1)
+                                                    .stroke(Color.primaryNormal, lineWidth: 1.5)
                                             )
                                     }
                                 } else {
@@ -161,7 +161,7 @@ public struct EditProfileView: View {
                                         .background(Color.white)
                                         .overlay(
                                             RoundedRectangle(cornerRadius: 16)
-                                                .stroke(Color(hex: "#DADADA"))
+                                                .stroke(Color(hex: "#DADADA"), lineWidth: 1.5)
                                         )
                                         .allowsHitTesting(false)
                                 }
@@ -210,7 +210,7 @@ struct EditableRow: View {
             .clipShape(RoundedRectangle(cornerRadius: 4))
             .overlay {
                 RoundedRectangle(cornerRadius: 4)
-                    .stroke(Color(hex: "#DADADA"))
+                    .stroke(Color(hex: "#DADADA"), lineWidth: 1.5)
             }
         }
     }

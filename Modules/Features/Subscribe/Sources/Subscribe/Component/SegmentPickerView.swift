@@ -23,7 +23,7 @@ public struct CustomSegmentedSlider: View {
                 .fill(Color(hex: "#F5F5F7"))
                 .overlay(
                     RoundedRectangle(cornerRadius: 6)
-                        .stroke(Color(hex: "#EBEBEB"), lineWidth: 1)
+                        .stroke(Color(hex: "#EBEBEB"), lineWidth: 1.5)
                 )
 
             GeometryReader { geometry in

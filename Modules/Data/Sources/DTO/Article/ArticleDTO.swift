@@ -8,72 +8,62 @@
 import Domain
 
 
-//public struct ArticleDTO: Decodable {
-//    let id: Int
-//    let title: String
-//    let status: String
-//    let newsletter: NewsletterDTO
-//    
-//    
-//    public func toDomain() -> Article {
-//        return Article(
-//            brandName: newsletter.brandName,
-//            imageUrl: newsletter.imageUrl,
-//            articleTitle: title,
-//            articleId: id,
-//            status: status
-//        )
-//    }
-//}
-
-
 public struct ArticleDTO: Decodable, Identifiable {
-    public let id: Int
+    public let id: Int                 // articleId (월간) 또는 id (today)
     public let brandName: String
     public let imageUrl: String
-    public let articleTitle: String
+    public let articleTitle: String    // articleTitle (월간) 또는 title (today)
     public let status: String
 
-    // MARK: - Custom decoder to support both shapes
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-
-        // 1) flat 구조: brandName/imageUrl/articleTitle/articleId/status
-        if container.contains(.brandName) {
-            brandName    = try container.decode(String.self, forKey: .brandName)
-            imageUrl     = try container.decode(String.self, forKey: .imageUrl)
-            articleTitle = try container.decode(String.self, forKey: .articleTitle)
-            id           = try container.decode(Int.self,    forKey: .id)
-            status       = try container.decode(String.self, forKey: .status)
-
-        // 2) newsletter 중첩 구조: newsletter.brandName/newsletter.imageUrl + title + articleId + status
-        } else {
-            let top       = try container
-            let nested    = try container.nestedContainer(keyedBy: NewsletterKeys.self, forKey: .newsletter)
-            brandName    = try nested.decode(String.self, forKey: .brandName)
-            imageUrl     = try nested.decode(String.self, forKey: .imageUrl)
-            articleTitle = try container.decode(String.self, forKey: .title)
-            id           = try container.decode(Int.self,    forKey: .id)
-            status       = try container.decode(String.self, forKey: .status)
-        }
-    }
-    
-    // 두 구조에서 공통으로 쓰이는 키
-    enum CodingKeys: String, CodingKey {
-        case id           = "articleId"
+    // 월간(flat) 응답 키
+    private enum FlatKeys: String, CodingKey {
         case brandName
         case imageUrl
-        case articleTitle = "articleTitle"
+        case articleTitle
+        case articleId
         case status
-        // newsletter 형태일 때
-        case newsletter
-        case title        // newsletter 구조에서 articleTitle 대신 title
     }
 
-    // newsletter 하위 키
-    enum NewsletterKeys: String, CodingKey {
+    // today 응답 키
+    private enum TodayKeys: String, CodingKey {
+        case id
+        case title
+        case status
+        case newsletter
+    }
+
+    private enum NewsletterKeys: String, CodingKey {
         case brandName
         case imageUrl
+    }
+
+    public init(from decoder: Decoder) throws {
+        // 공통 컨테이너(Flat 기준)부터 만들고 키 존재로 분기
+        let flat = try decoder.container(keyedBy: FlatKeys.self)
+
+        if flat.contains(.articleId) {
+            // ✅ 월간(flat) 응답
+            self.id           = try flat.decode(Int.self,    forKey: .articleId)
+            self.articleTitle = try flat.decode(String.self, forKey: .articleTitle)
+            self.brandName    = try flat.decode(String.self, forKey: .brandName)
+            self.imageUrl     = try flat.decode(String.self, forKey: .imageUrl)
+            self.status       = try flat.decode(String.self, forKey: .status)
+        } else {
+            // ✅ today 응답
+            let today = try decoder.container(keyedBy: TodayKeys.self)
+            self.id           = try today.decode(Int.self,    forKey: .id)
+            self.articleTitle = try today.decode(String.self, forKey: .title)
+            self.status       = try today.decode(String.self, forKey: .status)
+
+            if today.contains(.newsletter) {
+                let n = try today.nestedContainer(keyedBy: NewsletterKeys.self, forKey: .newsletter)
+                self.brandName = (try? n.decode(String.self, forKey: .brandName)) ?? ""
+                self.imageUrl  = (try? n.decode(String.self, forKey: .imageUrl)) ?? ""
+            } else {
+                self.brandName = ""
+                self.imageUrl  = ""
+            }
+        }
     }
 
     public var toDomain: Article {

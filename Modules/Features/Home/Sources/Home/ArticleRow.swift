@@ -33,7 +33,7 @@ struct ArticleRow: View {
                 .clipShape(RoundedRectangle(cornerRadius: 12))
                 .overlay(
                     RoundedRectangle(cornerRadius: 12)
-                        .stroke(Color.gray.opacity(0.3), lineWidth: 1)
+                        .stroke(Color.gray.opacity(0.3), lineWidth: 1.5)
                 )
 
             VStack(alignment: .leading, spacing: 6) {
@@ -60,7 +60,7 @@ struct ArticleRow: View {
         .background(article.status == "Read" ? Color(hex: "EBEBEB") : Color.white)
         .overlay {
             RoundedRectangle(cornerRadius: 12)
-                .stroke(Color(hex: "#EBEBEB"), lineWidth: 1)
+                .stroke(Color(hex: "#EBEBEB"), lineWidth: 1.5)
         }
         .cornerRadius(12)
         .shadow(color: Color.black.opacity(0.05), radius: 2, x: 0, y: 1) 

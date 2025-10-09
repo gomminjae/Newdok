@@ -36,7 +36,8 @@ public struct HomeView: View {
                 headerView
                 
                 PullToRefreshView(
-                    cooldownInterval: 2.0, // 2초 제한으로 조절
+                    threshold: 120, // 80에서 120으로 증가 (더 많은 드래그 필요)
+                    cooldownInterval: 3.0, // 2초에서 3초로 증가
                     content: {
                         VStack(spacing: 0) {
                             dateBarView
@@ -47,7 +48,7 @@ public struct HomeView: View {
                         AnyView(LoadingView())
                     },
                     onRefresh: {
-                        await viewModel.loadToday()
+                        await viewModel.refreshToToday()
                     }
                 )
                 
@@ -231,7 +232,7 @@ public struct HomeView: View {
 
                 Button(action: {
                     Task {
-                        await viewModel.loadToday()
+                        await viewModel.refreshToToday()
                     }
                 }) {
                     HStack(spacing: 4) {

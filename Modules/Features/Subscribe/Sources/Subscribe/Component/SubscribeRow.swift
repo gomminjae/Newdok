@@ -49,7 +49,7 @@ public struct SubscribeRow: View {
                 .clipShape(RoundedRectangle(cornerRadius: 10))
                 .overlay {
                     RoundedRectangle(cornerRadius: 10)
-                        .stroke(Color(hex: "#EBEBEB"))
+                        .stroke(Color(hex: "#EBEBEB"), lineWidth: 1.5)
                 }
 
             VStack(alignment: .leading, spacing: 4) {
@@ -85,7 +85,7 @@ public struct SubscribeRow: View {
                     .clipShape(RoundedRectangle(cornerRadius: 4))
                     .overlay(
                         RoundedRectangle(cornerRadius: 4)
-                            .stroke(isSubscribed ? Color(hex: "#EBEBEB") : Color.primaryNormal, lineWidth: 1)
+                            .stroke(isSubscribed ? Color(hex: "#EBEBEB") : Color.primaryNormal, lineWidth: 1.5)
                     )
             }
         }
@@ -95,7 +95,7 @@ public struct SubscribeRow: View {
         .clipShape(RoundedRectangle(cornerRadius: 12))
         .overlay {
             RoundedRectangle(cornerRadius: 12)
-                .stroke(Color(hex: "#EBEBEB"))
+                .stroke(Color(hex: "#EBEBEB"), lineWidth: 1.5)
         }
         .shadow(color: Color.black.opacity(0.02), radius: 1, y: 1)
     }
