@@ -41,7 +41,7 @@ enum SubscriptionStatus: String {
     }
 
     var isActionable: Bool {
-        self != .check
+        true // 모든 상태에서 버튼 활성화
     }
 
     var style: (background: Color, foreground: Color, border: Color) {
@@ -71,6 +71,7 @@ public struct BrandDetailView: View {
     
     @State private var showSubscribeSheet = false
     @State private var showSubscribeStatePopup = false
+    @State private var showCheckSubscribePopup = false
     
     
     
@@ -190,6 +191,22 @@ public struct BrandDetailView: View {
                 .animation(.easeInOut)
                 .closeOnTapOutside(false)
         }
+        .popup(isPresented: $showCheckSubscribePopup) {
+            CheckSubscribeView(
+                onConfirmEmail: {
+                    showCheckSubscribePopup = false
+                    // 홈으로 라우팅
+                    router.resetTo(.tabbar(selectedTab: .home))
+                }
+            )
+        } customize: {
+            $0
+                .type(.default)
+                .position(.center)
+                .animation(.easeInOut)
+                .backgroundColor(Color.black.opacity(0.3))
+                .closeOnTapOutside(true)
+        }
     }
 
     @ViewBuilder
@@ -218,6 +235,22 @@ public struct BrandDetailView: View {
                                color: Color(red: 0x19/255, green: 0x19/255, blue: 0x19/255).opacity(0.04),
                                radius: 4, x: 0, y: 2
                            )
+                
+                // 구독 확인 중 오버레이
+                if let status = SubscriptionStatus(rawValue: detail.isSubscribed ?? ""), status == .check {
+                    Color(hex: "25242C").opacity(0.6) 
+                        .frame(maxWidth: .infinity)
+                        .frame(height: 260)
+                        .mask(
+                            RoundedCorner(radius: 12, corners: [.bottomLeft, .bottomRight])
+                        )
+                        .overlay(
+                            Text("구독 확인 중")
+                                .font(.hanSansNeo(16, .medium))
+                                .foregroundColor(.white)
+                                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                        )
+                }
                 
 
                 HStack(spacing: 4) {
@@ -427,7 +460,8 @@ public struct BrandDetailView: View {
             showSubscribeSheet = true
             print("✅ 구독 신청 API 호출")
         case .check:
-            print("⏳ 확인중 상태 - 아무 동작 안 함")
+            showCheckSubscribePopup = true
+            print("⏳ 확인중 상태 - CheckSubscribeView 팝업 표시")
         case .confirmed:
             isShowPauseAlert = true
             

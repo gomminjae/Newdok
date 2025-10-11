@@ -108,41 +108,9 @@ public struct SearchResultView: View {
     }
 }
 
-struct SearchNewsletterRow: View {
-    let result: SearchedNewsletter
-    var body: some View {
-        HStack(spacing: 12) {
-            if let url = URL(string: result.imageUrl) {
-                AsyncImage(url: url) { image in
-                    image.resizable()
-                } placeholder: {
-                    Color.gray.opacity(0.2)
-                }
-                .overlay {
-                    RoundedRectangle(cornerRadius: 10)
-                        .stroke(Color(hex: "#EBEBEB"), lineWidth: 1.5)
-                }
-                .frame(width: 56, height: 56)
-                .cornerRadius(10)
-            }
-            VStack(alignment: .leading, spacing: 4) {
-                Text(result.brandName)
-                    .font(.hanSansNeo(14,.bold))
-                    .foregroundStyle(Color(hex: "#333333"))
-                Text(result.firstDescription)
-                    .font(.hanSansNeo(14,.medium))
-                    .foregroundColor(Color(hex:"#363636"))
-            }
-            Spacer()
-        }
-        .padding()
-        .background(.white)
-        .cornerRadius(12)
-        .shadow(color: .gray.opacity(0.2), radius: 2)
-    }
-}
 
-struct DummyArticle: Identifiable {
+
+struct SearchDummyArticle: Identifiable {
     let id: Int
     let title: String
     let summary: String
@@ -151,7 +119,7 @@ struct DummyArticle: Identifiable {
 }
 
 struct SearchArticleRow: View {
-    let article: DummyArticle
+    let article: SearchDummyArticle
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
             Text(article.title)
@@ -179,11 +147,11 @@ struct SearchArticleRow: View {
 }
 
 extension SearchResultView {
-    private var dummyArticles: [DummyArticle] {
+    private var dummyArticles: [SearchDummyArticle] {
         [
-            DummyArticle(id: 1, title: "신입사원 시절 '최악의 실수'는?", summary: "출연하는 두뇌 서버바이블로, 개인적으로는 아쉬움이 남았던 넷플릭스 두뇌 서버바이블 <데블스플랜>에 대한 감정...", brandName: "주간 컴퍼니타임스", date: "2023-11-26"),
-            DummyArticle(id: 2, title: "신입사원 시절 '최악의 실수'는?", summary: "출연하는 두뇌 서버바이블로, 개인적으로는 아쉬움이 남았던 넷플릭스 두뇌 서버바이블 <데블스플랜>에 대한 감정...", brandName: "주간 컴퍼니타임스", date: "2023-11-26"),
-            DummyArticle(id: 3, title: "신입사원 시절 '최악의 실수'는?", summary: "출연하는 두뇌 서버바이블로, 개인적으로는 아쉬움이 남았던 넷플릭스 두뇌 서버바이블 <데블스플랜>에 대한 감정...", brandName: "주간 컴퍼니타임스", date: "2023-11-26"),
+            SearchDummyArticle(id: 1, title: "신입사원 시절 '최악의 실수'는?", summary: "출연하는 두뇌 서버바이블로, 개인적으로는 아쉬움이 남았던 넷플릭스 두뇌 서버바이블 <데블스플랜>에 대한 감정...", brandName: "주간 컴퍼니타임스", date: "2023-11-26"),
+            SearchDummyArticle(id: 2, title: "신입사원 시절 '최악의 실수'는?", summary: "출연하는 두뇌 서버바이블로, 개인적으로는 아쉬움이 남았던 넷플릭스 두뇌 서버바이블 <데블스플랜>에 대한 감정...", brandName: "주간 컴퍼니타임스", date: "2023-11-26"),
+            SearchDummyArticle(id: 3, title: "신입사원 시절 '최악의 실수'는?", summary: "출연하는 두뇌 서버바이블로, 개인적으로는 아쉬움이 남았던 넷플릭스 두뇌 서버바이블 <데블스플랜>에 대한 감정...", brandName: "주간 컴퍼니타임스", date: "2023-11-26"),
         ]
     }
 

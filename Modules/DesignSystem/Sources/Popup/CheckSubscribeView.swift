@@ -13,6 +13,12 @@ public struct CheckSubscribeView: View {
     
     public var onConfirmEmail: () -> Void = {}
     
+    public init(onConfirmEmail: @escaping () -> Void = {}) {
+          self.onConfirmEmail = onConfirmEmail
+      }
+    
+    
+    
     public var body: some View {
         VStack(spacing: 0) {
             HStack {
@@ -37,13 +43,13 @@ public struct CheckSubscribeView: View {
                 .foregroundColor(Color(hex: "#161616"))
                 .padding(.bottom, 8)
 
-            Text("구독 신청을 완료하기 위해\n구독 확인 메일의 확인 버튼을 눌러주세요.")
+            Text("구독 신청을 완료하기 위해\n구 독 확인 메일의 확인 버튼을 눌러주세요.")
                 .multilineTextAlignment(.center)
                 .font(.hanSansNeo(14, .medium))
                 .foregroundColor(Color(hex: "#555555"))
                 .padding(.bottom, 20)
 
-            Text("구독 재개로 언제든 아티클을 다시 받아볼 수 있어요.")
+            Text("구독 확인 메일은 홈에서 확인할 수 있어요.")
                 .font(.hanSansNeo(12, .medium))
                 .foregroundColor(Color(hex: "#2866D3"))
                 .padding()
