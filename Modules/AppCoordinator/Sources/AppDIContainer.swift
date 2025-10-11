@@ -199,7 +199,7 @@ public final class AppDIContainer {
             return MainActor.assumeIsolated {
                 SearchViewModel(useCase: useCase)
             }
-        }.inObjectScope(.container)
+        }.inObjectScope(.transient)
 
         container.register(WithdrawViewModel.self) { r in
             let userUseCase = r.resolve(UserUseCase.self)
