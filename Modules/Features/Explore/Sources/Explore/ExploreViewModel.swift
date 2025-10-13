@@ -83,7 +83,6 @@ public class ExploreViewModel: ObservableObject {
            let lastTime = lastFetchTime,
            Date().timeIntervalSince(lastTime) < 300 { // 5분 캐시
             
-            print("🔄 [ExploreViewModel] 캐시된 추천 데이터 사용")
             updateRecommendationData(from: cached)
             return
         }
@@ -98,14 +97,10 @@ public class ExploreViewModel: ObservableObject {
             cachedRecommendation = response
             lastFetchTime = Date()
             
-            print("🔄 [ExploreViewModel] fetchRecommendation 성공:")
-            print("  - intersection count: \(response.intersection.count)")
-            print("  - union count: \(response.union.count)")
             
             updateRecommendationData(from: response)
             
         } catch {
-            print("❌ [ExploreViewModel] 추천 에러:", error)
             isRecommend = false
         }
         
@@ -125,8 +120,6 @@ public class ExploreViewModel: ObservableObject {
         let prioritizedUnion = prioritizeInterests(for: response.union)
         fixedUnionRecommendation = Array(prioritizedUnion.prefix(6))
         
-        print("  - fixedMyRecommendation count: \(fixedMyRecommendation.count)")
-        print("  - fixedUnionRecommendation count: \(fixedUnionRecommendation.count)")
     }
     
     // 사용자 관심사 우선순위로 뉴스레터 정렬
@@ -194,17 +187,11 @@ public class ExploreViewModel: ObservableObject {
         allNewslettersAnimationStartTime = Date()
         
         do {
-            print("🔍 [ExploreViewModel] fetchAllNewsletters 호출:")
-            print("  - orderOpt: \(orderOpt ?? "nil")")
-            print("  - industry: \(industry ?? [])")
-            print("  - day: \(day ?? [])")
             
             let response = try await useCase.fetchNewsletters(orderOpt: orderOpt, industry: industry, day: day)
             allNewsletters = response
             
-            print("✅ [ExploreViewModel] 데이터 로딩 완료: \(response.count)개")
         } catch {
-            print("❌ [ExploreViewModel] 모든 뉴스레터 에러:", error)
         }
         
         // 최소 애니메이션 시간 보장
@@ -215,7 +202,6 @@ public class ExploreViewModel: ObservableObject {
         do {
             _ = try await useCase.fetchNewsletterBrand(id: id)
         } catch {
-            print("❌ [ExploreViewModel] 브랜드 상세 에러:", error)
         }
     }
     
@@ -224,7 +210,6 @@ public class ExploreViewModel: ObservableObject {
             let response = try await useCase.fetchGuestNewsletters(orderOpt: orderOpt, industry: industry, day: day)
             allNewsletters = response
         } catch {
-            print("비회원 조회 실패")
         }
     }
     
@@ -274,7 +259,6 @@ public class ExploreViewModel: ObservableObject {
         let remainingTime = max(0, minAnimationDuration - elapsed)
         
         if remainingTime > 0 {
-            print("🔄 [ExploreViewModel] 최소 애니메이션 시간 보장: \(remainingTime)초 대기")
             try? await Task.sleep(nanoseconds: UInt64(remainingTime * 1_000_000_000))
         }
         

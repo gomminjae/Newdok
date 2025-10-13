@@ -45,7 +45,6 @@ public struct PullToRefreshView<Content: View>: View {
                     }
                     
                     let dragDistance = offset - startOffset
-                    print("🔄 [PullToRefresh] offset: \(offset), dragDistance: \(dragDistance), threshold: \(threshold), isRefreshing: \(isRefreshing), hasTriggered: \(hasTriggered)")
                     
                     // 스크롤이 시작되면 hasTriggered 리셋
                     if dragDistance > 0 {
@@ -57,11 +56,9 @@ public struct PullToRefreshView<Content: View>: View {
                         // 시간 제한 확인
                         let timeSinceLastRefresh = Date().timeIntervalSince(lastRefreshTime)
                         if timeSinceLastRefresh < cooldownInterval {
-                            print("🔄 [PullToRefresh] Cooldown active: \(timeSinceLastRefresh)s / \(cooldownInterval)s")
                             return
                         }
                         
-                        print("🔄 [PullToRefresh] Triggering refresh! dragDistance: \(dragDistance)")
                         
                         hasTriggered = true
                         isRefreshing = true

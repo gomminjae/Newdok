@@ -386,7 +386,6 @@ final public class SignupViewModel: ObservableObject {
                 
                 goToNextStep()
             } catch {
-                print("전송 실패: \(error)")
             }
         }
     }
@@ -456,8 +455,6 @@ final public class SignupViewModel: ObservableObject {
                 
                 await MainActor.run { goToNextStep() }
             } catch {
-                print("❌ [SignupViewModel] 회원가입 실패: \(error)")
-                print("❌ 상세: \(error.localizedDescription)")
             }
         }
     }

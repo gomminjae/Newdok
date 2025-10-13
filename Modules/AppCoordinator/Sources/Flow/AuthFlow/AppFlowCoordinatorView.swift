@@ -62,7 +62,6 @@ struct AppRootView: View {
             DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
                 withAnimation {
                     launched = true
-                    print("AppRootView에서 router 인스턴스: \(Unmanaged.passUnretained(router).toOpaque())")
                     
                     // 토큰 존재 여부 확인 (로그인 여부)
                     if TokenStorage.hasValidToken {

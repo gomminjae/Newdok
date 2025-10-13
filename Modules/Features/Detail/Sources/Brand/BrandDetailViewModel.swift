@@ -30,7 +30,6 @@ public final class BrandDetailViewModel: ObservableObject {
             let data = try await useCase.fetchNewsletterBrand(id: id)
             detail = data
         } catch {
-            print("BrandDetail fetch error:", error)
         }
         isLoading = false
     }
@@ -43,7 +42,6 @@ public final class BrandDetailViewModel: ObservableObject {
             let data = try await useCase.fetchGuestNewsletterBrand(id: id)
             detail = data
         } catch {
-            print("❌ Guest fetch error:", error)
         }
     }
     
@@ -51,7 +49,6 @@ public final class BrandDetailViewModel: ObservableObject {
         do {
             _ = try await useCase.resumeSubscription(newsletterId: id)
         } catch {
-            print("resume error")
         }
     }
     
@@ -59,7 +56,6 @@ public final class BrandDetailViewModel: ObservableObject {
         do {
             _ = try await useCase.pauseSubscription(newsletterId: id)
         } catch {
-            print("pause error")
         }
     }
 }

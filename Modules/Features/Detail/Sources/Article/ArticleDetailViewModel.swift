@@ -31,7 +31,6 @@ public final class ArticleDetailViewModel: ObservableObject {
             let data = try await useCase.fetchArticleDetail(articleId: id)
             detail = data
         } catch {
-            print("article detail fetch error:", error)
         }
     }
     
@@ -41,7 +40,6 @@ public final class ArticleDetailViewModel: ObservableObject {
             _ = try await useCase.toggleBookmarkStatus(articleId: "\(articleId)")
             detail?.isBookmarked.toggle()
         } catch {
-            print("북마크 오류")
         }
     }
     

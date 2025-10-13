@@ -105,7 +105,6 @@ public struct CalendarPopupView: View {
                 HStack {
                     Spacer()
                     Button(action: {
-                        print("📅 [CalendarPopupView] 이전 월 버튼 클릭")
                         previousMonth()
                     }) {
                         Image(systemName: "chevron.left")
@@ -122,7 +121,6 @@ public struct CalendarPopupView: View {
                         .id("month-title-\(localDisplayedMonthDate)")
                     
                     Button(action: {
-                        print("📅 [CalendarPopupView] 다음 월 버튼 클릭")
                         nextMonth()
                     }) {
                         Image(systemName: "chevron.right")
@@ -263,7 +261,6 @@ public struct CalendarPopupView: View {
 
     private func previousMonth() {
         let newDate = calendar.date(byAdding: .month, value: -1, to: localDisplayedMonthDate)!
-        print("📅 [CalendarPopupView] 이전 월: \(localDisplayedMonthDate) -> \(newDate)")
         localDisplayedMonthDate = newDate
         displayedMonthDate = newDate
         loadLocalMonthData(for: newDate)
@@ -272,7 +269,6 @@ public struct CalendarPopupView: View {
     
     private func nextMonth() {
         let newDate = calendar.date(byAdding: .month, value: 1, to: localDisplayedMonthDate)!
-        print("📅 [CalendarPopupView] 다음 월: \(localDisplayedMonthDate) -> \(newDate)")
         localDisplayedMonthDate = newDate
         displayedMonthDate = newDate
         loadLocalMonthData(for: newDate)
@@ -282,7 +278,6 @@ public struct CalendarPopupView: View {
     private func loadLocalMonthData(for date: Date) {
         // 캘린더 내부에서만 사용할 로컬 데이터 로드
         // 실제 홈 화면에는 영향 주지 않음
-        print("📅 [CalendarPopupView] 로컬 월 데이터 로드: \(date)")
         guard let monthChangedCallback = onMonthChanged else { return }
         // 부모로부터 해당 월의 즉시 표시 가능한 점 세트를 받아옴 (캐시 기반)
         let cached = monthChangedCallback(date)

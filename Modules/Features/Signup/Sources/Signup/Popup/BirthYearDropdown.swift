@@ -157,7 +157,6 @@ struct DropdownSelector_Previews: PreviewProvider {
                 placeholder: "선택",
                 options: options,
                 onOptionSelected: { option in
-                    print(option)
             })
             .padding(.horizontal)
             .zIndex(1)

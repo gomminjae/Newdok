@@ -25,7 +25,6 @@ public struct ToastView: View {
                 .font(.hanSansNeo(14, .medium))
                 .foregroundColor(.white)
                 .onAppear {
-                    print("🔍 [ToastView] 메시지 표시: '\(message)'")
                 }
         }
         .padding(.horizontal, 16)

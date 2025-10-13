@@ -62,7 +62,6 @@ public struct SignupPopupView: View {
                     if infos.count < 3 {
                         // 3명 미만일 때: 계속 진행하기 + 로그인
                         Button("계속 진행하기") {
-                            print("계속 진행하기 클릭됨")
                             onClose()
                         }
                         .frame(height: 44)
@@ -86,7 +85,6 @@ public struct SignupPopupView: View {
                     } else {
                         // 3명 이상일 때: ID/PW 찾기 + 로그인
                         Button("ID/PW 찾기") {
-                            print("ID/PW 찾기 클릭됨")
                             onRecovery() // ID/PW 찾기 화면으로 이동
                         }
                         .frame(height: 44)

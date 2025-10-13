@@ -33,27 +33,22 @@ public final class AppRouter: ObservableObject {
 
     public func push(_ route: AppRoute) {
         path.append(route)
-        print("🔄 [AppRouter] Push: \(route) - 스택 크기: \(path.count)")
     }
 
     public func pop() {
         guard !path.isEmpty else { 
-            print("⚠️ [AppRouter] Pop 실패: 스택이 비어있음")
             return 
         }
         path.removeLast()
-        print("🔄 [AppRouter] Pop 완료 - 스택 크기: \(path.count)")
     }
 
     public func resetTo(_ route: AppRoute) {
         path = NavigationPath()
         root = route
-        print("🔄 [AppRouter] Reset to: \(route)")
     }
 
     public func reset() {
         path = NavigationPath()
-        print("🔄 [AppRouter] Reset 완료")
     }
     
     @objc private func handleSwipeBack() {
@@ -61,20 +56,17 @@ public final class AppRouter: ObservableObject {
         
         // 중복 처리 방지
         guard !isProcessingSwipeBack else {
-            print("⚠️ [AppRouter] Swipe back 중복 처리 방지")
             return
         }
         
         // 쿨다운 체크
         guard now.timeIntervalSince(lastSwipeBackTime) >= swipeBackCooldown else {
-            print("⚠️ [AppRouter] Swipe back 쿨다운 중")
             return
         }
         
         isProcessingSwipeBack = true
         lastSwipeBackTime = now
         
-        print("🔄 [AppRouter] Swipe back 처리 시작 - 스택 크기: \(path.count)")
         
         pop()
         

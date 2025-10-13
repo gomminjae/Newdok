@@ -82,7 +82,6 @@ public struct EditInterestView: View {
                             ToastCenter.shared.show("관심사가 변경되었습니다.")
                         }
                     } catch {
-                        print("❌ [EditInterestView] 관심사 변경 실패: \(error)")
                     }
                 }
             }) {

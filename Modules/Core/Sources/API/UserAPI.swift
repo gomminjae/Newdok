@@ -108,10 +108,6 @@ extension UserAPI: TargetType {
                 "gender": gender
             ]
             
-            print("🌐 [UserAPI] 회원가입 요청 파라미터:")
-            for (key, value) in parameters {
-                print("  - \(key): '\(value)'")
-            }
             
             return .requestParameters(parameters: parameters, encoding: JSONEncoding.default)
             

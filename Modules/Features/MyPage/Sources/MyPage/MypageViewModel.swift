@@ -58,13 +58,8 @@ public class MypageViewModel: ObservableObject {
     }
     
     public func fetchuserInfo() async {
-        print("🔄 [MypageViewModel] 프로필 조회 시작")
         do {
             let response = try await useCase.getProfile()
-            print("✅ [MypageViewModel] 프로필 조회 성공")
-            print("  - id: \(response.id)")
-            print("  - nickname: \(response.nickname)")
-            print("  - subscribeEmail: \(response.subscribeEmail ?? "nil")")
             
             user = response
             
@@ -82,17 +77,13 @@ public class MypageViewModel: ObservableObject {
                 interestIds: response.interests.map { $0.id }
             )
             UserInfoStore.shared.save(userInfo)
-            print("💾 [MypageViewModel] UserInfoStore 저장 완료")
         } catch {
-            print("❌ [MypageViewModel] 프로필 조회 실패: \(error)")
         }
     }
     
     public func updateNickname(nickname: String) async {
         do {
-            print("🔄 [MypageViewModel] 닉네임 변경 시작: \(nickname)")
             try await useCase.updateNickname(nickname)
-            print("✅ [MypageViewModel] 닉네임 변경 성공")
             
             // UserInfoStore 즉시 업데이트
             if let currentUser = user {
@@ -109,21 +100,16 @@ public class MypageViewModel: ObservableObject {
                     interestIds: currentUser.interests.map { $0.id }
                 )
                 UserInfoStore.shared.save(updatedUserInfo)
-                print("💾 [MypageViewModel] UserInfoStore 닉네임 업데이트 완료")
             }
             
-            print("🎉 [MypageViewModel] 닉네임 토스트 트리거 설정")
             showNicknameSuccess = true
         } catch {
-            print("❌ [MypageViewModel] 닉네임 변경 실패: \(error)")
         }
     }
     
     public func updateIndustry(id: Int) async {
         do {
-            print("🔄 [MypageViewModel] 종사산업 변경 시작: \(id)")
             try await useCase.updateIndustry(id)
-            print("✅ [MypageViewModel] 종사산업 변경 성공")
             
             // UserInfoStore 즉시 업데이트
             if let currentUser = user {
@@ -140,7 +126,6 @@ public class MypageViewModel: ObservableObject {
                     interestIds: currentUser.interests.map { $0.id }
                 )
                 UserInfoStore.shared.save(updatedUserInfo)
-                print("💾 [MypageViewModel] UserInfoStore 종사산업 업데이트 완료")
                 
                 // 새로운 User 객체 생성하여 할당
                 let updatedUser = User(
@@ -156,21 +141,16 @@ public class MypageViewModel: ObservableObject {
                     interests: currentUser.interests
                 )
                 user = updatedUser
-                print("🔄 [MypageViewModel] user 객체 종사산업 업데이트 완료")
             }
             
-            print("🎉 [MypageViewModel] 종사산업 토스트 트리거 설정")
             showIndustrySuccess = true
         } catch {
-            print("❌ [MypageViewModel] 종사산업 변경 실패: \(error)")
         }
     }
     
     public func updateInterests(ids: [Int]) async {
         do {
-            print("🔄 [MypageViewModel] 관심사 변경 시작: \(ids)")
             try await useCase.updateInterest(ids)
-            print("✅ [MypageViewModel] 관심사 변경 성공")
             
             // UserInfoStore 즉시 업데이트
             if let currentUser = user {
@@ -187,7 +167,6 @@ public class MypageViewModel: ObservableObject {
                     interestIds: ids // 변경된 관심사 ID들 사용
                 )
                 UserInfoStore.shared.save(updatedUserInfo)
-                print("💾 [MypageViewModel] UserInfoStore 관심사 업데이트 완료")
                 
                 // 새로운 User 객체 생성하여 할당
                 let updatedInterests = ids.map { Interest(id: $0, name: SelectableItemStore.shared.name(for: $0, in: .interest) ?? "") }
@@ -204,39 +183,29 @@ public class MypageViewModel: ObservableObject {
                     interests: updatedInterests
                 )
                 user = updatedUser
-                print("🔄 [MypageViewModel] user 객체 관심사 업데이트 완료")
             }
             
-            print("🎉 [MypageViewModel] 관심사 토스트 트리거 설정")
             showInterestSuccess = true
         } catch {
-            print("❌ [MypageViewModel] 관심사 변경 실패: \(error)")
         }
     }
     
     public func updatePhoneNumber() async {
         do {
-            print("🔄 [MypageViewModel] 휴대폰 번호 변경 시작")
-            print("  - 입력된 인증번호: \(enteredVerificationCode)")
-            print("  - 실제 인증번호: \(verificationCode)")
             
             // 인증번호 검증
             guard verifyCode() else {
-                print("❌ [MypageViewModel] 인증번호 검증 실패")
                 showError = true
                 isPhoneUpdateSuccess = false
                 return
             }
             
-            print("✅ [MypageViewModel] 인증번호 검증 성공")
             try await useCase.updatePhoneNumber(phoneNumber)
-            print("✅ [MypageViewModel] 휴대폰 번호 변경 성공")
             
             // 성공 시 플래그 설정
             isPhoneUpdateSuccess = true
             showPhoneNumberSuccess = true
         } catch {
-            print("❌ [MypageViewModel] 휴대폰 번호 변경 실패: \(error)")
             isPhoneUpdateSuccess = false
             
             // 실패 토스트 표시
@@ -252,13 +221,8 @@ public class MypageViewModel: ObservableObject {
             let userInfo = UserInfoStore.shared.load()
             let loginId = userInfo?.loginId ?? user?.loginId ?? ""
             
-            print("🔄 [MypageViewModel] 비밀번호 변경 시작")
-            print("  - loginId: \(loginId)")
-            print("  - oldPassword: \(oldPassword)")
-            print("  - newPassword: \(newPassword)")
             
             try await useCase.updatePassword(loginId: loginId, prevPassword: oldPassword, newPassword: newPassword)
-            print("✅ [MypageViewModel] 비밀번호 변경 성공")
             
             // 성공 시 플래그 설정
             isPasswordUpdateSuccess = true
@@ -270,7 +234,6 @@ public class MypageViewModel: ObservableObject {
             
             showPasswordSuccess = true
         } catch {
-            print("❌ [MypageViewModel] 비밀번호 변경 실패: \(error)")
             isPasswordUpdateSuccess = false
             
             // 에러 메시지 설정
@@ -295,9 +258,7 @@ public class MypageViewModel: ObservableObject {
             timerRemaining = 180 // 3분 = 180초
             startTimer()
 
-            print("✅ [MypageViewModel] 인증번호 전송 성공, 타이머 시작")
         } catch {
-            print("❌ [MypageViewModel] 인증번호 전송 실패: \(error)")
         }
     }
 

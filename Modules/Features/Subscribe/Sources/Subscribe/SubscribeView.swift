@@ -115,7 +115,7 @@ public struct SubscribeView: View {
                                 .padding(.horizontal, 20)
                                 .padding(.bottom, 20)
 
-                            ForEach(filteredSubscriptions, id: \.id) { newsletter in
+                            ForEach(Array(filteredSubscriptions.enumerated()), id: \.element.id) { index, newsletter in
                                 SubscribeRow(newsletter: newsletter, isSubscribed: selectedTab == 0) {
                                     if selectedTab == 0 {
                                         selectedNewsletter = newsletter
@@ -133,7 +133,7 @@ public struct SubscribeView: View {
                                     }
                                 }
                                 .padding(.horizontal, 20)
-                                .padding(.bottom, 12)
+                                .padding(.bottom, index == filteredSubscriptions.count - 1 ? 28 : 12)
                             }
                         }
                         .transition(.opacity.combined(with: .move(edge: .bottom)))
@@ -149,7 +149,6 @@ public struct SubscribeView: View {
                 // Pull to Refresh 시간 제한 적용
                 let timeSinceLastRefresh = Date().timeIntervalSince(viewModel.lastRefreshTime)
                 if timeSinceLastRefresh < 2.0 { // 2초 제한으로 조절
-                    print("🔄 [SubscribeView] Cooldown active: \(timeSinceLastRefresh)s / 2.0s")
                     return
                 }
                 viewModel.lastRefreshTime = Date()
@@ -173,14 +172,12 @@ public struct SubscribeView: View {
                 .foregroundStyle(Color(hex: "161616"))
             Spacer()
             Button {
-                print("검색 버튼 탭")
                 router.push(.search)
             } label: {
                 Image(asset: DesignSystemAsset.lineSearch)
                     .padding(.trailing, 12)
             }
             Button {
-                print("알람 버튼 탭")
             } label: {
                 Image(asset: DesignSystemAsset.lineBell)
             }

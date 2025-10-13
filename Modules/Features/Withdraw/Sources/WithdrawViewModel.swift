@@ -81,6 +81,5 @@ public final class WithdrawViewModel: ObservableObject {
         userDefaults.removeObject(forKey: "accessToken")
         userDefaults.removeObject(forKey: "local_user_info")
         
-        print("✅ 모든 로컬 데이터가 정리되었습니다.")
     }
 } 

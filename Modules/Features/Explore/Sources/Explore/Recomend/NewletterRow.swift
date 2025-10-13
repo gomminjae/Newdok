@@ -32,7 +32,6 @@ public struct NewsletterRow: View {
                             .frame(width: 56, height: 56)
                     }
                     .onFailure { error in
-                        print("📸 [NewsletterRow] 이미지 로딩 실패: \(error.localizedDescription)")
                     }
                     .onFailure { _ in
                         // 실패 시 기본 이미지 표시

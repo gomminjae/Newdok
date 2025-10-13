@@ -77,24 +77,17 @@ public struct ExploreView: View {
                 userInfo = UserInfoStore.shared.load()
             }
             .onChange(of: exploreIntent.trigger) {
-                print("🔄 [ExploreView] exploreIntent 변경 감지:")
-                print("  - day: \(exploreIntent.day ?? -1)")
-                print("  - selectedTab: \(exploreIntent.selectedTab ?? -1)")
-                print("  - 현재 viewModel.day: \(viewModel.day ?? [])")
-                print("  - 현재 viewModel.selectedTab: \(viewModel.selectedTab)")
                 
                 // 모든 설정을 한 번에 처리
                 var newDay: Int? = nil
                 var newTab: Int? = nil
                 
                 if let day = exploreIntent.day, viewModel.day != [day] {
-                    print("  ✅ day 설정: \(day)")
                     newDay = day
                     exploreIntent.day = nil
                 }
                 
                 if let tab = exploreIntent.selectedTab, viewModel.selectedTab != tab {
-                    print("  ✅ tab 설정: \(tab)")
                     newTab = tab
                     exploreIntent.selectedTab = nil
                 }
@@ -145,14 +138,12 @@ public struct ExploreView: View {
                 .foregroundStyle(Color(hex: "161616"))
             Spacer()
             Button {
-                print("검색 버튼 탭")
                 router.push(.search)
             } label: {
                 Image(asset: DesignSystemAsset.lineSearch)
                     .padding(.trailing, 12)
             }
             Button {
-                print("알람 버튼 탭")
             } label: {
                 Image(asset: DesignSystemAsset.lineBell)
             }
@@ -293,7 +284,6 @@ public struct ExploreView: View {
                 .padding(.horizontal, 24)
 
             PagingScrollView(newsletters: viewModel.fixedMyRecommendation, currentPage: $currentPage)
-                .padding(.leading,24)
 
 
 
@@ -302,7 +292,6 @@ public struct ExploreView: View {
                     .font(.hanSansNeo(16, .bold))
                 Spacer()
                 Button(action: {
-                    print("🔄 [ExploreView] 새로고침 버튼 클릭")
                     Task {
                         await viewModel.fetchRecommendation(forceRefresh: true)
                     }
@@ -466,10 +455,6 @@ public struct ExploreView: View {
         }
         .sheet(isPresented: $viewModel.isShowFilterSheet) {
             FilterBottomSheet(industry: $viewModel.industry, day: $viewModel.day) {
-                print("🔍 [ExploreView] 필터 적용:")
-                print("  - industry: \(viewModel.industry ?? [])")
-                print("  - day: \(viewModel.day ?? [])")
-                print("  - orderOpt: \(viewModel.orderOpt ?? "nil")")
                 
                 viewModel.shouldScrollToTop = true
                 if isGuest {
@@ -511,7 +496,6 @@ public struct ExploreView: View {
                             NewsletterDetailRow(brand: brand)
                                 .padding(.horizontal, 20)
                                 .onTapGesture {
-                                    print("tapped")
                                     router.push(.brandDetail(id: "\(brand.id)"))
                                 }
                         }
@@ -650,8 +634,10 @@ struct PagingScrollView: View {
                     }
                     .scrollTargetLayout()
                 }
+                .contentMargins(.leading, leadingMargin, for: .scrollContent)
                 .scrollTargetBehavior(.viewAligned)
                 .scrollPosition(id: $scrollID)
+                .clipShape(Rectangle())
                 .onChange(of: scrollID) { _, newValue in
                     currentPage = newValue ?? 0
                     checkAndExpandItems()
