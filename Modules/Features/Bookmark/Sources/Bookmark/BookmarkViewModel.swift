@@ -62,7 +62,6 @@ public class BookmarkViewModel: ObservableObject, BookmarkViewModelBindable {
             let response = try await useCase.fetchBookmarkedInterests()
             interests = response
         } catch {
-            print("관심사 불러오기 실패: \(error)")
         }
     }
     
@@ -72,7 +71,6 @@ public class BookmarkViewModel: ObservableObject, BookmarkViewModelBindable {
             let response = try await useCase.fetchBookmarkedArticles(interest: interest, sortBy: sortBy)
             bookmarks = response
         } catch {
-            print("북마크 불러오기 실패: \(error)")
         }
     }
 
@@ -88,7 +86,6 @@ public class BookmarkViewModel: ObservableObject, BookmarkViewModelBindable {
                 self.interests = try await interests
                 self.bookmarks = try await articles
             } catch {
-                print("초기 로드 실패: \(error)")
             }
             isLoading = false
         }

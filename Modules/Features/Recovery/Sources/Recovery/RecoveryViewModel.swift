@@ -61,7 +61,6 @@ public class RecoveryViewModel: ObservableObject {
             let response = try await userUseCase.checkPhoneNumber(phoneNumber)
             users = response
         } catch {
-            print("핸드폰 번호 조회 에러: \(error)")
         }
     }
     

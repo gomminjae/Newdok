@@ -57,7 +57,6 @@ public final class UserUseCaseImpl: UserUseCase {
     }
     
     public func authSMS(phoneNumber: String) async throws -> SMSResponse {
-        print("실행")
         return try await userRepository.authSMS(phoneNumber: phoneNumber)
     }
     

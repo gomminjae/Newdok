@@ -177,7 +177,6 @@ public struct SignupView: View {
             .frame(height: 4)
         }
         .onAppear {
-            print("🧩 SignupViewModel address: \(Unmanaged.passUnretained(viewModel).toOpaque())")
         }
         .navigationBarHidden(true)
     }

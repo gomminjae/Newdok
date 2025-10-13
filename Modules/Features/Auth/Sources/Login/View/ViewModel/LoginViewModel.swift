@@ -79,7 +79,6 @@ public final class LoginViewModel: LoginViewModelBindable {
             do {
                 let (user,token) = try await userUseCase.login(loginId: loginId, password: password)
                 //self.user = user
-                print("유저유저\(user)")
                 TokenStorage.accessToken = token
                 errorMessage = nil
                 isLoginIdError = false

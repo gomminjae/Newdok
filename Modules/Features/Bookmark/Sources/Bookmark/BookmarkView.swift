@@ -174,14 +174,12 @@ public struct BookmarkView: View {
                 .foregroundStyle(Color(hex: "161616"))
             Spacer()
             Button {
-                print("검색 버튼 탭")
                 router.push(.search)
             } label: {
                 Image(asset: DesignSystemAsset.lineSearch)
                     .padding(.trailing, 12)
             }
             Button {
-                print("알람 버튼 탭")
             } label: {
                 Image(asset: DesignSystemAsset.lineBell)
             }

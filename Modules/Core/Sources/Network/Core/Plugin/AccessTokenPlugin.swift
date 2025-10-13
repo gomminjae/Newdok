@@ -29,7 +29,6 @@ final class AuthPlugin: PluginType {
            case let .statusCode(response) = error,
            response.statusCode == 401 {
             
-            print("⚠️ AccessToken 만료됨. 로그인 페이지로 이동.")
 
             // 토큰 삭제
             TokenStorage.clear()

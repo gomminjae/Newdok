@@ -62,9 +62,6 @@ struct CompleteView: View {
                     .padding(.leading,20)
                     .padding(.bottom,20)
                     .onAppear {
-                        print("📧 [CompleteView] 이메일 표시:")
-                        print("  - user: \(viewModel.user != nil)")
-                        print("  - subscribeEmail: \(viewModel.user?.subscribeEmail ?? "nil")")
                     }
             }
             .frame(maxWidth: .infinity, alignment: .leading)

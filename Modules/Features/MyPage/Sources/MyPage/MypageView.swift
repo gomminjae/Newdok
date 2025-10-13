@@ -101,7 +101,6 @@ public struct MypageView: View {
                     SectionHeader(title: "서비스")
                     
                     Button {
-                        print("🔘 계정 관리 버튼 탭됨!")
                         router.push(.accountManage)
                     } label: {
                         HStack {
@@ -120,7 +119,6 @@ public struct MypageView: View {
                     .buttonStyle(PlainButtonStyle())
                     
                     Button {
-                        print("🔘 알림 설정 버튼 탭됨!")
                         // 시스템 알림 설정으로 이동
 //                        if let settingsUrl = URL(string: UIApplication.openSettingsURLString) {
 //                            UIApplication.shared.open(settingsUrl)
@@ -149,7 +147,6 @@ public struct MypageView: View {
                     SectionHeader(title: "고객센터")
                     
                     Button {
-                        print("🔘 FAQ 버튼 탭됨!")
                         router.push(.faq)
                     } label: {
                         HStack {
@@ -168,7 +165,6 @@ public struct MypageView: View {
                     .buttonStyle(PlainButtonStyle())
                     
                     Button {
-                        print("🔘 서비스 피드백 버튼 탭됨!")
                         router.push(.feedback)
                     } label: {
                         HStack {
@@ -187,7 +183,6 @@ public struct MypageView: View {
                     .buttonStyle(PlainButtonStyle())
                     
                     Button {
-                        print("🔘 약관 및 정책 버튼 탭됨!")
                         router.push(.termsMenu)
                     } label: {
                         HStack {
@@ -236,16 +231,11 @@ public struct MypageView: View {
             .toolbar(.hidden, for: .navigationBar)
         }
         .onAppear {
-            print("🔄 [MypageView] onAppear 시작")
             DispatchQueue.main.async {
                 userInfo = UserInfoStore.shared.load()
-                print("📱 [MypageView] UserInfoStore 로드 완료")
-                print("  - nickname: \(userInfo?.nickname ?? "nil")")
-                print("  - subscribeEmail: \(userInfo?.subscribeEmail ?? "nil")")
             }
             Task {
                 await viewModel.fetchuserInfo()
-                print("✅ [MypageView] fetchuserInfo 완료")
             }
         }
         .popup(isPresented: $showEmailAlert) {

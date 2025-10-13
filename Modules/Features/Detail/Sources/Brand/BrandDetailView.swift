@@ -458,10 +458,8 @@ public struct BrandDetailView: View {
         switch status {
         case .initial:
             showSubscribeSheet = true
-            print("✅ 구독 신청 API 호출")
         case .check:
             showCheckSubscribePopup = true
-            print("⏳ 확인중 상태 - CheckSubscribeView 팝업 표시")
         case .confirmed:
             isShowPauseAlert = true
             
@@ -471,7 +469,6 @@ public struct BrandDetailView: View {
                 viewModel.detail?.isSubscribed = SubscriptionStatus.confirmed.rawValue
                 showSubscribeToast = true
             }
-            print("✅ 구독 재개 API 호출")
         }
     }
 

@@ -92,8 +92,22 @@ public struct SearchView: View {
                     .padding(.top, 10)
                 }
                 .background(Color.gray.opacity(0.05))
+            } else if !viewModel.searchText.isEmpty {
+                // 검색어가 있지만 결과가 없을 때 - 빈 결과 뷰
+                ScrollView {
+                    VStack(alignment: .leading, spacing: 20) {
+                        newsletterSection()
+                        // 비회원일 때는 아티클 섹션 숨김
+                        if TokenStorage.hasValidToken {
+                            articleSection()
+                        }
+                        Spacer(minLength: 50)
+                    }
+                    .padding(.top, 10)
+                }
+                .background(Color.gray.opacity(0.05))
             } else {
-                // 검색 결과가 없을 때 - 인기검색어 표시
+                // 검색어가 없을 때 - 인기검색어 표시
                 VStack(alignment: .leading, spacing: 16) {
                     HStack {
                         Text("인기검색어")

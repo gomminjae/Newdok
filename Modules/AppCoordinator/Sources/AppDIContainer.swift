@@ -31,7 +31,6 @@ public final class AppDIContainer {
     public let container: Container
     
     private init() {
-        print("🚀 [AppDIContainer] Initialized on thread: \(Thread.current)")
         container = Container()
         registerDependencies()
     }
@@ -40,13 +39,11 @@ public final class AppDIContainer {
         
         // MARK: - Network
         container.register(NetworkProviding.self) { _ in
-            print("🧩 [DI] Register: NetworkProvider")
             return NetworkProvider()
         }.inObjectScope(.container)
         
         // MARK: - MoyaProvider
         container.register(MoyaProvider<UserAPI>.self) { r in
-            print("🛠️ [DI] Register: MoyaProvider<UserAPI>")
             let network = r.resolve(NetworkProviding.self)!
             return network.makeAuthProvider()
         }.inObjectScope(.container)
@@ -68,9 +65,7 @@ public final class AppDIContainer {
 
         // MARK: - Repository
         container.register(UserRepository.self) { r in
-            print("🧩 [DI] Register: UserRepository")
             let provider = r.resolve(MoyaProvider<UserAPI>.self)!
-            print("🔗 [DI] Injected: NetworkProvider → UserRepository")
             return UserRepositoryImpl(provider: provider)
         }.inObjectScope(.container)
         
@@ -96,9 +91,7 @@ public final class AppDIContainer {
         }.inObjectScope(.container)
         
         container.register(ArticleUseCase.self) { r in
-            print("🧩 [DI] Register: UserUseCase")
             let repo = r.resolve(ArticleRepository.self)!
-            print("🔗 [DI] Injected: UserRepository → UserUseCase")
             return ArticleUseCaseImpl(articleRepository: repo)
         }
         
@@ -120,18 +113,14 @@ public final class AppDIContainer {
 
         // MARK: - ViewModels
         container.register(SignupViewModel.self) { r in
-            print("🧩 [DI] Register: SignupViewModel")
             let useCase = r.resolve(UserUseCase.self)!
-            print("🔗 [DI] Injected: UserUseCase → SignupViewModel")
             return MainActor.assumeIsolated {
                 SignupViewModel(userUseCase: useCase)
             }
         }.inObjectScope(.transient)
         
         container.register(LoginViewModel.self) { r in
-            print("🧩 [DI] Register: LoginViewModel")
             let useCase = r.resolve(UserUseCase.self)!
-            print("🔗 [DI] Injected: UserUseCase → LoginViewModel")
             return MainActor.assumeIsolated {
                 LoginViewModel(userUserCase: useCase)
             }
@@ -205,7 +194,6 @@ public final class AppDIContainer {
             let userUseCase = r.resolve(UserUseCase.self)
             let newsletterUseCase = r.resolve(NewsletterUseCase.self)
             let articleUseCase = r.resolve(ArticleUseCase.self)
-            print("[DI] WithdrawViewModel resolve: userUseCase=\(userUseCase != nil), newsletterUseCase=\(newsletterUseCase != nil), articleUseCase=\(articleUseCase != nil)")
             return MainActor.assumeIsolated {
                 WithdrawViewModel(
                     userUseCase: userUseCase!,

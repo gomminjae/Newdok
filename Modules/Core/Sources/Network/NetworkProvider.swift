@@ -20,11 +20,9 @@ public protocol NetworkProviding {
 public final class NetworkProvider: NetworkProviding {
 
     public init() {
-        print("🚀 [INIT] NetworkProvider 인스턴스 생성됨")
     }
 
     public func makeAuthProvider() -> MoyaProvider<UserAPI> {
-        print("⚙️ [CALL] makeAuthProvider 실행됨")
         return MoyaProvider<UserAPI>(
             session: makeSafeSession(),
             plugins: [
@@ -75,11 +73,9 @@ public final class NetworkProvider: NetworkProviding {
 
     private func makeSafeSession() -> Session {
         #if targetEnvironment(simulator)
-        print("🧪 [Session] 시뮬레이터 → ephemeral 사용")
         let config = URLSessionConfiguration.ephemeral
         config.headers = .default
         #else
-        print("📱 [Session] 디바이스 → default 사용")
         let config = URLSessionConfiguration.default
         config.headers = .default
         #endif

@@ -42,7 +42,6 @@ public final class SubscribeViewModel: ObservableObject {
             // 데이터 로딩 완료 후 초기 로딩 상태 설정
             initialLoaded = true
         } catch {
-            print("초기 로딩 실패:", error)
             // 에러가 발생해도 초기 로딩은 완료된 것으로 처리
             initialLoaded = true
         }
@@ -62,7 +61,6 @@ public final class SubscribeViewModel: ObservableObject {
                 pausedNewsletters = try await useCase.fetchPausedSubscription()
             }
         } catch {
-            print("리프레시 실패:", error)
         }
     }
 
@@ -70,7 +68,6 @@ public final class SubscribeViewModel: ObservableObject {
         do {
             _ = try await useCase.pauseSubscription(newsletterId: newsletterId)
         } catch {
-            print("pause 실패:", error)
         }
     }
 
@@ -78,7 +75,6 @@ public final class SubscribeViewModel: ObservableObject {
         do {
             _ = try await useCase.resumeSubscription(newsletterId: newsletterId)
         } catch {
-            print("resume 실패:", error)
         }
     }
 }

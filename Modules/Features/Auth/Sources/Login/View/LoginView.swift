@@ -116,7 +116,6 @@ public struct LoginView: View {
                         isLoggedIn = true
                         isGuest = false
                         router.resetTo(.tabbar(selectedTab: .home))
-                        print("LoginView에서 router 인스턴스: \(Unmanaged.passUnretained(router).toOpaque())")
                     }
                 } label: {
                     Text("로그인")

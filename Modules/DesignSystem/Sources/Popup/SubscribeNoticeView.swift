@@ -43,7 +43,6 @@ struct SubscribeNoticeView: View {
                 .padding(.horizontal, 16)
              
                 Button("확인") {
-                    print("확인")
                 }
                 .font(.hanSansNeo(14, .bold))
                 .foregroundStyle(Color.white)

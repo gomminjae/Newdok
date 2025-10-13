@@ -100,15 +100,11 @@ public final class HomeViewModel: ObservableObject {
     // 캐시 업데이트 시 현재 표시 중인 월 확인
     private func checkAndUpdateCurrentMonth() {
         let currentKey = "\(formatYear(displayedMonth))-\(formatMonth(displayedMonth))"
-        print("📅 [HomeViewModel] 현재 표시 중인 월 확인: \(currentKey)")
-        print("📅 [HomeViewModel] 캐시 상태: \(dataDaysByMonthCache.keys.sorted())")
         
         if let cachedDays = dataDaysByMonthCache[currentKey] {
             self.dataDays = cachedDays
             self.calendarState.updateDataDays(cachedDays)
-            print("📅 [HomeViewModel] 캐시 업데이트로 현재 월 갱신: \(currentKey), days=\(cachedDays.sorted())")
         } else {
-            print("📅 [HomeViewModel] 현재 월 캐시 없음: \(currentKey)")
         }
     }
     
@@ -148,7 +144,6 @@ public final class HomeViewModel: ObservableObject {
         if !currentMonthKey.isEmpty {
             dataDaysByMonthCache[currentMonthKey] = newDataDays
         }
-        print("📅 [HomeViewModel] dataDays UI 업데이트 완료: \(self.dataDays.sorted())")
     }
 
     private func applyDotsIfMatches(key: String, days: Set<Int>) {

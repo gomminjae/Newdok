@@ -103,7 +103,6 @@ public struct EditIndustryView: View {
                             ToastCenter.shared.show("종사산업이 변경되었습니다.")
                         }
                     } catch {
-                        print("❌ [EditIndustryView] 종사산업 변경 실패: \(error)")
                     }
                 }
             }) {

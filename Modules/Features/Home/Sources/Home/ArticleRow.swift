@@ -22,10 +22,8 @@ struct ArticleRow: View {
                         .frame(width: 56, height: 56)
                 }
                 .onFailure { error in
-                    print("📸 [ArticleRow] 이미지 로딩 실패: \(error.localizedDescription)")
                 }
                 .onSuccess { result in
-                    print("📸 [ArticleRow] 이미지 로딩 성공: \(result.image)")
                 }
                 .resizable()
                 .aspectRatio(contentMode: .fill)
@@ -39,25 +37,25 @@ struct ArticleRow: View {
             VStack(alignment: .leading, spacing: 6) {
                 HStack {
                     Text(article.brandName)
-                        .font(.hanSansNeo(12, .regular))
-                        .foregroundColor(.gray)
+                        .font(.hanSansNeo(11, .medium))
+                        .foregroundColor(Color(hex: "#565656"))
 
                     Spacer()
 
                     Text(article.status == "Read" ? "읽음" : "안읽음")
-                        .font(.hanSansNeo(11, .regular))
-                        .foregroundColor(article.status == "Read" ? .gray : Color.primaryNormal)
+                        .font(.hanSansNeo(11, .medium))
+                        .foregroundColor(article.status == "Read" ? Color(hex: "#767676") : Color.primaryNormal)
                 }
 
                 Text(article.articleTitle)
                     .font(.hanSansNeo(14, .medium))
-                    .foregroundColor(.black)
+                    .foregroundColor(Color(hex: "#363636"))
                     .lineLimit(1)
                     .padding(.trailing,20)
             }
         }
         .padding(16)
-        .background(article.status == "Read" ? Color(hex: "EBEBEB") : Color.white)
+        .background(article.status == "Read" ? Color(hex: "EBEBEB") : Color(hex: "#FFFFFF"))
         .overlay {
             RoundedRectangle(cornerRadius: 12)
                 .stroke(Color(hex: "#EBEBEB"), lineWidth: 1.5)

@@ -105,7 +105,6 @@ struct StatefulPreviewWrapper<Value, Content: View>: View {
         ZStack {
             Color.gray.opacity(0.2).ignoresSafeArea() // 배경 확인용
             SubscribeGuestAlertView(isPresented: binding) {
-                print("회원가입 버튼 눌림")
             }
         }
     }
