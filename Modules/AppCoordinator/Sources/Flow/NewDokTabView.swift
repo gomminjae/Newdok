@@ -150,7 +150,9 @@ struct NewDokTabBar: View {
     private func tabItem(_ tab: NewDokTab, normalAsset: DesignSystemImages, selectedAsset: DesignSystemImages, title: String) -> some View {
         VStack(spacing: 4) {
             Image(asset: selectedTab == tab ? selectedAsset : normalAsset)
-                .frame(width: 24, height: 24) // 고정 크기로 설정
+                .renderingMode(selectedTab == tab ? .original : .template)
+                .foregroundStyle(Color.captionAssistive)
+                .frame(width: 24, height: 24)
                 
             Text(title)
                 .font(.hanSansNeo(11, selectedTab == tab ? .bold : .medium))
