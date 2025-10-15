@@ -86,19 +86,18 @@ public struct NewDokTabView: View {
                 switch newTab {
                 case .explore:
                     router.root = .tabbar(selectedTab: .explore)
-                    homeViewModel.cancelWarmups()
                 case .home:
                     router.root = .tabbar(selectedTab: .home)
-                    homeViewModel.startWarmup(for: Date())
+                    
                 case .subscribe:
                     router.root = .tabbar(selectedTab: .subscribe)
-                    homeViewModel.cancelWarmups()
+                   
                 case .bookmark:
                     router.root = .tabbar(selectedTab: .bookmark)
-                    homeViewModel.cancelWarmups()
-                case .profile:
+                  
+                case .profile: 
                     router.root = .tabbar(selectedTab: .profile)
-                    homeViewModel.cancelWarmups()
+                    
                 }
             }
             

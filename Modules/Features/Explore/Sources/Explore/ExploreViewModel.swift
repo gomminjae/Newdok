@@ -9,6 +9,7 @@ import Combine
 import Shared
 import Domain
 import SwiftUI
+import Core
 
 
 @MainActor
@@ -77,12 +78,15 @@ public class ExploreViewModel: ObservableObject {
     
     
     public func fetchRecommendation(forceRefresh: Bool = false) async {
+        logInfo("추천 뉴스레터 로드 시작 (강제 새로고침: \(forceRefresh))", category: .explore)
+        
         // 캐시된 데이터가 있고 5분 이내라면 캐시 사용 (강제 새로고침 제외)
         if !forceRefresh, 
            let cached = cachedRecommendation,
            let lastTime = lastFetchTime,
            Date().timeIntervalSince(lastTime) < 300 { // 5분 캐시
             
+            logDebug("캐시된 추천 데이터 사용", category: .cache)
             updateRecommendationData(from: cached)
             return
         }
@@ -98,9 +102,11 @@ public class ExploreViewModel: ObservableObject {
             lastFetchTime = Date()
             
             
+            
             updateRecommendationData(from: response)
             
         } catch {
+            logError("추천 뉴스레터 로드 실패: \(error.localizedDescription)", category: .explore)
             isRecommend = false
         }
         
@@ -183,6 +189,7 @@ public class ExploreViewModel: ObservableObject {
     }
     
     public func fetchAllNewsletters() async {
+        logInfo("전체 뉴스레터 로드 시작 - 정렬: \(orderOpt ?? "없음"), 산업: \(industry?.count ?? 0)개, 요일: \(day?.count ?? 0)개", category: .explore)
         isRefreshingAllNewsletters = true
         allNewslettersAnimationStartTime = Date()
         
@@ -190,8 +197,10 @@ public class ExploreViewModel: ObservableObject {
             
             let response = try await useCase.fetchNewsletters(orderOpt: orderOpt, industry: industry, day: day)
             allNewsletters = response
+            logDebug("전체 뉴스레터 로드 완료 - \(response.count)개", category: .explore)
             
         } catch {
+            logError("전체 뉴스레터 로드 실패: \(error.localizedDescription)", category: .explore)
         }
         
         // 최소 애니메이션 시간 보장

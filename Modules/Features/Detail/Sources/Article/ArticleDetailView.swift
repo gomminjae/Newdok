@@ -39,9 +39,6 @@ public struct ArticleDetailView: View {
                                     .fill(Color.gray.opacity(0.2))
                                     .frame(width: geo.size.width, height: 260)
                             }
-                            .onFailure { error in
-                                print("📸 [ArticleDetailView] 이미지 로딩 실패: \(error.localizedDescription)")
-                            }
                             .resizable()
                             .scaledToFill()
                             .frame(width: geo.size.width, height: 260)

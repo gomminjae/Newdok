@@ -3,12 +3,14 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 56;
+	objectVersion = 55;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		02527DA6DDB4B80446F4D0B6 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0005D64BC01AB62547E865D0 /* Logger.swift */; };
 		0CD90D2359B0E7BA52DF5427 /* ErrorMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72703E2E055FAC09CC450CE3 /* ErrorMapper.swift */; };
 		12A050898389A31D0211F7DD /* ArticleAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CAED9396624C071D9857C2A /* ArticleAPI.swift */; };
+		26DDBA6697F22B468B5DE126 /* LogLevel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4F359223CAD0B3B175BDB83 /* LogLevel.swift */; };
 		279D7C2E27034BD1592014A0 /* UserAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42017D3A75462296737C376F /* UserAPI.swift */; };
 		27E013E9E2A196C96E85C6E1 /* MoyaProvider+Async.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CB52B1CA1F1B0867255328D /* MoyaProvider+Async.swift */; };
 		27ECE37DA37CDC0E38D78AEB /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CA3F13E23B6662B1FDAD4536 /* CFNetwork.framework */; };
@@ -19,13 +21,15 @@
 		547CE325F59B24CE8612138E /* NewsletterAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A500F39A85EDEA884FA67B7 /* NewsletterAPI.swift */; };
 		6060ADA578420B6B6DA0DED2 /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D2C05222F38012E3350EB44 /* NetworkError.swift */; };
 		78DE9E2870EA091066A98F3E /* Moya.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6260F75C087362295DDE52AE /* Moya.framework */; };
+		88E3C8D93D23DF1EABCEFAAA /* LogOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21B90BD9DAF1F16193798058 /* LogOutput.swift */; };
 		914F154986FC953CD03CBBFB /* APIEnvironment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37D20FB3473EE5354A38EDF4 /* APIEnvironment.swift */; };
 		9312E114DDCBE60BDD2DD032 /* NetworkLoggerPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC3BF1DA23727917D472C859 /* NetworkLoggerPlugin.swift */; };
+		9A8C87A8C16255C27EBBF019 /* LogFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DC42F2FAD83A194DD57F729 /* LogFormatter.swift */; };
+		AAE78F066282F78A8FE6CBA3 /* LogDestination.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE9ED3A98BE6ABC652AB8B7B /* LogDestination.swift */; };
 		AECBBB447FE9A2ED67703BF9 /* AuthInterceptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39C015A0A4F1E90FBDFFF855 /* AuthInterceptor.swift */; };
-		B5C468BF2E9D3BE400B0D6BA /* LogLevel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5C468BE2E9D3BD800B0D6BA /* LogLevel.swift */; };
-		B5C468C12E9D3D9200B0D6BA /* LogCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5C468C02E9D3D9200B0D6BA /* LogCategory.swift */; };
 		D32B53DF3BA93B1875B18F04 /* TokenPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29D52B2E4D0092141C27BCFB /* TokenPlugin.swift */; };
 		E04A978CAE4A2D7499F40213 /* NetworkProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF091BF7231A5E1E4699673 /* NetworkProvider.swift */; };
+		ED6B6195294BC6C59ACC4C71 /* LogCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0244A14AF80D1EFFEFF82613 /* LogCategory.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -42,8 +46,12 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		0005D64BC01AB62547E865D0 /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
+		0244A14AF80D1EFFEFF82613 /* LogCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogCategory.swift; sourceTree = "<group>"; };
 		05ECDCC9A0A1527B8AAEE504 /* AccessTokenPlugin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccessTokenPlugin.swift; sourceTree = "<group>"; };
 		0D2C05222F38012E3350EB44 /* NetworkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
+		0DC42F2FAD83A194DD57F729 /* LogFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogFormatter.swift; sourceTree = "<group>"; };
+		21B90BD9DAF1F16193798058 /* LogOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogOutput.swift; sourceTree = "<group>"; };
 		26BDD2D3E7FED8CDE9A52F46 /* Core-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "Core-Info.plist"; sourceTree = "<group>"; };
 		29D52B2E4D0092141C27BCFB /* TokenPlugin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenPlugin.swift; sourceTree = "<group>"; };
 		2A500F39A85EDEA884FA67B7 /* NewsletterAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsletterAPI.swift; sourceTree = "<group>"; };
@@ -57,11 +65,11 @@
 		4F4C7AB450F070BA43F524B3 /* SearchAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchAPI.swift; sourceTree = "<group>"; };
 		6260F75C087362295DDE52AE /* Moya.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Moya.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		72703E2E055FAC09CC450CE3 /* ErrorMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorMapper.swift; sourceTree = "<group>"; };
-		B5C468BE2E9D3BD800B0D6BA /* LogLevel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogLevel.swift; sourceTree = "<group>"; };
-		B5C468C02E9D3D9200B0D6BA /* LogCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogCategory.swift; sourceTree = "<group>"; };
 		B8E481F76A48C00550F37F55 /* Shared.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Shared.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C4F359223CAD0B3B175BDB83 /* LogLevel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogLevel.swift; sourceTree = "<group>"; };
 		CA3F13E23B6662B1FDAD4536 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS.sdk/System/Library/Frameworks/CFNetwork.framework; sourceTree = DEVELOPER_DIR; };
 		CEF091BF7231A5E1E4699673 /* NetworkProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkProvider.swift; sourceTree = "<group>"; };
+		EE9ED3A98BE6ABC652AB8B7B /* LogDestination.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogDestination.swift; sourceTree = "<group>"; };
 		FC3BF1DA23727917D472C859 /* NetworkLoggerPlugin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkLoggerPlugin.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -98,6 +106,19 @@
 				701982BA4C64C66A61BF8233 /* Plugin */,
 			);
 			path = Core;
+			sourceTree = "<group>";
+		};
+		4B0AD725144D540691BCF05F /* Log */ = {
+			isa = PBXGroup;
+			children = (
+				0244A14AF80D1EFFEFF82613 /* LogCategory.swift */,
+				EE9ED3A98BE6ABC652AB8B7B /* LogDestination.swift */,
+				0DC42F2FAD83A194DD57F729 /* LogFormatter.swift */,
+				0005D64BC01AB62547E865D0 /* Logger.swift */,
+				C4F359223CAD0B3B175BDB83 /* LogLevel.swift */,
+				21B90BD9DAF1F16193798058 /* LogOutput.swift */,
+			);
+			path = Log;
 			sourceTree = "<group>";
 		};
 		4B97075397CA6D3C7DEE06A1 /* InfoPlists */ = {
@@ -146,8 +167,8 @@
 		81104ECEC5CD1B0F5111557B /* Sources */ = {
 			isa = PBXGroup;
 			children = (
-				B5C468BD2E9D39A800B0D6BA /* Log */,
 				EF43897A4EC2F17B200C08C2 /* API */,
+				4B0AD725144D540691BCF05F /* Log */,
 				A58C2BCC11B9ECEF52CEEC77 /* Network */,
 			);
 			path = Sources;
@@ -172,15 +193,6 @@
 				CEF091BF7231A5E1E4699673 /* NetworkProvider.swift */,
 			);
 			path = Network;
-			sourceTree = "<group>";
-		};
-		B5C468BD2E9D39A800B0D6BA /* Log */ = {
-			isa = PBXGroup;
-			children = (
-				B5C468C02E9D3D9200B0D6BA /* LogCategory.swift */,
-				B5C468BE2E9D3BD800B0D6BA /* LogLevel.swift */,
-			);
-			path = Log;
 			sourceTree = "<group>";
 		};
 		E12816BA35F79D21E0D77318 /* Project */ = {
@@ -277,10 +289,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				12A050898389A31D0211F7DD /* ArticleAPI.swift in Sources */,
-				B5C468C12E9D3D9200B0D6BA /* LogCategory.swift in Sources */,
 				547CE325F59B24CE8612138E /* NewsletterAPI.swift in Sources */,
 				3B794A025E43D1D75FBFB049 /* SearchAPI.swift in Sources */,
 				279D7C2E27034BD1592014A0 /* UserAPI.swift in Sources */,
+				ED6B6195294BC6C59ACC4C71 /* LogCategory.swift in Sources */,
+				AAE78F066282F78A8FE6CBA3 /* LogDestination.swift in Sources */,
+				9A8C87A8C16255C27EBBF019 /* LogFormatter.swift in Sources */,
+				26DDBA6697F22B468B5DE126 /* LogLevel.swift in Sources */,
+				88E3C8D93D23DF1EABCEFAAA /* LogOutput.swift in Sources */,
+				02527DA6DDB4B80446F4D0B6 /* Logger.swift in Sources */,
 				914F154986FC953CD03CBBFB /* APIEnvironment.swift in Sources */,
 				0CD90D2359B0E7BA52DF5427 /* ErrorMapper.swift in Sources */,
 				27E013E9E2A196C96E85C6E1 /* MoyaProvider+Async.swift in Sources */,
@@ -288,7 +305,6 @@
 				3C70BCF59122F24D77D22BC3 /* AccessTokenPlugin.swift in Sources */,
 				9312E114DDCBE60BDD2DD032 /* NetworkLoggerPlugin.swift in Sources */,
 				D32B53DF3BA93B1875B18F04 /* TokenPlugin.swift in Sources */,
-				B5C468BF2E9D3BE400B0D6BA /* LogLevel.swift in Sources */,
 				AECBBB447FE9A2ED67703BF9 /* AuthInterceptor.swift in Sources */,
 				E04A978CAE4A2D7499F40213 /* NetworkProvider.swift in Sources */,
 			);
@@ -433,7 +449,10 @@
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
 				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) DEBUG";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = (
+					"$(inherited)",
+					DEBUG,
+				);
 				SWIFT_COMPILATION_MODE = singlefile;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;

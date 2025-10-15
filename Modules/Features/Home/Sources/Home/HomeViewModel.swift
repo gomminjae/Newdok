@@ -11,29 +11,41 @@ import Combine
 import Domain
 import Shared
 import Foundation
+import Core
 
 // MARK: - Calendar State Management
 @MainActor
 public final class CalendarState: ObservableObject {
-    @Published public var selectedDate: Date = Date()
-    @Published public var displayedMonth: Date = Date()
+    @Published public var selectedDate: Date
+    @Published public var displayedMonth: Date
     @Published public var dataDays: Set<Int> = []
     @Published public var isLoading: Bool = false
     
-    public init() {
-        displayedMonth = selectedDate
+    private var cancellables = Set<AnyCancellable>()
+    
+    public init(initialDate: Date = Date()) {
+        self.selectedDate = initialDate
+        self.displayedMonth = initialDate
     }
     
-    public func updateSelectedDate(_ date: Date) {
-        selectedDate = date
-    }
-    
-    public func updateDisplayedMonth(_ date: Date) {
-        displayedMonth = date
-    }
-    
-    public func updateDataDays(_ days: Set<Int>) {
-        dataDays = days
+    // Combine 기반 반응형 업데이트
+    public func bind(to viewModel: HomeViewModel) {
+        // 월 변경 감지 → 캐시 먼저 적용, 없으면 로드
+        $displayedMonth
+            .removeDuplicates { Calendar.current.isDate($0, equalTo: $1, toGranularity: .month) }
+            .dropFirst() // 초기값 무시
+            .sink { [weak viewModel] newMonth in
+                Task { @MainActor in
+                    guard let vm = viewModel else { return }
+                    
+                    // 1) 캐시된 점 데이터 즉시 적용
+                    vm.applyDataDaysForMonth(newMonth)
+                    
+                    // 2) 캐시 확인 후 로드 또는 적용
+                    await vm.loadMonthDataIfNeeded(for: newMonth)
+                }
+            }
+            .store(in: &cancellables)
     }
 }
 
@@ -59,64 +71,46 @@ public final class HomeViewModel: ObservableObject {
     public init(useCase: FetchHomeDataUseCase) {
         self.useCase = useCase
         self.calendarState = CalendarState()
-        self.dataDays = []
         
         // 읽음 상태 로드
         loadReadArticleIds()
         
-        // 초기화 시 별도 로딩 제거 - onAppear에서 loadToday()로 통합
-        
-        // 🔗 옵션 A: calendarState 변경을 HomeViewModel 변경으로 브리지
+        // CalendarState 변경을 HomeViewModel 변경으로 브리지
         calendarState.objectWillChange
             .receive(on: RunLoop.main)
             .sink { [weak self] _ in
                 self?.objectWillChange.send()
             }
             .store(in: &cancellables)
+        
+        // CalendarState와 ViewModel 바인딩
+        calendarState.bind(to: self)
     }
     
+    // MARK: - Published Properties
     @Published public var isLoaded: Bool = false
     @Published public var filteredArticles: [Article] = []
     @Published public var subscribedNewsletters: [Newsletter] = []
     @Published public var articlesByMonth: [Articles] = []
-    @Published public var monthlyCache: [String: [Articles]] = [:]
-    // "yyyy-MM" → Set<Int>
-    @Published private var dataDaysByMonthCache: [String: Set<Int>] = [:]
     
-    private var isWarmingCache: Bool = false
-    private var warmedYears: Set<Int> = []
-    @Published var currentMonthKey: String = ""
-    @Published public var dataDays: Set<Int> = []
-    @Published public var onMonthChanged: ((Date) -> Void)?
-    @Published public var isLoadingMonth: Bool = false
-    private var latestRequestKey: String = ""
+    // MARK: - Cache
+    private var monthlyCache: [String: [Articles]] = [:]
+    private var dataDaysByMonthCache: [String: Set<Int>] = [:]
     private var loadingTasks: [String: Task<Void, Never>] = [:]
-    private var warmupRootTask: Task<Void, Never>?
     
-    // 읽음 상태 영구 저장을 위한 UserDefaults 키
+    // 읽음 상태 영구 저장
     private let readArticlesKey = "readArticles"
     private var readArticleIds: Set<Int> = []
-    
-    // 캐시 업데이트 시 현재 표시 중인 월 확인
-    private func checkAndUpdateCurrentMonth() {
-        let currentKey = "\(formatYear(displayedMonth))-\(formatMonth(displayedMonth))"
-        
-        if let cachedDays = dataDaysByMonthCache[currentKey] {
-            self.dataDays = cachedDays
-            self.calendarState.updateDataDays(cachedDays)
-        } else {
-        }
-    }
     
     // MARK: - Computed Properties
     public var selectedDate: Date {
         get { calendarState.selectedDate }
-        set { calendarState.updateSelectedDate(newValue) }
+        set { calendarState.selectedDate = newValue }
     }
     
     public var displayedMonth: Date {
         get { calendarState.displayedMonth }
-        set { calendarState.updateDisplayedMonth(newValue) }
+        set { calendarState.displayedMonth = newValue }
     }
     
     public func updateCalendarData(_ data: [Articles]) {
@@ -124,34 +118,18 @@ public final class HomeViewModel: ObservableObject {
         self.updateDataDays()
     }
     
+    // 점 데이터 업데이트 (실제 아티클이 있는 날만)
     private func updateDataDays() {
-        // 읽음 여부와 무관: 리스트가 존재하면 점 표시
-        let daysWithArticles = articlesByMonth.filter { !$0.receivedArticleList.isEmpty }
-        let newDataDays = Set(daysWithArticles.map { $0.publishDate })
+        let daysWithArticles = articlesByMonth
+            .filter { !$0.receivedArticleList.isEmpty }
+            .map { $0.publishDate }
         
-        // 디버깅
-        for article in articlesByMonth.sorted(by: { $0.publishDate < $1.publishDate }) {
-            if !article.receivedArticleList.isEmpty {
-                print("  ✅ \(article.publishDate)일: 아티클 \(article.receivedArticleList.count)개")
-            } else {
-                print("  ❌ \(article.publishDate)일: 아티클 없음")
-            }
-        }
+        let newDataDays = Set(daysWithArticles)
+        calendarState.dataDays = newDataDays
         
-        // 캘린더 상태와 동기화
-        self.dataDays = newDataDays
-        self.calendarState.updateDataDays(newDataDays)
-        if !currentMonthKey.isEmpty {
-            dataDaysByMonthCache[currentMonthKey] = newDataDays
-        }
-    }
-
-    private func applyDotsIfMatches(key: String, days: Set<Int>) {
-        let currentKey = "\(formatYear(displayedMonth))-\(formatMonth(displayedMonth))"
-        if currentKey == key {
-            self.dataDays = days
-            self.calendarState.updateDataDays(days)
-        }
+        // 현재 월 캐시에 저장
+        let key = monthKey(for: calendarState.displayedMonth)
+        dataDaysByMonthCache[key] = newDataDays
     }
 
     public func selectDate(_ day: Int) {
@@ -164,11 +142,11 @@ public final class HomeViewModel: ObservableObject {
     public func selectDateWithMonthGuarantee(_ date: Date) {
         let calendar = Calendar.current
         let selectedDay = calendar.component(.day, from: date)
-        print("📅 [HomeViewModel] 날짜 선택: \(date)")
+        logDebug("날짜 선택: \(date)", category: .home)
         calendarState.selectedDate = date
         
         Task {
-            await loadArticles(for: date)
+            await loadMonthData(for: date)
             self.selectDate(selectedDay)
         }
     }
@@ -203,6 +181,7 @@ public final class HomeViewModel: ObservableObject {
     
     // MARK: - Data Loading Methods
     public func loadToday() async {
+        logInfo("오늘 데이터 로드 시작", category: .home)
         var tempArticles: [Article] = []
         var tempNewsletters: [Newsletter] = []
         
@@ -211,6 +190,7 @@ public final class HomeViewModel: ObservableObject {
             let data = try await useCase.fetchTodayData()
             tempArticles = data.articles
             tempNewsletters = data.activeNewsletters
+            logDebug("오늘 데이터 로드 완료 - 아티클: \(tempArticles.count)개, 뉴스레터: \(tempNewsletters.count)개", category: .home)
             
             // 2) 오늘 날짜로 캘린더 리셋 (명시적으로 현재 시간 사용)
             let today = Date()
@@ -224,11 +204,14 @@ public final class HomeViewModel: ObservableObject {
                 self.calendarState.displayedMonth = calendar.date(
                     from: calendar.dateComponents([.year, .month], from: todayDate)
                 ) ?? todayDate
-                print("📅 [HomeViewModel] 오늘 날짜 설정: \(todayDate)")
+                logDebug("오늘 날짜 설정: \(todayDate)", category: .home)
             }
             
             // 3) 월 데이터 로드
-            await loadArticles(for: todayDate)
+            await loadMonthData(for: todayDate)
+            
+            // 3.5) 백그라운드 웜업 (올해 1월 ~ 현재 달)
+            warmupCurrentYear(for: todayDate)
             
             // 4) 읽음 상태 복원 후 UI 업데이트 + isLoaded 지연
             await MainActor.run {
@@ -248,54 +231,31 @@ public final class HomeViewModel: ObservableObject {
                 }
             }
             
-            // 5) 백그라운드 캐싱
-            startWarmup(for: today)
         } catch {
-            print("today fetch error: \(error)")
+            logError("오늘 데이터 로드 실패: \(error.localizedDescription)", category: .home)
             await MainActor.run { self.isLoaded = true }
         }
     }
 
-    // MARK: - 워밍업 제어
-    public func startWarmup(for date: Date) {
-        warmupRootTask?.cancel()
-        warmupRootTask = Task.detached(priority: .background) { [weak self] in
-            guard let self else { return }
-            if Task.isCancelled { return }
-            try? await Task.sleep(nanoseconds: 100_000_000)
-            if Task.isCancelled { return }
-            await self.warmupYearCache(for: date)
-            if Task.isCancelled { return }
-            let lastYear = Calendar.current.component(.year, from: date) - 1
-            await self.warmupYearCache(year: lastYear, targetMonth: 12)
-        }
-    }
-
-    public func cancelWarmups() {
-        warmupRootTask?.cancel()
-        warmupRootTask = nil
-    }
-
     // 인증 상태 변경 시 초기화
     public func resetForAuthChange() {
+        // 진행 중인 작업 취소
         for (_, task) in loadingTasks { task.cancel() }
         loadingTasks.removeAll()
-        latestRequestKey = ""
 
-        isWarmingCache = false
-        warmedYears.removeAll()
+        // 캐시 초기화
         monthlyCache.removeAll()
         dataDaysByMonthCache.removeAll()
 
+        // 상태 초기화
         articlesByMonth = []
         filteredArticles = []
         subscribedNewsletters = []
-        dataDays = []
-        currentMonthKey = ""
-        isLoadingMonth = false
+        calendarState.dataDays = []
         calendarState.isLoading = false
         isLoaded = false
 
+        // 오늘로 리셋
         let today = Date()
         calendarState.selectedDate = today
         calendarState.displayedMonth = Calendar.current.date(
@@ -303,138 +263,177 @@ public final class HomeViewModel: ObservableObject {
         ) ?? today
     }
     
-    // MARK: - 워밍업 구현
-    private func warmupYearCache(for date: Date) async {
-        if isWarmingCache { return }
-        isWarmingCache = true
-        defer { isWarmingCache = false }
-
-        let cal = Calendar.current
-        let year = Int(formatYear(date)) ?? cal.component(.year, from: date)
-        let currentMonth = cal.component(.month, from: date)
-        warmedYears.insert(year)
-        print("🔥 [HomeViewModel] Task Group 워밍업 시작: \(year)년 1..\(currentMonth)월")
-        
-        let months = Array(1...currentMonth)
-        let chunkSize = 3
-        for start in stride(from: 0, to: months.count, by: chunkSize) {
-            if Task.isCancelled { return }
-            let end = min(start + chunkSize, months.count)
-            let chunk = months[start..<end]
-            await withTaskGroup(of: (String, Result<[Articles], Error>).self) { group in
-                for month in chunk {
-                    let monthStr = String(format: "%02d", month)
-                    let key = "\(year)-\(monthStr)"
-                    if monthlyCache[key] != nil {
-                        print("🔥 [HomeViewModel] 이미 캐시됨: \(key)")
-                        continue
-                    }
-                    group.addTask {
-                        if Task.isCancelled { return (key, .failure(CancellationError())) }
-                        print("🔥 [HomeViewModel] Task 시작: \(key)")
-                        do {
-                            let monthly = try await self.useCase.fetchMonthlyData(year: String(year), month: monthStr)
-                            print("🔥 [HomeViewModel] Task 완료: \(key), 아티클 수: \(monthly.count)")
-                            return (key, .success(monthly))
-                        } catch {
-                            print("⚠️ [HomeViewModel] Task 실패: \(key), error=\(error)")
-                            return (key, .failure(error))
-                        }
-                    }
+    // MARK: - 스마트 웜업 (올해 1월 ~ 현재 달까지만)
+    public func warmupCurrentYear(for date: Date) {
+        logInfo("캘린더 웜업 시작 - 올해 1월부터 현재 달까지", category: .cache)
+        Task.detached(priority: .background) { [weak self] in
+            guard let self = await self else { return }
+            
+            let calendar = Calendar.current
+            let currentYear = calendar.component(.year, from: date)
+            let currentMonth = calendar.component(.month, from: date)
+            
+            // 올해 1월부터 현재 달까지만 웜업
+            for month in 1...currentMonth {
+                if Task.isCancelled { return }
+                
+                var components = DateComponents()
+                components.year = currentYear
+                components.month = month
+                components.day = 1
+                
+                if let monthDate = calendar.date(from: components) {
+                    await self.loadMonthDataSilently(for: monthDate)
                 }
-                for await (key, result) in group {
-                    switch result {
-                    case .success(let monthly):
-                        await MainActor.run {
-                            self.monthlyCache[key] = monthly
-                            let days = Set(monthly.filter { !$0.receivedArticleList.isEmpty }.map { $0.publishDate })
-                            self.dataDaysByMonthCache[key] = days
-                            print("🔥 [HomeViewModel] Task Group 캐시 저장: \(key), days=\(days.sorted())")
-                            self.applyDotsIfMatches(key: key, days: days)
-                        }
-                    case .failure(let error):
-                        print("⚠️ [HomeViewModel] Task Group 캐시 저장 실패: \(key), error=\(error)")
-                    }
-                }
+                
+                // 너무 빠르게 요청하지 않도록 약간의 딜레이
+                try? await Task.sleep(nanoseconds: 100_000_000) // 0.1초
+            }
+            
+            await MainActor.run {
+                logInfo("캘린더 웜업 완료 - \(currentMonth)개월 로드됨", category: .cache)
             }
         }
-        print("✅ [HomeViewModel] Task Group 워밍업 완료")
     }
-
-    private func warmupYearCache(year: Int, targetMonth: Int) async {
-        if warmedYears.contains(year) {
-            print("🔥 [HomeViewModel] 이미 워밍업된 연도: \(year)")
+    
+    // 조용히 로드 (UI 업데이트 없이 캐시만)
+    private func loadMonthDataSilently(for date: Date) async {
+        let key = await monthKey(for: date)
+        
+        // 이미 캐시 있으면 스킵
+        if await monthlyCache[key] != nil {
             return
         }
-        let months = max(1, min(12, targetMonth))
-        let currentYear = Calendar.current.component(.year, from: Date())
-        let isPastYear = year < currentYear
         
-        print("🔥 [HomeViewModel] 지정 연도 Task Group 워밍업 시작: \(year)년 1..\(months)월 (작년: \(isPastYear))")
+        do {
+            let monthly = try await useCase.fetchMonthlyData(
+                year: await formatYear(date),
+                month: await formatMonth(date)
+            )
+            
+            await MainActor.run {
+                // 읽음 상태 적용
+                let monthlyWithReadStatus = self.applyReadStatusToArticlesByMonth(monthly)
+                
+                // 캐시에만 저장 (UI 업데이트 X)
+                self.monthlyCache[key] = monthlyWithReadStatus
+                
+                // 점 데이터 캐시
+                let days = Set(monthlyWithReadStatus
+                    .filter { !$0.receivedArticleList.isEmpty }
+                    .map { $0.publishDate })
+                self.dataDaysByMonthCache[key] = days
+            }
+        } catch {
+            // 조용히 실패 (에러 무시)
+        }
+    }
+    
+    // MARK: - 월 데이터 로딩 (온디맨드)
+    // 캐시 있으면 즉시 적용, 없으면 로드
+    public func loadMonthDataIfNeeded(for date: Date) async {
+        let key = monthKey(for: date)
         
-        let monthList = Array(1...months)
-        let chunkSize = 3
-        for start in stride(from: 0, to: monthList.count, by: chunkSize) {
-            if Task.isCancelled { return }
-            let end = min(start + chunkSize, monthList.count)
-            let chunk = monthList[start..<end]
-            await withTaskGroup(of: (String, Result<[Articles], Error>).self) { group in
-                for month in chunk {
-                    let monthStr = String(format: "%02d", month)
-                    let key = "\(year)-\(monthStr)"
-                    if monthlyCache[key] != nil {
-                        print("🔥 [HomeViewModel] 이미 캐시됨: \(key)")
-                        continue
-                    }
-                    group.addTask {
-                        if Task.isCancelled { return (key, .failure(CancellationError())) }
-                        print("🔥 [HomeViewModel] 지정 연도 Task 시작: \(key)")
-                        do {
-                            let monthly = try await self.useCase.fetchMonthlyData(year: String(year), month: monthStr)
-                            print("🔥 [HomeViewModel] 지정 연도 Task 완료: \(key), 아티클 수: \(monthly.count)")
-                            return (key, .success(monthly))
-                        } catch {
-                            print("⚠️ [HomeViewModel] 지정 연도 Task 실패: \(key), error=\(error)")
-                            return (key, .failure(error))
-                        }
-                    }
+        if let cached = monthlyCache[key] {
+            // 캐시 있으면 즉시 적용
+            await MainActor.run {
+                self.articlesByMonth = cached
+                self.updateDataDays()
+                self.filterArticles(by: self.calendarState.selectedDate)
+            }
+        } else {
+            // 캐시 없으면 로드
+            await loadMonthData(for: date)
+        }
+    }
+    
+    public func loadMonthData(for date: Date) async {
+        let key = monthKey(for: date)
+        logDebug("월 데이터 로드 시작: \(key)", category: .home)
+        
+        // 이미 로딩 중이면 취소
+        if let existingTask = loadingTasks[key] {
+            existingTask.cancel()
+        }
+        
+        // 캐시가 있으면 즉시 사용
+        if let cached = monthlyCache[key] {
+            logDebug("캐시된 월 데이터 사용: \(key)", category: .cache)
+            await MainActor.run {
+                let cachedWithReadStatus = self.applyReadStatusToArticlesByMonth(cached)
+                self.articlesByMonth = cachedWithReadStatus
+                self.updateDataDays()
+                self.filterArticles(by: self.calendarState.selectedDate)
+                self.calendarState.isLoading = false
+            }
+            return
+        }
+        
+        // 캐시된 점 데이터가 있으면 먼저 표시
+        if let cachedDays = dataDaysByMonthCache[key] {
+            await MainActor.run {
+                self.calendarState.dataDays = cachedDays
+            }
+        }
+        
+        // 로딩 시작
+        await MainActor.run {
+            self.calendarState.isLoading = true
+        }
+        
+        let task = Task {
+            do {
+                let monthly = try await useCase.fetchMonthlyData(
+                    year: formatYear(date),
+                    month: formatMonth(date)
+                )
+                
+                if Task.isCancelled { return }
+                
+                await MainActor.run {
+                    // 읽음 상태 적용
+                    let monthlyWithReadStatus = self.applyReadStatusToArticlesByMonth(monthly)
+                    
+                    // 캐시 저장
+                    self.monthlyCache[key] = monthlyWithReadStatus
+                    self.articlesByMonth = monthlyWithReadStatus
+                    
+                    // 점 데이터 업데이트
+                    self.updateDataDays()
+                    
+                    // 선택된 날짜 필터링
+                    self.filterArticles(by: self.calendarState.selectedDate)
+                    
+                    self.calendarState.isLoading = false
+                    logDebug("월 데이터 로드 완료: \(key) - \(monthlyWithReadStatus.count)일", category: .home)
                 }
-                for await (key, result) in group {
-                    switch result {
-                    case .success(let monthly):
-                        await MainActor.run {
-                            self.monthlyCache[key] = monthly
-                            let days = Set(monthly.filter { !$0.receivedArticleList.isEmpty }.map { $0.publishDate })
-                            self.dataDaysByMonthCache[key] = days
-                            print("🔥 [HomeViewModel] 지정 연도 Task Group 캐시 저장: \(key), days=\(days.sorted())")
-                            if isPastYear {
-                                let currentKey = "\(formatYear(self.displayedMonth))-\(formatMonth(self.displayedMonth))"
-                                if currentKey == key {
-                                    self.dataDays = days
-                                    self.calendarState.updateDataDays(days)
-                                    print("📅 [HomeViewModel] 작년 데이터 즉시 UI 업데이트: \(key), days=\(days.sorted())")
-                                }
-                            }
-                            self.applyDotsIfMatches(key: key, days: days)
-                        }
-                    case .failure(let error):
-                        print("⚠️ [HomeViewModel] 지정 연도 Task Group 캐시 저장 실패: \(key), error=\(error)")
+            } catch {
+                if !Task.isCancelled {
+                    logError("월 데이터 로드 실패: \(key) - \(error.localizedDescription)", category: .home)
+                    await MainActor.run {
+                        self.calendarState.isLoading = false
                     }
                 }
             }
         }
-        warmedYears.insert(year)
-        print("✅ [HomeViewModel] 지정 연도 Task Group 워밍업 완료: \(year)")
         
-        if isPastYear {
-            await MainActor.run { self.checkAndUpdateCurrentMonth() }
+        loadingTasks[key] = task
+        await task.value
+        loadingTasks.removeValue(forKey: key)
+        
+        // 로드 완료 후 올해 웜업 (현재 달이 올해인 경우만)
+        let calendar = Calendar.current
+        let currentYear = calendar.component(.year, from: Date())
+        let targetYear = calendar.component(.year, from: date)
+        
+        if targetYear == currentYear {
+            warmupCurrentYear(for: date)
         }
     }
     
     // 상세 → 홈 복귀 시 현재 선택 유지
     public func refreshCurrentData() async {
         filterArticles(by: selectedDate)
-        print("📅 [HomeViewModel] refreshCurrentData 완료 - selectedDate: \(selectedDate), filteredArticles: \(filteredArticles.count)개")
     }
     
     // Pull to Refresh 시 오늘 날짜로 강제 이동
@@ -449,234 +448,36 @@ public final class HomeViewModel: ObservableObject {
             self.calendarState.displayedMonth = calendar.date(
                 from: calendar.dateComponents([.year, .month], from: todayDate)
             ) ?? todayDate
-            print("📅 [HomeViewModel] Pull to Refresh - 오늘 날짜로 이동: \(todayDate)")
         }
         
         await loadToday()
     }
     
-    // 주어진 월에 대해 점 즉시 적용
+    // 캘린더에서 월 변경 시 점 데이터 조회 (캐시만)
     public func applyDataDaysForMonth(_ date: Date) {
-        let key = "\(formatYear(date))-\(formatMonth(date))"
+        let key = monthKey(for: date)
         if let cachedDays = dataDaysByMonthCache[key] {
-            self.dataDays = cachedDays
-            self.calendarState.updateDataDays(cachedDays)
-            print("📅 [HomeViewModel] 캐시에서 즉시 적용: key=\(key), days=\(cachedDays.sorted())")
-            return
-        }
-        
-        let currentYear = Calendar.current.component(.year, from: Date())
-        let targetYear = Int(formatYear(date)) ?? currentYear
-        print("📅 [HomeViewModel] 연도 확인: 현재=\(currentYear), 대상=\(targetYear)")
-        
-        if targetYear < currentYear {
-            print("📅 [HomeViewModel] 작년 데이터 감지: \(targetYear)년")
-            if !warmedYears.contains(targetYear) {
-                print("📅 [HomeViewModel] 작년 데이터 미로드, 워밍업 시작: \(targetYear)년")
-                Task {
-                    await warmupYearCache(year: targetYear, targetMonth: 12)
-                    await MainActor.run { self.checkAndUpdateCurrentMonth() }
-                }
-            } else {
-                print("📅 [HomeViewModel] 작년 데이터 이미 로드됨: \(targetYear)년")
-            }
+            calendarState.dataDays = cachedDays
         } else {
-            print("📅 [HomeViewModel] 올해 또는 미래 데이터: \(targetYear)년")
-        }
-        
-        print("📅 [HomeViewModel] 캐시 없음, 즉시 로드 시작: key=\(key)")
-        Task { await loadMonthDataImmediately(for: date) }
-        
-        self.dataDays = []
-        self.calendarState.updateDataDays([])
-    }
-    
-    // 즉시 로드 및 UI 업데이트
-    private func loadMonthDataImmediately(for date: Date) async {
-        let key = "\(formatYear(date))-\(formatMonth(date))"
-        do {
-            let monthly = try await useCase.fetchMonthlyData(year: formatYear(date), month: formatMonth(date))
-            await MainActor.run {
-                self.monthlyCache[key] = monthly
-                let days = Set(monthly.filter { !$0.receivedArticleList.isEmpty }.map { $0.publishDate })
-                self.dataDaysByMonthCache[key] = days
-                
-                let currentKey = "\(formatYear(self.displayedMonth))-\(formatMonth(self.displayedMonth))"
-                if currentKey == key {
-                    self.dataDays = days
-                    self.calendarState.updateDataDays(days)
-                    print("📅 [HomeViewModel] 즉시 로드 완료 및 UI 업데이트: key=\(key), days=\(days.sorted())")
-                } else {
-                    print("📅 [HomeViewModel] 즉시 로드 완료 (UI 업데이트 생략): key=\(key), 현재 표시: \(currentKey)")
-                }
-            }
-        } catch {
-            print("⚠️ [HomeViewModel] 즉시 로드 실패: key=\(key), error=\(error)")
+            // 캐시 없으면 빈 배열 (loadMonthData가 자동으로 호출됨)
+            calendarState.dataDays = []
         }
     }
     
-    // 캘린더 버튼: selectedDate 유지, 월 데이터만 로드
-    public func loadCalendarData(for date: Date) async {
-        let year = formatYear(date)
-        let month = formatMonth(date)
-        let key = "\(year)-\(month)"
-        
-        print("📅 [HomeViewModel] 캘린더 데이터 로드: \(year)년 \(month)월, 키: \(key)")
-        
-        if let existing = loadingTasks[key] { existing.cancel() }
-        
-        currentMonthKey = key
-        latestRequestKey = key
-        
-        if let cached = monthlyCache[key] {
-            let updatedArticles = mergeWithCurrentState(cached)
-            self.articlesByMonth = updatedArticles
-            self.updateDataDays()
-            self.filterArticles(by: selectedDate)
-            self.isLoadingMonth = false
-            self.calendarState.isLoading = false
-            return
-        }
-        
-        let cachedDays = dataDaysByMonthCache[key] ?? []
-        self.dataDays = cachedDays
-        self.calendarState.updateDataDays(cachedDays)
-        
-        isLoadingMonth = true
-        calendarState.isLoading = true
-        
-        let task = Task {
-            do {
-                let monthly = try await useCase.fetchMonthlyData(year: year, month: month)
-                if Task.isCancelled || latestRequestKey != key { return }
-                await MainActor.run {
-                    self.articlesByMonth = monthly
-                    self.updateDataDays()
-                    self.monthlyCache[key] = monthly
-                    self.filterArticles(by: selectedDate)
-                    self.isLoadingMonth = false
-                    self.calendarState.isLoading = false
-                }
-            } catch {
-                if !Task.isCancelled {
-                    await MainActor.run {
-                        self.isLoadingMonth = false
-                        self.calendarState.isLoading = false
-                    }
-                }
-            }
-        }
-        loadingTasks[key] = task
-        await task.value
-
-        if let y = Int(year) {
-            let currentY = Calendar.current.component(.year, from: Date())
-            let targetMonth = y < currentY ? 12 : Calendar.current.component(.month, from: Date())
-            Task.detached(priority: .background) { [weak self] in
-                await self?.warmupYearCache(year: y, targetMonth: targetMonth)
-            }
-        }
-    }
-    
-    public func loadArticles(for date: Date) async {
-        await loadArticles(for: date, forceRefresh: false)
-    }
-    
-    public func loadArticles(for date: Date, forceRefresh: Bool) async {
-        let year = formatYear(date)
-        let month = formatMonth(date)
-        let key = "\(year)-\(month)"
-        
-        print("📅 [HomeViewModel] 월 데이터 로드 시작: \(year)년 \(month)월, 키: \(key), 강제 새로고침: \(forceRefresh)")
-        print("📅 [HomeViewModel] 현재 selectedDate: \(selectedDate)")
-        
-        if let existingTask = loadingTasks[key] { existingTask.cancel() }
-        
-        let isMonthChanged = currentMonthKey != key
-        currentMonthKey = key
-        latestRequestKey = key
-        
-        print("📅 [HomeViewModel] selectedDate 유지됨: \(selectedDate)")
-        
-        if !forceRefresh, let cached = monthlyCache[key] {
-            print("📅 [HomeViewModel] 캐시된 데이터 사용: \(key), 캐시 크기: \(cached.count)")
-            // 캐시된 데이터에도 읽음 상태 복원
-            let cachedWithReadStatus = self.applyReadStatusToArticlesByMonth(cached)
-            self.articlesByMonth = cachedWithReadStatus
-            self.updateDataDays()
-            self.filterArticles(by: selectedDate)
-            self.isLoadingMonth = false
-            self.calendarState.isLoading = false
-            return
-        }
-        
-        if isMonthChanged {
-            self.dataDays = []
-            self.calendarState.updateDataDays([])
-        }
-        
-        isLoadingMonth = true
-        calendarState.isLoading = true
-        
-        let task = Task {
-            do {
-                print("📅 [HomeViewModel] 새 데이터 요청: \(key)")
-                let monthly = try await self.useCase.fetchMonthlyData(year: year, month: month)
-                if Task.isCancelled || self.latestRequestKey != key {
-                    print("📅 [HomeViewModel] 요청 취소됨 또는 최신이 아님: \(key)")
-                    return
-                }
-                await MainActor.run {
-                    print("📅 [HomeViewModel] 새 데이터 로드 완료: \(key), 아티클 수: \(monthly.count)")
-                    print("📅 [HomeViewModel] selectedDate 여전히 유지: \(self.selectedDate)")
-                    
-                    // 읽음 상태 복원
-                    let monthlyWithReadStatus = self.applyReadStatusToArticlesByMonth(monthly)
-                    
-                    withAnimation(.easeInOut(duration: 0.3)) {
-                        self.articlesByMonth = monthlyWithReadStatus
-                        self.monthlyCache[key] = monthlyWithReadStatus
-                        self.isLoadingMonth = false
-                        self.calendarState.isLoading = false
-                    }
-                    self.updateDataDays()
-                    self.filterArticles(by: self.selectedDate)
-                }
-            } catch {
-                if !Task.isCancelled {
-                    print("❌ Monthly fetch failed: \(error)")
-                    await MainActor.run {
-                        self.isLoadingMonth = false
-                        self.calendarState.isLoading = false
-                    }
-                }
-            }
-        }
-        loadingTasks[key] = task
-        await task.value
-
-        if let y = Int(year) {
-            let currentY = Calendar.current.component(.year, from: Date())
-            let targetMonth = y < currentY ? 12 : Calendar.current.component(.month, from: Date())
-            Task.detached(priority: .background) { [weak self] in
-                await self?.warmupYearCache(year: y, targetMonth: targetMonth)
-            }
-        }
-    }
  
     // MARK: - 읽음 상태 관리
     private func loadReadArticleIds() {
         if let data = UserDefaults.standard.data(forKey: readArticlesKey),
            let ids = try? JSONDecoder().decode(Set<Int>.self, from: data) {
             readArticleIds = ids
-            print("📖 [HomeViewModel] 읽음 상태 로드: \(readArticleIds.count)개")
+            logDebug("읽음 상태 로드: \(readArticleIds.count)개", category: .article)
         }
     }
     
     private func saveReadArticleIds() {
         if let data = try? JSONEncoder().encode(readArticleIds) {
             UserDefaults.standard.set(data, forKey: readArticlesKey)
-            print("📖 [HomeViewModel] 읽음 상태 저장: \(readArticleIds.count)개")
+            logDebug("읽음 상태 저장: \(readArticleIds.count)개", category: .article)
         }
     }
     
@@ -715,6 +516,7 @@ public final class HomeViewModel: ObservableObject {
     }
     
     public func markArticleAsRead(articleId: Int) {
+        logDebug("아티클 읽음 처리: ID \(articleId)", category: .article)
         // 읽음 상태를 영구 저장에 추가
         readArticleIds.insert(articleId)
         saveReadArticleIds()
@@ -784,44 +586,15 @@ public final class HomeViewModel: ObservableObject {
         return formatter.string(from: date)
     }
     
-    // MARK: - 점 데이터 조회
-    public func getDataDaysForMonth(_ date: Date) -> Set<Int>? {
-        let key = "\(formatYear(date))-\(formatMonth(date))"
-        if let cachedDays = dataDaysByMonthCache[key] {
-            print("📅 [HomeViewModel] 캐시된 점 데이터 반환: \(key), days=\(cachedDays.sorted())")
-            return cachedDays
-        } else {
-            print("📅 [HomeViewModel] 캐시된 점 데이터 없음: \(key)")
-            let currentYear = Calendar.current.component(.year, from: Date())
-            let targetYear = Int(formatYear(date)) ?? currentYear
-            if targetYear < currentYear {
-                print("📅 [HomeViewModel] 작년 데이터 감지 (getDataDaysForMonth): \(targetYear)년")
-                if !warmedYears.contains(targetYear) {
-                    print("📅 [HomeViewModel] 작년 데이터 미로드, 즉시 워밍업 시작: \(targetYear)년")
-                    Task {
-                        await warmupYearCache(year: targetYear, targetMonth: 12)
-                        await MainActor.run { self.checkAndUpdateCurrentMonth() }
-                    }
-                } else {
-                    print("📅 [HomeViewModel] 작년 데이터 이미 로드됨: \(targetYear)년")
-                }
-            }
-            if !dataDays.isEmpty {
-                print("📅 [HomeViewModel] 현재 메모리 dataDays 반환: \(dataDays.sorted())")
-                return dataDays
-            }
-            return nil
-        }
+    // MARK: - 점 데이터 조회 (캐시만)
+    public func getDataDaysForMonth(_ date: Date) -> Set<Int> {
+        let key = monthKey(for: date)
+        return dataDaysByMonthCache[key] ?? []
     }
     
-    // 캐시된 데이터와 현재 메모리 최신 상태 병합
-    private func mergeWithCurrentState(_ cachedArticles: [Articles]) -> [Articles] {
-        if !articlesByMonth.isEmpty {
-            print("📅 [HomeViewModel] 현재 메모리 상태 우선 사용")
-            return articlesByMonth
-        } else {
-            print("📅 [HomeViewModel] 캐시된 데이터 사용")
-            return cachedArticles
-        }
+    // 월 키 생성 헬퍼
+    public func monthKey(for date: Date) -> String {
+        return "\(formatYear(date))-\(formatMonth(date))"
     }
+    
 }

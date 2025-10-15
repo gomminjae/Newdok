@@ -16,7 +16,7 @@ public enum LogLevel: Int, Comparable {
     case critical = 5 // 치명적 에러
     
     /// 로그 레벨 이모지
-    var emoji: String {
+    public var emoji: String {
         switch self {
         case .verbose: return "💬"
         case .debug: return "🐛"
@@ -28,7 +28,7 @@ public enum LogLevel: Int, Comparable {
     }
     
     /// 로그 레벨 텍스트
-    var text: String {
+    public var text: String {
         switch self {
         case .verbose: return "VERBOSE"
         case .debug: return "DEBUG"

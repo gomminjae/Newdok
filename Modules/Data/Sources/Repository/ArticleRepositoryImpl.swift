@@ -22,21 +22,28 @@ public class ArticleRepositoryImpl: ArticleRepository {
     
     
     public func fetchArticles(year: String, publicationMonth: String) async throws -> [Domain.Articles] {
+        logDebug("월별 아티클 조회 - \(year)년 \(publicationMonth)월", category: .repository)
         let response: ArticlesResponseDTO = try await provider.asyncRequest(.fetchArticles(year: year, publicationMonth: publicationMonth))
+        logDebug("월별 아티클 조회 완료 - \(response.data.count)일", category: .repository)
         return response.data.map {$0.toDomain()}
     }
     
     public func fetchTodayArticles() async throws -> [Article] {
+        logDebug("오늘 아티클 조회", category: .repository)
         let response: [ArticleDTO] = try await provider.asyncRequest(.fetchTodayArticle)
+        logDebug("오늘 아티클 조회 완료 - \(response.count)개", category: .repository)
         return response.map { $0.toDomain }
     }
     
     public func fetchBookmarkArticles(interest: String?, sortBy: String?) async throws -> Domain.BookmarkedArticles {
+        logDebug("북마크 아티클 조회 - 관심사: \(interest ?? "전체"), 정렬: \(sortBy ?? "기본")", category: .repository)
         let response: BookmarkArticlesResponse = try await provider.asyncRequest(.fetchBookmarkArticles(interest: interest, sortBy: sortBy))
+        logDebug("북마크 아티클 조회 완료", category: .repository)
         return response.data.toDomain()
     }
     
     public func changeBookmarkState(articleId: String) async throws {
+        logDebug("북마크 상태 변경 - ID: \(articleId)", category: .repository)
         let _ = try await provider.asyncVoidRequest(.changeBookmarkState(articleId: articleId))
     }
     

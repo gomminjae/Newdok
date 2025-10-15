@@ -32,7 +32,9 @@ public class NewsletterRepositoryImpl: NewsletterRepository {
     }
     
     public func fetchRecommenidation() async throws -> Domain.RecommendedNewsletter {
+        logDebug("추천 뉴스레터 조회", category: .repository)
         let response: RecommendedNewsletterDTO = try await provider.asyncRequest(.fetchRecommendationList)
+        logDebug("추천 뉴스레터 조회 완료", category: .repository)
         return response.toDomain()
     }
     
@@ -43,12 +45,16 @@ public class NewsletterRepositoryImpl: NewsletterRepository {
     }
     
     public func fetchNewsletters(orderOpt: String?, industry: [Int]?, day: [Int]?) async throws -> [Domain.Brand] {
+        logDebug("전체 뉴스레터 조회 - 정렬: \(orderOpt ?? "없음")", category: .repository)
         let response: [BrandDTO] = try await provider.asyncRequest(.fetchAllNewsletterBrands(orderOpt: orderOpt, industry: industry, day: day))
+        logDebug("전체 뉴스레터 조회 완료 - \(response.count)개", category: .repository)
         return response.map { $0.toDomain() }
     }
     
     public func fetchNewsletterBrand(id: String) async throws -> Domain.BrandDetail {
+        logDebug("브랜드 상세 조회 - ID: \(id)", category: .repository)
         let response: BrandDetailDTO = try await provider.asyncRequest(.fetchNewsletterBrand(id: id))
+        logDebug("브랜드 상세 조회 완료", category: .repository)
         return response.toDomain()
     }
     

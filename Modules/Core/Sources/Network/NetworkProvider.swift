@@ -21,51 +21,48 @@ public final class NetworkProvider: NetworkProviding {
 
     public init() {
     }
+    
+    // 환경별 플러그인 설정
+    private var plugins: [PluginType] {
+        var pluginList: [PluginType] = [
+            TokenPlugin(tokenProvider: {
+                TokenStorage.accessToken
+            })
+        ]
+        
+        #if DEBUG
+        // 개발 환경에서만 네트워크 로그 출력
+        pluginList.append(NetworkLoggerPlugin())
+        #endif
+        
+        return pluginList
+    }
 
     public func makeAuthProvider() -> MoyaProvider<UserAPI> {
         return MoyaProvider<UserAPI>(
             session: makeSafeSession(),
-            plugins: [
-                NetworkLoggerPlugin(),
-                TokenPlugin(tokenProvider: {
-                    TokenStorage.accessToken
-                })
-            ]
+            plugins: plugins
         )
     }
     
     public func makeArticleProvider() -> MoyaProvider<ArticleAPI> {
         return MoyaProvider<ArticleAPI>(
             session: makeSafeSession(),
-            plugins: [
-                NetworkLoggerPlugin(),
-                TokenPlugin(tokenProvider: {
-                    TokenStorage.accessToken
-                })
-            ]
+            plugins: plugins
         )
     }
     
     public func makeNewsletterProvider() -> MoyaProvider<NewsletterAPI> {
         return MoyaProvider<NewsletterAPI>(
             session: makeSafeSession(),
-            plugins: [
-                NetworkLoggerPlugin(),
-                TokenPlugin(tokenProvider: {
-                    TokenStorage.accessToken
-                })
-            ]
+            plugins: plugins
         )
     }
+    
     public func makeSearchProvider() -> MoyaProvider<SearchAPI> {
         return MoyaProvider<SearchAPI>(
             session: makeSafeSession(),
-            plugins: [
-                NetworkLoggerPlugin(),
-                TokenPlugin(tokenProvider: {
-                    TokenStorage.accessToken
-                })
-            ]
+            plugins: plugins
         )
     }
     

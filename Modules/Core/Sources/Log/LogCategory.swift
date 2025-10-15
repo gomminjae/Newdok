@@ -79,6 +79,11 @@ public enum LogCategory: String {
     // MARK: - General
     case general = "📝 General"
     
+    /// 카테고리 이모지
+    public var emoji: String {
+        return String(rawValue.prefix(2))
+    }
+    
     /// 카테고리 표시 텍스트
     public var displayText: String {
         return rawValue
