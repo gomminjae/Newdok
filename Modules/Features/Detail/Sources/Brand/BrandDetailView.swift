@@ -25,6 +25,19 @@ struct RoundedCorner: Shape {
     }
 }
 
+// UIKit 블러 효과
+struct VisualEffectBlur: UIViewRepresentable {
+    var blurStyle: UIBlurEffect.Style
+    
+    func makeUIView(context: Context) -> UIVisualEffectView {
+        return UIVisualEffectView(effect: UIBlurEffect(style: blurStyle))
+    }
+    
+    func updateUIView(_ uiView: UIVisualEffectView, context: Context) {
+        uiView.effect = UIBlurEffect(style: blurStyle)
+    }
+}
+
 enum SubscriptionStatus: String {
     case initial = "INITIAL"
     case check = "CHECK"
@@ -318,18 +331,16 @@ public struct BrandDetailView: View {
                     .padding(.horizontal, 24)
                     .padding(.bottom, 21)
                     .background(
-                        ZStack {
-                            // Background Blur
-                            Color.clear
-                                //.background(.regularMaterial) // ultraThin보다 진함
-                                .blur(radius: 8)
-
-                            // White overlay with 60% opacity
-                            Color.white.opacity(0.6)
-                        }
+                        // background: #FFFFFF99 (60% opacity)
+                        Color(hex: "FFFFFF").opacity(0.6)
                     )
-                    .clipShape(RoundedRectangle(cornerRadius: 12))
+                    .background(
+                        // backdrop-filter: blur(8px)
+                        VisualEffectBlur(blurStyle: .systemUltraThinMaterial)
+                    )
+                    .clipShape(RoundedRectangle(cornerRadius: 8))
                     .shadow(
+                        // box-shadow: 0px 4px 8px 0px #0000000A
                         color: Color.black.opacity(0.04),
                         radius: 8,
                         x: 0,
@@ -354,40 +365,56 @@ public struct BrandDetailView: View {
                 Text("지난 아티클 보기")
                     .font(.hanSansNeo(14, .bold))
                     .foregroundStyle(Color(hex: "#565656"))
-                    .padding(.leading, 28)
+                    .padding(.leading, 20)
                     .padding(.top, 20)
+                if detail.brandArticleList.isEmpty {
+                    VStack(alignment: .center, spacing: 4) {
+                        Text("아티클을 준비하는 중이에요.")
+                            .font(.hanSansNeo(16, .bold))
+                            .foregroundStyle(Color(hex: "161616"))
+                        
+                        Text("조금만 기다려 주세요!")
+                            .font(.hanSansNeo(14, .medium))
+                            .foregroundStyle(Color(hex: "#565656"))
+                    }
+                    .frame(maxWidth: .infinity, alignment: .center) // 스택을 수평 중앙
+                    .multilineTextAlignment(.center)                // 각 Text의 문단 중앙
+                    .padding(.top, 20)
+                } else {
+                    ForEach(detail.brandArticleList) { article in
+                        VStack(alignment: .leading, spacing: 4) {
+                            Text(article.title)
+                                .font(.hanSansNeo(14, .bold))
+                                .foregroundStyle(Color(hex: "363636"))
+                                .padding(.bottom, 4)
 
-                ForEach(detail.brandArticleList) { article in
-                    VStack(alignment: .leading, spacing: 4) {
-                        Text(article.title)
-                            .font(.hanSansNeo(14, .bold))
-                            .foregroundStyle(Color(hex: "363636"))
-                            .padding(.bottom, 4)
+                            HStack {
+                                Text(article.date.prefix(10))
+                                    .font(.hanSansNeo(12, .medium))
+                                    .foregroundColor(Color(hex: "565656"))
 
-                        HStack {
-                            Text(article.date.prefix(10))
-                                .font(.hanSansNeo(12, .medium))
-                                .foregroundColor(Color(hex: "565656"))
+                                Divider()
 
-                            Divider()
-
-                            Text(extractTime(from: article.date))
-                                .font(.hanSansNeo(12, .medium))
-                                .foregroundColor(Color(hex: "565656"))
+                                Text(extractTime(from: article.date))
+                                    .font(.hanSansNeo(12, .medium))
+                                    .foregroundColor(Color(hex: "565656"))
+                            }
                         }
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .padding(.horizontal, 16)
+                        .padding(.vertical, 16)
+                        .background(Color.white)
+                        .clipShape(RoundedRectangle(cornerRadius: 8))
+                        .overlay(RoundedRectangle(cornerRadius: 8).stroke(Color(hex: "EBEBEB"), lineWidth: 1.5))
+                        .padding(.horizontal)
+                        .onTapGesture {
+                            router.push(.articleDetail(id: "\(article.id)"))
+                        }
+                        
                     }
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                    .padding(.horizontal, 16)
-                    .padding(.vertical, 16)
-                    .background(Color.white)
-                    .clipShape(RoundedRectangle(cornerRadius: 8))
-                    .overlay(RoundedRectangle(cornerRadius: 8).stroke(Color(hex: "EBEBEB"), lineWidth: 1.5))
-                    .padding(.horizontal)
-                    .onTapGesture {
-                        router.push(.articleDetail(id: "\(article.id)"))
-                    }
-                    
                 }
+
+                
             }
             .frame(maxWidth: .infinity, alignment: .leading)
             .padding(.bottom, 32)

@@ -285,8 +285,6 @@ public struct ExploreView: View {
 
             PagingScrollView(newsletters: viewModel.fixedMyRecommendation, currentPage: $currentPage)
 
-
-
             HStack(spacing: 0) {
                 Text("이런 뉴스레터는 어때요?")
                     .font(.hanSansNeo(16, .bold))
@@ -586,6 +584,7 @@ struct PagingScrollView: View {
     @EnvironmentObject private var router: AppRouter
     @State private var scrollID: Int?
     @State private var dynamicItems: [NewsletterDetail] = []
+    @State private var isInitialized = false
     
   
     private let itemWidth: CGFloat = 320
@@ -601,13 +600,17 @@ struct PagingScrollView: View {
     }
     
     private func initializeItems() {
-        dynamicItems = items
+        // 처음부터 3배로 시작
+        dynamicItems = items + items + items
     }
     
     private func checkAndExpandItems() {
-        // 4개 정도 남았을 때 복사
-        if currentPage >= dynamicItems.count - 4 {
-            dynamicItems.append(contentsOf: items)
+        // 끝에 가까워지면 더 추가
+        let threshold = dynamicItems.count - 10
+        if currentPage >= threshold {
+            DispatchQueue.main.async {
+                dynamicItems.append(contentsOf: items)
+            }
         }
     }
     
@@ -632,18 +635,23 @@ struct PagingScrollView: View {
                         Color.clear
                             .frame(width: trailingSpace)
                     }
+                    .padding(.leading, leadingMargin)
                     .scrollTargetLayout()
                 }
-                .contentMargins(.leading, leadingMargin, for: .scrollContent)
                 .scrollTargetBehavior(.viewAligned)
                 .scrollPosition(id: $scrollID)
-                .clipShape(Rectangle())
                 .onChange(of: scrollID) { _, newValue in
                     currentPage = newValue ?? 0
                     checkAndExpandItems()
                 }
                 .onAppear {
-                    initializeItems()
+                    if !isInitialized {
+                        initializeItems()
+                        isInitialized = true
+                    }
+                    if scrollID == nil {
+                        scrollID = 0
+                    }
                 }
                 .frame(height: itemHeight)
                 

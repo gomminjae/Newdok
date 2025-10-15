@@ -86,19 +86,18 @@ public struct NewDokTabView: View {
                 switch newTab {
                 case .explore:
                     router.root = .tabbar(selectedTab: .explore)
-                    homeViewModel.cancelWarmups()
                 case .home:
                     router.root = .tabbar(selectedTab: .home)
-                    homeViewModel.startWarmup(for: Date())
+                    
                 case .subscribe:
                     router.root = .tabbar(selectedTab: .subscribe)
-                    homeViewModel.cancelWarmups()
+                   
                 case .bookmark:
                     router.root = .tabbar(selectedTab: .bookmark)
-                    homeViewModel.cancelWarmups()
-                case .profile:
+                  
+                case .profile: 
                     router.root = .tabbar(selectedTab: .profile)
-                    homeViewModel.cancelWarmups()
+                    
                 }
             }
             
@@ -150,7 +149,9 @@ struct NewDokTabBar: View {
     private func tabItem(_ tab: NewDokTab, normalAsset: DesignSystemImages, selectedAsset: DesignSystemImages, title: String) -> some View {
         VStack(spacing: 4) {
             Image(asset: selectedTab == tab ? selectedAsset : normalAsset)
-                .frame(width: 24, height: 24) // 고정 크기로 설정
+                .renderingMode(selectedTab == tab ? .original : .template)
+                .foregroundStyle(Color.captionAssistive)
+                .frame(width: 24, height: 24)
                 
             Text(title)
                 .font(.hanSansNeo(11, selectedTab == tab ? .bold : .medium))

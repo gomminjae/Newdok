@@ -66,16 +66,13 @@ public struct HomeView: View {
                         get: { viewModel.calendarState.displayedMonth },
                         set: { viewModel.calendarState.displayedMonth = $0 }
                     ),
-                    dataDays: Binding(
-                        get: { viewModel.dataDays },
-                        set: { viewModel.dataDays = $0 }
-                    ),
+                    dataDays: $viewModel.calendarState.dataDays,
                     onDateSelected: { date in
                         viewModel.selectDateWithMonthGuarantee(date)
                     },
                     onMonthChanged: { month in
-                        // 캐시된 점 데이터를 반환 (홈 화면에는 영향 없음)
-                        return viewModel.getDataDaysForMonth(month) ?? []
+                        // 캐시된 점 데이터만 반환 (실제 데이터가 있는 날만)
+                        return viewModel.getDataDaysForMonth(month)
                     }
                 )
                 .padding(.horizontal, 24)
@@ -157,8 +154,7 @@ public struct HomeView: View {
                     await MainActor.run { viewModel.calendarState.displayedMonth = monthDate }
                     // 캐시된 점을 즉시 적용
                     await MainActor.run { viewModel.applyDataDaysForMonth(monthDate) }
-                    let vm = viewModel
-                    await vm.loadCalendarData(for: monthDate)
+                    await viewModel.loadMonthData(for: monthDate)
                     await MainActor.run { showCalendar = true }
                 }
             }) {

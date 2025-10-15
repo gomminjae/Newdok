@@ -277,12 +277,10 @@ public struct CalendarPopupView: View {
     
     private func loadLocalMonthData(for date: Date) {
         // 캘린더 내부에서만 사용할 로컬 데이터 로드
-        // 실제 홈 화면에는 영향 주지 않음
+        // 부모로부터 해당 월의 캐시된 점 데이터를 받아옴
         guard let monthChangedCallback = onMonthChanged else { return }
-        // 부모로부터 해당 월의 즉시 표시 가능한 점 세트를 받아옴 (캐시 기반)
         let cached = monthChangedCallback(date)
-        // 바인딩을 단일 소스로 사용: 부모가 dataDays를 갱신해야 최종 반영됨
-        // 여기서는 캐시가 있다면 즉시 바인딩에 대입해 바로 찍히게 함
+        // 캐시된 데이터만 표시 (실제 데이터가 있는 날만)
         dataDays = cached
     }
     
