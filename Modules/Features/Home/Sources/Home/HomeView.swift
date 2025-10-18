@@ -91,10 +91,7 @@ public struct HomeView: View {
             .navigationBarHidden(true)
             .onAppear {
                 if !isGuest {
-                    // 최초 1회만 로드. 상세에서 pop하여 다시 나타날 때는 상태를 유지
-                    if !viewModel.isLoaded {
-                        Task { await viewModel.loadToday() }
-                    }
+                    Task { await viewModel.loadToday() }
                 }
             }
             .onReceive(NotificationCenter.default.publisher(for: .init("RefreshHome"))) { _ in
@@ -276,4 +273,3 @@ public struct HomeView: View {
         }
     }
 }
-
