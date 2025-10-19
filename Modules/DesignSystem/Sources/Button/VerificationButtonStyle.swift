@@ -22,7 +22,7 @@ public struct VerificationButtonStyle: ButtonStyle {
             .font(.system(size: 12, weight: .regular))
             .overlay(
                 RoundedRectangle(cornerRadius: 4)
-                    .stroke(borderColor, lineWidth: 1.5)
+                    .stroke(borderColor, lineWidth: 1)
             )
             .cornerRadius(4)
             .opacity(configuration.isPressed ? 0.7 : 1.0)

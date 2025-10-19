@@ -175,7 +175,7 @@ extension SearchResultView {
                     .padding()
                     .overlay(
                         RoundedRectangle(cornerRadius: 4)
-                            .stroke(Color.primaryNormal, lineWidth: 1.5)
+                            .stroke(Color.primaryNormal, lineWidth: 1)
                     )
             }
             .frame(height: 48)

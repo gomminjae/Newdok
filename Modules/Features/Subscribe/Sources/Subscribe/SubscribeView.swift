@@ -177,10 +177,6 @@ public struct SubscribeView: View {
                 Image(asset: DesignSystemAsset.lineSearch)
                     .padding(.trailing, 12)
             }
-            Button {
-            } label: {
-                Image(asset: DesignSystemAsset.lineBell)
-            }
         }
         .padding(.horizontal, 20)
         .padding(.vertical, 17)

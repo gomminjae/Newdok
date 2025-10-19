@@ -17,7 +17,7 @@ import PopupView
 public struct HomeView: View {
     @StateObject private var viewModel: HomeViewModel
     @State private var showCalendar = false
-    @State private var isRefreshing = false
+    @State private var refreshSpinAngle: Double = 0
     @EnvironmentObject private var router: AppRouter
     @EnvironmentObject private var tabSelection: TabSelection
     @EnvironmentObject private var exploreIntent: ExploreIntent
@@ -122,10 +122,6 @@ public struct HomeView: View {
                 Image(asset: DesignSystemAsset.lineSearch)
                     .padding(.trailing, 12)
             }
-            Button {
-            } label: {
-                Image(asset: DesignSystemAsset.lineBell)
-            }
         }
         .padding(.horizontal, 20)
         .padding(.vertical, 17)
@@ -161,7 +157,8 @@ public struct HomeView: View {
         }
         .frame(height: 52)
         .background(Color.white.clipShape(RoundedRectangle(cornerRadius: 12)))
-        .padding(.bottom, 16)
+        .padding(.horizontal, 8)
+        .padding(.bottom, 8)
     }
 
     // MARK: — 본문 컨텐츠
@@ -207,6 +204,7 @@ public struct HomeView: View {
             )
         case .articles:
             articlesSection
+                .padding(.bottom, 8)
         }
     }
 
@@ -222,21 +220,20 @@ public struct HomeView: View {
                 Spacer()
 
                 Button(action: {
-                    Task {
-                        await viewModel.refreshToToday()
-                    }
+                    refreshSpinAngle += 360
+                    Task { await viewModel.refreshToToday() }
                 }) {
                     HStack(spacing: 4) {
-                        
                         Image(asset: DesignSystemAsset.lineReload)
                             .renderingMode(.template)
                             .font(.hanSansNeo(14, .medium))
                             .foregroundStyle(Color.primaryNormal)
+                            .rotationEffect(.degrees(refreshSpinAngle))
+                            .animation(.linear(duration: 0.8), value: refreshSpinAngle)
                         Text("새로고침")
                             .font(.hanSansNeo(14, .medium))
                             .foregroundStyle(Color.primaryNormal)
                     }
-                    
                 }
                 .padding(.top, 23)
                 .padding(.trailing, 24)
@@ -246,8 +243,8 @@ public struct HomeView: View {
                 ForEach(viewModel.filteredArticles) { article in
                     ArticleRow(article: article)
                         .frame(height: 88)
+                        .contentShape(Rectangle())
                         .onTapGesture {
-                            // 로컬에서 먼저 읽음 상태로 변경
                             viewModel.markArticleAsRead(articleId: article.articleId)
                             router.push(.articleDetail(id: "\(article.articleId)"))
                         }
@@ -258,6 +255,8 @@ public struct HomeView: View {
             .padding(.bottom, 16)
         }
         .background(Color.white.clipShape(RoundedRectangle(cornerRadius: 12)))
+        .padding(.horizontal, 8)
+        .padding(.bottom, 8)
     }
 
     private func convertWeekdayToExploreIndex(_ weekday: Int) -> Int {

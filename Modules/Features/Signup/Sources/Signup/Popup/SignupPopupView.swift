@@ -68,7 +68,7 @@ public struct SignupPopupView: View {
                         .frame(maxWidth: .infinity)
                         .overlay(
                             RoundedRectangle(cornerRadius: 4)
-                                .stroke(Color.primaryNormal, lineWidth: 1.5)
+                                .stroke(Color.primaryNormal, lineWidth: 1)
                         )
                         .font(.hanSansNeo(14, .bold))
                         .foregroundColor(Color.primaryNormal)
@@ -91,7 +91,7 @@ public struct SignupPopupView: View {
                         .frame(maxWidth: .infinity)
                         .overlay(
                             RoundedRectangle(cornerRadius: 4)
-                                .stroke(Color.primaryNormal, lineWidth: 1.5)
+                                .stroke(Color.primaryNormal, lineWidth: 1)
                         )
                         .font(.hanSansNeo(14, .bold))
                         .foregroundColor(Color.primaryNormal)
@@ -119,5 +119,4 @@ public struct SignupPopupView: View {
         }
 
 }
-
 

@@ -15,6 +15,8 @@ public struct ExploreView: View {
     
     @StateObject private var viewModel: ExploreViewModel
     @State private var currentPage: Int = 0
+    @State private var recommendationSpinAngle: Double = 0
+    @State private var filterSpinAngle: Double = 0
     @State private var isLoaded: Bool = false
     @State private var userInfo: UserInfo?
     @EnvironmentObject private var router: AppRouter
@@ -142,10 +144,6 @@ public struct ExploreView: View {
             } label: {
                 Image(asset: DesignSystemAsset.lineSearch)
                     .padding(.trailing, 12)
-            }
-            Button {
-            } label: {
-                Image(asset: DesignSystemAsset.lineBell)
             }
         }
         .padding(.horizontal, 20)
@@ -290,6 +288,7 @@ public struct ExploreView: View {
                     .font(.hanSansNeo(16, .bold))
                 Spacer()
                 Button(action: {
+                    recommendationSpinAngle += 360
                     Task {
                         await viewModel.fetchRecommendation(forceRefresh: true)
                     }
@@ -301,13 +300,8 @@ public struct ExploreView: View {
                             .frame(width: 20, height: 20)
                             .font(.hanSansNeo(14, .bold))
                             .foregroundStyle(Color.primaryNormal)
-                            .rotationEffect(.degrees(viewModel.isRefreshingRecommendation ? 360 : 0))
-                            .animation(
-                                viewModel.isRefreshingRecommendation 
-                                    ? .linear(duration: 1.0)
-                                    : .default,
-                                value: viewModel.isRefreshingRecommendation
-                            )
+                            .rotationEffect(.degrees(recommendationSpinAngle))
+                            .animation(.linear(duration: 0.8), value: recommendationSpinAngle)
                         Text("새로고침")
                             .font(.hanSansNeo(14, .medium))
                             .foregroundStyle(Color.primaryNormal)
@@ -357,9 +351,8 @@ public struct ExploreView: View {
                         .background(Color.white)
                         .overlay(
                             RoundedRectangle(cornerRadius: 20)
-                                .stroke(Color(hex: "EBEBEB"), lineWidth: 1.5)
+                                .stroke(Color(hex: "EBEBEB"), lineWidth: 1)
                         )
-                        .clipShape(RoundedRectangle(cornerRadius: 20))
                     }
                     .buttonStyle(PlainButtonStyle())
                     Rectangle()
@@ -384,9 +377,8 @@ public struct ExploreView: View {
                         .background(Color.white)
                         .overlay(
                             RoundedRectangle(cornerRadius: 20)
-                                .stroke(viewModel.industry != nil ? Color.primaryNormal : Color(hex :"EBEBEB"), lineWidth: 1.5)
+                                .stroke(viewModel.industry != nil ? Color.primaryNormal : Color(hex :"EBEBEB"), lineWidth: 1)
                         )
-                        .clipShape(RoundedRectangle(cornerRadius: 20))
                     }
                     .buttonStyle(PlainButtonStyle())
 
@@ -408,9 +400,8 @@ public struct ExploreView: View {
                         .background(Color.white)
                         .overlay(
                             RoundedRectangle(cornerRadius: 20)
-                                .stroke(viewModel.day != nil ? Color.primaryNormal : Color(hex: "EBEBEB"), lineWidth: 1.5)
+                                .stroke(viewModel.day != nil ? Color.primaryNormal : Color(hex: "EBEBEB"), lineWidth: 1)
                         )
-                        .clipShape(RoundedRectangle(cornerRadius: 20))
                     }
                     .buttonStyle(PlainButtonStyle())
                 }
@@ -419,6 +410,7 @@ public struct ExploreView: View {
 
             // 리프레시 버튼 고정
             Button(action: {
+                filterSpinAngle += 360
                 Task {
                     viewModel.day = nil
                     viewModel.industry = nil
@@ -435,6 +427,8 @@ public struct ExploreView: View {
                     .renderingMode(.template)
                     .frame(width: 30, height: 30)
                     .foregroundColor(Color.primaryNormal)
+                    .rotationEffect(.degrees(filterSpinAngle))
+                    .animation(.linear(duration: 0.8), value: filterSpinAngle)
             }
         }
         .sheet(isPresented: $viewModel.isShowSortSheet) {

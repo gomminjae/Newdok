@@ -221,20 +221,24 @@ public final class HomeViewModel: ObservableObject {
             
             // 4) 읽음 상태 복원 및 월 데이터 캐시에 오늘 데이터 반영 후 UI 업데이트
             await MainActor.run {
-                // 읽음 상태 복원
-                let articlesWithReadStatus = self.applyReadStatusToArticles(tempArticles)
+                // 읽음 상태 반영 및 정렬 처리
+                let processedArticles = self.useCase.decorateTodayArticles(tempArticles, readArticleIds: self.readArticleIds)
                 
                 // 오늘 데이터만 갱신 (월 캐시/상태 동기화)
-                self.updateTodayArticlesCache(with: articlesWithReadStatus, for: todayDate)
+                self.updateTodayArticlesCache(with: processedArticles, for: todayDate)
+                
+                let calendar = Calendar.current
+                let selectedDay = calendar.component(.day, from: self.calendarState.selectedDate)
+                let dayArticles = self.articlesByMonth
+                    .first(where: { $0.publishDate == selectedDay })?
+                    .receivedArticleList ?? processedArticles
                 
                 withAnimation(.easeInOut(duration: 0.3)) {
                     self.subscribedNewsletters = tempNewsletters
-                    self.filterArticles(by: self.calendarState.selectedDate)
+                    self.filteredArticles = dayArticles
                 }
                 
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.05) {
-                    self.isLoaded = true
-                }
+                self.isLoaded = true
             }
             
         } catch {
@@ -259,7 +263,6 @@ public final class HomeViewModel: ObservableObject {
         subscribedNewsletters = []
         calendarState.dataDays = []
         calendarState.isLoading = false
-        isLoaded = false
 
         // 오늘로 리셋
         let today = Date()
@@ -273,7 +276,7 @@ public final class HomeViewModel: ObservableObject {
     public func warmupCurrentYear(for date: Date) {
         logInfo("캘린더 웜업 시작 - 올해 1월부터 현재 달까지", category: .cache)
         Task.detached(priority: .background) { [weak self] in
-            guard let self = await self else { return }
+            guard let self = self else { return }
             
             let calendar = Calendar.current
             let currentYear = calendar.component(.year, from: date)
@@ -317,15 +320,14 @@ public final class HomeViewModel: ObservableObject {
                 month: formatMonth(date)
             )
             
+            let monthlyProcessed = self.useCase.decorateMonthlyArticles(monthly, readArticleIds: self.readArticleIds)
+            
             await MainActor.run {
-                // 읽음 상태 적용
-                let monthlyWithReadStatus = self.applyReadStatusToArticlesByMonth(monthly)
-                
                 // 캐시에만 저장 (UI 업데이트 X)
-                self.monthlyCache[key] = monthlyWithReadStatus
+                self.monthlyCache[key] = monthlyProcessed
                 
                 // 점 데이터 캐시
-                let days = Set(monthlyWithReadStatus
+                let days = Set(monthlyProcessed
                     .filter { !$0.receivedArticleList.isEmpty }
                     .map { $0.publishDate })
                 self.dataDaysByMonthCache[key] = days
@@ -396,13 +398,12 @@ public final class HomeViewModel: ObservableObject {
                 
                 if Task.isCancelled { return }
                 
+                let monthlyProcessed = self.useCase.decorateMonthlyArticles(monthly, readArticleIds: self.readArticleIds)
+                
                 await MainActor.run {
-                    // 읽음 상태 적용
-                    let monthlyWithReadStatus = self.applyReadStatusToArticlesByMonth(monthly)
-                    
                     // 캐시 저장
-                    self.monthlyCache[key] = monthlyWithReadStatus
-                    self.articlesByMonth = monthlyWithReadStatus
+                    self.monthlyCache[key] = monthlyProcessed
+                    self.articlesByMonth = monthlyProcessed
                     
                     // 점 데이터 업데이트
                     self.updateDataDays()
@@ -411,7 +412,7 @@ public final class HomeViewModel: ObservableObject {
                     self.filterArticles(by: self.calendarState.selectedDate)
                     
                     self.calendarState.isLoading = false
-                    logDebug("월 데이터 로드 완료: \(key) - \(monthlyWithReadStatus.count)일", category: .home)
+                    logDebug("월 데이터 로드 완료: \(key) - \(monthlyProcessed.count)일", category: .home)
                 }
             } catch {
                 if !Task.isCancelled {
@@ -444,6 +445,7 @@ public final class HomeViewModel: ObservableObject {
     
     // Pull to Refresh 시 오늘 날짜로 강제 이동
     public func refreshToToday() async {
+        if isTodayLoading { return }
         let today = Date()
         let calendar = Calendar.current
         let todayComponents = calendar.dateComponents([.year, .month, .day], from: today)
@@ -487,47 +489,6 @@ public final class HomeViewModel: ObservableObject {
         }
     }
     
-    private func applyReadStatusToArticles(_ articles: [Article]) -> [Article] {
-        let mappedArticles = articles.map { article in
-            if readArticleIds.contains(article.articleId) {
-                return Article(
-                    brandName: article.brandName,
-                    imageUrl: article.imageUrl,
-                    articleTitle: article.articleTitle,
-                    articleId: article.articleId,
-                    status: "Read"
-                )
-            }
-            return article
-        }
-        
-        return prioritizeArticles(mappedArticles)
-    }
-    
-    private func applyReadStatusToArticlesByMonth(_ articlesByMonth: [Articles]) -> [Articles] {
-        return articlesByMonth.map { articles in
-            let updatedArticleList = applyReadStatusToArticles(articles.receivedArticleList)
-            return Articles(
-                publishDate: articles.publishDate,
-                receivedUnread: articles.receivedUnread,
-                receivedArticleList: updatedArticleList
-            )
-        }
-    }
-
-    private func prioritizeArticles(_ articles: [Article]) -> [Article] {
-        return articles.sorted { lhs, rhs in
-            let lhsRead = lhs.status.caseInsensitiveCompare("Read") == .orderedSame
-            let rhsRead = rhs.status.caseInsensitiveCompare("Read") == .orderedSame
-            
-            if lhsRead != rhsRead {
-                return !lhsRead
-            }
-            
-            return lhs.articleId > rhs.articleId
-        }
-    }
-
     // MARK: - 필터/읽음 처리
     public func filterArticles(by date: Date) {
         let day = Calendar.current.component(.day, from: date)
@@ -542,45 +503,14 @@ public final class HomeViewModel: ObservableObject {
         readArticleIds.insert(articleId)
         saveReadArticleIds()
         
-        if let index = filteredArticles.firstIndex(where: { $0.articleId == articleId }) {
-            var updatedArticles = filteredArticles
-            let article = updatedArticles[index]
-            let updatedArticle = Article(
-                brandName: article.brandName,
-                imageUrl: article.imageUrl,
-                articleTitle: article.articleTitle,
-                articleId: article.articleId,
-                status: "Read"
-            )
-            updatedArticles[index] = updatedArticle
-            self.filteredArticles = prioritizeArticles(updatedArticles)
-        }
+        articlesByMonth = useCase.decorateMonthlyArticles(articlesByMonth, readArticleIds: readArticleIds)
+        updateDataDays()
         
-        let day = Calendar.current.component(.day, from: selectedDate)
-        if let monthIndex = articlesByMonth.firstIndex(where: { $0.publishDate == day }) {
-            var updatedMonthArticles = articlesByMonth
-            var updatedArticleList = updatedMonthArticles[monthIndex].receivedArticleList
-            
-            if let articleIndex = updatedArticleList.firstIndex(where: { $0.articleId == articleId }) {
-                let article = updatedArticleList[articleIndex]
-                let updatedArticle = Article(
-                    brandName: article.brandName,
-                    imageUrl: article.imageUrl,
-                    articleTitle: article.articleTitle,
-                    articleId: article.articleId,
-                    status: "Read"
-                )
-                updatedArticleList[articleIndex] = updatedArticle
-                let resortedList = prioritizeArticles(updatedArticleList)
-                let unreadCount = resortedList.filter { $0.status.caseInsensitiveCompare("Read") != .orderedSame }.count
-                updatedMonthArticles[monthIndex] = Articles(
-                    publishDate: updatedMonthArticles[monthIndex].publishDate,
-                    receivedUnread: unreadCount,
-                    receivedArticleList: resortedList
-                )
-                self.articlesByMonth = updatedMonthArticles
-            }
-        }
+        let cacheKey = monthKey(for: calendarState.displayedMonth)
+        monthlyCache[cacheKey] = articlesByMonth
+        dataDaysByMonthCache[cacheKey] = calendarState.dataDays
+        
+        filterArticles(by: selectedDate)
     }
     
     // MARK: - 날짜 포맷터
@@ -623,7 +553,7 @@ public final class HomeViewModel: ObservableObject {
     private func updateTodayArticlesCache(with articles: [Article], for date: Date) {
         let calendar = Calendar.current
         let day = calendar.component(.day, from: date)
-        let unreadCount = articles.filter { $0.status != "Read" }.count
+        let unreadCount = useCase.unreadCount(in: articles)
         let todayEntry = Articles(
             publishDate: day,
             receivedUnread: unreadCount,
