@@ -152,7 +152,7 @@ public struct ArticleCard: View {
         .background(Color.white)
         .overlay(
             RoundedRectangle(cornerRadius: 12)
-                .stroke(Color(hex: "#EBEBEB"), lineWidth: 1.5)
+                .stroke(Color(hex: "#EBEBEB"), lineWidth: 1)
         )
         .cornerRadius(12)
     }

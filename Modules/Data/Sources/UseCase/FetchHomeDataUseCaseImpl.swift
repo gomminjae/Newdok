@@ -39,14 +39,58 @@ public class FetchHomeDataUseCaseImpl: FetchHomeDataUseCase {
     
     public func fetchMonthlyData(year: String, month: String) async throws -> [Domain.Articles] {
         let monthlyArticles = try await articleRepo.fetchArticles(year: year, publicationMonth: month)
-        
         return monthlyArticles
-        
     }
     
+    public func decorateTodayArticles(_ articles: [Article], readArticleIds: Set<Int>) -> [Article] {
+        let mapped = articles.map { applyReadStatus(to: $0, readArticleIds: readArticleIds) }
+        return prioritize(mapped)
+    }
     
+    public func decorateMonthlyArticles(_ monthly: [Articles], readArticleIds: Set<Int>) -> [Articles] {
+        monthly.map { day in
+            let decorated = decorateTodayArticles(day.receivedArticleList, readArticleIds: readArticleIds)
+            let unreadCount = unreadCount(in: decorated)
+            return Articles(
+                publishDate: day.publishDate,
+                receivedUnread: unreadCount,
+                receivedArticleList: decorated
+            )
+        }
+    }
     
+    public func unreadCount(in articles: [Article]) -> Int {
+        articles.reduce(into: 0) { count, article in
+            if !isRead(article) { count += 1 }
+        }
+    }
     
+    private func applyReadStatus(to article: Article, readArticleIds: Set<Int>) -> Article {
+        guard readArticleIds.contains(article.articleId) else { return article }
+        return Article(
+            brandName: article.brandName,
+            imageUrl: article.imageUrl,
+            articleTitle: article.articleTitle,
+            articleId: article.articleId,
+            status: "Read"
+        )
+    }
     
+    private func prioritize(_ articles: [Article]) -> [Article] {
+        articles.sorted { lhs, rhs in
+            let lhsRead = isRead(lhs)
+            let rhsRead = isRead(rhs)
+            
+            if lhsRead != rhsRead {
+                return !lhsRead
+            }
+            
+            return lhs.articleId > rhs.articleId
+        }
+    }
+    
+    private func isRead(_ article: Article) -> Bool {
+        article.status.caseInsensitiveCompare("Read") == .orderedSame
+    }
     
 }

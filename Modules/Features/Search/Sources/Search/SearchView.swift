@@ -233,7 +233,7 @@ public struct SearchView: View {
                     .padding()
                     .overlay(
                         RoundedRectangle(cornerRadius: 4)
-                            .stroke(Color.primaryNormal, lineWidth: 1.5)
+                            .stroke(Color.primaryNormal, lineWidth: 1)
                     )
             }
             .frame(height: 48)
@@ -265,7 +265,7 @@ struct SearchNewsletterRow: View {
                 }
                 .overlay {
                     RoundedRectangle(cornerRadius: 10)
-                        .stroke(Color(hex: "#EBEBEB"), lineWidth: 1.5)
+                        .stroke(Color(hex: "#EBEBEB"), lineWidth: 1)
                 }
                 .frame(width: 56, height: 56)
                 .cornerRadius(10)
@@ -286,4 +286,3 @@ struct SearchNewsletterRow: View {
         .shadow(color: .gray.opacity(0.2), radius: 2)
     }
 }
-

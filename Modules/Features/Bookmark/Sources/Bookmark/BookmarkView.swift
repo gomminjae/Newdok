@@ -179,10 +179,6 @@ public struct BookmarkView: View {
                 Image(asset: DesignSystemAsset.lineSearch)
                     .padding(.trailing, 12)
             }
-            Button {
-            } label: {
-                Image(asset: DesignSystemAsset.lineBell)
-            }
         }
         .padding(.horizontal, 20)
         .padding(.vertical, 17)
@@ -214,7 +210,7 @@ public struct BookmarkView: View {
                             )
                             .overlay(
                                 RoundedRectangle(cornerRadius: 16)
-                                    .stroke(selectedCategory == name ? Color.primaryNormal : Color(hex: "#EBEBEB"), lineWidth: 1.5)
+                                    .stroke(selectedCategory == name ? Color.primaryNormal : Color(hex: "#EBEBEB"), lineWidth: 1)
                             )
                             .foregroundColor(selectedCategory == name ? Color.primaryNormal : Color(hex: "#363636"))
                     }
@@ -268,4 +264,3 @@ public struct BookmarkView: View {
         }
     }
 }
-

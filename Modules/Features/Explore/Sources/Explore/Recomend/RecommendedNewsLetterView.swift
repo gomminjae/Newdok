@@ -58,7 +58,7 @@ struct RecommendedNewsLetterView: View {
         .clipShape(RoundedRectangle(cornerRadius: 12))
         .overlay(
             RoundedRectangle(cornerRadius: 12)
-                .stroke(Color(hex: "#EBEBEB"), lineWidth: 1.5)
+                .stroke(Color(hex: "#EBEBEB"), lineWidth: 1)
         )
     }
 }
@@ -79,7 +79,7 @@ struct TagView: View {
             .background(Color.white)
             .overlay(
                 RoundedRectangle(cornerRadius: 16)
-                    .stroke(Color(hex: "#EBEBEB"), lineWidth: 1.5)
+                    .stroke(Color(hex: "#EBEBEB"), lineWidth: 1)
             )
     }
 }

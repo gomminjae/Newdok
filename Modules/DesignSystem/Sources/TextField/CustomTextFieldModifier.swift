@@ -95,7 +95,7 @@ public struct PasswordFieldModifier: ViewModifier {
         .background(isError ? Color(hex: "#FEE6E6") : .white)
         .overlay(
             RoundedRectangle(cornerRadius: 4)
-                .stroke(borderColor, lineWidth: 1.5)
+                .stroke(borderColor, lineWidth: 1)
         )
         .contentShape(Rectangle())
     }

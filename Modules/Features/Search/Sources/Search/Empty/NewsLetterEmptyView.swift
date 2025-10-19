@@ -27,7 +27,7 @@ struct NewsLetterEmptyView: View {
             
             .overlay(
                 RoundedRectangle(cornerRadius: 8)
-                    .stroke(Color.primaryNormal, lineWidth: 1.5)
+                    .stroke(Color.primaryNormal, lineWidth: 1)
             )
             .foregroundStyle(Color.primaryNormal)
             .padding(.top,24)
