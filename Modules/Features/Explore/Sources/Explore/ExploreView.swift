@@ -348,10 +348,13 @@ public struct ExploreView: View {
                         }
                         .padding(.horizontal, 12)
                         .padding(.vertical, 8)
-                        .background(Color.white)
+                        .background(
+                            RoundedRectangle(cornerRadius: 20)
+                                .fill(Color.white)
+                        )
                         .overlay(
                             RoundedRectangle(cornerRadius: 20)
-                                .stroke(Color(hex: "EBEBEB"), lineWidth: 1)
+                                .strokeBorder(Color(hex: "EBEBEB"), lineWidth: 1)
                         )
                     }
                     .buttonStyle(PlainButtonStyle())
@@ -374,10 +377,13 @@ public struct ExploreView: View {
                         }
                         .padding(.horizontal, 12)
                         .padding(.vertical, 8)
-                        .background(Color.white)
+                        .background(
+                            RoundedRectangle(cornerRadius: 20)
+                                .fill(Color.white)
+                        )
                         .overlay(
                             RoundedRectangle(cornerRadius: 20)
-                                .stroke(viewModel.industry != nil ? Color.primaryNormal : Color(hex :"EBEBEB"), lineWidth: 1)
+                                .strokeBorder(viewModel.industry != nil ? Color.primaryNormal : Color(hex :"EBEBEB"), lineWidth: 1)
                         )
                     }
                     .buttonStyle(PlainButtonStyle())
@@ -397,10 +403,13 @@ public struct ExploreView: View {
                         }
                         .padding(.horizontal, 12)
                         .padding(.vertical, 8)
-                        .background(Color.white)
+                        .background(
+                            RoundedRectangle(cornerRadius: 20)
+                                .fill(Color.white)
+                        )
                         .overlay(
                             RoundedRectangle(cornerRadius: 20)
-                                .stroke(viewModel.day != nil ? Color.primaryNormal : Color(hex: "EBEBEB"), lineWidth: 1)
+                                .strokeBorder(viewModel.day != nil ? Color.primaryNormal : Color(hex: "EBEBEB"), lineWidth: 1)
                         )
                     }
                     .buttonStyle(PlainButtonStyle())

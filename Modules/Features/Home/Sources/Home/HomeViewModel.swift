@@ -102,6 +102,9 @@ public final class HomeViewModel: ObservableObject {
     private let readArticlesKey = "readArticles"
     private var readArticleIds: Set<Int> = []
     private var isTodayLoading = false
+    private var lastLoadedDate: Date?
+    private var cachedTodayArticles: [Article]?
+    private var cachedTodayDate: Date?
     
     // MARK: - Computed Properties
     public var selectedDate: Date {
@@ -209,6 +212,7 @@ public final class HomeViewModel: ObservableObject {
                 self.calendarState.displayedMonth = calendar.date(
                     from: calendar.dateComponents([.year, .month], from: todayDate)
                 ) ?? todayDate
+                self.lastLoadedDate = todayDate
                 logDebug("오늘 날짜 설정: \(todayDate)", category: .home)
             }
             
@@ -223,6 +227,8 @@ public final class HomeViewModel: ObservableObject {
             await MainActor.run {
                 // 읽음 상태 반영 및 정렬 처리
                 let processedArticles = self.useCase.decorateTodayArticles(tempArticles, readArticleIds: self.readArticleIds)
+                self.cachedTodayArticles = processedArticles
+                self.cachedTodayDate = todayDate
                 
                 // 오늘 데이터만 갱신 (월 캐시/상태 동기화)
                 self.updateTodayArticlesCache(with: processedArticles, for: todayDate)
@@ -246,6 +252,12 @@ public final class HomeViewModel: ObservableObject {
             await MainActor.run { self.isLoaded = true }
         }
     }
+    
+    public func shouldReloadToday(currentDate: Date = Date()) -> Bool {
+        if !isLoaded { return true }
+        guard let lastLoadedDate else { return true }
+        return !Calendar.current.isDate(lastLoadedDate, inSameDayAs: currentDate)
+    }
 
     // 인증 상태 변경 시 초기화
     public func resetForAuthChange() {
@@ -258,6 +270,7 @@ public final class HomeViewModel: ObservableObject {
         dataDaysByMonthCache.removeAll()
 
         // 상태 초기화
+        isLoaded = false
         articlesByMonth = []
         filteredArticles = []
         subscribedNewsletters = []
@@ -270,6 +283,9 @@ public final class HomeViewModel: ObservableObject {
         calendarState.displayedMonth = Calendar.current.date(
             from: Calendar.current.dateComponents([.year, .month], from: today)
         ) ?? today
+        lastLoadedDate = nil
+        cachedTodayArticles = nil
+        cachedTodayDate = nil
     }
     
     // MARK: - 스마트 웜업 (올해 1월 ~ 현재 달까지만)
@@ -324,10 +340,11 @@ public final class HomeViewModel: ObservableObject {
             
             await MainActor.run {
                 // 캐시에만 저장 (UI 업데이트 X)
-                self.monthlyCache[key] = monthlyProcessed
+                let mergedMonthly = self.mergeTodayCache(into: monthlyProcessed, for: date)
+                self.monthlyCache[key] = mergedMonthly
                 
                 // 점 데이터 캐시
-                let days = Set(monthlyProcessed
+                let days = Set(mergedMonthly
                     .filter { !$0.receivedArticleList.isEmpty }
                     .map { $0.publishDate })
                 self.dataDaysByMonthCache[key] = days
@@ -401,9 +418,10 @@ public final class HomeViewModel: ObservableObject {
                 let monthlyProcessed = self.useCase.decorateMonthlyArticles(monthly, readArticleIds: self.readArticleIds)
                 
                 await MainActor.run {
+                    let monthlyWithToday = self.mergeTodayCache(into: monthlyProcessed, for: date)
                     // 캐시 저장
-                    self.monthlyCache[key] = monthlyProcessed
-                    self.articlesByMonth = monthlyProcessed
+                    self.monthlyCache[key] = monthlyWithToday
+                    self.articlesByMonth = monthlyWithToday
                     
                     // 점 데이터 업데이트
                     self.updateDataDays()
@@ -510,6 +528,15 @@ public final class HomeViewModel: ObservableObject {
         monthlyCache[cacheKey] = articlesByMonth
         dataDaysByMonthCache[cacheKey] = calendarState.dataDays
         
+        if let cachedDate = lastLoadedDate {
+            let calendar = Calendar.current
+            let day = calendar.component(.day, from: cachedDate)
+            if let todayEntry = articlesByMonth.first(where: { $0.publishDate == day }) {
+                cachedTodayArticles = todayEntry.receivedArticleList
+                cachedTodayDate = cachedDate
+            }
+        }
+        
         filterArticles(by: selectedDate)
     }
     
@@ -550,7 +577,38 @@ public final class HomeViewModel: ObservableObject {
         return "\(formatYear(date))-\(formatMonth(date))"
     }
     
+    private func mergeTodayCache(into monthly: [Articles], for date: Date) -> [Articles] {
+        guard
+            let cachedDate = cachedTodayDate,
+            let cachedArticles = cachedTodayArticles,
+            Calendar.current.isDate(cachedDate, equalTo: date, toGranularity: .month)
+        else {
+            return monthly
+        }
+        
+        let calendar = Calendar.current
+        let day = calendar.component(.day, from: cachedDate)
+        let unread = useCase.unreadCount(in: cachedArticles)
+        let todayEntry = Articles(
+            publishDate: day,
+            receivedUnread: unread,
+            receivedArticleList: cachedArticles
+        )
+        
+        var merged = monthly
+        if let index = merged.firstIndex(where: { $0.publishDate == day }) {
+            merged[index] = todayEntry
+        } else {
+            merged.append(todayEntry)
+            merged.sort { $0.publishDate < $1.publishDate }
+        }
+        return merged
+    }
+    
     private func updateTodayArticlesCache(with articles: [Article], for date: Date) {
+        cachedTodayArticles = articles
+        cachedTodayDate = date
+        
         let calendar = Calendar.current
         let day = calendar.component(.day, from: date)
         let unreadCount = useCase.unreadCount(in: articles)

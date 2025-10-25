@@ -90,7 +90,8 @@ public struct HomeView: View {
             }
             .navigationBarHidden(true)
             .onAppear {
-                if !isGuest {
+                guard !isGuest else { return }
+                if viewModel.shouldReloadToday() {
                     Task { await viewModel.loadToday() }
                 }
             }

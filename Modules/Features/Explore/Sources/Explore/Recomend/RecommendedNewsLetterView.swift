@@ -79,7 +79,7 @@ struct TagView: View {
             .background(Color.white)
             .overlay(
                 RoundedRectangle(cornerRadius: 16)
-                    .stroke(Color(hex: "#EBEBEB"), lineWidth: 1)
+                    .strokeBorder(Color(hex: "#EBEBEB"), lineWidth: 1)
             )
     }
 }
