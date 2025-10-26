@@ -27,6 +27,7 @@
 		86B791CDC88EF1D6D219DD72 /* SimpleUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88D7FD45351F48C13A58753E /* SimpleUser.swift */; };
 		87633E75309293F26710B847 /* BookmarkedArticles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38CE9ABCE9EE57176428BF18 /* BookmarkedArticles.swift */; };
 		93E7EB46FD583E8C439D947E /* Articles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 960D479DD34669CA918E0712 /* Articles.swift */; };
+		9F60FB9C5E8EBCA379003EB7 /* HomeBusinessUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBFFE3461E4EE5CB9D2C4756 /* HomeBusinessUseCase.swift */; };
 		A0FBB74C23B411ADF6E1022D /* UserRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53F01AB1AE9AA1D26882B92 /* UserRepository.swift */; };
 		B1B701966B544092E744B831 /* ArticleRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = B16B7317BD5134447322A1FF /* ArticleRepository.swift */; };
 		C222D9E86CEB185B45FF40B9 /* FetchHomeDataUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E7FA7C726BB2446742C50D9 /* FetchHomeDataUseCase.swift */; };
@@ -97,6 +98,7 @@
 		BB04FD788EF603F7BA89B88D /* MonthlyBookmark.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthlyBookmark.swift; sourceTree = "<group>"; };
 		BD15A37E85BAE3A36B2CE72C /* Domain-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "Domain-Info.plist"; sourceTree = "<group>"; };
 		D41442B97371063DE432F8FD /* Newsletter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Newsletter.swift; sourceTree = "<group>"; };
+		DBFFE3461E4EE5CB9D2C4756 /* HomeBusinessUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeBusinessUseCase.swift; sourceTree = "<group>"; };
 		E34BE5FE165914279689ED55 /* SignupResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupResponse.swift; sourceTree = "<group>"; };
 		E476B128DD7FF742E366068A /* Bookmark.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bookmark.swift; sourceTree = "<group>"; };
 		E53F01AB1AE9AA1D26882B92 /* UserRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRepository.swift; sourceTree = "<group>"; };
@@ -203,6 +205,7 @@
 			isa = PBXGroup;
 			children = (
 				6E7FA7C726BB2446742C50D9 /* FetchHomeDataUseCase.swift */,
+				DBFFE3461E4EE5CB9D2C4756 /* HomeBusinessUseCase.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -357,6 +360,7 @@
 				A0FBB74C23B411ADF6E1022D /* UserRepository.swift in Sources */,
 				0E19FAF9B3001541FFB027BC /* ArticleUseCase.swift in Sources */,
 				C222D9E86CEB185B45FF40B9 /* FetchHomeDataUseCase.swift in Sources */,
+				9F60FB9C5E8EBCA379003EB7 /* HomeBusinessUseCase.swift in Sources */,
 				E3B767207A6B467963A01EBC /* NewsletterUseCase.swift in Sources */,
 				EF762BFB8212220D77FB806C /* SearchUseCase.swift in Sources */,
 				7CCA7B41D2B2CAA9A02E0647 /* UserUseCase.swift in Sources */,
