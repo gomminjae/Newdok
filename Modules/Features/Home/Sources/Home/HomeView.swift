@@ -90,8 +90,11 @@ public struct HomeView: View {
             }
             .navigationBarHidden(true)
             .onAppear {
-                if !isGuest {
-                    Task { await viewModel.loadToday() }
+                guard !isGuest else { return }
+                Task {
+                    if await viewModel.shouldReloadToday() {
+                        await viewModel.loadToday()
+                    }
                 }
             }
             .onReceive(NotificationCenter.default.publisher(for: .init("RefreshHome"))) { _ in
@@ -100,9 +103,11 @@ public struct HomeView: View {
                 }
             }
             .onChange(of: isGuest) { _, newValue in
-                viewModel.resetForAuthChange()
-                if newValue == false {
-                    Task { await viewModel.loadToday() }
+                Task {
+                    await viewModel.resetForAuthChange()
+                    if newValue == false {
+                        await viewModel.loadToday()
+                    }
                 }
             }
 
@@ -245,7 +250,7 @@ public struct HomeView: View {
                         .frame(height: 88)
                         .contentShape(Rectangle())
                         .onTapGesture {
-                            viewModel.markArticleAsRead(articleId: article.articleId)
+                            Task { await viewModel.markArticleAsRead(articleId: article.articleId) }
                             router.push(.articleDetail(id: "\(article.articleId)"))
                         }
                 }

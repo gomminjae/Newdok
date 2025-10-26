@@ -99,7 +99,12 @@ public final class AppDIContainer {
             let articleRepo = r.resolve(ArticleRepository.self)!
             let newsletterRepo = r.resolve(NewsletterRepository.self)!
             return FetchHomeDataUseCaseImpl(newsletterRepo: newsletterRepo, articleRepo: articleRepo)
-        }
+        }.inObjectScope(.container)
+        
+        container.register(HomeBusinessUseCase.self) { r in
+            let fetchUseCase = r.resolve(FetchHomeDataUseCase.self)!
+            return DefaultHomeBusinessUseCase(fetchUseCase: fetchUseCase)
+        }.inObjectScope(.container)
         
         container.register(NewsletterUseCase.self) { r in
             let repo = r.resolve(NewsletterRepository.self)!
@@ -127,7 +132,7 @@ public final class AppDIContainer {
         }.inObjectScope(.transient)
         
         container.register(HomeViewModel.self) { r in
-            let useCase = r.resolve(FetchHomeDataUseCase.self)!
+            let useCase = r.resolve(HomeBusinessUseCase.self)!
             return MainActor.assumeIsolated {
                 HomeViewModel(useCase: useCase)
             }
