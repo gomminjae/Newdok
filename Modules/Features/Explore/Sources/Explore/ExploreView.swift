@@ -587,7 +587,6 @@ struct PagingScrollView: View {
     @EnvironmentObject private var router: AppRouter
     @State private var scrollID: Int?
     @State private var dynamicItems: [NewsletterDetail] = []
-    @State private var isInitialized = false
     
   
     private let itemWidth: CGFloat = 320
@@ -602,12 +601,8 @@ struct PagingScrollView: View {
         self.items = newsletters
     }
     
-    private func initializeItems() {
-        // 처음부터 3배로 시작
-        dynamicItems = items + items + items
-    }
-    
     private func checkAndExpandItems() {
+        guard !items.isEmpty else { return }
         // 끝에 가까워지면 더 추가
         let threshold = dynamicItems.count - 10
         if currentPage >= threshold {
@@ -615,6 +610,19 @@ struct PagingScrollView: View {
                 dynamicItems.append(contentsOf: items)
             }
         }
+    }
+    
+    private func resetCarouselItems() {
+        guard !items.isEmpty else {
+            dynamicItems = []
+            scrollID = nil
+            currentPage = 0
+            return
+        }
+        // 기본 데이터를 세트로 복제해 무한 스크롤 구현
+        dynamicItems = items + items + items
+        scrollID = 0
+        currentPage = 0
     }
     
     var body: some View {
@@ -648,27 +656,30 @@ struct PagingScrollView: View {
                     checkAndExpandItems()
                 }
                 .onAppear {
-                    if !isInitialized {
-                        initializeItems()
-                        isInitialized = true
-                    }
+                    resetCarouselItems()
                     if scrollID == nil {
                         scrollID = 0
                     }
                 }
+                .onChange(of: items.map(\.id)) { _, _ in
+                    resetCarouselItems()
+                }
                 .frame(height: itemHeight)
                 
-                // MARK: - 페이지 인디케이터 (5개 고정)
-                HStack(spacing: 6) {
-                    ForEach(0..<5, id: \.self) { idx in
-                        Circle()
-                            .fill(idx == (currentPage % 5)
-                                  ? Color.primaryNormal
-                                  : Color(hex: "#CCDFFF"))
-                            .frame(width: 6, height: 6)
+                // MARK: - 페이지 인디케이터
+                let indicatorCount = min(5, items.count)
+                if indicatorCount > 0 {
+                    HStack(spacing: 6) {
+                        ForEach(0..<indicatorCount, id: \.self) { idx in
+                            Circle()
+                                .fill(idx == (currentPage % indicatorCount)
+                                      ? Color.primaryNormal
+                                      : Color(hex: "#CCDFFF"))
+                                .frame(width: 6, height: 6)
+                        }
                     }
+                    .padding(.bottom, 20)
                 }
-                .padding(.bottom, 20)
             }
             .frame(width: geo.size.width)
         }

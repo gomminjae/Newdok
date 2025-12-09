@@ -226,28 +226,35 @@ public struct BrandDetailView: View {
     private func detailContent(_ detail: BrandDetail) -> some View {
         VStack(spacing: 0) {
             ZStack(alignment: .topLeading) {
-                KFImage(URL(string: detail.imageUrl))
-                    .resizable()
-                    .frame(maxWidth: .infinity)
-                    .frame(height: 260)
-                    .overlay(
-                           LinearGradient(
-                               gradient: Gradient(stops: [
-                                   .init(color: Color.black.opacity(0.0), location: 0.0),
-                                   .init(color: Color.black.opacity(0.06), location: 1.0)
-                               ]),
-                               startPoint: .top,
-                               endPoint: .bottom
-                           )
-                       )
-                       .mask( // 🔻 하단 모서리만 12
-                           RoundedCorner(radius: 12, corners: [.bottomLeft, .bottomRight])
-                       )
-                       .clipped()
-                       .shadow( // 🔻 Elevation 2_Bottom
-                               color: Color(red: 0x19/255, green: 0x19/255, blue: 0x19/255).opacity(0.04),
-                               radius: 4, x: 0, y: 2
-                           )
+                Group {
+                    if let urlString = detail.imageUrl,
+                       let url = URL(string: urlString) {
+                        KFImage(url)
+                            .resizable()
+                    } else {
+                        Color(hex: "#E6E6EA")
+                    }
+                }
+                .frame(maxWidth: .infinity)
+                .frame(height: 260)
+                .overlay(
+                    LinearGradient(
+                        gradient: Gradient(stops: [
+                            .init(color: Color.black.opacity(0.0), location: 0.0),
+                            .init(color: Color.black.opacity(0.06), location: 1.0)
+                        ]),
+                        startPoint: .top,
+                        endPoint: .bottom
+                    )
+                )
+                .mask(
+                    RoundedCorner(radius: 12, corners: [.bottomLeft, .bottomRight])
+                )
+                .clipped()
+                .shadow(
+                    color: Color(red: 0x19/255, green: 0x19/255, blue: 0x19/255).opacity(0.04),
+                    radius: 4, x: 0, y: 2
+                )
                 
                 // 구독 확인 중 오버레이
                 if let status = SubscriptionStatus(rawValue: detail.isSubscribed ?? ""), status == .check {

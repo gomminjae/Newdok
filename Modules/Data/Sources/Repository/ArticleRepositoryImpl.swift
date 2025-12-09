@@ -28,6 +28,13 @@ public class ArticleRepositoryImpl: ArticleRepository {
         return response.data.map {$0.toDomain()}
     }
     
+    public func fetchDayArticles(year: String, publicationMonth: String, publicationDate: String) async throws -> [Article] {
+        logDebug("일별 아티클 조회 - \(year)-\(publicationMonth)-\(publicationDate)", category: .repository)
+        let response: [ArticleDTO] = try await provider.asyncRequest(.fetchDayArticle(year: year, publicationMonth: publicationMonth, publicationDate: publicationDate))
+        logDebug("일별 아티클 조회 완료 - \(response.count)개", category: .repository)
+        return response.map { $0.toDomain }
+    }
+    
     public func fetchTodayArticles() async throws -> [Article] {
         logDebug("오늘 아티클 조회", category: .repository)
         let response: [ArticleDTO] = try await provider.asyncRequest(.fetchTodayArticle)

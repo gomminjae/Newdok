@@ -11,7 +11,6 @@ import Shared
 import AppCoordinator
 import DesignSystem
 import PopupView
-import PopupView
 @main
 struct NewdokApp: App {
 

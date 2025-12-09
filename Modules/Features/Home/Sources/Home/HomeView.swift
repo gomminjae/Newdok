@@ -69,10 +69,6 @@ public struct HomeView: View {
                     dataDays: $viewModel.calendarState.dataDays,
                     onDateSelected: { date in
                         viewModel.selectDateWithMonthGuarantee(date)
-                    },
-                    onMonthChanged: { month in
-                        // 캐시된 점 데이터만 반환 (실제 데이터가 있는 날만)
-                        return viewModel.getDataDaysForMonth(month)
                     }
                 )
                 .padding(.horizontal, 24)
@@ -143,17 +139,19 @@ public struct HomeView: View {
 
             Spacer()
 
-            Button(action:
-            {
+            Button(action: {
+                let calendar = Calendar.current
+                let currentDisplayMonth = viewModel.calendarState.displayedMonth
+                let monthDate = calendar.date(from: calendar.dateComponents([.year, .month], from: currentDisplayMonth)) ?? currentDisplayMonth
+                
+                Task { @MainActor in
+                    viewModel.calendarState.displayedMonth = monthDate
+                    viewModel.applyDataDaysForMonth(monthDate)
+                    showCalendar = true
+                }
+                
                 Task {
-                    let calendar = Calendar.current
-                    let monthDate = calendar.date(from: calendar.dateComponents([.year, .month], from: viewModel.selectedDate)) ?? viewModel.selectedDate
-                    // 먼저 헤더/캘린더의 월을 동기화
-                    await MainActor.run { viewModel.calendarState.displayedMonth = monthDate }
-                    // 캐시된 점을 즉시 적용
-                    await MainActor.run { viewModel.applyDataDaysForMonth(monthDate) }
                     await viewModel.loadMonthData(for: monthDate)
-                    await MainActor.run { showCalendar = true }
                 }
             }) {
                 Image(asset: DesignSystemAsset.lineCalendar)

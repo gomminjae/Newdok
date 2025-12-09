@@ -12,12 +12,12 @@ public struct NewsletterDetail {
     public let secondDescription: String
     public let publicationCycle: String
     public let subscribeUrl: String
-    public let imageUrl: String
+    public let imageUrl: String?
     public let createdAt: String
     public let updatedAt: String
     public let industries: [Industry]
     public let interests: [Interest]
-    
+
     public init(id: Int, brandName: String, firstDescription: String, secondDescription: String, publicationCycle: String, subscribeUrl: String, imageUrl: String, createdAt: String, updatedAt: String, industries: [Industry], interests: [Interest]) {
         self.id = id
         self.brandName = brandName

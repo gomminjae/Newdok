@@ -6,16 +6,18 @@
 //
 import Domain
 
-public struct ArticlesDTO: Decodable {
-    
-    
+public struct ArticlesDTO: Decodable {    
     let publishDate: Int
-    let receivedUnread: Int
-    let receivedArticleList: [ArticleDTO]
+    let hasArticles: Bool
+    let totalCount: Int
+    let unreadCount: Int
     
     public func toDomain() -> Articles {
-        return Articles(
-            publishDate: publishDate, receivedUnread: receivedUnread, receivedArticleList: receivedArticleList.map { $0.toDomain }
+        Articles(
+            publishDate: publishDate,
+            hasArticles: hasArticles,
+            totalCount: totalCount,
+            unreadCount: unreadCount
         )
     }
 }

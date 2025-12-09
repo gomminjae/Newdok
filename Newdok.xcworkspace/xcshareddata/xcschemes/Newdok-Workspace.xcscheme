@@ -210,6 +210,20 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
+               BlueprintIdentifier = "9CF4285AFD46D302B6009128"
+               BuildableName = "ExploreDemo.app"
+               BlueprintName = "ExploreDemo"
+               ReferencedContainer = "container:Modules/DemoApps/ExploreDemo/ExploreDemo.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
                BlueprintIdentifier = "7440C4034D2CE47D2249A5D8"
                BuildableName = "ExploreTests.xctest"
                BlueprintName = "ExploreTests"
@@ -325,7 +339,7 @@
                BlueprintIdentifier = "417BA61376E98ECD6ED70C2A"
                BuildableName = "Mypage.framework"
                BlueprintName = "Mypage"
-               ReferencedContainer = "container:Modules/Features/Mypage/Mypage.xcodeproj">
+               ReferencedContainer = "container:Modules/Features/MyPage/Mypage.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
          <BuildActionEntry

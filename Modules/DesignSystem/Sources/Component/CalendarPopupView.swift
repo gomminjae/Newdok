@@ -31,7 +31,6 @@ public struct CalendarPopupView: View {
     @State private var localDisplayedMonthDate: Date
 
     public var onDateSelected: ((Date) -> Void)?
-    public var onMonthChanged: ((Date) -> Set<Int>)?
     
     private let calendar = Calendar.current
     private let weekdays = ["일","월","화","수","목","금","토"]
@@ -44,7 +43,6 @@ public struct CalendarPopupView: View {
         dataDays: Binding<Set<Int>>,
         isLoading: Binding<Bool> = .constant(false),
         onDateSelected: ((Date) -> Void)? = nil,
-        onMonthChanged: ((Date) -> Set<Int>)? = nil
     ) {
         self._isPresented = isPresented
         self._selectedDate = selectedDate
@@ -54,7 +52,6 @@ public struct CalendarPopupView: View {
         self._localSelectedDate = State(initialValue: selectedDate.wrappedValue)
         self._localDisplayedMonthDate = State(initialValue: displayedMonthDate.wrappedValue)
         self.onDateSelected = onDateSelected
-        self.onMonthChanged = onMonthChanged
     }
 
     public var body: some View {
@@ -263,25 +260,12 @@ public struct CalendarPopupView: View {
         let newDate = calendar.date(byAdding: .month, value: -1, to: localDisplayedMonthDate)!
         localDisplayedMonthDate = newDate
         displayedMonthDate = newDate
-        loadLocalMonthData(for: newDate)
-        onMonthChanged?(localDisplayedMonthDate)
     }
     
     private func nextMonth() {
         let newDate = calendar.date(byAdding: .month, value: 1, to: localDisplayedMonthDate)!
         localDisplayedMonthDate = newDate
         displayedMonthDate = newDate
-        loadLocalMonthData(for: newDate)
-        onMonthChanged?(localDisplayedMonthDate)
-    }
-    
-    private func loadLocalMonthData(for date: Date) {
-        // 캘린더 내부에서만 사용할 로컬 데이터 로드
-        // 부모로부터 해당 월의 캐시된 점 데이터를 받아옴
-        guard let monthChangedCallback = onMonthChanged else { return }
-        let cached = monthChangedCallback(date)
-        // 캐시된 데이터만 표시 (실제 데이터가 있는 날만)
-        dataDays = cached
     }
     
     private func selectToday() {
@@ -296,4 +280,3 @@ struct CalendarDay: Hashable {
     let dayString: String
     let dayInt: Int
 }
-

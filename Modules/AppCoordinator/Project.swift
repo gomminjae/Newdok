@@ -17,7 +17,7 @@ let project = Project(
         .project(target: "Survey", path: "../Features/Survey"),
         .project(target: "Launch", path: "../Features/Launch"),
         .project(target: "Home", path: "../Features/Home"),
-        .project(target: "Mypage", path: "../Features/Mypage"),
+        .project(target: "Mypage", path: "../Features/MyPage"),
         .project(target: "Explore", path: "../Features/Explore"),
         .project(target: "Subscribe", path: "../Features/Subscribe"), 
         .project(target: "Search", path: "../Features/Search"),

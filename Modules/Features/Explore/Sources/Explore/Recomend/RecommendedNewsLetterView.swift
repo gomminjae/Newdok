@@ -16,7 +16,7 @@ struct RecommendedNewsLetterView: View {
 
     var body: some View {
         VStack(spacing: 0) {
-            KFImage(URL(string: recommendation.imageUrl))
+            KFImage(URL(string: recommendation.imageUrl ?? ""))
                 .resizable()
                 .scaledToFill()
                 .frame(height: 210)
