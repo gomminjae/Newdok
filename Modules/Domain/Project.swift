@@ -15,8 +15,6 @@ let project = Project(
       dependencies: [
         .project(target: "Shared", path: "../Shared"), 
       ]
-
-)
+    )
   ]
 )
-

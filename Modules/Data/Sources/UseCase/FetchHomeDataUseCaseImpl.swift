@@ -38,27 +38,18 @@ public class FetchHomeDataUseCaseImpl: FetchHomeDataUseCase {
 
     
     public func fetchMonthlyData(year: String, month: String) async throws -> [Domain.Articles] {
-        let monthlyArticles = try await articleRepo.fetchArticles(year: year, publicationMonth: month)
-        return monthlyArticles
+        try await articleRepo.fetchArticles(year: year, publicationMonth: month)
+    }
+    
+    public func fetchDayArticles(year: String, month: String, day: String) async throws -> [Article] {
+        try await articleRepo.fetchDayArticles(year: year, publicationMonth: month, publicationDate: day)
     }
     
     public func decorateTodayArticles(_ articles: [Article], readArticleIds: Set<Int>) -> [Article] {
         let mapped = articles.map { applyReadStatus(to: $0, readArticleIds: readArticleIds) }
         return prioritize(mapped)
     }
-    
-    public func decorateMonthlyArticles(_ monthly: [Articles], readArticleIds: Set<Int>) -> [Articles] {
-        monthly.map { day in
-            let decorated = decorateTodayArticles(day.receivedArticleList, readArticleIds: readArticleIds)
-            let unreadCount = unreadCount(in: decorated)
-            return Articles(
-                publishDate: day.publishDate,
-                receivedUnread: unreadCount,
-                receivedArticleList: decorated
-            )
-        }
-    }
-    
+
     public func unreadCount(in articles: [Article]) -> Int {
         articles.reduce(into: 0) { count, article in
             if !isRead(article) { count += 1 }
@@ -72,7 +63,8 @@ public class FetchHomeDataUseCaseImpl: FetchHomeDataUseCase {
             imageUrl: article.imageUrl,
             articleTitle: article.articleTitle,
             articleId: article.articleId,
-            status: "Read"
+            status: "Read",
+            publishDate: article.publishDate
         )
     }
     

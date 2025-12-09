@@ -24,7 +24,7 @@ public struct NewsletterRow: View {
     public var body: some View {
         VStack(alignment: .leading, spacing: 0) {
             HStack(alignment: .top, spacing: 0) {
-                KFImage(URL(string: newsletter.imageUrl))
+                KFImage(URL(string: newsletter.imageUrl ?? ""))
                     .placeholder {
                         // 로딩 중 표시
                         RoundedRectangle(cornerRadius: 10)

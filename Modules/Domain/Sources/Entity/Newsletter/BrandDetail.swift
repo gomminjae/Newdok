@@ -12,7 +12,7 @@ public struct BrandDetail {
     public let detailDescription: String
     public let publicationCycle: String
     public let subscribeUrl: String
-    public let imageUrl: String
+    public let imageUrl: String?
     public let interests: [Interest]
     public let brandArticleList: [BrandArticle]
     public var isSubscribed: String?
@@ -24,7 +24,7 @@ public struct BrandDetail {
         detailDescription: String,
         publicationCycle: String,
         subscribeUrl: String,
-        imageUrl: String,
+        imageUrl: String?,
         interests: [Interest],
         brandArticleList: [BrandArticle],
         isSubscribed: String?,

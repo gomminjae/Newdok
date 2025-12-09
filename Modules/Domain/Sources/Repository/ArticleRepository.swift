@@ -13,6 +13,8 @@ public protocol ArticleRepository {
     
     func fetchArticles(year: String, publicationMonth: String) async throws -> [Articles]
     
+    func fetchDayArticles(year: String, publicationMonth: String, publicationDate: String) async throws -> [Article]
+    
     func fetchTodayArticles() async throws -> [Article]
     
     func fetchBookmarkArticles(interest: String?, sortBy: String?) async throws -> BookmarkedArticles
@@ -23,5 +25,7 @@ public protocol ArticleRepository {
     func fetchArticleDetail(id: String) async throws -> ArticleDetail
     
     func fetchReceivedArticleCount() async throws -> Int
+    
+    
     
 }

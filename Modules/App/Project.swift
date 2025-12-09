@@ -64,6 +64,7 @@ let project = Project(
                 .project(target: "DesignSystem", path: "../DesignSystem"),
                 .project(target: "AppCoordinator", path: "../AppCoordinator"),
                 .project(target: "Shared", path: "../Shared"),
+                .external(name: "PopupView"),
             ],
             settings: .settings(
                 base: [
@@ -94,5 +95,4 @@ let project = Project(
         )
     ]
 )
-
 

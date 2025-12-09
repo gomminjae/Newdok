@@ -67,7 +67,7 @@ struct NewsletterDetailRow: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
             HStack(alignment: .top, spacing: 0) {
-                KFImage(URL(string: brand.imageUrl))
+                KFImage(URL(string: brand.imageUrl ?? ""))
                     .placeholder {
                         // 로딩 중 표시
                         RoundedRectangle(cornerRadius: 10)

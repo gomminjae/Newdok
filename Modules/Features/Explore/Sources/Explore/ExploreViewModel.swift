@@ -120,10 +120,14 @@ public class ExploreViewModel: ObservableObject {
         
         // 교집합도 랜덤하게 섞어서 5개 선택 (매번 다른 추천을 위해)
         let shuffledIntersection = response.intersection.shuffled()
-        fixedMyRecommendation = createCircularRecommendation(from: shuffledIntersection)
         
         // 사용자 관심사 우선순위로 정렬된 union 추천
         let prioritizedUnion = prioritizeInterests(for: response.union)
+        
+        fixedMyRecommendation = buildRecommendationCarousel(
+            primary: shuffledIntersection,
+            fallback: prioritizedUnion
+        )
         fixedUnionRecommendation = Array(prioritizedUnion.prefix(6))
         
     }
@@ -171,21 +175,29 @@ public class ExploreViewModel: ObservableObject {
     }
     
     // 원형큐처럼 무한 스크롤을 위한 추천 데이터 생성 (5개 유지)
-    private func createCircularRecommendation(from items: [NewsletterDetail]) -> [NewsletterDetail] {
-        guard !items.isEmpty else { return [] }
+    private func buildRecommendationCarousel(
+        primary: [NewsletterDetail],
+        fallback: [NewsletterDetail]
+    ) -> [NewsletterDetail] {
+        var uniqueRecommendations: [NewsletterDetail] = []
+        var seenIDs = Set<Int>()
         
-        // 5개 미만이면 복사해서 5개로 늘리기
-        if items.count < 5 {
-            var expandedItems: [NewsletterDetail] = []
-            for i in 0..<5 {
-                let sourceIndex = i % items.count
-                expandedItems.append(items[sourceIndex])
-            }
-            return expandedItems
+        func appendIfNeeded(_ detail: NewsletterDetail) {
+            guard !seenIDs.contains(detail.id) else { return }
+            seenIDs.insert(detail.id)
+            uniqueRecommendations.append(detail)
         }
         
-        // 5개 이상이면 5개만 반환
-        return Array(items.prefix(5))
+        primary.forEach { appendIfNeeded($0) }
+        
+        if uniqueRecommendations.count < 5 {
+            for detail in fallback {
+                guard uniqueRecommendations.count < 5 else { break }
+                appendIfNeeded(detail)
+            }
+        }
+        
+        return uniqueRecommendations
     }
     
     public func fetchAllNewsletters() async {

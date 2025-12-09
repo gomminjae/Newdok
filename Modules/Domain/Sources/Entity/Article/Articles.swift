@@ -6,16 +6,20 @@
 //
 
 public struct Articles {
-    
-    //public let id: Int?
     public let publishDate: Int
-    public let receivedUnread: Int
-    public let receivedArticleList: [Article]
+    public let hasArticles: Bool
+    public let totalCount: Int
+    public var unreadCount: Int
     
-    public init(publishDate: Int, receivedUnread: Int, receivedArticleList: [Article]) {
-        //self.id = id
+    public init(
+        publishDate: Int,
+        hasArticles: Bool,
+        totalCount: Int,
+        unreadCount: Int
+    ) {
         self.publishDate = publishDate
-        self.receivedUnread = receivedUnread
-        self.receivedArticleList = receivedArticleList
+        self.hasArticles = hasArticles
+        self.totalCount = totalCount
+        self.unreadCount = unreadCount
     }
 }

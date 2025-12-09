@@ -2,7 +2,7 @@
 //  HomeViewModel.swift
 //  Home
 //
-//  Created by 권민재 on 4/16/25.
+//  Created by 권민재 on 4/16/25. 
 //  Copyright © 2025 Newdok. All rights reserved.
 //
 
@@ -33,13 +33,29 @@ public final class CalendarState: ObservableObject {
         $displayedMonth
             .removeDuplicates { Calendar.current.isDate($0, equalTo: $1, toGranularity: .month) }
             .dropFirst()
-            .sink { [weak viewModel] newMonth in
-                Task { @MainActor in
-                    guard let vm = viewModel else { return }
-                    vm.applyDataDaysForMonth(newMonth)
-                    await vm.loadMonthData(for: newMonth)
+            .handleEvents(receiveOutput: { [weak viewModel] newMonth in
+                viewModel?.applyDataDaysForMonth(newMonth)
+            })
+            .map { [weak viewModel] newMonth -> AnyPublisher<Void, Never> in
+                guard let vm = viewModel else {
+                    return Empty<Void, Never>().eraseToAnyPublisher()
                 }
+                return Deferred {
+                    Future<Void, Never> { promise in
+                        Task { @MainActor [weak vm] in
+                            guard let vm else {
+                                promise(.success(()))
+                                return
+                            }
+                            await vm.loadMonthData(for: newMonth)
+                            promise(.success(()))
+                        }
+                    }
+                }
+                .eraseToAnyPublisher()
             }
+            .switchToLatest()
+            .sink { _ in }
             .store(in: &cancellables)
     }
 }
@@ -65,6 +81,7 @@ public final class HomeViewModel: ObservableObject {
     @Published public var articlesByMonth: [Articles] = []
     
     private var dataDaysCache: [String: Set<Int>] = [:]
+    private var latestMonthRequestKey: String?
     
     @AppStorage("isGuest") public var isGuest: Bool = false
     
@@ -103,7 +120,7 @@ public final class HomeViewModel: ObservableObject {
         let calendar = Calendar.current
         let comps = calendar.dateComponents([.year, .month], from: selectedDate)
         return Set(articlesByMonth.compactMap { group in
-            guard group.receivedUnread > 0 else { return nil }
+            guard group.unreadCount > 0 else { return nil }
             var dc = comps
             dc.day = group.publishDate
             return calendar.date(from: dc)
@@ -121,7 +138,7 @@ public final class HomeViewModel: ObservableObject {
     
     public var activeArticeDays: [Int] {
         articlesByMonth
-            .filter { $0.receivedUnread > 0 }
+            .filter { $0.unreadCount > 0 }
             .map { $0.publishDate }
     }
     
@@ -139,13 +156,15 @@ public final class HomeViewModel: ObservableObject {
     }
     
     public func loadMonthDataIfNeeded(for date: Date) async {
-        let snapshot = await useCase.loadMonthDataIfNeeded(for: date)
-        applySnapshot(snapshot)
+        await performMonthRequest(for: date) {
+            await self.useCase.loadMonthDataIfNeeded(for: date)
+        }
     }
     
     public func loadMonthData(for date: Date, forceReload: Bool = false) async {
-        let snapshot = await useCase.loadMonthData(for: date, forceReload: forceReload)
-        applySnapshot(snapshot)
+        await performMonthRequest(for: date) {
+            await self.useCase.loadMonthData(for: date, forceReload: forceReload)
+        }
     }
     
     public func selectDateWithMonthGuarantee(_ date: Date) {
@@ -174,17 +193,22 @@ public final class HomeViewModel: ObservableObject {
             calendarState.dataDays = cached
         } else {
             calendarState.dataDays = []
-            fetchDataDays(for: date)
+            Task { [weak self] in
+                guard let self else { return }
+                let cached = await self.useCase.cachedDataDays(for: date)
+                await MainActor.run {
+                    if !cached.isEmpty {
+                        self.storeDataDays(cached, for: date)
+                        if Calendar.current.isDate(date, equalTo: self.calendarState.displayedMonth, toGranularity: .month) {
+                            self.calendarState.dataDays = cached
+                        }
+                    }
+                }
+                if cached.isEmpty {
+                    self.fetchDataDays(for: date)
+                }
+            }
         }
-    }
-    
-    public func getDataDaysForMonth(_ date: Date) -> Set<Int> {
-        let key = monthKey(for: date)
-        if let cached = dataDaysCache[key] {
-            return cached
-        }
-        fetchDataDays(for: date)
-        return []
     }
     
     public func markArticleAsRead(articleId: Int) async {
@@ -224,7 +248,7 @@ public final class HomeViewModel: ObservableObject {
     private func fetchDataDays(for date: Date) {
         Task { [weak self] in
             guard let self else { return }
-            let days = await self.useCase.cachedDataDays(for: date)
+            let days = await self.useCase.fetchDataDays(for: date)
             await MainActor.run {
                 self.storeDataDays(days, for: date)
                 if Calendar.current.isDate(date, equalTo: self.calendarState.displayedMonth, toGranularity: .month) {
@@ -236,6 +260,36 @@ public final class HomeViewModel: ObservableObject {
     
     private func monthKey(for date: Date) -> String {
         monthKeyFormatter.string(from: date)
+    }
+    
+    private func performMonthRequest(for date: Date, loader: @escaping () async -> HomeSnapshot) async {
+        let requestKey = monthKey(for: date)
+        latestMonthRequestKey = requestKey
+        calendarState.isLoading = true
+        let snapshot = await loader()
+        storeDataDays(snapshot.dataDays, for: snapshot.displayedMonth)
+        prefetchAdjacentDataDays(from: snapshot.displayedMonth)
+        guard latestMonthRequestKey == requestKey else { return }
+        applySnapshot(snapshot)
+    }
+
+    private func prefetchAdjacentDataDays(from date: Date) {
+        let calendar = Calendar.current
+        for offset in [-1, 1] {
+            guard let target = calendar.date(byAdding: .month, value: offset, to: date) else { continue }
+            let key = monthKey(for: target)
+            if dataDaysCache[key] != nil { continue }
+            Task { [weak self] in
+                guard let self else { return }
+                let cached = await self.useCase.cachedDataDays(for: target)
+                if !cached.isEmpty {
+                    await MainActor.run { self.storeDataDays(cached, for: target) }
+                    return
+                }
+                let fetched = await self.useCase.fetchDataDays(for: target)
+                await MainActor.run { self.storeDataDays(fetched, for: target) }
+            }
+        }
     }
     
     private let monthKeyFormatter: DateFormatter = {

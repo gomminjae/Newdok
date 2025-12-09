@@ -12,7 +12,7 @@ public struct BrandDetailDTO: Decodable {
     public let detailDescription: String
     public let publicationCycle: String
     public let subscribeUrl: String
-    public let imageUrl: String
+    public let imageUrl: String?
     public let interests: [InterestDTO]
     public let brandArticleList: [BrandArticleDTO]
     public let isSubscribed: String?
