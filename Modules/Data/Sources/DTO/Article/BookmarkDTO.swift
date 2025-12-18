@@ -12,9 +12,9 @@ public struct BookmarkDTO: Decodable {
     let articleId: Int
     let sampleText: String?
     let date: String
-    let imageURL: String
+    let imageURL: String?
     
     public func toDomain() -> Bookmark {
-        return Bookmark(brandName: brandName, brandId: brandId, articleTitle: articleTitle, articleId: articleId, sampleText: sampleText ?? "", date: date, imageURL: imageURL)
+        return Bookmark(brandName: brandName, brandId: brandId, articleTitle: articleTitle, articleId: articleId, sampleText: sampleText ?? "", date: date, imageURL: imageURL ?? "")
     }
 }

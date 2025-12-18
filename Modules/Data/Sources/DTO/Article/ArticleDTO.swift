@@ -11,7 +11,7 @@ import Domain
 public struct ArticleDTO: Decodable, Identifiable {
     public let id: Int
     public let brandName: String
-    public let imageUrl: String
+    public let imageUrl: String?
     public let articleTitle: String
     public let status: String
     public let publishDate: Int?
@@ -46,17 +46,17 @@ public struct ArticleDTO: Decodable, Identifiable {
             if today.contains(.newsletter) {
                 let n = try today.nestedContainer(keyedBy: NewsletterKeys.self, forKey: .newsletter)
                 self.brandName = (try? n.decode(String.self, forKey: .brandName)) ?? ""
-                self.imageUrl = (try? n.decode(String.self, forKey: .imageUrl)) ?? ""
+                self.imageUrl = try? n.decode(String.self, forKey: .imageUrl)
             } else {
                 self.brandName = ""
-                self.imageUrl = ""
+                self.imageUrl = nil
             }
         } else {
             let flat = try decoder.container(keyedBy: FlatKeys.self)
             self.id = try flat.decode(Int.self, forKey: .articleId)
             self.articleTitle = try flat.decode(String.self, forKey: .articleTitle)
             self.brandName = try flat.decode(String.self, forKey: .brandName)
-            self.imageUrl = try flat.decode(String.self, forKey: .imageUrl)
+            self.imageUrl = try flat.decodeIfPresent(String.self, forKey: .imageUrl)
             self.status = try flat.decode(String.self, forKey: .status)
             self.publishDate = nil
         }
@@ -65,7 +65,7 @@ public struct ArticleDTO: Decodable, Identifiable {
     public var toDomain: Article {
         Article(
             brandName: brandName,
-            imageUrl: imageUrl,
+            imageUrl: imageUrl ?? "",
             articleTitle: articleTitle,
             articleId: id,
             status: status,

@@ -22,7 +22,7 @@ public struct RecommendedBrandDTO: Decodable {
     public let secondDescription: String
     public let publicationCycle: String
     public let subscribeUrl: String
-    public let imageUrl: String
+    public let imageUrl: String?
     public let interests: [InterestDTO]
     
     public func toDomain() -> RecommendedBrand {
@@ -32,7 +32,7 @@ public struct RecommendedBrandDTO: Decodable {
             description: firstDescription,  // firstDescription을 description으로 사용
             cycle: publicationCycle,
             subscribeUrl: subscribeUrl,
-            imageUrl: imageUrl,
+            imageUrl: imageUrl ?? "",
             interests: interests.map { $0.toDomain() }
         )
     }
