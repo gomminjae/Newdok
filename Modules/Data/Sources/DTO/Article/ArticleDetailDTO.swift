@@ -13,7 +13,7 @@ public struct ArticleDetailDTO: Decodable {
     let brandId: Int
     let brandName: String
     let articleHTML: String
-    let brandImageUrl: String
+    let brandImageUrl: String?
     var isBookmarked: Bool
     
     public func toDomain() -> ArticleDetail {
@@ -24,7 +24,7 @@ public struct ArticleDetailDTO: Decodable {
             brandId: brandId,
             brandName: brandName,
             articleHTML: articleHTML,
-            brandImageUrl: brandImageUrl,
+            brandImageUrl: brandImageUrl ?? "",
             isBookmarked: isBookmarked)
     }
     
