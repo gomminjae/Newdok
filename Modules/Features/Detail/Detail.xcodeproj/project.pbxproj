@@ -12,7 +12,6 @@
 		96B4CA167A2F3F059B9FC0F2 /* BrandDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1081C5FB722791B45F1EF2AD /* BrandDetailViewModel.swift */; };
 		A9DD2BA21B126A3A9C9B7AB0 /* BrandDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B77220230DE1B29E53160F9 /* BrandDetailView.swift */; };
 		B0013A1AE532C53E1A6EC1B9 /* Domain.framework in Dependencies */ = {isa = PBXBuildFile; fileRef = 90CF425D4E5EBDB3EBFC30AF /* Domain.framework */; };
-		C003B2361B5E41483AB4172C /* Kingfisher.framework in Dependencies */ = {isa = PBXBuildFile; fileRef = 037730AF7DDB88D4A7CFEC27 /* Kingfisher.framework */; };
 		D5A476F4F89A71AFBACC56A8 /* ArticleDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14FFF62190471C071159E97A /* ArticleDetailViewModel.swift */; };
 		E79ED31E506342F88AEA5B33 /* SubscribeModalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDD30D1EBA6469AAFAB8F954 /* SubscribeModalView.swift */; };
 		F2DE7432B78B29BB555248E4 /* ArticleDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A32E848FB34AC263D298782D /* ArticleDetailView.swift */; };
@@ -35,7 +34,6 @@
 			dstSubfolderSpec = 16;
 			files = (
 				B0013A1AE532C53E1A6EC1B9 /* Domain.framework in Dependencies */,
-				C003B2361B5E41483AB4172C /* Kingfisher.framework in Dependencies */,
 			);
 			name = Dependencies;
 			runOnlyForDeploymentPostprocessing = 1;
@@ -43,7 +41,6 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		037730AF7DDB88D4A7CFEC27 /* Kingfisher.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Kingfisher.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		0B77220230DE1B29E53160F9 /* BrandDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrandDetailView.swift; sourceTree = "<group>"; };
 		1081C5FB722791B45F1EF2AD /* BrandDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrandDetailViewModel.swift; sourceTree = "<group>"; };
 		14FFF62190471C071159E97A /* ArticleDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleDetailViewModel.swift; sourceTree = "<group>"; };
@@ -90,7 +87,6 @@
 				AF10631497B2359FDEE1276E /* DesignSystem.framework */,
 				3B95DEB0BB0769D679538C4A /* Detail.framework */,
 				90CF425D4E5EBDB3EBFC30AF /* Domain.framework */,
-				037730AF7DDB88D4A7CFEC27 /* Kingfisher.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";

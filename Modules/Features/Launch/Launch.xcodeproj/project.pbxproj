@@ -12,6 +12,8 @@
 		1AEFE7FA6BB5863FD0BA5386 /* LaunchMain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A44DF136146F6B9A83C6AB1 /* LaunchMain.swift */; };
 		43A5A462F575DCC9E67C36FA /* SDWebImage_SDWebImage.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 4A44B3CEFFDEB5B3A140EA29 /* SDWebImage_SDWebImage.bundle */; };
 		43DAFA287C241F9A81F3F9A6 /* Shared.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAD73AE618B7002C6F84BF4C /* Shared.framework */; };
+		804BBA611201D6F5D0BE70BD /* Kingfisher_Kingfisher.bundle in Resources */ = {isa = PBXBuildFile; fileRef = BB1A3A9EDBD7826A38ECC0A4 /* Kingfisher_Kingfisher.bundle */; };
+		8D04E4027317E60549765C59 /* Kingfisher_Kingfisher.bundle in Dependencies */ = {isa = PBXBuildFile; fileRef = BB1A3A9EDBD7826A38ECC0A4 /* Kingfisher_Kingfisher.bundle */; };
 		988A639C908D85348FA3C893 /* SplashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AB4BC8E5564382493B0CEDB /* SplashView.swift */; };
 		A7AB08F321F5FB1D2A837467 /* Launch.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CAE9D80105EE847E612B7E64 /* Launch.framework */; };
 		B1F79015784E7B2762AE008B /* LaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C397ED87CA36DDB17BA0A60 /* LaunchTests.swift */; };
@@ -34,6 +36,7 @@
 			buildActionMask = 8;
 			dstSubfolderSpec = 16;
 			files = (
+				8D04E4027317E60549765C59 /* Kingfisher_Kingfisher.bundle in Dependencies */,
 				06E58ABB773127D0F498C110 /* SDWebImage_SDWebImage.bundle in Dependencies */,
 			);
 			name = Dependencies;
@@ -68,6 +71,7 @@
 		4A44B3CEFFDEB5B3A140EA29 /* SDWebImage_SDWebImage.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SDWebImage_SDWebImage.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
 		9229787BA766DFA18583ABFA /* DesignSystem.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = DesignSystem.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9A44DF136146F6B9A83C6AB1 /* LaunchMain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchMain.swift; sourceTree = "<group>"; };
+		BB1A3A9EDBD7826A38ECC0A4 /* Kingfisher_Kingfisher.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Kingfisher_Kingfisher.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
 		BB93BCF98AEAFC697627D166 /* Launch-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "Launch-Info.plist"; sourceTree = "<group>"; };
 		CAE9D80105EE847E612B7E64 /* Launch.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Launch.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F1768C712EE5D323E4A22AF4 /* LaunchTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LaunchTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -151,6 +155,7 @@
 			isa = PBXGroup;
 			children = (
 				9229787BA766DFA18583ABFA /* DesignSystem.framework */,
+				BB1A3A9EDBD7826A38ECC0A4 /* Kingfisher_Kingfisher.bundle */,
 				CAE9D80105EE847E612B7E64 /* Launch.framework */,
 				F1768C712EE5D323E4A22AF4 /* LaunchTests.xctest */,
 				4A44B3CEFFDEB5B3A140EA29 /* SDWebImage_SDWebImage.bundle */,
@@ -246,6 +251,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				804BBA611201D6F5D0BE70BD /* Kingfisher_Kingfisher.bundle in Resources */,
 				43A5A462F575DCC9E67C36FA /* SDWebImage_SDWebImage.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -6,7 +6,7 @@
      .target(
        name: "Shared",
        destinations: .iOS,
-       product: .staticFramework,
+       product: .framework,
        bundleId: "com.Newdok.shared",
        deploymentTargets: .iOS("17.0"),
        infoPlist: .default,

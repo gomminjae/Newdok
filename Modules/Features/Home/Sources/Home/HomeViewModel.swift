@@ -258,6 +258,23 @@ public final class HomeViewModel: ObservableObject {
         }
     }
     
+    public func calendarDataDays(for date: Date) async -> Set<Int> {
+        let key = monthKey(for: date)
+        if let cached = dataDaysCache[key] {
+            return cached
+        }
+        
+        let cached = await useCase.cachedDataDays(for: date)
+        if !cached.isEmpty {
+            await MainActor.run { self.storeDataDays(cached, for: date) }
+            return cached
+        }
+        
+        let fetched = await useCase.fetchDataDays(for: date)
+        await MainActor.run { self.storeDataDays(fetched, for: date) }
+        return fetched
+    }
+    
     private func monthKey(for date: Date) -> String {
         monthKeyFormatter.string(from: date)
     }

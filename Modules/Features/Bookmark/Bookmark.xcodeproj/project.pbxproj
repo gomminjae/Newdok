@@ -14,9 +14,9 @@
 		2892A5E3959641B7EB88CFB9 /* StopSubscribeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0899174EB9AB87E665590C43 /* StopSubscribeView.swift */; };
 		292A125709A1026D71045F7A /* NewsLetterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 518BAAA65BF35C6106E2FA43 /* NewsLetterView.swift */; };
 		4B8E741C0553FA36707879DF /* BookmarkCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A4FB4C4A723601828C258CC /* BookmarkCard.swift */; };
+		4B939389DBFCAADE2F95574F /* Shared.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22775B642171631175E5C887 /* Shared.framework */; };
 		5127FD4C0CEB2BA908E3CCA4 /* DesignSystem.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F2A5BEA1A83032F8516C05FC /* DesignSystem.framework */; };
 		52645DC713DA5763373B841A /* DesignSystem.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F2A5BEA1A83032F8516C05FC /* DesignSystem.framework */; };
-		6144DD3831CAE3E3A2D7FB45 /* Kingfisher.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 722BE9794BB696843B2378B9 /* Kingfisher.framework */; };
 		61AF57048C6B4DDBC8302B65 /* Shared.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22775B642171631175E5C887 /* Shared.framework */; };
 		74BC714D5520B898AC4F91AE /* Domain.framework in Dependencies */ = {isa = PBXBuildFile; fileRef = DE52F60F7D201E28F2B73788 /* Domain.framework */; };
 		7652C855138383F04772CE1D /* Kingfisher_Kingfisher.bundle in Dependencies */ = {isa = PBXBuildFile; fileRef = EA2C9B2AE62343CD2F8D5609 /* Kingfisher_Kingfisher.bundle */; };
@@ -25,9 +25,7 @@
 		B077BEF4EBFB5B47890445A2 /* BookmarkView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A67016F7ECAD609354E68E6 /* BookmarkView.swift */; };
 		BB3583AB8AFF5A8582A7EA5C /* Bookmark.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 76BD577AD93EFB89FF1662CC /* Bookmark.framework */; };
 		C6D2F181D424BE4BA0E205C4 /* BookmarkMain.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8CAFD478C6DDC83E089E3A7 /* BookmarkMain.swift */; };
-		C9713249EFF54B95D5957871 /* Shared.framework in Dependencies */ = {isa = PBXBuildFile; fileRef = 22775B642171631175E5C887 /* Shared.framework */; };
 		E5164B2889523A1E7FCCA93E /* BookmarkTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D833BD260020B2F30A7E7FC8 /* BookmarkTests.swift */; };
-		F9DF24B5012C0CCF46AF885D /* Kingfisher.framework in Dependencies */ = {isa = PBXBuildFile; fileRef = 722BE9794BB696843B2378B9 /* Kingfisher.framework */; };
 		FA46436B3936C0C159BED822 /* Kingfisher_Kingfisher.bundle in Resources */ = {isa = PBXBuildFile; fileRef = EA2C9B2AE62343CD2F8D5609 /* Kingfisher_Kingfisher.bundle */; };
 /* End PBXBuildFile section */
 
@@ -58,8 +56,6 @@
 			dstSubfolderSpec = 16;
 			files = (
 				74BC714D5520B898AC4F91AE /* Domain.framework in Dependencies */,
-				F9DF24B5012C0CCF46AF885D /* Kingfisher.framework in Dependencies */,
-				C9713249EFF54B95D5957871 /* Shared.framework in Dependencies */,
 			);
 			name = Dependencies;
 			runOnlyForDeploymentPostprocessing = 1;
@@ -94,7 +90,6 @@
 		4A4FB4C4A723601828C258CC /* BookmarkCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkCard.swift; sourceTree = "<group>"; };
 		518BAAA65BF35C6106E2FA43 /* NewsLetterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsLetterView.swift; sourceTree = "<group>"; };
 		68D664CAA1010C543472F9E5 /* SDWebImage_SDWebImage.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SDWebImage_SDWebImage.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
-		722BE9794BB696843B2378B9 /* Kingfisher.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Kingfisher.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		76BD577AD93EFB89FF1662CC /* Bookmark.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Bookmark.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7A67016F7ECAD609354E68E6 /* BookmarkView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkView.swift; sourceTree = "<group>"; };
 		962531354FC80D68BEDB100B /* BookmarkEmptyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkEmptyView.swift; sourceTree = "<group>"; };
@@ -117,7 +112,6 @@
 				BB3583AB8AFF5A8582A7EA5C /* Bookmark.framework in Frameworks */,
 				52645DC713DA5763373B841A /* DesignSystem.framework in Frameworks */,
 				00B562FAD9D2D7D0DDB85017 /* Domain.framework in Frameworks */,
-				6144DD3831CAE3E3A2D7FB45 /* Kingfisher.framework in Frameworks */,
 				61AF57048C6B4DDBC8302B65 /* Shared.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -127,6 +121,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5127FD4C0CEB2BA908E3CCA4 /* DesignSystem.framework in Frameworks */,
+				4B939389DBFCAADE2F95574F /* Shared.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -141,7 +136,6 @@
 				F2A5BEA1A83032F8516C05FC /* DesignSystem.framework */,
 				DE52F60F7D201E28F2B73788 /* Domain.framework */,
 				EA2C9B2AE62343CD2F8D5609 /* Kingfisher_Kingfisher.bundle */,
-				722BE9794BB696843B2378B9 /* Kingfisher.framework */,
 				68D664CAA1010C543472F9E5 /* SDWebImage_SDWebImage.bundle */,
 				22775B642171631175E5C887 /* Shared.framework */,
 			);

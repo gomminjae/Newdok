@@ -22,7 +22,6 @@ public final class NetworkProvider: NetworkProviding {
     public init() {
     }
     
-    // 환경별 플러그인 설정
     private var plugins: [PluginType] {
         var pluginList: [PluginType] = [
             TokenPlugin(tokenProvider: {
@@ -31,7 +30,6 @@ public final class NetworkProvider: NetworkProviding {
         ]
         
         #if DEBUG
-        // 개발 환경에서만 네트워크 로그 출력
         pluginList.append(NetworkLoggerPlugin())
         #endif
         

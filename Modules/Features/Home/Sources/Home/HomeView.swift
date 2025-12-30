@@ -18,6 +18,8 @@ public struct HomeView: View {
     @StateObject private var viewModel: HomeViewModel
     @State private var showCalendar = false
     @State private var refreshSpinAngle: Double = 0
+    @State private var calendarDisplayedMonth: Date = Date()
+    @State private var calendarDataDays: Set<Int> = []
     @EnvironmentObject private var router: AppRouter
     @EnvironmentObject private var tabSelection: TabSelection
     @EnvironmentObject private var exploreIntent: ExploreIntent
@@ -62,11 +64,8 @@ public struct HomeView: View {
                         get: { viewModel.calendarState.selectedDate },
                         set: { viewModel.calendarState.selectedDate = $0 }
                     ),
-                    displayedMonthDate: Binding(
-                        get: { viewModel.calendarState.displayedMonth },
-                        set: { viewModel.calendarState.displayedMonth = $0 }
-                    ),
-                    dataDays: $viewModel.calendarState.dataDays,
+                    displayedMonthDate: $calendarDisplayedMonth,
+                    dataDays: $calendarDataDays,
                     onDateSelected: { date in
                         viewModel.selectDateWithMonthGuarantee(date)
                     }
@@ -80,12 +79,14 @@ public struct HomeView: View {
                   .position(.center)
                   .animation(.easeInOut)
                   .closeOnTap(false)
-                  .closeOnTapOutside(false)
+                  .closeOnTapOutside(true)
+                  .allowTapThroughBG(false)
                   .backgroundColor(Color(hex: "#25242C").opacity(0.6))
-                 
             }
             .navigationBarHidden(true)
             .onAppear {
+                calendarDisplayedMonth = viewModel.calendarState.displayedMonth
+                calendarDataDays = viewModel.calendarState.dataDays
                 guard !isGuest else { return }
                 Task {
                     if await viewModel.shouldReloadToday() {
@@ -104,6 +105,22 @@ public struct HomeView: View {
                     if newValue == false {
                         await viewModel.loadToday()
                     }
+                }
+            }
+            .onChange(of: viewModel.calendarState.displayedMonth) { _, newValue in
+                if !showCalendar {
+                    calendarDisplayedMonth = newValue
+                }
+            }
+            .onChange(of: viewModel.calendarState.dataDays) { _, newValue in
+                if !showCalendar {
+                    calendarDataDays = newValue
+                }
+            }
+            .onChange(of: calendarDisplayedMonth) { _, newValue in
+                guard showCalendar else { return }
+                Task {
+                    await updateCalendarDataDays(for: newValue)
                 }
             }
 
@@ -145,13 +162,13 @@ public struct HomeView: View {
                 let monthDate = calendar.date(from: calendar.dateComponents([.year, .month], from: currentDisplayMonth)) ?? currentDisplayMonth
                 
                 Task { @MainActor in
-                    viewModel.calendarState.displayedMonth = monthDate
-                    viewModel.applyDataDaysForMonth(monthDate)
+                    calendarDisplayedMonth = monthDate
+                    calendarDataDays = viewModel.calendarState.dataDays
                     showCalendar = true
                 }
                 
                 Task {
-                    await viewModel.loadMonthData(for: monthDate)
+                    await updateCalendarDataDays(for: monthDate)
                 }
             }) {
                 Image(asset: DesignSystemAsset.lineCalendar)
@@ -260,6 +277,13 @@ public struct HomeView: View {
         .background(Color.white.clipShape(RoundedRectangle(cornerRadius: 12)))
         .padding(.horizontal, 8)
         .padding(.bottom, 8)
+    }
+
+    private func updateCalendarDataDays(for month: Date) async {
+        let days = await viewModel.calendarDataDays(for: month)
+        await MainActor.run {
+            calendarDataDays = days
+        }
     }
 
     private func convertWeekdayToExploreIndex(_ weekday: Int) -> Int {

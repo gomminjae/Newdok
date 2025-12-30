@@ -9,8 +9,10 @@
 /* Begin PBXBuildFile section */
 		30E38E7D55799F213AD60DFF /* SDWebImage_SDWebImage.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 3A57AD50A0BC48299D30E2A2 /* SDWebImage_SDWebImage.bundle */; };
 		32061DCA3F32C6148654C91A /* SDWebImage_SDWebImage.bundle in Dependencies */ = {isa = PBXBuildFile; fileRef = 3A57AD50A0BC48299D30E2A2 /* SDWebImage_SDWebImage.bundle */; };
+		7A3C02C95ED82406AC29DF8B /* Kingfisher_Kingfisher.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 38CD2C5CBA18F8D1BD29C8E5 /* Kingfisher_Kingfisher.bundle */; };
 		ADAB00D90C745D1B520C70BD /* SurveyMain.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1957E61D0F92B13C9D06D9C /* SurveyMain.swift */; };
 		B173CF7EDFA0725851501A4D /* SurveyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23A050A6322FE1A422FE3045 /* SurveyTests.swift */; };
+		EBE76A156779F6AA964B4884 /* Kingfisher_Kingfisher.bundle in Dependencies */ = {isa = PBXBuildFile; fileRef = 38CD2C5CBA18F8D1BD29C8E5 /* Kingfisher_Kingfisher.bundle */; };
 		F28C9E3265EBCF43415D36C3 /* Survey.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8978804A1885621F914F866A /* Survey.framework */; };
 		F5642A981CA4588655D1FC79 /* DesignSystem.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CF891DF34D4455956C2DCD87 /* DesignSystem.framework */; };
 /* End PBXBuildFile section */
@@ -31,6 +33,7 @@
 			buildActionMask = 8;
 			dstSubfolderSpec = 16;
 			files = (
+				EBE76A156779F6AA964B4884 /* Kingfisher_Kingfisher.bundle in Dependencies */,
 				32061DCA3F32C6148654C91A /* SDWebImage_SDWebImage.bundle in Dependencies */,
 			);
 			name = Dependencies;
@@ -61,6 +64,7 @@
 /* Begin PBXFileReference section */
 		06A01EDB6FD9DB0E8A4F7809 /* Survey-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "Survey-Info.plist"; sourceTree = "<group>"; };
 		23A050A6322FE1A422FE3045 /* SurveyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SurveyTests.swift; sourceTree = "<group>"; };
+		38CD2C5CBA18F8D1BD29C8E5 /* Kingfisher_Kingfisher.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Kingfisher_Kingfisher.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
 		3A57AD50A0BC48299D30E2A2 /* SDWebImage_SDWebImage.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SDWebImage_SDWebImage.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
 		4FF035E9E7D35EB77233BFDE /* SurveyTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "SurveyTests-Info.plist"; sourceTree = "<group>"; };
 		727F7D83813FA7F64C222B0F /* SurveyTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SurveyTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -119,6 +123,7 @@
 			isa = PBXGroup;
 			children = (
 				CF891DF34D4455956C2DCD87 /* DesignSystem.framework */,
+				38CD2C5CBA18F8D1BD29C8E5 /* Kingfisher_Kingfisher.bundle */,
 				3A57AD50A0BC48299D30E2A2 /* SDWebImage_SDWebImage.bundle */,
 				8978804A1885621F914F866A /* Survey.framework */,
 				727F7D83813FA7F64C222B0F /* SurveyTests.xctest */,
@@ -229,6 +234,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7A3C02C95ED82406AC29DF8B /* Kingfisher_Kingfisher.bundle in Resources */,
 				30E38E7D55799F213AD60DFF /* SDWebImage_SDWebImage.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
