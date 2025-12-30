@@ -1,0 +1,15 @@
+//
+//  {{ name }}Tests.swift
+//  {{ name }}Tests
+//
+//  Created by Tuist Template
+//
+
+import XCTest
+@testable import {{ name }}
+
+final class {{ name }}Tests: XCTestCase {
+    func testExample() throws {
+        // Add your test here
+    }
+}

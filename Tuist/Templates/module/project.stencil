@@ -1,0 +1,9 @@
+import ProjectDescription
+
+let project = Project.makeModule(
+    name: "{{ name }}",
+    organizationName: "Newdok",
+    bundlePrefix: "com.newdok",
+    hasResources: {{ hasResources }},
+    hasTests: {{ hasTests }}
+)

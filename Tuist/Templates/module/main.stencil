@@ -1,0 +1,12 @@
+//
+//  {{ name }}Main.swift
+//  {{ name }}
+//
+//  Created by Tuist Template
+//
+
+import Foundation
+
+public struct {{ name }} {
+    public init() {}
+}
