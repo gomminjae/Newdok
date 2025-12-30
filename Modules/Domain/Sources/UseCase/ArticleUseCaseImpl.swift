@@ -1,11 +1,9 @@
 //
 //  ArticleUseCaseImpl.swift
-//  Data
+//  Domain
 //
 //  Created by 권민재 on 4/16/25.
 //
-
-import Domain
 
 
 public final class ArticleUseCaseImpl: ArticleUseCase {

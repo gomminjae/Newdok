@@ -1,13 +1,9 @@
 //
 //  FetchHomeDataUseCaseImpl.swift
-//  Data
+//  Domain
 //
 //  Created by 권민재 on 4/19/25.
 //
-
-import Domain
-import Core
-import Shared
 
 
 public class FetchHomeDataUseCaseImpl: FetchHomeDataUseCase {

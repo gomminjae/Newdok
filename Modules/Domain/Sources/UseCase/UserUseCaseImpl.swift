@@ -1,12 +1,10 @@
 //
 //  UserUseCaseImpl.swift
-//  Data
+//  Domain
 //
 //  Created by 권민재 on 3/27/25.
 //
 import Foundation
-import Network
-import Domain
 import Shared
 
 

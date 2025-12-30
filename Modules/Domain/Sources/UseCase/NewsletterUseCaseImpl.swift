@@ -1,13 +1,9 @@
 //
 //  NewsletterUseCaseImpl.swift
-//  Data
+//  Domain
 //
 //  Created by 권민재 on 4/24/25.
 //
-
-import Domain
-import Core
-import Shared
 
 public class NewsletterUseCaseImpl: NewsletterUseCase {
     
