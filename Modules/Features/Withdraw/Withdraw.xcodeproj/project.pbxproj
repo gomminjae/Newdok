@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		354513DA721D578F735D38E4 /* Data.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B1F79A91D5670D151BDE54A /* Data.framework */; };
+		3DB7D8C13AADD33CAD815773 /* Kingfisher_Kingfisher.bundle in Dependencies */ = {isa = PBXBuildFile; fileRef = 37F859F63C7F90F854486C95 /* Kingfisher_Kingfisher.bundle */; };
 		3FBAE78DBBEDC4B11D3D534C /* Alamofire_Alamofire.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 0A301D2FAA6B0A34FDDF1338 /* Alamofire_Alamofire.bundle */; };
 		5FFCBF7424EEC932D31668FA /* SDWebImage_SDWebImage.bundle in Dependencies */ = {isa = PBXBuildFile; fileRef = FF02098A6030CE176CCC02D8 /* SDWebImage_SDWebImage.bundle */; };
 		6614A452572132F7EB3685BC /* Core.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B996AA86F4CDF4A8556B8CB4 /* Core.framework */; };
@@ -20,6 +21,7 @@
 		B0653FE95A1F93D329C45A1F /* Alamofire_Alamofire.bundle in Dependencies */ = {isa = PBXBuildFile; fileRef = 0A301D2FAA6B0A34FDDF1338 /* Alamofire_Alamofire.bundle */; };
 		C1EB5DA24AC81FF4180EF555 /* Shared.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7587B7E7541913506F73587E /* Shared.framework */; };
 		C80C76684A8DD31620FAF53C /* Domain.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD87DB4C7401FE168BF2AB9F /* Domain.framework */; };
+		E7BAA1B968DFF9AE00D98962 /* Kingfisher_Kingfisher.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 37F859F63C7F90F854486C95 /* Kingfisher_Kingfisher.bundle */; };
 		F7D70AC07D229682D695FB6E /* WithdrawView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D1BDCA0E40890F94A937E29 /* WithdrawView.swift */; };
 		FA6C5BF405871C6BEAC13AEA /* Withdraw.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 285FA32AA1896DA12F39D7F0 /* Withdraw.framework */; };
 /* End PBXBuildFile section */
@@ -51,6 +53,7 @@
 			dstSubfolderSpec = 16;
 			files = (
 				B0653FE95A1F93D329C45A1F /* Alamofire_Alamofire.bundle in Dependencies */,
+				3DB7D8C13AADD33CAD815773 /* Kingfisher_Kingfisher.bundle in Dependencies */,
 				5FFCBF7424EEC932D31668FA /* SDWebImage_SDWebImage.bundle in Dependencies */,
 			);
 			name = Dependencies;
@@ -83,6 +86,7 @@
 		0A301D2FAA6B0A34FDDF1338 /* Alamofire_Alamofire.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Alamofire_Alamofire.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
 		174B34F64DF1E6C20297D8C8 /* DesignSystem.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = DesignSystem.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		285FA32AA1896DA12F39D7F0 /* Withdraw.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Withdraw.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		37F859F63C7F90F854486C95 /* Kingfisher_Kingfisher.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Kingfisher_Kingfisher.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
 		3B1F79A91D5670D151BDE54A /* Data.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Data.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5BF914ED64A854E1B5A28AB6 /* Withdraw-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "Withdraw-Info.plist"; sourceTree = "<group>"; };
 		7587B7E7541913506F73587E /* Shared.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Shared.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -145,6 +149,7 @@
 				3B1F79A91D5670D151BDE54A /* Data.framework */,
 				174B34F64DF1E6C20297D8C8 /* DesignSystem.framework */,
 				CD87DB4C7401FE168BF2AB9F /* Domain.framework */,
+				37F859F63C7F90F854486C95 /* Kingfisher_Kingfisher.bundle */,
 				FF02098A6030CE176CCC02D8 /* SDWebImage_SDWebImage.bundle */,
 				7587B7E7541913506F73587E /* Shared.framework */,
 				285FA32AA1896DA12F39D7F0 /* Withdraw.framework */,
@@ -266,6 +271,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3FBAE78DBBEDC4B11D3D534C /* Alamofire_Alamofire.bundle in Resources */,
+				E7BAA1B968DFF9AE00D98962 /* Kingfisher_Kingfisher.bundle in Resources */,
 				69CB91318F5F1B9E0BF7FAE5 /* SDWebImage_SDWebImage.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -13,8 +13,7 @@ let project = Project(
       sources: ["Sources/**"],
       dependencies: [
         .project(target: "Domain", path: "../../Domain"),
-        .project(target: "DesignSystem", path: "../../DesignSystem"), 
-        .external(name: "Kingfisher"), 
+        .project(target: "DesignSystem", path: "../../DesignSystem"),
       ]
     )
   ]

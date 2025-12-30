@@ -18,7 +18,6 @@ let project = Project(
                 .project(target: "Core", path: "../../Core"),
                 .project(target: "Shared", path: "../../Shared"),
                 .project(target: "Domain", path: "../../Domain"),
-                .external(name: "Kingfisher"),
             ]
         ),
         .target(

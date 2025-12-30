@@ -18,6 +18,7 @@ let project = Project(
             ],
             dependencies: [
                 .project(target: "Shared", path: "../Shared"),
+                .external(name: "Kingfisher"),
                 .external(name: "SDWebImage"),
                 .external(name: "PopupView"),
             ]

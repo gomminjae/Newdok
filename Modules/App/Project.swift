@@ -3,10 +3,6 @@ import ProjectDescription
 let project = Project(
     name: "App",
     organizationName: "Your Organization Name",
-    settings: .settings(configurations: [
-        .debug(name: "Debug", xcconfig: "../../Configurations/Development.xcconfig"),
-        .release(name: "Release", xcconfig: "../../Configurations/Production.xcconfig")
-    ]),
     targets: [
         .target(
             name: "App",
@@ -70,28 +66,23 @@ let project = Project(
                 base: [
                     "ASSETCATALOG_COMPILER_APPICON_NAME": "$(ASSETCATALOG_COMPILER_APPICON_NAME)",
                     "DEVELOPMENT_TEAM": "$(DEVELOPMENT_TEAM)"
+                ],
+                configurations: [
+                    .debug(name: "Debug", xcconfig: "../../Configurations/Development.xcconfig"),
+                    .release(name: "Release", xcconfig: "../../Configurations/Production.xcconfig")
                 ]
             )
         )
     ],
     schemes: [
         .scheme(
-            name: "Newdok-Debug",
+            name: "Newdok",
             shared: true,
             buildAction: .buildAction(targets: ["App"]),
             runAction: .runAction(configuration: "Debug"),
-            archiveAction: .archiveAction(configuration: "Debug"),
-            profileAction: .profileAction(configuration: "Debug"),
-            analyzeAction: .analyzeAction(configuration: "Debug")
-        ),
-        .scheme(
-            name: "Newdok-Release", 
-            shared: true,
-            buildAction: .buildAction(targets: ["App"]),
-            runAction: .runAction(configuration: "Release"),
             archiveAction: .archiveAction(configuration: "Release"),
             profileAction: .profileAction(configuration: "Release"),
-            analyzeAction: .analyzeAction(configuration: "Release")
+            analyzeAction: .analyzeAction(configuration: "Debug")
         )
     ]
 )

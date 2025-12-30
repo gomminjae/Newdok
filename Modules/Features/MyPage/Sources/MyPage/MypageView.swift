@@ -272,4 +272,3 @@ public struct MypageView: View {
         .padding(.bottom, 8)
     }
 }
-

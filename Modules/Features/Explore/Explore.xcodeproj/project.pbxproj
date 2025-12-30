@@ -12,7 +12,6 @@
 		073F229792FF7C0867DB771E /* ExploreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C24D785C89919F6791BD7A33 /* ExploreView.swift */; };
 		09783F763339FDD665D20027 /* ExploreBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 888F76455723B0BB93117B37 /* ExploreBase.swift */; };
 		1137F7C41C1775D4C6F620AD /* Alamofire_Alamofire.bundle in Resources */ = {isa = PBXBuildFile; fileRef = D20A4406B94CA5D712D3DE2D /* Alamofire_Alamofire.bundle */; };
-		14BA57CA933058F9B079ECEA /* Kingfisher.framework in Dependencies */ = {isa = PBXBuildFile; fileRef = 9CC6C36B01EE7E27AAE4D727 /* Kingfisher.framework */; };
 		1568857A0C158C8FD24EA4A4 /* NewsletterDetailRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A8975011C35FA609F5AD763 /* NewsletterDetailRow.swift */; };
 		16187620CE020C48B5B1955C /* SDWebImage_SDWebImage.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 56861470FC7877008D05805C /* SDWebImage_SDWebImage.bundle */; };
 		17C36C1FA64A43AE83E20678 /* RecommendedNewsLetterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BCDA9A9CBE8807820971B4C /* RecommendedNewsLetterView.swift */; };
@@ -23,11 +22,10 @@
 		49F97C0213567A1BFB6F4BE6 /* Explore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5C38C04CFD92482D29D36740 /* Explore.framework */; };
 		5788288296E70E7F6D166B0A /* Core.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6A8D6E4533DF7D0E3EE53463 /* Core.framework */; };
 		655E69A7CF7BAE0041456773 /* Shared.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EB6BFB9C49D58077BC4C3EE7 /* Shared.framework */; };
-		71F3F5FBB3C658D7FF1A0274 /* Kingfisher.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9CC6C36B01EE7E27AAE4D727 /* Kingfisher.framework */; };
-		780980B506EFC309EEF45CD9 /* Shared.framework in Dependencies */ = {isa = PBXBuildFile; fileRef = EB6BFB9C49D58077BC4C3EE7 /* Shared.framework */; };
 		7C7E4720AC54DA2AF5CA96B5 /* SortBottomSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC237F88BE629BF3598049C7 /* SortBottomSheet.swift */; };
 		84F928282A2BBF17E89F5AA8 /* Domain.framework in Dependencies */ = {isa = PBXBuildFile; fileRef = F6E5B4495E5CF5C6CFEFCA39 /* Domain.framework */; };
 		9082AE94679896F25E88EFD2 /* Kingfisher_Kingfisher.bundle in Dependencies */ = {isa = PBXBuildFile; fileRef = C0B93F7C7E6E825D48CA2699 /* Kingfisher_Kingfisher.bundle */; };
+		9F2BE1B9F2B16CCDF824212A /* Shared.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EB6BFB9C49D58077BC4C3EE7 /* Shared.framework */; };
 		ACC43D3DB3E0B7CCE985F9B4 /* NewletterRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F358D13829D312F2BAD5833 /* NewletterRow.swift */; };
 		C4D9642608440FEF79C1ED9B /* DesignSystem.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84F37D3F1E984B2DC46FF168 /* DesignSystem.framework */; };
 		D3AEE36E88B5E6A7F21CB94A /* DesignSystem.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84F37D3F1E984B2DC46FF168 /* DesignSystem.framework */; };
@@ -73,8 +71,6 @@
 			dstSubfolderSpec = 16;
 			files = (
 				84F928282A2BBF17E89F5AA8 /* Domain.framework in Dependencies */,
-				14BA57CA933058F9B079ECEA /* Kingfisher.framework in Dependencies */,
-				780980B506EFC309EEF45CD9 /* Shared.framework in Dependencies */,
 			);
 			name = Dependencies;
 			runOnlyForDeploymentPostprocessing = 1;
@@ -105,7 +101,6 @@
 		888F76455723B0BB93117B37 /* ExploreBase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreBase.swift; sourceTree = "<group>"; };
 		92556F12AA531CE166ECFE04 /* Explore-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "Explore-Info.plist"; sourceTree = "<group>"; };
 		9BCDA9A9CBE8807820971B4C /* RecommendedNewsLetterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendedNewsLetterView.swift; sourceTree = "<group>"; };
-		9CC6C36B01EE7E27AAE4D727 /* Kingfisher.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Kingfisher.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C0B93F7C7E6E825D48CA2699 /* Kingfisher_Kingfisher.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Kingfisher_Kingfisher.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
 		C24D785C89919F6791BD7A33 /* ExploreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreView.swift; sourceTree = "<group>"; };
 		D20A4406B94CA5D712D3DE2D /* Alamofire_Alamofire.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Alamofire_Alamofire.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -121,6 +116,7 @@
 			files = (
 				194C36388062A61FDED2A6F1 /* Core.framework in Frameworks */,
 				C4D9642608440FEF79C1ED9B /* DesignSystem.framework in Frameworks */,
+				9F2BE1B9F2B16CCDF824212A /* Shared.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -132,7 +128,6 @@
 				D3AEE36E88B5E6A7F21CB94A /* DesignSystem.framework in Frameworks */,
 				F42791F8B319C8F040F0C9AC /* Domain.framework in Frameworks */,
 				49F97C0213567A1BFB6F4BE6 /* Explore.framework in Frameworks */,
-				71F3F5FBB3C658D7FF1A0274 /* Kingfisher.framework in Frameworks */,
 				655E69A7CF7BAE0041456773 /* Shared.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -192,7 +187,6 @@
 				5C38C04CFD92482D29D36740 /* Explore.framework */,
 				106FBE9628A98AC4385CDF3E /* ExploreTests.xctest */,
 				C0B93F7C7E6E825D48CA2699 /* Kingfisher_Kingfisher.bundle */,
-				9CC6C36B01EE7E27AAE4D727 /* Kingfisher.framework */,
 				56861470FC7877008D05805C /* SDWebImage_SDWebImage.bundle */,
 				EB6BFB9C49D58077BC4C3EE7 /* Shared.framework */,
 			);

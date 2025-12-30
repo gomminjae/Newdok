@@ -18,6 +18,7 @@
 		4090826A340B36C8006D4798 /* EditInterestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9EE8D720105BC83D1182EC4 /* EditInterestView.swift */; };
 		5D02205B28C6F24CC4301D82 /* EditProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 734D04D066005B7F09E817DE /* EditProfileView.swift */; };
 		6178F003557F2E25EE71F449 /* MypageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F90F5BE05980B64F460A361 /* MypageView.swift */; };
+		6D5E336B0764BC734924CAB3 /* Shared.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A19D7843FEFE29BD0819145C /* Shared.framework */; };
 		773AA4470A9CDC5CC8CC6725 /* EditAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A009F18AE1816F468D79E100 /* EditAlertView.swift */; };
 		8E0C2760D51A27CBC7D0F50D /* DesignSystem.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F22BB87ADE60B2913D547027 /* DesignSystem.framework */; };
 		9B0379722DDDED9FB8879AAB /* Wrap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FDABEA7B4064B889E6E40F2 /* Wrap.swift */; };
@@ -25,7 +26,6 @@
 		CBF69718AE8A11C81D6866A8 /* TermsMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D25F3B57C7648C6733218FC /* TermsMenuView.swift */; };
 		D3512C91296B4597FC511B94 /* FlexibleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6316494CF79FD65F674FEC66 /* FlexibleView.swift */; };
 		D68C19E95FB20F2C9F6BCCC0 /* VersionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64E4CC89F3E7DEA5339C7C78 /* VersionView.swift */; };
-		E53CFA17DB251E18A51C8B33 /* Shared.framework in Dependencies */ = {isa = PBXBuildFile; fileRef = A19D7843FEFE29BD0819145C /* Shared.framework */; };
 		ED2944B1EE07AD35BC8D9B0A /* AccountManagementView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 435A5C982C020CECF6823250 /* AccountManagementView.swift */; };
 		F44A35FE3666BB64FED573AF /* EditNicknameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE20CEB3997ED5CB0105D8D5 /* EditNicknameView.swift */; };
 /* End PBXBuildFile section */
@@ -37,7 +37,6 @@
 			dstSubfolderSpec = 16;
 			files = (
 				07E4861F4E8E65B6A726B026 /* PopupView.framework in Dependencies */,
-				E53CFA17DB251E18A51C8B33 /* Shared.framework in Dependencies */,
 			);
 			name = Dependencies;
 			runOnlyForDeploymentPostprocessing = 1;
@@ -86,6 +85,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8E0C2760D51A27CBC7D0F50D /* DesignSystem.framework in Frameworks */,
+				6D5E336B0764BC734924CAB3 /* Shared.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
