@@ -22,6 +22,10 @@ let dependencies = Dependencies(
             url: "https://github.com/exyte/PopupView.git",
             requirement: .upToNextMajor(from: "4.1.13")
         ),
+        .remote(
+            url: "https://github.com/pointfreeco/swift-composable-architecture.git",
+            requirement: .upToNextMajor(from: "1.10.0")
+        ),
     ],
     platforms: [.iOS],
     productTypes: [
@@ -29,6 +33,7 @@ let dependencies = Dependencies(
         "Alamofire": .staticFramework,
         "Kingfisher": .staticFramework,
         "SDWebImage": .staticFramework,
-        "PopupView": .framework
+        "PopupView": .framework,
+        "ComposableArchitecture": .staticFramework
     ]
 )
