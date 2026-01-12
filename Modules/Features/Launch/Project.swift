@@ -15,7 +15,12 @@ let project = Project(
             resources: ["Resources/**"],
             dependencies: [
                  .project(target: "DesignSystem", path: "../../DesignSystem"),
-             ]
+             ],
+            settings: .settings(
+                base: [
+                    "SKIP_INSTALL": "YES"
+                ]
+            )
         ),
         .target(
             name: "LaunchTests",

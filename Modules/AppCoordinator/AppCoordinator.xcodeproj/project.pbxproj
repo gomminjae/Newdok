@@ -10,10 +10,11 @@
 		0B27C940DF5DAA6C8C7B851E /* Swinject.framework in Dependencies */ = {isa = PBXBuildFile; fileRef = D908C008AEFA0721CDA34C29 /* Swinject.framework */; };
 		0BD3CF907A80694B031FE405 /* Detail.framework in Dependencies */ = {isa = PBXBuildFile; fileRef = 2B12389B9D34AA31B5777696 /* Detail.framework */; };
 		13C9A534034C115EDB4A8D03 /* AppDIContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3792451C4D850095AD92560 /* AppDIContainer.swift */; };
-		297298263C31E6101326F1B9 /* Shared.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E8AE92AE3530D16E11F67BC8 /* Shared.framework */; };
 		34A2F59BAF7B9E5834D8DE20 /* AppCoordinatorEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93A25D25F6C1F4D5F26B3F2E /* AppCoordinatorEntry.swift */; };
+		39214A0E40CA0E2F9ECCCA05 /* Signup.framework in Dependencies */ = {isa = PBXBuildFile; fileRef = BF2FEF9CAF1F7732B4FF6B3E /* Signup.framework */; };
 		47A95E00D8121476916FABE8 /* Auth.framework in Dependencies */ = {isa = PBXBuildFile; fileRef = 238DA4510E0083E8A5FFD06E /* Auth.framework */; };
 		521B9F065149F80F06B256FF /* AppFlowCoordinatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A727B04D7914F101ECCF1A4 /* AppFlowCoordinatorView.swift */; };
+		58A833D4325C3527C605F012 /* DesignSystem.framework in Dependencies */ = {isa = PBXBuildFile; fileRef = 55722F5CCC4201D4184E352D /* DesignSystem.framework */; };
 		62DF4A4A32DA7766EDA7A631 /* Search.framework in Dependencies */ = {isa = PBXBuildFile; fileRef = E5244020C7F599E67FE05B1C /* Search.framework */; };
 		699BB6C4DC2DA0583A195BE3 /* Bookmark.framework in Dependencies */ = {isa = PBXBuildFile; fileRef = 40DEF26D6CCE1D89E30673E3 /* Bookmark.framework */; };
 		71B73EACEC5BC6931DBF87D3 /* Explore.framework in Dependencies */ = {isa = PBXBuildFile; fileRef = 9C494B729F6FC9CAA8002E73 /* Explore.framework */; };
@@ -21,14 +22,13 @@
 		82A203EC5DD0D3B98CD9E266 /* Mypage.framework in Dependencies */ = {isa = PBXBuildFile; fileRef = AF73942FA92E1BF2208C6AE5 /* Mypage.framework */; };
 		A758B6D31329B917EAE2FA37 /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCDC9B63C926672852B00CDC /* AppCoordinator.swift */; };
 		AD5F078346B48782AE8F2F45 /* NewDokTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C8DF8FB1683331DA4E93520 /* NewDokTabView.swift */; };
-		AEE48CEB8FA6C433EC3BBF63 /* DesignSystem.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55722F5CCC4201D4184E352D /* DesignSystem.framework */; };
 		B172E4AF5DF3A35FF1ADA1B9 /* Data.framework in Dependencies */ = {isa = PBXBuildFile; fileRef = 389E23A3E1DBC5350510374E /* Data.framework */; };
 		B2545A523BEE4D136BDE4B11 /* Home.framework in Dependencies */ = {isa = PBXBuildFile; fileRef = 275A08FCEAEEF8B617DD483F /* Home.framework */; };
-		C2E50172768D9C77475EE551 /* Signup.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF2FEF9CAF1F7732B4FF6B3E /* Signup.framework */; };
+		C21939D632B215F2723E58BC /* Core.framework in Dependencies */ = {isa = PBXBuildFile; fileRef = 1B39CB14B95B55A6AC773E37 /* Core.framework */; };
 		C3E350D91B8ECF05EAB5C96F /* Domain.framework in Dependencies */ = {isa = PBXBuildFile; fileRef = 924788B4548B7D433D29F3B4 /* Domain.framework */; };
+		DEF770977A22146AD16904DF /* Shared.framework in Dependencies */ = {isa = PBXBuildFile; fileRef = E8AE92AE3530D16E11F67BC8 /* Shared.framework */; };
 		ED55B87429175EE6DDE7131A /* Survey.framework in Dependencies */ = {isa = PBXBuildFile; fileRef = AA2C6970F82306BD4F0E6381 /* Survey.framework */; };
 		F373A5E7496946CED72BCA90 /* Launch.framework in Dependencies */ = {isa = PBXBuildFile; fileRef = AA278F2074F296122B680809 /* Launch.framework */; };
-		F7AE7474A1A86C1261A15BB9 /* Core.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B39CB14B95B55A6AC773E37 /* Core.framework */; };
 		F91AF99636A3FA1190A4AF56 /* Subscribe.framework in Dependencies */ = {isa = PBXBuildFile; fileRef = C6C889D7AF6FDD3318DA6F1D /* Subscribe.framework */; };
 		FBF3C8A52A56228D62967629 /* Recovery.framework in Dependencies */ = {isa = PBXBuildFile; fileRef = C5B28670747B57E0B2D559B2 /* Recovery.framework */; };
 /* End PBXBuildFile section */
@@ -41,7 +41,9 @@
 			files = (
 				47A95E00D8121476916FABE8 /* Auth.framework in Dependencies */,
 				699BB6C4DC2DA0583A195BE3 /* Bookmark.framework in Dependencies */,
+				C21939D632B215F2723E58BC /* Core.framework in Dependencies */,
 				B172E4AF5DF3A35FF1ADA1B9 /* Data.framework in Dependencies */,
+				58A833D4325C3527C605F012 /* DesignSystem.framework in Dependencies */,
 				0BD3CF907A80694B031FE405 /* Detail.framework in Dependencies */,
 				C3E350D91B8ECF05EAB5C96F /* Domain.framework in Dependencies */,
 				71B73EACEC5BC6931DBF87D3 /* Explore.framework in Dependencies */,
@@ -50,6 +52,8 @@
 				82A203EC5DD0D3B98CD9E266 /* Mypage.framework in Dependencies */,
 				FBF3C8A52A56228D62967629 /* Recovery.framework in Dependencies */,
 				62DF4A4A32DA7766EDA7A631 /* Search.framework in Dependencies */,
+				DEF770977A22146AD16904DF /* Shared.framework in Dependencies */,
+				39214A0E40CA0E2F9ECCCA05 /* Signup.framework in Dependencies */,
 				F91AF99636A3FA1190A4AF56 /* Subscribe.framework in Dependencies */,
 				ED55B87429175EE6DDE7131A /* Survey.framework in Dependencies */,
 				0B27C940DF5DAA6C8C7B851E /* Swinject.framework in Dependencies */,
@@ -104,10 +108,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F7AE7474A1A86C1261A15BB9 /* Core.framework in Frameworks */,
-				AEE48CEB8FA6C433EC3BBF63 /* DesignSystem.framework in Frameworks */,
-				297298263C31E6101326F1B9 /* Shared.framework in Frameworks */,
-				C2E50172768D9C77475EE551 /* Signup.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -388,7 +388,7 @@
 					"-Xcc",
 					"-fmodule-map-file=$(SRCROOT)/../../Tuist/.build/tuist-derived/SDWebImage/SDWebImage.modulemap",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.Newdok.appcoordinator;
+				PRODUCT_BUNDLE_IDENTIFIER = com.newdok.appcoordinator;
 				PRODUCT_NAME = AppCoordinator;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
@@ -496,7 +496,7 @@
 					"-Xcc",
 					"-fmodule-map-file=$(SRCROOT)/../../Tuist/.build/tuist-derived/SDWebImage/SDWebImage.modulemap",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.Newdok.appcoordinator;
+				PRODUCT_BUNDLE_IDENTIFIER = com.newdok.appcoordinator;
 				PRODUCT_NAME = AppCoordinator;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;

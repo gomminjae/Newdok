@@ -25,7 +25,7 @@ public struct EmptySubscriptionView: View {
 
     public var body: some View {
         VStack(spacing: 0) {
-            Image(asset: DesignSystemAsset.nosubscibe)
+            Image(asset: DesignSystemAsset.nosubscribe)
                 .resizable()
                 .scaledToFit()
                 .frame(width: 280, height: 280)

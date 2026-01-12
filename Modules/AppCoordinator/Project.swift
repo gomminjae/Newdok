@@ -7,7 +7,7 @@ let project = Project(
       name: "AppCoordinator",
       destinations: .iOS,
       product: .staticFramework,
-      bundleId: "com.Newdok.appcoordinator",
+      bundleId: "com.newdok.appcoordinator",
       deploymentTargets: .iOS("17.0"),
       infoPlist: .default,
       sources: ["Sources/**"],
@@ -31,7 +31,12 @@ let project = Project(
         .project(target: "DesignSystem", path: "../DesignSystem"),
         .project(target: "Shared", path: "../Shared"),
         .external(name: "Swinject"),
-      ]
+      ],
+      settings: .settings(
+        base: [
+          "SKIP_INSTALL": "YES"
+        ]
+      )
     )
   ]
 )

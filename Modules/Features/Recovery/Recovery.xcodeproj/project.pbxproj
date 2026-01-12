@@ -7,15 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		09E3242762C5E8FEAA439C4E /* Shared.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4CD807EF128E4523E4F93901 /* Shared.framework */; };
-		1C8A7C8A57B27DC9D9C1CDB7 /* DesignSystem.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1EF38DA8E799CA840AC07D48 /* DesignSystem.framework */; };
 		2303A1CAC4C44C68928926F3 /* PasswordRecoveryPagerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A79A9AE8102559593CBCEBA /* PasswordRecoveryPagerView.swift */; };
 		32B156BDAC3A405D923CEC5F /* CheckPhoneErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B59EE2BDD768904D8ECC1592 /* CheckPhoneErrorView.swift */; };
 		3BFD166C087B6C1E148273BC /* RecoveryMain.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1EF64A9C25417233B91F71B /* RecoveryMain.swift */; };
 		6A18C8D13CE1B913D3422FED /* FindIdPagerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBC0E7AFA5B7F878D372EE22 /* FindIdPagerView.swift */; };
 		70B58B4CBFF95F7C589742CB /* RecoveryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 212883D998465EEE08AAEB18 /* RecoveryView.swift */; };
+		8F5835DA4AAF188AD9E0A527 /* Shared.framework in Dependencies */ = {isa = PBXBuildFile; fileRef = 4CD807EF128E4523E4F93901 /* Shared.framework */; };
 		A05D8FFBF4486AA2EC1869A9 /* Domain.framework in Dependencies */ = {isa = PBXBuildFile; fileRef = 07BD651011AC8F84B15B365F /* Domain.framework */; };
 		A93C181DFCA2D817D3A4B54D /* RecoveryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D16901D3C2DC528041334C0 /* RecoveryViewModel.swift */; };
+		DC830D9CD9996EF114CE85BD /* DesignSystem.framework in Dependencies */ = {isa = PBXBuildFile; fileRef = 1EF38DA8E799CA840AC07D48 /* DesignSystem.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -24,7 +24,9 @@
 			buildActionMask = 8;
 			dstSubfolderSpec = 16;
 			files = (
+				DC830D9CD9996EF114CE85BD /* DesignSystem.framework in Dependencies */,
 				A05D8FFBF4486AA2EC1869A9 /* Domain.framework in Dependencies */,
+				8F5835DA4AAF188AD9E0A527 /* Shared.framework in Dependencies */,
 			);
 			name = Dependencies;
 			runOnlyForDeploymentPostprocessing = 1;
@@ -60,8 +62,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1C8A7C8A57B27DC9D9C1CDB7 /* DesignSystem.framework in Frameworks */,
-				09E3242762C5E8FEAA439C4E /* Shared.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -303,7 +303,7 @@
 					"-Xcc",
 					"-fmodule-map-file=$(SRCROOT)/../../../Tuist/.build/tuist-derived/SDWebImage/SDWebImage.modulemap",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.newdok.Recovery;
+				PRODUCT_BUNDLE_IDENTIFIER = com.newdok.recovery;
 				PRODUCT_NAME = Recovery;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
@@ -356,7 +356,7 @@
 					"-Xcc",
 					"-fmodule-map-file=$(SRCROOT)/../../../Tuist/.build/tuist-derived/SDWebImage/SDWebImage.modulemap",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.newdok.Recovery;
+				PRODUCT_BUNDLE_IDENTIFIER = com.newdok.recovery;
 				PRODUCT_NAME = Recovery;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;

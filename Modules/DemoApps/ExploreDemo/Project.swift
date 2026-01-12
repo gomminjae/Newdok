@@ -29,7 +29,12 @@ let project = Project(
                 .project(target: "Shared", path: "../../Shared"),
                 .project(target: "Domain", path: "../../Domain"),
                 .project(target: "Data", path: "../../Data")
-            ]
+            ],
+            settings: .settings(
+                base: [
+                    "SKIP_INSTALL": "YES"
+                ]
+            )
         )
     ]
 )

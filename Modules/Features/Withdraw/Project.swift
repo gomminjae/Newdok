@@ -18,7 +18,12 @@ import ProjectDescription
                   .project(target: "DesignSystem", path: "../../DesignSystem"),
                   .project(target: "Domain", path: "../../Domain"),
                   .project(target: "Data", path: "../../Data"),
-             ]
+             ],
+             settings: .settings(
+                 base: [
+                     "SKIP_INSTALL": "YES"
+                 ]
+             )
          ),
          .target(
              name: "WithdrawTests",

@@ -8,8 +8,8 @@ let project = Project(
         .target(
             name: "DesignSystem",
             destinations: .iOS,
-            product: .framework, 
-            bundleId: "com.minjae.designsystem",
+            product: .staticFramework,
+            bundleId: "com.newdok.designsystem",
             deploymentTargets: .iOS("17.0"),
             infoPlist: .default,
             sources: ["Sources/**"],
@@ -21,7 +21,12 @@ let project = Project(
                 .external(name: "Kingfisher"),
                 .external(name: "SDWebImage"),
                 .external(name: "PopupView"),
-            ]
+            ],
+            settings: .settings(
+                base: [
+                    "SKIP_INSTALL": "YES"
+                ]
+            )
         )
     ],
     resourceSynthesizers: [
@@ -30,4 +35,3 @@ let project = Project(
         .strings()
     ]
 )
-

@@ -5,9 +5,10 @@ let workspace = Workspace(
     projects: [
         "Modules/App",
         "Modules/Core",
-        "Modules/Domain", 
+        "Modules/Domain",
         "Modules/Data",
         "Modules/DesignSystem",
+        "Modules/Shared",
         "Modules/Features/Auth",
         "Modules/Features/Home",
         "Modules/Features/Launch",
@@ -19,9 +20,9 @@ let workspace = Workspace(
         "Modules/Features/Search",
         "Modules/Features/Subscribe",
         "Modules/Features/Detail",
-        "Modules/Features/Recovery", 
+        "Modules/Features/Recovery",
         "Modules/Features/Withdraw",
-        "Modules/AppCoordinator", 
+        "Modules/AppCoordinator",
         "Modules/DemoApps/ExploreDemo",
     ],
 )

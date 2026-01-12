@@ -168,6 +168,20 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
+               BlueprintIdentifier = "C777EA7684CF3B97BE76C38C"
+               BuildableName = "DesignSystem_DesignSystem.bundle"
+               BlueprintName = "DesignSystem_DesignSystem"
+               ReferencedContainer = "container:Modules/DesignSystem/DesignSystem.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
                BlueprintIdentifier = "8B7F7C5C5BC308F0FECD514E"
                BuildableName = "Detail.framework"
                BlueprintName = "Detail"

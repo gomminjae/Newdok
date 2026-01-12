@@ -17,7 +17,7 @@ public enum NoDataType {
     var imageName: DesignSystemImages {
         switch self {
         case .noArticles: return DesignSystemAsset.nodata
-        case .noSubscriptions: return DesignSystemAsset.nosubscibe
+        case .noSubscriptions: return DesignSystemAsset.nosubscribe
         case .requireSignUp: return DesignSystemAsset.nologin
         }
     }

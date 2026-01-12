@@ -8,7 +8,7 @@ import ProjectDescription
               name: "Recovery",
               destinations: .iOS,
               product: .staticFramework,
-              bundleId: "com.newdok.Recovery",
+              bundleId: "com.newdok.recovery",
               deploymentTargets: .iOS("17.0"),
               infoPlist: .default,
               sources: ["Sources/**"],
@@ -17,7 +17,12 @@ import ProjectDescription
                   .project(target: "DesignSystem", path: "../../DesignSystem"),
                   .project(target: "Shared", path: "../../Shared"),
                   .project(target: "Domain", path: "../../Domain"),
-               ]
+               ],
+              settings: .settings(
+                  base: [
+                      "SKIP_INSTALL": "YES"
+                  ]
+              )
           )
       ]
   )

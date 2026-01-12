@@ -25,9 +25,9 @@
 		5CFDB6BEC6FA65FB81875046 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966379FEE7184717055F5336 /* User.swift */; };
 		774D8B04B9FEC09381AFC66F /* BrandDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB3A6D3208176DCF357EF63E /* BrandDetail.swift */; };
 		7CCA7B41D2B2CAA9A02E0647 /* UserUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 261679B89057804E12EBBCC2 /* UserUseCase.swift */; };
+		82F28B3226CA491D5B9C9DCF /* Shared.framework in Dependencies */ = {isa = PBXBuildFile; fileRef = 88290FF5D0840A64CDD73D68 /* Shared.framework */; };
 		86B791CDC88EF1D6D219DD72 /* SimpleUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88D7FD45351F48C13A58753E /* SimpleUser.swift */; };
 		87633E75309293F26710B847 /* BookmarkedArticles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38CE9ABCE9EE57176428BF18 /* BookmarkedArticles.swift */; };
-		8952BE4BECBFDB70C6F5C838 /* Shared.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 88290FF5D0840A64CDD73D68 /* Shared.framework */; };
 		93E7EB46FD583E8C439D947E /* Articles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 960D479DD34669CA918E0712 /* Articles.swift */; };
 		9F60FB9C5E8EBCA379003EB7 /* HomeBusinessUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBFFE3461E4EE5CB9D2C4756 /* HomeBusinessUseCase.swift */; };
 		A0FBB74C23B411ADF6E1022D /* UserRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53F01AB1AE9AA1D26882B92 /* UserRepository.swift */; };
@@ -50,6 +50,16 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
+		1779A4FE8AA46343CD51F8EF /* Dependencies */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 8;
+			dstSubfolderSpec = 16;
+			files = (
+				82F28B3226CA491D5B9C9DCF /* Shared.framework in Dependencies */,
+			);
+			name = Dependencies;
+			runOnlyForDeploymentPostprocessing = 1;
+		};
 		DBA686A82FFC1AB19CC1C76B /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -112,7 +122,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8952BE4BECBFDB70C6F5C838 /* Shared.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -282,6 +291,7 @@
 				2A71FE6FD8EF88EBB2284866 /* Resources */,
 				2069052369677C3E97D5C897 /* Frameworks */,
 				DBA686A82FFC1AB19CC1C76B /* Embed Frameworks */,
+				1779A4FE8AA46343CD51F8EF /* Dependencies */,
 			);
 			buildRules = (
 			);
@@ -451,7 +461,7 @@
 					"@loader_path/Frameworks",
 				);
 				MACH_O_TYPE = staticlib;
-				PRODUCT_BUNDLE_IDENTIFIER = com.your.bundle.domain;
+				PRODUCT_BUNDLE_IDENTIFIER = com.newdok.domain;
 				PRODUCT_NAME = Domain;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
@@ -544,7 +554,7 @@
 					"@loader_path/Frameworks",
 				);
 				MACH_O_TYPE = staticlib;
-				PRODUCT_BUNDLE_IDENTIFIER = com.your.bundle.domain;
+				PRODUCT_BUNDLE_IDENTIFIER = com.newdok.domain;
 				PRODUCT_NAME = Domain;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;

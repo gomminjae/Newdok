@@ -6,12 +6,16 @@
      .target(
        name: "Shared",
        destinations: .iOS,
-       product: .framework,
-       bundleId: "com.Newdok.shared",
+       product: .staticFramework,
+       bundleId: "com.newdok.shared",
        deploymentTargets: .iOS("17.0"),
        infoPlist: .default,
        sources: ["Sources/**"],
+       settings: .settings(
+         base: [
+           "SKIP_INSTALL": "YES"
+         ]
+       )
      )
    ]
  )
-

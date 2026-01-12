@@ -289,7 +289,8 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.Newdok.shared;
+				MACH_O_TYPE = staticlib;
+				PRODUCT_BUNDLE_IDENTIFIER = com.newdok.shared;
 				PRODUCT_NAME = Shared;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
@@ -322,7 +323,8 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.Newdok.shared;
+				MACH_O_TYPE = staticlib;
+				PRODUCT_BUNDLE_IDENTIFIER = com.newdok.shared;
 				PRODUCT_NAME = Shared;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;

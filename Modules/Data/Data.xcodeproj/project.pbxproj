@@ -34,8 +34,8 @@
 		DAAA2A4C504553BB2F5391F8 /* NewsletterDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AEEF9AEBD3D4976484638ED /* NewsletterDetail.swift */; };
 		DC6C0C6D25983E4357EBFBAD /* SearchedNewsletter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9492AF9590C9B43F1CCB214 /* SearchedNewsletter.swift */; };
 		E4E489F29D2DEAB48C3B2CB4 /* ErrorResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = E630F4F8E5DEF53D9C94324D /* ErrorResponseDTO.swift */; };
-		F148039B5F91592C5380466A /* Core.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E6799EBC84F4DBDEDB6C2FB0 /* Core.framework */; };
 		F6821D6B328FDD11ED010367 /* BrandListResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7DE91AC8EE9CAA20178CE0A /* BrandListResponseDTO.swift */; };
+		F9A9FE09097406A2D214A6CA /* Core.framework in Dependencies */ = {isa = PBXBuildFile; fileRef = E6799EBC84F4DBDEDB6C2FB0 /* Core.framework */; };
 		FAC79D0ADAF61FD7810E5A25 /* SearchRepositoryImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AE8C8D254FCB6733938B02D /* SearchRepositoryImpl.swift */; };
 		FDA0735A7EC9A2C2D1832540 /* BrandDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B34CD5DEF02802AFBEB65CD /* BrandDetail.swift */; };
 /* End PBXBuildFile section */
@@ -46,6 +46,7 @@
 			buildActionMask = 8;
 			dstSubfolderSpec = 16;
 			files = (
+				F9A9FE09097406A2D214A6CA /* Core.framework in Dependencies */,
 				4196AC73C8ABBF529103C4C2 /* Domain.framework in Dependencies */,
 			);
 			name = Dependencies;
@@ -104,7 +105,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F148039B5F91592C5380466A /* Core.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -356,7 +356,7 @@
 					"@loader_path/Frameworks",
 				);
 				MACH_O_TYPE = staticlib;
-				PRODUCT_BUNDLE_IDENTIFIER = com.your.bundle.data;
+				PRODUCT_BUNDLE_IDENTIFIER = com.newdok.data;
 				PRODUCT_NAME = Data;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
@@ -394,7 +394,7 @@
 					"@loader_path/Frameworks",
 				);
 				MACH_O_TYPE = staticlib;
-				PRODUCT_BUNDLE_IDENTIFIER = com.your.bundle.data;
+				PRODUCT_BUNDLE_IDENTIFIER = com.newdok.data;
 				PRODUCT_NAME = Data;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;

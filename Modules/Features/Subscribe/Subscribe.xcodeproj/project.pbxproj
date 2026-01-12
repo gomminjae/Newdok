@@ -7,8 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		2A45D72D9777E828B33002C0 /* Shared.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 818348BBF6B997119C6F5E6A /* Shared.framework */; };
-		49E4F31AF9CEC156F3AD86FF /* DesignSystem.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AC1A311498193AE6DF677F49 /* DesignSystem.framework */; };
+		7E373051E56150C452EB9F8A /* Shared.framework in Dependencies */ = {isa = PBXBuildFile; fileRef = 818348BBF6B997119C6F5E6A /* Shared.framework */; };
 		8B094C7028F7E2E1363D1236 /* EmptySubscriptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0C1BA120221BB2C5DA202ED /* EmptySubscriptionView.swift */; };
 		C4D403ADB487A63B26DEBCBD /* SubscribeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B7D112BBF7502924041ED21 /* SubscribeView.swift */; };
 		DB5C9D560E785B286AAA4E2E /* SubscribeRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 518873D08881857BF9308510 /* SubscribeRow.swift */; };
@@ -16,6 +15,7 @@
 		ECB3A6D8A5EE4F0D5BDA3B5A /* SubscribeMain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 601DDD48F11BCA082BCDC946 /* SubscribeMain.swift */; };
 		EE2DD2E0D2FAE26753CAB364 /* Domain.framework in Dependencies */ = {isa = PBXBuildFile; fileRef = B2642F864ADC580169E7271B /* Domain.framework */; };
 		F3CB6A79FD601706C034F708 /* SegmentPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27BE4372D9C9BB0DAF5A3985 /* SegmentPickerView.swift */; };
+		FDB9C9A8EA11ED7D892A2B48 /* DesignSystem.framework in Dependencies */ = {isa = PBXBuildFile; fileRef = AC1A311498193AE6DF677F49 /* DesignSystem.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -34,7 +34,9 @@
 			buildActionMask = 8;
 			dstSubfolderSpec = 16;
 			files = (
+				FDB9C9A8EA11ED7D892A2B48 /* DesignSystem.framework in Dependencies */,
 				EE2DD2E0D2FAE26753CAB364 /* Domain.framework in Dependencies */,
+				7E373051E56150C452EB9F8A /* Shared.framework in Dependencies */,
 			);
 			name = Dependencies;
 			runOnlyForDeploymentPostprocessing = 1;
@@ -60,8 +62,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				49E4F31AF9CEC156F3AD86FF /* DesignSystem.framework in Frameworks */,
-				2A45D72D9777E828B33002C0 /* Shared.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

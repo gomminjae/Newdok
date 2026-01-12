@@ -7,7 +7,7 @@ let project = Project(
         .target(
             name: "Signup",
             destinations: .iOS,
-            product: .framework,
+            product: .staticFramework,
             bundleId: "com.newdok.signup",
             deploymentTargets: .iOS("17.0"),
             infoPlist: .default,
@@ -18,7 +18,12 @@ let project = Project(
                   .project(target: "Auth", path: "../Auth"),
                   .project(target: "Domain", path: "../../Domain"),
                   .project(target: "Shared", path: "../../Shared"),
-             ]
+             ],
+            settings: .settings(
+                base: [
+                    "SKIP_INSTALL": "YES"
+                ]
+            )
         ),
         .target(
             name: "SignupTests",

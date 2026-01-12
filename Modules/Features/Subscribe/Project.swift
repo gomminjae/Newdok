@@ -17,7 +17,12 @@ import ProjectDescription
                    .project(target: "DesignSystem", path: "../../DesignSystem"),
                    .project(target: "Shared", path: "../../Shared"),
                    .project(target: "Domain", path: "../../Domain"),
-                ]
+                ],
+               settings: .settings(
+                   base: [
+                       "SKIP_INSTALL": "YES"
+                   ]
+               )
            )
        ]
    )

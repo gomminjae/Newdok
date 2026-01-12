@@ -8,7 +8,7 @@ let project = Project(
             name: "Explore",
             destinations: .iOS,
             product: .staticFramework,
-            bundleId: "com.newdok.Explore",
+            bundleId: "com.newdok.explore",
             deploymentTargets: .iOS("17.0"),
             infoPlist: .default,
             sources: ["Sources/**"],
@@ -18,7 +18,13 @@ let project = Project(
                 .project(target: "Core", path: "../../Core"),
                 .project(target: "Shared", path: "../../Shared"),
                 .project(target: "Domain", path: "../../Domain"),
-            ]
+            ],
+            settings: .settings(
+                base: [
+                    "SWIFT_INSTALL_OBJC_HEADER": "NO",
+                    "SKIP_INSTALL": "YES"
+                ]
+            )
         ),
         .target(
             name: "ExploreTests",

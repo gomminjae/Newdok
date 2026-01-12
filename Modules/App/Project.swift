@@ -3,6 +3,27 @@ import ProjectDescription
 let project = Project(
     name: "App",
     organizationName: "Your Organization Name",
+    settings: .settings(
+        base: [
+            "DEVELOPMENT_TEAM": "AU24ZRJ649",
+            "MARKETING_VERSION": "1.0.0",
+            "SKIP_INSTALL": "NO"
+        ],
+        configurations: [
+            .debug(
+                name: "Debug",
+                xcconfig: "../../Configurations/Debug.xcconfig"
+            ),
+            .release(
+                name: "Release",
+                xcconfig: "../../Configurations/Release.xcconfig"
+            )
+        ],
+        defaultSettings: .recommended(excluding: [
+            "ASSETCATALOG_COMPILER_APPICON_NAME",
+            "SWIFT_ACTIVE_COMPILATION_CONDITIONS"
+        ])
+    ),
     targets: [
         .target(
             name: "App",
@@ -12,11 +33,10 @@ let project = Project(
             deploymentTargets: .iOS("17.0"),
             infoPlist: .extendingDefault(
                 with: [
-                    "BASE_URL": "$(BASE_URL)",
-                    "CFBundleName": "$(CFBundleDisplayName)",
-                    "CFBundleDisplayName": "$(CFBundleDisplayName)",
-                    "CFBundleShortVersionString": "1.0.0",
-                    "CFBundleVersion": "1",
+                    "API_BASE_URL": "$(API_BASE_URL)",
+                    "CFBundleDisplayName": "$(APP_DISPLAY_NAME)",
+                    "CFBundleShortVersionString": "$(MARKETING_VERSION)",
+                    "CFBundleVersion": "$(CURRENT_PROJECT_VERSION)",
                     "UILaunchScreen": [
                         "UIColorName": "AccentColor",
                         "UIImageName": "",
@@ -61,17 +81,7 @@ let project = Project(
                 .project(target: "AppCoordinator", path: "../AppCoordinator"),
                 .project(target: "Shared", path: "../Shared"),
                 .external(name: "PopupView"),
-            ],
-            settings: .settings(
-                base: [
-                    "ASSETCATALOG_COMPILER_APPICON_NAME": "$(ASSETCATALOG_COMPILER_APPICON_NAME)",
-                    "DEVELOPMENT_TEAM": "$(DEVELOPMENT_TEAM)"
-                ],
-                configurations: [
-                    .debug(name: "Debug", xcconfig: "../../Configurations/Development.xcconfig"),
-                    .release(name: "Release", xcconfig: "../../Configurations/Production.xcconfig")
-                ]
-            )
+            ]
         )
     ],
     schemes: [
@@ -86,4 +96,3 @@ let project = Project(
         )
     ]
 )
-

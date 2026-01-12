@@ -8,7 +8,7 @@ import ProjectDescription
              name: "Mypage",
              destinations: .iOS,
              product: .staticFramework,
-             bundleId: "com.newdok.Mypage",
+             bundleId: "com.newdok.mypage",
              deploymentTargets: .iOS("17.0"),
              infoPlist: .default,
              sources: ["Sources/**"],
@@ -17,7 +17,12 @@ import ProjectDescription
                  .project(target: "DesignSystem", path: "../../DesignSystem"),
                  .project(target: "Shared", path: "../../Shared"),
                  .external(name: "PopupView")
-              ]
+             ],
+             settings: .settings(
+                 base: [
+                     "SKIP_INSTALL": "YES"
+                 ]
+             )
          )
      ]
  )
