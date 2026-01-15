@@ -31,11 +31,19 @@ public class NewsletterRepositoryImpl: NewsletterRepository {
         return response.map { $0.toDomain() }
     }
     
-    public func fetchRecommenidation() async throws -> Domain.RecommendedNewsletter {
+    public func fetchRecommendation() async throws -> Domain.RecommendedNewsletter {
         logDebug("추천 뉴스레터 조회", category: .repository)
-        let response: RecommendedNewsletterDTO = try await provider.asyncRequest(.fetchRecommendationList)
-        logDebug("추천 뉴스레터 조회 완료", category: .repository)
-        return response.toDomain()
+        
+        async let unionTask: [NewsletterDetailDTO] = provider.asyncRequest(.fetchRecommendUnion)
+        async let intersectionTask: [NewsletterDetailDTO] = provider.asyncRequest(.fetchRecommendIntersection)
+        
+        let union = try await unionTask
+        let intersection = try await intersectionTask
+        
+        logDebug("추천 뉴스레터 조회 완료 - Union: \(union.count), Intersection: \(intersection.count)", category: .repository)
+        
+        let recommendedNewsletterDTO = RecommendedNewsletterDTO(union: union, intersection: intersection)
+        return recommendedNewsletterDTO.toDomain()
     }
     
     public func searchNewsletter(brandName: String) async throws -> [Domain.Newsletter] {

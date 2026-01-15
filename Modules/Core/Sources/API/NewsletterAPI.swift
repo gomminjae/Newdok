@@ -16,7 +16,12 @@ public enum NewsletterAPI {
     //구독중지중인
     case fetchPausedNewletters
     //개인화 추천
-    case fetchRecommendationList
+    
+    ///deprecated
+    //case fetchRecommendationList
+    
+    case fetchRecommendIntersection
+    case fetchRecommendUnion
     
     case search(brandName: String)
     
@@ -48,8 +53,10 @@ extension NewsletterAPI: TargetType {
             return "/subscription/active"
         case .fetchPausedNewletters:
             return "/subscription/paused"
-        case .fetchRecommendationList:
-            return "/recommend"
+        case .fetchRecommendUnion:
+            return "/recommend/union"
+        case .fetchRecommendIntersection:
+            return "/recommend/intersection"
         case .search:
             return "/search"
         case .fetchAllNewsletterBrands:
@@ -81,7 +88,7 @@ extension NewsletterAPI: TargetType {
     
     public var task: Moya.Task {
         switch self {
-        case .fetchActiveNewletters, .fetchPausedNewletters,.fetchRecommendationList,.fetchGuestNewsletterBrand, .fetchNewsletterBrand, .fetchSubscriptionCount:
+        case .fetchActiveNewletters, .fetchPausedNewletters,.fetchRecommendUnion,.fetchRecommendIntersection,.fetchGuestNewsletterBrand, .fetchNewsletterBrand, .fetchSubscriptionCount:
             return .requestPlain
         case .search(let brandName):
             return .requestParameters(parameters: ["brandName": brandName], encoding: URLEncoding.default)
