@@ -24,7 +24,7 @@ public class NewsletterUseCaseImpl: NewsletterUseCase {
     }
     
     public func fetchRecommendation() async throws -> Domain.RecommendedNewsletter {
-        return try await repository.fetchRecommenidation()
+        return try await repository.fetchRecommendation()
     }
     
     public func searchNewsletter(brandName: String) async throws -> [Domain.Newsletter] {

@@ -13,7 +13,7 @@ public protocol NewsletterRepository {
     func fetchActiveSubscription() async throws -> [Newsletter]
     func fetchPausedSubscription() async throws -> [Newsletter]
     func fetchSubscriptionCount() async throws -> Int
-    func fetchRecommenidation() async throws -> RecommendedNewsletter
+    func fetchRecommendation() async throws -> RecommendedNewsletter
     func searchNewsletter(brandName: String) async throws -> [Newsletter]
     func fetchNewsletters(orderOpt: String?, industry: [Int]?, day: [Int]?) async throws -> [Brand]
     func fetchNewsletterBrand(id: String) async throws -> BrandDetail
