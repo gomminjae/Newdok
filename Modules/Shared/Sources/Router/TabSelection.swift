@@ -15,11 +15,10 @@ public final class TabSelection: ObservableObject {
 
 
 
-public enum NewDokTab: Int {
+public enum NewDokTab: Int, CaseIterable {
     case explore
     case subscribe
     case home
     case bookmark
     case profile
-    
 }
