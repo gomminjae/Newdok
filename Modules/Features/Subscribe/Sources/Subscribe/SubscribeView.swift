@@ -82,12 +82,15 @@ public struct SubscribeView: View {
                 .position(.center)
                 .animation(.easeInOut)
                 .backgroundColor(Color.black.opacity(0.3))
+                .closeOnTap(false)
                 .closeOnTapOutside(true)
+                .allowTapThroughBG(false)
         }
         .popup(isPresented: $showPauseToast) {
             ToastView(message: "구독이 중지되었습니다.").padding(.bottom, 106)
         } customize: {
             $0.type(.toast).position(.bottom).autohideIn(1).animation(.easeInOut).closeOnTapOutside(false)
+            
         }
         .popup(isPresented: $showSubscribeToast) {
             ToastView(message: "구독이 재개되었습니다.").padding(.bottom, 106)
