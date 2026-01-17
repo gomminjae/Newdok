@@ -26,6 +26,7 @@
 		72415CF40FB9EA2BE53157FD /* Font.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0892589FC56FB3A98055F459 /* Font.swift */; };
 		81691FB03997BD9E75987B6E /* CustomSegmentedSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A381D7F2C70367E5C3D8005 /* CustomSegmentedSlider.swift */; };
 		85F33B9FC7C90A8C544B7057 /* UpdateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72E2C18DBF37D6CEFC146ADE /* UpdateView.swift */; };
+		8A62B4BD3A69AEF073CF5C9A /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5A48836E0BB8D0848154F17 /* UIColor+Extension.swift */; };
 		8A9C0A8F4FB5F65357DC241E /* SubscribeNoticeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 927C881A2F81BA000C05ABEF /* SubscribeNoticeView.swift */; };
 		90D6A5AEB9B8DACDEBE64A29 /* SystemErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE683B09BDE84B3483EE6137 /* SystemErrorView.swift */; };
 		930633ABD4AB1ABA3A0D07CE /* PopupView.framework in Dependencies */ = {isa = PBXBuildFile; fileRef = B6654808CA89C3FC25B33948 /* PopupView.framework */; };
@@ -133,6 +134,7 @@
 		9ED3D8DA640FE3624B7ACF45 /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		A3CC877F7AECA4386F75D208 /* LoginErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginErrorView.swift; sourceTree = "<group>"; };
 		A5263BC75B281154AC0B5A7B /* TuistAssets+DesignSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TuistAssets+DesignSystem.swift"; sourceTree = "<group>"; };
+		A5A48836E0BB8D0848154F17 /* UIColor+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
 		B6654808CA89C3FC25B33948 /* PopupView.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = PopupView.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BDF5531123A3004A8540D621 /* NotRegisteredIdPopupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotRegisteredIdPopupView.swift; sourceTree = "<group>"; };
 		BE4AD9735556ECA8C8008FEC /* TuistBundle+DesignSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TuistBundle+DesignSystem.swift"; sourceTree = "<group>"; };
@@ -177,6 +179,7 @@
 				F9E8E6CAFD528DBE7A3EA0F0 /* TextField */,
 				CA7FD31B81030BC1A9A40F5D /* Toast */,
 				0B424097EED4FD25BE22C5E1 /* Color+Extension.swift */,
+				A5A48836E0BB8D0848154F17 /* UIColor+Extension.swift */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -480,6 +483,7 @@
 				E3003B318BD827C1E876F9C9 /* UnsubscribePopupView.swift in Sources */,
 				D35DFD63D8CD70868B230DA2 /* CustomTextFieldModifier.swift in Sources */,
 				41412A573756BE6C91B6AA4D /* ToastView.swift in Sources */,
+				8A62B4BD3A69AEF073CF5C9A /* UIColor+Extension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

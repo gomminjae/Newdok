@@ -138,6 +138,7 @@ final public class SignupViewModel: ObservableObject {
     @Published public var myIndustry: String = ""
     @Published public var selectedInterests: Set<String> = []
     @Published public var recommendedPost: [RecommendedBrand] = []
+    @Published public var isCurationLoading = false
     
     public init(userUseCase: UserUseCase) {
         self.userUseCase = userUseCase
@@ -360,13 +361,16 @@ final public class SignupViewModel: ObservableObject {
     }
     
     func submitInterests() {
+        isCurationLoading = true
+        recommendedPost = []
+        goToNextStep()
+        
         Task {
             do {
                 let result = try await userUseCase.preInvestigate(
                     industryId: myIndustry,
                     interestIds: Array(selectedInterests)
                 )
-                recommendedPost = result
                 
                 if let currentUserInfo = UserInfoStore.shared.load() {
                     let updatedUserInfo = UserInfo(
@@ -384,8 +388,14 @@ final public class SignupViewModel: ObservableObject {
                     UserInfoStore.shared.save(updatedUserInfo)
                 }
                 
-                goToNextStep()
+                await MainActor.run {
+                    recommendedPost = result
+                    isCurationLoading = false
+                }
             } catch {
+                await MainActor.run {
+                    isCurationLoading = false
+                }
             }
         }
     }
@@ -488,5 +498,6 @@ final public class SignupViewModel: ObservableObject {
         isShowPopup = false
         
         stopTimer()
+        isCurationLoading = false
     }
 }
