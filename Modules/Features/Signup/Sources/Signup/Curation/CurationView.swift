@@ -10,7 +10,7 @@ import DesignSystem
 import Shared
 import Domain
 
-struct CurationView: View {
+public struct CurationView: View {
     @ObservedObject private var viewModel: SignupViewModel
     @EnvironmentObject private var router: AppRouter
     
@@ -18,22 +18,34 @@ struct CurationView: View {
         self.viewModel = viewModel
     }
     
-    var body: some View {
+    public var body: some View {
+        Group {
+            if viewModel.isCurationLoading {
+                SignupCurationSkeletonView()
+            } else {
+                loadedContent
+            }
+        }
+        .padding(.horizontal, 24)
+    }
+}
+
+private extension CurationView {
+    var loadedContent: some View {
         VStack(alignment: .leading, spacing: 0) {
             Text("\(viewModel.nickname)님을 위한\n맞춤형 뉴스레터가 도착했어요!")
                 .font(.hanSansNeo(20,.bold))
                 .frame(maxWidth: .infinity, alignment: .leading)
-                
                 .padding(.top, 24)
+            
             Text("구독한 뉴스레터는 발행일에 맞춰 홈으로 배달해드려요.\n구독하기를 누르면 구독 이메일이 자동으로 복사돼요.")
                 .font(.hanSansNeo(14, .medium))
                 .foregroundStyle(Color(hex: "#565656"))
                 .frame(maxWidth: .infinity, alignment: .leading)
-                
                 .padding(.top, 8)
+            
             ScrollView {
                 VStack(spacing: 12) {
-                    // 실제 추천 데이터 표시
                     ForEach(viewModel.recommendedPost, id: \.id) { brand in
                         CurationRow(brand: brand, viewModel: viewModel)
                     }
@@ -43,9 +55,7 @@ struct CurationView: View {
             .scrollIndicators(.hidden)
             
             Button("메인으로") {
-                // SignupViewModel 초기화
                 viewModel.reset()
-                // 홈 화면으로 이동
                 router.resetTo(.tabbar(selectedTab: .home))
             }
             .font(.hanSansNeo(14, .bold))
@@ -55,10 +65,7 @@ struct CurationView: View {
             .background(Color.primaryNormal)
             .cornerRadius(4)
             .padding(.bottom, 16)
-           
-            
         }
-        .padding(.horizontal, 24)
     }
 }
 
@@ -120,8 +127,15 @@ struct CurationView: View {
         )
     ]
     
-    return CurationView(viewModel: mockViewModel)
-        .environmentObject(AppRouter())
+    let loadingViewModel = SignupViewModel(userUseCase: MockUserUseCase())
+    loadingViewModel.nickname = "미리보기"
+    loadingViewModel.isCurationLoading = true
+    
+    return Group {
+        CurationView(viewModel: mockViewModel)
+        CurationView(viewModel: loadingViewModel)
+    }
+    .environmentObject(AppRouter())
 }
 
 // Mock UserUseCase
