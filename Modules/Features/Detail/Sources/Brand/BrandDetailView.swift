@@ -85,6 +85,7 @@ public struct BrandDetailView: View {
     @State private var showSubscribeSheet = false
     @State private var showSubscribeStatePopup = false
     @State private var showCheckSubscribePopup = false
+    @State private var hasPresentedSubscribeCheckPopup = false
     
     
     
@@ -205,12 +206,12 @@ public struct BrandDetailView: View {
                 .closeOnTapOutside(false)
         }
         .popup(isPresented: $showCheckSubscribePopup) {
-            CheckSubscribeView(
-                onConfirmEmail: {
+            CheckIsSubscribeView(
+                onClose: {
                     showCheckSubscribePopup = false
-                    // 홈으로 라우팅
-                    router.resetTo(.tabbar(selectedTab: .home))
-                }
+                },
+                checkMailbox: {},
+                subscribe: {}
             )
         } customize: {
             $0
@@ -460,6 +461,9 @@ public struct BrandDetailView: View {
                     .closeOnTapOutside(true)
             }
         }
+        .onAppear {
+            presentCheckSubscribePopupIfNeeded(for: detail)
+        }
     }
 
     
@@ -506,6 +510,17 @@ public struct BrandDetailView: View {
         }
     }
 
+    private func presentCheckSubscribePopupIfNeeded(for detail: BrandDetail) {
+        guard !hasPresentedSubscribeCheckPopup else { return }
+
+        let needsPopup = detail.subscribeCheck ||
+            SubscriptionStatus(rawValue: detail.isSubscribed ?? "") == .check
+
+        if needsPopup {
+            hasPresentedSubscribeCheckPopup = true
+            showCheckSubscribePopup = true
+        }
+    }
 
     
     
