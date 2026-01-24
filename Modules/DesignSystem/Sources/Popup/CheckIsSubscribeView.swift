@@ -25,45 +25,49 @@ public struct CheckIsSubscribeView: View {
     }
 
     public var body: some View {
-        VStack(alignment: .leading, spacing: 12) {
-            HStack {
-                Spacer()
-                Button(action: onClose) {
-                    Image(asset: DesignSystemAsset.lineClose)
+        ZStack(alignment: .topTrailing) {
+            VStack(alignment: .center, spacing: 12) {
+                Image(asset: DesignSystemAsset.warning)
+                    .resizable()
+                    .frame(width: 80, height: 80)
+
+                Text("구독 확인 필요")
+                    .font(.hanSansNeo(20, .bold))
+                    .multilineTextAlignment(.center)
+
+                Text("이 뉴스레터는 구독 확인이 필요해요.\n홈에서 확인 메일을 찾아 '확인' 버튼을 눌러주세요.")
+                    .font(.hanSansNeo(14, .medium))
+                    .foregroundStyle(Color(hex: "565656"))
+                    .multilineTextAlignment(.center)
+
+                Button("메일 확인하기") {
+                    checkMailbox()
                 }
-            }
+                .font(.hanSansNeo(14, .bold))
+                .foregroundStyle(Color.white)
+                .frame(maxWidth: .infinity)
+                .frame(height: 48)
+                .background(Color.primaryNormal)
+                .cornerRadius(4)
+                .padding(.top, 18)
 
-            Image(asset: DesignSystemAsset.warning)
-                .resizable()
-                .frame(width: 80, height: 80)
-
-            Text("구독 확인 필요")
-                .font(.hanSansNeo(20, .bold))
-
-            Text("이 뉴스레터는 구독 확인이 필요해요.\n홈에서 확인 메일을 찾아 '확인' 버튼을 눌러주세요.")
-                .font(.hanSansNeo(14, .medium))
-                .foregroundStyle(Color(hex: "565656"))
-
-            Button("메일 확인하기") {
-                checkMailbox()
-            }
-            .font(.hanSansNeo(14, .bold))
-            .foregroundStyle(Color.white)
-            .frame(maxWidth: .infinity)
-            .frame(height: 48)
-            .background(Color.primaryNormal)
-            .cornerRadius(4)
-            .padding(.top, 18)
-
-            HStack {
-                Text("확인 메일을 찾을 수 없나요?")
+                HStack {
+                    Text("확인 메일을 찾을 수 없나요?")
+                        .font(.hanSansNeo(12, .medium))
+                    Button("다시 구독 신청하기") {
+                        subscribe()
+                    }
                     .font(.hanSansNeo(12, .medium))
-                Button("다시 구독 신청하기") {
-                    subscribe()
+                    .foregroundStyle(Color.primaryNormal)
                 }
-                .font(.hanSansNeo(12, .medium))
-                .foregroundStyle(Color.primaryNormal)
             }
+            .padding(.top, 20)
+
+            Button(action: onClose) {
+                Image(asset: DesignSystemAsset.lineClose)
+            }
+            .padding(.top, 8)
+            .padding(.trailing, 8)
         }
         .padding(.horizontal, 24)
         .padding(.vertical, 28)

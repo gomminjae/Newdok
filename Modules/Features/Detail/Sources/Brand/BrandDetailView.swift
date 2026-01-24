@@ -76,6 +76,7 @@ enum SubscriptionStatus: String {
 public struct BrandDetailView: View {
     @StateObject private var viewModel: BrandDetailViewModel
     @EnvironmentObject private var router: AppRouter
+    @EnvironmentObject private var tabSelection: TabSelection
     
     @State private var isShowPauseAlert: Bool = false
     @State private var isShowGuestAlert: Bool = false
@@ -210,8 +211,15 @@ public struct BrandDetailView: View {
                 onClose: {
                     showCheckSubscribePopup = false
                 },
-                checkMailbox: {},
-                subscribe: {}
+                checkMailbox: {
+                    showCheckSubscribePopup = false
+                    tabSelection.selectedTab = .home
+                    router.resetTo(.tabbar(selectedTab: .home))
+                },
+                subscribe: {
+                    showCheckSubscribePopup = false
+                    showSubscribeSheet = true
+                }
             )
         } customize: {
             $0
