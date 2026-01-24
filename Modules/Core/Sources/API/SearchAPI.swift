@@ -11,6 +11,7 @@ import Foundation
 public enum SearchAPI {
     case searchNewsletters(brandName: String)
     case searchArticles(keyword: String)
+    case popularKeywords
 }
 
 
@@ -25,6 +26,8 @@ extension SearchAPI: TargetType {
             return "/article"
         case .searchNewsletters:
             return "/newsletter"
+        case .popularKeywords:
+            return "/popular"
         }
     }
     
@@ -42,7 +45,8 @@ extension SearchAPI: TargetType {
             return .requestParameters(parameters: [
                 "brandName": keyword,
             ], encoding: URLEncoding.default)
-            
+        case .popularKeywords:
+            return .requestPlain
         }
     }
     

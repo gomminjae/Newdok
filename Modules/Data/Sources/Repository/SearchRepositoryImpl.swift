@@ -33,5 +33,11 @@ public class SearchRepositoryImpl: SearchRepository {
         return response.map { $0.toDomain() }
     }
     
+    public func fetchPopularKeywords() async throws -> PopularKeywordList {
+        logDebug("인기 검색어 조회", category: .repository)
+        let response: PopularKeywordResponseDTO = try await provider.asyncRequest(.popularKeywords)
+        return response.toDomain()
+    }
+    
     
 }

@@ -23,4 +23,8 @@ public final class SearchUseCaseImpl: SearchUseCase {
         return try await searchRepository.searchArticles(keyword: keyword)
     }
 
+    public func fetchPopularKeywords() async throws -> PopularKeywordList {
+        return try await searchRepository.fetchPopularKeywords()
+    }
+
 }
