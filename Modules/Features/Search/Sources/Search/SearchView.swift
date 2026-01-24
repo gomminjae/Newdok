@@ -107,67 +107,76 @@ public struct SearchView: View {
                 }
                 .background(Color.gray.opacity(0.05))
             } else {
-                // 검색어가 없을 때 - 인기검색어 표시
-                VStack(alignment: .leading, spacing: 16) {
-                    HStack {
-                        Text("인기검색어")
-                            .font(.hanSansNeo(16, .medium))
-                        Spacer()
-                        Text("10/11 업데이트")
-                            .font(.hanSansNeo(12,.medium))
-                            .foregroundColor(.primaryNormal)
-                    }
-                    .padding(.bottom, 8)
-
-                    ForEach(1..<6) { num in
-                        HStack(spacing: 16) {
-                            Text("\(num)")
-                                .font(.hanSansNeo(14,.medium))
-                                .foregroundColor(.primaryNormal)
-                            
-                            Text(sampleWord(num))
-                                .font(.hanSansNeo(14,.medium))
-                                .foregroundColor(Color(hex: "#565656"))
-                            Spacer()
-                        }
-
-                        .onTapGesture {
-                            let brandId = getBrandId(for: num)
-                            router.push(.brandDetail(id: "\(brandId)"))
-                        }
-                    }
-                    Spacer()
-                }
-                .padding(24)
+                popularKeywordsSection()
             }
             Spacer()
         }
         .navigationBarBackButtonHidden(true)
         .navigationBarHidden(true)
-    }
-
-    // 임시 데이터
-    private func sampleWord(_ num: Int) -> String {
-        switch num {
-        case 1: return "NEWNEEK"
-        case 2: return "Daily Byte"
-        case 3: return "머니레터"
-        case 4: return "마케팅킹"
-        case 5: return "오렌지레터"
-        case 6: return "IT"
-        default: return ""
+        .task {
+            await viewModel.loadPopularKeywords()
         }
     }
+
+    @ViewBuilder
+    private func popularKeywordsSection() -> some View {
+        VStack(alignment: .leading, spacing: 16) {
+            HStack {
+                Text("인기검색어")
+                    .font(.hanSansNeo(16, .medium))
+                Spacer()
+                if let updatedDate = viewModel.popularKeywords?.updatedDate {
+                    Text("\(updatedDate) 업데이트")
+                        .font(.hanSansNeo(12,.medium))
+                        .foregroundColor(.primaryNormal)
+                }
+            }
+            .padding(.bottom, 8)
+            
+            if viewModel.isPopularLoading {
+                ProgressView()
+                    .frame(maxWidth: .infinity)
+            } else if let keywords = viewModel.popularKeywords?.keywords, !keywords.isEmpty {
+                ForEach(keywords) { keyword in
+                    popularKeywordRow(keyword)
+                }
+            } else if let error = viewModel.popularErrorMessage {
+                VStack(alignment: .leading, spacing: 8) {
+                    Text(error)
+                        .font(.hanSansNeo(14,.medium))
+                        .foregroundColor(.primaryNormal)
+                    Button("다시 시도하기") {
+                        Task { await viewModel.loadPopularKeywords(force: true) }
+                    }
+                    .font(.hanSansNeo(14,.medium))
+                }
+            } else {
+                Text("표시할 인기 검색어가 없습니다.")
+                    .font(.hanSansNeo(14,.medium))
+                    .foregroundColor(Color(hex: "#565656"))
+            }
+            Spacer()
+        }
+        .padding(.horizontal, 20)
+        .padding(.vertical, 24)
+    }
     
-    // 인기검색어에 대응하는 브랜드 ID 반환 (하드코딩)
-    private func getBrandId(for rank: Int) -> Int {
-        switch rank {
-        case 1: return 1  // 뉴닉
-        case 2: return 2   // 데일리바이트
-        case 3: return 8   // 머니레터
-        case 4: return 73   // 마케팅킹
-        case 5: return 46   // 오렌지레터
-        default: return 1
+    private func popularKeywordRow(_ keyword: PopularKeyword) -> some View {
+        HStack(spacing: 16) {
+            Text("\(keyword.rank)")
+                .font(.hanSansNeo(14,.bold))
+                .foregroundColor(.primaryNormal)
+                .frame(width: 24, alignment: .leading)
+            
+            Text(keyword.keyword)
+                .font(.hanSansNeo(14,.medium))
+                .foregroundColor(Color(hex: "#565656"))
+            Spacer()
+        }
+        .padding(.vertical, 4)
+        .contentShape(Rectangle())
+        .onTapGesture {
+            Task { await viewModel.selectPopularKeyword(keyword.keyword) }
         }
     }
     

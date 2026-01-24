@@ -11,4 +11,5 @@ import Shared
 public protocol SearchUseCase {
     func searchNewsletters(brandName: String) async throws -> [SearchedNewsletter]
     func searchArticles(keyword: String) async throws -> [Bookmark]
+    func fetchPopularKeywords() async throws -> PopularKeywordList
 }

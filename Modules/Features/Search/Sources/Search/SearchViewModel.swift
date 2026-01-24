@@ -20,6 +20,9 @@ public final class SearchViewModel: ObservableObject {
     @Published public var bookmarkResults: [Bookmark] = []
     @Published public var isLoading: Bool = false
     @Published public var errorMessage: String? = nil
+    @Published public private(set) var popularKeywords: PopularKeywordList?
+    @Published public var isPopularLoading: Bool = false
+    @Published public var popularErrorMessage: String?
     
     public init(useCase: SearchUseCase) {
         self.useCase = useCase
@@ -53,6 +56,22 @@ public final class SearchViewModel: ObservableObject {
         errorMessage = nil
     }
     
+    public func loadPopularKeywords(force: Bool = false) async {
+        if isPopularLoading { return }
+        if !force, popularKeywords != nil { return }
+        isPopularLoading = true
+        popularErrorMessage = nil
+        do {
+            let response = try await useCase.fetchPopularKeywords()
+            self.popularKeywords = response
+            logDebug("인기 검색어 조회 완료 - \(response.keywords.count)개", category: .search)
+        } catch {
+            logError("인기 검색어 조회 실패: \(error.localizedDescription)", category: .search)
+            self.popularErrorMessage = error.localizedDescription
+        }
+        isPopularLoading = false
+    }
+    
     public func searchNewsletters() async {
         guard !searchText.isEmpty else { return }
         logInfo("뉴스레터 검색 시작: \"\(searchText)\"", category: .search)
@@ -83,5 +102,10 @@ public final class SearchViewModel: ObservableObject {
             self.errorMessage = error.localizedDescription
         }
         isLoading = false
+    }
+    
+    public func selectPopularKeyword(_ keyword: String) async {
+        searchText = keyword
+        await searchNewsletters()
     }
 } 
