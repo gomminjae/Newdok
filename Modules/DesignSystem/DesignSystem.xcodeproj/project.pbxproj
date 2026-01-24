@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 56;
+	objectVersion = 55;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -15,6 +15,7 @@
 		2EDDF3D2C0A79069831FB1B8 /* SpoqaHanSansNeo-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = D45E4F8E9B8A1813A5ADE0C1 /* SpoqaHanSansNeo-Light.otf */; };
 		3C49F77F8ACF1FC3BD37A181 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ED3D8DA640FE3624B7ACF45 /* LoadingView.swift */; };
 		41412A573756BE6C91B6AA4D /* ToastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1516FE4B1E4C70074B90CC52 /* ToastView.swift */; };
+		4A114BB04ACEC0F11EF431BE /* CheckIsSubscribeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8855864E885ED8AA71D9183 /* CheckIsSubscribeView.swift */; };
 		4B40701BFDF0C8C2E2EEB8C2 /* load.gif in Resources */ = {isa = PBXBuildFile; fileRef = 48854A6B16F3CFBA5DA0F0AD /* load.gif */; };
 		4D1C8FAC5AA3A85D2B2BFAAF /* Color+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B424097EED4FD25BE22C5E1 /* Color+Extension.swift */; };
 		574EA4DB241751A576797002 /* NotRegisteredIdPopupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDF5531123A3004A8540D621 /* NotRegisteredIdPopupView.swift */; };
@@ -34,7 +35,6 @@
 		A34723E76FBB0E7BC50177C2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4F6AF114A38FDBD9663A6B1B /* Assets.xcassets */; };
 		ABB14811E13F7B1ECCF8B086 /* TuistAssets+DesignSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5263BC75B281154AC0B5A7B /* TuistAssets+DesignSystem.swift */; };
 		AF3606B9E55854B952C96078 /* Kingfisher.framework in Dependencies */ = {isa = PBXBuildFile; fileRef = 28746752247E3911CD5C3C07 /* Kingfisher.framework */; };
-		B53CDF462F226E410006BC52 /* CheckIsSubscribeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B53CDF452F226E410006BC52 /* CheckIsSubscribeView.swift */; };
 		BC4360B914A0E6C10A4A851E /* CheckSubscribeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CF8A496C7E691DCF3A7C603 /* CheckSubscribeView.swift */; };
 		BDD988384DEC9A8C4E1B5F71 /* PullToRefreshView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 480127A043369072FC6A4A0E /* PullToRefreshView.swift */; };
 		C35D008C753D8412BCE4632E /* EmailInfoModalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0409EEB7627BF07C31330B2A /* EmailInfoModalView.swift */; };
@@ -136,7 +136,6 @@
 		A3CC877F7AECA4386F75D208 /* LoginErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginErrorView.swift; sourceTree = "<group>"; };
 		A5263BC75B281154AC0B5A7B /* TuistAssets+DesignSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TuistAssets+DesignSystem.swift"; sourceTree = "<group>"; };
 		A5A48836E0BB8D0848154F17 /* UIColor+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
-		B53CDF452F226E410006BC52 /* CheckIsSubscribeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckIsSubscribeView.swift; sourceTree = "<group>"; };
 		B6654808CA89C3FC25B33948 /* PopupView.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = PopupView.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BDF5531123A3004A8540D621 /* NotRegisteredIdPopupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotRegisteredIdPopupView.swift; sourceTree = "<group>"; };
 		BE4AD9735556ECA8C8008FEC /* TuistBundle+DesignSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TuistBundle+DesignSystem.swift"; sourceTree = "<group>"; };
@@ -146,6 +145,7 @@
 		CB0349579BBC3ABA50086B52 /* FAQView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FAQView.swift; sourceTree = "<group>"; };
 		CCE4C52744BC5AEDA5913B79 /* SubscribeStatePopupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscribeStatePopupView.swift; sourceTree = "<group>"; };
 		D45E4F8E9B8A1813A5ADE0C1 /* SpoqaHanSansNeo-Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SpoqaHanSansNeo-Light.otf"; sourceTree = "<group>"; };
+		D8855864E885ED8AA71D9183 /* CheckIsSubscribeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckIsSubscribeView.swift; sourceTree = "<group>"; };
 		DDA12AD00E98A3497D3A729E /* DesignSystem_DesignSystem-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "DesignSystem_DesignSystem-Info.plist"; sourceTree = "<group>"; };
 		DE683B09BDE84B3483EE6137 /* SystemErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SystemErrorView.swift; sourceTree = "<group>"; };
 		F04616C3C5DB23A49097D3BF /* SubscribeGuestAlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscribeGuestAlertView.swift; sourceTree = "<group>"; };
@@ -191,6 +191,7 @@
 			children = (
 				3F575F6FB6F93C8635F2B0A7 /* System */,
 				41950894E4E9C8FF11201792 /* AuthFailView.swift */,
+				D8855864E885ED8AA71D9183 /* CheckIsSubscribeView.swift */,
 				9CF8A496C7E691DCF3A7C603 /* CheckSubscribeView.swift */,
 				0409EEB7627BF07C31330B2A /* EmailInfoModalView.swift */,
 				BDF5531123A3004A8540D621 /* NotRegisteredIdPopupView.swift */,
@@ -199,7 +200,6 @@
 				927C881A2F81BA000C05ABEF /* SubscribeNoticeView.swift */,
 				CCE4C52744BC5AEDA5913B79 /* SubscribeStatePopupView.swift */,
 				0A1DCEB0845AC2B2D687FA2A /* UnsubscribePopupView.swift */,
-				B53CDF452F226E410006BC52 /* CheckIsSubscribeView.swift */,
 			);
 			path = Popup;
 			sourceTree = "<group>";
@@ -462,7 +462,6 @@
 				963BD2E45D7172CE4BF69364 /* VerificationButtonStyle.swift in Sources */,
 				4D1C8FAC5AA3A85D2B2BFAAF /* Color+Extension.swift in Sources */,
 				EA14ADB3FF1DCA11D8B9D962 /* ColorPalette.swift in Sources */,
-				B53CDF462F226E410006BC52 /* CheckIsSubscribeView.swift in Sources */,
 				EBF8A05ADDF1FF48833C370E /* BirthYearPickerView.swift in Sources */,
 				D748D56D7CAC703E51B32DD4 /* CalendarPopupView.swift in Sources */,
 				81691FB03997BD9E75987B6E /* CustomSegmentedSlider.swift in Sources */,
@@ -473,6 +472,7 @@
 				BDD988384DEC9A8C4E1B5F71 /* PullToRefreshView.swift in Sources */,
 				72415CF40FB9EA2BE53157FD /* Font.swift in Sources */,
 				D077CFC5DD281F26BDA2376F /* AuthFailView.swift in Sources */,
+				4A114BB04ACEC0F11EF431BE /* CheckIsSubscribeView.swift in Sources */,
 				BC4360B914A0E6C10A4A851E /* CheckSubscribeView.swift in Sources */,
 				C35D008C753D8412BCE4632E /* EmailInfoModalView.swift in Sources */,
 				574EA4DB241751A576797002 /* NotRegisteredIdPopupView.swift in Sources */,
@@ -518,7 +518,10 @@
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
 				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) DEBUG";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = (
+					"$(inherited)",
+					DEBUG,
+				);
 				SWIFT_COMPILATION_MODE = singlefile;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
@@ -554,7 +557,11 @@
 					"$(inherited)",
 					"-fmodule-map-file=$(SRCROOT)/../../Tuist/.build/tuist-derived/SDWebImage/SDWebImage.modulemap",
 				);
-				OTHER_SWIFT_FLAGS = "$(inherited) -Xcc -fmodule-map-file=$(SRCROOT)/../../Tuist/.build/tuist-derived/SDWebImage/SDWebImage.modulemap";
+				OTHER_SWIFT_FLAGS = (
+					"$(inherited)",
+					"-Xcc",
+					"-fmodule-map-file=$(SRCROOT)/../../Tuist/.build/tuist-derived/SDWebImage/SDWebImage.modulemap",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.newdok.designsystem;
 				PRODUCT_NAME = DesignSystem;
 				SDKROOT = iphoneos;
@@ -562,7 +569,10 @@
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
 				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) DEBUG";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = (
+					"$(inherited)",
+					DEBUG,
+				);
 				SWIFT_COMPILATION_MODE = singlefile;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
@@ -600,7 +610,11 @@
 					"$(inherited)",
 					"-fmodule-map-file=$(SRCROOT)/../../Tuist/.build/tuist-derived/SDWebImage/SDWebImage.modulemap",
 				);
-				OTHER_SWIFT_FLAGS = "$(inherited) -Xcc -fmodule-map-file=$(SRCROOT)/../../Tuist/.build/tuist-derived/SDWebImage/SDWebImage.modulemap";
+				OTHER_SWIFT_FLAGS = (
+					"$(inherited)",
+					"-Xcc",
+					"-fmodule-map-file=$(SRCROOT)/../../Tuist/.build/tuist-derived/SDWebImage/SDWebImage.modulemap",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.newdok.designsystem;
 				PRODUCT_NAME = DesignSystem;
 				SDKROOT = iphoneos;

@@ -58,9 +58,9 @@ public class NewsletterUseCaseImpl: NewsletterUseCase {
     public func fetchSubscriptionCount() async throws -> Int {
         return try await repository.fetchSubscriptionCount()
     }
-    
-    
-    
-    
-    
+
+    public func fetchOptionList() async throws -> Domain.OptionList {
+        return try await repository.fetchOptionList()
+    }
+
 }

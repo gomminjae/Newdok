@@ -89,7 +89,12 @@ public class NewsletterRepositoryImpl: NewsletterRepository {
         let response: BrandDetailDTO = try await provider.asyncRequest(.fetchGuestNewsletterBrand(id: id))
         return response.toDomain()
     }
-    
-    
-    
+
+    public func fetchOptionList() async throws -> Domain.OptionList {
+        logDebug("옵션 리스트 조회", category: .repository)
+        let response: OptionListDTO = try await provider.asyncRequest(.fetchOptionList)
+        logDebug("옵션 리스트 조회 완료", category: .repository)
+        return response.toDomain()
+    }
+
 }
