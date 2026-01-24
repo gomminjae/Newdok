@@ -9,6 +9,7 @@ import Launch
 import Auth
 import Signup
 import Shared
+import Domain
 
 struct AppRootView: View {
     @EnvironmentObject private var tabSelection: TabSelection
@@ -18,10 +19,10 @@ struct AppRootView: View {
     private var coordinator: AppCoordinator {
         AppCoordinator(router: router, exploreIntent: exploreIntent)
     }
-    
+
     @State private var launched = false
     @State private var showUnauthorizedAlert = false
-    
+
     init(router: AppRouter, exploreIntent: ExploreIntent) {
         self.router = router
         self.exploreIntent = exploreIntent
@@ -59,10 +60,15 @@ struct AppRootView: View {
             .animation(.easeInOut(duration: 0.3), value: launched)
         }
         .onAppear {
+            // 옵션 리스트 로드
+            Task {
+                await loadOptions()
+            }
+
             DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
                 withAnimation {
                     launched = true
-                    
+
                     // 토큰 존재 여부 확인 (로그인 여부)
                     if TokenStorage.hasValidToken {
                         // 토큰 있음 -> 메인 화면
@@ -86,7 +92,26 @@ struct AppRootView: View {
             Text("세션이 만료되었습니다. 다시 로그인해주세요.")
         }
     }
-    
+
+    private func loadOptions() async {
+        do {
+            let newsletterUseCase = AppDIContainer.shared.container.resolve(NewsletterUseCase.self)!
+            let optionList = try await newsletterUseCase.fetchOptionList()
+            let interests = optionList.interests.map { SelectableItem(id: $0.id, name: $0.name) }
+            let industries = optionList.industries.map { SelectableItem(id: $0.id, name: $0.name) }
+            let days = optionList.days.map { SelectableItem(id: $0.id, name: $0.name) }
+            await MainActor.run {
+                SelectableItemStore.shared.loadOptions(
+                    interests: interests,
+                    industries: industries,
+                    days: days
+                )
+            }
+        } catch {
+            print("Failed to load options: \(error)")
+        }
+    }
+
     @ViewBuilder
     private var rootView: some View {
         switch router.root {
@@ -238,4 +263,3 @@ private class SwipeBackHandler: NSObject {
         }
     }
 }
-

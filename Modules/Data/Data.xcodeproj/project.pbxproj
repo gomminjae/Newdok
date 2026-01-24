@@ -22,6 +22,7 @@
 		6ECAB9452C4775391C91A741 /* SearchQueryDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = F818A584D6D36AD8ABB18723 /* SearchQueryDTO.swift */; };
 		7482CBC1D1A8C2E1A4B98D1B /* Brand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86D99B972D2D11E4D9FB1AF2 /* Brand.swift */; };
 		768BA2BB78786E369DBC1C6A /* ArticlesDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE3FCA8392C88669DA34A564 /* ArticlesDTO.swift */; };
+		8362E48AE1EB926228D8E6B9 /* OptionDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FC62031EDC297B91218185B /* OptionDTO.swift */; };
 		83B8A60AE87D0C6A614B3FEF /* BrandArticle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 014A4C75A68A34CBF3B10E33 /* BrandArticle.swift */; };
 		8B926E61ED237D12C233859C /* RecommendedNewsletter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7174AA2251FEAA3D5F28C936 /* RecommendedNewsletter.swift */; };
 		8D2DAB095967265790F9FB7B /* ArticlesResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92A598D87B4E36F44292407E /* ArticlesResponseDTO.swift */; };
@@ -70,6 +71,7 @@
 		033B57EACF093CA22F91EAB9 /* Data-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "Data-Info.plist"; sourceTree = "<group>"; };
 		06FAA1459D11CCE724C34195 /* Domain.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Domain.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		0AEEF9AEBD3D4976484638ED /* NewsletterDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsletterDetail.swift; sourceTree = "<group>"; };
+		2FC62031EDC297B91218185B /* OptionDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionDTO.swift; sourceTree = "<group>"; };
 		450B2CD604D667B19E4262B8 /* ArticleDetailDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleDetailDTO.swift; sourceTree = "<group>"; };
 		4E75197C294DE74F5162FAA7 /* Data.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Data.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		506FB0021B4C7976D9DE7168 /* Newsletter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Newsletter.swift; sourceTree = "<group>"; };
@@ -209,6 +211,7 @@
 				506FB0021B4C7976D9DE7168 /* Newsletter.swift */,
 				0AEEF9AEBD3D4976484638ED /* NewsletterDetail.swift */,
 				F1E93059A6FB1AA8FCC771B8 /* NewslettersCountDTO.swift */,
+				2FC62031EDC297B91218185B /* OptionDTO.swift */,
 				7174AA2251FEAA3D5F28C936 /* RecommendedNewsletter.swift */,
 				B9492AF9590C9B43F1CCB214 /* SearchedNewsletter.swift */,
 			);
@@ -329,6 +332,7 @@
 				AE3483AC71A29BD63EB6CEA5 /* Newsletter.swift in Sources */,
 				DAAA2A4C504553BB2F5391F8 /* NewsletterDetail.swift in Sources */,
 				494D65EDEAFC5D0D2E1EBC98 /* NewslettersCountDTO.swift in Sources */,
+				8362E48AE1EB926228D8E6B9 /* OptionDTO.swift in Sources */,
 				8B926E61ED237D12C233859C /* RecommendedNewsletter.swift in Sources */,
 				DC6C0C6D25983E4357EBFBAD /* SearchedNewsletter.swift in Sources */,
 				6ECAB9452C4775391C91A741 /* SearchQueryDTO.swift in Sources */,

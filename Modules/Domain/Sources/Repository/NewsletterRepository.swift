@@ -21,4 +21,5 @@ public protocol NewsletterRepository {
     func resumeSubscription(newsletterId: String) async throws
     func fetchGuestAllNewsletters(orderOpt: String?, industry: [Int]?, day: [Int]?) async throws -> [Brand]
     func fetchGuestNewsletterBrand(id: String) async throws -> BrandDetail
+    func fetchOptionList() async throws -> OptionList
 }
