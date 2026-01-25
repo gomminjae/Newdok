@@ -39,6 +39,7 @@ public struct CheckIsSubscribeView: View {
                     .font(.hanSansNeo(14, .medium))
                     .foregroundStyle(Color(hex: "565656"))
                     .multilineTextAlignment(.center)
+                    .fixedSize(horizontal: false, vertical: true)
 
                 Button("메일 확인하기") {
                     checkMailbox()
@@ -60,17 +61,21 @@ public struct CheckIsSubscribeView: View {
                     .font(.hanSansNeo(12, .medium))
                     .foregroundStyle(Color.primaryNormal)
                 }
+                .padding(.top, 4)
+                .padding(.bottom, 34)
             }
             .padding(.top, 20)
+            .padding(.horizontal, 20)
 
             Button(action: onClose) {
                 Image(asset: DesignSystemAsset.lineClose)
+                    .renderingMode(.template)
+                    .foregroundColor(Color(hex: "969696"))
+                    .accessibilityLabel("닫기")
             }
-            .padding(.top, 8)
-            .padding(.trailing, 8)
+            .padding(.top, 20)
+            .padding(.trailing, 20)
         }
-        .padding(.horizontal, 24)
-        .padding(.vertical, 28)
         .background(Color.white)
         .cornerRadius(16)
         .shadow(color: Color.black.opacity(0.15), radius: 10, x: 0, y: 4)
