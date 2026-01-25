@@ -123,56 +123,42 @@ public struct EditProfileView: View {
             SelectableItemStore.shared.name(for: $0.id, in: .interest)
         }
         let items = interestNames + ["+"]
-        let rowCount = (items.count + 2) / 3
-
         let section = VStack(alignment: .leading, spacing: 8) {
             Text("관심사")
                 .font(.hanSansNeo(14, .medium))
                 .foregroundStyle(Color(hex: "#565656"))
                 .allowsHitTesting(false)
 
-            VStack(alignment: .leading, spacing: 8) {
-                ForEach(0..<rowCount, id: \.self) { row in
-                    HStack(spacing: 8) {
-                        ForEach(0..<3, id: \.self) { col in
-                            let idx = row * 3 + col
-                            if idx < items.count {
-                                let item = items[idx]
-                                if item == "+" {
-                                    Button {
-                                        router.push(.editInterest)
-                                    } label: {
-                                        Image(asset: DesignSystemAsset.linePlus)
-                                            .renderingMode(.template)
-                                            .foregroundColor(.primaryNormal)
-                                            .frame(width: 32, height: 32)
-                                            .background(Color.white)
-                                            .clipShape(Circle())
-                                            .overlay(
-                                                Circle()
-                                                    .stroke(Color.primaryNormal, lineWidth: 1)
-                                            )
-                                    }
-                                } else {
-                                    Text(item)
-                                        .font(.hanSansNeo(13, .regular))
-                                        .padding(.vertical, 6)
-                                        .padding(.horizontal, 12)
-                                        .background(Color.white)
-                                        .overlay(
-                                            RoundedRectangle(cornerRadius: 16)
-                                                .stroke(Color(hex: "#DADADA"), lineWidth: 1)
-                                        )
-                                        .allowsHitTesting(false)
-                                }
-                            } else {
-                                Spacer()
-                            }
-                        }
-                        Spacer()
-                    }
+            ChipFlowLayout(spacing: 8).callAsFunction {
+                ForEach(interestNames, id: \.self) { item in
+                    Text(item)
+                        .font(.hanSansNeo(13, .regular))
+                        .padding(.vertical, 6)
+                        .padding(.horizontal, 12)
+                        .background(Color.white)
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 16)
+                                .stroke(Color(hex: "#DADADA"), lineWidth: 1)
+                        )
+                        .allowsHitTesting(false)
+                }
+
+                Button {
+                    router.push(.editInterest)
+                } label: {
+                    Image(asset: DesignSystemAsset.linePlus)
+                        .renderingMode(.template)
+                        .foregroundColor(.primaryNormal)
+                        .frame(width: 32, height: 32)
+                        .background(Color.white)
+                        .clipShape(Circle())
+                        .overlay(
+                            Circle()
+                                .stroke(Color.primaryNormal, lineWidth: 1)
+                        )
                 }
             }
+            .frame(maxWidth: .infinity, alignment: .leading)
         }
 
         return AnyView(section)
@@ -212,6 +198,68 @@ struct EditableRow: View {
                 RoundedRectangle(cornerRadius: 4)
                     .stroke(Color(hex: "#DADADA"), lineWidth: 1)
             }
+        }
+    }
+}
+
+// MARK: - Chip Flow Layout
+private struct ChipFlowLayout: Layout {
+    var spacing: CGFloat = 8
+
+    struct Cache {
+        var frames: [CGRect] = []
+        var size: CGSize = .zero
+    }
+
+    func makeCache(subviews: Subviews) -> Cache { Cache() }
+
+    func sizeThatFits(
+        proposal: ProposedViewSize,
+        subviews: Subviews,
+        cache: inout Cache
+    ) -> CGSize {
+        let horizontalPadding: CGFloat = 40 // EditProfileView uses 20pt horizontal padding on each side
+        let fallbackWidth = UIScreen.main.bounds.width - horizontalPadding
+        let maxWidth = proposal.width ?? fallbackWidth
+
+        var x: CGFloat = 0
+        var y: CGFloat = 0
+        var rowHeight: CGFloat = 0
+        var frames: [CGRect] = []
+
+        for view in subviews {
+            var size = view.sizeThatFits(.unspecified)
+            size.width = min(size.width, maxWidth)
+            if x > 0, x + size.width > maxWidth {
+                x = 0
+                y += rowHeight + spacing
+                rowHeight = 0
+            }
+            frames.append(CGRect(x: x, y: y, width: size.width, height: size.height))
+            x += size.width + spacing
+            rowHeight = max(rowHeight, size.height)
+        }
+
+        let totalHeight = y + rowHeight
+        let result = CGSize(width: maxWidth, height: totalHeight)
+        cache.frames = frames
+        cache.size = result
+        return result
+    }
+
+    func placeSubviews(
+        in bounds: CGRect,
+        proposal: ProposedViewSize,
+        subviews: Subviews,
+        cache: inout Cache
+    ) {
+        for (index, view) in subviews.enumerated() {
+            guard index < cache.frames.count else { continue }
+            let frame = cache.frames[index].offsetBy(dx: bounds.minX, dy: bounds.minY)
+            view.place(
+                at: CGPoint(x: frame.minX, y: frame.minY),
+                proposal: ProposedViewSize(width: frame.width, height: frame.height)
+            )
         }
     }
 }
