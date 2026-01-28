@@ -21,37 +21,32 @@ private func setupTabBarAppearance() {
     let unselectedColor = UIColor(red: 150 / 255, green: 150 / 255, blue: 150 / 255, alpha: 1.0)
     let tabBarAppearance = UITabBar.appearance()
 
+    let appearance = UITabBarAppearance()
+
     if #available(iOS 26.0, *) {
-        // iOS 26+: 기본 Liquid Glass 유지하지만 색상은 지정
-        let appearance = UITabBarAppearance()
+        // iOS 26+: 기본 Liquid Glass 유지
         appearance.configureWithDefaultBackground()
         appearance.shadowColor = nil
-        tabBarAppearance.standardAppearance = appearance
-        
-        if #available(iOS 15.0, *) {
-            tabBarAppearance.scrollEdgeAppearance = appearance
-        }
     } else {
-        let appearance = UITabBarAppearance()
         appearance.configureWithOpaqueBackground()
         appearance.backgroundColor = .white
         appearance.shadowColor = nil
-
-        [appearance.stackedLayoutAppearance,
-         appearance.inlineLayoutAppearance,
-         appearance.compactInlineLayoutAppearance].forEach { layoutAppearance in
-            layoutAppearance.selected.iconColor = selectedColor
-            layoutAppearance.selected.titleTextAttributes = [.foregroundColor: selectedColor]
-            layoutAppearance.normal.iconColor = unselectedColor
-            layoutAppearance.normal.titleTextAttributes = [.foregroundColor: unselectedColor]
-        }
-
         tabBarAppearance.isTranslucent = false
-        tabBarAppearance.standardAppearance = appearance
-       
-        if #available(iOS 15.0, *) {
-            tabBarAppearance.scrollEdgeAppearance = appearance
-        }
+    }
+
+    [appearance.stackedLayoutAppearance,
+     appearance.inlineLayoutAppearance,
+     appearance.compactInlineLayoutAppearance].forEach { layoutAppearance in
+        layoutAppearance.selected.iconColor = selectedColor
+        layoutAppearance.selected.titleTextAttributes = [.foregroundColor: selectedColor]
+        layoutAppearance.normal.iconColor = unselectedColor
+        layoutAppearance.normal.titleTextAttributes = [.foregroundColor: unselectedColor]
+    }
+
+    tabBarAppearance.standardAppearance = appearance
+
+    if #available(iOS 15.0, *) {
+        tabBarAppearance.scrollEdgeAppearance = appearance
     }
 
     tabBarAppearance.tintColor = selectedColor
@@ -209,14 +204,8 @@ public struct NewDokTabView: View {
                     .environmentObject(exploreIntent)
             }
             .tabItem {
-                Group {
-                    if tabSelection.selectedTab == .explore {
-                        Image(asset: DesignSystemAsset.fillNewsletter)
-                    } else {
-                        Image(asset: DesignSystemAsset.lineNewsletter)
-                            .renderingMode(.template)
-                    }
-                }
+                Image(asset: DesignSystemAsset.lineNewsletter)
+                    .renderingMode(.template)
                 Text("둘러보기")
             }
             .tag(NewDokTab.explore)
@@ -225,14 +214,8 @@ public struct NewDokTabView: View {
                 SubscribeView(viewModel: subscribeViewModel)
             }
             .tabItem {
-                Group {
-                    if tabSelection.selectedTab == .subscribe {
-                        Image(asset: DesignSystemAsset.fillMailbox)
-                    } else {
-                        Image(asset: DesignSystemAsset.lineMailbox)
-                            .renderingMode(.template)
-                    }
-                }
+                Image(asset: DesignSystemAsset.lineMailbox)
+                    .renderingMode(.template)
                 Text("구독관리")
             }
             .tag(NewDokTab.subscribe)
@@ -242,15 +225,8 @@ public struct NewDokTabView: View {
                     .environmentObject(exploreIntent)
             }
             .tabItem {
-                Group {
-                    if tabSelection.selectedTab == .home {
-                        Image(asset: DesignSystemAsset.fillHome)
-                           
-                    } else {
-                        Image(asset: DesignSystemAsset.lineHome)
-                            .renderingMode(.template)
-                    }
-                }
+                Image(asset: DesignSystemAsset.lineHome)
+                    .renderingMode(.template)
                 Text("홈")
             }
             .tag(NewDokTab.home)
@@ -259,15 +235,8 @@ public struct NewDokTabView: View {
                 BookmarkView(viewModel: bookmarkViewModel)
             }
             .tabItem {
-                Group {
-                    if tabSelection.selectedTab == .bookmark {
-                        Image(asset: DesignSystemAsset.fillBookmark)
-                          
-                    } else {
-                        Image(asset: DesignSystemAsset.lineBookmark)
-                            .renderingMode(.template)
-                    }
-                }
+                Image(asset: DesignSystemAsset.lineBookmark)
+                    .renderingMode(.template)
                 Text("북마크함")
             }
             .tag(NewDokTab.bookmark)
@@ -276,15 +245,8 @@ public struct NewDokTabView: View {
                 MypageView(viewModel: mypageViewModel)
             }
             .tabItem {
-                Group {
-                    if tabSelection.selectedTab == .profile {
-                        Image(asset: DesignSystemAsset.fillUser)
-                          
-                    } else {
-                        Image(asset: DesignSystemAsset.lineUser)
-                            .renderingMode(.template)
-                    }
-                }
+                Image(asset: DesignSystemAsset.lineUser)
+                    .renderingMode(.template)
                 Text("마이페이지")
             }
             .tag(NewDokTab.profile)

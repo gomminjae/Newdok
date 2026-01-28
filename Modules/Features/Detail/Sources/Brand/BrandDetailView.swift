@@ -522,8 +522,7 @@ public struct BrandDetailView: View {
     private func presentCheckSubscribePopupIfNeeded(for detail: BrandDetail) {
         guard !hasPresentedSubscribeCheckPopup else { return }
 
-        let needsPopup = detail.subscribeCheck ||
-            SubscriptionStatus(rawValue: detail.isSubscribed ?? "") == .check
+        let needsPopup = SubscriptionStatus(rawValue: detail.isSubscribed ?? "") == .check
 
         if needsPopup {
             hasPresentedSubscribeCheckPopup = true
