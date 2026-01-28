@@ -32,6 +32,7 @@ struct BookmarkCard: View {
             HStack {
                 HStack(spacing: 4) {
                     KFImage(URL(string: article.imageURL))
+                        .setProcessor(DownsamplingImageProcessor(size: CGSize(width: 40, height: 40)))
                         .resizable()
                         .frame(width: 20, height: 20)
                         .clipShape(Circle())

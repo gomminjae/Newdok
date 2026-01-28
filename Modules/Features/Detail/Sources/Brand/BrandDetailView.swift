@@ -239,6 +239,7 @@ public struct BrandDetailView: View {
                     if let urlString = detail.imageUrl,
                        let url = URL(string: urlString) {
                         KFImage(url)
+                            .setProcessor(DownsamplingImageProcessor(size: CGSize(width: 750, height: 520)))
                             .resizable()
                     } else {
                         Color(hex: "#E6E6EA")

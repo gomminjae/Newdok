@@ -259,7 +259,7 @@ public struct HomeView: View {
                 .padding(.trailing, 24)
             }
 
-            VStack(spacing: 8) {
+            LazyVStack(spacing: 8) {
                 ForEach(viewModel.filteredArticles) { article in
                     ArticleRow(article: article)
                         .frame(height: 88)

@@ -33,6 +33,7 @@ public struct ArticleDetailView: View {
                     // 헤더 이미지 및 타이틀
                     ZStack(alignment: .bottomLeading) {
                         KFImage(URL(string: viewModel.detail?.brandImageUrl ?? ""))
+                            .setProcessor(DownsamplingImageProcessor(size: CGSize(width: 750, height: 520)))
                             .placeholder {
                                 // 로딩 중 표시
                                 Rectangle()

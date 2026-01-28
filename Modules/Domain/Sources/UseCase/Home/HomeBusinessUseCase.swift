@@ -58,7 +58,19 @@ public actor DefaultHomeBusinessUseCase: HomeBusinessUseCase {
     private enum Constants {
         static let readArticlesKey = "readArticles"
     }
-    
+
+    private static let yearFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy"
+        return formatter
+    }()
+
+    private static let monthFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "MM"
+        return formatter
+    }()
+
     private let fetchUseCase: FetchHomeDataUseCase
     
     private var snapshotState: HomeSnapshot
@@ -336,15 +348,11 @@ public actor DefaultHomeBusinessUseCase: HomeBusinessUseCase {
     }
 
     private func formatYear(_ date: Date) -> String {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy"
-        return formatter.string(from: date)
+        Self.yearFormatter.string(from: date)
     }
-    
+
     private func formatMonth(_ date: Date) -> String {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "MM"
-        return formatter.string(from: date)
+        Self.monthFormatter.string(from: date)
     }
 
     private func formatDay(_ date: Date) -> String {
