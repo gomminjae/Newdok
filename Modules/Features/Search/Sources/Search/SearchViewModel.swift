@@ -17,7 +17,6 @@ public final class SearchViewModel: ObservableObject {
     
     @Published public var searchText: String = ""
     @Published public var searchResults: [SearchedNewsletter] = []
-    @Published public var bookmarkResults: [Bookmark] = []
     @Published public var isLoading: Bool = false
     @Published public var errorMessage: String? = nil
     @Published public private(set) var popularKeywords: PopularKeywordList?
@@ -52,7 +51,6 @@ public final class SearchViewModel: ObservableObject {
     public func clearSearchResults() {
         searchText = ""
         searchResults = []
-        bookmarkResults = []
         errorMessage = nil
     }
     
@@ -83,22 +81,6 @@ public final class SearchViewModel: ObservableObject {
             logDebug("뉴스레터 검색 완료 - \(results.count)개 결과", category: .search)
         } catch {
             logError("뉴스레터 검색 실패: \(error.localizedDescription)", category: .search)
-            self.errorMessage = error.localizedDescription
-        }
-        isLoading = false
-    }
-    
-    public func searchArticles() async {
-        guard !searchText.isEmpty else { return }
-        logInfo("아티클 검색 시작: \"\(searchText)\"", category: .search)
-        isLoading = true
-        errorMessage = nil
-        do {
-            let results = try await useCase.searchArticles(keyword: searchText)
-            self.bookmarkResults = results
-            logDebug("아티클 검색 완료 - \(results.count)개 결과", category: .search)
-        } catch {
-            logError("아티클 검색 실패: \(error.localizedDescription)", category: .search)
             self.errorMessage = error.localizedDescription
         }
         isLoading = false

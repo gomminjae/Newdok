@@ -47,7 +47,7 @@
             location = "group:Launch/Launch.xcodeproj">
          </FileRef>
          <FileRef
-            location = "group:Mypage/Mypage.xcodeproj">
+            location = "group:MyPage/Mypage.xcodeproj">
          </FileRef>
          <FileRef
             location = "group:Recovery/Recovery.xcodeproj">

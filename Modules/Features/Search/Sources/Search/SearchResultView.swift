@@ -10,7 +10,6 @@
 
 
 import SwiftUI
-import Kingfisher
 import DesignSystem
 import Shared
 import Domain
@@ -83,10 +82,6 @@ public struct SearchResultView: View {
                         Text(error).foregroundColor(.red)
                     } else {
                         newsletterSection()
-                        // 비회원일 때는 아티클 섹션 숨김
-                        if TokenStorage.hasValidToken {
-                            articleSection()
-                        }
                     }
                     Spacer(minLength: 50)
                 }
@@ -108,53 +103,7 @@ public struct SearchResultView: View {
     }
 }
 
-
-
-struct SearchDummyArticle: Identifiable {
-    let id: Int
-    let title: String
-    let summary: String
-    let brandName: String
-    let date: String
-}
-
-struct SearchArticleRow: View {
-    let article: SearchDummyArticle
-    var body: some View {
-        VStack(alignment: .leading, spacing: 8) {
-            Text(article.title)
-                .font(.hanSansNeo(16,.medium))
-                .lineLimit(1)
-            Text(article.summary)
-                .font(.hanSansNeo(14,.regular))
-                .foregroundColor(.gray)
-                .lineLimit(2)
-            HStack {
-                Text(article.brandName)
-                    .font(.hanSansNeo(14,.medium))
-                    .bold()
-                Spacer()
-                Text(article.date)
-                    .font(.hanSansNeo(12,.regular))
-                    .foregroundColor(.gray)
-            }
-        }
-        .padding()
-        .background(.white)
-        .cornerRadius(12)
-        .shadow(color: .gray.opacity(0.2), radius: 2)
-    }
-}
-
 extension SearchResultView {
-    private var dummyArticles: [SearchDummyArticle] {
-        [
-            SearchDummyArticle(id: 1, title: "신입사원 시절 '최악의 실수'는?", summary: "출연하는 두뇌 서버바이블로, 개인적으로는 아쉬움이 남았던 넷플릭스 두뇌 서버바이블 <데블스플랜>에 대한 감정...", brandName: "주간 컴퍼니타임스", date: "2023-11-26"),
-            SearchDummyArticle(id: 2, title: "신입사원 시절 '최악의 실수'는?", summary: "출연하는 두뇌 서버바이블로, 개인적으로는 아쉬움이 남았던 넷플릭스 두뇌 서버바이블 <데블스플랜>에 대한 감정...", brandName: "주간 컴퍼니타임스", date: "2023-11-26"),
-            SearchDummyArticle(id: 3, title: "신입사원 시절 '최악의 실수'는?", summary: "출연하는 두뇌 서버바이블로, 개인적으로는 아쉬움이 남았던 넷플릭스 두뇌 서버바이블 <데블스플랜>에 대한 감정...", brandName: "주간 컴퍼니타임스", date: "2023-11-26"),
-        ]
-    }
-
     @ViewBuilder
     private func newsletterEmptySection() -> some View {
         VStack(alignment: .center, spacing: 16) {
@@ -182,26 +131,6 @@ extension SearchResultView {
             .padding(.horizontal, 24)
         }
         .frame(maxWidth: .infinity)
-    }
-
-    @ViewBuilder
-    private func articleSection() -> some View {
-        // 더미 데이터이므로 결과 없음 UI는 제외
-        if !dummyArticles.isEmpty {
-            VStack(alignment: .leading, spacing: 12) {
-                Text("아티클 (\(dummyArticles.count))")
-                    .font(.hanSansNeo(16,.medium))
-                ForEach(dummyArticles) { article in
-                    Button(action: {
-                        router.push(.articleDetail(id: String(article.id)))
-                    }) {
-                        SearchArticleRow(article: article)
-                    }
-                    .buttonStyle(PlainButtonStyle())
-                }
-            }
-            .padding(.horizontal, 20)
-        }
     }
 
     @ViewBuilder

@@ -16,14 +16,16 @@ struct FindIdPagerView: View {
     @ObservedObject var viewModel: RecoveryViewModel
 
     var body: some View {
-        TabView(selection: $viewModel.currentPage) {
-            FindIdPhoneInputView(viewModel: viewModel)
-                .tag(0)
-            FindIdResultView(viewModel: viewModel)
-                .tag(1)
+        ZStack {
+            if viewModel.currentPage == 0 {
+                FindIdPhoneInputView(viewModel: viewModel)
+                    .transition(.move(edge: .trailing).combined(with: .opacity))
+            } else {
+                FindIdResultView(viewModel: viewModel)
+                    .transition(.move(edge: .leading).combined(with: .opacity))
+            }
         }
-        .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
-       
+        .animation(.easeInOut, value: viewModel.currentPage)
     }
 }
 struct FindIdPhoneInputView: View {

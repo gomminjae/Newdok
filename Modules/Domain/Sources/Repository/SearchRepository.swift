@@ -8,7 +8,6 @@
 import Foundation
 
 public protocol SearchRepository {
-    func searchArticles(brandName: String) async throws -> [SearchedNewsletter]
-    func searchArticles(keyword: String) async throws -> [Bookmark]
+    func searchNewsletters(brandName: String) async throws -> [SearchedNewsletter]
     func fetchPopularKeywords() async throws -> PopularKeywordList
 }

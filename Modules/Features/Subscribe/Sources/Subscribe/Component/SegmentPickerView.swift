@@ -28,9 +28,9 @@ public struct CustomSegmentedSlider: View {
 
             GeometryReader { geometry in
                 let segmentWidth = geometry.size.width / CGFloat(titles.count)
-                // 탭별 여백 조정
-                let sliderWidth = selectedIndex == 1 ? segmentWidth - 8 : segmentWidth - 4
-                let sliderOffset = selectedIndex == 1 ? CGFloat(selectedIndex) * segmentWidth + 4 : CGFloat(selectedIndex) * segmentWidth + 2
+                // 상하좌우 동일하게 2pt 여백을 주도록 너비/오프셋 계산
+                let sliderWidth = segmentWidth - 4
+                let sliderOffset = CGFloat(selectedIndex) * segmentWidth + 2
 
                 ZStack(alignment: .leading) {
                     // 선택된 슬라이더 배경
@@ -38,7 +38,6 @@ public struct CustomSegmentedSlider: View {
                         .fill(Color.white)
                         .frame(width: sliderWidth, height: 36)
                         .padding(.vertical, 2)
-                        .padding(.horizontal, 2)
                         .shadow(color: .black.opacity(0.06), radius: 1, y: 1)
                         .offset(x: sliderOffset)
                         .animation(.easeInOut(duration: 0.25), value: selectedIndex)

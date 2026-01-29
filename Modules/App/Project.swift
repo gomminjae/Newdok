@@ -6,8 +6,10 @@ let project = Project(
     settings: .settings(
         base: [
             "DEVELOPMENT_TEAM": "AU24ZRJ649",
+            "SWIFT_VERSION": "6.0",
             "MARKETING_VERSION": "1.0.0",
-            "SKIP_INSTALL": "NO"
+            "CURRENT_PROJECT_VERSION": "1",
+            "CODE_SIGN_STYLE": "Automatic"
         ],
         configurations: [
             .debug(
@@ -21,7 +23,8 @@ let project = Project(
         ],
         defaultSettings: .recommended(excluding: [
             "ASSETCATALOG_COMPILER_APPICON_NAME",
-            "SWIFT_ACTIVE_COMPILATION_CONDITIONS"
+            "SWIFT_ACTIVE_COMPILATION_CONDITIONS",
+            "PRODUCT_BUNDLE_IDENTIFIER"
         ])
     ),
     targets: [
@@ -64,7 +67,7 @@ let project = Project(
                     "LSApplicationCategoryType": "public.app-category.news",
                     "CFBundleURLTypes": [
                         [
-                            "CFBundleURLName": "com.newdok.app",
+                            "CFBundleURLName": "$(PRODUCT_BUNDLE_IDENTIFIER)",
                             "CFBundleURLSchemes": ["newdok"]
                         ]
                     ],

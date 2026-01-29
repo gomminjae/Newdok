@@ -45,11 +45,6 @@ public class ExploreViewModel: ObservableObject {
     @Published public var isRefreshingRecommendation: Bool = false
     @Published public var isRefreshingAllNewsletters: Bool = false
     
-    // 최소 애니메이션 시간 보장
-    private var recommendationAnimationStartTime: Date?
-    private var allNewslettersAnimationStartTime: Date?
-    private let minAnimationDuration: TimeInterval = 1.0 // 최소 1초
-    
     var hasUserProfile: Bool {
         return UserInfoStore.shared.hasProfile
     }
@@ -92,7 +87,7 @@ public class ExploreViewModel: ObservableObject {
         }
         
         isRefreshingRecommendation = true
-        recommendationAnimationStartTime = Date()
+        defer { isRefreshingRecommendation = false }
         
         do {
             let response = try await useCase.fetchRecommendation()
@@ -109,9 +104,6 @@ public class ExploreViewModel: ObservableObject {
             logError("추천 뉴스레터 로드 실패: \(error.localizedDescription)", category: .explore)
             isRecommend = false
         }
-        
-        // 최소 애니메이션 시간 보장
-        await ensureMinimumAnimationTime(for: .recommendation)
     }
     
     private func updateRecommendationData(from response: RecommendedNewsletter) {
@@ -203,7 +195,7 @@ public class ExploreViewModel: ObservableObject {
     public func fetchAllNewsletters() async {
         logInfo("전체 뉴스레터 로드 시작 - 정렬: \(orderOpt ?? "없음"), 산업: \(industry?.count ?? 0)개, 요일: \(day?.count ?? 0)개", category: .explore)
         isRefreshingAllNewsletters = true
-        allNewslettersAnimationStartTime = Date()
+        defer { isRefreshingAllNewsletters = false }
         
         do {
             
@@ -214,9 +206,6 @@ public class ExploreViewModel: ObservableObject {
         } catch {
             logError("전체 뉴스레터 로드 실패: \(error.localizedDescription)", category: .explore)
         }
-        
-        // 최소 애니메이션 시간 보장
-        await ensureMinimumAnimationTime(for: .allNewsletters)
     }
     
     public func fetchBrandDetail(id: String) async {
@@ -253,42 +242,5 @@ public class ExploreViewModel: ObservableObject {
         // 캐시도 초기화
         cachedRecommendation = nil
         lastFetchTime = nil
-    }
-    
-    // MARK: - 애니메이션 시간 보장
-    private enum AnimationType {
-        case recommendation
-        case allNewsletters
-    }
-    
-    private func ensureMinimumAnimationTime(for type: AnimationType) async {
-        let startTime: Date?
-        let isRefreshing: Bool
-        
-        switch type {
-        case .recommendation:
-            startTime = recommendationAnimationStartTime
-            isRefreshing = isRefreshingRecommendation
-        case .allNewsletters:
-            startTime = allNewslettersAnimationStartTime
-            isRefreshing = isRefreshingAllNewsletters
-        }
-        
-        guard let start = startTime, isRefreshing else { return }
-        
-        let elapsed = Date().timeIntervalSince(start)
-        let remainingTime = max(0, minAnimationDuration - elapsed)
-        
-        if remainingTime > 0 {
-            try? await Task.sleep(nanoseconds: UInt64(remainingTime * 1_000_000_000))
-        }
-        
-        // 애니메이션 종료
-        switch type {
-        case .recommendation:
-            isRefreshingRecommendation = false
-        case .allNewsletters:
-            isRefreshingAllNewsletters = false
-        }
     }
 }

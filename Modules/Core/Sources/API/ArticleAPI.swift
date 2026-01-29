@@ -3,7 +3,7 @@
 //  Core
 //
 //  Created by 권민재 on 4/11/25.
-//  Copyright ©LinePlus rights reserved.
+//  Copyright rights reserved.
 //
 
 import Moya

@@ -8,10 +8,12 @@
 
 /* Begin PBXBuildFile section */
 		025798644615AA67790981BD /* Domain.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F2F420D386240A6785E95C2 /* Domain.framework */; };
+		1EF1544CB87DFD29B608F851 /* Detail.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FC7B09060C9B020B5A3354F8 /* Detail.framework */; };
 		20B634E36733005C09AF4EB1 /* Shared.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 31810BC9814938F0F30C9204 /* Shared.framework */; };
 		2636A81DA07428D57FC6F715 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CDF7E8207C8E8485242FF506 /* Alamofire.framework */; };
 		26CE88BD8B3AF3C56B6E84F1 /* SwiftUIIntrospect.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6FE7DFD1C19EE7FCDEE6F09A /* SwiftUIIntrospect.framework */; };
 		2DFBFA35558C079A59E84931 /* MyIndustryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DB11600D0E5DE520DB92465 /* MyIndustryView.swift */; };
+		2FA64E81C316A1A2F9162722 /* Detail.framework in Dependencies */ = {isa = PBXBuildFile; fileRef = FC7B09060C9B020B5A3354F8 /* Detail.framework */; };
 		31CAEA710C6520DBB827D541 /* AgreeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67EF4BBEC87D32F0BE736064 /* AgreeView.swift */; };
 		405B6815DD158339D48E5B3D /* BirthYearDropdown.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB0E6C823C8F31315153A074 /* BirthYearDropdown.swift */; };
 		40B211FAFB83F068BD1064F9 /* Alamofire_Alamofire.bundle in Resources */ = {isa = PBXBuildFile; fileRef = A8DC766D028A253557F32C96 /* Alamofire_Alamofire.bundle */; };
@@ -107,6 +109,7 @@
 			files = (
 				5110DB042195F5E6AAD775B3 /* Auth.framework in Dependencies */,
 				484961AF020C7D52DA4A1C92 /* DesignSystem.framework in Dependencies */,
+				2FA64E81C316A1A2F9162722 /* Detail.framework in Dependencies */,
 				E31DE513E6B8218F3304905A /* Domain.framework in Dependencies */,
 				5E7B325329887C2197F2AF8F /* Shared.framework in Dependencies */,
 			);
@@ -157,6 +160,7 @@
 		D99FDB19DAC44429AA372083 /* Kingfisher.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Kingfisher.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DCE511B3491C3DAC5E3DA08F /* CurationRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurationRow.swift; sourceTree = "<group>"; };
 		F829710FCABE6A748B395556 /* SDWebImage_SDWebImage.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SDWebImage_SDWebImage.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
+		FC7B09060C9B020B5A3354F8 /* Detail.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Detail.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FD7BC4B0AB5A6C65118659F6 /* PolicyWebSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PolicyWebSheetView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -171,6 +175,7 @@
 				EE3803C42393FF368873D42E /* Core.framework in Frameworks */,
 				E83C73ACC94597238056D7A7 /* Data.framework in Frameworks */,
 				D8C1273648D92C59C2B10512 /* DesignSystem.framework in Frameworks */,
+				1EF1544CB87DFD29B608F851 /* Detail.framework in Frameworks */,
 				025798644615AA67790981BD /* Domain.framework in Frameworks */,
 				A98BE860646B6A0F87CC9F91 /* Kingfisher.framework in Frameworks */,
 				65332DA6A95683A47BA275AD /* Moya.framework in Frameworks */,
@@ -202,6 +207,7 @@
 				53086A13DE300ED094DF02EE /* Data.framework */,
 				4A6F4E655FF81A93E10A2E1F /* DesignSystem_DesignSystem.bundle */,
 				85C21E5E41B25BF1296FDC62 /* DesignSystem.framework */,
+				FC7B09060C9B020B5A3354F8 /* Detail.framework */,
 				7F2F420D386240A6785E95C2 /* Domain.framework */,
 				A884DCD29CABF6DDA5589B42 /* Kingfisher_Kingfisher.bundle */,
 				D99FDB19DAC44429AA372083 /* Kingfisher.framework */,

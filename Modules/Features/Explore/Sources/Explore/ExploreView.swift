@@ -107,7 +107,13 @@ public struct ExploreView: View {
                         await viewModel.fetchGuestAllNewsletters()
                     } else {
                         await viewModel.fetchRecommendation()
-                        await viewModel.fetchAllNewsletters()
+                        if viewModel.selectedTab == 1 {
+                            await viewModel.fetchAllNewsletters()
+                        } else {
+                            Task {
+                                await viewModel.fetchAllNewsletters()
+                            }
+                        }
                     }
                 }
             }
@@ -118,11 +124,14 @@ public struct ExploreView: View {
                 Task {
                     if isGuest {
                         await viewModel.fetchGuestAllNewsletters()
+                        isLoaded = true
                     } else {
                         await viewModel.fetchRecommendation()
-                        await viewModel.fetchAllNewsletters()
+                        isLoaded = true
+                        Task {
+                            await viewModel.fetchAllNewsletters()
+                        }
                     }
-                    isLoaded = true
                 }
             }
             .onReceive(NotificationCenter.default.publisher(for: UIApplication.willEnterForegroundNotification)) { _ in

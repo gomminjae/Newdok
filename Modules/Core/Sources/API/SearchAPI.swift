@@ -10,7 +10,6 @@ import Foundation
 
 public enum SearchAPI {
     case searchNewsletters(brandName: String)
-    case searchArticles(keyword: String)
     case popularKeywords
 }
 
@@ -22,8 +21,6 @@ extension SearchAPI: TargetType {
     
     public var path: String {
         switch self {
-        case .searchArticles:
-            return "/article"
         case .searchNewsletters:
             return "/newsletter"
         case .popularKeywords:
@@ -37,10 +34,6 @@ extension SearchAPI: TargetType {
     
     public var task: Moya.Task {
         switch self {
-        case .searchArticles(let brandName):
-            return .requestParameters(parameters: [
-                "keyword": brandName,
-            ], encoding: URLEncoding.default)
         case .searchNewsletters(let keyword):
             return .requestParameters(parameters: [
                 "brandName": keyword,

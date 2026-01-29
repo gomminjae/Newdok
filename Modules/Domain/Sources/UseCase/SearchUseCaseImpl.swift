@@ -16,11 +16,7 @@ public final class SearchUseCaseImpl: SearchUseCase {
     
     
     public func searchNewsletters(brandName: String) async throws -> [Domain.SearchedNewsletter] {
-        return try await searchRepository.searchArticles(brandName: brandName)
-    }
-    
-    public func searchArticles(keyword: String) async throws -> [Domain.Bookmark] {
-        return try await searchRepository.searchArticles(keyword: keyword)
+        return try await searchRepository.searchNewsletters(brandName: brandName)
     }
 
     public func fetchPopularKeywords() async throws -> PopularKeywordList {

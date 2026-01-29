@@ -83,10 +83,6 @@ public struct SearchView: View {
                 ScrollView {
                     VStack(alignment: .leading, spacing: 20) {
                         newsletterSection()
-                        // 비회원일 때는 아티클 섹션 숨김
-                        if TokenStorage.hasValidToken {
-                            articleSection()
-                        }
                         Spacer(minLength: 50)
                     }
                     .padding(.top, 10)
@@ -97,10 +93,6 @@ public struct SearchView: View {
                 ScrollView {
                     VStack(alignment: .leading, spacing: 20) {
                         newsletterSection()
-                        // 비회원일 때는 아티클 섹션 숨김
-                        if TokenStorage.hasValidToken {
-                            articleSection()
-                        }
                         Spacer(minLength: 50)
                     }
                     .padding(.top, 10)
@@ -204,26 +196,6 @@ public struct SearchView: View {
     }
     
     @ViewBuilder
-    private func articleSection() -> some View {
-        // 더미 데이터이므로 결과 없음 UI는 제외
-        if !dummyArticles.isEmpty {
-            VStack(alignment: .leading, spacing: 12) {
-                Text("아티클 (\(dummyArticles.count))")
-                    .font(.hanSansNeo(16,.medium))
-                ForEach(dummyArticles) { article in
-                    Button(action: {
-                        router.push(.articleDetail(id: String(article.id)))
-                    }) {
-                        SearchArticleRow(article: article)
-                    }
-                    .buttonStyle(PlainButtonStyle())
-                }
-            }
-            .padding(.horizontal, 20)
-        }
-    }
-    
-    @ViewBuilder
     private func newsletterEmptySection() -> some View {
         VStack(alignment: .center, spacing: 16) {
             Text("검색 결과가 없어요.")
@@ -249,15 +221,6 @@ public struct SearchView: View {
             .padding(.horizontal, 24)
         }
         .frame(maxWidth: .infinity)
-    }
-    
-    // 더미 아티클 데이터
-    private var dummyArticles: [SearchDummyArticle] {
-        [
-            SearchDummyArticle(id: 1, title: "신입사원 시절 '최악의 실수'는?", summary: "출연하는 두뇌 서버바이블로, 개인적으로는 아쉬움이 남았던 넷플릭스 두뇌 서버바이블 <데블스플랜>에 대한 감정...", brandName: "주간 컴퍼니타임스", date: "2023-11-26"),
-            SearchDummyArticle(id: 2, title: "신입사원 시절 '최악의 실수'는?", summary: "출연하는 두뇌 서버바이블로, 개인적으로는 아쉬움이 남았던 넷플릭스 두뇌 서버바이블 <데블스플랜>에 대한 감정...", brandName: "주간 컴퍼니타임스", date: "2023-11-26"),
-            SearchDummyArticle(id: 3, title: "신입사원 시절 '최악의 실수'는?", summary: "출연하는 두뇌 서버바이블로, 개인적으로는 아쉬움이 남았던 넷플릭스 두뇌 서버바이블 <데블스플랜>에 대한 감정...", brandName: "주간 컴퍼니타임스", date: "2023-11-26"),
-        ]
     }
 }
 
