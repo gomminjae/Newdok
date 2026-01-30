@@ -20,6 +20,20 @@
                ReferencedContainer = "container:Home.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "72D0E893F5D9C47A76548325"
+               BuildableName = "HomeDemo.app"
+               BlueprintName = "HomeDemo"
+               ReferencedContainer = "container:Home.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
       </BuildActionEntries>
    </BuildAction>
    <TestAction
@@ -51,15 +65,16 @@
       debugDocumentVersioning = "YES"
       debugServiceExtension = "internal"
       allowLocationSimulation = "YES">
-      <MacroExpansion>
+      <BuildableProductRunnable
+         runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "52E844066D197E3B81FA748F"
-            BuildableName = "Home.framework"
-            BlueprintName = "Home"
+            BlueprintIdentifier = "72D0E893F5D9C47A76548325"
+            BuildableName = "HomeDemo.app"
+            BlueprintName = "HomeDemo"
             ReferencedContainer = "container:Home.xcodeproj">
          </BuildableReference>
-      </MacroExpansion>
+      </BuildableProductRunnable>
    </LaunchAction>
    <ProfileAction
       buildConfiguration = "Release"
@@ -67,15 +82,16 @@
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
       debugDocumentVersioning = "YES">
-      <MacroExpansion>
+      <BuildableProductRunnable
+         runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "52E844066D197E3B81FA748F"
-            BuildableName = "Home.framework"
-            BlueprintName = "Home"
+            BlueprintIdentifier = "72D0E893F5D9C47A76548325"
+            BuildableName = "HomeDemo.app"
+            BlueprintName = "HomeDemo"
             ReferencedContainer = "container:Home.xcodeproj">
          </BuildableReference>
-      </MacroExpansion>
+      </BuildableProductRunnable>
    </ProfileAction>
    <AnalyzeAction
       buildConfiguration = "Debug">
