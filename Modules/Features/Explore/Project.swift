@@ -15,7 +15,6 @@ let project = Project(
             resources: ["Resources/**"],
             dependencies: [
                 .project(target: "DesignSystem", path: "../../DesignSystem"),
-                .project(target: "Core", path: "../../Core"),
                 .project(target: "Shared", path: "../../Shared"),
                 .project(target: "Domain", path: "../../Domain"),
             ],
@@ -36,7 +35,6 @@ let project = Project(
             sources: ["Tests/**"],
             dependencies: [
                 .target(name: "Explore"),
-                .project(target: "Core", path: "../../Core"),
                 .project(target: "DesignSystem", path: "../../DesignSystem"),
                 .project(target: "Shared", path: "../../Shared"),
                 .project(target: "Domain", path: "../../Domain"),

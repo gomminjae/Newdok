@@ -14,7 +14,6 @@ import ProjectDescription
                sources: ["Sources/**"],
                resources: ["Resources/**"],
                dependencies: [
-                   .project(target: "Core", path: "../../Core"),
                    .project(target: "DesignSystem", path: "../../DesignSystem"),
                    .project(target: "Shared", path: "../../Shared"),
                    .project(target: "Domain", path: "../../Domain"),
