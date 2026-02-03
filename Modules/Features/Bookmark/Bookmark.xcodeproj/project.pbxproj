@@ -12,10 +12,7 @@
 		041E31D70D5CEF8FC84F8A6A /* BookmarkViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F66F6C2D2FE5931531949059 /* BookmarkViewModel.swift */; };
 		07323F9EF9810A3591BB5B59 /* BookmarkDemoEnvironment.swift in Sources */ = {isa = PBXBuildFile; fileRef = D49C1A4698DC1ED1C0CEFB21 /* BookmarkDemoEnvironment.swift */; };
 		0E3B7C4D48F280F81792C958 /* SDWebImage_SDWebImage.bundle in Dependencies */ = {isa = PBXBuildFile; fileRef = 68D664CAA1010C543472F9E5 /* SDWebImage_SDWebImage.bundle */; };
-		1458ECB9E29B36B27B2C65B4 /* Moya.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD58982C5C438D314E6BEC2A /* Moya.framework */; };
-		156D6090C42F5C20651D6324 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F0CCCA6FC1C50F4DD02B1CCC /* Alamofire.framework */; };
 		1587D297B3AB44564300688B /* Alamofire_Alamofire.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 89B93615CAA3A4B6EDE00CC7 /* Alamofire_Alamofire.bundle */; };
-		15B5B61710D883857442F7D8 /* Alamofire_Alamofire.bundle in Dependencies */ = {isa = PBXBuildFile; fileRef = 89B93615CAA3A4B6EDE00CC7 /* Alamofire_Alamofire.bundle */; };
 		17D27226B3ACEBBA22B67FA4 /* BookmarkGuestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A47C7D14746696637C609C95 /* BookmarkGuestView.swift */; };
 		1B8DF89F34F8F2D2BA535BC4 /* Moya.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD58982C5C438D314E6BEC2A /* Moya.framework */; };
 		1C2372BF090BF0E919B53617 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F0CCCA6FC1C50F4DD02B1CCC /* Alamofire.framework */; };
@@ -25,7 +22,6 @@
 		292A125709A1026D71045F7A /* NewsLetterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 518BAAA65BF35C6106E2FA43 /* NewsLetterView.swift */; };
 		33CD5DEE1F004BF19DE81A8D /* SwiftUIIntrospect.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 285EEFD1422AD4F6620FE08A /* SwiftUIIntrospect.framework */; };
 		4B8E741C0553FA36707879DF /* BookmarkCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A4FB4C4A723601828C258CC /* BookmarkCard.swift */; };
-		504724FAEE4AE0992B4C1F62 /* Core.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04218E44C8D7EEB4DB1FEB17 /* Core.framework */; };
 		514174C342DD6DF50CF92FCA /* SDWebImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E9F694E89E414A77E223C65 /* SDWebImage.framework */; };
 		52645DC713DA5763373B841A /* DesignSystem.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F2A5BEA1A83032F8516C05FC /* DesignSystem.framework */; };
 		5DA795FD8AE82AF3E6657BB5 /* DesignSystem.framework in Dependencies */ = {isa = PBXBuildFile; fileRef = F2A5BEA1A83032F8516C05FC /* DesignSystem.framework */; };
@@ -35,9 +31,7 @@
 		7200516F3C63F7F0D6C0FD56 /* Alamofire_Alamofire.bundle in Dependencies */ = {isa = PBXBuildFile; fileRef = 89B93615CAA3A4B6EDE00CC7 /* Alamofire_Alamofire.bundle */; };
 		74BC714D5520B898AC4F91AE /* Domain.framework in Dependencies */ = {isa = PBXBuildFile; fileRef = DE52F60F7D201E28F2B73788 /* Domain.framework */; };
 		7652C855138383F04772CE1D /* Kingfisher_Kingfisher.bundle in Dependencies */ = {isa = PBXBuildFile; fileRef = EA2C9B2AE62343CD2F8D5609 /* Kingfisher_Kingfisher.bundle */; };
-		780847725775B3DD989F97E7 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B685907C66E4A3586D1FFEC /* CFNetwork.framework */; };
 		921409E800F281009894AF1B /* Core.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04218E44C8D7EEB4DB1FEB17 /* Core.framework */; };
-		92AB3DEE28EE2D9A54BA8E83 /* Core.framework in Dependencies */ = {isa = PBXBuildFile; fileRef = 04218E44C8D7EEB4DB1FEB17 /* Core.framework */; };
 		93024490896A0E783447EC15 /* SDWebImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E9F694E89E414A77E223C65 /* SDWebImage.framework */; };
 		935DAF405C568D99A01789B8 /* DesignSystem.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F2A5BEA1A83032F8516C05FC /* DesignSystem.framework */; };
 		9570CE6626F1DAE5F63EA377 /* SDWebImage_SDWebImage.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 68D664CAA1010C543472F9E5 /* SDWebImage_SDWebImage.bundle */; };
@@ -58,7 +52,6 @@
 		C9713249EFF54B95D5957871 /* Shared.framework in Dependencies */ = {isa = PBXBuildFile; fileRef = 22775B642171631175E5C887 /* Shared.framework */; };
 		D6D1E4FEC0060A776FAEF62C /* Kingfisher.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 722BE9794BB696843B2378B9 /* Kingfisher.framework */; };
 		E5164B2889523A1E7FCCA93E /* BookmarkTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D833BD260020B2F30A7E7FC8 /* BookmarkTests.swift */; };
-		EA5E9ECBD41EC0272310C6FE /* Alamofire_Alamofire.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 89B93615CAA3A4B6EDE00CC7 /* Alamofire_Alamofire.bundle */; };
 		F5F954CA2EDC984728D45515 /* BookmarkDemoApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC033F2A95A5686FDD3F3C61 /* BookmarkDemoApp.swift */; };
 		FA46436B3936C0C159BED822 /* Kingfisher_Kingfisher.bundle in Resources */ = {isa = PBXBuildFile; fileRef = EA2C9B2AE62343CD2F8D5609 /* Kingfisher_Kingfisher.bundle */; };
 		FF071D7F25F1A1CD20AC825D /* DesignSystem_DesignSystem.bundle in Resources */ = {isa = PBXBuildFile; fileRef = BBDE9251A6A0136A7E26B3E5 /* DesignSystem_DesignSystem.bundle */; };
@@ -121,7 +114,6 @@
 			buildActionMask = 8;
 			dstSubfolderSpec = 16;
 			files = (
-				92AB3DEE28EE2D9A54BA8E83 /* Core.framework in Dependencies */,
 				5DA795FD8AE82AF3E6657BB5 /* DesignSystem.framework in Dependencies */,
 				74BC714D5520B898AC4F91AE /* Domain.framework in Dependencies */,
 				C9713249EFF54B95D5957871 /* Shared.framework in Dependencies */,
@@ -134,7 +126,6 @@
 			buildActionMask = 8;
 			dstSubfolderSpec = 16;
 			files = (
-				15B5B61710D883857442F7D8 /* Alamofire_Alamofire.bundle in Dependencies */,
 				C200E53FF641FB80FF25FBBC /* DesignSystem_DesignSystem.bundle in Dependencies */,
 				7652C855138383F04772CE1D /* Kingfisher_Kingfisher.bundle in Dependencies */,
 				0E3B7C4D48F280F81792C958 /* SDWebImage_SDWebImage.bundle in Dependencies */,
@@ -195,14 +186,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				780847725775B3DD989F97E7 /* CFNetwork.framework in Frameworks */,
-				156D6090C42F5C20651D6324 /* Alamofire.framework in Frameworks */,
 				BB3583AB8AFF5A8582A7EA5C /* Bookmark.framework in Frameworks */,
-				504724FAEE4AE0992B4C1F62 /* Core.framework in Frameworks */,
 				52645DC713DA5763373B841A /* DesignSystem.framework in Frameworks */,
 				00B562FAD9D2D7D0DDB85017 /* Domain.framework in Frameworks */,
 				6144DD3831CAE3E3A2D7FB45 /* Kingfisher.framework in Frameworks */,
-				1458ECB9E29B36B27B2C65B4 /* Moya.framework in Frameworks */,
 				B3DDE87514556E0BA6A6257E /* PopupView.framework in Frameworks */,
 				93024490896A0E783447EC15 /* SDWebImage.framework in Frameworks */,
 				61AF57048C6B4DDBC8302B65 /* Shared.framework in Frameworks */,
@@ -484,7 +471,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EA5E9ECBD41EC0272310C6FE /* Alamofire_Alamofire.bundle in Resources */,
 				FF071D7F25F1A1CD20AC825D /* DesignSystem_DesignSystem.bundle in Resources */,
 				FA46436B3936C0C159BED822 /* Kingfisher_Kingfisher.bundle in Resources */,
 				9570CE6626F1DAE5F63EA377 /* SDWebImage_SDWebImage.bundle in Resources */,

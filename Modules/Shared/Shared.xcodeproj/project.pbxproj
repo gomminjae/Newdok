@@ -21,6 +21,7 @@
 		986650F906C2F56D536CFFAA /* SelectableItemStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1743374E82CFD282451B401 /* SelectableItemStore.swift */; };
 		C1F55CCE5F47EFD7E182822F /* SelectableItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8A1EBAD9AC767B12A003540 /* SelectableItem.swift */; };
 		D1FFD4928C1E8843CF7A7395 /* BrandDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 866E330B5D3795B77C163184 /* BrandDetailView.swift */; };
+		D75A8FD022EEBC29AF185D36 /* AppConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2BEA0C3B8E576918DE74F38 /* AppConstants.swift */; };
 		DECBAACDAECC2379F5B517CA /* AppRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B003F7CC7D7753A3F19A643 /* AppRouter.swift */; };
 /* End PBXBuildFile section */
 
@@ -54,6 +55,7 @@
 		E8A1EBAD9AC767B12A003540 /* SelectableItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectableItem.swift; sourceTree = "<group>"; };
 		EABBA1D82B5FD64F3A9B1FE3 /* TokenStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenStorage.swift; sourceTree = "<group>"; };
 		F0DE4CC8E8325473FA349E3F /* ToastCenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastCenter.swift; sourceTree = "<group>"; };
+		F2BEA0C3B8E576918DE74F38 /* AppConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppConstants.swift; sourceTree = "<group>"; };
 		FDF80E5080EED4A4B010B1F2 /* TabSelection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabSelection.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -119,6 +121,14 @@
 			name = Project;
 			sourceTree = "<group>";
 		};
+		70F30DEB3BC7EA590CBA4A44 /* Constants */ = {
+			isa = PBXGroup;
+			children = (
+				F2BEA0C3B8E576918DE74F38 /* AppConstants.swift */,
+			);
+			path = Constants;
+			sourceTree = "<group>";
+		};
 		72723117B1BFA01E33CBB7A6 /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -130,6 +140,7 @@
 		8DBC6BAA6C2105D09B097177 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				70F30DEB3BC7EA590CBA4A44 /* Constants */,
 				B009AEDC1F84E55C19868CE1 /* Router */,
 				45C65DDCE81E59F709DCE1CA /* State */,
 				18761086C2A2199A9552439D /* Store */,
@@ -252,6 +263,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				96CFE788CBFC80C85178485A /* CheckResult.swift in Sources */,
+				D75A8FD022EEBC29AF185D36 /* AppConstants.swift in Sources */,
 				7D04C850BB0BAE64479467A3 /* AppRoute.swift in Sources */,
 				DECBAACDAECC2379F5B517CA /* AppRouter.swift in Sources */,
 				2543C610AB3A48B4D249A302 /* TabSelection.swift in Sources */,

@@ -19,12 +19,12 @@ public struct AppToastHost: View {
             )) {
                 ToastView(message: toast.message)
                     .id(toast.message)
-                    .padding(.bottom, 50)
+                    .padding(.bottom, AppConstants.Spacing.toastBottom)
             } customize: {
                 $0
                     .type(.toast)
                     .position(.bottom)
-                    .autohideIn(2.5)
+                    .autohideIn(AppConstants.Duration.toast)
                     .animation(.easeInOut)
                     .closeOnTapOutside(false)
             }

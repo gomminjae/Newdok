@@ -10,11 +10,9 @@
 		0392BE3B9B3EFF4CDFDCF7D5 /* ArticleRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46845E4343A9BD010368908B /* ArticleRow.swift */; };
 		064939FC1B563F8FD207D6CB /* PopupView.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B81F80C2FEAA1107F2AE9F09 /* PopupView.framework */; };
 		089FE2276BDE2BC76014FAF7 /* Kingfisher_Kingfisher.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 1D6C30E8A791165E485CC19F /* Kingfisher_Kingfisher.bundle */; };
-		0AFC3A6FA5EE566C013D1999 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D1EE48DA2405FA422E8CB01 /* CFNetwork.framework */; };
 		0B433E96036502589F160DC0 /* Kingfisher.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EDB4C3569E3D5CCC18BE7FD7 /* Kingfisher.framework */; };
 		0F52C0F4F364DB1BD602558E /* Kingfisher_Kingfisher.bundle in Dependencies */ = {isa = PBXBuildFile; fileRef = 1D6C30E8A791165E485CC19F /* Kingfisher_Kingfisher.bundle */; };
 		0FC7D8641112F3785DC1F282 /* Shared.framework in Dependencies */ = {isa = PBXBuildFile; fileRef = 5D35F66BCBA8EB427B5DE027 /* Shared.framework */; };
-		25632853C21928B783200A6A /* Alamofire_Alamofire.bundle in Dependencies */ = {isa = PBXBuildFile; fileRef = 64B42078E0A87CEE27F32CF2 /* Alamofire_Alamofire.bundle */; };
 		269DAC6E999F4D87706612D6 /* Home.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9290645AFD421A6E8E0A3C77 /* Home.framework */; };
 		2B1AC36222425653891B8D66 /* Kingfisher.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EDB4C3569E3D5CCC18BE7FD7 /* Kingfisher.framework */; };
 		2B8F29F0ED90A533AB1AEC24 /* HomeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CADBDBCE22FDE304B4127596 /* HomeTests.swift */; };
@@ -25,7 +23,6 @@
 		3DC3AC98F967ADCF551EEB57 /* DesignSystem_DesignSystem.bundle in Dependencies */ = {isa = PBXBuildFile; fileRef = A393F8EFC0690F199B785B09 /* DesignSystem_DesignSystem.bundle */; };
 		3DE5FB4CD15FD63D29420DB9 /* Shared.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5D35F66BCBA8EB427B5DE027 /* Shared.framework */; };
 		476EEBD60D7A3D18846C8C9B /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B1A5FAB7ADFFA55459CCD3E /* Alamofire.framework */; };
-		47EFDF18613C0A02195CF0F9 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B1A5FAB7ADFFA55459CCD3E /* Alamofire.framework */; };
 		49ED293E9E4764FF14913ECF /* SwiftUIIntrospect.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7CD740F9B7C38138D1170D13 /* SwiftUIIntrospect.framework */; };
 		4A31B69FE4DECA3083C662E6 /* DesignSystem.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8C3EBAC2F650C65DE1069CB5 /* DesignSystem.framework */; };
 		4EA3067EC33052FABC11288E /* SDWebImage_SDWebImage.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 288839B54CB18C6E0903651C /* SDWebImage_SDWebImage.bundle */; };
@@ -37,17 +34,14 @@
 		6AF94EE489A31CAB497CC765 /* Shared.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5D35F66BCBA8EB427B5DE027 /* Shared.framework */; };
 		71030EF79D191BF92B54CA94 /* Domain.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 719F7A4D0214C31A88FDE196 /* Domain.framework */; };
 		7F1749E8E21F3F81E13A5F02 /* DesignSystem_DesignSystem.bundle in Resources */ = {isa = PBXBuildFile; fileRef = A393F8EFC0690F199B785B09 /* DesignSystem_DesignSystem.bundle */; };
-		8A06AE761646EA91DDA70FEA /* Core.framework in Dependencies */ = {isa = PBXBuildFile; fileRef = 9A8F8FB7ECC88281FCC1FFE6 /* Core.framework */; };
 		9953009672D5CEF0F6592FE0 /* Domain.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 719F7A4D0214C31A88FDE196 /* Domain.framework */; };
 		A05BDC4C3F8D50C667469855 /* Domain.framework in Dependencies */ = {isa = PBXBuildFile; fileRef = 719F7A4D0214C31A88FDE196 /* Domain.framework */; };
 		A9A0A28E3AF8A179867A582B /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D1EE48DA2405FA422E8CB01 /* CFNetwork.framework */; };
-		B3E2A396F824BFDD799A1E9E /* Core.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A8F8FB7ECC88281FCC1FFE6 /* Core.framework */; };
 		B6924E20A9BF2A8861BA0F53 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B902ED9ABC9C57E5C6F9A2D /* HomeView.swift */; };
 		BFD02206AE59047952FE3DB4 /* SwiftUIIntrospect.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7CD740F9B7C38138D1170D13 /* SwiftUIIntrospect.framework */; };
 		C174AF6A38C445E364543B69 /* Data.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5C3BE49E852C36A2A3764823 /* Data.framework */; };
 		C279A57619B644F716EFC768 /* DesignSystem.framework in Dependencies */ = {isa = PBXBuildFile; fileRef = 8C3EBAC2F650C65DE1069CB5 /* DesignSystem.framework */; };
 		C4621CC3B7F237FCC89480CB /* SDWebImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A82656BFB969153B10734939 /* SDWebImage.framework */; };
-		C8DC844992B30693A7FEA61D /* Moya.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E45A37D9EB117BE8E26CCEAF /* Moya.framework */; };
 		CAEDE3EF78324D11746C2B1E /* DesignSystem_DesignSystem.bundle in Dependencies */ = {isa = PBXBuildFile; fileRef = A393F8EFC0690F199B785B09 /* DesignSystem_DesignSystem.bundle */; };
 		D389D3BFCC5162BF6BF2F449 /* SDWebImage_SDWebImage.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 288839B54CB18C6E0903651C /* SDWebImage_SDWebImage.bundle */; };
 		D5B9E3B40CCEEF0DE5E31DF6 /* Moya.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E45A37D9EB117BE8E26CCEAF /* Moya.framework */; };
@@ -57,7 +51,6 @@
 		E0D05510B8ADFA2344AB601B /* SDWebImage_SDWebImage.bundle in Dependencies */ = {isa = PBXBuildFile; fileRef = 288839B54CB18C6E0903651C /* SDWebImage_SDWebImage.bundle */; };
 		E86216D828CD392E5A339F9F /* Core.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A8F8FB7ECC88281FCC1FFE6 /* Core.framework */; };
 		F40E800E300E799932EE70DE /* SDWebImage_SDWebImage.bundle in Dependencies */ = {isa = PBXBuildFile; fileRef = 288839B54CB18C6E0903651C /* SDWebImage_SDWebImage.bundle */; };
-		FF99CC3918E2F8453AFACA84 /* Alamofire_Alamofire.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 64B42078E0A87CEE27F32CF2 /* Alamofire_Alamofire.bundle */; };
 		FFC8FCCA16E79951DFD5AA8D /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAD2FE377459D687CCBCE3E0 /* HomeViewModel.swift */; };
 /* End PBXBuildFile section */
 
@@ -104,7 +97,6 @@
 			buildActionMask = 8;
 			dstSubfolderSpec = 16;
 			files = (
-				25632853C21928B783200A6A /* Alamofire_Alamofire.bundle in Dependencies */,
 				CAEDE3EF78324D11746C2B1E /* DesignSystem_DesignSystem.bundle in Dependencies */,
 				0F52C0F4F364DB1BD602558E /* Kingfisher_Kingfisher.bundle in Dependencies */,
 				E0D05510B8ADFA2344AB601B /* SDWebImage_SDWebImage.bundle in Dependencies */,
@@ -127,7 +119,6 @@
 			buildActionMask = 8;
 			dstSubfolderSpec = 16;
 			files = (
-				8A06AE761646EA91DDA70FEA /* Core.framework in Dependencies */,
 				C279A57619B644F716EFC768 /* DesignSystem.framework in Dependencies */,
 				A05BDC4C3F8D50C667469855 /* Domain.framework in Dependencies */,
 				0FC7D8641112F3785DC1F282 /* Shared.framework in Dependencies */,
@@ -214,14 +205,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0AFC3A6FA5EE566C013D1999 /* CFNetwork.framework in Frameworks */,
-				47EFDF18613C0A02195CF0F9 /* Alamofire.framework in Frameworks */,
-				B3E2A396F824BFDD799A1E9E /* Core.framework in Frameworks */,
 				30D2AC437EAEB059AF6636D7 /* DesignSystem.framework in Frameworks */,
 				71030EF79D191BF92B54CA94 /* Domain.framework in Frameworks */,
 				269DAC6E999F4D87706612D6 /* Home.framework in Frameworks */,
 				0B433E96036502589F160DC0 /* Kingfisher.framework in Frameworks */,
-				C8DC844992B30693A7FEA61D /* Moya.framework in Frameworks */,
 				5958A795220236D936B094E6 /* PopupView.framework in Frameworks */,
 				C4621CC3B7F237FCC89480CB /* SDWebImage.framework in Frameworks */,
 				6AF94EE489A31CAB497CC765 /* Shared.framework in Frameworks */,
@@ -467,7 +454,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FF99CC3918E2F8453AFACA84 /* Alamofire_Alamofire.bundle in Resources */,
 				7F1749E8E21F3F81E13A5F02 /* DesignSystem_DesignSystem.bundle in Resources */,
 				089FE2276BDE2BC76014FAF7 /* Kingfisher_Kingfisher.bundle in Resources */,
 				D389D3BFCC5162BF6BF2F449 /* SDWebImage_SDWebImage.bundle in Resources */,

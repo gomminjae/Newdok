@@ -44,39 +44,35 @@ struct AppRootView: View {
                     destinationView(for: route)
                 }
             }
-            .onAppear {
-                // 전역적으로 swipe back 활성화
-                DispatchQueue.main.async {
-                    if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
-                       let window = windowScene.windows.first,
-                       let rootViewController = window.rootViewController {
-                        enableSwipeBackGlobally(in: rootViewController)
-                    }
-                }
-            }
             .environmentObject(router)
             .environmentObject(tabSelection)
             .opacity(launched ? 1 : 0) // Splash 후 메인뷰 서서히 등장
             .animation(.easeInOut(duration: 0.3), value: launched)
         }
-        .onAppear {
+        .task {
             // 옵션 리스트 로드
-            Task {
-                await loadOptions()
+            do {
+                guard let loadOptionsUseCase = AppDIContainer.shared.container.resolve(LoadOptionsUseCase.self) else {
+                    fatalError("LoadOptionsUseCase is not registered in DI container")
+                }
+                try await loadOptionsUseCase.execute()
+            } catch {
+                print("Failed to load options: \(error)")
             }
 
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
-                withAnimation {
-                    launched = true
+            // Splash 화면 표시 후 초기 화면 결정
+            try? await Task.sleep(nanoseconds: UInt64(AppConstants.Duration.splash * 1_000_000_000))
 
-                    // 토큰 존재 여부 확인 (로그인 여부)
-                    if TokenStorage.hasValidToken {
-                        // 토큰 있음 -> 메인 화면
-                        router.resetTo(.tabbar(selectedTab: .home))
-                    } else {
-                        // 토큰 없음 -> 온보딩 (로그인하지 않은 사용자)
-                        router.resetTo(.onboarding)
-                    }
+            withAnimation(.easeInOut(duration: AppConstants.Animation.default)) {
+                launched = true
+
+                // 토큰 존재 여부 확인 (로그인 여부)
+                if TokenStorage.hasValidToken {
+                    // 토큰 있음 -> 메인 화면
+                    router.resetTo(.tabbar(selectedTab: .home))
+                } else {
+                    // 토큰 없음 -> 온보딩 (로그인하지 않은 사용자)
+                    router.resetTo(.onboarding)
                 }
             }
         }
@@ -93,81 +89,9 @@ struct AppRootView: View {
         }
     }
 
-    private func loadOptions() async {
-        do {
-            let newsletterUseCase = AppDIContainer.shared.container.resolve(NewsletterUseCase.self)!
-            let optionList = try await newsletterUseCase.fetchOptionList()
-            let interests = optionList.interests.map { SelectableItem(id: $0.id, name: $0.name) }
-            let industries = optionList.industries.map { SelectableItem(id: $0.id, name: $0.name) }
-            let days = optionList.days.map { SelectableItem(id: $0.id, name: $0.name) }
-            await MainActor.run {
-                SelectableItemStore.shared.loadOptions(
-                    interests: interests,
-                    industries: industries,
-                    days: days
-                )
-            }
-        } catch {
-            print("Failed to load options: \(error)")
-        }
-    }
 
     @ViewBuilder
-    private var rootView: some View {
-        switch router.root {
-        case .onboarding:
-            coordinator.makeOnboardingView()
-        case .signup:
-            coordinator.makeSignupView()
-        case .login:
-            coordinator.makeLoginView()
-        case .home:
-            coordinator.makeHomeView()
-        case let .tabbar(selectedTab, exploreDay, exploreSelectedTab):
-            coordinator.makeTabView(selectedTab: selectedTab, exploreDay: exploreDay, exploreSelectedTab: exploreSelectedTab)
-        case .profile:
-            coordinator.mekeProfileView()
-        case .explore:
-            coordinator.makeExploreView()
-        case .brandDetail(let id):
-            coordinator.makeBrandDetail(id: id)
-        case .articleDetail(let id):
-            coordinator.makeArticleDetail(id: id)
-        case .editProfile:
-            coordinator.makeEditProfileView()
-        case .recovery:
-            coordinator.makeRecoveryView()
-        case .editNickname:
-            coordinator.makeEditNicknameView()
-        case .editIndustry:
-            coordinator.makeEditIndustryView()
-        case .editInterest:
-            coordinator.makeEditInterestView()
-        case .accountManage:
-            coordinator.makeAccountManageView()
-        case .updatePassword:
-            coordinator.makeChangePasswordView()
-        case .updatePhoneNumber:
-            coordinator.makeChangePhoneNumberView()
-        case .search:
-            coordinator.makeSearchView()
-        case .serviceFeedback:
-            coordinator.makeServiceFeedbackView()
-        case .withdraw:
-            coordinator.makeWithdrawView()
-        case .faq:
-            coordinator.makeFAQView()
-        case .feedback:
-            coordinator.makeFeedbackView()
-        case .termsMenu:
-            coordinator.makeTermsMenuView()
-        case .editAlert:
-            coordinator.makeEditAlert()
-        }
-    }
-    
-    @ViewBuilder
-    private func destinationView(for route: AppRoute) -> some View {
+    private func makeView(for route: AppRoute) -> some View {
         switch route {
         case .onboarding:
             coordinator.makeOnboardingView()
@@ -219,47 +143,14 @@ struct AppRootView: View {
             coordinator.makeEditAlert()
         }
     }
-}
 
-// MARK: - 전역 Swipe Back 설정
-private func enableSwipeBackGlobally(in viewController: UIViewController) {
-    // NavigationController 찾기
-    func findNavigationController(in vc: UIViewController) -> UINavigationController? {
-        if let nav = vc as? UINavigationController {
-            return nav
-        }
-        for child in vc.children {
-            if let nav = findNavigationController(in: child) {
-                return nav
-            }
-        }
-        return nil
+    @ViewBuilder
+    private var rootView: some View {
+        makeView(for: router.root)
     }
-    
-    if let navController = findNavigationController(in: viewController) {
-        // 기본 swipe back 활성화
-        navController.interactivePopGestureRecognizer?.isEnabled = true
-        navController.interactivePopGestureRecognizer?.delegate = nil
-        
-        // 커스텀 swipe back 처리
-        let panGesture = UIPanGestureRecognizer()
-        panGesture.addTarget(SwipeBackHandler.self, action: #selector(SwipeBackHandler.handleSwipeBack(_:)))
-        viewController.view.addGestureRecognizer(panGesture)
-    }
-}
 
-// MARK: - Swipe Back Handler
-private class SwipeBackHandler: NSObject {
-    @objc static func handleSwipeBack(_ gesture: UIPanGestureRecognizer) {
-        let translation = gesture.translation(in: gesture.view)
-        let velocity = gesture.velocity(in: gesture.view)
-        
-        // 오른쪽에서 왼쪽으로 스와이프 (뒤로가기)
-        if translation.x > 50 && velocity.x > 0 {
-            // AppRouter의 pop 메서드 호출
-            DispatchQueue.main.async {
-                NotificationCenter.default.post(name: .init("SwipeBack"), object: nil)
-            }
-        }
+    @ViewBuilder
+    private func destinationView(for route: AppRoute) -> some View {
+        makeView(for: route)
     }
 }

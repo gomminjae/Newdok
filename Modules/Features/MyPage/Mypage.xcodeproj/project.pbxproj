@@ -33,6 +33,7 @@
 		87E866CEE7ED3844D9832DDE /* Moya.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F500BF3682B9254532E46F27 /* Moya.framework */; };
 		8984E9CD648347EB9141D21F /* Alamofire_Alamofire.bundle in Dependencies */ = {isa = PBXBuildFile; fileRef = 016E05AA5462B5742B38EE2F /* Alamofire_Alamofire.bundle */; };
 		9B0379722DDDED9FB8879AAB /* Wrap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FDABEA7B4064B889E6E40F2 /* Wrap.swift */; };
+		A28A293B8057BAF57E22CB16 /* Domain.framework in Dependencies */ = {isa = PBXBuildFile; fileRef = 0C49755839DA2DCCE16AF4AD /* Domain.framework */; };
 		A67D4CBEA17028842ED6B7F8 /* Kingfisher_Kingfisher.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 36C57ACFBB11D873B7BDE98F /* Kingfisher_Kingfisher.bundle */; };
 		AC25D932F6121B48AC3B4FA9 /* PopupView.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AC9681D4DFFD4DDB3C3849F8 /* PopupView.framework */; };
 		B2314CAA59CA0B369B0E7B95 /* Data.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0D20AE1B246047E4859D673A /* Data.framework */; };
@@ -83,6 +84,7 @@
 			dstSubfolderSpec = 16;
 			files = (
 				26310133009BC5878EE98201 /* DesignSystem.framework in Dependencies */,
+				A28A293B8057BAF57E22CB16 /* Domain.framework in Dependencies */,
 				07E4861F4E8E65B6A726B026 /* PopupView.framework in Dependencies */,
 				E53CFA17DB251E18A51C8B33 /* Shared.framework in Dependencies */,
 			);
