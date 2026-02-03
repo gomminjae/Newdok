@@ -84,6 +84,7 @@ let project = Project(
                 .project(target: "AppCoordinator", path: "../AppCoordinator"),
                 .project(target: "Shared", path: "../Shared"),
                 .external(name: "PopupView"),
+                .external(name: "ComposableArchitecture"),
             ]
         )
     ],

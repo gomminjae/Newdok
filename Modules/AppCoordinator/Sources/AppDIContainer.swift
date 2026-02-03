@@ -116,6 +116,11 @@ public final class AppDIContainer {
             return SearchUseCaseImpl(searchRepository: repo)
         }.inObjectScope(.container)
 
+        container.register(LoadOptionsUseCase.self) { r in
+            let newsletterUseCase = r.resolve(NewsletterUseCase.self)!
+            return LoadOptionsUseCaseImpl(newsletterUseCase: newsletterUseCase)
+        }.inObjectScope(.container)
+
         // MARK: - ViewModels
         container.register(SignupViewModel.self) { r in
             let useCase = r.resolve(UserUseCase.self)!

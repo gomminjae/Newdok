@@ -7,22 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0330FA067179B2E56E3F4F3E /* Moya.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 46FEF6E861BE5FC44161C9ED /* Moya.framework */; };
-		0D7C26D3CB45E40566196459 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 09D67352AF7E64B3C0ED9D71 /* CFNetwork.framework */; };
-		354513DA721D578F735D38E4 /* Data.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B1F79A91D5670D151BDE54A /* Data.framework */; };
 		3DB7D8C13AADD33CAD815773 /* Kingfisher_Kingfisher.bundle in Dependencies */ = {isa = PBXBuildFile; fileRef = 37F859F63C7F90F854486C95 /* Kingfisher_Kingfisher.bundle */; };
-		3FBAE78DBBEDC4B11D3D534C /* Alamofire_Alamofire.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 0A301D2FAA6B0A34FDDF1338 /* Alamofire_Alamofire.bundle */; };
 		406E0CEA35077B11B5ABFCC0 /* SwiftUIIntrospect.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A9E423970A732D5C1FB41365 /* SwiftUIIntrospect.framework */; };
 		5FFCBF7424EEC932D31668FA /* SDWebImage_SDWebImage.bundle in Dependencies */ = {isa = PBXBuildFile; fileRef = FF02098A6030CE176CCC02D8 /* SDWebImage_SDWebImage.bundle */; };
-		6614A452572132F7EB3685BC /* Core.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B996AA86F4CDF4A8556B8CB4 /* Core.framework */; };
 		69CB91318F5F1B9E0BF7FAE5 /* SDWebImage_SDWebImage.bundle in Resources */ = {isa = PBXBuildFile; fileRef = FF02098A6030CE176CCC02D8 /* SDWebImage_SDWebImage.bundle */; };
-		6E6D6DCC2B3B1168C4B444E1 /* Data.framework in Dependencies */ = {isa = PBXBuildFile; fileRef = 3B1F79A91D5670D151BDE54A /* Data.framework */; };
 		74A0D64C11CC134471BD683E /* DesignSystem_DesignSystem.bundle in Dependencies */ = {isa = PBXBuildFile; fileRef = 9035E599A108DCBD596DC7A8 /* DesignSystem_DesignSystem.bundle */; };
 		7FD33A325D43AA6E4D713840 /* WithdrawViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB8FBD7CC05A319F70CEB0E9 /* WithdrawViewModel.swift */; };
+		958B7C5D35726509AD9BF5FB /* Shared.framework in Dependencies */ = {isa = PBXBuildFile; fileRef = 7587B7E7541913506F73587E /* Shared.framework */; };
 		97B4348CB9D4223157D4AC73 /* DesignSystem.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 174B34F64DF1E6C20297D8C8 /* DesignSystem.framework */; };
 		A0B8D6F0D845305C09B66D4B /* Domain.framework in Dependencies */ = {isa = PBXBuildFile; fileRef = CD87DB4C7401FE168BF2AB9F /* Domain.framework */; };
-		B0653FE95A1F93D329C45A1F /* Alamofire_Alamofire.bundle in Dependencies */ = {isa = PBXBuildFile; fileRef = 0A301D2FAA6B0A34FDDF1338 /* Alamofire_Alamofire.bundle */; };
-		BAD7496F3E5E5217E1E6ECB9 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 21A6C98E63916C065521B1BF /* Alamofire.framework */; };
 		BC117A92C27CC60DE1ACC9BB /* SDWebImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 38AA17114B872C41435E29FB /* SDWebImage.framework */; };
 		C0F4055768C90B937A696B75 /* Kingfisher.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 99448B7F0592A7737E97E339 /* Kingfisher.framework */; };
 		C1EB5DA24AC81FF4180EF555 /* Shared.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7587B7E7541913506F73587E /* Shared.framework */; };
@@ -61,7 +54,6 @@
 			buildActionMask = 8;
 			dstSubfolderSpec = 16;
 			files = (
-				B0653FE95A1F93D329C45A1F /* Alamofire_Alamofire.bundle in Dependencies */,
 				74A0D64C11CC134471BD683E /* DesignSystem_DesignSystem.bundle in Dependencies */,
 				3DB7D8C13AADD33CAD815773 /* Kingfisher_Kingfisher.bundle in Dependencies */,
 				5FFCBF7424EEC932D31668FA /* SDWebImage_SDWebImage.bundle in Dependencies */,
@@ -74,9 +66,9 @@
 			buildActionMask = 8;
 			dstSubfolderSpec = 16;
 			files = (
-				6E6D6DCC2B3B1168C4B444E1 /* Data.framework in Dependencies */,
 				DD69334FB8E5AB1425AE1A0F /* DesignSystem.framework in Dependencies */,
 				A0B8D6F0D845305C09B66D4B /* Domain.framework in Dependencies */,
+				958B7C5D35726509AD9BF5FB /* Shared.framework in Dependencies */,
 			);
 			name = Dependencies;
 			runOnlyForDeploymentPostprocessing = 1;
@@ -94,16 +86,11 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		09D67352AF7E64B3C0ED9D71 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS.sdk/System/Library/Frameworks/CFNetwork.framework; sourceTree = DEVELOPER_DIR; };
-		0A301D2FAA6B0A34FDDF1338 /* Alamofire_Alamofire.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Alamofire_Alamofire.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
 		174B34F64DF1E6C20297D8C8 /* DesignSystem.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = DesignSystem.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		21A6C98E63916C065521B1BF /* Alamofire.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Alamofire.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		285FA32AA1896DA12F39D7F0 /* Withdraw.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Withdraw.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		28F63016743E643F2BD0E3C4 /* PopupView.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = PopupView.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		37F859F63C7F90F854486C95 /* Kingfisher_Kingfisher.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Kingfisher_Kingfisher.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
 		38AA17114B872C41435E29FB /* SDWebImage.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SDWebImage.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		3B1F79A91D5670D151BDE54A /* Data.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Data.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		46FEF6E861BE5FC44161C9ED /* Moya.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Moya.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5BF914ED64A854E1B5A28AB6 /* Withdraw-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "Withdraw-Info.plist"; sourceTree = "<group>"; };
 		7587B7E7541913506F73587E /* Shared.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Shared.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7D1BDCA0E40890F94A937E29 /* WithdrawView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WithdrawView.swift; sourceTree = "<group>"; };
@@ -113,7 +100,6 @@
 		9DBB83B8B6881E85342322C0 /* WithdrawTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "WithdrawTests-Info.plist"; sourceTree = "<group>"; };
 		A9E423970A732D5C1FB41365 /* SwiftUIIntrospect.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SwiftUIIntrospect.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		AB8FBD7CC05A319F70CEB0E9 /* WithdrawViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WithdrawViewModel.swift; sourceTree = "<group>"; };
-		B996AA86F4CDF4A8556B8CB4 /* Core.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Core.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CD87DB4C7401FE168BF2AB9F /* Domain.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Domain.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FF02098A6030CE176CCC02D8 /* SDWebImage_SDWebImage.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SDWebImage_SDWebImage.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -130,14 +116,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0D7C26D3CB45E40566196459 /* CFNetwork.framework in Frameworks */,
-				BAD7496F3E5E5217E1E6ECB9 /* Alamofire.framework in Frameworks */,
-				6614A452572132F7EB3685BC /* Core.framework in Frameworks */,
-				354513DA721D578F735D38E4 /* Data.framework in Frameworks */,
 				97B4348CB9D4223157D4AC73 /* DesignSystem.framework in Frameworks */,
 				C80C76684A8DD31620FAF53C /* Domain.framework in Frameworks */,
 				C0F4055768C90B937A696B75 /* Kingfisher.framework in Frameworks */,
-				0330FA067179B2E56E3F4F3E /* Moya.framework in Frameworks */,
 				CB8F124CD02672A360A3C855 /* PopupView.framework in Frameworks */,
 				BC117A92C27CC60DE1ACC9BB /* SDWebImage.framework in Frameworks */,
 				C1EB5DA24AC81FF4180EF555 /* Shared.framework in Frameworks */,
@@ -163,31 +144,17 @@
 			children = (
 				517FA2878B15A924155F9CF2 /* Project */,
 				AD46BC69969E9F0B76DF4B89 /* Products */,
-				6E327CBCE82370B55B5CE359 /* Frameworks */,
 			);
-			sourceTree = "<group>";
-		};
-		6E327CBCE82370B55B5CE359 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				09D67352AF7E64B3C0ED9D71 /* CFNetwork.framework */,
-			);
-			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		AD46BC69969E9F0B76DF4B89 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				0A301D2FAA6B0A34FDDF1338 /* Alamofire_Alamofire.bundle */,
-				21A6C98E63916C065521B1BF /* Alamofire.framework */,
-				B996AA86F4CDF4A8556B8CB4 /* Core.framework */,
-				3B1F79A91D5670D151BDE54A /* Data.framework */,
 				9035E599A108DCBD596DC7A8 /* DesignSystem_DesignSystem.bundle */,
 				174B34F64DF1E6C20297D8C8 /* DesignSystem.framework */,
 				CD87DB4C7401FE168BF2AB9F /* Domain.framework */,
 				37F859F63C7F90F854486C95 /* Kingfisher_Kingfisher.bundle */,
 				99448B7F0592A7737E97E339 /* Kingfisher.framework */,
-				46FEF6E861BE5FC44161C9ED /* Moya.framework */,
 				28F63016743E643F2BD0E3C4 /* PopupView.framework */,
 				FF02098A6030CE176CCC02D8 /* SDWebImage_SDWebImage.bundle */,
 				38AA17114B872C41435E29FB /* SDWebImage.framework */,
@@ -311,7 +278,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3FBAE78DBBEDC4B11D3D534C /* Alamofire_Alamofire.bundle in Resources */,
 				E3965A2541A2C9F45341C0ED /* DesignSystem_DesignSystem.bundle in Resources */,
 				E7BAA1B968DFF9AE00D98962 /* Kingfisher_Kingfisher.bundle in Resources */,
 				69CB91318F5F1B9E0BF7FAE5 /* SDWebImage_SDWebImage.bundle in Resources */,
