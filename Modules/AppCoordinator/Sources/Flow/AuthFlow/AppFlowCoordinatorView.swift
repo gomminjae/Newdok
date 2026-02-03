@@ -52,7 +52,9 @@ struct AppRootView: View {
         .task {
             // 옵션 리스트 로드
             do {
-                let loadOptionsUseCase = AppDIContainer.shared.container.resolve(LoadOptionsUseCase.self)!
+                guard let loadOptionsUseCase = AppDIContainer.shared.container.resolve(LoadOptionsUseCase.self) else {
+                    fatalError("LoadOptionsUseCase is not registered in DI container")
+                }
                 try await loadOptionsUseCase.execute()
             } catch {
                 print("Failed to load options: \(error)")

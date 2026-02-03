@@ -8,6 +8,17 @@
 import Foundation
 import UIKit
 
+// MARK: - App Store Response Models
+private struct AppStoreResponse: Codable {
+    let resultCount: Int
+    let results: [AppStoreResult]
+}
+
+private struct AppStoreResult: Codable {
+    let version: String
+}
+
+// MARK: - VersionCheckService
 final class VersionCheckService: Sendable {
 
     static let shared = VersionCheckService()
@@ -19,16 +30,15 @@ final class VersionCheckService: Sendable {
     /// - Note: 현재 버전은 Project.swift의 MARKETING_VERSION에서 관리됨
     func checkForUpdate() async -> Bool {
         guard let bundleId = Bundle.main.bundleIdentifier,
-              let url = URL(string: "http://itunes.apple.com/lookup?bundleId=\(bundleId)") else {
+              let url = URL(string: "https://itunes.apple.com/lookup?bundleId=\(bundleId)") else {
             return false
         }
 
         do {
             let (data, _) = try await URLSession.shared.data(from: url)
+            let decodedResponse = try JSONDecoder().decode(AppStoreResponse.self, from: data)
 
-            guard let json = try? JSONSerialization.jsonObject(with: data, options: []) as? [String: Any],
-                  let results = json["results"] as? [[String: Any]],
-                  let appStoreVersion = results.first?["version"] as? String,
+            guard let appStoreVersion = decodedResponse.results.first?.version,
                   // CFBundleShortVersionString = Tuist Project.swift의 MARKETING_VERSION
                   let currentVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String else {
                 return false
