@@ -30,33 +30,25 @@ public struct HomeView: View {
     }
 
     public var body: some View {
-        ZStack {
-            // 1) 메인 배경+컨텐츠
-            Color(hex: "F5F5F7").ignoresSafeArea().zIndex(0)
-            
-            VStack(spacing: 0) {
-                headerView
-                
-                PullToRefreshView(
-                    threshold: 120, // 80에서 120으로 증가 (더 많은 드래그 필요)
-                    cooldownInterval: 3.0, // 2초에서 3초로 증가
-                    content: {
-                        VStack(spacing: 0) {
-                            dateBarView
-                            contentView
-                        }
-                    },
-                    animationView: {
-                        AnyView(LoadingView())
-                    },
-                    onRefresh: {
-                        await viewModel.refreshToToday()
-                    }
-                )
-                
-            }
-            .zIndex(0)
+        VStack(spacing: 0) {
+            headerView
+
+            PullToRefreshView(
+                threshold: 120,
+                cooldownInterval: 3.0,
+                content: {
+                    dateBarView
+                    contentView
+                },
+                animationView: {
+                    AnyView(LoadingView())
+                },
+                onRefresh: {
+                    await viewModel.refreshToToday()
+                }
+            )
         }
+        .background(Color(hex: "F5F5F7").ignoresSafeArea())
         .popup(isPresented: $showCalendar) {
                 CalendarPopupView(
                     isPresented: $showCalendar,
@@ -263,7 +255,6 @@ public struct HomeView: View {
                 ForEach(viewModel.filteredArticles) { article in
                     ArticleRow(article: article)
                         .frame(height: 88)
-                        .contentShape(Rectangle())
                         .onTapGesture {
                             Task { await viewModel.markArticleAsRead(articleId: article.articleId) }
                             router.push(.articleDetail(id: "\(article.articleId)"))
