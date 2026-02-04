@@ -15,16 +15,11 @@ struct ArticleRow: View {
     var body: some View {
         HStack(spacing: 12) {
             KFImage(URL(string: article.imageUrl))
-                .setProcessor(DownsamplingImageProcessor(size: CGSize(width: 112, height: 112)))
+                .setProcessor(DownsamplingImageProcessor(size: CGSize(width: 56, height: 56)))
                 .placeholder {
-                    // 로딩 중 표시
                     RoundedRectangle(cornerRadius: 12)
                         .fill(Color.gray.opacity(0.2))
                         .frame(width: 56, height: 56)
-                }
-                .onFailure { error in
-                }
-                .onSuccess { result in
                 }
                 .resizable()
                 .aspectRatio(contentMode: .fill)
@@ -57,11 +52,11 @@ struct ArticleRow: View {
         }
         .padding(16)
         .background(article.status == "Read" ? Color(hex: "EBEBEB") : Color(hex: "#FFFFFF"))
-        .overlay {
+        .clipShape(RoundedRectangle(cornerRadius: 12))
+        .overlay(
             RoundedRectangle(cornerRadius: 12)
                 .stroke(Color(hex: "#EBEBEB"), lineWidth: 1)
-        }
-        .cornerRadius(12)
+        )
         .shadow(color: Color.black.opacity(0.05), radius: 2, x: 0, y: 1) 
     }
 }
