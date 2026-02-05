@@ -5,16 +5,12 @@
 //  Created by 권민재 on 8/7/25.
 //
 
-
-
 import SwiftUI
+import UIKit
 
 public extension View {
     func enableSwipeBack() -> some View {
-        self
-            .background(
-                SwipeBackHandler()
-            )
+        self.background(SwipeBackHandler())
     }
 }
 
@@ -23,7 +19,7 @@ private struct SwipeBackHandler: UIViewControllerRepresentable {
         let controller = UIViewController()
         return controller
     }
-    
+
     func updateUIViewController(_ uiViewController: UIViewController, context: Context) {
         DispatchQueue.main.async {
             if let navigationController = uiViewController.navigationController {

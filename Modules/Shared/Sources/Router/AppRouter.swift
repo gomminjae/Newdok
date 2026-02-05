@@ -11,7 +11,7 @@ import SwiftUI
 public final class AppRouter: ObservableObject {
     @Published public var path = NavigationPath()
     @Published public var root: AppRoute = .onboarding
-    
+
     // 스와이프 백 중복 방지를 위한 상태 관리
     private var isProcessingSwipeBack = false
     private var lastSwipeBackTime: Date = Date.distantPast
@@ -26,7 +26,7 @@ public final class AppRouter: ObservableObject {
             object: nil
         )
     }
-    
+
     deinit {
         NotificationCenter.default.removeObserver(self)
     }
@@ -36,8 +36,8 @@ public final class AppRouter: ObservableObject {
     }
 
     public func pop() {
-        guard !path.isEmpty else { 
-            return 
+        guard !path.isEmpty else {
+            return
         }
         path.removeLast()
     }
@@ -50,26 +50,26 @@ public final class AppRouter: ObservableObject {
     public func reset() {
         path = NavigationPath()
     }
-    
+
     @objc private func handleSwipeBack() {
         let now = Date()
-        
+
         // 중복 처리 방지
         guard !isProcessingSwipeBack else {
             return
         }
-        
+
         // 쿨다운 체크
         guard now.timeIntervalSince(lastSwipeBackTime) >= swipeBackCooldown else {
             return
         }
-        
+
         isProcessingSwipeBack = true
         lastSwipeBackTime = now
-        
-        
+
+
         pop()
-        
+
         // 처리 완료 후 플래그 리셋
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
             self.isProcessingSwipeBack = false

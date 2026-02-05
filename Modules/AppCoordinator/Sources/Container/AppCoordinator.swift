@@ -58,13 +58,13 @@ final class AppCoordinator {
         return ExploreView(viewModel: vm).environmentObject(router)
     }
     func makeTabView(selectedTab: NewDokTab? = nil, exploreDay: Int? = nil, exploreSelectedTab: Int? = nil) -> some View {
-        
+
         let homeVm = container.container.resolve(HomeViewModel.self)!
         let exploreVm = container.container.resolve(ExploreViewModel.self)!
         let subscribeVm = container.container.resolve(SubscribeViewModel.self)!
         let bookmakrVm = container.container.resolve(BookmarkViewModel.self)!
         let mypageVm = container.container.resolve(MypageViewModel.self)!
-        
+
         return NewDokTabView(
             homeViewModel: homeVm,
             exploreViewModel: exploreVm,
@@ -177,5 +177,5 @@ final class AppCoordinator {
     func makeEditAlert() -> some View {
         return EditAlertView().environmentObject(router)
     }
-    
+
 }

@@ -15,6 +15,7 @@ let project = Project(
             resources: ["Resources/**"],
             dependencies: [
                  .project(target: "DesignSystem", path: "../../DesignSystem"),
+                 .project(target: "Core", path: "../../Core"),
              ],
             settings: .settings(
                 base: [

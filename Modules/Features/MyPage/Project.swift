@@ -17,6 +17,7 @@ import ProjectDescription
                  .project(target: "DesignSystem", path: "../../DesignSystem"),
                  .project(target: "Shared", path: "../../Shared"),
                  .project(target: "Domain", path: "../../Domain"),
+                 .project(target: "Core", path: "../../Core"),
                  .external(name: "PopupView")
              ],
              settings: .settings(

@@ -18,6 +18,7 @@ import ProjectDescription
                   .project(target: "DesignSystem", path: "../../DesignSystem"),
                   .project(target: "Domain", path: "../../Domain"),
                   .project(target: "Shared", path: "../../Shared"),
+                  .project(target: "Core", path: "../../Core"),
              ],
              settings: .settings(
                  base: [

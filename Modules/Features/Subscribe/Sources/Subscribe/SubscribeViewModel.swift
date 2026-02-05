@@ -9,6 +9,13 @@ import SwiftUI
 import Foundation
 import Domain
 
+public enum SubscribeState {
+    case loading
+    case guest
+    case empty
+    case data
+}
+
 @MainActor
 public final class SubscribeViewModel: ObservableObject {
 

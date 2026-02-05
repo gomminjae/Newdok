@@ -99,59 +99,18 @@ public struct SubscribeView: View {
         }
     }
 
-    // MARK: - Content (PullToRefreshView 버전)
+    // MARK: - Content
     private var contentSection: some View {
         PullToRefreshView(
             content: {
-                VStack(spacing: 0) {
-                    if isGuest {
-                        EmptySubscriptionView(isSubscribedTab: selectedTab == 0, isGuest: true)
-                            .frame(maxWidth: .infinity, maxHeight: .infinity)
-                    } else if filteredSubscriptions.isEmpty {
-                        // 데이터가 없을 때 빈상태 표시
-                        EmptySubscriptionView(isSubscribedTab: selectedTab == 0, isGuest: false)
-                            .frame(maxWidth: .infinity, maxHeight: .infinity)
-                    } else {
-                        // 데이터가 있을 때만 구독리스트 표시
-                        VStack(alignment: .leading, spacing: 0) {
-                            listHeaderView()
-                                .padding(.horizontal, 20)
-                                .padding(.bottom, 20)
-
-                            ForEach(Array(filteredSubscriptions.enumerated()), id: \.element.id) { index, newsletter in
-                                SubscribeRow(newsletter: newsletter, isSubscribed: selectedTab == 0) {
-                                    if selectedTab == 0 {
-                                        selectedNewsletter = newsletter
-                                        showUnsubscribeAlert = true
-                                    } else {
-                                        Task {
-                                            await viewModel.resume(newsletterId: String(newsletter.id ?? 0))
-                                            await viewModel.refresh(tab: 0) // 재개 후 활성 갱신
-                                            await viewModel.refresh(tab: 1) // 현재 탭(구독 중지) 갱신
-                                            showSubscribeToast = true
-                                            DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-                                                showSubscribeToast = false
-                                            }
-                                        }
-                                    }
-                                }
-                                .padding(.horizontal, 20)
-                                .padding(.bottom, index == filteredSubscriptions.count - 1 ? 28 : 12)
-                            }
-                        }
-                        .transition(.opacity.combined(with: .move(edge: .bottom)))
-                        .animation(.easeInOut(duration: 0.3), value: filteredSubscriptions.count)
-                    }
-                }
+                contentView
             },
             animationView: {
-                
                 AnyView(LoadingView())
             },
             onRefresh: {
-                // Pull to Refresh 시간 제한 적용
                 let timeSinceLastRefresh = Date().timeIntervalSince(viewModel.lastRefreshTime)
-                if timeSinceLastRefresh < 2.0 { // 2초 제한으로 조절
+                if timeSinceLastRefresh < 2.0 {
                     return
                 }
                 viewModel.lastRefreshTime = Date()
@@ -159,6 +118,66 @@ public struct SubscribeView: View {
             }
         )
         .background(Color(hex: "#F5F5F7"))
+    }
+
+    @ViewBuilder
+    private var contentView: some View {
+        switch subscribeState {
+        case .loading:
+            EmptyView()
+        case .guest:
+            EmptySubscriptionView(isSubscribedTab: selectedTab == 0, isGuest: true)
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+        case .empty:
+            EmptySubscriptionView(isSubscribedTab: selectedTab == 0, isGuest: false)
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+        case .data:
+            subscriptionListView
+        }
+    }
+
+    private var subscriptionListView: some View {
+        VStack(alignment: .leading, spacing: 0) {
+            listHeaderView()
+                .padding(.horizontal, 20)
+                .padding(.bottom, 20)
+
+            ForEach(Array(filteredSubscriptions.enumerated()), id: \.element.id) { index, newsletter in
+                SubscribeRow(newsletter: newsletter, isSubscribed: selectedTab == 0) {
+                    if selectedTab == 0 {
+                        selectedNewsletter = newsletter
+                        showUnsubscribeAlert = true
+                    } else {
+                        Task {
+                            await viewModel.resume(newsletterId: String(newsletter.id ?? 0))
+                            await viewModel.refresh(tab: 0)
+                            await viewModel.refresh(tab: 1)
+                            showSubscribeToast = true
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                                showSubscribeToast = false
+                            }
+                        }
+                    }
+                }
+                .padding(.horizontal, 20)
+                .padding(.bottom, index == filteredSubscriptions.count - 1 ? 28 : 12)
+            }
+        }
+        .transition(.opacity.combined(with: .move(edge: .bottom)))
+        .animation(.easeInOut(duration: 0.3), value: filteredSubscriptions.count)
+    }
+
+    private var subscribeState: SubscribeState {
+        if !viewModel.initialLoaded {
+            return .loading
+        }
+        if isGuest {
+            return .guest
+        }
+        if filteredSubscriptions.isEmpty {
+            return .empty
+        }
+        return .data
     }
 
     private var filteredSubscriptions: [Newsletter] {

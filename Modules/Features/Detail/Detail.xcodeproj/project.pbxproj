@@ -8,11 +8,13 @@
 
 /* Begin PBXBuildFile section */
 		32271A29D7652F6B271F0CFA /* DesignSystem.framework in Dependencies */ = {isa = PBXBuildFile; fileRef = AF10631497B2359FDEE1276E /* DesignSystem.framework */; };
+		579FD491C39E775B1855B67E /* Shared.framework in Dependencies */ = {isa = PBXBuildFile; fileRef = 16E9D08E995905CE2B02915B /* Shared.framework */; };
 		62E57D9A477C43218EFCFD39 /* DetailMain.swift in Sources */ = {isa = PBXBuildFile; fileRef = A883D2FFA63ECF6643BD9A68 /* DetailMain.swift */; };
 		96B4CA167A2F3F059B9FC0F2 /* BrandDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1081C5FB722791B45F1EF2AD /* BrandDetailViewModel.swift */; };
 		A9DD2BA21B126A3A9C9B7AB0 /* BrandDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B77220230DE1B29E53160F9 /* BrandDetailView.swift */; };
 		B0013A1AE532C53E1A6EC1B9 /* Domain.framework in Dependencies */ = {isa = PBXBuildFile; fileRef = 90CF425D4E5EBDB3EBFC30AF /* Domain.framework */; };
 		D5A476F4F89A71AFBACC56A8 /* ArticleDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14FFF62190471C071159E97A /* ArticleDetailViewModel.swift */; };
+		DD9CA7BEEAEBBF5FBCFC1E8C /* Core.framework in Dependencies */ = {isa = PBXBuildFile; fileRef = 34DDDB8621421DCF7F7F24F2 /* Core.framework */; };
 		E79ED31E506342F88AEA5B33 /* SubscribeModalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDD30D1EBA6469AAFAB8F954 /* SubscribeModalView.swift */; };
 		F2DE7432B78B29BB555248E4 /* ArticleDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A32E848FB34AC263D298782D /* ArticleDetailView.swift */; };
 /* End PBXBuildFile section */
@@ -33,8 +35,10 @@
 			buildActionMask = 8;
 			dstSubfolderSpec = 16;
 			files = (
+				DD9CA7BEEAEBBF5FBCFC1E8C /* Core.framework in Dependencies */,
 				32271A29D7652F6B271F0CFA /* DesignSystem.framework in Dependencies */,
 				B0013A1AE532C53E1A6EC1B9 /* Domain.framework in Dependencies */,
+				579FD491C39E775B1855B67E /* Shared.framework in Dependencies */,
 			);
 			name = Dependencies;
 			runOnlyForDeploymentPostprocessing = 1;
@@ -45,6 +49,8 @@
 		0B77220230DE1B29E53160F9 /* BrandDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrandDetailView.swift; sourceTree = "<group>"; };
 		1081C5FB722791B45F1EF2AD /* BrandDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrandDetailViewModel.swift; sourceTree = "<group>"; };
 		14FFF62190471C071159E97A /* ArticleDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleDetailViewModel.swift; sourceTree = "<group>"; };
+		16E9D08E995905CE2B02915B /* Shared.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Shared.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		34DDDB8621421DCF7F7F24F2 /* Core.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Core.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3B95DEB0BB0769D679538C4A /* Detail.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Detail.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		520DC973A302CE54DF2F8D7A /* Detail-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "Detail-Info.plist"; sourceTree = "<group>"; };
 		90CF425D4E5EBDB3EBFC30AF /* Domain.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Domain.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -84,9 +90,11 @@
 		1E43E38C7AA0E336D84C5D66 /* Products */ = {
 			isa = PBXGroup;
 			children = (
+				34DDDB8621421DCF7F7F24F2 /* Core.framework */,
 				AF10631497B2359FDEE1276E /* DesignSystem.framework */,
 				3B95DEB0BB0769D679538C4A /* Detail.framework */,
 				90CF425D4E5EBDB3EBFC30AF /* Domain.framework */,
+				16E9D08E995905CE2B02915B /* Shared.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
