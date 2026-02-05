@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		013E4747978AA31B2DF77047 /* Core.framework in Dependencies */ = {isa = PBXBuildFile; fileRef = 8D4F81FE5D554B0351EAAF69 /* Core.framework */; };
 		2303A1CAC4C44C68928926F3 /* PasswordRecoveryPagerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A79A9AE8102559593CBCEBA /* PasswordRecoveryPagerView.swift */; };
 		32B156BDAC3A405D923CEC5F /* CheckPhoneErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B59EE2BDD768904D8ECC1592 /* CheckPhoneErrorView.swift */; };
 		3BFD166C087B6C1E148273BC /* RecoveryMain.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1EF64A9C25417233B91F71B /* RecoveryMain.swift */; };
@@ -24,6 +25,7 @@
 			buildActionMask = 8;
 			dstSubfolderSpec = 16;
 			files = (
+				013E4747978AA31B2DF77047 /* Core.framework in Dependencies */,
 				DC830D9CD9996EF114CE85BD /* DesignSystem.framework in Dependencies */,
 				A05D8FFBF4486AA2EC1869A9 /* Domain.framework in Dependencies */,
 				8F5835DA4AAF188AD9E0A527 /* Shared.framework in Dependencies */,
@@ -52,6 +54,7 @@
 		4CD807EF128E4523E4F93901 /* Shared.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Shared.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		63CF72536A5AEAA562212B5A /* Recovery.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Recovery.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6A79A9AE8102559593CBCEBA /* PasswordRecoveryPagerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordRecoveryPagerView.swift; sourceTree = "<group>"; };
+		8D4F81FE5D554B0351EAAF69 /* Core.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Core.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B59EE2BDD768904D8ECC1592 /* CheckPhoneErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckPhoneErrorView.swift; sourceTree = "<group>"; };
 		BBC0E7AFA5B7F878D372EE22 /* FindIdPagerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindIdPagerView.swift; sourceTree = "<group>"; };
 		E1EF64A9C25417233B91F71B /* RecoveryMain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecoveryMain.swift; sourceTree = "<group>"; };
@@ -104,6 +107,7 @@
 		AFBA4B7D6071757107740DC6 /* Products */ = {
 			isa = PBXGroup;
 			children = (
+				8D4F81FE5D554B0351EAAF69 /* Core.framework */,
 				1EF38DA8E799CA840AC07D48 /* DesignSystem.framework */,
 				07BD651011AC8F84B15B365F /* Domain.framework */,
 				63CF72536A5AEAA562212B5A /* Recovery.framework */,

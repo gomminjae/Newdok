@@ -169,7 +169,7 @@ public struct NewDokTabView: View {
     private let mypageViewModel: MypageViewModel
     private let exploreIntent: ExploreIntent
 
-    private let initialSelectedTab: NewDokTab?
+    private let initialSelectedTab: NewDokTab? 
     private let exploreDay: Int?
     private let exploreSelectedTab: Int?
 
@@ -209,7 +209,7 @@ public struct NewDokTabView: View {
                 Text("둘러보기")
             }
             .tag(NewDokTab.explore)
-            
+
             TabContentView {
                 SubscribeView(viewModel: subscribeViewModel)
             }
@@ -219,7 +219,7 @@ public struct NewDokTabView: View {
                 Text("구독관리")
             }
             .tag(NewDokTab.subscribe)
-            
+
             TabContentView {
                 HomeView(viewModel: homeViewModel)
                     .environmentObject(exploreIntent)
@@ -230,7 +230,7 @@ public struct NewDokTabView: View {
                 Text("홈")
             }
             .tag(NewDokTab.home)
-            
+
             TabContentView {
                 BookmarkView(viewModel: bookmarkViewModel)
             }
@@ -240,7 +240,7 @@ public struct NewDokTabView: View {
                 Text("북마크함")
             }
             .tag(NewDokTab.bookmark)
-            
+
             TabContentView {
                 MypageView(viewModel: mypageViewModel)
             }
@@ -262,16 +262,16 @@ public struct NewDokTabView: View {
                 router.root = .tabbar(selectedTab: .explore)
             case .home:
                 router.root = .tabbar(selectedTab: .home)
-                
+
             case .subscribe:
                 router.root = .tabbar(selectedTab: .subscribe)
-               
+
             case .bookmark:
                 router.root = .tabbar(selectedTab: .bookmark)
-              
-            case .profile: 
+
+            case .profile:
                 router.root = .tabbar(selectedTab: .profile)
-                
+
             }
         }
         .modifier(TabBarBackgroundModifier())

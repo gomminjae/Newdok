@@ -200,24 +200,6 @@ public struct MypageView: View {
                     }
                     .buttonStyle(PlainButtonStyle())
                     
-                    Button {
-                        router.push(.termsMenu)
-                    } label: {
-                        HStack {
-                            Text("약관 및 정책")
-                                .font(.hanSansNeo(16, .medium))
-                                .foregroundStyle(Color(hex: "363636"))
-                            Spacer()
-                            Image(asset: DesignSystemAsset.lineRight)
-                                .foregroundColor(Color(hex: "#565656"))
-                                .frame(width: 24, height: 24)
-                        }
-                        .padding(.horizontal, 0)
-                        .frame(height: 48)
-                        .background(Color.white)
-                    }
-                    .buttonStyle(PlainButtonStyle())
-                    
                     HStack {
                         Text("버전")
                             .font(.hanSansNeo(16, .medium))

@@ -12,10 +12,12 @@
 		073F229792FF7C0867DB771E /* ExploreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C24D785C89919F6791BD7A33 /* ExploreView.swift */; };
 		079A14A61211E30A143C5437 /* SDWebImage_SDWebImage.bundle in Dependencies */ = {isa = PBXBuildFile; fileRef = 56861470FC7877008D05805C /* SDWebImage_SDWebImage.bundle */; };
 		09783F763339FDD665D20027 /* ExploreBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 888F76455723B0BB93117B37 /* ExploreBase.swift */; };
+		1137F7C41C1775D4C6F620AD /* Alamofire_Alamofire.bundle in Resources */ = {isa = PBXBuildFile; fileRef = D20A4406B94CA5D712D3DE2D /* Alamofire_Alamofire.bundle */; };
 		1568857A0C158C8FD24EA4A4 /* NewsletterDetailRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A8975011C35FA609F5AD763 /* NewsletterDetailRow.swift */; };
 		158E426B457B8225BDFBEAD4 /* ExploreDemoEnvironment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A52ED3A72E6914B11CF3D68 /* ExploreDemoEnvironment.swift */; };
 		16187620CE020C48B5B1955C /* SDWebImage_SDWebImage.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 56861470FC7877008D05805C /* SDWebImage_SDWebImage.bundle */; };
 		17C36C1FA64A43AE83E20678 /* RecommendedNewsLetterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BCDA9A9CBE8807820971B4C /* RecommendedNewsLetterView.swift */; };
+		1DCF1C3B6944E6A2608EE59B /* Alamofire_Alamofire.bundle in Dependencies */ = {isa = PBXBuildFile; fileRef = D20A4406B94CA5D712D3DE2D /* Alamofire_Alamofire.bundle */; };
 		238AF016CBF21A185D62E787 /* Kingfisher_Kingfisher.bundle in Dependencies */ = {isa = PBXBuildFile; fileRef = C0B93F7C7E6E825D48CA2699 /* Kingfisher_Kingfisher.bundle */; };
 		28E9503C1DDAE6EED96EB1C8 /* DesignSystem_DesignSystem.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 62BB0862401C204E86A83ED0 /* DesignSystem_DesignSystem.bundle */; };
 		2DD477BEB4332E6B2E27543B /* PopupView.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B1620D8D41B7A7ECF5F61532 /* PopupView.framework */; };
@@ -30,6 +32,7 @@
 		4BE329E8A5F03A38661FD2D4 /* DesignSystem.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84F37D3F1E984B2DC46FF168 /* DesignSystem.framework */; };
 		517299B8ACB78EF167D8B8BA /* Core.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6A8D6E4533DF7D0E3EE53463 /* Core.framework */; };
 		57110F5862E8DD6BFC52C710 /* DesignSystem_DesignSystem.bundle in Dependencies */ = {isa = PBXBuildFile; fileRef = 62BB0862401C204E86A83ED0 /* DesignSystem_DesignSystem.bundle */; };
+		5788288296E70E7F6D166B0A /* Core.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6A8D6E4533DF7D0E3EE53463 /* Core.framework */; };
 		5E4D65FD56984BD16EF7505A /* DesignSystem_DesignSystem.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 62BB0862401C204E86A83ED0 /* DesignSystem_DesignSystem.bundle */; };
 		655E69A7CF7BAE0041456773 /* Shared.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EB6BFB9C49D58077BC4C3EE7 /* Shared.framework */; };
 		67843F3DCC554F19440833A3 /* SDWebImage_SDWebImage.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 56861470FC7877008D05805C /* SDWebImage_SDWebImage.bundle */; };
@@ -43,15 +46,19 @@
 		7D156C4E7A1BD889AF89831E /* SDWebImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CF252CAEFD17B6FC8AA0077 /* SDWebImage.framework */; };
 		806F71CEDFDCAE548FE27BE8 /* Alamofire_Alamofire.bundle in Resources */ = {isa = PBXBuildFile; fileRef = D20A4406B94CA5D712D3DE2D /* Alamofire_Alamofire.bundle */; };
 		84F928282A2BBF17E89F5AA8 /* Domain.framework in Dependencies */ = {isa = PBXBuildFile; fileRef = F6E5B4495E5CF5C6CFEFCA39 /* Domain.framework */; };
+		87E3DE2CBBDE3ECD0DD7055D /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E8584C892020BB03C7F6C2EC /* Alamofire.framework */; };
 		9082AE94679896F25E88EFD2 /* Kingfisher_Kingfisher.bundle in Dependencies */ = {isa = PBXBuildFile; fileRef = C0B93F7C7E6E825D48CA2699 /* Kingfisher_Kingfisher.bundle */; };
 		977AE05544BAC0D1DEE365D5 /* Kingfisher.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9CC6C36B01EE7E27AAE4D727 /* Kingfisher.framework */; };
+		AC584CFB26DACB9A80C3637B /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB77C73E5B4C6DF320E94A2D /* CFNetwork.framework */; };
 		ACC43D3DB3E0B7CCE985F9B4 /* NewletterRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F358D13829D312F2BAD5833 /* NewletterRow.swift */; };
 		B1BC3C9AED7BB2761C3A2FB3 /* DesignSystem_DesignSystem.bundle in Dependencies */ = {isa = PBXBuildFile; fileRef = 62BB0862401C204E86A83ED0 /* DesignSystem_DesignSystem.bundle */; };
 		B62F788290464F031196A574 /* DesignSystem.framework in Dependencies */ = {isa = PBXBuildFile; fileRef = 84F37D3F1E984B2DC46FF168 /* DesignSystem.framework */; };
+		B793366D5E99CD06527A0D8A /* Core.framework in Dependencies */ = {isa = PBXBuildFile; fileRef = 6A8D6E4533DF7D0E3EE53463 /* Core.framework */; };
 		C09FA1D13C14384BDB3E0309 /* Shared.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EB6BFB9C49D58077BC4C3EE7 /* Shared.framework */; };
 		C35B101D5520A0F2492C4AFA /* Domain.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F6E5B4495E5CF5C6CFEFCA39 /* Domain.framework */; };
 		CA80530B31BD1CD6BB42A50E /* SDWebImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CF252CAEFD17B6FC8AA0077 /* SDWebImage.framework */; };
 		D3AEE36E88B5E6A7F21CB94A /* DesignSystem.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84F37D3F1E984B2DC46FF168 /* DesignSystem.framework */; };
+		D4399F288235646AB93D9EA0 /* Moya.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55B1E8DB65255934AF9129FC /* Moya.framework */; };
 		D7329BD4A4BEBB0A078386A7 /* Moya.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55B1E8DB65255934AF9129FC /* Moya.framework */; };
 		DB12FD6697A6F9113CB76C06 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB77C73E5B4C6DF320E94A2D /* CFNetwork.framework */; };
 		F42791F8B319C8F040F0C9AC /* Domain.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F6E5B4495E5CF5C6CFEFCA39 /* Domain.framework */; };
@@ -100,6 +107,7 @@
 			buildActionMask = 8;
 			dstSubfolderSpec = 16;
 			files = (
+				1DCF1C3B6944E6A2608EE59B /* Alamofire_Alamofire.bundle in Dependencies */,
 				B1BC3C9AED7BB2761C3A2FB3 /* DesignSystem_DesignSystem.bundle in Dependencies */,
 				9082AE94679896F25E88EFD2 /* Kingfisher_Kingfisher.bundle in Dependencies */,
 				463E49F5DC9E7AA79A3E9B79 /* SDWebImage_SDWebImage.bundle in Dependencies */,
@@ -112,6 +120,7 @@
 			buildActionMask = 8;
 			dstSubfolderSpec = 16;
 			files = (
+				B793366D5E99CD06527A0D8A /* Core.framework in Dependencies */,
 				B62F788290464F031196A574 /* DesignSystem.framework in Dependencies */,
 				84F928282A2BBF17E89F5AA8 /* Domain.framework in Dependencies */,
 				780980B506EFC309EEF45CD9 /* Shared.framework in Dependencies */,
@@ -211,10 +220,14 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AC584CFB26DACB9A80C3637B /* CFNetwork.framework in Frameworks */,
+				87E3DE2CBBDE3ECD0DD7055D /* Alamofire.framework in Frameworks */,
+				5788288296E70E7F6D166B0A /* Core.framework in Frameworks */,
 				D3AEE36E88B5E6A7F21CB94A /* DesignSystem.framework in Frameworks */,
 				F42791F8B319C8F040F0C9AC /* Domain.framework in Frameworks */,
 				49F97C0213567A1BFB6F4BE6 /* Explore.framework in Frameworks */,
 				71F3F5FBB3C658D7FF1A0274 /* Kingfisher.framework in Frameworks */,
+				D4399F288235646AB93D9EA0 /* Moya.framework in Frameworks */,
 				2DD477BEB4332E6B2E27543B /* PopupView.framework in Frameworks */,
 				CA80530B31BD1CD6BB42A50E /* SDWebImage.framework in Frameworks */,
 				655E69A7CF7BAE0041456773 /* Shared.framework in Frameworks */,
@@ -479,6 +492,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1137F7C41C1775D4C6F620AD /* Alamofire_Alamofire.bundle in Resources */,
 				28E9503C1DDAE6EED96EB1C8 /* DesignSystem_DesignSystem.bundle in Resources */,
 				0297EE21EA3DEA8D769890A5 /* Kingfisher_Kingfisher.bundle in Resources */,
 				16187620CE020C48B5B1955C /* SDWebImage_SDWebImage.bundle in Resources */,

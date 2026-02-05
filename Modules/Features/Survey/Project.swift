@@ -13,6 +13,9 @@ let project = Project(
             infoPlist: .default,
             sources: ["Sources/**"],
             resources: ["Resources/**"],
+            dependencies: [
+                .project(target: "Core", path: "../../Core"),
+            ],
             settings: .settings(
                 base: [
                     "SKIP_INSTALL": "YES"

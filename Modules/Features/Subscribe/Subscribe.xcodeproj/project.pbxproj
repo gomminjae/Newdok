@@ -10,6 +10,7 @@
 		0B06E8AA130319120D50CCAC /* SubscribeDemoApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67CBF847F4C763CA23ABD8EF /* SubscribeDemoApp.swift */; };
 		119B2029F97630D807C2B9DE /* Kingfisher_Kingfisher.bundle in Dependencies */ = {isa = PBXBuildFile; fileRef = 98BAE4C57C5C1F6AAC270F1B /* Kingfisher_Kingfisher.bundle */; };
 		19331A1575B03F9A7F9CBD6F /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A71898F4F86DD408E9654E98 /* Alamofire.framework */; };
+		23A7B0A062811CED7B4D7838 /* Core.framework in Dependencies */ = {isa = PBXBuildFile; fileRef = 0946787ED777F4BD36CFCB17 /* Core.framework */; };
 		2EF58FC08D4ADE6F24248D45 /* Core.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0946787ED777F4BD36CFCB17 /* Core.framework */; };
 		3CD61DC2762FE4EDD54B6C48 /* SDWebImage_SDWebImage.bundle in Dependencies */ = {isa = PBXBuildFile; fileRef = E47CB81C0A70DD4510038278 /* SDWebImage_SDWebImage.bundle */; };
 		49EDF9C571DF1B981C1CD678 /* DesignSystem_DesignSystem.bundle in Dependencies */ = {isa = PBXBuildFile; fileRef = 88725C861E43B9844D9D4D87 /* DesignSystem_DesignSystem.bundle */; };
@@ -77,6 +78,7 @@
 			buildActionMask = 8;
 			dstSubfolderSpec = 16;
 			files = (
+				23A7B0A062811CED7B4D7838 /* Core.framework in Dependencies */,
 				FDB9C9A8EA11ED7D892A2B48 /* DesignSystem.framework in Dependencies */,
 				EE2DD2E0D2FAE26753CAB364 /* Domain.framework in Dependencies */,
 				7E373051E56150C452EB9F8A /* Shared.framework in Dependencies */,
