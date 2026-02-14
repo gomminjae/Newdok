@@ -155,7 +155,6 @@ public struct ArticleDetailView: View {
                 }
             )
         }
-        .swipeBackEnabled(true)
     }
 
     private func formatDate(_ isoString: String) -> String {
@@ -376,63 +375,6 @@ struct FullWebView: UIViewRepresentable {
             }
             return nil
         }
-    }
-}
-
-// MARK: - Conditional Swipe Back Handler
-private struct ConditionalSwipeBackHandler: UIViewControllerRepresentable {
-    let isEnabled: Bool
-
-    func makeCoordinator() -> Coordinator {
-        Coordinator()
-    }
-
-    func makeUIViewController(context: Context) -> UIViewController {
-        UIViewController()
-    }
-
-    func updateUIViewController(_ uiViewController: UIViewController, context: Context) {
-        DispatchQueue.main.async {
-            guard let navigationController = uiViewController.navigationController,
-                  let popGesture = navigationController.interactivePopGestureRecognizer else {
-                return
-            }
-
-            popGesture.isEnabled = isEnabled
-
-            if isEnabled {
-                popGesture.delegate = context.coordinator
-                context.coordinator.navigationController = navigationController
-            }
-        }
-    }
-
-    class Coordinator: NSObject, UIGestureRecognizerDelegate {
-        weak var navigationController: UINavigationController?
-
-        func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
-            guard let nav = navigationController else { return true }
-
-            if nav.viewControllers.count <= 1 {
-                return false
-            }
-
-            // 화면 왼쪽 가장자리(30pt)에서만 스와이프 백 허용
-            let location = gestureRecognizer.location(in: gestureRecognizer.view)
-            return location.x < 30
-        }
-
-        func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer,
-                               shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
-            // pop gesture와 다른 제스처가 동시에 인식되지 않도록
-            return false
-        }
-    }
-}
-
-private extension View {
-    func swipeBackEnabled(_ enabled: Bool) -> some View {
-        self.background(ConditionalSwipeBackHandler(isEnabled: enabled))
     }
 }
 
