@@ -714,20 +714,6 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "0C30D110C07ACE1028C25DED"
-               BuildableName = "Recovery.framework"
-               BlueprintName = "Recovery"
-               ReferencedContainer = "container:Modules/Features/Recovery/Recovery.xcodeproj">
-            </BuildableReference>
-         </BuildActionEntry>
-         <BuildActionEntry
-            buildForTesting = "YES"
-            buildForRunning = "YES"
-            buildForProfiling = "YES"
-            buildForArchiving = "YES"
-            buildForAnalyzing = "YES">
-            <BuildableReference
-               BuildableIdentifier = "primary"
                BlueprintIdentifier = "4522BA1E69969A14ADA602B2"
                BuildableName = "SDWebImage.framework"
                BlueprintName = "SDWebImage"
@@ -816,34 +802,6 @@
                BuildableName = "Sharing2.framework"
                BlueprintName = "Sharing2"
                ReferencedContainer = "container:Tuist/.build/tuist-derived/swift-sharing/swift-sharing.xcodeproj">
-            </BuildableReference>
-         </BuildActionEntry>
-         <BuildActionEntry
-            buildForTesting = "YES"
-            buildForRunning = "YES"
-            buildForProfiling = "YES"
-            buildForArchiving = "YES"
-            buildForAnalyzing = "YES">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "AAC6485374D29B94676BC035"
-               BuildableName = "Signup.framework"
-               BlueprintName = "Signup"
-               ReferencedContainer = "container:Modules/Features/Signup/Signup.xcodeproj">
-            </BuildableReference>
-         </BuildActionEntry>
-         <BuildActionEntry
-            buildForTesting = "YES"
-            buildForRunning = "YES"
-            buildForProfiling = "YES"
-            buildForArchiving = "YES"
-            buildForAnalyzing = "YES">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "B9EA76B8503FD9C5C69DB661"
-               BuildableName = "SignupTests.xctest"
-               BlueprintName = "SignupTests"
-               ReferencedContainer = "container:Modules/Features/Signup/Signup.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
          <BuildActionEntry
@@ -1218,34 +1176,6 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "C58A2739FABC9E2F1D41755F"
-               BuildableName = "Withdraw.framework"
-               BlueprintName = "Withdraw"
-               ReferencedContainer = "container:Modules/Features/Withdraw/Withdraw.xcodeproj">
-            </BuildableReference>
-         </BuildActionEntry>
-         <BuildActionEntry
-            buildForTesting = "YES"
-            buildForRunning = "YES"
-            buildForProfiling = "YES"
-            buildForArchiving = "YES"
-            buildForAnalyzing = "YES">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "8ECAB822ABCCACE05106038A"
-               BuildableName = "WithdrawTests.xctest"
-               BlueprintName = "WithdrawTests"
-               ReferencedContainer = "container:Modules/Features/Withdraw/Withdraw.xcodeproj">
-            </BuildableReference>
-         </BuildActionEntry>
-         <BuildActionEntry
-            buildForTesting = "YES"
-            buildForRunning = "YES"
-            buildForProfiling = "YES"
-            buildForArchiving = "YES"
-            buildForAnalyzing = "YES">
-            <BuildableReference
-               BuildableIdentifier = "primary"
                BlueprintIdentifier = "6D1BFFAE456610AE81A4206D"
                BuildableName = "XCTestDynamicOverlay.framework"
                BlueprintName = "XCTestDynamicOverlay"
@@ -1362,32 +1292,10 @@
             parallelizable = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "B9EA76B8503FD9C5C69DB661"
-               BuildableName = "SignupTests.xctest"
-               BlueprintName = "SignupTests"
-               ReferencedContainer = "container:Modules/Features/Signup/Signup.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
-         <TestableReference
-            skipped = "NO"
-            parallelizable = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
                BlueprintIdentifier = "0DC8F1540991EF674B7401A8"
                BuildableName = "SurveyTests.xctest"
                BlueprintName = "SurveyTests"
                ReferencedContainer = "container:Modules/Features/Survey/Survey.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
-         <TestableReference
-            skipped = "NO"
-            parallelizable = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "8ECAB822ABCCACE05106038A"
-               BuildableName = "WithdrawTests.xctest"
-               BlueprintName = "WithdrawTests"
-               ReferencedContainer = "container:Modules/Features/Withdraw/Withdraw.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
