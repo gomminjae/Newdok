@@ -7,6 +7,46 @@
 import Moya
 import Foundation
 
+// MARK: - Request Models
+
+struct LoginRequest: Encodable {
+    let loginId: String
+    let password: String
+}
+
+struct SignupAPIRequest: Encodable {
+    let loginId: String
+    let password: String
+    let phoneNumber: String
+    let nickname: String
+    let birthYear: String
+    let gender: String
+}
+
+struct NicknameRequest: Encodable {
+    let nickname: String
+}
+
+struct PasswordRequest: Encodable {
+    let loginId: String
+    let prevPassword: String
+    let password: String
+}
+
+struct InterestRequest: Encodable {
+    let interestIds: [Int]
+}
+
+struct IndustryRequest: Encodable {
+    let industryId: Int
+}
+
+struct PhoneNumberRequest: Encodable {
+    let phoneNumber: String
+}
+
+// MARK: - API
+
 public enum UserAPI {
     case login(loginId: String, password: String)
     case signup(loginId: String, password: String, phoneNumber: String, nickname: String, birthYear: String, gender: String)
@@ -96,61 +136,58 @@ extension UserAPI: TargetType {
     public var task: Task {
         switch self {
         case let .login(loginId, password):
-            return .requestParameters(parameters: ["loginId": loginId, "password": password], encoding: JSONEncoding.default)
-            
+            return .requestJSONEncodable(LoginRequest(loginId: loginId, password: password))
+
         case let .signup(loginId, password, phoneNumber, nickname, birthYear, gender):
-            let parameters = [
-                "loginId": loginId,
-                "password": password,
-                "phoneNumber": phoneNumber,
-                "nickname": nickname,
-                "birthYear": birthYear,
-                "gender": gender
-            ]
-            
-            
-            return .requestParameters(parameters: parameters, encoding: JSONEncoding.default)
-            
+            return .requestJSONEncodable(SignupAPIRequest(
+                loginId: loginId,
+                password: password,
+                phoneNumber: phoneNumber,
+                nickname: nickname,
+                birthYear: birthYear,
+                gender: gender
+            ))
+
         case let .checkPhoneNumber(phoneNumber):
             return .requestParameters(parameters: ["phoneNumber": phoneNumber], encoding: URLEncoding.default)
+
         case let .checkIDDup(loginId):
             return .requestParameters(parameters: ["loginId": loginId], encoding: URLEncoding.default)
-            
+
         case let .updateNickname(nickname):
-            return .requestParameters(parameters: ["nickname": nickname], encoding: JSONEncoding.default)
-            
+            return .requestJSONEncodable(NicknameRequest(nickname: nickname))
+
         case let .updatePassword(loginId, prevPassword, password):
-            return .requestParameters(parameters: [
-                "loginId": loginId,
-                "prevPassword": prevPassword,
-                "password": password
-            ], encoding: JSONEncoding.default)
-            
+            return .requestJSONEncodable(PasswordRequest(
+                loginId: loginId,
+                prevPassword: prevPassword,
+                password: password
+            ))
+
         case let .updateInterest(interestsId):
-            return .requestParameters(parameters: ["interestIds": interestsId], encoding: JSONEncoding.default)
-            
+            return .requestJSONEncodable(InterestRequest(interestIds: interestsId))
+
         case let .updateIndustry(industryId):
-            return .requestParameters(parameters: ["industryId": industryId], encoding: JSONEncoding.default)
-            
+            return .requestJSONEncodable(IndustryRequest(industryId: industryId))
+
         case let .updatePhoneNumber(phoneNumber):
-            return .requestParameters(parameters: ["phoneNumber": phoneNumber], encoding: JSONEncoding.default)
-            
+            return .requestJSONEncodable(PhoneNumberRequest(phoneNumber: phoneNumber))
+
         case let .authSMS(phoneNumber):
-            return .requestParameters(parameters: ["phoneNumber": phoneNumber], encoding: JSONEncoding.default)
-            
+            return .requestJSONEncodable(PhoneNumberRequest(phoneNumber: phoneNumber))
+
         case let .preInvestigate(industryId, interestIds):
             let parameters: [String: Any] = [
                 "industry": industryId,
                 "interest": interestIds
             ]
-
             let encoding = URLEncoding(
                 destination: .queryString,
-                arrayEncoding: .noBrackets,  
+                arrayEncoding: .noBrackets,
                 boolEncoding: .literal
             )
-
             return .requestParameters(parameters: parameters, encoding: encoding)
+
         case .profile, .withdraw:
             return .requestPlain
         }

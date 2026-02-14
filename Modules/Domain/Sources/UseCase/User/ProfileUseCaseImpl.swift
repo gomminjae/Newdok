@@ -39,65 +39,24 @@ public final class ProfileUseCaseImpl: ProfileUseCase {
 
     public func updateNickname(_ nickname: String) async throws {
         _ = try await userUseCase.updateNickname(nickname)
-
-        // 로컬 저장소 업데이트
-        if var userInfo = UserInfoStore.shared.load() {
-            userInfo = UserInfo(
-                id: userInfo.id,
-                loginId: userInfo.loginId,
-                phoneNumber: userInfo.phoneNumber,
-                subscribeEmail: userInfo.subscribeEmail,
-                nickname: nickname,
-                birthYear: userInfo.birthYear,
-                gender: userInfo.gender,
-                createdAt: userInfo.createdAt,
-                industryId: userInfo.industryId,
-                interestIds: userInfo.interestIds
-            )
-            UserInfoStore.shared.save(userInfo)
-        }
+        updateLocalUserInfo { $0.withNickname(nickname) }
     }
 
     public func updateIndustry(_ industryId: Int) async throws {
         try await userUseCase.updateIndustry(industryId)
-
-        // 로컬 저장소 업데이트
-        if var userInfo = UserInfoStore.shared.load() {
-            userInfo = UserInfo(
-                id: userInfo.id,
-                loginId: userInfo.loginId,
-                phoneNumber: userInfo.phoneNumber,
-                subscribeEmail: userInfo.subscribeEmail,
-                nickname: userInfo.nickname,
-                birthYear: userInfo.birthYear,
-                gender: userInfo.gender,
-                createdAt: userInfo.createdAt,
-                industryId: industryId,
-                interestIds: userInfo.interestIds
-            )
-            UserInfoStore.shared.save(userInfo)
-        }
+        updateLocalUserInfo { $0.withIndustryId(industryId) }
     }
 
     public func updateInterests(_ interestIds: [Int]) async throws {
         try await userUseCase.updateInterest(interestIds)
+        updateLocalUserInfo { $0.withInterestIds(interestIds) }
+    }
 
-        // 로컬 저장소 업데이트
-        if var userInfo = UserInfoStore.shared.load() {
-            userInfo = UserInfo(
-                id: userInfo.id,
-                loginId: userInfo.loginId,
-                phoneNumber: userInfo.phoneNumber,
-                subscribeEmail: userInfo.subscribeEmail,
-                nickname: userInfo.nickname,
-                birthYear: userInfo.birthYear,
-                gender: userInfo.gender,
-                createdAt: userInfo.createdAt,
-                industryId: userInfo.industryId,
-                interestIds: interestIds
-            )
-            UserInfoStore.shared.save(userInfo)
-        }
+    // MARK: - Private Helpers
+
+    private func updateLocalUserInfo(_ transform: (UserInfo) -> UserInfo) {
+        guard let userInfo = UserInfoStore.shared.load() else { return }
+        UserInfoStore.shared.save(transform(userInfo))
     }
 
     public func updatePassword(prevPassword: String, newPassword: String) async throws {

@@ -8,6 +8,13 @@
 import Moya
 import Foundation
 
+// MARK: - Request Models
+
+struct SubscriptionRequest: Encodable {
+    let newsletterId: String
+}
+
+// MARK: - API
 
 public enum NewsletterAPI {
     
@@ -117,7 +124,7 @@ extension NewsletterAPI: TargetType {
             
             return .requestParameters(parameters: params, encoding: URLEncoding.default)
         case .pauseSubscription(let newsletterId), .resumeSubscription(let newsletterId):
-            return .requestParameters(parameters: ["newsletterId": newsletterId], encoding: JSONEncoding.default)
+            return .requestJSONEncodable(SubscriptionRequest(newsletterId: newsletterId))
         case .fetchGuestAllNewsletterBrand(let orderOpt, let industry, let day):
             var params: [String: Any] = [:]
             

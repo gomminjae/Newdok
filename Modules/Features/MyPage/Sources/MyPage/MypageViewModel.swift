@@ -69,6 +69,23 @@ public class MypageViewModel: ObservableObject {
     public func updateNickname(nickname: String) async {
         do {
             try await profileUseCase.updateNickname(nickname)
+
+            // UI 상태 업데이트
+            if let currentUser = user {
+                user = User(
+                    id: currentUser.id,
+                    loginId: currentUser.loginId,
+                    phoneNumber: currentUser.phoneNumber,
+                    subscribeEmail: currentUser.subscribeEmail,
+                    nickname: nickname,
+                    birthYear: currentUser.birthYear,
+                    gender: currentUser.gender,
+                    createdAt: currentUser.createdAt,
+                    industryId: currentUser.industryId,
+                    interests: currentUser.interests
+                )
+            }
+
             showNicknameSuccess = true
         } catch {
         }
