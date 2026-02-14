@@ -18,6 +18,7 @@ let project = Project(
                  .project(target: "Domain", path: "../../Domain"),
                  .project(target: "Shared", path: "../../Shared"),
                  .project(target: "Core", path: "../../Core"),
+                 .project(target: "Detail", path: "../Detail"),
             ],
             settings: .settings(
                 base: [

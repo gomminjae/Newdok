@@ -57,22 +57,13 @@
             location = "group:MyPage/Mypage.xcodeproj">
          </FileRef>
          <FileRef
-            location = "group:Recovery/Recovery.xcodeproj">
-         </FileRef>
-         <FileRef
             location = "group:Search/Search.xcodeproj">
-         </FileRef>
-         <FileRef
-            location = "group:Signup/Signup.xcodeproj">
          </FileRef>
          <FileRef
             location = "group:Subscribe/Subscribe.xcodeproj">
          </FileRef>
          <FileRef
             location = "group:Survey/Survey.xcodeproj">
-         </FileRef>
-         <FileRef
-            location = "group:Withdraw/Withdraw.xcodeproj">
          </FileRef>
       </Group>
    </Group>

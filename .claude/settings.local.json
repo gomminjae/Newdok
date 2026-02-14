@@ -4,7 +4,10 @@
       "Bash(cat:*)",
       "Bash(find:*)",
       "Bash(wc:*)",
-      "Bash(swift -parse:*)"
+      "Bash(swift -parse:*)",
+      "Bash(tuist generate:*)",
+      "Bash(xcodebuild:*)",
+      "Bash(git grep:*)"
     ]
   }
 }
