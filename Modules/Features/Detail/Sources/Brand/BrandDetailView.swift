@@ -148,6 +148,7 @@ public struct BrandDetailView: View {
         .navigationBarTitleDisplayMode(.inline)
         .toolbarBackground(Color.white, for: .navigationBar)
         .toolbarBackground(.visible, for: .navigationBar)
+        .enableSwipeBack()
         .popup(isPresented: $isShowPauseAlert) {
             UnsubscribePopupView(brandName: viewModel.detail?.brandName ?? "",
                                  onCancel: {

@@ -9,6 +9,7 @@
 
 import SwiftUI
 import WebKit
+import Shared
 
 public struct TermsOfUseView: View {
     @Environment(\.dismiss) private var dismiss
@@ -21,6 +22,7 @@ public struct TermsOfUseView: View {
         }
         .navigationBarBackButtonHidden(true)
         .navigationBarTitleDisplayMode(.inline)
+        .enableSwipeBack()
         .toolbar {
             // ⬅️ Back 버튼
             ToolbarItem(placement: .navigationBarLeading) {

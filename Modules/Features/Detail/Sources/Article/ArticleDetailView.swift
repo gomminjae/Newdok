@@ -16,7 +16,6 @@ import Kingfisher
 public struct ArticleDetailView: View {
     @StateObject private var viewModel: ArticleDetailViewModel
     @EnvironmentObject private var router: AppRouter
-    @State private var webViewHeight: CGFloat = 100
 
     // 북마크 토스트 상태
     @State private var showBookmarkToast: Bool = false
@@ -26,66 +25,41 @@ public struct ArticleDetailView: View {
     @State private var fontSize: CGFloat = UserDefaults.standard.object(forKey: "articleFontSize") as? CGFloat ?? 15.0
     @State private var showFontSizeControl: Bool = false
 
+    // WebView 참조 (JS 실행용)
+    @State private var webViewRef: WKWebView?
+
+    // 하이라이트 목록
+    @State private var showHighlightList: Bool = false
+    @State private var pendingHighlightRemovals: [String] = []
+
     public init(viewModel: ArticleDetailViewModel) {
         _viewModel = StateObject(wrappedValue: viewModel)
     }
 
     public var body: some View {
-        GeometryReader { geo in
-            ScrollView {
-                VStack(spacing: 0) {
-                    // 헤더 이미지 및 타이틀
-                    ZStack(alignment: .bottomLeading) {
-                        KFImage(URL(string: viewModel.detail?.brandImageUrl ?? ""))
-                            .setProcessor(DownsamplingImageProcessor(size: CGSize(width: 750, height: 520)))
-                            .placeholder {
-                                // 로딩 중 표시
-                                Rectangle()
-                                    .fill(Color.gray.opacity(0.2))
-                                    .frame(width: geo.size.width, height: 260)
-                            }
-                            .resizable()
-                            .scaledToFill()
-                            .frame(width: geo.size.width, height: 260)
-                            .clipped()
-                            .overlay(
-                                LinearGradient(
-                                    gradient: Gradient(stops: [
-                                        .init(color: .black.opacity(0.0), location: 0.0),
-                                        .init(color: .black.opacity(0.4), location: 1.0)
-                                    ]),
-                                    startPoint: .top,
-                                    endPoint: .bottom
-                                )
-                            )
-
-                        VStack(alignment: .leading, spacing: 4) {
-                            Text(viewModel.detail?.articleTitle ?? "")
-                                .font(.hanSansNeo(22, .bold))
-                                .foregroundStyle(.white)
-                                .multilineTextAlignment(.leading)
-                                .lineLimit(2)
-
-                            Text(formatDate(viewModel.detail?.date ?? ""))
-                                .font(.hanSansNeo(14, .medium))
-                                .foregroundStyle(Color(hex: "C6C6C6"))
-                        }
-                        .padding(.horizontal, 20)
-                        .padding(.trailing, 42)
-                        .padding(.bottom, 16)
+        ZStack {
+            // WebView가 전체 스크롤 담당 (시스템 메뉴로 하이라이트)
+            if let detail = viewModel.detail {
+                FullWebView(
+                    htmlContent: detail.articleHTML ?? "",
+                    headerImageUrl: detail.brandImageUrl ?? "",
+                    articleTitle: detail.articleTitle,
+                    articleDate: formatDate(detail.date ?? ""),
+                    articleId: viewModel.articleId,
+                    savedHighlights: viewModel.highlights,
+                    fontSize: $fontSize,
+                    webViewRef: $webViewRef,
+                    selectedText: $viewModel.selectedText,
+                    onSaveHighlight: { type in
+                        viewModel.saveHighlight(type: type)
                     }
-
-                    // HTML 콘텐츠
-                    if let html = viewModel.detail?.articleHTML {
-                        WebView(htmlContent: html, contentHeight: $webViewHeight, fontSize: $fontSize)
-                            .frame(height: webViewHeight)
-                            .frame(width: geo.size.width)
-                    }
-                }
+                )
+                .ignoresSafeArea(edges: .bottom)
             }
         }
         .navigationBarBackButtonHidden(true)
         .navigationBarTitleDisplayMode(.inline)
+        .enableSwipeBack(edgeOnly: true)
         .toolbar {
             // 뒤로가기
             ToolbarItem(placement: .navigationBarLeading) {
@@ -103,6 +77,16 @@ public struct ArticleDetailView: View {
                 Text(viewModel.detail?.brandName ?? "")
                     .font(.hanSansNeo(16, .bold))
                     .foregroundColor(.black)
+            }
+            // 하이라이트 목록 버튼
+            ToolbarItem(placement: .topBarTrailing) {
+                Button {
+                    showHighlightList = true
+                } label: {
+                    Image(systemName: "highlighter")
+                        .font(.system(size: 18))
+                        .foregroundColor(.black)
+                }
             }
             // 폰트 크기 조절 버튼
             ToolbarItem(placement: .topBarTrailing) {
@@ -152,6 +136,26 @@ public struct ArticleDetailView: View {
         .sheet(isPresented: $showFontSizeControl) {
             FontSizeControlView(fontSize: $fontSize)
         }
+        .sheet(isPresented: $showHighlightList, onDismiss: {
+            // Sheet 닫힌 후 삭제된 하이라이트 모두 제거
+            for text in pendingHighlightRemovals {
+                removeHighlightFromWebView(text: text)
+            }
+            pendingHighlightRemovals.removeAll()
+        }) {
+            HighlightListView(
+                highlights: viewModel.highlights,
+                onSelectHighlight: { highlight in
+                    showHighlightList = false
+                    scrollToHighlight(text: highlight.selectedText)
+                },
+                onDeleteHighlight: { highlight in
+                    pendingHighlightRemovals.append(highlight.selectedText)
+                    viewModel.deleteHighlight(highlight)
+                }
+            )
+        }
+        .swipeBackEnabled(true)
     }
 
     private func formatDate(_ isoString: String) -> String {
@@ -170,170 +174,265 @@ public struct ArticleDetailView: View {
 
         return displayFormatter.string(from: date)
     }
+
+    // MARK: - Highlight Actions (WebView JS 실행)
+
+    private func scrollToHighlight(text: String) {
+        let script = ArticleHighlightJS.scrollToHighlightScript(text: text)
+        webViewRef?.evaluateJavaScript(script, completionHandler: nil)
+    }
+
+    private func removeHighlightFromWebView(text: String) {
+        let script = ArticleHighlightJS.removeHighlightScript(text: text)
+        webViewRef?.evaluateJavaScript(script, completionHandler: nil)
+    }
 }
 
-// MARK: - WebView 구성
+// MARK: - Custom WKWebView with Edit Menu
+class HighlightableWebView: WKWebView {
+    var onHighlight: ((String) -> Void)?
+    var onGetSelectedText: (() -> String?)?
 
-struct WebView: UIViewRepresentable {
+    override func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {
+        // 기본 액션 허용
+        if super.canPerformAction(action, withSender: sender) {
+            return true
+        }
+        // 커스텀 하이라이트 액션 허용
+        if action == #selector(highlightYellow) ||
+           action == #selector(highlightPink) ||
+           action == #selector(highlightGreen) ||
+           action == #selector(highlightBlue) ||
+           action == #selector(highlightUnderline) {
+            return true
+        }
+        return false
+    }
+
+    override func buildMenu(with builder: any UIMenuBuilder) {
+        super.buildMenu(with: builder)
+
+        let highlightMenu = UIMenu(
+            title: "형광펜",
+            image: UIImage(systemName: "highlighter"),
+            children: [
+                UIAction(title: "노랑", image: UIImage(systemName: "circle.fill")?.withTintColor(.systemYellow, renderingMode: .alwaysOriginal)) { [weak self] _ in
+                    self?.onHighlight?("yellow")
+                },
+                UIAction(title: "분홍", image: UIImage(systemName: "circle.fill")?.withTintColor(.systemPink, renderingMode: .alwaysOriginal)) { [weak self] _ in
+                    self?.onHighlight?("pink")
+                },
+                UIAction(title: "초록", image: UIImage(systemName: "circle.fill")?.withTintColor(.systemGreen, renderingMode: .alwaysOriginal)) { [weak self] _ in
+                    self?.onHighlight?("green")
+                },
+                UIAction(title: "파랑", image: UIImage(systemName: "circle.fill")?.withTintColor(.systemBlue, renderingMode: .alwaysOriginal)) { [weak self] _ in
+                    self?.onHighlight?("blue")
+                }
+            ]
+        )
+
+        let underlineAction = UIAction(
+            title: "밑줄",
+            image: UIImage(systemName: "underline")
+        ) { [weak self] _ in
+            self?.onHighlight?("underline")
+        }
+
+        builder.insertChild(UIMenu(title: "", options: .displayInline, children: [highlightMenu, underlineAction]), atStartOfMenu: .standardEdit)
+    }
+
+    @objc func highlightYellow() { onHighlight?("yellow") }
+    @objc func highlightPink() { onHighlight?("pink") }
+    @objc func highlightGreen() { onHighlight?("green") }
+    @objc func highlightBlue() { onHighlight?("blue") }
+    @objc func highlightUnderline() { onHighlight?("underline") }
+}
+
+// MARK: - Full WebView (헤더 포함, 스크롤 활성화)
+struct FullWebView: UIViewRepresentable {
     let htmlContent: String
-    @Binding var contentHeight: CGFloat
+    let headerImageUrl: String
+    let articleTitle: String
+    let articleDate: String
+    let articleId: String
+    let savedHighlights: [ArticleHighlight]
     @Binding var fontSize: CGFloat
+    @Binding var webViewRef: WKWebView?
+    @Binding var selectedText: String
+    var onSaveHighlight: ((String) -> Void)?
 
     func makeCoordinator() -> Coordinator {
         Coordinator(self)
     }
 
-    func makeUIView(context: Context) -> WKWebView {
-        // 1) JavaScript 허용 및 팝업 처리 설정
+    func makeUIView(context: Context) -> HighlightableWebView {
         let config = WKWebViewConfiguration()
         config.preferences.javaScriptEnabled = true
-        config.preferences.javaScriptCanOpenWindowsAutomatically = true
+        config.userContentController.add(context.coordinator, name: "textSelected")
+        config.userContentController.add(context.coordinator, name: "getSelectedText")
+        config.userContentController.add(context.coordinator, name: "consoleLog")
 
-        let webView = WKWebView(frame: .zero, configuration: config)
+        let webView = HighlightableWebView(frame: .zero, configuration: config)
         webView.uiDelegate = context.coordinator
         webView.navigationDelegate = context.coordinator
 
-        // 2) 외부 스크롤 비활성화 & 터치 지연 해제
-        webView.scrollView.isScrollEnabled = false
-        webView.scrollView.delaysContentTouches = false
-        webView.scrollView.canCancelContentTouches = true
+        // 스크롤 활성화
+        webView.scrollView.isScrollEnabled = true
+        webView.scrollView.bounces = true
+        webView.scrollView.showsVerticalScrollIndicator = true
+        webView.scrollView.contentInsetAdjustmentBehavior = .never
 
         webView.isOpaque = false
-        webView.backgroundColor = .clear
+        webView.backgroundColor = .white
+        webView.allowsBackForwardNavigationGestures = false
+
+        // 하이라이트 콜백 설정
+        let coordinator = context.coordinator
+        webView.onHighlight = { color in
+            coordinator.applyHighlight(color: color, in: webView)
+        }
+
+        DispatchQueue.main.async {
+            self.webViewRef = webView
+        }
+
         return webView
     }
 
-    func updateUIView(_ uiView: WKWebView, context: Context) {
-        // HTML이 변경되었거나 처음 로드하는 경우
-        if context.coordinator.lastHTMLContent != htmlContent {
-            context.coordinator.lastHTMLContent = htmlContent
+    func updateUIView(_ uiView: HighlightableWebView, context: Context) {
+        // 콘텐츠 변경 시에만 재로드 (하이라이트 변경은 JS로 처리)
+        let contentKey = "\(htmlContent)-\(headerImageUrl)"
+
+        if context.coordinator.lastContentKey != contentKey {
+            context.coordinator.lastContentKey = contentKey
             context.coordinator.lastFontSize = fontSize
+            context.coordinator.lastHighlightCount = savedHighlights.count
 
-            // 기본 스타일 감싸기
-            let styledHTML = """
-            <!DOCTYPE html>
-            <html lang="ko">
-            <head>
-                <meta charset="UTF-8">
-                <meta name="viewport"
-                      content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-                <style>
-                    html, body { margin: 0; padding: 0 6px; background: transparent;
-                                 font-family: -apple-system, BlinkMacSystemFont, sans-serif;
-                                 overflow-x: hidden; width: 100%!important; }
-                    * { box-sizing: border-box!important;
-                        max-width: 100%!important; word-break: break-word!important; }
-                    img, iframe, video, table, td {
-                        width: 100%!important; max-width: 100%!important;
-                        height: auto!important; display: block!important; }
-                    button, a, input { pointer-events: auto!important; }
-                </style>
-                <script>
-                    let originalFontSizes = new Map();
+            let highlightsJSON = savedHighlights.map { h in
+                ["text": h.selectedText, "type": h.highlightType]
+            }
 
-                    // 페이지 로드 후 원본 폰트 크기 저장 및 초기 조정
-                    window.addEventListener('DOMContentLoaded', function() {
-                        saveOriginalFontSizes();
-                        adjustFontSize(\(fontSize));
-                    });
+            let htmlBuilder = ArticleHTMLBuilder(
+                htmlContent: htmlContent,
+                headerImageUrl: headerImageUrl,
+                articleTitle: articleTitle,
+                articleDate: articleDate,
+                savedHighlights: highlightsJSON,
+                fontSize: fontSize
+            )
 
-                    function saveOriginalFontSizes() {
-                        const allElements = document.querySelectorAll('*');
-                        allElements.forEach(function(el, index) {
-                            const style = window.getComputedStyle(el);
-                            const currentSize = parseFloat(style.fontSize);
-                            if (currentSize > 0) {
-                                el.dataset.fontIndex = index;
-                                originalFontSizes.set(index, currentSize);
-                            }
-                        });
-                    }
-
-                    function adjustFontSize(newSize) {
-                        const baseSize = 16; // 기본 크기
-                        const ratio = newSize / baseSize;
-
-                        const allElements = document.querySelectorAll('[data-font-index]');
-                        allElements.forEach(function(el) {
-                            const index = parseInt(el.dataset.fontIndex);
-                            const originalSize = originalFontSizes.get(index);
-                            if (originalSize) {
-                                el.style.fontSize = (originalSize * ratio) + 'px';
-                            }
-                        });
-                    }
-                </script>
-            </head>
-            <body>
-                \(htmlContent)
-            </body>
-            </html>
-            """
-            uiView.loadHTMLString(styledHTML, baseURL: nil)
-        }
-        // fontSize만 변경된 경우 JavaScript로 스타일만 업데이트
-        else if context.coordinator.lastFontSize != fontSize {
+            uiView.loadHTMLString(htmlBuilder.build(), baseURL: nil)
+        } else if context.coordinator.lastFontSize != fontSize {
             context.coordinator.lastFontSize = fontSize
-            let script = """
-            if (typeof adjustFontSize === 'function') {
-                adjustFontSize(\(fontSize));
-            }
-            document.body.scrollHeight;
-            """
-            uiView.evaluateJavaScript(script) { [weak coordinator = context.coordinator] result, error in
-                if let error = error {
-                    print("Font size update error: \(error)")
-                }
-                // 높이 재계산
-                if let height = result as? CGFloat, let coordinator = coordinator {
-                    DispatchQueue.main.async {
-                        coordinator.parent.contentHeight = height
-                    }
-                }
-            }
+            uiView.evaluateJavaScript("adjustFontSize(\(fontSize));", completionHandler: nil)
         }
     }
 
-    class Coordinator: NSObject, WKNavigationDelegate, WKUIDelegate {
-        var parent: WebView
-        var lastHTMLContent: String?
+    class Coordinator: NSObject, WKNavigationDelegate, WKUIDelegate, WKScriptMessageHandler {
+        var parent: FullWebView
+        var lastContentKey: String?
         var lastFontSize: CGFloat?
+        var lastHighlightCount: Int = 0
 
-        init(_ parent: WebView) {
+        init(_ parent: FullWebView) {
             self.parent = parent
         }
 
-        func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
-            // 콘텐츠 높이 계산
-            let fixWidthScript = """
-            Array.from(document.querySelectorAll('[width]')).forEach(el => el.removeAttribute('width'));
-            Array.from(document.querySelectorAll('img, table, td')).forEach(el => {
-                el.style.width = '100%';
-                el.style.maxWidth = '100%';
-                el.style.height = 'auto';
-                el.style.boxSizing = 'border-box';
-            });
-            document.body.scrollHeight;
-            """
-            webView.evaluateJavaScript(fixWidthScript) { result, _ in
-                if let height = result as? CGFloat {
-                    DispatchQueue.main.async {
-                        self.parent.contentHeight = height
+        func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
+            // JavaScript console.log 출력
+            if message.name == "consoleLog" {
+                print("[WebView JS] \(message.body)")
+                return
+            }
+
+            guard let body = message.body as? [String: Any] else { return }
+            if message.name == "textSelected" {
+                let hasSelection = body["hasSelection"] as? Bool ?? false
+                let highlightApplied = body["highlightApplied"] as? Bool ?? false
+                let highlightColor = body["highlightColor"] as? String
+
+                DispatchQueue.main.async {
+                    if hasSelection {
+                        self.parent.selectedText = (body["text"] as? String) ?? ""
+                    }
+
+                    // 하이라이트가 적용된 경우 저장
+                    if highlightApplied, let color = highlightColor {
+                        self.parent.onSaveHighlight?(color)
                     }
                 }
             }
         }
 
-        // target="_blank" 또는 window.open() 처리
-        func webView(_ webView: WKWebView,
-                     createWebViewWith configuration: WKWebViewConfiguration,
-                     for navigationAction: WKNavigationAction,
-                     windowFeatures: WKWindowFeatures) -> WKWebView? {
+        func applyHighlight(color: String, in webView: WKWebView) {
+            let script = "applyHighlight('\(color)');"
+            webView.evaluateJavaScript(script, completionHandler: nil)
+        }
+
+        func webView(_ webView: WKWebView, createWebViewWith configuration: WKWebViewConfiguration,
+                     for navigationAction: WKNavigationAction, windowFeatures: WKWindowFeatures) -> WKWebView? {
             if navigationAction.targetFrame == nil {
                 webView.load(navigationAction.request)
             }
             return nil
         }
+    }
+}
+
+// MARK: - Conditional Swipe Back Handler
+private struct ConditionalSwipeBackHandler: UIViewControllerRepresentable {
+    let isEnabled: Bool
+
+    func makeCoordinator() -> Coordinator {
+        Coordinator()
+    }
+
+    func makeUIViewController(context: Context) -> UIViewController {
+        UIViewController()
+    }
+
+    func updateUIViewController(_ uiViewController: UIViewController, context: Context) {
+        DispatchQueue.main.async {
+            guard let navigationController = uiViewController.navigationController,
+                  let popGesture = navigationController.interactivePopGestureRecognizer else {
+                return
+            }
+
+            popGesture.isEnabled = isEnabled
+
+            if isEnabled {
+                popGesture.delegate = context.coordinator
+                context.coordinator.navigationController = navigationController
+            }
+        }
+    }
+
+    class Coordinator: NSObject, UIGestureRecognizerDelegate {
+        weak var navigationController: UINavigationController?
+
+        func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
+            guard let nav = navigationController else { return true }
+
+            if nav.viewControllers.count <= 1 {
+                return false
+            }
+
+            // 화면 왼쪽 가장자리(30pt)에서만 스와이프 백 허용
+            let location = gestureRecognizer.location(in: gestureRecognizer.view)
+            return location.x < 30
+        }
+
+        func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer,
+                               shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+            // pop gesture와 다른 제스처가 동시에 인식되지 않도록
+            return false
+        }
+    }
+}
+
+private extension View {
+    func swipeBackEnabled(_ enabled: Bool) -> some View {
+        self.background(ConditionalSwipeBackHandler(isEnabled: enabled))
     }
 }
 
@@ -447,6 +546,144 @@ struct FontSizeControlView: View {
 
     private func saveFontSize() {
         UserDefaults.standard.set(fontSize, forKey: "articleFontSize")
+    }
+}
+
+// MARK: - Highlight List View
+struct HighlightListView: View {
+    @Environment(\.dismiss) private var dismiss
+
+    let highlights: [ArticleHighlight]
+    let onSelectHighlight: (ArticleHighlight) -> Void
+    var onDeleteHighlight: ((ArticleHighlight) -> Void)?
+
+    var body: some View {
+        NavigationView {
+            Group {
+                if highlights.isEmpty {
+                    VStack(spacing: 16) {
+                        Image(systemName: "highlighter")
+                            .font(.system(size: 48))
+                            .foregroundColor(.gray.opacity(0.5))
+
+                        Text("저장된 하이라이트가 없습니다")
+                            .font(.hanSansNeo(16, .medium))
+                            .foregroundColor(.gray)
+
+                        Text("텍스트를 길게 눌러 형광펜이나\n밑줄을 추가해보세요")
+                            .font(.hanSansNeo(14, .regular))
+                            .foregroundColor(.gray.opacity(0.7))
+                            .multilineTextAlignment(.center)
+                    }
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                } else {
+                    List {
+                        ForEach(highlights, id: \.id) { highlight in
+                            HighlightRowView(highlight: highlight)
+                                .contentShape(Rectangle())
+                                .onTapGesture {
+                                    onSelectHighlight(highlight)
+                                }
+                                .swipeActions(edge: .trailing, allowsFullSwipe: true) {
+                                    Button(role: .destructive) {
+                                        onDeleteHighlight?(highlight)
+                                    } label: {
+                                        Label("삭제", systemImage: "trash")
+                                    }
+                                }
+                        }
+                    }
+                    .listStyle(.plain)
+                }
+            }
+            .navigationTitle("내 하이라이트")
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .topBarTrailing) {
+                    Button("완료") {
+                        dismiss()
+                    }
+                }
+            }
+        }
+    }
+}
+
+// MARK: - Highlight Row View
+struct HighlightRowView: View {
+    let highlight: ArticleHighlight
+
+    private var highlightColor: Color {
+        switch highlight.highlightType {
+        case "yellow": return Color(red: 1.0, green: 0.96, blue: 0.62)
+        case "pink": return Color(red: 0.97, green: 0.73, blue: 0.85)
+        case "green": return Color(red: 0.78, green: 0.90, blue: 0.79)
+        case "blue": return Color(red: 0.73, green: 0.87, blue: 0.98)
+        case "underline": return .clear
+        default: return .clear
+        }
+    }
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: 8) {
+            HStack(spacing: 8) {
+                if highlight.highlightType == "underline" {
+                    Image(systemName: "underline")
+                        .font(.system(size: 14))
+                        .foregroundColor(.gray)
+                } else {
+                    Circle()
+                        .fill(highlightColor)
+                        .frame(width: 16, height: 16)
+                        .overlay(
+                            Circle()
+                                .stroke(Color.gray.opacity(0.3), lineWidth: 1)
+                        )
+                }
+
+                Text(formatDate(highlight.createdAt))
+                    .font(.hanSansNeo(12, .regular))
+                    .foregroundColor(.gray)
+
+                Spacer()
+
+                Image(systemName: "chevron.right")
+                    .font(.system(size: 12))
+                    .foregroundColor(.gray.opacity(0.5))
+            }
+
+            Text(highlight.selectedText)
+                .font(.hanSansNeo(14, .regular))
+                .foregroundColor(.black)
+                .lineLimit(3)
+                .padding(.vertical, 8)
+                .padding(.horizontal, 12)
+                .background(
+                    Group {
+                        if highlight.highlightType == "underline" {
+                            Rectangle()
+                                .fill(Color.clear)
+                                .overlay(
+                                    Rectangle()
+                                        .frame(height: 1)
+                                        .foregroundColor(.gray),
+                                    alignment: .bottom
+                                )
+                        } else {
+                            RoundedRectangle(cornerRadius: 4)
+                                .fill(highlightColor.opacity(0.5))
+                        }
+                    }
+                )
+        }
+        .padding(.vertical, 4)
+    }
+
+    private func formatDate(_ date: Date) -> String {
+        let formatter = DateFormatter()
+        formatter.locale = Locale(identifier: "ko_KR")
+        formatter.dateFormat = "M월 d일 HH:mm"
+        return formatter.string(from: date)
     }
 }
 

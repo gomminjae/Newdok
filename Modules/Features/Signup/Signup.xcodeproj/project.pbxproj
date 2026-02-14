@@ -24,6 +24,7 @@
 		55DD21004E7ED935F7928BB0 /* SignupMain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AE159452A9D28FDB105234D /* SignupMain.swift */; };
 		56E49B9F6EE5E5967059E38B /* SignupTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E5C89CA9056923E18123563 /* SignupTests.swift */; };
 		59F8133C2059A078913ADC5A /* Auth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 766F8951B640B8EBDABB6323 /* Auth.framework */; };
+		5AB6D3B9F1E46B7A7C38E1CE /* Core.framework in Dependencies */ = {isa = PBXBuildFile; fileRef = 08684DEE6B18264EC733E3EA /* Core.framework */; };
 		5E7B325329887C2197F2AF8F /* Shared.framework in Dependencies */ = {isa = PBXBuildFile; fileRef = 31810BC9814938F0F30C9204 /* Shared.framework */; };
 		5EE3B334523F798542EF9E3D /* Kingfisher_Kingfisher.bundle in Dependencies */ = {isa = PBXBuildFile; fileRef = A884DCD29CABF6DDA5589B42 /* Kingfisher_Kingfisher.bundle */; };
 		5EF014595DE654BC71C6732B /* CompleteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D1C66CBCE6F6C7CBF91D466 /* CompleteView.swift */; };
@@ -107,6 +108,7 @@
 			dstSubfolderSpec = 16;
 			files = (
 				5110DB042195F5E6AAD775B3 /* Auth.framework in Dependencies */,
+				5AB6D3B9F1E46B7A7C38E1CE /* Core.framework in Dependencies */,
 				484961AF020C7D52DA4A1C92 /* DesignSystem.framework in Dependencies */,
 				2FA64E81C316A1A2F9162722 /* Detail.framework in Dependencies */,
 				E31DE513E6B8218F3304905A /* Domain.framework in Dependencies */,

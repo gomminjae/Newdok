@@ -91,6 +91,7 @@ public struct SearchResultView: View {
         }
         .navigationBarBackButtonHidden(true)
         .navigationBarHidden(true)
+        .enableSwipeBack()
         .background(Color.gray.opacity(0.05).ignoresSafeArea())
         .onReceive(NotificationCenter.default.publisher(for: .didReceiveUnauthorized)) { _ in
             // 로그아웃 시 검색 결과 초기화

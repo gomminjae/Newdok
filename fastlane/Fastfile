@@ -1,0 +1,103 @@
+# This file contains the fastlane.tools configuration
+# You can find the documentation at https://docs.fastlane.tools
+#
+# For a list of all available actions, check out
+#
+#     https://docs.fastlane.tools/actions
+#
+# For a list of all available plugins, check out
+#
+#     https://docs.fastlane.tools/plugins/available-plugins
+#
+
+# Uncomment the line if you want fastlane to automatically update itself
+# update_fastlane
+
+default_platform(:ios)
+
+platform :ios do
+  desc "Generate Tuist project"
+  lane :generate do
+    sh("cd .. && tuist generate")
+  end
+
+  desc "Build the app"
+  lane :build do
+    generate
+
+    build_app(
+      scheme: "Newdok",
+      workspace: "Newdok.xcworkspace",
+      configuration: "Release",
+      export_method: "app-store",
+      output_directory: "./builds",
+      output_name: "Newdok.ipa",
+      clean: true
+    )
+  end
+
+  desc "Push a new beta build to TestFlight"
+  lane :beta do
+    # Increment build number
+    increment_build_number(
+      xcodeproj: "Modules/App/App.xcodeproj"
+    )
+
+    # Generate Tuist project
+    generate
+
+    # Build the app
+    build_app(
+      scheme: "Newdok",
+      workspace: "Newdok.xcworkspace",
+      configuration: "Release",
+      export_method: "app-store",
+      output_directory: "./builds",
+      output_name: "Newdok.ipa",
+      clean: true
+    )
+
+    # Upload to TestFlight
+    upload_to_testflight(
+      skip_waiting_for_build_processing: true
+    )
+  end
+
+  desc "Deploy a new version to the App Store"
+  lane :release do
+    # Increment build number
+    increment_build_number(
+      xcodeproj: "Modules/App/App.xcodeproj"
+    )
+
+    # Generate Tuist project
+    generate
+
+    # Build the app
+    build_app(
+      scheme: "Newdok",
+      workspace: "Newdok.xcworkspace",
+      configuration: "Release",
+      export_method: "app-store",
+      output_directory: "./builds",
+      output_name: "Newdok.ipa",
+      clean: true
+    )
+
+    # Upload to App Store
+    upload_to_app_store(
+      force: true,
+      submit_for_review: false
+    )
+  end
+
+  desc "Run tests"
+  lane :test do
+    generate
+
+    run_tests(
+      scheme: "Newdok",
+      workspace: "Newdok.xcworkspace"
+    )
+  end
+end

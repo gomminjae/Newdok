@@ -132,6 +132,7 @@ public struct PwdUpdateView: View {
             .padding(.bottom, 20)
             .disabled(!viewModel.isPasswordValid)
         .navigationBarBackButtonHidden(true)
+        .enableSwipeBack()
         .toolbar {
             ToolbarItem(placement: .navigationBarLeading) {
                 Button {

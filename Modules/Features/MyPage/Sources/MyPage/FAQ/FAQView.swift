@@ -169,8 +169,9 @@ public struct FAQView: View {
         }
         .navigationBarBackButtonHidden(true)
         .navigationBarTitleDisplayMode(.inline)
+        .enableSwipeBack()
         .toolbar {
-            
+
             ToolbarItem(placement: .navigationBarLeading) {
                 Button {
                     router.pop()

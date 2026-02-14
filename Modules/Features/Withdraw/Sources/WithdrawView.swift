@@ -34,6 +34,7 @@ public struct WithdrawView: View {
         .safeAreaInset(edge: .bottom) { bottomBar }   // 하단 고정 버튼
         .navigationBarBackButtonHidden(true)
         .navigationBarTitleDisplayMode(.inline)
+        .enableSwipeBack()
         .toolbar {
             ToolbarItem(placement: .navigationBarLeading) {
                 Button { 
