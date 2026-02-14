@@ -1,14 +1,12 @@
 //
-//  WebViewWrapper.swift
-//  Detail
+//  SubscribeModalView.swift
+//  DesignSystem
 //
 //  Created by 권민재 on 5/20/25.
 //
 
-
 import SwiftUI
 import WebKit
-import DesignSystem
 import UIKit
 
 

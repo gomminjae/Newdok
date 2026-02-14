@@ -11,7 +11,6 @@ import Combine
 import Domain
 import Shared
 import Foundation
-import Core
 
 // MARK: - Calendar State Management
 @MainActor
@@ -168,7 +167,6 @@ public final class HomeViewModel: ObservableObject {
     }
     
     public func selectDateWithMonthGuarantee(_ date: Date) {
-        logDebug("날짜 선택: \(date)", category: .home)
         calendarState.selectedDate = date
         Task { [weak self] in
             guard let self else { return }

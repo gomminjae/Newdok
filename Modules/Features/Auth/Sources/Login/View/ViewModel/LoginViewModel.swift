@@ -7,7 +7,6 @@
 import SwiftUI
 import Combine
 import Domain
-import Core
 import Shared
 
 @MainActor
@@ -91,30 +90,28 @@ public final class LoginViewModel: LoginViewModelBindable {
 
                 onSuccess()
 
-            } catch let error as NetworkError {
-                handleNetworkError(error)
+            } catch let error as LoginError {
+                handleLoginError(error)
             } catch {
                 errorMessage = "로그인에 실패했습니다"
+                isPasswordError = false
+                isLoginIdError = false
             }
         }
     }
 
-    private func handleNetworkError(_ error: NetworkError) {
+    private func handleLoginError(_ error: LoginError) {
         switch error {
-        case .serverError(let statusCode, let message):
-            if statusCode == 400 {
-                let newMessage = message ?? ""
-                if newMessage.contains("비밀번호") {
-                    errorMessage = "비밀번호가 일치하지 않습니다"
-                    isPasswordError = true
-                    isLoginIdError = false
-                } else if newMessage.contains("계정") {
-                    errorMessage = "등록되지 않은 계정이거나, 아이디를 다시 확인해주세요"
-                    isLoginIdError = true
-                    isPasswordError = false
-                }
-            }
-        default:
+        case .invalidPassword:
+            errorMessage = "비밀번호가 일치하지 않습니다"
+            isPasswordError = true
+            isLoginIdError = false
+        case .accountNotFound:
+            errorMessage = "등록되지 않은 계정이거나, 아이디를 다시 확인해주세요"
+            isLoginIdError = true
+            isPasswordError = false
+        case .networkError:
+            errorMessage = "네트워크 오류가 발생했습니다"
             isPasswordError = false
             isLoginIdError = false
         }

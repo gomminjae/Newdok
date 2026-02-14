@@ -23,14 +23,24 @@ public final class UserRepositoryImpl: UserRepository {
     
     
     public func login(loginId: String, password: String) async throws -> (User,String) {
-        
-        let response: LoginResponseDTO = try await provider.asyncRequest(.login(loginId: loginId, password: password))
-        let user = response.user.toDomain()
-        let token = response.accessToken
-        
-        return (user,token)
-        
-        
+        do {
+            let response: LoginResponseDTO = try await provider.asyncRequest(.login(loginId: loginId, password: password))
+            let user = response.user.toDomain()
+            let token = response.accessToken
+            return (user, token)
+        } catch let error as NetworkError {
+            if case .serverError(let statusCode, let message) = error, statusCode == 400 {
+                let errorMessage = message ?? ""
+                if errorMessage.contains("비밀번호") {
+                    throw LoginError.invalidPassword
+                } else if errorMessage.contains("계정") {
+                    throw LoginError.accountNotFound
+                }
+            }
+            throw LoginError.networkError(error)
+        } catch {
+            throw LoginError.networkError(error)
+        }
     }
     
     public func signup(loginId: String, password: String, phoneNumber: String, nickname: String, birthYear: String, gender: String) async throws -> Domain.SignupResponse {

@@ -8,7 +8,7 @@
 import Foundation
 
 public enum LoginError: Error {
-    case invalidCredentials
+    case invalidPassword
     case accountNotFound
     case networkError(Error)
 }

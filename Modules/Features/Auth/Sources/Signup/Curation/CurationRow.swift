@@ -10,7 +10,6 @@ import Domain
 import Kingfisher
 import DesignSystem
 import Shared
-import Detail
 
 struct CurationRow: View {
     let brand: RecommendedBrand?
