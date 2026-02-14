@@ -20,7 +20,8 @@ let project = Project(
       settings: .settings(
         base: [
           "SWIFT_INSTALL_OBJC_HEADER": "NO",
-          "SKIP_INSTALL": "YES"
+          "SKIP_INSTALL": "YES",
+          "SWIFT_STRICT_CONCURRENCY": "complete"
         ]
       )
     )

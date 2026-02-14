@@ -22,17 +22,14 @@ private struct GIFImageView: UIViewRepresentable {
     let gifName: String
 
     func makeUIView(context: Context) -> UIView {
-        // 1. 투명한 컨테이너 생성
         let container = UIView()
         container.backgroundColor = .clear
 
-        // 2. 실제 GIF 애니메이션을 재생할 UIImageView
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
         imageView.clipsToBounds = true
         imageView.translatesAutoresizingMaskIntoConstraints = false
 
-        // 3. 컨테이너에 추가하고, 모든 엣지에 제약 걸기
         container.addSubview(imageView)
         NSLayoutConstraint.activate([
             imageView.topAnchor.constraint(equalTo: container.topAnchor),
@@ -41,7 +38,7 @@ private struct GIFImageView: UIViewRepresentable {
             imageView.trailingAnchor.constraint(equalTo: container.trailingAnchor),
         ])
 
-        // 4. 캐시된 프레임 가져와서 애니메이션 시작
+        // 동기적으로 캐시에서 가져와서 애니메이션 시작
         if let (frames, duration) = GIFCache.shared.framesAndDuration(for: gifName) {
             imageView.animationImages = frames
             imageView.animationDuration = duration
@@ -56,14 +53,20 @@ private struct GIFImageView: UIViewRepresentable {
     }
 }
 
-/// 싱글톤 캐시로, 한 번만 GIF를 디코딩하고 재사용
-private class GIFCache {
+/// 싱글톤 캐시로, 한 번만 GIF를 디코딩하고 재사용 (NSLock으로 thread-safe)
+private final class GIFCache: @unchecked Sendable {
     static let shared = GIFCache()
     private var cache: [String: (frames: [UIImage], duration: TimeInterval)] = [:]
+    private let lock = NSLock()
     private init() {}
 
     func framesAndDuration(for name: String) -> (frames: [UIImage], duration: TimeInterval)? {
-        if let entry = cache[name] { return entry }
+        lock.lock()
+        if let entry = cache[name] {
+            lock.unlock()
+            return entry
+        }
+        lock.unlock()
 
         guard
             let url = Bundle.module.url(forResource: name, withExtension: "gif"),
@@ -84,7 +87,9 @@ private class GIFCache {
         }
 
         let entry = (frames: frames, duration: total)
+        lock.lock()
         cache[name] = entry
+        lock.unlock()
         return entry
     }
 

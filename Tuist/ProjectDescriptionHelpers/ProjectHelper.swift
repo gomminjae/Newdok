@@ -48,6 +48,11 @@ public extension Project {
         return Project(
             name: name,
             organizationName: organizationName,
+            settings: .settings(
+                base: [
+                    "SWIFT_STRICT_CONCURRENCY": "complete"
+                ]
+            ),
             targets: targets
         )
     }

@@ -406,10 +406,10 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "FA361429D063D2B0070E9333"
+               BlueprintIdentifier = "9CF4285AFD46D302B6009128"
                BuildableName = "ExploreDemo.app"
                BlueprintName = "ExploreDemo"
-               ReferencedContainer = "container:Modules/Features/Explore/Explore.xcodeproj">
+               ReferencedContainer = "container:Modules/DemoApps/ExploreDemo/ExploreDemo.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
          <BuildActionEntry
@@ -420,10 +420,10 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "9CF4285AFD46D302B6009128"
+               BlueprintIdentifier = "FA361429D063D2B0070E9333"
                BuildableName = "ExploreDemo.app"
                BlueprintName = "ExploreDemo"
-               ReferencedContainer = "container:Modules/DemoApps/ExploreDemo/ExploreDemo.xcodeproj">
+               ReferencedContainer = "container:Modules/Features/Explore/Explore.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
          <BuildActionEntry

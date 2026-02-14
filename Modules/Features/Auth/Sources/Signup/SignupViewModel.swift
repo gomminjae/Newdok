@@ -122,7 +122,7 @@ final public class SignupViewModel: ObservableObject {
     @Published public var emails: [String] = []
     @Published public var isShowPopup: Bool = false
 
-    private var timer: Timer?
+    private var timerTask: Task<Void, Never>?
     
     //MARK: password
     @Published public var password: String = ""
@@ -147,9 +147,8 @@ final public class SignupViewModel: ObservableObject {
     }
     
     deinit {
-    
-        timer?.invalidate()
-        timer = nil
+        timerTask?.cancel()
+        timerTask = nil
     }
     
     public func goToNextStep() {
@@ -288,28 +287,23 @@ final public class SignupViewModel: ObservableObject {
     private func startTimer() {
         stopTimer()
         isTimerActive = true
-
-        // 명시적으로 main runloop(common mode)에 등록
-        let t = Timer(timeInterval: 1.0, repeats: true) { [weak self] _ in
-            guard let self else { return }
-            // ✅ 타이머 콜백 → 메인 액터로 전환 후 상태 변경
-            Task { @MainActor in
-                self.timerRemaining -= 1
-                if self.timerRemaining <= 0 {
-                    self.stopTimer()
-                    self.showError = true
-                    // 타이머 만료 시에는 카운트 증가하지 않음 (재전송 버튼 클릭 시에만 증가)
-                }
+        timerTask = Task {
+            while !Task.isCancelled && timerRemaining > 0 {
+                try? await Task.sleep(for: .seconds(1))
+                guard !Task.isCancelled else { break }
+                timerRemaining -= 1
+            }
+            if timerRemaining <= 0 {
+                isTimerActive = false
+                showError = true
             }
         }
-        timer = t
-        RunLoop.main.add(t, forMode: .common)
     }
-    
+
     private func stopTimer() {
         isTimerActive = false
-        timer?.invalidate()
-        timer = nil
+        timerTask?.cancel()
+        timerTask = nil
     }
 
     // MARK: - ID Validation / Dup Check

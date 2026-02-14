@@ -21,7 +21,8 @@ import ProjectDescription
             ],
            settings: .settings(
                base: [
-                   "SKIP_INSTALL": "YES"
+                   "SKIP_INSTALL": "YES",
+                   "SWIFT_STRICT_CONCURRENCY": "complete"
                ]
            )
         ),

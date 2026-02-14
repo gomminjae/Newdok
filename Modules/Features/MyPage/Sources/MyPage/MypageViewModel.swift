@@ -39,7 +39,7 @@ public class MypageViewModel: ObservableObject {
     @Published public var enteredVerificationCode: String = ""
     private var verificationCode: String = ""
     @Published public var resendFailureCount: Int = 0
-    private var timer: Timer?
+    private var timerTask: Task<Void, Never>?
     @Published public var isShowPopup: Bool = false
     
     @Published public var oldPassword: String = ""
@@ -222,21 +222,21 @@ public class MypageViewModel: ObservableObject {
     
     private func startTimer() {
         stopTimer()
-        timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { [weak self] _ in
-            guard let self = self else { return }
-            DispatchQueue.main.async {
-                self.timerRemaining -= 1
-                if self.timerRemaining <= 0 {
-                    self.stopTimer()
-                    self.showError = true
-                }
+        timerTask = Task {
+            while !Task.isCancelled && timerRemaining > 0 {
+                try? await Task.sleep(for: .seconds(1))
+                guard !Task.isCancelled else { break }
+                timerRemaining -= 1
+            }
+            if timerRemaining <= 0 {
+                showError = true
             }
         }
     }
-    
+
     private func stopTimer() {
-        timer?.invalidate()
-        timer = nil
+        timerTask?.cancel()
+        timerTask = nil
     }
     
     public var isOldPasswordValid: Bool {

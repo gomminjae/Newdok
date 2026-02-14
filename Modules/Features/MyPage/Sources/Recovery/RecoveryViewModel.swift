@@ -49,7 +49,7 @@ public class RecoveryViewModel: ObservableObject {
     @Published public var isRequestSent: Bool = false
     @Published public var isTimerActive: Bool = false
     @Published public var timerRemaining: Int = 180
-    private var timer: Timer?
+    private var timerTask: Task<Void, Never>?
     
     public init(useCase: UserUseCase) {
         self.userUseCase = useCase
@@ -151,27 +151,25 @@ public class RecoveryViewModel: ObservableObject {
     private func startTimer() {
         stopTimer()
         isTimerActive = true
-        
-        let t = Timer(timeInterval: 1.0, repeats: true) { [weak self] _ in
-            guard let self else { return }
-            Task { @MainActor in
-                self.timerRemaining -= 1
-                if self.timerRemaining <= 0 {
-                    self.stopTimer()
-                    // 3회 모두 사용한 상태에서 만료되면 팝업
-                    if self.resendCount >= self.maxResends {
-                        self.isShowPopup = true
-                    }
+        timerTask = Task {
+            while !Task.isCancelled && timerRemaining > 0 {
+                try? await Task.sleep(for: .seconds(1))
+                guard !Task.isCancelled else { break }
+                timerRemaining -= 1
+            }
+            if timerRemaining <= 0 {
+                isTimerActive = false
+                // 3회 모두 사용한 상태에서 만료되면 팝업
+                if resendCount >= maxResends {
+                    isShowPopup = true
                 }
             }
         }
-        timer = t
-        RunLoop.main.add(t, forMode: .common)
     }
-    
+
     private func stopTimer() {
         isTimerActive = false
-        timer?.invalidate()
-        timer = nil
+        timerTask?.cancel()
+        timerTask = nil
     }
 }

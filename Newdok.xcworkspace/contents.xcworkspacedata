@@ -26,13 +26,6 @@
          location = "group:Shared/Shared.xcodeproj">
       </FileRef>
       <Group
-         location = "group:DemoApps"
-         name = "DemoApps">
-         <FileRef
-            location = "group:ExploreDemo/ExploreDemo.xcodeproj">
-         </FileRef>
-      </Group>
-      <Group
          location = "group:Features"
          name = "Features">
          <FileRef
