@@ -60,6 +60,7 @@ public enum NicknameValidationError: Error {
 final public class SignupViewModel: ObservableObject {
 
     private let userUseCase: UserUseCase
+    private let signupUseCase: SignupUseCase
     
     @Published var currentStep: SignupStep = .phoneVerification
 
@@ -140,8 +141,9 @@ final public class SignupViewModel: ObservableObject {
     @Published public var recommendedPost: [RecommendedBrand] = []
     @Published public var isCurationLoading = false
     
-    public init(userUseCase: UserUseCase) {
+    public init(userUseCase: UserUseCase, signupUseCase: SignupUseCase) {
         self.userUseCase = userUseCase
+        self.signupUseCase = signupUseCase
     }
     
     deinit {
@@ -402,69 +404,28 @@ final public class SignupViewModel: ObservableObject {
     
     // MARK: - Signup
     func signup() {
-        let trimmedNickname = nickname.trimmingCharacters(in: .whitespacesAndNewlines)
-        _ = Int(birthYear) ?? 0
-        
         Task {
             do {
-                let result = try await userUseCase.signup(
+                let request = SignupRequest(
                     loginId: loginID,
                     password: password,
                     phoneNumber: phoneNumber,
-                    nickname: trimmedNickname,
+                    nickname: nickname,
                     birthYear: birthYear,
                     gender: gender
                 )
-                TokenStorage.accessToken = result.accessToken
-                user = result.user
-                
-                let userInfo = UserInfo(
-                    id: result.user.id,
-                    loginId: result.user.loginId,
-                    phoneNumber: result.user.phoneNumber,
-                    subscribeEmail: result.user.subscribeEmail,
-                    nickname: result.user.nickname,
-                    birthYear: result.user.birthYear,
-                    gender: result.user.gender,
-                    createdAt: result.user.createdAt,
-                    industryId: result.user.industryId,
-                    interestIds: result.user.interests.map { $0.id }
-                )
-                UserInfoStore.shared.save(userInfo)
-                
-                // 자동 로그인
-                do {
-                    let (loginUser, loginToken) = try await userUseCase.login(loginId: loginID, password: password)
-                    TokenStorage.accessToken = loginToken
-                    UserDefaults.standard.set(true, forKey: "isLoggedIn")
-                    UserDefaults.standard.set(false, forKey: "isGuest")
-                    UserDefaults.standard.set(loginUser.nickname, forKey: "nickname")
-                    UserDefaults.standard.set(loginUser.subscribeEmail ?? "", forKey: "email")
-                    
-                    let updatedUserInfo = UserInfo(
-                        id: loginUser.id,
-                        loginId: loginUser.loginId,
-                        phoneNumber: loginUser.phoneNumber,
-                        subscribeEmail: loginUser.subscribeEmail,
-                        nickname: loginUser.nickname,
-                        birthYear: loginUser.birthYear,
-                        gender: loginUser.gender,
-                        createdAt: loginUser.createdAt,
-                        industryId: loginUser.industryId,
-                        interestIds: loginUser.interests.map { $0.id }
-                    )
-                    UserInfoStore.shared.save(updatedUserInfo)
-                    self.user = loginUser
-                } catch {
-                    // 로그인 실패해도 회원가입은 성공했으므로 최소 상태 유지
-                    TokenStorage.accessToken = result.accessToken
-                    UserDefaults.standard.set(true, forKey: "isLoggedIn")
-                    UserDefaults.standard.set(false, forKey: "isGuest")
-                    UserDefaults.standard.set(result.user.nickname, forKey: "nickname")
-                }
-                
-                await MainActor.run { goToNextStep() }
+
+                let resultUser = try await signupUseCase.execute(request: request)
+                user = resultUser
+
+                UserDefaults.standard.set(true, forKey: "isLoggedIn")
+                UserDefaults.standard.set(false, forKey: "isGuest")
+                UserDefaults.standard.set(resultUser.nickname, forKey: "nickname")
+                UserDefaults.standard.set(resultUser.subscribeEmail ?? "", forKey: "email")
+
+                goToNextStep()
             } catch {
+                errorMessage = "회원가입에 실패했습니다"
             }
         }
     }

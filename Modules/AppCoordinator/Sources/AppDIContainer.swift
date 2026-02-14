@@ -118,18 +118,40 @@ public final class AppDIContainer {
             return LoadOptionsUseCaseImpl(newsletterUseCase: newsletterUseCase)
         }.inObjectScope(.container)
 
+        container.register(LoginUseCase.self) { r in
+            let userUseCase = r.resolve(UserUseCase.self)!
+            return LoginUseCaseImpl(userUseCase: userUseCase)
+        }.inObjectScope(.transient)
+
+        container.register(SignupUseCase.self) { r in
+            let userUseCase = r.resolve(UserUseCase.self)!
+            let loginUseCase = r.resolve(LoginUseCase.self)!
+            return SignupUseCaseImpl(userUseCase: userUseCase, loginUseCase: loginUseCase)
+        }.inObjectScope(.transient)
+
+        container.register(ProfileUseCase.self) { r in
+            let userUseCase = r.resolve(UserUseCase.self)!
+            return ProfileUseCaseImpl(userUseCase: userUseCase)
+        }.inObjectScope(.transient)
+
+        container.register(ArticleDetailUseCase.self) { r in
+            let articleUseCase = r.resolve(ArticleUseCase.self)!
+            return ArticleDetailUseCaseImpl(articleUseCase: articleUseCase)
+        }.inObjectScope(.transient)
+
         // MARK: - ViewModels
         container.register(SignupViewModel.self) { r in
-            let useCase = r.resolve(UserUseCase.self)!
+            let userUseCase = r.resolve(UserUseCase.self)!
+            let signupUseCase = r.resolve(SignupUseCase.self)!
             return MainActor.assumeIsolated {
-                SignupViewModel(userUseCase: useCase)
+                SignupViewModel(userUseCase: userUseCase, signupUseCase: signupUseCase)
             }
         }.inObjectScope(.transient)
         
         container.register(LoginViewModel.self) { r in
-            let useCase = r.resolve(UserUseCase.self)!
+            let loginUseCase = r.resolve(LoginUseCase.self)!
             return MainActor.assumeIsolated {
-                LoginViewModel(userUserCase: useCase)
+                LoginViewModel(loginUseCase: loginUseCase)
             }
         }.inObjectScope(.transient)
         
@@ -169,17 +191,18 @@ public final class AppDIContainer {
             }
         }
         
-        container.register(ArticleDetailViewModel.self) { (r,id: String) in
-            let useCase = r.resolve(ArticleUseCase.self)!
+        container.register(ArticleDetailViewModel.self) { (r, id: String) in
+            let articleDetailUseCase = r.resolve(ArticleDetailUseCase.self)!
             return MainActor.assumeIsolated {
-                return ArticleDetailViewModel(id: id, useCase: useCase)
+                return ArticleDetailViewModel(id: id, articleDetailUseCase: articleDetailUseCase)
             }
         }
         
         container.register(MypageViewModel.self) { r in
-            let useCase = r.resolve(UserUseCase.self)!
+            let userUseCase = r.resolve(UserUseCase.self)!
+            let profileUseCase = r.resolve(ProfileUseCase.self)!
             return MainActor.assumeIsolated {
-                return MypageViewModel(useCase: useCase)
+                return MypageViewModel(useCase: userUseCase, profileUseCase: profileUseCase)
             }
         }.inObjectScope(.transient)
         
