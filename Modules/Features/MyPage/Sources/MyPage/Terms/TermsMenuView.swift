@@ -53,6 +53,7 @@ public struct TermsMenuView: View {
         }
         .navigationBarBackButtonHidden(true)
         .navigationBarTitleDisplayMode(.inline)
+        .enableSwipeBack()
         .toolbar {
             ToolbarItem(placement: .navigationBarLeading) {
                 Button {
@@ -88,6 +89,7 @@ public struct WebLinkView: View {
             .ignoresSafeArea(edges: .bottom)
             .navigationBarBackButtonHidden(true)
             .navigationBarTitleDisplayMode(.inline)
+            .enableSwipeBack()
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
                     Button(action: {

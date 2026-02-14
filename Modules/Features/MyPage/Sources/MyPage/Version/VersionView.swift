@@ -74,5 +74,6 @@ public struct VersionView: View {
         }
         .navigationBarBackButtonHidden(true)
         .navigationBarTitleDisplayMode(.inline)
+        .enableSwipeBack()
     }
 } 

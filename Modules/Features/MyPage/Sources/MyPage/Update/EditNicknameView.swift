@@ -100,6 +100,7 @@ public struct EditNicknameView: View {
         }
         .navigationBarTitleDisplayMode(.inline)
         .navigationBarBackButtonHidden(true)
+        .enableSwipeBack()
         .toolbar {
             ToolbarItem(placement: .navigationBarLeading) {
                 Button {

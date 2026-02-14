@@ -128,6 +128,7 @@ public struct PhoneUpdateView: View {
                 }
             }
             .navigationBarBackButtonHidden(true)
+            .enableSwipeBack()
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
                     Button {

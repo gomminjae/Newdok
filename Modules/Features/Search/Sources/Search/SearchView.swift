@@ -105,6 +105,7 @@ public struct SearchView: View {
         }
         .navigationBarBackButtonHidden(true)
         .navigationBarHidden(true)
+        .enableSwipeBack()
         .task {
             await viewModel.loadPopularKeywords()
         }

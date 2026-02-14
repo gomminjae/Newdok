@@ -43,6 +43,7 @@ public struct RecoveryView: View {
                       alignment: .topLeading)
         .navigationTitle("")
         .navigationBarBackButtonHidden(true)
+        .enableSwipeBack()
         .toolbar {
             ToolbarItem(placement: .navigationBarLeading) {
                 Button {

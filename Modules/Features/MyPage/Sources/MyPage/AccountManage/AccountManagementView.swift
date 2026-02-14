@@ -67,6 +67,7 @@ public struct AccountManagementView: View {
         .padding(.horizontal, 24)
         .navigationBarBackButtonHidden(true)
         .navigationBarTitleDisplayMode(.inline)
+        .enableSwipeBack()
         .toolbar {
             ToolbarItem(placement: .navigationBarLeading) {
                 Button(action: { router.pop() }) {

@@ -158,9 +158,9 @@ public struct LoginView: View {
             Color.clear.frame(height: 20)
         }
         .ignoresSafeArea(.keyboard)
-        .navigationBarBackButtonHidden()
         .navigationBarTitleDisplayMode(.inline)
         .navigationBarBackButtonHidden(true)
+        .enableSwipeBack()
         .onReceive(NotificationCenter.default.publisher(for: .showToast)) { notification in
             if let message = notification.object as? String {
                 toastMessage = message

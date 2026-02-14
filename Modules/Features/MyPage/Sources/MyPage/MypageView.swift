@@ -27,8 +27,7 @@ public struct MypageView: View {
     }
 
     public var body: some View {
-        NavigationStack {
-            VStack(spacing: 0) {
+        VStack(spacing: 0) {
                 
                 // MARK: - 상단 프로필 영역
                 VStack(alignment: .leading, spacing: 16) {
@@ -229,35 +228,34 @@ public struct MypageView: View {
                 }
             }
             .toolbar(.hidden, for: .navigationBar)
-        }
-        .onAppear {
-            DispatchQueue.main.async {
-                userInfo = UserInfoStore.shared.load()
+            .onAppear {
+                DispatchQueue.main.async {
+                    userInfo = UserInfoStore.shared.load()
+                }
+                Task {
+                    await viewModel.fetchuserInfo()
+                }
             }
-            Task {
-                await viewModel.fetchuserInfo()
+            .popup(isPresented: $showEmailAlert) {
+                EmailInfoModalView(isPresented: $showEmailAlert)
+            } customize: {
+                $0
+                    .type(.default)
+                    .position(.center)
+                    .closeOnTapOutside(true)
+                    .backgroundColor(Color.black.opacity(0.3))
             }
-        }
-        .popup(isPresented: $showEmailAlert) {
-            EmailInfoModalView(isPresented: $showEmailAlert)
-        } customize: {
-            $0
-                .type(.default)
-                .position(.center)
-                .closeOnTapOutside(true)
-                .backgroundColor(Color.black.opacity(0.3))
-        }
-        .popup(isPresented: $isCopy) {
-            ToastView(message: "구독 이메일 주소가 복사되었습니다.")
-                .padding(.bottom, 106)
-        } customize: {
-            $0
-                .type(.toast)
-                .position(.bottom)
-                .autohideIn(1) // 2초 뒤 자동 사라짐
-                .animation(.easeInOut)
-                .closeOnTapOutside(false)
-        }
+            .popup(isPresented: $isCopy) {
+                ToastView(message: "구독 이메일 주소가 복사되었습니다.")
+                    .padding(.bottom, 106)
+            } customize: {
+                $0
+                    .type(.toast)
+                    .position(.bottom)
+                    .autohideIn(1)
+                    .animation(.easeInOut)
+                    .closeOnTapOutside(false)
+            }
     }
 
     // MARK: - 셀 스타일

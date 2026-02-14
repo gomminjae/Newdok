@@ -107,6 +107,7 @@ public struct EditInterestView: View {
             }
         }
         .navigationBarBackButtonHidden(true)
+        .enableSwipeBack()
         .toolbar {
             ToolbarItem(placement: .navigationBarLeading) {
                 Button { router.pop() } label: {
