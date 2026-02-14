@@ -9,6 +9,14 @@
 import Moya
 import Foundation
 
+// MARK: - Request Models
+
+struct BookmarkRequest: Encodable {
+    let articleId: String
+}
+
+// MARK: - API
+
 public enum ArticleAPI {
     case fetchArticles(year: String, publicationMonth: String)
     case fetchTodayArticle
@@ -88,7 +96,7 @@ extension ArticleAPI: TargetType {
             }
             return .requestParameters(parameters: parameters, encoding: URLEncoding.default)
         case .changeBookmarkState(let id):
-            return .requestParameters(parameters: ["articleId": id], encoding: JSONEncoding.default)
+            return .requestJSONEncodable(BookmarkRequest(articleId: id))
         case .fetchBookmarkedInterest:
             return .requestPlain
         case .search(let word):

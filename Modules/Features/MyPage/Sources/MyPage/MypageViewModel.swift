@@ -52,56 +52,40 @@ public class MypageViewModel: ObservableObject {
     @Published public var showPhoneNumberSuccess: Bool = false
     
     private let useCase: UserUseCase
-    
-    public init(useCase: UserUseCase) {
+    private let profileUseCase: ProfileUseCase
+
+    public init(useCase: UserUseCase, profileUseCase: ProfileUseCase) {
         self.useCase = useCase
+        self.profileUseCase = profileUseCase
     }
     
     public func fetchuserInfo() async {
         do {
-            let response = try await useCase.getProfile()
-            
-            user = response
-            
-            // UserInfoStore 업데이트
-            let userInfo = UserInfo(
-                id: response.id,
-                loginId: response.loginId,
-                phoneNumber: response.phoneNumber,
-                subscribeEmail: response.subscribeEmail,
-                nickname: response.nickname,
-                birthYear: response.birthYear,
-                gender: response.gender,
-                createdAt: response.createdAt,
-                industryId: response.industryId,
-                interestIds: response.interests.map { $0.id }
-            )
-            UserInfoStore.shared.save(userInfo)
+            user = try await profileUseCase.fetchProfile()
         } catch {
         }
     }
     
     public func updateNickname(nickname: String) async {
         do {
-            try await useCase.updateNickname(nickname)
-            
-            // UserInfoStore 즉시 업데이트
+            try await profileUseCase.updateNickname(nickname)
+
+            // UI 상태 업데이트
             if let currentUser = user {
-                let updatedUserInfo = UserInfo(
+                user = User(
                     id: currentUser.id,
                     loginId: currentUser.loginId,
                     phoneNumber: currentUser.phoneNumber,
                     subscribeEmail: currentUser.subscribeEmail,
-                    nickname: nickname, // 변경된 닉네임 사용
+                    nickname: nickname,
                     birthYear: currentUser.birthYear,
                     gender: currentUser.gender,
                     createdAt: currentUser.createdAt,
                     industryId: currentUser.industryId,
-                    interestIds: currentUser.interests.map { $0.id }
+                    interests: currentUser.interests
                 )
-                UserInfoStore.shared.save(updatedUserInfo)
             }
-            
+
             showNicknameSuccess = true
         } catch {
         }
@@ -109,11 +93,11 @@ public class MypageViewModel: ObservableObject {
     
     public func updateIndustry(id: Int) async {
         do {
-            try await useCase.updateIndustry(id)
-            
-            // UserInfoStore 즉시 업데이트
+            try await profileUseCase.updateIndustry(id)
+
+            // UI 상태 업데이트
             if let currentUser = user {
-                let updatedUserInfo = UserInfo(
+                user = User(
                     id: currentUser.id,
                     loginId: currentUser.loginId,
                     phoneNumber: currentUser.phoneNumber,
@@ -122,27 +106,11 @@ public class MypageViewModel: ObservableObject {
                     birthYear: currentUser.birthYear,
                     gender: currentUser.gender,
                     createdAt: currentUser.createdAt,
-                    industryId: id, // 변경된 종사산업 ID 사용
-                    interestIds: currentUser.interests.map { $0.id }
-                )
-                UserInfoStore.shared.save(updatedUserInfo)
-                
-                // 새로운 User 객체 생성하여 할당
-                let updatedUser = User(
-                    id: currentUser.id,
-                    loginId: currentUser.loginId,
-                    phoneNumber: currentUser.phoneNumber,
-                    subscribeEmail: currentUser.subscribeEmail,
-                    nickname: currentUser.nickname,
-                    birthYear: currentUser.birthYear,
-                    gender: currentUser.gender,
-                    createdAt: currentUser.createdAt,
-                    industryId: id, // 변경된 종사산업 ID 사용
+                    industryId: id,
                     interests: currentUser.interests
                 )
-                user = updatedUser
             }
-            
+
             showIndustrySuccess = true
         } catch {
         }
@@ -150,27 +118,12 @@ public class MypageViewModel: ObservableObject {
     
     public func updateInterests(ids: [Int]) async {
         do {
-            try await useCase.updateInterest(ids)
-            
-            // UserInfoStore 즉시 업데이트
+            try await profileUseCase.updateInterests(ids)
+
+            // UI 상태 업데이트
             if let currentUser = user {
-                let updatedUserInfo = UserInfo(
-                    id: currentUser.id,
-                    loginId: currentUser.loginId,
-                    phoneNumber: currentUser.phoneNumber,
-                    subscribeEmail: currentUser.subscribeEmail,
-                    nickname: currentUser.nickname,
-                    birthYear: currentUser.birthYear,
-                    gender: currentUser.gender,
-                    createdAt: currentUser.createdAt,
-                    industryId: currentUser.industryId,
-                    interestIds: ids // 변경된 관심사 ID들 사용
-                )
-                UserInfoStore.shared.save(updatedUserInfo)
-                
-                // 새로운 User 객체 생성하여 할당
                 let updatedInterests = ids.map { Interest(id: $0, name: SelectableItemStore.shared.name(for: $0, in: .interest) ?? "") }
-                let updatedUser = User(
+                user = User(
                     id: currentUser.id,
                     loginId: currentUser.loginId,
                     phoneNumber: currentUser.phoneNumber,
@@ -182,9 +135,8 @@ public class MypageViewModel: ObservableObject {
                     industryId: currentUser.industryId ?? 0,
                     interests: updatedInterests
                 )
-                user = updatedUser
             }
-            
+
             showInterestSuccess = true
         } catch {
         }
@@ -217,26 +169,15 @@ public class MypageViewModel: ObservableObject {
     
     public func updatePassword() async {
         do {
-            // UserInfoStore에서 loginId 가져오기
-            let userInfo = UserInfoStore.shared.load()
-            let loginId = userInfo?.loginId ?? user?.loginId ?? ""
-            
-            
-            try await useCase.updatePassword(loginId: loginId, prevPassword: oldPassword, newPassword: newPassword)
-            
-            // 성공 시 플래그 설정
+            try await profileUseCase.updatePassword(prevPassword: oldPassword, newPassword: newPassword)
+
             isPasswordUpdateSuccess = true
-            
-            // 입력 필드 초기화
             oldPassword = ""
             newPassword = ""
             checkedPassword = ""
-            
             showPasswordSuccess = true
         } catch {
             isPasswordUpdateSuccess = false
-            
-            // 에러 메시지 설정
             passwordError = "현재 비밀번호가 일치하지 않습니다"
         }
     }

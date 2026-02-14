@@ -7,7 +7,8 @@
       "Bash(swift -parse:*)",
       "Bash(tuist generate:*)",
       "Bash(xcodebuild:*)",
-      "Bash(git grep:*)"
+      "Bash(git grep:*)",
+      "Bash(git branch:*)"
     ]
   }
 }

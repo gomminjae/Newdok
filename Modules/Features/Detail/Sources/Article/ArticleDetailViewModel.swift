@@ -24,7 +24,7 @@ public final class ArticleDetailViewModel: ObservableObject {
     // MARK: - Dependencies
 
     private let id: String
-    private let useCase: ArticleUseCase
+    private let articleDetailUseCase: ArticleDetailUseCase
     private let highlightStorage: HighlightStorage
 
     // MARK: - Computed Properties
@@ -38,11 +38,11 @@ public final class ArticleDetailViewModel: ObservableObject {
 
     public init(
         id: String,
-        useCase: ArticleUseCase,
+        articleDetailUseCase: ArticleDetailUseCase,
         highlightStorage: HighlightStorage = .shared
     ) {
         self.id = id
-        self.useCase = useCase
+        self.articleDetailUseCase = articleDetailUseCase
         self.highlightStorage = highlightStorage
     }
 
@@ -50,17 +50,13 @@ public final class ArticleDetailViewModel: ObservableObject {
 
     public func fetch() async {
         do {
-            let data = try await useCase.fetchArticleDetail(articleId: id)
+            let result = try await articleDetailUseCase.fetchDetail(articleId: id)
 
-            // 하이라이트를 먼저 로드 (detail 설정 전에)
-            // detail.articleId를 사용하여 정확한 ID로 조회
-            let actualArticleId = String(data.articleId)
-            highlights = highlightStorage.fetchHighlights(for: actualArticleId)
-            print("[ArticleDetailVM] Loaded \(highlights.count) highlights for articleId: \(actualArticleId)")
+            // 하이라이트 로드
+            highlights = highlightStorage.fetchHighlights(for: result.articleId)
 
-            // 그 다음 detail 설정 (SwiftUI 재렌더링 트리거)
-            detail = data
-            print("[ArticleDetailVM] init id: \(id), detail.articleId: \(data.articleId)")
+            // detail 설정
+            detail = result.detail
         } catch {
             print("[ArticleDetailVM] fetch error: \(error)")
         }
@@ -69,7 +65,7 @@ public final class ArticleDetailViewModel: ObservableObject {
     public func bookmark() async {
         do {
             guard let articleId = detail?.articleId else { return }
-            _ = try await useCase.toggleBookmarkStatus(articleId: "\(articleId)")
+            try await articleDetailUseCase.toggleBookmark(articleId: "\(articleId)")
             detail?.isBookmarked.toggle()
         } catch {
         }
