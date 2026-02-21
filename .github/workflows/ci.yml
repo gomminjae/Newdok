@@ -15,11 +15,14 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Install SwiftLint
-        run: brew install swiftlint@0.62.2
+      - name: Install SwiftLint 0.62.2
+        run: |
+          curl -sL https://github.com/realm/SwiftLint/releases/download/0.62.2/portable_swiftlint.zip -o swiftlint.zip
+          unzip -o swiftlint.zip -d swiftlint-bin
+          chmod +x swiftlint-bin/swiftlint
 
       - name: Run SwiftLint
-        run: swiftlint lint --reporter github-actions-logging --no-strict
+        run: swiftlint-bin/swiftlint lint --reporter github-actions-logging
 
   build:
     name: Build
