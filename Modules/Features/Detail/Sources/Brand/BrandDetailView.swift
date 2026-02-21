@@ -223,6 +223,7 @@ public struct BrandDetailView: View {
     }
 
     @ViewBuilder
+    // swiftlint:disable:next function_body_length
     private func detailContent(_ detail: BrandDetail) -> some View {
         VStack(spacing: 0) {
             ZStack(alignment: .topLeading) {

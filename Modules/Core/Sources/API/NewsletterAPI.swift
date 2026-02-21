@@ -98,6 +98,7 @@ extension NewsletterAPI: TargetType {
     
     public var task: Moya.Task {
         switch self {
+        // swiftlint:disable:next line_length
         case .fetchActiveNewletters, .fetchPausedNewletters, .fetchRecommendUnion, .fetchRecommendIntersection, .fetchGuestNewsletterBrand, .fetchNewsletterBrand, .fetchSubscriptionCount, .fetchOptionList:
             return .requestPlain
         case .search(let brandName):

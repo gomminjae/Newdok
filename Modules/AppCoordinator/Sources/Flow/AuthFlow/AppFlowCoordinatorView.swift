@@ -89,6 +89,7 @@ struct AppRootView: View {
     }
 
     @ViewBuilder
+    // swiftlint:disable:next cyclomatic_complexity
     private func makeView(for route: AppRoute) -> some View {
         switch route {
         case .onboarding:

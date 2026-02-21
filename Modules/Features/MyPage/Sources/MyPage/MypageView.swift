@@ -94,7 +94,7 @@ public struct MypageView: View {
                 
                 // MARK: - 서비스 섹션
                 VStack(spacing: 0) {
-                    SectionHeader(title: "서비스")
+                    sectionHeader(title: "서비스")
                     
                     Button {
                         router.push(.accountManage)
@@ -140,7 +140,7 @@ public struct MypageView: View {
                 
                 // MARK: - 고객센터 섹션
                 VStack(spacing: 0) {
-                    SectionHeader(title: "고객센터")
+                    sectionHeader(title: "고객센터")
                     
                     Button {
                         router.push(.faq)
@@ -256,7 +256,7 @@ public struct MypageView: View {
     }
 
     // MARK: - 셀 스타일
-    private func SectionHeader(title: String) -> some View {
+    private func sectionHeader(title: String) -> some View {
         HStack {
             Text(title)
                 .font(.hanSansNeo(12, .regular))

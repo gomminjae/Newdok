@@ -49,6 +49,7 @@ struct PhoneNumberRequest: Encodable {
 
 public enum UserAPI {
     case login(loginId: String, password: String)
+    // swiftlint:disable:next enum_case_associated_values_count
     case signup(loginId: String, password: String, phoneNumber: String, nickname: String, birthYear: String, gender: String)
     
     // 휴대폰 중복확인, 아이디 찾기로 쓰임

@@ -31,6 +31,7 @@ public final class AppDIContainer {
         registerDependencies()
     }
 
+    // swiftlint:disable:next function_body_length
     private func registerDependencies() {
         // MARK: - Network
         container.register(NetworkProviding.self) { _ in
