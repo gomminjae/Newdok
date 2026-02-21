@@ -1,6 +1,21 @@
 // swift-tools-version:5.9
 import PackageDescription
 
+#if TUIST
+import ProjectDescription
+
+let packageSettings = PackageSettings(
+    productTypes: [
+        "Moya": .framework,
+        "Swinject": .framework,
+        "Kingfisher": .framework,
+        "SDWebImageSwiftUI": .framework,
+        "PopupView": .framework,
+        "ComposableArchitecture": .framework,
+    ]
+)
+#endif
+
 let package = Package(
     name: "MyProjectDependencies",
     dependencies: [
@@ -10,5 +25,6 @@ let package = Package(
         .package(url: "https://github.com/SDWebImage/SDWebImageSwiftUI.git", from: "3.0.0"),
         .package(url: "https://github.com/exyte/PopupView.git", from: "4.1.13"),
         .package(url: "https://github.com/pointfreeco/swift-composable-architecture.git", from: "1.10.0"),
+        .package(url: "https://github.com/firebase/firebase-ios-sdk.git", from: "11.0.0"),
     ]
 )

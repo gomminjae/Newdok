@@ -35,42 +35,12 @@ import ProjectDescription
                deploymentTargets: .iOS("17.0"),
                infoPlist: .default,
                sources: ["Tests/**"],
-           dependencies: [
-               .target(name: "Bookmark"),
-               .project(target: "DesignSystem", path: "../../DesignSystem"),
-               .project(target: "Shared", path: "../../Shared"),
-               .project(target: "Domain", path: "../../Domain"),
-           ]
-        ),
-        .target(
-            name: "BookmarkDemo",
-            destinations: .iOS,
-            product: .app,
-            bundleId: "com.newdok.bookmark.demo",
-            deploymentTargets: .iOS("17.0"),
-            infoPlist: .extendingDefault(
-                with: [
-                    "CFBundleDisplayName": "Bookmark Demo",
-                    "UILaunchScreen": [:],
-                    "UIUserInterfaceStyle": "Light",
-                    "UISupportedInterfaceOrientations": [
-                        "UIInterfaceOrientationPortrait"
-                    ],
-                    "NSAppTransportSecurity": [
-                        "NSAllowsArbitraryLoads": true
-                    ]
-                ]
-            ),
-            sources: ["DemoApp/Sources/**"],
-            resources: [],
-            dependencies: [
-                .target(name: "Bookmark"),
-                .project(target: "DesignSystem", path: "../../DesignSystem"),
-                .project(target: "Shared", path: "../../Shared"),
-                .project(target: "Domain", path: "../../Domain"),
-                .project(target: "Core", path: "../../Core"),
-                .project(target: "Data", path: "../../Data")
-            ]
-        )
+               dependencies: [
+                   .target(name: "Bookmark"),
+                   .project(target: "DesignSystem", path: "../../DesignSystem"),
+                   .project(target: "Shared", path: "../../Shared"),
+                   .project(target: "Domain", path: "../../Domain"),
+               ]
+           )
     ]
 )

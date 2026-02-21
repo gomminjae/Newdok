@@ -20,20 +20,6 @@
                ReferencedContainer = "container:Bookmark.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
-         <BuildActionEntry
-            buildForTesting = "YES"
-            buildForRunning = "YES"
-            buildForProfiling = "YES"
-            buildForArchiving = "YES"
-            buildForAnalyzing = "YES">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "B53F67D84911EA61F1FD1130"
-               BuildableName = "BookmarkDemo.app"
-               BlueprintName = "BookmarkDemo"
-               ReferencedContainer = "container:Bookmark.xcodeproj">
-            </BuildableReference>
-         </BuildActionEntry>
       </BuildActionEntries>
    </BuildAction>
    <TestAction
@@ -65,16 +51,15 @@
       debugDocumentVersioning = "YES"
       debugServiceExtension = "internal"
       allowLocationSimulation = "YES">
-      <BuildableProductRunnable
-         runnableDebuggingMode = "0">
+      <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "B53F67D84911EA61F1FD1130"
-            BuildableName = "BookmarkDemo.app"
-            BlueprintName = "BookmarkDemo"
+            BlueprintIdentifier = "CA3BDA5CCBC32BFCAFE328FB"
+            BuildableName = "Bookmark.framework"
+            BlueprintName = "Bookmark"
             ReferencedContainer = "container:Bookmark.xcodeproj">
          </BuildableReference>
-      </BuildableProductRunnable>
+      </MacroExpansion>
    </LaunchAction>
    <ProfileAction
       buildConfiguration = "Release"
@@ -82,16 +67,15 @@
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
       debugDocumentVersioning = "YES">
-      <BuildableProductRunnable
-         runnableDebuggingMode = "0">
+      <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "B53F67D84911EA61F1FD1130"
-            BuildableName = "BookmarkDemo.app"
-            BlueprintName = "BookmarkDemo"
+            BlueprintIdentifier = "CA3BDA5CCBC32BFCAFE328FB"
+            BuildableName = "Bookmark.framework"
+            BlueprintName = "Bookmark"
             ReferencedContainer = "container:Bookmark.xcodeproj">
          </BuildableReference>
-      </BuildableProductRunnable>
+      </MacroExpansion>
    </ProfileAction>
    <AnalyzeAction
       buildConfiguration = "Debug">

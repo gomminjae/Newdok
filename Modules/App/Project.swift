@@ -85,6 +85,8 @@ let project = Project(
                 .project(target: "Shared", path: "../Shared"),
                 .external(name: "PopupView"),
                 .external(name: "ComposableArchitecture"),
+                .external(name: "FirebaseAnalytics"),
+                .external(name: "FirebaseCrashlytics"),
             ]
         )
     ],

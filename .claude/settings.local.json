@@ -10,7 +10,14 @@
       "Bash(git grep:*)",
       "Bash(git branch:*)",
       "WebFetch(domain:github.com)",
-      "Bash(swift --version:*)"
+      "Bash(swift --version:*)",
+      "Bash(grep:*)",
+      "Bash(tuist clean:*)",
+      "Bash(tuist install:*)",
+      "Bash(tuist version:*)",
+      "Bash(tuist fetch:*)",
+      "Bash(ls:*)",
+      "Bash(swift package resolve:*)"
     ]
   }
 }

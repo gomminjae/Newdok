@@ -20,20 +20,6 @@
                ReferencedContainer = "container:Subscribe.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
-         <BuildActionEntry
-            buildForTesting = "YES"
-            buildForRunning = "YES"
-            buildForProfiling = "YES"
-            buildForArchiving = "YES"
-            buildForAnalyzing = "YES">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "357232BAFB16430CC8AEF16F"
-               BuildableName = "SubscribeDemo.app"
-               BlueprintName = "SubscribeDemo"
-               ReferencedContainer = "container:Subscribe.xcodeproj">
-            </BuildableReference>
-         </BuildActionEntry>
       </BuildActionEntries>
    </BuildAction>
    <TestAction
@@ -55,16 +41,15 @@
       debugDocumentVersioning = "YES"
       debugServiceExtension = "internal"
       allowLocationSimulation = "YES">
-      <BuildableProductRunnable
-         runnableDebuggingMode = "0">
+      <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "357232BAFB16430CC8AEF16F"
-            BuildableName = "SubscribeDemo.app"
-            BlueprintName = "SubscribeDemo"
+            BlueprintIdentifier = "AB64776038A7A7B975B07604"
+            BuildableName = "Subscribe.framework"
+            BlueprintName = "Subscribe"
             ReferencedContainer = "container:Subscribe.xcodeproj">
          </BuildableReference>
-      </BuildableProductRunnable>
+      </MacroExpansion>
    </LaunchAction>
    <ProfileAction
       buildConfiguration = "Release"
@@ -72,16 +57,15 @@
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
       debugDocumentVersioning = "YES">
-      <BuildableProductRunnable
-         runnableDebuggingMode = "0">
+      <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "357232BAFB16430CC8AEF16F"
-            BuildableName = "SubscribeDemo.app"
-            BlueprintName = "SubscribeDemo"
+            BlueprintIdentifier = "AB64776038A7A7B975B07604"
+            BuildableName = "Subscribe.framework"
+            BlueprintName = "Subscribe"
             ReferencedContainer = "container:Subscribe.xcodeproj">
          </BuildableReference>
-      </BuildableProductRunnable>
+      </MacroExpansion>
    </ProfileAction>
    <AnalyzeAction
       buildConfiguration = "Debug">

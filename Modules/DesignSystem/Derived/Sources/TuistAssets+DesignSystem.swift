@@ -24,7 +24,6 @@ public enum DesignSystemAsset: Sendable {
   public static let accentColor = DesignSystemColors(name: "AccentColor")
   public static let allcheck = DesignSystemImages(name: "allcheck")
   public static let around = DesignSystemImages(name: "around")
-  public static let banner = DesignSystemImages(name: "banner")
   public static let bell = DesignSystemImages(name: "bell")
   public static let bookmark = DesignSystemImages(name: "bookmark")
   public static let calendar = DesignSystemImages(name: "calendar")

@@ -20,20 +20,6 @@
                ReferencedContainer = "container:Mypage.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
-         <BuildActionEntry
-            buildForTesting = "YES"
-            buildForRunning = "YES"
-            buildForProfiling = "YES"
-            buildForArchiving = "YES"
-            buildForAnalyzing = "YES">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "49604448B4869987D56E3F3B"
-               BuildableName = "MypageDemo.app"
-               BlueprintName = "MypageDemo"
-               ReferencedContainer = "container:Mypage.xcodeproj">
-            </BuildableReference>
-         </BuildActionEntry>
       </BuildActionEntries>
    </BuildAction>
    <TestAction
@@ -55,16 +41,15 @@
       debugDocumentVersioning = "YES"
       debugServiceExtension = "internal"
       allowLocationSimulation = "YES">
-      <BuildableProductRunnable
-         runnableDebuggingMode = "0">
+      <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "49604448B4869987D56E3F3B"
-            BuildableName = "MypageDemo.app"
-            BlueprintName = "MypageDemo"
+            BlueprintIdentifier = "417BA61376E98ECD6ED70C2A"
+            BuildableName = "Mypage.framework"
+            BlueprintName = "Mypage"
             ReferencedContainer = "container:Mypage.xcodeproj">
          </BuildableReference>
-      </BuildableProductRunnable>
+      </MacroExpansion>
    </LaunchAction>
    <ProfileAction
       buildConfiguration = "Release"
@@ -72,16 +57,15 @@
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
       debugDocumentVersioning = "YES">
-      <BuildableProductRunnable
-         runnableDebuggingMode = "0">
+      <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "49604448B4869987D56E3F3B"
-            BuildableName = "MypageDemo.app"
-            BlueprintName = "MypageDemo"
+            BlueprintIdentifier = "417BA61376E98ECD6ED70C2A"
+            BuildableName = "Mypage.framework"
+            BlueprintName = "Mypage"
             ReferencedContainer = "container:Mypage.xcodeproj">
          </BuildableReference>
-      </BuildableProductRunnable>
+      </MacroExpansion>
    </ProfileAction>
    <AnalyzeAction
       buildConfiguration = "Debug">
