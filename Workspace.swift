@@ -20,6 +20,5 @@ let workspace = Workspace(
         "Modules/Features/Subscribe",
         "Modules/Features/Detail",
         "Modules/AppCoordinator",
-        "Modules/DemoApps/ExploreDemo",
     ],
 )
