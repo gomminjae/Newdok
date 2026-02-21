@@ -18,7 +18,6 @@ import Detail
 import Domain
 import Search
 
-
 final class AppCoordinator {
     private let container = AppDIContainer.shared
     private let router: AppRouter
@@ -33,7 +32,6 @@ final class AppCoordinator {
         let vm = container.container.resolve(SignupViewModel.self)!
         return SignupView(viewModel: vm)
             .environmentObject(router)
-    
     }
 
     func makeLoginView() -> some View {
@@ -48,14 +46,12 @@ final class AppCoordinator {
     func makeHomeView() -> some View {
         let vm = container.container.resolve(HomeViewModel.self)!
         return HomeView(viewModel: vm).environmentObject(router)
-        
     }
     func makeExploreView() -> some View {
         let vm = container.container.resolve(ExploreViewModel.self)!
         return ExploreView(viewModel: vm).environmentObject(router)
     }
     func makeTabView(selectedTab: NewDokTab? = nil, exploreDay: Int? = nil, exploreSelectedTab: Int? = nil) -> some View {
-
         let homeVm = container.container.resolve(HomeViewModel.self)!
         let exploreVm = container.container.resolve(ExploreViewModel.self)!
         let subscribeVm = container.container.resolve(SubscribeViewModel.self)!
@@ -81,9 +77,7 @@ final class AppCoordinator {
     }
     
     func makeBrandDetail(id: String) -> some View {
-        
         let vm = container.container.resolve(BrandDetailViewModel.self, argument: id)!
-        
         
         return BrandDetailView(viewModel: vm).environmentObject(router)
     }
@@ -122,7 +116,6 @@ final class AppCoordinator {
             .environmentObject(vm)
     }
     
-    
     func makeRecoveryView() -> some View {
         let vm = container.container.resolve(RecoveryViewModel.self)!
         return RecoveryView(viewModel: vm).environmentObject(router)
@@ -141,8 +134,6 @@ final class AppCoordinator {
         let vm = container.container.resolve(MypageViewModel.self)!
         return PhoneUpdateView(viewModel: vm).environmentObject(router)
     }
-    
-    
     
     func makeSearchView() -> some View {
         let vm = container.container.resolve(SearchViewModel.self)!
@@ -174,5 +165,4 @@ final class AppCoordinator {
     func makeEditAlert() -> some View {
         return EditAlertView().environmentObject(router)
     }
-
 }

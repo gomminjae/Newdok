@@ -64,10 +64,6 @@ struct RecommendedNewsLetterView: View {
     }
 }
 
-
-
-
-
 struct TagView: View {
     var text: String
 

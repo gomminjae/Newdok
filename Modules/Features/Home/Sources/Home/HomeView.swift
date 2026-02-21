@@ -11,14 +11,11 @@ import Shared
 import Domain
 import PopupView
 
-
-
-
 public struct HomeView: View {
     @StateObject private var viewModel: HomeViewModel
     @State private var showCalendar = false
     @State private var refreshSpinAngle: Double = 0
-    @State private var calendarDisplayedMonth: Date = Date()
+    @State private var calendarDisplayedMonth = Date()
     @State private var calendarDataDays: Set<Int> = []
     @EnvironmentObject private var router: AppRouter
     @EnvironmentObject private var tabSelection: TabSelection
@@ -63,9 +60,7 @@ public struct HomeView: View {
                     }
                 )
                 .padding(.horizontal, 24)
-                 
-              
-            } customize: {
+        } customize: {
                 $0
                   .type(.default)
                   .position(.center)
@@ -115,7 +110,6 @@ public struct HomeView: View {
                     await updateCalendarDataDays(for: newValue)
                 }
             }
-
         }
 
     // MARK: — 헤더
@@ -123,7 +117,6 @@ public struct HomeView: View {
         HStack {
             Image(asset: DesignSystemAsset.logo)
                 
-
             Spacer()
 
             Button {
@@ -205,7 +198,7 @@ public struct HomeView: View {
                     let dayIndex = convertWeekdayToExploreIndex(weekday)
                     tabSelection.selectedTab = .explore
                     router.resetTo(.tabbar(selectedTab: .explore))
-                    DispatchQueue.main.asyncAfter(deadline: .now()+0.1) {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
                         exploreIntent.day = dayIndex
                         exploreIntent.selectedTab = 1
                         exploreIntent.trigger = UUID()

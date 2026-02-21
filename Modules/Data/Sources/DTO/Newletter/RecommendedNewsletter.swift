@@ -12,8 +12,7 @@ public struct RecommendedNewsletterDTO: Decodable {
     let union: [NewsletterDetailDTO]
     let intersection: [NewsletterDetailDTO]
     
-    
     public func toDomain() -> RecommendedNewsletter {
-        return RecommendedNewsletter(union: union.map {$0.toDomain() }, intersection: intersection.map { $0.toDomain() })
+        return RecommendedNewsletter(union: union.map { $0.toDomain() }, intersection: intersection.map { $0.toDomain() })
     }
 }

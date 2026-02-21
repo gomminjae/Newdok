@@ -11,9 +11,8 @@ import Shared
 
 @MainActor
 public protocol LoginViewModelBindable: ObservableObject {
-
     var loginId: String { get set }
-    var password: String  { get set }
+    var password: String { get set }
 
     var isUserIdValid: Bool { get set }
     var isUserPwdValid: Bool { get set }
@@ -24,12 +23,8 @@ public protocol LoginViewModelBindable: ObservableObject {
     func login(onSuccess: @escaping () -> Void)
 }
 
-
-
 @MainActor
 public final class LoginViewModel: LoginViewModelBindable {
-
-
     private let loginUseCase: LoginUseCase
 
     @Published public var loginId: String
@@ -51,14 +46,10 @@ public final class LoginViewModel: LoginViewModelBindable {
     @Published public var isLoginIdError: Bool = false
     @Published public var isPasswordError: Bool = false
 
-
-
     @AppStorage("isLoggedIn") public var isLoggedIn: Bool = false
     @AppStorage("isGuest") public var isGuest: Bool = false
     @AppStorage("nickname") public var nickname: String = ""
     @AppStorage("email") public var email: String = ""
-
-
 
     public init(loginUseCase: LoginUseCase) {
         self.loginUseCase = loginUseCase
@@ -68,9 +59,7 @@ public final class LoginViewModel: LoginViewModelBindable {
         self.isUserPwdValid = false
         self.isLoading = false
         self.errorMessage = nil
-
     }
-
 
     public func login(onSuccess: @escaping () -> Void) {
         Task {
@@ -89,7 +78,6 @@ public final class LoginViewModel: LoginViewModelBindable {
                 email = user.subscribeEmail ?? ""
 
                 onSuccess()
-
             } catch let error as LoginError {
                 handleLoginError(error)
             } catch {
@@ -120,10 +108,4 @@ public final class LoginViewModel: LoginViewModelBindable {
     public var isLoginEnabled: Bool {
         !loginId.isEmpty && !password.isEmpty
     }
-
-    
-    
-    
-    
-    
 }

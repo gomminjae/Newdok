@@ -1,6 +1,4 @@
-# SwiftLint Configuration
-# Based on Airbnb Swift Style Guide
-# https://github.com/airbnb/swift
+# SwiftLint Configuration for SwiftUI Project
 
 # 포함할 경로
 included:
@@ -17,9 +15,10 @@ excluded:
 
 # 비활성화할 규칙
 disabled_rules:
-  - trailing_whitespace # Airbnb는 허용하지만 프로젝트 상황에 따라 조정
+  - trailing_whitespace
+  - multiple_closures_with_trailing_closure # SwiftUI에서 trailing closure 패턴 빈번
 
-# 활성화할 Opt-in 규칙 (Airbnb 스타일)
+# 활성화할 Opt-in 규칙
 opt_in_rules:
   - array_init
   - attributes
@@ -39,7 +38,6 @@ opt_in_rules:
   - extension_access_modifier
   - fallthrough
   - fatal_error_message
-  - file_header
   - first_where
   - flatmap_over_map_reduce
   - identical_operands
@@ -49,29 +47,16 @@ opt_in_rules:
   - literal_expression_end_indentation
   - lower_acl_than_parent
   - modifier_order
-  - nimble_operator
-  - nslocalizedstring_key
-  - number_separator
-  - object_literal
   - operator_usage_whitespace
   - overridden_super_call
   - override_in_extension
   - pattern_matching_keywords
   - prefer_self_type_over_type_of_self
-  - private_action
-  - private_outlet
-  - prohibited_interface_builder
-  - prohibited_super_call
-  - quick_discouraged_call
-  - quick_discouraged_focused_test
-  - quick_discouraged_pending_test
   - reduce_into
   - redundant_nil_coalescing
   - redundant_type_annotation
-  - single_test_class
   - sorted_first_last
   - static_operator
-  - strong_iboutlet
   - toggle_bool
   - unavailable_function
   - unneeded_parentheses_in_closure_argument
@@ -82,7 +67,7 @@ opt_in_rules:
   - xct_specific_matcher
   - yoda_condition
 
-# 커스텀 규칙 설정
+# Analyzer 규칙
 analyzer_rules:
   - explicit_self
   - unused_declaration
@@ -91,12 +76,10 @@ analyzer_rules:
 # 규칙 상세 설정
 attributes:
   always_on_same_line:
-    - "@IBAction"
-    - "@NSManaged"
     - "@objc"
 
 closure_body_length:
-  warning: 20
+  warning: 30
   error: 100
 
 collection_alignment:
@@ -115,7 +98,7 @@ force_cast: warning
 force_try: warning
 
 function_body_length:
-  warning: 50
+  warning: 60
   error: 100
 
 function_parameter_count:
@@ -133,6 +116,10 @@ identifier_name:
     - id
     - URL
     - url
+    - x
+    - y
+    - i
+    - j
 
 line_length:
   warning: 120
@@ -166,9 +153,6 @@ nesting:
 number_separator:
   minimum_length: 5
 
-private_outlet:
-  allow_private_set: false
-
 type_body_length:
   warning: 300
   error: 500
@@ -186,18 +170,10 @@ vertical_whitespace:
 
 # 커스텀 규칙
 custom_rules:
-  # 주석이 있는 TODO는 허용
   comments_space:
     name: "Space After Comment"
     regex: "(^ *//\\w+)"
     message: "There should be a space after //"
-    severity: warning
-
-  # 강제 언래핑 최소화
-  no_direct_standard_out_logs:
-    name: "No Direct Standard Out Logs"
-    regex: "(print\\()"
-    message: "Use proper logging instead of print()"
     severity: warning
 
 # Reporter 타입

@@ -88,7 +88,6 @@ struct AppRootView: View {
         }
     }
 
-
     @ViewBuilder
     private func makeView(for route: AppRoute) -> some View {
         switch route {
@@ -161,5 +160,4 @@ struct AppRootView: View {
                 .enableSwipeBack()
         }
     }
-
 }

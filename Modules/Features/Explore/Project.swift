@@ -16,7 +16,7 @@ let project = Project(
             dependencies: [
                 .project(target: "DesignSystem", path: "../../DesignSystem"),
                 .project(target: "Shared", path: "../../Shared"),
-                .project(target: "Domain", path: "../../Domain"),
+                .project(target: "Domain", path: "../../Domain")
             ],
             settings: .settings(
                 base: [
@@ -38,7 +38,7 @@ let project = Project(
                 .target(name: "Explore"),
                 .project(target: "DesignSystem", path: "../../DesignSystem"),
                 .project(target: "Shared", path: "../../Shared"),
-                .project(target: "Domain", path: "../../Domain"),
+                .project(target: "Domain", path: "../../Domain")
             ]
         )
     ]

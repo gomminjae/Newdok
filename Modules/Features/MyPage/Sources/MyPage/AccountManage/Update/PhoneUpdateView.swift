@@ -10,10 +10,7 @@ import DesignSystem
 import Shared
 import PopupView
 
-
-
 public struct PhoneUpdateView: View {
-    
     @EnvironmentObject private var router: AppRouter
     @Environment(\.dismiss) private var dismiss
     
@@ -79,7 +76,7 @@ public struct PhoneUpdateView: View {
                             }
                         }
                         .font(.hanSansNeo(14, .bold))
-                        .foregroundStyle(viewModel.phoneNumber.count < 11 ?  Color(hex: "#BDBDBD") : Color.primaryNormal)
+                        .foregroundStyle(viewModel.phoneNumber.count < 11 ? Color(hex: "#BDBDBD") : Color.primaryNormal)
                         .disabled(viewModel.phoneNumber.count < 11)
                         .frame(width: 94, height: 48)
                         .overlay(
@@ -144,7 +141,6 @@ public struct PhoneUpdateView: View {
                         .font(.hanSansNeo(16, .bold))
                         .foregroundColor(.black)
                 }
-               
             }
             .toolbar {
                 ToolbarItemGroup(placement: .keyboard) {
@@ -203,26 +199,20 @@ public struct PhoneUpdateView: View {
                 .closeOnTapOutside(false)
                 .backgroundColor(Color(hex: "#25242C").opacity(0.6))
         }
-
     }
-
-
 
     private func formatTime(_ seconds: Int) -> String {
         String(format: "%02d:%02d", seconds / 60, seconds % 60)
     }
 }
 
-
-
 struct PrimaryButtonStyle: ButtonStyle {
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
             .frame(maxWidth: .infinity)
             .background(configuration.isPressed ? .gray : .primaryNormal)
-            .font(.hanSansNeo(14,.medium))
+            .font(.hanSansNeo(14, .medium))
             .foregroundColor(.white)
             .cornerRadius(8)
     }
 }
-

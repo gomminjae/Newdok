@@ -12,13 +12,11 @@ import Domain
 import Shared
 
 protocol MypageViewModelBindable {
-    
 }
 
 @MainActor
 public class MypageViewModel: ObservableObject {
-    
-    @Published var activeNavigation: String? = nil
+    @Published var activeNavigation: String?
     
     @Published var nickname: String = ""
     @Published var user: User?
@@ -47,7 +45,7 @@ public class MypageViewModel: ObservableObject {
     @Published public var checkedPassword: String = ""
     @Published public var isPasswordUpdateSuccess: Bool = false
     @Published public var isPhoneUpdateSuccess: Bool = false
-    @Published public var passwordError: String? = nil
+    @Published public var passwordError: String?
     @Published public var showPasswordSuccess: Bool = false
     @Published public var showPhoneNumberSuccess: Bool = false
     
@@ -144,7 +142,6 @@ public class MypageViewModel: ObservableObject {
     
     public func updatePhoneNumber() async {
         do {
-            
             // 인증번호 검증
             guard verifyCode() else {
                 showError = true
@@ -198,7 +195,6 @@ public class MypageViewModel: ObservableObject {
             // 타이머 시작
             timerRemaining = 180 // 3분 = 180초
             startTimer()
-
         } catch {
         }
     }

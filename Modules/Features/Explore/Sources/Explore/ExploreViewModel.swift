@@ -10,10 +10,8 @@ import Shared
 import Domain
 import SwiftUI
 
-
 @MainActor
 public class ExploreViewModel: ObservableObject {
-    
     @Published public var myRecommendation: [NewsletterDetail] = []
     @Published public var unionRecommendation: [NewsletterDetail] = []
     @Published public var fixedMyRecommendation: [NewsletterDetail] = []
@@ -29,11 +27,8 @@ public class ExploreViewModel: ObservableObject {
     @Published public var selectedTab: Int = 0
     
     @Published public var orderOpt: String? = "인기순"
-    @Published public var industry: [Int]? = nil
-    @Published public var day: [Int]? = nil
-    
-    
-    
+    @Published public var industry: [Int]?
+    @Published public var day: [Int]?
     
     @Published public var isShowFilterSheet: Bool = false
     @Published public var isShowSortSheet: Bool = false
@@ -47,7 +42,6 @@ public class ExploreViewModel: ObservableObject {
     var hasUserProfile: Bool {
         return UserInfoStore.shared.hasProfile
     }
-    
     
     private let useCase: NewsletterUseCase
     private var cancellables = Set<AnyCancellable>()
@@ -65,11 +59,6 @@ public class ExploreViewModel: ObservableObject {
             }
             .store(in: &cancellables)
     }
-    
-    
-    
-    
-    
     
     public func fetchRecommendation(forceRefresh: Bool = false) async {
         // 캐시된 데이터가 있고 5분 이내라면 캐시 사용 (강제 새로고침 제외)
@@ -91,10 +80,7 @@ public class ExploreViewModel: ObservableObject {
             cachedRecommendation = response
             lastFetchTime = Date()
             
-            
-            
             updateRecommendationData(from: response)
-            
         } catch {
             isRecommend = false
         }
@@ -115,7 +101,6 @@ public class ExploreViewModel: ObservableObject {
             fallback: prioritizedUnion
         )
         fixedUnionRecommendation = Array(prioritizedUnion.prefix(6))
-        
     }
     
     // 사용자 관심사 우선순위로 뉴스레터 정렬

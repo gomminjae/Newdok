@@ -9,7 +9,6 @@ import Foundation
 import Shared
 
 public final class ProfileUseCaseImpl: ProfileUseCase {
-
     private let userUseCase: UserUseCase
 
     public init(userUseCase: UserUseCase) {

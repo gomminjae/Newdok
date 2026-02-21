@@ -5,7 +5,6 @@
 //  Created by 권민재 on 4/18/25.
 //
 
-
 public struct BrandDetail {
     public let brandId: Int
     public let brandName: String

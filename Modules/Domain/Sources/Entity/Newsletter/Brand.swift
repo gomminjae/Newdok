@@ -5,7 +5,6 @@
 //  Created by 권민재 on 4/18/25.
 //
 
-
 public struct Brand: Identifiable {
     public var id: Int { brandId }
     public let brandId: Int

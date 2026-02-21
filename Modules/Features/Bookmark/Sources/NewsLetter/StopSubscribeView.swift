@@ -8,7 +8,6 @@
 import SwiftUI
 
 public struct StopSubscribeView: View {
-    
     var onClose: () -> Void
     
     public var body: some View {

@@ -5,9 +5,6 @@
 //  Created by 권민재 on 4/18/25.
 //
 
-
-
-
 public struct BrandArticle: Identifiable {
     public let id: Int
     public let title: String

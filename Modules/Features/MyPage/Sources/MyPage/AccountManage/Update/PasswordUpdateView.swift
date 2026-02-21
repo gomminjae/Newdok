@@ -11,7 +11,6 @@ import DesignSystem
 import Shared
 
 public struct PwdUpdateView: View {
-    
     @Environment(\.dismiss) private var dismiss
     @EnvironmentObject private var router: AppRouter
 
@@ -31,13 +30,11 @@ public struct PwdUpdateView: View {
 
     public var body: some View {
             VStack(alignment: .leading, spacing: 8) {
-
                 // 현재 비밀번호
                 Text("현재 비밀번호")
                     .font(.hanSansNeo(14, .medium))
                     .foregroundStyle(Color(hex: "#565656"))
                     
-
                 Group {
                     if isSecureOldPassword {
                         SecureField("8자 이상, 영문/숫자 조합", text: $viewModel.oldPassword)
@@ -47,7 +44,7 @@ public struct PwdUpdateView: View {
                             .focused($isOldPasswordFocused)
                     }
                 }
-                .font(.hanSansNeo(14,.medium))
+                .font(.hanSansNeo(14, .medium))
                 .modifier(PasswordFieldModifier(isSecure: $isSecureOldPassword, isFocused: $isOldPasswordFocused, isError: viewModel.passwordError != nil))
 
                 if let error = viewModel.passwordError {
@@ -72,7 +69,7 @@ public struct PwdUpdateView: View {
                             .focused($isNewPasswordFocused)
                     }
                 }
-                .font(.hanSansNeo(14,.medium))
+                .font(.hanSansNeo(14, .medium))
                 .modifier(PasswordFieldModifier(isSecure: $isSecureNewPassword, isFocused: $isNewPasswordFocused, isError: viewModel.newPasswordError != nil))
 
                 if let error = viewModel.newPasswordError {
@@ -96,7 +93,7 @@ public struct PwdUpdateView: View {
                             .focused($isConfirmPasswordFocused)
                     }
                 }
-                .font(.hanSansNeo(14,.medium))
+                .font(.hanSansNeo(14, .medium))
                 .modifier(PasswordFieldModifier(isSecure: $isSecureConfirmPassword, isFocused: $isConfirmPasswordFocused, isError: viewModel.confirmPasswordError != nil))
 
                 if let error = viewModel.confirmPasswordError {
@@ -119,7 +116,7 @@ public struct PwdUpdateView: View {
                 }
             }) {
                 Text("변경하기")
-                    .font(.hanSansNeo(14,.bold))
+                    .font(.hanSansNeo(14, .bold))
                     .frame(height: 48)
                     .frame(maxWidth: .infinity)
                     .background(viewModel.isPasswordValid ? Color.primaryNormal : Color.lineNeutral)
@@ -158,6 +155,5 @@ public struct PwdUpdateView: View {
                 }
             }
         }
-
     }
 }

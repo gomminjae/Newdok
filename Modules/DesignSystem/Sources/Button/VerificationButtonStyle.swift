@@ -29,7 +29,6 @@ public struct VerificationButtonStyle: ButtonStyle {
             .animation(.easeInOut(duration: 0.2), value: configuration.isPressed)
     }
     
-  
     private var borderColor: Color {
         if isDisabled {
             return Color(hex: "#C0C0C0")

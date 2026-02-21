@@ -6,7 +6,6 @@
 //  Copyright © 2025 Newdok. All rights reserved.
 //
 
-
 import SwiftUI
 import WebKit
 import Shared
@@ -44,4 +43,3 @@ public struct TermsOfUseView: View {
         }
     }
 }
-

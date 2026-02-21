@@ -69,7 +69,6 @@ public enum HomeState {
 
 @MainActor
 public final class HomeViewModel: ObservableObject {
-    
     private let useCase: HomeBusinessUseCase
     @Published public var calendarState: CalendarState
     private var cancellables = Set<AnyCancellable>()

@@ -8,8 +8,8 @@
 import SwiftUI
 import DesignSystem
 public struct ProfileInputView: View {
-    @State private var nicknameError: NickNameValidationError? = nil
-    @State private var selectedBirthYear: String? = nil
+    @State private var nicknameError: NickNameValidationError?
+    @State private var selectedBirthYear: String?
     @State private var isExpanded: Bool = false
     @State private var dropdownYPosition: CGFloat = 0
     @FocusState private var isNicknameFocused: Bool
@@ -224,8 +224,6 @@ public struct ProfileInputView: View {
     }
 }
 
-
-
 struct GenderButton: View {
     let title: String
     let isSelected: Bool
@@ -268,7 +266,6 @@ extension SignupViewModel {
 
         return nil
     }
-
 
     var isNicknameValid: Bool {
         nicknameValidationError == nil

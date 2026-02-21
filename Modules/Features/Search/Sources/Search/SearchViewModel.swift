@@ -6,7 +6,6 @@
 //  Copyright © 2025 Newdok. All rights reserved.
 //
 
-
 import Foundation
 import Domain
 
@@ -17,7 +16,7 @@ public final class SearchViewModel: ObservableObject {
     @Published public var searchText: String = ""
     @Published public var searchResults: [SearchedNewsletter] = []
     @Published public var isLoading: Bool = false
-    @Published public var errorMessage: String? = nil
+    @Published public var errorMessage: String?
     @Published public private(set) var popularKeywords: PopularKeywordList?
     @Published public var isPopularLoading: Bool = false
     @Published public var popularErrorMessage: String?
@@ -25,7 +24,6 @@ public final class SearchViewModel: ObservableObject {
     public init(useCase: SearchUseCase) {
         self.useCase = useCase
     }
-    
     
     public func clearSearchResults() {
         searchText = ""
@@ -41,9 +39,7 @@ public final class SearchViewModel: ObservableObject {
         do {
             let response = try await useCase.fetchPopularKeywords()
             self.popularKeywords = response
-            
         } catch {
-            
             self.popularErrorMessage = error.localizedDescription
         }
         isPopularLoading = false

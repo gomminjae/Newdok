@@ -10,19 +10,14 @@ import Foundation
 import Moya
 import Shared
 
-
 public final class UserRepositoryImpl: UserRepository {
-  
-    
-    
     private let provider: MoyaProvider<UserAPI>
     
     public init(provider: MoyaProvider<UserAPI>) {
         self.provider = provider
     }
     
-    
-    public func login(loginId: String, password: String) async throws -> (User,String) {
+    public func login(loginId: String, password: String) async throws -> (User, String) {
         do {
             let response: LoginResponseDTO = try await provider.asyncRequest(.login(loginId: loginId, password: password))
             let user = response.user.toDomain()
@@ -44,15 +39,11 @@ public final class UserRepositoryImpl: UserRepository {
     }
     
     public func signup(loginId: String, password: String, phoneNumber: String, nickname: String, birthYear: String, gender: String) async throws -> Domain.SignupResponse {
-        
-        
         let response: SignupResponseDTO = try await provider.asyncRequest(.signup(loginId: loginId, password: password, phoneNumber: phoneNumber, nickname: nickname, birthYear: birthYear, gender: gender))
-        
         
         let signupResponse = response.toDomain()
         
         return signupResponse
-        
     }
     
     public func checkPhoneNumber(_ phoneNumber: String) async throws -> [SimpleUser] {
@@ -73,7 +64,7 @@ public final class UserRepositoryImpl: UserRepository {
     }
     
     public func checkIDDup(_ loginId: String) async throws -> CheckResult<SimpleUser> {
-        let result = try await provider.safeCheckRequest(.checkIDDup(loginId: loginId),decodeTo: SimpleUserDTO.self)
+        let result = try await provider.safeCheckRequest(.checkIDDup(loginId: loginId), decodeTo: SimpleUserDTO.self)
         
         switch result {
         case .exists(let dto):
@@ -81,7 +72,6 @@ public final class UserRepositoryImpl: UserRepository {
         case .notFound:
             return .notFound
         }
-        
     }
     
     public func updateNickname(_ nickname: String) async throws -> NicknameResponse {
@@ -121,7 +111,6 @@ public final class UserRepositoryImpl: UserRepository {
         let brands = response.toDomain()
         
         return brands
-        
     }
     
     public func getProfile() async throws -> Domain.User {
@@ -135,6 +124,4 @@ public final class UserRepositoryImpl: UserRepository {
     public func withdraw() async throws {
         _ = try await provider.asyncVoidRequest(.withdraw)
     }
-    
-    
 }

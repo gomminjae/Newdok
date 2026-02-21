@@ -12,23 +12,18 @@ struct SubscribeNoticeView: View {
 
     var body: some View {
         ZStack {
-        
             Color.black.opacity(0.4)
                 .edgesIgnoringSafeArea(.all)
                 .onTapGesture { onClose() }
 
-           
             VStack(alignment: .leading, spacing: 12) {
-             
                 Text("구독이메일")
                     .font(.hanSansNeo(16, .medium))
 
-               
                 Text("회원가입 시 자동으로 생성되는\n뉴스레터 구독을 위한 이메일 주소예요.")
                     .font(.hanSansNeo(14, .medium))
                     .foregroundStyle(Color(hex: "555555"))
 
-               
                 VStack(alignment: .leading) {
                     Text("뉴독으로 아티클을 받아보기 위해선\n뉴독의 구독 이메일 주소로 구독을 신청해야 해요.\n구독 이메일은 개인적인 용도로 사용하거나\n메일을 보내는 것이 불가능해요.")
                         .font(.hanSansNeo(12, .regular))

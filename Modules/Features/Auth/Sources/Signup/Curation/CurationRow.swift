@@ -23,7 +23,6 @@ struct CurationRow: View {
     
     var body: some View {
         VStack(alignment: .leading, spacing: 12) {
-            
             HStack(alignment: .top, spacing: 12) {
                 KFImage(URL(string: brand?.imageUrl ?? ""))
                     .setProcessor(DownsamplingImageProcessor(size: CGSize(width: 90, height: 90)))
@@ -79,7 +78,7 @@ struct CurationRow: View {
             // 🔹 하단 흰 배경 영역
             VStack(alignment: .leading, spacing: 12) {
                 Text(brand?.description ?? "핵심만 꾹꾹 눌러 담은 세상 돌아가는 이야기")
-                    .font(.hanSansNeo(14,.medium))
+                    .font(.hanSansNeo(14, .medium))
                     .foregroundStyle(Color(hex: "#363636"))
 
                 HStack(spacing: 8) {
@@ -124,6 +123,6 @@ struct TagView: View {
             )
     }
 }
-//#Preview {
+// #Preview {
 //    CurationRow()
-//}
+// }

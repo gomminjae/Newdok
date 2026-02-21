@@ -8,25 +8,19 @@
 import SwiftUI
 
 public struct EmailInfoModalView: View {
-    
     @Binding var isPresented: Bool
     
     public init(isPresented: Binding<Bool>) {
         self._isPresented = isPresented
     }
     
-    
     public var body: some View {
-   
             VStack(alignment: .leading, spacing: 0) {
-                
-              
                 Text("구독 이메일")
                     .font(.hanSansNeo(20, .bold))
                     .foregroundStyle(Color(hex: "#161616"))
                     .padding(.top, 24)
                     .padding(.leading, 20)
-                
                 
                 Text("회원가입 시 자동으로 생성되는\n뉴스레터 구독을 위한 이메일 주소예요.")
                     .font(.hanSansNeo(14, .medium))
@@ -53,10 +47,6 @@ public struct EmailInfoModalView: View {
                 .padding(.trailing, 20)
                 .padding(.top, 16)
 
-
-                
-               
-                    
                 Button(action: {
                     isPresented = false
                 }) {
@@ -78,4 +68,3 @@ public struct EmailInfoModalView: View {
             .padding(.horizontal, 24)
         }
 }
-

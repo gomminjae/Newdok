@@ -14,4 +14,3 @@ public struct BookmarkedArticles {
         self.bookmarkForMonth = bookmarkForMonth
     }
 }
-

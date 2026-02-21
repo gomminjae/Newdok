@@ -12,7 +12,6 @@ import Shared
 import Combine
 
 public struct ExploreView: View {
-    
     @StateObject private var viewModel: ExploreViewModel
     @State private var currentPage: Int = 0
     @State private var recommendationSpinAngle: Double = 0
@@ -31,7 +30,6 @@ public struct ExploreView: View {
     public init(viewModel: ExploreViewModel) {
         _viewModel = StateObject(wrappedValue: viewModel)
     }
-
 
     public var body: some View {
         ZStack {
@@ -52,7 +50,7 @@ public struct ExploreView: View {
                     Group {
                         if viewModel.selectedTab == 0 {
                             if !isLoaded {
-                                EmptyView() //후에 로딩뷰
+                                EmptyView() // 후에 로딩뷰
                             } else if !viewModel.hasUserProfile {
                                 noProfileSection
                             } else {
@@ -79,10 +77,9 @@ public struct ExploreView: View {
                 userInfo = UserInfoStore.shared.load()
             }
             .onChange(of: exploreIntent.trigger) {
-                
                 // 모든 설정을 한 번에 처리
-                var newDay: Int? = nil
-                var newTab: Int? = nil
+                var newDay: Int?
+                var newTab: Int?
                 
                 if let day = exploreIntent.day, viewModel.day != [day] {
                     newDay = day
@@ -163,7 +160,6 @@ public struct ExploreView: View {
     // MARK: - 탭 스위처
     private var tabSwitcher: some View {
         VStack(spacing: 0) {
-            
             if isGuest {
                 HStack(spacing: 0) {
                     tabButton(title: "모든 뉴스레터", index: 0)
@@ -171,7 +167,6 @@ public struct ExploreView: View {
                 }
                 .padding(.top, 16)
             } else {
-                
                 HStack(spacing: 0) {
                     tabButton(title: "추천 뉴스레터", index: 0)
                     tabButton(title: "모든 뉴스레터", index: 1)
@@ -196,11 +191,6 @@ public struct ExploreView: View {
             Spacer()
 
             VStack(spacing: 0) {
-                
-                
-                
-                
-                
                 Image(asset: DesignSystemAsset.nologin)
                     .resizable()
                     .frame(width: 280, height: 280)
@@ -220,7 +210,7 @@ public struct ExploreView: View {
                     router.push(.editProfile)
                 }) {
                     Text("프로필 등록하기")
-                        .font(.hanSansNeo(14,.bold))
+                        .font(.hanSansNeo(14, .bold))
                         .foregroundColor(.white)
                         .frame(maxWidth: .infinity)
                         .frame(height: 48)
@@ -253,7 +243,7 @@ public struct ExploreView: View {
                 router.push(.signup)
             }) {
                 Text("회원가입")
-                    .font(.hanSansNeo(14,.bold))
+                    .font(.hanSansNeo(14, .bold))
                     .foregroundColor(.white)
                     .frame(maxWidth: .infinity)
                     .frame(height: 48)
@@ -264,10 +254,10 @@ public struct ExploreView: View {
             }
             HStack {
                 Text("이미 계정이 있나요?")
-                    .font(.hanSansNeo(14,.medium))
+                    .font(.hanSansNeo(14, .medium))
                     .foregroundStyle(Color(hex: "555555"))
                 Text("로그인")
-                    .font(.hanSansNeo(14,.medium))
+                    .font(.hanSansNeo(14, .medium))
                     .foregroundStyle(Color.primaryNormal)
                     .underline()
                     .onTapGesture {
@@ -275,14 +265,10 @@ public struct ExploreView: View {
                     }
             }
             Spacer()
-            
-            
         }
         .background(Color(hex: "#F5F5F7"))
     }
 
-    
-    
     private var recommendationSection: some View {
         VStack(alignment: .leading) {
             Text("\(nickname)님을 위한\n맞춤형 뉴스레터가 도착했어요.")
@@ -332,7 +318,6 @@ public struct ExploreView: View {
                     .onTapGesture {
                         router.push(.brandDetail(id: "\(newsletter.id)"))
                     }
-                    
                 }
             }
             .padding(.bottom, 80)
@@ -340,7 +325,6 @@ public struct ExploreView: View {
     }
     private var newsletterFilterSection: some View {
         HStack(spacing: 12) {
-            
             ScrollView(.horizontal, showsIndicators: false) {
                 HStack(spacing: 4) {
                     // 정렬 버튼
@@ -349,7 +333,7 @@ public struct ExploreView: View {
                     }) {
                         HStack(spacing: 4) {
                             Text(viewModel.orderOpt ?? "인기순")
-                                .font(.hanSansNeo(14,.medium))
+                                .font(.hanSansNeo(14, .medium))
                                 .foregroundStyle(Color(hex: "#363636"))
                             Image(systemName: "arrow.up.arrow.down")
                                 .font(.system(size: 12))
@@ -377,7 +361,7 @@ public struct ExploreView: View {
                     }) {
                         HStack(spacing: 4) {
                             Text(industryText)
-                                .font(.hanSansNeo(14,.medium))
+                                .font(.hanSansNeo(14, .medium))
                                 .foregroundStyle(viewModel.industry != nil ? Color.primaryNormal : Color(hex: "969696"))
                             Image(asset: DesignSystemAsset.lineDown)
                                 .resizable()
@@ -392,7 +376,7 @@ public struct ExploreView: View {
                         )
                         .overlay(
                             RoundedRectangle(cornerRadius: 20)
-                                .strokeBorder(viewModel.industry != nil ? Color.primaryNormal : Color(hex :"EBEBEB"), lineWidth: 1)
+                                .strokeBorder(viewModel.industry != nil ? Color.primaryNormal : Color(hex: "EBEBEB"), lineWidth: 1)
                         )
                     }
                     .buttonStyle(PlainButtonStyle())
@@ -403,7 +387,7 @@ public struct ExploreView: View {
                     }) {
                         HStack(spacing: 4) {
                             Text(dayText)
-                                .font(.hanSansNeo(14,.medium))
+                                .font(.hanSansNeo(14, .medium))
                                 .foregroundStyle(viewModel.day != nil ? Color.primaryNormal : Color(hex: "969696"))
                             Image(asset: DesignSystemAsset.lineDown)
                                 .resizable()
@@ -460,12 +444,9 @@ public struct ExploreView: View {
             }
             .background(Color.white)
             .presentationDragIndicator(.hidden)
-            
-            
         }
         .sheet(isPresented: $viewModel.isShowFilterSheet) {
             FilterBottomSheet(industry: $viewModel.industry, day: $viewModel.day) {
-                
                 viewModel.shouldScrollToTop = true
                 if isGuest {
                     await viewModel.fetchGuestAllNewsletters()
@@ -473,12 +454,8 @@ public struct ExploreView: View {
                     await viewModel.fetchAllNewsletters()
                 }
             }
-            
         }
     }
-
-
-
 
     // MARK: - 모든 뉴스레터
     private var allNewsletterSection: some View {
@@ -486,7 +463,7 @@ public struct ExploreView: View {
             // 고정된 필터 섹션
             VStack(spacing: 0) {
                 newsletterFilterSection
-                    .padding(.horizontal,20)
+                    .padding(.horizontal, 20)
                     .padding(.top, 20)
                     .padding(.bottom, 16)
             }
@@ -583,13 +560,7 @@ extension Array {
     }
 }
 
-
-
-
-import SwiftUI
-
 struct PagingScrollView: View {
-    
     private let items: [NewsletterDetail]
     @Binding var currentPage: Int
     
@@ -597,14 +568,12 @@ struct PagingScrollView: View {
     @State private var scrollID: Int?
     @State private var dynamicItems: [NewsletterDetail] = []
     
-  
     private let itemWidth: CGFloat = 320
     private let itemHeight: CGFloat = 350
     private let itemSpacing: CGFloat = 12
     
     private let leadingMargin: CGFloat = 24
     
-   
     init(newsletters: [NewsletterDetail], currentPage: Binding<Int>) {
         self._currentPage = currentPage
         self.items = newsletters

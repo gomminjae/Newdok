@@ -11,7 +11,6 @@ import Shared
 import Combine
 
 public struct OnboardingView: View {
-
     @State private var currentPage = 0
     let totalPages = 3
     
@@ -72,7 +71,6 @@ public struct OnboardingView: View {
                         Button(action: {
                             TokenStorage.markOnboardingCompleted()
                             router.push(.login)
-                            
                         }) {
                             Text("로그인")
                                 .font(.hanSansNeo(14, .medium))
@@ -98,7 +96,7 @@ public struct OnboardingView: View {
                             .animation(.easeInOut(duration: 0.3), value: currentPage)
                     }
                 }
-                .padding(.top,186)
+                .padding(.top, 186)
                 
                 Spacer()
             }
@@ -106,4 +104,3 @@ public struct OnboardingView: View {
         }
     }
 }
-

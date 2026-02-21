@@ -9,7 +9,6 @@ import Foundation
 
 /// JavaScript 코드를 관리하는 구조체
 enum ArticleHighlightJS {
-
     // MARK: - Core Highlight Functions
 
     static let coreScript = """

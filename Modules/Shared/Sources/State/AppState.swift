@@ -8,15 +8,12 @@
 import Foundation
 import Combine
 
-
 public enum AuthState {
     case guest
     case authenticated
 }
 
-
 public final class AppState: ObservableObject {
-    
     @Published public var authState: AuthState = .guest
     
     public static let shared = AppState()

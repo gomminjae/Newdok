@@ -1,6 +1,5 @@
 import SwiftUI
 
-
 @MainActor
 public final class ToastCenter: ObservableObject {
     public static let shared = ToastCenter()

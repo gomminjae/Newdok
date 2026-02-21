@@ -6,7 +6,6 @@
 //  Copyright © 2025 Newdok. All rights reserved.
 //
 
-
 import Foundation
 import Domain
 import Shared
@@ -80,6 +79,5 @@ public final class WithdrawViewModel: ObservableObject {
         // 기타 앱 관련 데이터도 정리
         userDefaults.removeObject(forKey: "accessToken")
         userDefaults.removeObject(forKey: "local_user_info")
-        
     }
 } 

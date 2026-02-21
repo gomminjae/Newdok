@@ -47,9 +47,6 @@ public struct OverlayRootView<Content: View>: View {
     }
 }
 
-
-
-
 final class NetworkStatusManager: ObservableObject {
     static let shared = NetworkStatusManager()
 

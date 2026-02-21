@@ -10,22 +10,18 @@ import Core
 import Shared
 import Moya
 
-
 public class ArticleRepositoryImpl: ArticleRepository {
-    
-    
     private let provider: MoyaProvider<ArticleAPI>
     
     public init(provider: MoyaProvider<ArticleAPI>) {
         self.provider = provider
     }
     
-    
     public func fetchArticles(year: String, publicationMonth: String) async throws -> [Domain.Articles] {
         logDebug("월별 아티클 조회 - \(year)년 \(publicationMonth)월", category: .repository)
         let response: ArticlesResponseDTO = try await provider.asyncRequest(.fetchArticles(year: year, publicationMonth: publicationMonth))
         logDebug("월별 아티클 조회 완료 - \(response.data.count)일", category: .repository)
-        return response.data.map {$0.toDomain()}
+        return response.data.map { $0.toDomain() }
     }
     
     public func fetchDayArticles(year: String, publicationMonth: String, publicationDate: String) async throws -> [Article] {
@@ -51,7 +47,7 @@ public class ArticleRepositoryImpl: ArticleRepository {
     
     public func changeBookmarkState(articleId: String) async throws {
         logDebug("북마크 상태 변경 - ID: \(articleId)", category: .repository)
-        let _ = try await provider.asyncVoidRequest(.changeBookmarkState(articleId: articleId))
+        _ = try await provider.asyncVoidRequest(.changeBookmarkState(articleId: articleId))
     }
     
     public func fetchBookmarkedInterest() async throws -> [Domain.Interest] {

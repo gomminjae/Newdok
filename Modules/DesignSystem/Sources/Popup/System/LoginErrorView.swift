@@ -20,10 +20,9 @@ struct LoginErrorView: View {
                 .padding(.bottom, 6)
             Text("계속하려면 다시 로그인해 주세요.")
                 .font(.hanSansNeo(14, .medium))
-                .foregroundStyle(Color(hex:"#565656"))
+                .foregroundStyle(Color(hex: "#565656"))
                 .padding(.bottom, 24)
             Button(action: {
-                
             }) {
                 Text("로그인")
                     .font(.hanSansNeo(14, .bold))
@@ -31,7 +30,7 @@ struct LoginErrorView: View {
                     .frame(height: 48)
                     .foregroundStyle(Color.white)
                     .background(Color.primaryNormal)
-                    .padding(.bottom ,28)
+                    .padding(.bottom, 28)
             }
         }
         .padding()

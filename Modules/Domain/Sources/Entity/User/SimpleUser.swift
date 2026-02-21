@@ -12,8 +12,6 @@ public struct SimpleUser: Identifiable {
     public let phoneNumber: String
     public let createdAt: String
     
-    
-    
     public var maskedLoginId: String {
         let prefix = loginId.prefix(4)
         

@@ -11,7 +11,6 @@ import Shared
 import PopupView
 
 public struct MypageView: View {
-    
     @State private var userInfo: UserInfo?
     @State private var showToast: Bool = false
     @State private var showEmailAlert: Bool = false
@@ -28,10 +27,8 @@ public struct MypageView: View {
 
     public var body: some View {
         VStack(spacing: 0) {
-                
                 // MARK: - 상단 프로필 영역
                 VStack(alignment: .leading, spacing: 16) {
-                    
                     // 닉네임 (최대 2줄)
                     Text(viewModel.user?.nickname ?? userInfo?.nickname ?? "")
                         .font(.hanSansNeo(16, .bold))
@@ -63,7 +60,7 @@ public struct MypageView: View {
                                     withAnimation {
                                         isCopy = false
                                     }
-                                }
+                            }
                         } label: {
                             Image(asset: DesignSystemAsset.lineCopy)
                                 .renderingMode(.template)
@@ -215,7 +212,7 @@ public struct MypageView: View {
                 .padding(.horizontal, 20)
 
                 Spacer()
-            }
+        }
             .padding(.top, 20)
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .navigationTitle("마이페이지")

@@ -71,8 +71,6 @@ enum SubscriptionStatus: String {
     }
 }
 
-
-
 public struct BrandDetailView: View {
     @StateObject private var viewModel: BrandDetailViewModel
     @EnvironmentObject private var router: AppRouter
@@ -88,23 +86,18 @@ public struct BrandDetailView: View {
     @State private var showCheckSubscribePopup = false
     @State private var hasPresentedSubscribeCheckPopup = false
     
-    
-    
-    //Toast
+    // Toast
     @State private var showSubscribeToast: Bool = false
     @State private var showPauseToast: Bool = false
 
-    
     public init(viewModel: BrandDetailViewModel) {
         _viewModel = StateObject(wrappedValue: viewModel)
-      
     }
 
     public var body: some View {
         ScrollView {
-            
             if viewModel.isLoading {
-                //ProgressView().frame(maxWidth: .infinity, maxHeight: .infinity)
+                // ProgressView().frame(maxWidth: .infinity, maxHeight: .infinity)
             } else if let detail = viewModel.detail {
                 detailContent(detail)
             } else {
@@ -116,7 +109,6 @@ public struct BrandDetailView: View {
         }
         .background(Color(hex: "F5F5F7"))
         .onAppear {
-            
             if viewModel.detail == nil {
                 if isGuest {
                     Task { await viewModel.guestFetch() }
@@ -153,7 +145,6 @@ public struct BrandDetailView: View {
             UnsubscribePopupView(brandName: viewModel.detail?.brandName ?? "",
                                  onCancel: {
                 isShowPauseAlert = false
-                
             },
                                  onConfirm: {
                 Task {
@@ -161,7 +152,6 @@ public struct BrandDetailView: View {
                     viewModel.detail?.isSubscribed = SubscriptionStatus.paused.rawValue
                     showPauseToast = true
                 }
-                
             })
         } customize: {
             $0
@@ -263,7 +253,7 @@ public struct BrandDetailView: View {
                 )
                 .clipped()
                 .shadow(
-                    color: Color(red: 0x19/255, green: 0x19/255, blue: 0x19/255).opacity(0.04),
+                    color: Color(red: 0x19 / 255, green: 0x19 / 255, blue: 0x19 / 255).opacity(0.04),
                     radius: 4, x: 0, y: 2
                 )
                 
@@ -283,9 +273,8 @@ public struct BrandDetailView: View {
                         )
                 }
                 
-
                 HStack(spacing: 4) {
-                    ForEach(detail.interests.prefix(3), id: \..id) { interest in
+                    ForEach(detail.interests.prefix(3), id: \ .. id) { interest in
                         Text(interest.name)
                             .font(.hanSansNeo(11, .medium))
                             .foregroundStyle(Color(hex: "363636"))
@@ -301,7 +290,6 @@ public struct BrandDetailView: View {
                     
                     Spacer()
                     
-           
                     if let status = SubscriptionStatus(rawValue: detail.isSubscribed ?? ""), status == .confirmed {
                         Text("구독중")
                             .font(.hanSansNeo(11, .medium))
@@ -367,7 +355,6 @@ public struct BrandDetailView: View {
                     .padding(.horizontal)
                     .offset(y: 20)
                     .padding(.bottom, 12)
-
                 }
             }
             .frame(height: 300)
@@ -428,11 +415,8 @@ public struct BrandDetailView: View {
                         .onTapGesture {
                             router.push(.articleDetail(id: "\(article.id)"))
                         }
-                        
                     }
                 }
-
-                
             }
             .frame(maxWidth: .infinity, alignment: .leading)
             .padding(.bottom, 32)
@@ -476,7 +460,6 @@ public struct BrandDetailView: View {
         }
     }
 
-    
     private func subscribeButton(status: SubscriptionStatus) -> some View {
         let style = status.style
 
@@ -531,8 +514,6 @@ public struct BrandDetailView: View {
         }
     }
 
-    
-    
     func extractTime(from isoString: String) -> String {
         let isoFormatter = ISO8601DateFormatter()
         isoFormatter.formatOptions = [.withInternetDateTime, .withFractionalSeconds]
@@ -549,5 +530,4 @@ public struct BrandDetailView: View {
         timeFormatter.locale = Locale(identifier: "ko_KR")
         return timeFormatter.string(from: date)
     }
-
 }

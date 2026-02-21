@@ -8,5 +8,4 @@ import Foundation
 import Moya
 
 final class AuthInterceptor: RequestInterceptor {
-    
 }

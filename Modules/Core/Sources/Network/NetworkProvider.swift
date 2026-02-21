@@ -18,7 +18,6 @@ public protocol NetworkProviding {
 }
 
 public final class NetworkProvider: NetworkProviding {
-
     public init() {
     }
     
@@ -64,8 +63,6 @@ public final class NetworkProvider: NetworkProviding {
         )
     }
     
-    
-
     private func makeSafeSession() -> Session {
         #if targetEnvironment(simulator)
         let config = URLSessionConfiguration.ephemeral
@@ -77,5 +74,4 @@ public final class NetworkProvider: NetworkProviding {
 
         return Session(configuration: config)
     }
-
 }

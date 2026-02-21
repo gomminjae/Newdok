@@ -60,7 +60,7 @@ private struct CurationSkeletonCard: View {
 }
 
 private struct SkeletonBlock: View {
-    var width: CGFloat? = nil
+    var width: CGFloat?
     var height: CGFloat
     var cornerRadius: CGFloat = 6
     

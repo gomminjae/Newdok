@@ -10,14 +10,12 @@ import Domain
 import PopupView
 import Shared
 
-
-
 public struct SubscribeView: View {
     @State private var selectedTab: Int = 0
     @StateObject private var viewModel: SubscribeViewModel
 
     @State private var showUnsubscribeAlert: Bool = false
-    @State private var selectedNewsletter: Newsletter? = nil
+    @State private var selectedNewsletter: Newsletter?
 
     @EnvironmentObject private var router: AppRouter
 
@@ -90,7 +88,6 @@ public struct SubscribeView: View {
             ToastView(message: "구독이 중지되었습니다.").padding(.bottom, 106)
         } customize: {
             $0.type(.toast).position(.bottom).autohideIn(1).animation(.easeInOut).closeOnTapOutside(false)
-            
         }
         .popup(isPresented: $showSubscribeToast) {
             ToastView(message: "구독이 재개되었습니다.").padding(.bottom, 106)

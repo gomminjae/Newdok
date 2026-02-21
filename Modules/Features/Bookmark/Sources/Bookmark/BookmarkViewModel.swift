@@ -11,23 +11,17 @@ import Domain
 import Combine
 import Shared
 
-
 protocol BookmarkViewModelBindable {
-    
     func fetchUserInterests() async
     func fetchUserBookmarks() async
-    
 }
-
-
 
 @MainActor
 public class BookmarkViewModel: ObservableObject, BookmarkViewModelBindable {
-    
     @Published public var interest: String = ""
     @Published public var interests: [Interest] = []
     
-    @Published public var bookmarks: BookmarkedArticles? = nil
+    @Published public var bookmarks: BookmarkedArticles?
     @Published public var sortOrder: String = "추가순"
     
     private let useCase: ArticleUseCase
@@ -44,8 +38,6 @@ public class BookmarkViewModel: ObservableObject, BookmarkViewModelBindable {
                 }
             }
             .store(in: &cancellables)
-        
-
     }
     
     // MARK: - 정렬된 북마크 데이터 (API에서 정렬된 데이터 사용)
@@ -57,7 +49,7 @@ public class BookmarkViewModel: ObservableObject, BookmarkViewModelBindable {
 
     func cancelLoads() { loadTask?.cancel(); loadTask = nil }
 
-    func fetchUserInterests() async  {
+    func fetchUserInterests() async {
         do {
             let response = try await useCase.fetchBookmarkedInterests()
             interests = response
@@ -112,6 +104,4 @@ public class BookmarkViewModel: ObservableObject, BookmarkViewModelBindable {
         bookmarks = nil
         sortOrder = "추가순"
     }
-    
-
 }

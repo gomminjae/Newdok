@@ -20,7 +20,6 @@ public enum SignupStep: Int, CaseIterable {
     case indutryList = 8
     case curation = 9
 
-    
     var progressValue: Double {
         switch self {
         case .phoneVerification: return 0.1
@@ -58,7 +57,6 @@ public enum SignupStep: Int, CaseIterable {
             return "프로필 설정"
         case .curation:
             return "추천 뉴스레터"
-        
         }
     }
 }
@@ -67,7 +65,6 @@ public struct SignupView: View {
     @StateObject public var viewModel: SignupViewModel
     
     @EnvironmentObject private var router: AppRouter
-
 
     public init(viewModel: SignupViewModel) {
             _viewModel = StateObject(wrappedValue: viewModel)
@@ -142,7 +139,6 @@ public struct SignupView: View {
 
                 if viewModel.currentStep == .recommend {
                     Button(action: {
-                        
                         withAnimation(.easeInOut) {
                             router.resetTo(.tabbar(selectedTab: .home))
                         }
@@ -180,5 +176,4 @@ public struct SignupView: View {
         }
         .navigationBarHidden(true)
     }
-    
 }

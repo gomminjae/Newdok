@@ -6,7 +6,6 @@
 //  Copyright © 2025 Newdok. All rights reserved.
 //
 
-
 import SwiftUI
 import DesignSystem
 import Shared
@@ -29,7 +28,7 @@ public struct TermsMenuView: View {
                     Image(systemName: "chevron.right")
                         .foregroundColor(.gray)
                 }
-                .padding(.top,16)
+                .padding(.top, 16)
                 .padding(.horizontal, 24)
                 .frame(height: 48)
             }

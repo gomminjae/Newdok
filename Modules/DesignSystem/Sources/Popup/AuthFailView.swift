@@ -7,9 +7,7 @@
 
 import SwiftUI
 
-
 public struct AuthFailView: View {
-    
     public var onClose: () -> Void
     
     public init(onClose: @escaping () -> Void) {
@@ -17,7 +15,6 @@ public struct AuthFailView: View {
     }
     
     public var body: some View {
-        
             VStack(spacing: 0) {
                 Image(asset: DesignSystemAsset.warning)
                     .padding(.top, 20)
@@ -31,7 +28,7 @@ public struct AuthFailView: View {
                 Button("처음으로") {
                     onClose()
                 }
-                .font(.hanSansNeo(14,.bold))
+                .font(.hanSansNeo(14, .bold))
                 .frame(maxWidth: .infinity)
                 .frame(height: 48)
                 .foregroundStyle(Color.white)
@@ -39,16 +36,13 @@ public struct AuthFailView: View {
                 .cornerRadius(4)
                 .padding(.horizontal, 20)
                 .padding(.bottom, 28)
-                .padding(.top,  24)
-                
+                .padding(.top, 24)
             }
            
             .background(.white)
             .cornerRadius(12)
             .padding(.horizontal, 24)
         }
-    
-        
 }
 #Preview {
     AuthFailView(onClose: {})

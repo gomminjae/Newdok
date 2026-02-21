@@ -6,7 +6,6 @@
 //  Copyright © 2025 Newdok. All rights reserved.
 //
 
-
 import SwiftUI
 import DesignSystem
 import Domain
@@ -96,7 +95,6 @@ public struct BookmarkView: View {
     @EnvironmentObject private var router: AppRouter
     
     @AppStorage("isGuest") private var isGuest = false
-    
     
     public init(viewModel: BookmarkViewModel) {
         _viewModel = StateObject(wrappedValue: viewModel)
@@ -190,7 +188,7 @@ public struct BookmarkView: View {
 
         return ScrollView(.horizontal, showsIndicators: false) {
             HStack(spacing: 4) {
-                ForEach(sortedCategories, id: \.0) { (id, name) in
+                ForEach(sortedCategories, id: \.0) { id, name in
                     Button(action: {
                         withAnimation(.easeInOut(duration: 0.2)) {
                             selectedCategory = name
@@ -221,7 +219,6 @@ public struct BookmarkView: View {
         }
     }
 
-    
     private var sortInfo: some View {
         HStack {
             Text("총 \(viewModel.bookmarks?.totalAmount ?? 0)개")
@@ -243,7 +240,7 @@ public struct BookmarkView: View {
         }
         .padding(.horizontal, 24)
         .padding(.top, 20)
-        .padding(.bottom,12)
+        .padding(.bottom, 12)
     }
     
     private func section(month: String, articles: [Bookmark]) -> some View {

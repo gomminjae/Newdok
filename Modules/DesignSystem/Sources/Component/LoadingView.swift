@@ -35,7 +35,7 @@ private struct GIFImageView: UIViewRepresentable {
             imageView.topAnchor.constraint(equalTo: container.topAnchor),
             imageView.bottomAnchor.constraint(equalTo: container.bottomAnchor),
             imageView.leadingAnchor.constraint(equalTo: container.leadingAnchor),
-            imageView.trailingAnchor.constraint(equalTo: container.trailingAnchor),
+            imageView.trailingAnchor.constraint(equalTo: container.trailingAnchor)
         ])
 
         // 동기적으로 캐시에서 가져와서 애니메이션 시작

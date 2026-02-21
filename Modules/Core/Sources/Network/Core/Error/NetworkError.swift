@@ -9,7 +9,6 @@ import Foundation
 import Moya
 
 public enum NetworkError: Error, LocalizedError {
-    
     case decodeError(underlying: Error)
     case serverError(statusCode: Int, message: String?)
     case underlying(Error)

@@ -17,15 +17,14 @@ struct SubscriptionRequest: Encodable {
 // MARK: - API
 
 public enum NewsletterAPI {
-    
-    //구독중인
+    // 구독중인
     case fetchActiveNewletters
-    //구독중지중인
+    // 구독중지중인
     case fetchPausedNewletters
-    //개인화 추천
+    // 개인화 추천
     
-    ///deprecated
-    //case fetchRecommendationList
+    /// deprecated
+    // case fetchRecommendationList
     
     case fetchRecommendIntersection
     case fetchRecommendUnion
@@ -34,7 +33,6 @@ public enum NewsletterAPI {
     
     case fetchAllNewsletterBrands(orderOpt: String?, industry: [Int]?, day: [Int]?)
     case fetchNewsletterBrand(id: String)
-    
     
     case pauseSubscription(newsletterId: String)
     case resumeSubscription(newsletterId: String)
@@ -45,11 +43,9 @@ public enum NewsletterAPI {
     case fetchSubscriptionCount
     
     case fetchOptionList
-    
 }
 
 extension NewsletterAPI: TargetType {
-    
     public var baseURL: URL {
         switch self {
         case .fetchOptionList:
@@ -58,9 +54,7 @@ extension NewsletterAPI: TargetType {
             return URL(string:
                         "\(APIEnvironment.current.baseURL)/newsletters")!
         }
-       
     }
-    
     
     public var path: String {
         switch self {
@@ -90,7 +84,6 @@ extension NewsletterAPI: TargetType {
             return "/subscription/count"
         case .fetchOptionList:
             return ""
-        
         }
     }
     
@@ -105,7 +98,7 @@ extension NewsletterAPI: TargetType {
     
     public var task: Moya.Task {
         switch self {
-        case .fetchActiveNewletters, .fetchPausedNewletters,.fetchRecommendUnion,.fetchRecommendIntersection,.fetchGuestNewsletterBrand, .fetchNewsletterBrand, .fetchSubscriptionCount, .fetchOptionList:
+        case .fetchActiveNewletters, .fetchPausedNewletters, .fetchRecommendUnion, .fetchRecommendIntersection, .fetchGuestNewsletterBrand, .fetchNewsletterBrand, .fetchSubscriptionCount, .fetchOptionList:
             return .requestPlain
         case .search(let brandName):
             return .requestParameters(parameters: ["brandName": brandName], encoding: URLEncoding.default)
@@ -139,20 +132,13 @@ extension NewsletterAPI: TargetType {
             }
             
             return .requestParameters(parameters: params, encoding: URLEncoding.default)
-            
         }
     }
     
-    public var headers: [String : String]? {
+    public var headers: [String: String]? {
         return [
             "Content-Type": "application/json",
             "Accept": "application/json"
         ]
     }
-    
-    
-    
-  
-    
-    
 }

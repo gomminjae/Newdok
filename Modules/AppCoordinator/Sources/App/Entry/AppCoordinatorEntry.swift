@@ -8,11 +8,8 @@ import SwiftUI
 import Shared
 
 public enum AppCoordinatorEntry {
-
     @MainActor
     public static func makeAFlow(router: AppRouter, exploreIntent: ExploreIntent) -> some View {
         AppRootView(router: router, exploreIntent: exploreIntent)
     }
 }
-
-

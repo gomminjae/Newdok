@@ -42,7 +42,7 @@ let project = Project(
                     "CFBundleVersion": "$(CURRENT_PROJECT_VERSION)",
                     "UILaunchScreen": [
                         "UIColorName": "AccentColor",
-                        "UIImageName": "",
+                        "UIImageName": ""
                     ],
                     "NSAppTransportSecurity": [
                         "NSAllowsArbitraryLoads": true,
@@ -86,7 +86,7 @@ let project = Project(
                 .external(name: "PopupView"),
                 .external(name: "ComposableArchitecture"),
                 .external(name: "FirebaseAnalytics"),
-                .external(name: "FirebaseCrashlytics"),
+                .external(name: "FirebaseCrashlytics")
             ]
         )
     ],

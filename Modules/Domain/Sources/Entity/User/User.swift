@@ -6,7 +6,6 @@
 //
 import Foundation
 
-
 // MARK: - User
 public struct User {
     public let id: Int

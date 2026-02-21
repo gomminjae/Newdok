@@ -18,4 +18,3 @@ public struct SearchedNewsletter {
         self.imageUrl = imageUrl
     }
 }
-

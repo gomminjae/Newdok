@@ -11,7 +11,6 @@ import Combine
 
 @MainActor
 public final class ArticleDetailViewModel: ObservableObject {
-
     // MARK: - Published Properties
 
     @Published var detail: ArticleDetail?

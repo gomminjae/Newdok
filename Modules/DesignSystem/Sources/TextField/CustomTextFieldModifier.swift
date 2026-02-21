@@ -6,7 +6,6 @@
 //
 import SwiftUI
 
-
 public struct CustomTextFieldModifier: ViewModifier {
     @FocusState.Binding private var isFocused: Bool
     private let isError: Bool
@@ -19,7 +18,7 @@ public struct CustomTextFieldModifier: ViewModifier {
         HStack {
             Image(asset: DesignSystemAsset.lineUser)
                 .renderingMode(.template)
-                .foregroundStyle(isFocused ? Color(hex: "363636") : Color(hex : "969696"))
+                .foregroundStyle(isFocused ? Color(hex: "363636") : Color(hex: "969696"))
                 .allowsHitTesting(false)
             content
                 .foregroundColor(.primary)
@@ -51,13 +50,11 @@ public struct CustomTextFieldModifier: ViewModifier {
     }
 }
 
-
 public extension View {
     func customTextFieldStyle(isError: Bool, isFocused: FocusState<Bool>.Binding) -> some View {
         self.modifier(CustomTextFieldModifier(isError: isError, isFocused: isFocused))
     }
 }
-
 
 public struct PasswordFieldModifier: ViewModifier {
     @Binding var isSecure: Bool
@@ -78,7 +75,7 @@ public struct PasswordFieldModifier: ViewModifier {
         HStack {
             Image(asset: DesignSystemAsset.lineLock)
                 .renderingMode(.template)
-                .foregroundStyle(isFocused ? Color(hex: "363636") : Color(hex : "969696"))
+                .foregroundStyle(isFocused ? Color(hex: "363636") : Color(hex: "969696"))
                 .allowsHitTesting(false)
             content
                 .contentShape(Rectangle())
@@ -87,7 +84,7 @@ public struct PasswordFieldModifier: ViewModifier {
             }) {
                 Image(asset: isSecure ? DesignSystemAsset.lineCloseEye : DesignSystemAsset.lineEye)
                     .renderingMode(.template)
-                    .foregroundStyle(isFocused ? Color(hex: "363636") : Color(hex : "969696"))
+                    .foregroundStyle(isFocused ? Color(hex: "363636") : Color(hex: "969696"))
             }
         }
         .padding(.horizontal)
@@ -118,7 +115,6 @@ extension View {
         }
         .allowsHitTesting(true)
     }
-    
     
     public func hideKeyboardOnTapExcludingTextField() -> some View {
         self.background(

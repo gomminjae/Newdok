@@ -13,7 +13,7 @@ struct DropdownOption: Hashable {
     let key: String
     let value: String
 
-    public static func == (lhs: DropdownOption, rhs: DropdownOption) -> Bool {
+    static func == (lhs: DropdownOption, rhs: DropdownOption) -> Bool {
         return lhs.key == rhs.key
     }
 }
@@ -44,7 +44,7 @@ struct DropdownRow: View {
 
 struct Dropdown: View {
     var options: [DropdownOption]
-    var selectedKey: String? = nil
+    var selectedKey: String?
     var onOptionSelected: ((_ option: DropdownOption) -> Void)?
 
     var body: some View {
@@ -70,11 +70,11 @@ struct Dropdown: View {
 
 struct DropdownSelector: View {
     @State private var shouldShowDropdown = false
-    @State private var selectedOption: DropdownOption? = nil
+    @State private var selectedOption: DropdownOption?
     var placeholder: String
     var options: [DropdownOption]
     var onOptionSelected: ((_ option: DropdownOption) -> Void)?
-    var selectedKey: String? = nil
+    var selectedKey: String?
     private let buttonHeight: CGFloat = 48
 
     var body: some View {
@@ -150,14 +150,13 @@ struct DropdownSelector_Previews: PreviewProvider {
         DropdownOption(key: uniqueKey, value: "Saturday")
     ]
 
-
     static var previews: some View {
         VStack(spacing: 20) {
             DropdownSelector(
                 placeholder: "선택",
                 options: options,
-                onOptionSelected: { option in
-            })
+                onOptionSelected: { _ in
+                })
             .padding(.horizontal)
             .zIndex(1)
         }

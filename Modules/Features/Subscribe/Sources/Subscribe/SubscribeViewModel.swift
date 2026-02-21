@@ -18,7 +18,6 @@ public enum SubscribeState {
 
 @MainActor
 public final class SubscribeViewModel: ObservableObject {
-
     private let useCase: NewsletterUseCase
 
     @Published public var activeNewsletters: [Newsletter] = []
@@ -28,7 +27,7 @@ public final class SubscribeViewModel: ObservableObject {
     @Published public var isRefreshing: Bool = false
     @Published public var isLoadingActive: Bool = false
     @Published public var isLoadingPaused: Bool = false
-    @Published public var lastRefreshTime: Date = Date.distantPast
+    @Published public var lastRefreshTime = Date.distantPast
 
     public init(useCase: NewsletterUseCase) {
         self.useCase = useCase

@@ -10,7 +10,6 @@ import DesignSystem
 import Combine
 
 public struct IDInputView: View {
-
     @FocusState private var isIDFocused: Bool
     @ObservedObject private var viewModel: SignupViewModel
 
@@ -95,7 +94,6 @@ public struct IDInputView: View {
     }
 }
 
-
-//#Preview {
+// #Preview {
 //    IDInputView(nextStep: {})
-//}
+// }

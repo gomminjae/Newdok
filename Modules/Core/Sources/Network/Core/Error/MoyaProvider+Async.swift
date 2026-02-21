@@ -10,7 +10,6 @@ import Foundation
 import Moya
 import Shared
 
-
 public extension MoyaProvider {
     func asyncRequest<T: Decodable>(
         _ target: Target,
@@ -39,7 +38,6 @@ public extension MoyaProvider {
             }
         }
     }
-    
     
     func asyncVoidRequest(_ target: Target) async throws {
             try await withCheckedThrowingContinuation { continuation in
@@ -76,5 +74,4 @@ public extension MoyaProvider {
             }
         }
     }
-    
 }

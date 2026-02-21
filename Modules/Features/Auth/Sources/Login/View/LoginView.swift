@@ -11,8 +11,6 @@ import Domain
 import Shared
 import PopupView
 
-
-
 public struct LoginView: View {
     @StateObject private var viewModel: LoginViewModel
     @FocusState private var isIdFocused: Bool
@@ -57,9 +55,8 @@ public struct LoginView: View {
                     }
                 if viewModel.isLoginIdError {
                     Text(viewModel.errorMessage ?? "")
-                        .font(.hanSansNeo(12,.medium))
+                        .font(.hanSansNeo(12, .medium))
                         .foregroundStyle(Color(hex: "#E32727"))
-                    
                 }
 
                 Text("비밀번호")
@@ -70,12 +67,9 @@ public struct LoginView: View {
                     if viewModel.isSecurePassword {
                         SecureField("비밀번호를 입력해주세요", text: $viewModel.password)
                             .focused($isPwdFocused)
-                        
-                        
                     } else {
                         TextField("비밀번호를 입력해주세요", text: $viewModel.password)
                             .focused($isPwdFocused)
-                        
                     }
                 }
                 .font(.hanSansNeo(14, .medium))
@@ -92,12 +86,10 @@ public struct LoginView: View {
                 }
                 if viewModel.isPasswordError {
                     Text(viewModel.errorMessage ?? "")
-                        .font(.hanSansNeo(12,.medium))
+                        .font(.hanSansNeo(12, .medium))
                         .foregroundStyle(Color(hex: "#E32727"))
-                    
                 }
                 
-
                 HStack {
                     Spacer()
                     Button("아이디/비밀번호 찾기") {
@@ -111,7 +103,7 @@ public struct LoginView: View {
                 Spacer()
 
                 Button {
-                    viewModel.login() {
+                    viewModel.login {
                         isLoggedIn = true
                         isGuest = false
                         router.resetTo(.tabbar(selectedTab: .home))
@@ -128,7 +120,6 @@ public struct LoginView: View {
                         .contentShape(Rectangle())
                 }
               
-
                 HStack {
                     Button("비회원으로 이용하기") {
                         isGuest = true
@@ -148,7 +139,7 @@ public struct LoginView: View {
                     .font(.hanSansNeo(14, .medium))
                     .foregroundStyle(Color(hex: "#2866D3"))
                 }
-                //.frame(maxWidth: .infinity)
+                // .frame(maxWidth: .infinity)
                 .padding(.bottom, 56)
             }
             .padding(.horizontal, 24)
@@ -189,7 +180,7 @@ public struct LoginView: View {
             
             ToolbarItem(placement: .principal) {
                 Text("로그인")
-                    .font(.hanSansNeo(16,.bold))
+                    .font(.hanSansNeo(16, .bold))
                     .foregroundStyle(Color(hex: "161616"))
             }
         }

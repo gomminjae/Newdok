@@ -15,7 +15,6 @@ struct OnboardingPageView: View {
     
     var body: some View {
         VStack(spacing: 0) {
-            
             Text(title)
                 .font(.hanSansNeo(14, .medium))
                 .foregroundColor(.gray)
@@ -34,10 +33,10 @@ struct OnboardingPageView: View {
                 .resizable()
                 .scaledToFit()
                 .frame(width: 320, height: 320)
-                .padding(.top,80)
+                .padding(.top, 80)
             
             Spacer()
         }
-        .padding(.top,64)
+        .padding(.top, 64)
     }
 }

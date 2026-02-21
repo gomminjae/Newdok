@@ -225,11 +225,11 @@ public struct WithdrawView: View {
     }
 }
 
-//#Preview {
+// #Preview {
 //    WithdrawView(viewModel: .init(
 //        userUseCase: DummyUserUseCase(),
 //        newsletterUseCase: DummyNewsletterUseCase(),
 //        articleUseCase: DummyArticleUseCase()
 //    ))
 //    .environmentObject(AppRouter())
-//}
+// }

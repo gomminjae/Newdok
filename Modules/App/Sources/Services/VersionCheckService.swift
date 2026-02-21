@@ -20,7 +20,6 @@ private struct AppStoreResult: Codable {
 
 // MARK: - VersionCheckService
 final class VersionCheckService: Sendable {
-
     static let shared = VersionCheckService()
 
     private init() {}

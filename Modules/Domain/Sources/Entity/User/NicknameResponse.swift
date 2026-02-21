@@ -17,6 +17,4 @@ public struct NicknameResponse {
         self.loginId = loginId
         self.nickname = nickname
     }
-    
-    
 }

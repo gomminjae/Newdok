@@ -47,7 +47,7 @@ struct ArticleRow: View {
                     .font(.hanSansNeo(14, .medium))
                     .foregroundColor(Color(hex: "#363636"))
                     .lineLimit(1)
-                    .padding(.trailing,20)
+                    .padding(.trailing, 20)
             }
         }
         .padding(16)

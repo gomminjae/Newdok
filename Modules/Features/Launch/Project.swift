@@ -15,8 +15,8 @@ let project = Project(
             resources: ["Resources/**"],
             dependencies: [
                  .project(target: "DesignSystem", path: "../../DesignSystem"),
-                 .project(target: "Core", path: "../../Core"),
-             ],
+                 .project(target: "Core", path: "../../Core")
+            ],
             settings: .settings(
                 base: [
                     "SKIP_INSTALL": "YES",
@@ -35,7 +35,7 @@ let project = Project(
             dependencies: [
                 .target(name: "Launch"),
                 .project(target: "DesignSystem", path: "../../DesignSystem"),
-                .project(target: "Shared", path: "../../Shared"),
+                .project(target: "Shared", path: "../../Shared")
             ]
         )
     ]

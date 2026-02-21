@@ -55,7 +55,6 @@ extension ArticleAPI: TargetType {
             return "/received/count"
         case .fetchDayArticle:
             return "/day"
-        
         }
     }
     
@@ -106,12 +105,10 @@ extension ArticleAPI: TargetType {
         }
     }
     
-    public var headers: [String : String]? {
+    public var headers: [String: String]? {
         return [
             "Content-Type": "application/json",
             "Accept": "application/json"
         ]
     }
-    
-    
 }

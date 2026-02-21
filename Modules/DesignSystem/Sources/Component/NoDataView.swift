@@ -7,8 +7,6 @@
 
 import SwiftUI
 
-import SwiftUI
-
 public enum NoDataType {
     case noArticles        // 도착한 아티클 없음
     case noSubscriptions   // 구독 중인 뉴스레터 없음
@@ -72,8 +70,6 @@ public enum NoDataType {
         }
     }
 }
-
-
 
 public struct NoDataView: View {
     let type: NoDataType

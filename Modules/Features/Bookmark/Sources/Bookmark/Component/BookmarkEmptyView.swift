@@ -10,8 +10,6 @@ import SwiftUI
 import DesignSystem
 
 struct BookmarkEmptyView: View {
-    
-    
     var body: some View {
         VStack(alignment: .center, spacing: 0) {
             Image(asset: DesignSystemAsset.emptybookmark)
@@ -24,11 +22,10 @@ struct BookmarkEmptyView: View {
                 .padding(.bottom, 4)
             
             Text("북마크를 눌러 다시 보고싶은 아티클을 저장해보세요.")
-                .font(.hanSansNeo(14,.medium))
+                .font(.hanSansNeo(14, .medium))
                 .foregroundStyle(Color(hex: "#565656"))
             Spacer()
         }
         .background(.clear)
     }
 }
-

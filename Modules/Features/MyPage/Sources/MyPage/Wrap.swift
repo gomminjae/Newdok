@@ -10,7 +10,7 @@ import DesignSystem
 
 struct Wrap: View {
     let tags: [String]
-    var onAdd: (() -> Void)? = nil
+    var onAdd: (() -> Void)?
 
     var body: some View {
         let tagList = onAdd != nil ? tags + ["__ADD__"] : tags
@@ -48,7 +48,7 @@ struct Wrap: View {
                     .clipShape(Capsule())
                     .overlay {
                         Capsule()
-                            .stroke(Color(hex: "C0C0C0"),lineWidth: 1)
+                            .stroke(Color(hex: "C0C0C0"), lineWidth: 1)
                     }
             }
         }

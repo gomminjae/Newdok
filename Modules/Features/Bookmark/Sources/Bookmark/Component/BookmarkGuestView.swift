@@ -6,18 +6,15 @@
 //  Copyright © 2025 Newdok. All rights reserved.
 //
 
-
 import SwiftUI
 import DesignSystem
 
 struct BookmarkGuestView: View {
-    
     var onLogin: () -> Void
     
     init(onLogin: @escaping () -> Void) {
         self.onLogin = onLogin
     }
-    
     
     var body: some View {
         VStack(alignment: .center, spacing: 0) {
@@ -48,4 +45,3 @@ struct BookmarkGuestView: View {
         .background(.clear)
     }
 }
-

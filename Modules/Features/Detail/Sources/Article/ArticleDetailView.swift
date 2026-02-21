@@ -5,13 +5,11 @@
 //  Created by 권민재 on 5/12/25.
 //
 
-
 import SwiftUI
 import WebKit
 import Shared
 import DesignSystem
 import Kingfisher
-
 
 public struct ArticleDetailView: View {
     @StateObject private var viewModel: ArticleDetailViewModel
@@ -64,7 +62,6 @@ public struct ArticleDetailView: View {
             // 뒤로가기
             ToolbarItem(placement: .navigationBarLeading) {
                 Button {
-                    
                     NotificationCenter.default.post(name: .init("RefreshHome"), object: nil)
                     router.pop()
                 } label: {
@@ -115,7 +112,6 @@ public struct ArticleDetailView: View {
                             ? DesignSystemAsset.bookmarked
                             : DesignSystemAsset.lineBookmark
                     )
-
                 }
             }
         }
@@ -628,5 +624,3 @@ struct HighlightRowView: View {
         return formatter.string(from: date)
     }
 }
-
-

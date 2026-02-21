@@ -16,5 +16,4 @@ public struct ErrorResponseDTO: Decodable, Error {
     public func toDomain() -> ErrorResponse {
         return ErrorResponse(statusCode: statusCode, message: message, error: error)
     }
-    
 }

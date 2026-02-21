@@ -22,8 +22,6 @@ public struct SubscribeGuestAlertView: View {
             // 닫기 버튼
             ZStack(alignment: .top) {
                 VStack(spacing: 0) {
-                   
-            
                     // warning 아이콘
                     Image(asset: DesignSystemAsset.warning)
                         .resizable()
@@ -58,7 +56,7 @@ public struct SubscribeGuestAlertView: View {
                             .background(Color.primaryNormal)
                             .cornerRadius(4)
                     }
-                    .padding(.bottom,28)
+                    .padding(.bottom, 28)
                 }
                 .padding(.horizontal, 20)
                 
@@ -83,7 +81,6 @@ public struct SubscribeGuestAlertView: View {
                     .shadow(color: Color.black.opacity(0.04), radius: 8, x: 0, y: 4)
             )
             .padding(.horizontal, 24)
-            
         }
     }
 }

@@ -14,7 +14,7 @@ let project = Project(
       resources: [],
       dependencies: [
         .project(target: "Core", path: "../Core"),
-        .project(target: "Domain", path: "../Domain"),
+        .project(target: "Domain", path: "../Domain")
       ],
       settings: .settings(
         base: [

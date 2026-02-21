@@ -16,7 +16,4 @@ public struct NicknameResponseDTO: Decodable {
     public func toDomain() -> NicknameResponse {
         return NicknameResponse(id: id, loginId: loginId, nickname: nickname)
     }
-    
-    
-    
 }

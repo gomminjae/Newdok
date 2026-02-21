@@ -7,18 +7,14 @@
 import Foundation
 import Shared
 
-
 public final class UserUseCaseImpl: UserUseCase {
-    
-    
     private let userRepository: UserRepository
     
     public init(userRepository: UserRepository) {
         self.userRepository = userRepository
     }
     
-    
-    public func login(loginId: String, password: String) async throws -> (User,String) {
+    public func login(loginId: String, password: String) async throws -> (User, String) {
         return try await userRepository.login(loginId: loginId, password: password)
     }
     
@@ -69,5 +65,4 @@ public final class UserUseCaseImpl: UserUseCase {
     public func withdraw() async throws {
         try await userRepository.withdraw()
     }
-    
 }

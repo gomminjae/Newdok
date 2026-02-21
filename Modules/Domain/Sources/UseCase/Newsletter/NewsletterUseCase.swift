@@ -9,17 +9,12 @@ import Foundation
 import Shared
 
 public protocol NewsletterUseCase {
-
     func fetchActiveSubscription() async throws -> [Newsletter]
     func fetchPausedSubscription() async throws -> [Newsletter]
 
-
     func fetchRecommendation() async throws -> RecommendedNewsletter
 
-
     func searchNewsletter(brandName: String) async throws -> [Newsletter]
-
-
 
     func fetchNewsletters(orderOpt: String?, industry: [Int]?, day: [Int]?) async throws -> [Brand]
 
@@ -27,7 +22,6 @@ public protocol NewsletterUseCase {
 
     func pauseSubscription(newsletterId: String) async throws
     func resumeSubscription(newsletterId: String) async throws
-
 
     func fetchGuestNewsletters(orderOpt: String?, industry: [Int]?, day: [Int]?) async throws -> [Brand]
 

@@ -8,12 +8,10 @@
 import Foundation
 import Domain
 
-
 public struct InterestDTO: Decodable {
         let id: Int
         let name: String
        
-
     public func toDomain() -> Domain.Interest {
         return Interest(id: id, name: name)
     }
@@ -32,7 +30,6 @@ public struct LoginInterestDTO: Decodable {
     }
 }
 
-
 public struct UserDTO: Decodable {
         let id: Int
         let loginId: String
@@ -46,7 +43,6 @@ public struct UserDTO: Decodable {
         let interests: [LoginInterestDTO]?
 
     public func toDomain() -> User {
-
         return User(
             id: id,
             loginId: loginId,

@@ -8,26 +8,18 @@
 import Foundation
 import Shared
 
-
 public protocol ArticleUseCase {
-
-    
     func fetchArticlesByMonth(year: String, month: String) async throws -> [Articles]
 
-    
     func fetchTodayArticles() async throws -> [Article]
 
     func fetchBookmarkedArticles(interest: String?, sortBy: String?) async throws -> BookmarkedArticles
 
-  
     func toggleBookmarkStatus(articleId: String) async throws
 
-    
     func fetchBookmarkedInterests() async throws -> [Interest]
 
-  
     func fetchArticleDetail(articleId: String) async throws -> ArticleDetail
 
     func fetchReceivedArticleCount() async throws -> Int
 }
-

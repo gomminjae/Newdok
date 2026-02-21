@@ -17,7 +17,6 @@ public enum AppRoute: Hashable {
     case brandDetail(id: String)
     case articleDetail(id: String)
     
-    
     case editProfile
     case recovery
     
@@ -26,11 +25,10 @@ public enum AppRoute: Hashable {
     case editIndustry
     case editInterest
     
-    //profile
+    // profile
     case accountManage
     case updatePhoneNumber
     case updatePassword
-    
     
     case search
     
@@ -43,5 +41,4 @@ public enum AppRoute: Hashable {
     case feedback
     case termsMenu
     case editAlert
-    
 }

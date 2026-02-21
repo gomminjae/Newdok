@@ -7,7 +7,6 @@
 import Foundation
 import Domain
 
-
 public struct SimpleUserDTO: Decodable {
     public let id: Int
     public let loginId: String
@@ -15,9 +14,6 @@ public struct SimpleUserDTO: Decodable {
     public let createdAt: String
     
     public func toDomain() -> Domain.SimpleUser {
-        
-        
-        
         return Domain.SimpleUser(
             id: id,
             loginId: loginId,

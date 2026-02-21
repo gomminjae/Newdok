@@ -8,9 +8,8 @@
 import Foundation
 import Shared
 
-
 public protocol UserRepository {
-    func login(loginId: String, password: String) async throws -> (User,String)
+    func login(loginId: String, password: String) async throws -> (User, String)
     func signup(loginId: String, password: String, phoneNumber: String, nickname: String, birthYear: String, gender: String) async throws -> SignupResponse
     func checkPhoneNumber(_ phoneNumber: String) async throws -> [SimpleUser]
     func checkIDDup(_ loginId: String) async throws -> CheckResult<SimpleUser>

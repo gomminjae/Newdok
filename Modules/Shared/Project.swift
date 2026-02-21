@@ -1,4 +1,4 @@
- import ProjectDescription
+import ProjectDescription
 
  let project = Project(
    name: "Shared",

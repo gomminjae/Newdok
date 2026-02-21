@@ -6,7 +6,6 @@
 //  Copyright © 2025 Newdok. All rights reserved.
 //
 
-
 import SwiftUI
 
 public struct FlexibleView<Data: Collection, Content: View>: View where Data.Element: Hashable {

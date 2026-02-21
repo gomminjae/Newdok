@@ -152,8 +152,6 @@ struct TabContentView<Content: View>: View {
     }
 }
 
-
-
 public struct NewDokTabView: View {
     @State private var selectedTab: NewDokTab = .home
     @State private var previousTab: NewDokTab = .home
@@ -271,7 +269,6 @@ public struct NewDokTabView: View {
 
             case .profile:
                 router.root = .tabbar(selectedTab: .profile)
-
             }
         }
         .modifier(TabBarBackgroundModifier())
@@ -284,8 +281,6 @@ public struct NewDokTabView: View {
         }
     }
 }
-
-
 
 struct VisualEffectView: UIViewRepresentable {
     let effect: UIVisualEffect?
@@ -386,4 +381,3 @@ struct NewDokTabBar: View {
         }
     }
 }
-
