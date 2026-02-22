@@ -275,7 +275,7 @@ public struct BrandDetailView: View {
                 }
                 
                 HStack(spacing: 4) {
-                    ForEach(detail.interests.prefix(3), id: \ .. id) { interest in
+                    ForEach(detail.interests.prefix(3), id: \.id) { interest in
                         Text(interest.name)
                             .font(.hanSansNeo(11, .medium))
                             .foregroundStyle(Color(hex: "363636"))
