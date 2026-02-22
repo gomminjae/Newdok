@@ -343,8 +343,7 @@ public actor DefaultHomeBusinessUseCase: HomeBusinessUseCase {
     private func loadReadArticleIds() {
         if
             let data = UserDefaults.standard.data(forKey: Constants.readArticlesKey),
-            let ids = try? JSONDecoder().decode(Set<Int>.self, from: data)
-        {
+            let ids = try? JSONDecoder().decode(Set<Int>.self, from: data) {
             readArticleIds = ids
         }
     }

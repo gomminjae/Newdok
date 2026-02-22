@@ -38,10 +38,10 @@ public struct PwInputView: View {
                     Group {
                         if isSecurePassword {
                             SecureField("8자 이상, 영문/숫자 조합", text: $viewModel.password)
-                                .font(.hanSansNeo(14,.medium))
+                                .font(.hanSansNeo(14, .medium))
                         } else {
                             TextField("8자 이상, 영문/숫자 조합", text: $viewModel.password)
-                                .font(.hanSansNeo(14,.medium))
+                                .font(.hanSansNeo(14, .medium))
                         }
                     }
                     .modifier(
@@ -69,10 +69,10 @@ public struct PwInputView: View {
                     Group {
                         if isSecureConfirmPassword {
                             SecureField("8자 이상, 영문/숫자 조합", text: $viewModel.checkedPassword)
-                                .font(.hanSansNeo(14,.medium))
+                                .font(.hanSansNeo(14, .medium))
                         } else {
                             TextField("8자 이상, 영문/숫자 조합", text: $viewModel.checkedPassword)
-                                .font(.hanSansNeo(14,.medium))
+                                .font(.hanSansNeo(14, .medium))
                         }
                     }
                     .modifier(

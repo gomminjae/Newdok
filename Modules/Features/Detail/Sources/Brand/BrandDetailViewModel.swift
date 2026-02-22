@@ -9,7 +9,6 @@ import Domain
 import Foundation
 import Combine
 
-
 @MainActor
 public final class BrandDetailViewModel: ObservableObject {
     @Published var detail: BrandDetail?
@@ -21,7 +20,6 @@ public final class BrandDetailViewModel: ObservableObject {
     public init(id: String, useCase: NewsletterUseCase) {
         self.id = id
         self.useCase = useCase
-        
     }
 
     public func fetch() async {

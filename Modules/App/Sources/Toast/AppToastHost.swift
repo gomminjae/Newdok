@@ -30,5 +30,3 @@ public struct AppToastHost: View {
             }
     }
 }
-
-

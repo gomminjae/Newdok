@@ -11,7 +11,6 @@ import SwiftUI
 import Shared
 
 final class AuthPlugin: PluginType {
-    
     // 헤더에 토큰 추가
     func prepare(_ request: URLRequest, target: TargetType) -> URLRequest {
         var request = request
@@ -28,8 +27,6 @@ final class AuthPlugin: PluginType {
         if case let .failure(error) = result,
            case let .statusCode(response) = error,
            response.statusCode == 401 {
-            
-
             // 토큰 삭제
             TokenStorage.clear()
             UserInfoStore.shared.clear()

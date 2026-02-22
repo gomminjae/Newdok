@@ -10,17 +10,13 @@ import Core
 import Shared
 import Moya
 
-
 public class NewsletterRepositoryImpl: NewsletterRepository {
-  
-    
     private let provider: MoyaProvider<NewsletterAPI>
     
     public init(provider: MoyaProvider<NewsletterAPI>) {
         self.provider = provider
     }
     
-
     public func fetchActiveSubscription() async throws -> [Domain.Newsletter] {
         let response: [NewsletterDTO] = try await provider.asyncRequest(.fetchActiveNewletters)
         return response.map { $0.toDomain() }
@@ -47,9 +43,7 @@ public class NewsletterRepositoryImpl: NewsletterRepository {
     }
     
     public func searchNewsletter(brandName: String) async throws -> [Domain.Newsletter] {
-        
         return []
-        
     }
     
     public func fetchNewsletters(orderOpt: String?, industry: [Int]?, day: [Int]?) async throws -> [Domain.Brand] {
@@ -79,9 +73,8 @@ public class NewsletterRepositoryImpl: NewsletterRepository {
         return response.count
     }
     
-    
     public func fetchGuestAllNewsletters(orderOpt: String?, industry: [Int]?, day: [Int]?) async throws -> [Domain.Brand] {
-        let response: [BrandDTO] = try await provider.asyncRequest(.fetchGuestAllNewsletterBrand(orderOpt:  orderOpt, industry: industry, day: day))
+        let response: [BrandDTO] = try await provider.asyncRequest(.fetchGuestAllNewsletterBrand(orderOpt: orderOpt, industry: industry, day: day))
         return response.map { $0.toDomain() }
     }
     
@@ -96,5 +89,4 @@ public class NewsletterRepositoryImpl: NewsletterRepository {
         logDebug("옵션 리스트 조회 완료", category: .repository)
         return response.toDomain()
     }
-
 }

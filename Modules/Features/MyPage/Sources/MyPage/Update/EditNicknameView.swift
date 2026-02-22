@@ -6,7 +6,6 @@
 //  Copyright © 2025 Newdok. All rights reserved.
 //
 
-
 import SwiftUI
 import DesignSystem
 import Foundation
@@ -15,7 +14,6 @@ import Shared
 import Domain
 
 public struct EditNicknameView: View {
-    
     @Binding var nickname: String
     @State private var draftNickname: String
     @State private var validationState: ValidationState = .none
@@ -63,7 +61,6 @@ public struct EditNicknameView: View {
                         Text(validationState.message)
                             .font(.hanSansNeo(12, .medium))
                             .foregroundColor(validationState.textColor)
-                            
                     }
 
                     Spacer().frame(height: 100) // 변경하기 버튼 여백 확보
@@ -71,7 +68,6 @@ public struct EditNicknameView: View {
                 .padding(20)
             }
 
-            
             Button(action: {
                 Task {
                     await viewModel.updateNickname(nickname: draftNickname)
@@ -155,8 +151,6 @@ public struct EditNicknameView: View {
         }
     }
 }
-
-
 
 enum ValidationState {
     case none

@@ -9,14 +9,12 @@ import SwiftUI
 import WebKit
 import DesignSystem
 
-
 struct PolicyWebSheetView: View {
     let type: AgreeView.SheetType
     @Environment(\.dismiss) private var dismiss
 
     var body: some View {
         VStack(spacing: 0) {
-            
 //            Capsule()
 //                .fill(Color.secondary)
 //                .frame(width: 40, height: 4)
@@ -47,10 +45,8 @@ struct PolicyWebSheetView: View {
                 .edgesIgnoringSafeArea(.bottom)
         }
         .background(Color.white)
-        
     }
 }
-
 
 struct WebView: UIViewRepresentable {
     let url: URL

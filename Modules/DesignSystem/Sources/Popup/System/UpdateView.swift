@@ -20,11 +20,10 @@ struct UpdateView: View {
                 .padding(.bottom, 6)
             Text("안정적인 서비스 사용을 위해\n최신 버전으로 업데이트를 진행해 주세요.")
                 .font(.hanSansNeo(14, .medium))
-                .foregroundStyle(Color(hex:"#565656"))
+                .foregroundStyle(Color(hex: "#565656"))
                 .padding(.bottom, 24)
                 .multilineTextAlignment(.center)
             Button(action: {
-                
             }) {
                 Text("업데이트")
                     .font(.hanSansNeo(14, .bold))
@@ -32,7 +31,7 @@ struct UpdateView: View {
                     .frame(height: 48)
                     .foregroundStyle(Color.white)
                     .background(Color.primaryNormal)
-                    .padding(.bottom ,28)
+                    .padding(.bottom, 28)
             }
         }
         .padding()

@@ -17,7 +17,7 @@ struct NoArticleView: View {
             Text("띄어쓰기를 포함하여 검색어가 정확한지 확인해주세요.")
                 .font(.hanSansNeo(14, .regular))
                 .foregroundStyle(Color(hex: "555555"))
-                .padding(.top,4)
+                .padding(.top, 4)
             Button(action: {
                 router.push(.serviceFeedback)
             }) {

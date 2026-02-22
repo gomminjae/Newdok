@@ -6,7 +6,6 @@
 //  Copyright © 2025 Newdok. All rights reserved.
 //
 
-
 import SwiftUI
 import Domain
 import DesignSystem
@@ -110,13 +109,11 @@ public struct SignupPopupView: View {
                 .padding(.horizontal, 20)
                 .padding(.top, 24)
                 .padding(.bottom, 28)
-            }
+        }
             .background(Color.white)
             .cornerRadius(16)
             .padding(.horizontal, 24)
             .padding(.top, 24)
             .padding(.bottom, 28)
         }
-
 }
-

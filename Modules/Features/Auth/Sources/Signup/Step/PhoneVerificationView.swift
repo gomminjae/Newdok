@@ -10,15 +10,9 @@ import DesignSystem
 import Shared
 import PopupView
 
-
 public struct PhoneVerificationView: View {
-    
-    
-
     @EnvironmentObject private var router: AppRouter
     
-    
-
     @FocusState private var isPhoneFieldFocused: Bool
     @FocusState private var isVerificationCodeFocused: Bool
 
@@ -57,7 +51,6 @@ public struct PhoneVerificationView: View {
                                 .focused($isPhoneFieldFocused)
                                 .padding(.vertical, 12)
                                 .padding(.horizontal, 8)
-                                
                         }
                         .frame(height: 48)
                         .background(Color.white)
@@ -78,7 +71,7 @@ public struct PhoneVerificationView: View {
                             }
                         }
                         .font(.hanSansNeo(14, .bold))
-                        .foregroundStyle(viewModel.phoneNumber.count < 11 ?  Color(hex: "#BDBDBD") : Color.primaryNormal)
+                        .foregroundStyle(viewModel.phoneNumber.count < 11 ? Color(hex: "#BDBDBD") : Color.primaryNormal)
                         .disabled(viewModel.phoneNumber.count < 11)
                         .frame(width: 94, height: 48)
                         .overlay(
@@ -178,8 +171,6 @@ public struct PhoneVerificationView: View {
                 .padding(.bottom, 20)
                 .contentShape(Rectangle())
             }
-            
-
         }
         .scrollDisabled(true)
         .ignoresSafeArea(.keyboard)
@@ -230,21 +221,17 @@ public struct PhoneVerificationView: View {
         }
     }
 
-    
-
     private func formatTime(_ seconds: Int) -> String {
         String(format: "%02d:%02d", seconds / 60, seconds % 60)
     }
 }
-
-
 
 struct PrimaryButtonStyle: ButtonStyle {
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
             .frame(maxWidth: .infinity)
             .background(configuration.isPressed ? .gray : .primaryNormal)
-            .font(.hanSansNeo(14,.medium))
+            .font(.hanSansNeo(14, .medium))
             .foregroundColor(.white)
             .cornerRadius(8)
     }

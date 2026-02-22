@@ -6,12 +6,10 @@
 //  Copyright © 2025 Your Organization Name. All rights reserved.
 //
 
-
 import Foundation
 
 /// 메인 로거
 public final class Logger {
-    
     // MARK: - Singleton
     public static let shared = Logger()
     

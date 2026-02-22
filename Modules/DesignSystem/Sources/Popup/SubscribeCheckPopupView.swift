@@ -9,7 +9,6 @@
 import SwiftUI
 
 public struct SubscribeCheckPopupView: View {
-    
     public let checkMail: () -> Void
     
     public init(checkMail: @escaping () -> Void) {
@@ -44,9 +43,6 @@ public struct SubscribeCheckPopupView: View {
                 .background(Color(hex: "#F5F5F5"))
                 .cornerRadius(6)
                 .padding(.bottom, 24)
-            
-            
-            
             
             Button(action: checkMail) {
                 Text("메일 확인하기")

@@ -14,7 +14,7 @@ let project = Project(
             sources: ["Sources/**"],
             dependencies: [
                 .external(name: "Moya"),
-                .project(target: "Shared", path: "../Shared"),
+                .project(target: "Shared", path: "../Shared")
             ],
             settings: .settings(
                 base: [

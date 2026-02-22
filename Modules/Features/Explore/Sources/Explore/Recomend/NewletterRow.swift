@@ -20,7 +20,6 @@ public struct NewsletterRow: View {
         self.prioritizedInterests = prioritizedInterests ?? newsletter.interests
     }
     
-
     public var body: some View {
         VStack(alignment: .leading, spacing: 0) {
             HStack(alignment: .top, spacing: 0) {
@@ -32,7 +31,7 @@ public struct NewsletterRow: View {
                             .fill(Color.gray.opacity(0.2))
                             .frame(width: 56, height: 56)
                     }
-                    .onFailure { error in
+                    .onFailure { _ in
                     }
                     .onFailure { _ in
                         // 실패 시 기본 이미지 표시

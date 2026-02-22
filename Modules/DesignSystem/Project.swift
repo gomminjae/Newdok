@@ -20,7 +20,7 @@ let project = Project(
                 .project(target: "Shared", path: "../Shared"),
                 .external(name: "Kingfisher"),
                 .external(name: "SDWebImage"),
-                .external(name: "PopupView"),
+                .external(name: "PopupView")
             ],
             settings: .settings(
                 base: [

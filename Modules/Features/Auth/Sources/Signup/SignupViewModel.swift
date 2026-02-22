@@ -54,11 +54,8 @@ public enum NicknameValidationError: Error {
     }
 }
 
-
-
 @MainActor
-final public class SignupViewModel: ObservableObject {
-
+public final class SignupViewModel: ObservableObject {
     private let userUseCase: UserUseCase
     private let signupUseCase: SignupUseCase
     
@@ -70,7 +67,7 @@ final public class SignupViewModel: ObservableObject {
     private var verificationCode: String = ""
     @Published public var resendFailureCount: Int = 0
     
-    //MARK: - ID
+    // MARK: - ID
     @Published public var loginID: String = "" {
         didSet { 
             // 실제로 값이 변경되었을 때만 초기화
@@ -79,7 +76,7 @@ final public class SignupViewModel: ObservableObject {
             }
         }
     }
-    @Published public var isIDAvailable: Bool? = nil
+    @Published public var isIDAvailable: Bool?
     
     var idValidationError: IDValidationError? {
         guard !loginID.isEmpty else { return nil }
@@ -124,18 +121,18 @@ final public class SignupViewModel: ObservableObject {
 
     private var timerTask: Task<Void, Never>?
     
-    //MARK: password
+    // MARK: password
     @Published public var password: String = ""
     @Published public var checkedPassword: String = ""
     
-    //MARK: profile
+    // MARK: profile
     @Published public var nickname: String = ""
     @Published public var birthYear: String = ""
     @Published public var gender: String = ""
     
     @Published public var user: User?
     
-    //MARK: Investigate
+    // MARK: Investigate
     @Published public var myIndustry: String = ""
     @Published public var selectedInterests: Set<String> = []
     @Published public var recommendedPost: [RecommendedBrand] = []

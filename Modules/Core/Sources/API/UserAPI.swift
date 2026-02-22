@@ -49,12 +49,12 @@ struct PhoneNumberRequest: Encodable {
 
 public enum UserAPI {
     case login(loginId: String, password: String)
+    // swiftlint:disable:next enum_case_associated_values_count
     case signup(loginId: String, password: String, phoneNumber: String, nickname: String, birthYear: String, gender: String)
     
-    
-    //휴대폰 중복확인, 아이디 찾기로 쓰임
+    // 휴대폰 중복확인, 아이디 찾기로 쓰임
     case checkPhoneNumber(phoneNumber: String)
-    //아이디 중복 확인
+    // 아이디 중복 확인
     case checkIDDup(loginId: String)
     
     case updateNickname(nickname: String)
@@ -63,18 +63,15 @@ public enum UserAPI {
     case updateIndustry(industryId: Int)
     case updatePhoneNumber(phoneNumber: String)
     
-    //휴대폰인증
+    // 휴대폰인증
     case authSMS(phoneNumber: String)
     
-    //사전조사
+    // 사전조사
     case preInvestigate(industryId: String, interestIds: [String])
     case profile
     
-    //탈퇴
+    // 탈퇴
     case withdraw
-    
-    
-    
 }
 
 extension UserAPI: TargetType {
@@ -85,7 +82,6 @@ extension UserAPI: TargetType {
         default:
             return URL(string: "\(APIEnvironment.current.baseURL)/users")!
         }
-        
     }
     
     public var path: String {
@@ -118,19 +114,17 @@ extension UserAPI: TargetType {
         case .withdraw:
             return "/withdraw"
         }
-
     }
     
     public var method: Moya.Method {
         switch self {
         case .updatePassword, .updateIndustry, .updateInterest, .updatePhoneNumber, .updateNickname, .withdraw:
             return .patch
-        case .login,.signup,.authSMS:
+        case .login, .signup, .authSMS:
             return .post
         case .preInvestigate, .checkIDDup, .checkPhoneNumber, .profile:
             return .get
         }
-   
     }
     
     public var task: Task {
@@ -199,6 +193,4 @@ extension UserAPI: TargetType {
     public var sampleData: Data {
         return Data()
     }
-    
-    
 }

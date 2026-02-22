@@ -119,13 +119,11 @@ let sampleFAQs: [FAQItem] = [
         answer: """
             서비스 이용에 문의가 있으실 경우, 마이페이지 탭의 [서비스 피드백]을 통해 내용을 남겨주시거나 newdokcustomer@newdok.site 으로 메일을 보내주시면 빠른 시일 내에 도움을 드리겠습니다.
             """
-    ),
+    )
 ]
 
-
 struct FAQView: View {
-    
-    @State private var expandedFAQID: UUID? = nil
+    @State private var expandedFAQID: UUID?
 
     var body: some View {
         ScrollView {
@@ -154,14 +152,12 @@ struct FAQView: View {
     }
 }
 
-
 struct FAQRow: View {
     let faq: FAQItem
     let isExpanded: Bool
 
     var body: some View {
         VStack(alignment: .leading, spacing: 7) {
-            
             Text(faq.category)
                 .font(.hanSansNeo(12, .medium))
                 .foregroundColor(.primaryNormal)
@@ -173,7 +169,6 @@ struct FAQRow: View {
                     .foregroundColor(Color(hex: "#161616"))
                     .fixedSize(horizontal: false, vertical: true)
                  
-
                 Spacer()
 
                 Image(asset: DesignSystemAsset.lineDown)
@@ -209,7 +204,6 @@ struct FAQRow: View {
         .frame(maxWidth: .infinity)
     }
 }
-
 
 // 5. 미리보기
 struct FAQView_Previews: PreviewProvider {

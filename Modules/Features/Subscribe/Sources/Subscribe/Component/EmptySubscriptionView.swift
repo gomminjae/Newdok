@@ -6,7 +6,6 @@
 //  Copyright © 2025 Newdok. All rights reserved.
 //
 
-
 import SwiftUI
 import DesignSystem
 import Shared
@@ -17,7 +16,6 @@ public struct EmptySubscriptionView: View {
     
     @EnvironmentObject private var router: AppRouter
     
-
     public init(isSubscribedTab: Bool, isGuest: Bool) {
         self.isSubscribedTab = isSubscribedTab
         self.isGuest = isGuest
@@ -52,7 +50,6 @@ public struct EmptySubscriptionView: View {
                         .foregroundColor(Color(hex: "#565656"))
                 }
             } else {
-                
                 Text(isSubscribedTab ?
                      "구독신청 후 첫 아티클을 수신받으면 내 구독에 추가돼요." :
                         "구독 중지 후에도 언제든 아티클을 다시 받아볼 수 있어요.")

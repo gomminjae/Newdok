@@ -34,7 +34,7 @@ private extension CurationView {
     var loadedContent: some View {
         VStack(alignment: .leading, spacing: 0) {
             Text("\(viewModel.nickname)님을 위한\n맞춤형 뉴스레터가 도착했어요!")
-                .font(.hanSansNeo(20,.bold))
+                .font(.hanSansNeo(20, .bold))
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .padding(.top, 24)
             

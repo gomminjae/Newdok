@@ -62,7 +62,7 @@ enum SubscriptionStatus: String {
 }
 
 struct NewsletterDetailRow: View {
-    public var brand: Brand
+    var brand: Brand
 
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
@@ -75,7 +75,7 @@ struct NewsletterDetailRow: View {
                             .fill(Color.gray.opacity(0.2))
                             .frame(width: 56, height: 56)
                     }
-                    .onFailure { error in
+                    .onFailure { _ in
                     }
                     .onFailure { _ in
                         // 실패 시 기본 이미지 표시
@@ -126,7 +126,7 @@ struct NewsletterDetailRow: View {
                         }
                 }
             }
-            .padding(.bottom,18)
+            .padding(.bottom, 18)
             
             HStack(spacing: 8) {
                 ForEach(brand.interests.prefix(3)) { interest in
@@ -144,7 +144,5 @@ struct NewsletterDetailRow: View {
             RoundedRectangle(cornerRadius: 8)
                 .stroke(Color(hex: "EBEBEB"), lineWidth: 1)
         }
-        
-        
     }
 }

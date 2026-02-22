@@ -6,9 +6,6 @@
 //  Copyright © 2025 Newdok. All rights reserved.
 //
 
-
-
-
 import SwiftUI
 import DesignSystem
 import Shared
@@ -115,7 +112,6 @@ extension SearchResultView {
                 .font(.hanSansNeo(14, .medium))
                 .foregroundColor(Color(hex: "#565656"))
             Button(action: {
-               
                 router.push(.feedback)
             }) {
                 Text("뉴스레터 등록 요청하기")
@@ -141,7 +137,7 @@ extension SearchResultView {
         } else {
             VStack(alignment: .leading, spacing: 12) {
                 Text("뉴스레터")
-                    .font(.hanSansNeo(16,.medium))
+                    .font(.hanSansNeo(16, .medium))
                 ForEach(viewModel.searchResults, id: \.id) { result in
                     Button(action: {
                         router.push(.brandDetail(id: result.id))
@@ -157,9 +153,8 @@ extension SearchResultView {
     }
 }
 
-
-//#Preview {
+// #Preview {
 //    NavigationStack {
 //        SearchResultView()
 //    }
-//}
+// }

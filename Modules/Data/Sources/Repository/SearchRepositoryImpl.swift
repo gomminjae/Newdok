@@ -11,7 +11,6 @@ import Moya
 import Shared
 
 public class SearchRepositoryImpl: SearchRepository {
-    
     private let provider: MoyaProvider<SearchAPI>
     
     public init(provider: MoyaProvider<SearchAPI>) {
@@ -30,6 +29,4 @@ public class SearchRepositoryImpl: SearchRepository {
         let response: PopularKeywordResponseDTO = try await provider.asyncRequest(.popularKeywords)
         return response.toDomain()
     }
-    
-    
 }

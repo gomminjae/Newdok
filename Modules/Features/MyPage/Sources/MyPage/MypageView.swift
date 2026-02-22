@@ -11,7 +11,6 @@ import Shared
 import PopupView
 
 public struct MypageView: View {
-    
     @State private var userInfo: UserInfo?
     @State private var showToast: Bool = false
     @State private var showEmailAlert: Bool = false
@@ -28,10 +27,8 @@ public struct MypageView: View {
 
     public var body: some View {
         VStack(spacing: 0) {
-                
                 // MARK: - 상단 프로필 영역
                 VStack(alignment: .leading, spacing: 16) {
-                    
                     // 닉네임 (최대 2줄)
                     Text(viewModel.user?.nickname ?? userInfo?.nickname ?? "")
                         .font(.hanSansNeo(16, .bold))
@@ -63,7 +60,7 @@ public struct MypageView: View {
                                     withAnimation {
                                         isCopy = false
                                     }
-                                }
+                            }
                         } label: {
                             Image(asset: DesignSystemAsset.lineCopy)
                                 .renderingMode(.template)
@@ -97,7 +94,7 @@ public struct MypageView: View {
                 
                 // MARK: - 서비스 섹션
                 VStack(spacing: 0) {
-                    SectionHeader(title: "서비스")
+                    sectionHeader(title: "서비스")
                     
                     Button {
                         router.push(.accountManage)
@@ -143,7 +140,7 @@ public struct MypageView: View {
                 
                 // MARK: - 고객센터 섹션
                 VStack(spacing: 0) {
-                    SectionHeader(title: "고객센터")
+                    sectionHeader(title: "고객센터")
                     
                     Button {
                         router.push(.faq)
@@ -215,7 +212,7 @@ public struct MypageView: View {
                 .padding(.horizontal, 20)
 
                 Spacer()
-            }
+        }
             .padding(.top, 20)
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .navigationTitle("마이페이지")
@@ -259,7 +256,7 @@ public struct MypageView: View {
     }
 
     // MARK: - 셀 스타일
-    private func SectionHeader(title: String) -> some View {
+    private func sectionHeader(title: String) -> some View {
         HStack {
             Text(title)
                 .font(.hanSansNeo(12, .regular))

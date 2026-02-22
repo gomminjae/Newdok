@@ -7,7 +7,6 @@
 
 import Foundation
 
-
 public struct SignupResponse {
     public let user: User
     public let accessToken: String

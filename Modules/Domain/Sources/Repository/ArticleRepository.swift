@@ -8,9 +8,7 @@
 import Foundation
 import Shared
 
-
 public protocol ArticleRepository {
-    
     func fetchArticles(year: String, publicationMonth: String) async throws -> [Articles]
     
     func fetchDayArticles(year: String, publicationMonth: String, publicationDate: String) async throws -> [Article]
@@ -25,7 +23,4 @@ public protocol ArticleRepository {
     func fetchArticleDetail(id: String) async throws -> ArticleDetail
     
     func fetchReceivedArticleCount() async throws -> Int
-    
-    
-    
 }

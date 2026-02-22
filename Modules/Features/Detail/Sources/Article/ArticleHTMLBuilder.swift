@@ -9,7 +9,6 @@ import Foundation
 
 /// 아티클 HTML 템플릿을 생성하는 빌더
 struct ArticleHTMLBuilder {
-
     // MARK: - Properties
 
     let htmlContent: String

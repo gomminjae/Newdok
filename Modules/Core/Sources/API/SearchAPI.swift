@@ -13,7 +13,6 @@ public enum SearchAPI {
     case popularKeywords
 }
 
-
 extension SearchAPI: TargetType {
     public var baseURL: URL {
         return URL(string: "\(APIEnvironment.current.baseURL)/search")!
@@ -36,19 +35,17 @@ extension SearchAPI: TargetType {
         switch self {
         case .searchNewsletters(let keyword):
             return .requestParameters(parameters: [
-                "brandName": keyword,
+                "brandName": keyword
             ], encoding: URLEncoding.default)
         case .popularKeywords:
             return .requestPlain
         }
     }
     
-    public var headers: [String : String]? {
+    public var headers: [String: String]? {
         return [
             "Content-Type": "application/json",
             "Accept": "application/json"
         ]
     }
-    
-    
 }

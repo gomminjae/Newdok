@@ -5,7 +5,6 @@
 //  Created by 권민재 on 4/6/25.
 //
 
-
 import Foundation
 import Swinject
 import Domain
@@ -32,8 +31,8 @@ public final class AppDIContainer {
         registerDependencies()
     }
 
+    // swiftlint:disable:next function_body_length
     private func registerDependencies() {
-        
         // MARK: - Network
         container.register(NetworkProviding.self) { _ in
             return NetworkProvider()
@@ -187,7 +186,7 @@ public final class AppDIContainer {
         container.register(BrandDetailViewModel.self) { (r, id: String) in
             let useCase = r.resolve(NewsletterUseCase.self)!
             return MainActor.assumeIsolated {
-                return BrandDetailViewModel(id: id,useCase: useCase)
+                return BrandDetailViewModel(id: id, useCase: useCase)
             }
         }
         
@@ -232,6 +231,5 @@ public final class AppDIContainer {
                 )
             }
         }.inObjectScope(.container)
-    
     }
 }

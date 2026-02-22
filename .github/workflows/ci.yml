@@ -1,0 +1,87 @@
+name: CI
+
+on:
+  pull_request:
+    branches: [develop, main]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  lint:
+    name: SwiftLint
+    runs-on: macos-15
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install SwiftLint 0.62.2
+        run: |
+          curl -sL https://github.com/realm/SwiftLint/releases/download/0.62.2/portable_swiftlint.zip -o swiftlint.zip
+          unzip -o swiftlint.zip -d swiftlint-bin
+          chmod +x swiftlint-bin/swiftlint
+
+      - name: Run SwiftLint
+        run: swiftlint-bin/swiftlint lint --reporter github-actions-logging
+
+  build:
+    name: Build
+    runs-on: macos-15
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup mise
+        uses: jdx/mise-action@v2
+
+      - name: Cache SPM dependencies
+        uses: actions/cache@v4
+        with:
+          path: Tuist/.build
+          key: spm-${{ runner.os }}-${{ hashFiles('Tuist/Package.resolved') }}
+          restore-keys: spm-${{ runner.os }}-
+
+      - name: Generate CI xcconfig files
+        run: |
+          mkdir -p Configurations
+          cat <<'XCCONFIG' > Configurations/env.xcconfig
+          DEV_BASE_URL = https://example.com
+          BASE_URL = https://example.com
+          XCCONFIG
+
+          cat <<'XCCONFIG' > Configurations/Debug.xcconfig
+          #include "env.xcconfig"
+          API_BASE_URL = $(DEV_BASE_URL)
+          PRODUCT_BUNDLE_IDENTIFIER = com.newdok.ci
+          APP_DISPLAY_NAME = Newdok-CI
+          ASSETCATALOG_COMPILER_APPICON_NAME = DevAppIcon
+          SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG
+          OTHER_LDFLAGS = $(inherited) -ObjC
+          XCCONFIG
+
+          cat <<'XCCONFIG' > Configurations/Release.xcconfig
+          #include "env.xcconfig"
+          API_BASE_URL = $(BASE_URL)
+          PRODUCT_BUNDLE_IDENTIFIER = com.newdok.ci
+          APP_DISPLAY_NAME = Newdok-CI
+          ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon
+          SWIFT_ACTIVE_COMPILATION_CONDITIONS = RELEASE
+          OTHER_LDFLAGS = $(inherited) -ObjC
+          XCCONFIG
+
+      - name: Install Tuist dependencies
+        run: tuist install
+
+      - name: Generate Xcode project
+        run: tuist generate --no-open
+
+      - name: Build
+        run: |
+          xcodebuild build \
+            -workspace Newdok.xcworkspace \
+            -scheme Newdok \
+            -destination 'generic/platform=iOS Simulator' \
+            -configuration Debug \
+            CODE_SIGN_IDENTITY="" \
+            CODE_SIGNING_REQUIRED=NO \
+            CODE_SIGNING_ALLOWED=NO \
+            | xcpretty && exit ${PIPESTATUS[0]}

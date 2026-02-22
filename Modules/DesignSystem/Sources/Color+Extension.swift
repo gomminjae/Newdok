@@ -7,7 +7,6 @@
 
 import SwiftUI
 
-
 extension Color {
     public init(hex: String) {
         let hexSanitized = hex.trimmingCharacters(in: .whitespacesAndNewlines).uppercased()

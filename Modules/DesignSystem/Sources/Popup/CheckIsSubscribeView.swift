@@ -9,7 +9,6 @@
 import SwiftUI
 
 public struct CheckIsSubscribeView: View {
-
     public let onClose: () -> Void
     public let checkMailbox: () -> Void
     public let subscribe: () -> Void

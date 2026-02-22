@@ -23,7 +23,7 @@ struct NetworkErrorView: View {
                 .padding(.top, 6)
             Text("인터넷 연결 상태를 확인한 후 다시 시도해 주세요.")
                 .font(.hanSansNeo(14, .medium))
-                .foregroundStyle(Color(hex:"#565656"))
+                .foregroundStyle(Color(hex: "#565656"))
                 .padding(.top, 6)
             Button(action: {
                 // 네트워크 상태 재확인
@@ -35,9 +35,9 @@ struct NetworkErrorView: View {
                     .frame(height: 48)
                     .foregroundStyle(Color.white)
                     .background(Color.primaryNormal)
-                    .padding(.top,24)
-                    .padding(.bottom ,28)
-                    .padding(.horizontal,24)
+                    .padding(.top, 24)
+                    .padding(.bottom, 28)
+                    .padding(.horizontal, 24)
             }
         }
         .background(Color.white)

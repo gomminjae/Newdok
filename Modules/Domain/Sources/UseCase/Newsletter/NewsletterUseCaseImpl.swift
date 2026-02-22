@@ -6,9 +6,6 @@
 //
 
 public class NewsletterUseCaseImpl: NewsletterUseCase {
-    
-    
-    
     private let repository: NewsletterRepository
     
     public init(repository: NewsletterRepository) {
@@ -62,5 +59,4 @@ public class NewsletterUseCaseImpl: NewsletterUseCase {
     public func fetchOptionList() async throws -> Domain.OptionList {
         return try await repository.fetchOptionList()
     }
-
 }

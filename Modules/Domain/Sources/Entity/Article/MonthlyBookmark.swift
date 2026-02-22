@@ -6,7 +6,6 @@
 //
 
 public struct MonthlyBookmark: Identifiable {
-    
     public var id: String { month }
     
     public let month: String

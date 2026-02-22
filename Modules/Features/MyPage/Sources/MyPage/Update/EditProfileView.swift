@@ -14,7 +14,6 @@ import Combine
 import PopupView
 
 public struct EditProfileView: View {
-    
     @AppStorage("nickname") private var nickname: String = ""
     @State private var showEditInterest = false
 
@@ -171,7 +170,7 @@ struct EditableRow: View {
     let title: String
     let text: String
     var placeholder: String = ""
-    var onEdit: (() -> Void)? = nil
+    var onEdit: (() -> Void)?
     
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {

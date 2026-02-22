@@ -5,10 +5,7 @@
 //  Created by 권민재 on 4/19/25.
 //
 
-
 public class FetchHomeDataUseCaseImpl: FetchHomeDataUseCase {
-   
-    
     private let newsletterRepo: NewsletterRepository
     private let articleRepo: ArticleRepository
     
@@ -16,7 +13,6 @@ public class FetchHomeDataUseCaseImpl: FetchHomeDataUseCase {
         self.newsletterRepo = newsletterRepo
         self.articleRepo = articleRepo
     }
-    
     
     public func fetchTodayData() async throws -> Domain.HomeData {
         // 1. today 아티클을 먼저 가져오기
@@ -31,8 +27,6 @@ public class FetchHomeDataUseCaseImpl: FetchHomeDataUseCase {
         )
     }
 
-
-    
     public func fetchMonthlyData(year: String, month: String) async throws -> [Domain.Articles] {
         try await articleRepo.fetchArticles(year: year, publicationMonth: month)
     }
@@ -80,5 +74,4 @@ public class FetchHomeDataUseCaseImpl: FetchHomeDataUseCase {
     private func isRead(_ article: Article) -> Bool {
         article.status.caseInsensitiveCompare("Read") == .orderedSame
     }
-    
 }

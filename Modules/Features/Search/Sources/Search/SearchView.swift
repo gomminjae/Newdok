@@ -120,7 +120,7 @@ public struct SearchView: View {
                 Spacer()
                 if let updatedDate = viewModel.popularKeywords?.updatedDate {
                     Text("\(updatedDate) 업데이트")
-                        .font(.hanSansNeo(12,.medium))
+                        .font(.hanSansNeo(12, .medium))
                         .foregroundColor(.primaryNormal)
                 }
             }
@@ -136,16 +136,16 @@ public struct SearchView: View {
             } else if let error = viewModel.popularErrorMessage {
                 VStack(alignment: .leading, spacing: 8) {
                     Text(error)
-                        .font(.hanSansNeo(14,.medium))
+                        .font(.hanSansNeo(14, .medium))
                         .foregroundColor(.primaryNormal)
                     Button("다시 시도하기") {
                         Task { await viewModel.loadPopularKeywords(force: true) }
                     }
-                    .font(.hanSansNeo(14,.medium))
+                    .font(.hanSansNeo(14, .medium))
                 }
             } else {
                 Text("표시할 인기 검색어가 없습니다.")
-                    .font(.hanSansNeo(14,.medium))
+                    .font(.hanSansNeo(14, .medium))
                     .foregroundColor(Color(hex: "#565656"))
             }
             Spacer()
@@ -157,12 +157,12 @@ public struct SearchView: View {
     private func popularKeywordRow(_ keyword: PopularKeyword) -> some View {
         HStack(spacing: 16) {
             Text("\(keyword.rank)")
-                .font(.hanSansNeo(14,.bold))
+                .font(.hanSansNeo(14, .bold))
                 .foregroundColor(.primaryNormal)
                 .frame(width: 24, alignment: .leading)
             
             Text(keyword.keyword)
-                .font(.hanSansNeo(14,.medium))
+                .font(.hanSansNeo(14, .medium))
                 .foregroundColor(Color(hex: "#565656"))
             Spacer()
         }
@@ -181,7 +181,7 @@ public struct SearchView: View {
         } else {
             VStack(alignment: .leading, spacing: 12) {
                 Text("뉴스레터")
-                    .font(.hanSansNeo(16,.medium))
+                    .font(.hanSansNeo(16, .medium))
                 ForEach(viewModel.searchResults, id: \.id) { result in
                     Button(action: {
                         router.push(.brandDetail(id: result.id))
@@ -245,11 +245,11 @@ struct SearchNewsletterRow: View {
             }
             VStack(alignment: .leading, spacing: 4) {
                 Text(result.brandName)
-                    .font(.hanSansNeo(14,.bold))
+                    .font(.hanSansNeo(14, .bold))
                     .foregroundStyle(Color(hex: "#333333"))
                 Text(result.firstDescription)
-                    .font(.hanSansNeo(14,.medium))
-                    .foregroundColor(Color(hex:"#363636"))
+                    .font(.hanSansNeo(14, .medium))
+                    .foregroundColor(Color(hex: "#363636"))
             }
             Spacer()
         }

@@ -18,12 +18,10 @@ struct CompleteView: View {
     @State private var showingNotificationAlert = false
     @EnvironmentObject private var router: AppRouter
     
-    public init(viewModel: SignupViewModel) {
+    init(viewModel: SignupViewModel) {
         self.viewModel = viewModel
     }
     
-
-
     var body: some View {
         VStack(spacing: 0) {
             // 상단 타이틀
@@ -52,15 +50,15 @@ struct CompleteView: View {
                 Text("구독 이메일")
                     .font(.hanSansNeo(14, .medium))
                     .foregroundStyle(Color(hex: "#565656"))
-                    .padding(.top,20)
-                    .padding(.leading,20)
+                    .padding(.top, 20)
+                    .padding(.leading, 20)
 
                 Text(viewModel.user?.subscribeEmail ?? "newdok12@newdok.site")
                     .font(.hanSansNeo(16, .bold))
                     .foregroundStyle(Color(hex: "#2866D3"))
-                    .padding(.top,8)
-                    .padding(.leading,20)
-                    .padding(.bottom,20)
+                    .padding(.top, 8)
+                    .padding(.leading, 20)
+                    .padding(.bottom, 20)
                     .onAppear {
                     }
             }
@@ -75,7 +73,6 @@ struct CompleteView: View {
 
             // 다음 버튼
             Button(action: {
-                
                 viewModel.goToNextStep()
             }) {
                 Text("다음")
@@ -93,7 +90,6 @@ struct CompleteView: View {
     }
 }
 
-
-//#Preview {
+// #Preview {
 //    CompleteView()
-//}
+// }

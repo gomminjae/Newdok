@@ -11,7 +11,6 @@ import Domain
 import DesignSystem
 import Kingfisher
 
-
 struct BookmarkCard: View {
     let article: Bookmark
     
@@ -21,13 +20,13 @@ struct BookmarkCard: View {
                 .font(.hanSansNeo(16, .bold))
                 .foregroundColor(Color(hex: "#363636"))
                 .lineLimit(2)
-                .padding(.bottom,8)
+                .padding(.bottom, 8)
             
             Text(article.sampleText)
                 .font(.hanSansNeo(14, .regular))
                 .foregroundColor(Color(hex: "#565656"))
                 .lineLimit(2)
-                .padding(.bottom,12)
+                .padding(.bottom, 12)
             
             HStack {
                 HStack(spacing: 4) {

@@ -6,7 +6,6 @@
 //
 import Foundation
 
-
 public struct HomeData {
     public let articles: [Article]
     public let activeNewsletters: [Newsletter]
@@ -15,5 +14,4 @@ public struct HomeData {
         self.articles = articles
         self.activeNewsletters = activeNewsletters
     }
-    
 }

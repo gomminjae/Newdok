@@ -7,7 +7,6 @@
 
 import Domain
 
-
 public struct ArticleDTO: Decodable, Identifiable {
     public let id: Int
     public let brandName: String

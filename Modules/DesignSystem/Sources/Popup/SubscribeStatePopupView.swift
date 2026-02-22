@@ -9,12 +9,10 @@
 import SwiftUI
 
 public struct SubscribeStatePopupView: View {
-  
     public let onCancel: () -> Void
     public let onConfirm: () -> Void
     
     public init(onCancel: @escaping () -> Void, onConfirm: @escaping () -> Void) {
-       
         self.onCancel = onCancel
         self.onConfirm = onConfirm
     }

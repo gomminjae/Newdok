@@ -13,7 +13,6 @@ import DesignSystem
 import PopupView
 @main
 struct NewdokApp: App {
-
     @State private var showUpdateAlert = false
     @StateObject private var router = AppRouter()
     @StateObject private var tabSelection = TabSelection()
@@ -23,8 +22,6 @@ struct NewdokApp: App {
         // DesignSystem 폰트 등록
         DesignSystemFontFamily.registerAllCustomFonts()
     }
-
-
 
     var body: some Scene {
         WindowGroup {

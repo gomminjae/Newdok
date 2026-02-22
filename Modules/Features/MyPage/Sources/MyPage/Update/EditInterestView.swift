@@ -6,7 +6,6 @@
 //  Copyright © 2025 Newdok. All rights reserved.
 //
 
-
 import SwiftUI
 import DesignSystem
 import Shared
@@ -45,7 +44,6 @@ public struct EditInterestView: View {
             .padding(.top, 24)
             .padding(.bottom, 28)
 
-            
             ScrollView {
                 LazyVGrid(columns: columns, spacing: 12) {
                     ForEach(interests, id: \.id) { item in
@@ -70,7 +68,6 @@ public struct EditInterestView: View {
                 .padding(.bottom, 100) // 버튼 공간 확보
             }
 
-          
             Button(action: {
                 Task {
                     do {
@@ -99,7 +96,6 @@ public struct EditInterestView: View {
         }
         .onAppear {
             Task {
-               
                 await viewModel.fetchuserInfo()
                 if let userInterests = viewModel.user?.interests {
                     selectedIds = Set(userInterests.map { $0.id })
@@ -125,7 +121,6 @@ public struct EditInterestView: View {
             }
         }
         .onAppear {
-            
             if let interests = viewModel.user?.interests {
                 selectedIds = Set(interests.map { $0.id })
             }

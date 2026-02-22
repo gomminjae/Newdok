@@ -17,16 +17,13 @@ public struct AccountManagementView: View {
     // 전역 ToastCenter 사용으로 로컬 토스트 상태 제거
     @EnvironmentObject private var router: AppRouter
     
-    
     public init() {}
-
 
     public var body: some View {
         VStack(alignment: .leading, spacing: 0) {
             // 휴대폰 번호 변경
             Button {
                 router.push(.updatePhoneNumber)
-                
             } label: {
                 rowLabel(title: "휴대폰 번호 변경")
             }
@@ -35,7 +32,6 @@ public struct AccountManagementView: View {
             // 비밀번호 변경
             Button {
                 router.push(.updatePassword)
-                
             } label: {
                 rowLabel(title: "비밀번호 변경")
             }
@@ -44,7 +40,6 @@ public struct AccountManagementView: View {
             // 로그아웃 버튼
             Button {
                 showLogoutPopup = true
-                
             } label: {
                 rowLabel(title: "로그아웃")
             }

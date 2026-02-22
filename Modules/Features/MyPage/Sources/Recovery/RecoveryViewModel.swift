@@ -9,7 +9,6 @@
 import Foundation
 import Domain
 
-
 @MainActor
 public class RecoveryViewModel: ObservableObject {
     private let userUseCase: UserUseCase
@@ -29,13 +28,13 @@ public class RecoveryViewModel: ObservableObject {
     @Published var recoveryPhone: String = ""
     @Published var recoveryCode: String = ""
     @Published var recoveryCodeSent: Bool = false
-    @Published var recoveryCodeVerified: Bool? = nil // nil 미시도, true 성공, false 실패
-    @Published var recoveryErrorMessage: String? = nil
+    @Published var recoveryCodeVerified: Bool? // nil 미시도, true 성공, false 실패
+    @Published var recoveryErrorMessage: String?
     
     // 새 비밀번호
     @Published var newPassword: String = ""
     @Published var newPasswordCheck: String = ""
-    @Published var passwordResetSuccess: Bool? = nil
+    @Published var passwordResetSuccess: Bool?
     
     // 팝업(제한/타임아웃)
     @Published public var isShowPopup: Bool = false

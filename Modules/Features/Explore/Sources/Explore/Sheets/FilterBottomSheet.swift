@@ -43,7 +43,7 @@ struct FilterBottomSheet: View {
     @Environment(\.dismiss) private var dismiss
 
     let industries = SelectableItemStore.shared.industries
-    let weekdays = ["월요일","화요일","수요일","목요일","금요일","토요일","일요일","기타"]
+    let weekdays = ["월요일", "화요일", "수요일", "목요일", "금요일", "토요일", "일요일", "기타"]
 
     @Binding var industry: [Int]?
     @Binding var day: [Int]?

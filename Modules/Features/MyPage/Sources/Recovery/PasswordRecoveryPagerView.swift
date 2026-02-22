@@ -6,7 +6,6 @@
 //  Copyright © 2025 Newdok. All rights reserved.
 //
 
-
 import SwiftUI
 import PopupView
 import Shared
@@ -32,7 +31,7 @@ struct PasswordRecoveryPagerView: View {
 // 1단계
 struct PasswordRecoveryIdInputView: View {
     @ObservedObject var viewModel: RecoveryViewModel
-    @State private var error: String? = nil
+    @State private var error: String?
     @State private var showNotRegisteredPopup = false
     @FocusState private var isFieldFocused: Bool
     @FocusState private var isNumberPadFocused: Bool
@@ -124,10 +123,10 @@ struct PasswordRecoveryIdInputView: View {
 struct PasswordRecoveryPhoneView: View {
     @ObservedObject var viewModel: RecoveryViewModel
     @FocusState private var isNumberPadFocused: Bool
-    @State private var error: String? = nil
+    @State private var error: String?
     
     private func mmss(_ sec: Int) -> String {
-        String(format: "%02d:%02d", sec/60, sec%60)
+        String(format: "%02d:%02d", sec / 60, sec % 60)
     }
     
     var body: some View {
@@ -180,7 +179,6 @@ struct PasswordRecoveryPhoneView: View {
                                 .foregroundColor(Color.primaryNormal)
                                 .underline()
                         }
-                        
                     }
                     .padding(.top, 8)
                 } else {
@@ -199,7 +197,6 @@ struct PasswordRecoveryPhoneView: View {
                                 .foregroundColor(Color.primaryNormal)
                                 .underline()
                         }
-                        
                     }
                     .padding(.top, 8)
                 }
@@ -250,7 +247,6 @@ struct PasswordRecoveryPhoneView: View {
              .backgroundColor(Color.black.opacity(0.3))
              .closeOnTapOutside(false)
         }
-       
     }
 }
 
@@ -258,7 +254,7 @@ struct PasswordRecoveryPhoneView: View {
 struct PasswordRecoveryNewPasswordView: View {
     @ObservedObject var viewModel: RecoveryViewModel
     @EnvironmentObject private var router: AppRouter
-    @State private var error: String? = nil
+    @State private var error: String?
     @State private var isSecurePassword: Bool = true
     @State private var isSecureConfirmPassword: Bool = true
     @FocusState private var isPasswordFocused: Bool

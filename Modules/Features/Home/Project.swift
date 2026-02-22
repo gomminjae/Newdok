@@ -16,8 +16,8 @@ let project = Project(
             dependencies: [
                 .project(target: "DesignSystem", path: "../../DesignSystem"),
                 .project(target: "Domain", path: "../../Domain"),
-                .project(target: "Shared", path: "../../Shared"),
-             ],
+                .project(target: "Shared", path: "../../Shared")
+            ],
             settings: .settings(
                 base: [
                     "SWIFT_INSTALL_OBJC_HEADER": "NO",
@@ -37,7 +37,7 @@ let project = Project(
             dependencies: [
                 .target(name: "Home"),
                 .project(target: "DesignSystem", path: "../../DesignSystem"),
-                .project(target: "Shared", path: "../../Shared"),
+                .project(target: "Shared", path: "../../Shared")
             ]
         )
     ]

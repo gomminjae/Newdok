@@ -14,7 +14,6 @@ public protocol LoadOptionsUseCase {
 }
 
 public final class LoadOptionsUseCaseImpl: LoadOptionsUseCase {
-
     private let newsletterUseCase: NewsletterUseCase
 
     public init(newsletterUseCase: NewsletterUseCase) {

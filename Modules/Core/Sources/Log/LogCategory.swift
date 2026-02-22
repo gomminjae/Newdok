@@ -6,12 +6,10 @@
 //  Copyright © 2025 Your Organization Name. All rights reserved.
 //
 
-
 import Foundation
 
 /// 로그 카테고리 - Newdok 프로젝트 구조 기반
 public enum LogCategory: String {
-    
     // MARK: - Network & API
     case network = "🌐 Network"
     case api = "📡 API"

@@ -9,7 +9,6 @@ import Foundation
 import Shared
 
 public final class LoginUseCaseImpl: LoginUseCase {
-
     private let userUseCase: UserUseCase
 
     public init(userUseCase: UserUseCase) {

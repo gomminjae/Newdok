@@ -27,5 +27,4 @@ public struct ArticleDetailDTO: Decodable {
             brandImageUrl: brandImageUrl ?? "",
             isBookmarked: isBookmarked)
     }
-    
 }

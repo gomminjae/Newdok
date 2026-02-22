@@ -7,9 +7,7 @@
 
 import Foundation
 
-
 public struct ErrorResponse: Error {
-    
     public let statusCode: Int
     public let message: String
     public let error: String
@@ -19,5 +17,4 @@ public struct ErrorResponse: Error {
         self.message = message
         self.error = error
     }
-    
 }

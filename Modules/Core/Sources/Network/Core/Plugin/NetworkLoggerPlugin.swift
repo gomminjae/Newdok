@@ -9,7 +9,6 @@ import Moya
 import Foundation
 
 final class NetworkLoggerPlugin: PluginType {
-
     func willSend(_ request: RequestType, target: TargetType) {
         if let url = request.request?.url?.absoluteString {
             print("➡️ [Request] \(target.method.rawValue) \(url)")

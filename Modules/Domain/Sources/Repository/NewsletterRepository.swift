@@ -8,7 +8,6 @@
 import Foundation
 import Shared
 
-
 public protocol NewsletterRepository {
     func fetchActiveSubscription() async throws -> [Newsletter]
     func fetchPausedSubscription() async throws -> [Newsletter]

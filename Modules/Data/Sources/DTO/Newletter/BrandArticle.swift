@@ -6,8 +6,6 @@
 //
 import Domain
 
-
-
 public struct BrandArticleDTO: Decodable {
     public let id: Int
     public let title: String
@@ -16,6 +14,4 @@ public struct BrandArticleDTO: Decodable {
     public func toDomain() -> BrandArticle {
         return BrandArticle(id: id, title: title, date: date)
     }
-    
-    
 }

@@ -10,11 +10,7 @@ import SwiftUI
 import Shared
 import DesignSystem
 
-
-
 public struct EditAlertView: View {
-
-   
     @State private var isArticleAlert: Bool = false
     @State private var isUpdateAlert: Bool = false
     @State private var isRecommendAlert: Bool = false
@@ -26,8 +22,6 @@ public struct EditAlertView: View {
     public var body: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: 0) {
-
-                
                 Text("아티클")
                     .font(.hanSansNeo(14, .medium))
                     .foregroundStyle(Color(hex: "#565656"))
@@ -45,7 +39,6 @@ public struct EditAlertView: View {
                     .foregroundStyle(Color(hex: "#565656"))
                     .padding(.bottom, 48)
 
-                
                 Text("새소식")
                     .font(.hanSansNeo(14, .medium))
                     .foregroundStyle(Color(hex: "#565656"))
@@ -75,7 +68,6 @@ public struct EditAlertView: View {
                     .foregroundStyle(Color(hex: "#565656"))
                     .padding(.bottom, 20)
 
-               
                 VStack(alignment: .leading, spacing: 8) {
                     HStack(alignment: .top, spacing: 8) {
                         Image(asset: DesignSystemAsset.lineQuestionMark)
@@ -106,7 +98,6 @@ public struct EditAlertView: View {
        
         .contentMargins(.top, 24)
 
-      
         .navigationBarTitleDisplayMode(.inline)
         .toolbarBackground(.visible, for: .navigationBar)
         .toolbarBackground(Color.white, for: .navigationBar)

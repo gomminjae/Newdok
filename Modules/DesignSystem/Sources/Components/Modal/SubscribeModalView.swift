@@ -9,7 +9,6 @@ import SwiftUI
 import WebKit
 import UIKit
 
-
 // MARK: - WebView Wrapper
 struct WebViewWrapper: UIViewRepresentable {
     let urlString: String
@@ -64,7 +63,7 @@ public struct SubscribeModalView: View {
                     .padding(.trailing, 16)
                 }
             }
-            //.frame(height: 56)
+            // .frame(height: 56)
             .padding(.top, 32)
             .padding(.bottom, 28)
             .background(Color.white)

@@ -17,7 +17,7 @@ public struct PullToRefreshView<Content: View>: View {
     @State private var startOffset: CGFloat = 0
     @State private var isRefreshing = false
     @State private var hasTriggered = false
-    @State private var lastRefreshTime: Date = Date.distantPast
+    @State private var lastRefreshTime = Date.distantPast
 
     public init(
         threshold: CGFloat = 80,

@@ -8,7 +8,6 @@
 import Foundation
 
 public final class ArticleDetailUseCaseImpl: ArticleDetailUseCase {
-
     private let articleUseCase: ArticleUseCase
 
     public init(articleUseCase: ArticleUseCase) {

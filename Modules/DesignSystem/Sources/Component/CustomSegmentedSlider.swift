@@ -1,6 +1,5 @@
 import SwiftUI
 
-
 public struct CustomSegmentedSlider: View {
     @Binding var selectedIndex: Int
     let titles: [String]

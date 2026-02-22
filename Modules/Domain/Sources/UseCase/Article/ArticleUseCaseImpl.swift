@@ -5,9 +5,7 @@
 //  Created by 권민재 on 4/16/25.
 //
 
-
 public final class ArticleUseCaseImpl: ArticleUseCase {
-    
     private let articleRepository: ArticleRepository
     
     public init(articleRepository: ArticleRepository) {
@@ -41,6 +39,4 @@ public final class ArticleUseCaseImpl: ArticleUseCase {
     public func fetchReceivedArticleCount() async throws -> Int {
         return try await articleRepository.fetchReceivedArticleCount()
     }
-    
-    
 }

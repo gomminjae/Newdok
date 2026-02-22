@@ -33,7 +33,7 @@ public struct CalendarPopupView: View {
     public var onDateSelected: ((Date) -> Void)?
     
     private let calendar = Calendar.current
-    private let weekdays = ["일","월","화","수","목","금","토"]
+    private let weekdays = ["일", "월", "화", "수", "목", "금", "토"]
     private var today: Date { calendar.startOfDay(for: Date()) }
 
     public init(
@@ -63,8 +63,7 @@ public struct CalendarPopupView: View {
             }
             .background(RoundedRectangle(cornerRadius: 16).fill(Color.white))
             
-
-            //오늘 버튼
+            // 오늘 버튼
             Button(action: selectToday) {
                 HStack(spacing: 4) {
                     Image(systemName: "arrow.clockwise")
@@ -97,7 +96,7 @@ public struct CalendarPopupView: View {
     }
 
     private var headerView: some View {
-        GeometryReader { geo in
+        GeometryReader { _ in
             ZStack {
                 HStack {
                     Spacer()
@@ -134,13 +133,10 @@ public struct CalendarPopupView: View {
                     Spacer()
                     Button(action: { isPresented = false }) {
                         Image(asset: DesignSystemAsset.lineClose)
-                        
                     }
                 }
                 .frame(maxWidth: .infinity)
                 .padding(.trailing, 18)
-                
-                
             }
         }
         .frame(height: 44)
@@ -149,7 +145,6 @@ public struct CalendarPopupView: View {
                 .clipShape(RoundedCorners(radius: 16, corners: [.topLeft, .topRight]))
         )
     }
-
 
     private var weekdayHeader: some View {
         HStack(spacing: 0) {
@@ -228,7 +223,6 @@ public struct CalendarPopupView: View {
         .padding(.vertical, 20)
         .id("calendar-grid-\(localDisplayedMonthDate.timeIntervalSince1970)-\(dataDays.hashValue)")
     }
-
 
     private var yearMonthTitle: String {
         let fmt = DateFormatter()

@@ -87,7 +87,7 @@ public struct AgreeView: View {
             Button("가입완료") {
                 viewModel.signup()
             }
-            .font(.hanSansNeo(14,.bold))
+            .font(.hanSansNeo(14, .bold))
             .frame(maxWidth: .infinity)
             .frame(height: 48)
             .background(isSignUpEnabled ? Color.primaryNormal : Color.lineNeutral)
@@ -142,7 +142,6 @@ public struct AgreeView: View {
         }
     }
 }
-
 
 // 버튼 없는 단순 행 (만 14세, 마케팅)
 struct SimpleAgreementRow: View {

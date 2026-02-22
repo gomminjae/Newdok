@@ -16,7 +16,7 @@ let project = Project(
             dependencies: [
                  .project(target: "DesignSystem", path: "../../DesignSystem"),
                  .project(target: "Domain", path: "../../Domain"),
-                 .project(target: "Shared", path: "../../Shared"),
+                 .project(target: "Shared", path: "../../Shared")
             ],
             settings: .settings(
                 base: [
@@ -36,7 +36,7 @@ let project = Project(
             dependencies: [
                 .target(name: "Auth"),
                 .project(target: "DesignSystem", path: "../../DesignSystem"),
-                .project(target: "Shared", path: "../../Shared"), 
+                .project(target: "Shared", path: "../../Shared") 
             ]
         )
     ]

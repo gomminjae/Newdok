@@ -7,7 +7,6 @@
 import Moya
 import Foundation
 
-
 enum APIEnvironment {
     case production
     case development

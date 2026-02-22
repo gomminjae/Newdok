@@ -17,8 +17,6 @@ public struct CheckSubscribeView: View {
           self.onConfirmEmail = onConfirmEmail
       }
     
-    
-    
     public var body: some View {
         VStack(spacing: 0) {
             HStack {
@@ -63,7 +61,6 @@ public struct CheckSubscribeView: View {
                 Button(action: {
                     onConfirmEmail()
                     dismiss()
-                    
                 }) {
                     Text("메일 확인하기")
                         .font(.hanSansNeo(14, .bold))

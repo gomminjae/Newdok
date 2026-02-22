@@ -5,7 +5,6 @@
 //  Created by 권민재 on 4/11/25.
 //
 
-
 public struct ArticleDetail {
     public let articleTitle: String
     public let articleId: Int
@@ -15,7 +14,6 @@ public struct ArticleDetail {
     public let articleHTML: String
     public let brandImageUrl: String
     public var isBookmarked: Bool
-    
     
     public init(articleTitle: String, articleId: Int, date: String, brandId: Int, brandName: String, articleHTML: String, brandImageUrl: String, isBookmarked: Bool) {
         self.articleTitle = articleTitle

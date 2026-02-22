@@ -65,7 +65,7 @@ struct CheckPhoneErrorView: View {
         )
         .padding(.horizontal, 24)
         // 필요시 그림자
-        //.shadow(color: .black.opacity(0.08), radius: 12, x: 0, y: 4)
+        // .shadow(color: .black.opacity(0.08), radius: 12, x: 0, y: 4)
     }
 }
 

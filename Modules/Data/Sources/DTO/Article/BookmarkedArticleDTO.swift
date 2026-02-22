@@ -10,12 +10,9 @@ public struct BookmarkedArticlesDTO: Decodable {
     let totalAmount: Int
     let bookmarkForMonth: [MonthlyBookmarkDTO]
     
-    
     public func toDomain() -> BookmarkedArticles {
-        return BookmarkedArticles(totalAmount: totalAmount, bookmarkForMonth: bookmarkForMonth.map {$0.toDomain()})
+        return BookmarkedArticles(totalAmount: totalAmount, bookmarkForMonth: bookmarkForMonth.map { $0.toDomain() })
     }
-    
-    
 }
 
 public struct BookmarkArticlesResponse: Decodable {

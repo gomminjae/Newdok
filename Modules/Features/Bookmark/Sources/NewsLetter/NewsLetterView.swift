@@ -9,9 +9,7 @@ import SwiftUI
 import DesignSystem
 
 public struct NewsLetterView: View {
-    
     public init() {}
-    
     
     public var body: some View {
         ScrollView {
@@ -34,7 +32,6 @@ public struct NewsLetterView: View {
                             .background(Color(hex: "#5184DB"))
                             .foregroundStyle(Color.white)
                             .clipShape(Capsule())
-                        
                     }
                     .padding(.top, 12)
                     .padding(.leading, 16)
@@ -83,20 +80,19 @@ public struct NewsLetterView: View {
         }
     }
     
-  
     public var profileCardView: some View {
         HStack(alignment: .center) {
             VStack(alignment: .leading, spacing: 4) {
                 Text("NEWNEEK")
                     .font(.hanSansNeo(16, .bold))
                 Label("매주 평일 아침", systemImage: "clock")
-                    .font(.hanSansNeo(12,.regular))
+                    .font(.hanSansNeo(12, .regular))
                     .foregroundColor(Color(hex: "#565656"))
             }
             Spacer()
             Button(action: {}) {
                 Text("구독하기")
-                    .font(.hanSansNeo(14,.regular))
+                    .font(.hanSansNeo(14, .regular))
                     .foregroundColor(.white)
                     .padding(.horizontal)
                     .padding(.vertical, 8)
