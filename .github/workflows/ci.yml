@@ -79,7 +79,7 @@ jobs:
           xcodebuild build \
             -workspace Newdok.xcworkspace \
             -scheme Newdok \
-            -destination 'platform=iOS Simulator,name=iPhone 16,OS=latest' \
+            -destination 'generic/platform=iOS Simulator' \
             -configuration Debug \
             CODE_SIGN_IDENTITY="" \
             CODE_SIGNING_REQUIRED=NO \
