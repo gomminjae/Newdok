@@ -130,8 +130,8 @@ public final class ArticleDetailViewModel: ObservableObject {
 
     /// 하이라이트 JSON 배열 (WebView용)
     func highlightsJSON() -> [[String: String]] {
-        highlights.map { h in
-            ["text": h.selectedText, "type": h.highlightType]
+        highlights.map { highlight in
+            ["text": highlight.selectedText, "type": highlight.highlightType]
         }
     }
 }

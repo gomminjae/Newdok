@@ -134,7 +134,11 @@ struct ArticleHTMLBuilder {
         .highlight-pink { background-color: #F1B2C7 !important; }
         .highlight-green { background-color: #D7EDA1 !important; }
         .highlight-blue { background-color: #95D5EC !important; }
-        .highlight-underline { text-decoration: underline !important; text-decoration-color: #EF4444 !important; text-decoration-thickness: 2px !important; }
+        .highlight-underline {
+            text-decoration: underline !important;
+            text-decoration-color: #EF4444 !important;
+            text-decoration-thickness: 2px !important;
+        }
         .highlight-focused {
             outline: 2px solid #2866D3 !important;
             outline-offset: 1px;

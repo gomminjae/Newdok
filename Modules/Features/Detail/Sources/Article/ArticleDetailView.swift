@@ -292,8 +292,8 @@ struct FullWebView: UIViewRepresentable {
             context.coordinator.lastFontSize = fontSize
             context.coordinator.lastHighlightCount = savedHighlights.count
 
-            let highlightsJSON = savedHighlights.map { h in
-                ["text": h.selectedText, "type": h.highlightType]
+            let highlightsJSON = savedHighlights.map { highlight in
+                ["text": highlight.selectedText, "type": highlight.highlightType]
             }
 
             let htmlBuilder = ArticleHTMLBuilder(
@@ -389,7 +389,8 @@ struct FullWebView: UIViewRepresentable {
 
 // MARK: - Font Size Control Component
 struct FontSizeControlView: View {
-    @Environment(\.dismiss) private var dismiss
+    @Environment(\.dismiss)
+    private var dismiss
     @Binding var fontSize: CGFloat
 
     private let minFontSize: CGFloat = 15
@@ -440,8 +441,11 @@ struct FontSizeControlView: View {
                             .foregroundColor(fontSize <= minFontSize ? .gray.opacity(0.3) : Color.primaryNormal)
                             .frame(width: 36, height: 36)
                             .overlay(
-                                Circle()
-                                    .stroke(fontSize <= minFontSize ? Color.gray.opacity(0.3) : Color.primaryNormal, lineWidth: 1.5)
+                                Circle().stroke(
+                                    fontSize <= minFontSize
+                                        ? Color.gray.opacity(0.3) : Color.primaryNormal,
+                                    lineWidth: 1.5
+                                )
                             )
                     }
                     .disabled(fontSize <= minFontSize)
@@ -471,8 +475,11 @@ struct FontSizeControlView: View {
                             .foregroundColor(fontSize >= maxFontSize ? .gray.opacity(0.3) : Color.primaryNormal)
                             .frame(width: 36, height: 36)
                             .overlay(
-                                Circle()
-                                    .stroke(fontSize >= maxFontSize ? Color.gray.opacity(0.3) : Color.primaryNormal, lineWidth: 1.5)
+                                Circle().stroke(
+                                    fontSize >= maxFontSize
+                                        ? Color.gray.opacity(0.3) : Color.primaryNormal,
+                                    lineWidth: 1.5
+                                )
                             )
                     }
                     .disabled(fontSize >= maxFontSize)
@@ -507,153 +514,5 @@ struct FontSizeControlView: View {
 
     private func saveFontSize() {
         UserDefaults.standard.set(fontSize, forKey: "articleFontSize")
-    }
-}
-
-// MARK: - Highlight List View
-struct HighlightListView: View {
-    @Environment(\.dismiss) private var dismiss
-
-    let highlights: [ArticleHighlight]
-    let onSelectHighlight: (ArticleHighlight) -> Void
-    var onDeleteHighlight: ((ArticleHighlight) -> Void)?
-
-    var body: some View {
-        VStack(spacing: 0) {
-            // 헤더
-            HStack {
-                Text("하이라이트")
-                    .font(.hanSansNeo(18, .bold))
-                    .foregroundColor(.black)
-                    .tracking(-18 * 0.03)
-                    .lineSpacing(26 - 18)
-
-                Spacer()
-
-                Button(action: { dismiss() }) {
-                    Image(asset: DesignSystemAsset.lineClose)
-                        .renderingMode(.template)
-                        .foregroundColor(Color(hex: "#565656"))
-                        .frame(width: 28, height: 28)
-                }
-            }
-            .padding(.leading, 20)
-            .padding(.trailing, 24)
-            .padding(.top, 53)
-            .padding(.bottom, 16)
-
-            if highlights.isEmpty {
-                VStack(spacing: 16) {
-                    Image(asset: DesignSystemAsset.nohighlight)
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
-                        .frame(width: 260, height: 260)
-
-                    Text("하이라이트한 문장이 없어요")
-                        .font(.hanSansNeo(16, .bold))
-                        .foregroundColor(.black)
-                        .tracking(-16 * 0.03)
-                        .lineSpacing(24 - 16)
-
-                    Text("기억하고 싶은 문장을 길게 눌러\n형광펜이나 밑줄로 표시해 보세요")
-                        .font(.hanSansNeo(14, .medium))
-                        .foregroundColor(.gray)
-                        .tracking(-14 * 0.03)
-                        .lineSpacing(20 - 14)
-                        .multilineTextAlignment(.center)
-                }
-                .padding(.top, 84)
-                Spacer()
-            } else {
-                ScrollView {
-                    LazyVStack(spacing: 8) {
-                        ForEach(highlights, id: \.id) { highlight in
-                            HighlightRowView(
-                                highlight: highlight,
-                                onDelete: {
-                                    onDeleteHighlight?(highlight)
-                                }
-                            )
-                            .contentShape(Rectangle())
-                            .onTapGesture {
-                                onSelectHighlight(highlight)
-                            }
-                        }
-                    }
-                    .padding(.horizontal, 20)
-                }
-            }
-        }
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .background(Color.white)
-    }
-}
-
-// MARK: - Highlight Row View
-struct HighlightRowView: View {
-    let highlight: ArticleHighlight
-    let onDelete: () -> Void
-
-    private var highlightColor: Color {
-        switch highlight.highlightType {
-        case "yellow": return Color(hex: "#FBE96C")
-        case "orange": return Color(hex: "#FFC194")
-        case "pink": return Color(hex: "#F1B2C7")
-        case "green": return Color(hex: "#D7EDA1")
-        case "blue": return Color(hex: "#95D5EC")
-        case "underline": return Color(hex: "#EF4444")
-        default: return Color.gray.opacity(0.4)
-        }
-    }
-
-    var body: some View {
-        HStack(alignment: .top, spacing: 0) {
-            // 좌측 컬러바
-            RoundedRectangle(cornerRadius: highlight.highlightType == "underline" ? 1 : 3)
-                .fill(highlightColor)
-                .frame(width: highlight.highlightType == "underline" ? 2 : 6)
-
-            // 콘텐츠
-            VStack(alignment: .leading, spacing: 4) {
-                Text("\u{201C}")
-                    .font(.hanSansNeo(16, .bold))
-                    .foregroundColor(.black)
-
-                Text(highlight.selectedText)
-                    .font(.hanSansNeo(14, .regular))
-                    .foregroundColor(.black)
-                    .lineLimit(2)
-
-                HStack(alignment: .bottom) {
-                    Text(formatDate(highlight.createdAt))
-                        .font(.hanSansNeo(12, .regular))
-                        .foregroundColor(.gray)
-
-                    Spacer()
-
-                    Button(action: onDelete) {
-                        Image(asset: DesignSystemAsset.lineTrash)
-                            .renderingMode(.template)
-                            .foregroundColor(.gray)
-                            .frame(width: 28, height: 28)
-                    }
-                }
-            }
-            .padding(.leading, 12)
-            .padding(.vertical, 12)
-        }
-        .overlay(
-            Rectangle()
-                .fill(Color.gray.opacity(0.15))
-                .frame(height: 1),
-            alignment: .bottom
-        )
-    }
-
-    private func formatDate(_ date: Date) -> String {
-        let formatter = DateFormatter()
-        formatter.locale = Locale(identifier: "ko_KR")
-        formatter.dateFormat = "yyyy-MM-dd HH:mm"
-        return formatter.string(from: date)
     }
 }

@@ -5,13 +5,21 @@
 //  Created by 권민재 on 2/14/26.
 //
 
+// swiftlint:disable file_length
 import Foundation
 
 /// JavaScript 코드를 관리하는 구조체
 enum ArticleHighlightJS {
-    // MARK: - Core Highlight Functions
+    // MARK: - Combined Script
 
-    static let coreScript = """
+    static var coreScript: String {
+        highlightScript + "\n" + selectionScript
+    }
+}
+
+// MARK: - Core Highlight Functions
+extension ArticleHighlightJS {
+    static let highlightScript = """
     let originalFontSizes = new Map();
     let savedRange = null;
 
@@ -245,6 +253,12 @@ enum ArticleHighlightJS {
         parent.replaceChild(fragment, textNode);
     }
 
+    """
+}
+
+// MARK: - Selection & Edit Menu Functions
+extension ArticleHighlightJS {
+    static let selectionScript = """
     function setupTextSelection() {
         document.addEventListener('selectionchange', function() {
             const selection = window.getSelection();
@@ -283,7 +297,13 @@ enum ArticleHighlightJS {
 
     // MARK: - 텍스트 선택 시 커스텀 팔레트 (기획서 D 에디트 메뉴)
 
-    const TRASH_SVG = '<svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>';
+    const TRASH_SVG = '<svg xmlns="http://www.w3.org/2000/svg" '
+        + 'width="15" height="15" viewBox="0 0 24 24" fill="none" '
+        + 'stroke="white" stroke-width="2" stroke-linecap="round" '
+        + 'stroke-linejoin="round">'
+        + '<polyline points="3 6 5 6 21 6"/>'
+        + '<path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6'
+        + 'm3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>';
 
     function buildPaletteHTML(currentType, showDelete) {
         const colors = ['yellow', 'orange', 'pink', 'green', 'blue'];
@@ -434,7 +454,11 @@ enum ArticleHighlightJS {
 
             const highlight = e.target.closest('span[class*="highlight-"]');
             if (highlight) {
-                const hlTypes = ['highlight-yellow','highlight-orange','highlight-pink','highlight-green','highlight-blue','highlight-underline'];
+                const hlTypes = [
+                    'highlight-yellow','highlight-orange',
+                    'highlight-pink','highlight-green',
+                    'highlight-blue','highlight-underline'
+                ];
                 const isHighlight = hlTypes.some(function(t) { return highlight.classList.contains(t); });
                 if (isHighlight) {
                     e.preventDefault();
@@ -546,9 +570,10 @@ enum ArticleHighlightJS {
         hideHighlightEditMenu();
     }
     """
+}
 
-    // MARK: - Scroll & Remove Scripts
-
+// MARK: - Scroll & Remove Scripts
+extension ArticleHighlightJS {
     static func scrollToHighlightScript(text: String) -> String {
         let escapedText = text
             .replacingOccurrences(of: "\\", with: "\\\\")
