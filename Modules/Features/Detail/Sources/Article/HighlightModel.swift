@@ -112,6 +112,19 @@ public final class HighlightStorage: ObservableObject {
         try? context.save()
     }
 
+    public func updateHighlightType(_ highlight: ArticleHighlight, newType: String) {
+        highlight.highlightType = newType
+        try? context?.save()
+    }
+
+    public func fetchHighlight(for articleId: String, text: String) -> ArticleHighlight? {
+        guard let context = context else { return nil }
+        let descriptor = FetchDescriptor<ArticleHighlight>(
+            predicate: #Predicate { $0.articleId == articleId && $0.selectedText == text }
+        )
+        return try? context.fetch(descriptor).first
+    }
+
     public func deleteAll(for articleId: String) {
         guard let context = context else { return }
 

@@ -5,13 +5,21 @@
 //  Created by 권민재 on 2/14/26.
 //
 
+// swiftlint:disable file_length
 import Foundation
 
 /// JavaScript 코드를 관리하는 구조체
 enum ArticleHighlightJS {
-    // MARK: - Core Highlight Functions
+    // MARK: - Combined Script
 
-    static let coreScript = """
+    static var coreScript: String {
+        highlightScript + "\n" + selectionScript
+    }
+}
+
+// MARK: - Core Highlight Functions
+extension ArticleHighlightJS {
+    static let highlightScript = """
     let originalFontSizes = new Map();
     let savedRange = null;
 
@@ -245,6 +253,12 @@ enum ArticleHighlightJS {
         parent.replaceChild(fragment, textNode);
     }
 
+    """
+}
+
+// MARK: - Selection & Edit Menu Functions
+extension ArticleHighlightJS {
+    static let selectionScript = """
     function setupTextSelection() {
         document.addEventListener('selectionchange', function() {
             const selection = window.getSelection();
@@ -258,8 +272,13 @@ enum ArticleHighlightJS {
             }
         });
 
-        document.addEventListener('touchend', function() {
+        document.addEventListener('touchend', function(e) {
+            if (e.target.closest('.hl-palette')) return;
+
             setTimeout(function() {
+                // 에디트 메뉴가 이미 표시 중이면 선택 팔레트 표시하지 않음
+                if (document.querySelector('.hl-palette[data-role="edit"]')) return;
+
                 const selection = window.getSelection();
                 const selectedText = selection.toString().trim();
                 if (selectedText.length > 0 && selection.rangeCount > 0) {
@@ -268,9 +287,75 @@ enum ArticleHighlightJS {
                         text: selectedText,
                         hasSelection: true
                     });
+                    showSelectionPalette();
+                } else {
+                    hideSelectionPalette();
                 }
-            }, 150);
+            }, 300);
         }, { passive: true });
+    }
+
+    // MARK: - 텍스트 선택 시 커스텀 팔레트 (기획서 D 에디트 메뉴)
+
+    const TRASH_SVG = '<svg xmlns="http://www.w3.org/2000/svg" '
+        + 'width="15" height="15" viewBox="0 0 24 24" fill="none" '
+        + 'stroke="white" stroke-width="2" stroke-linecap="round" '
+        + 'stroke-linejoin="round">'
+        + '<polyline points="3 6 5 6 21 6"/>'
+        + '<path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6'
+        + 'm3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>';
+
+    function buildPaletteHTML(currentType, showDelete) {
+        const colors = ['yellow', 'orange', 'pink', 'green', 'blue'];
+        let html = '';
+        colors.forEach(function(color) {
+            const sel = currentType === color ? ' selected' : '';
+            html += '<div class="hl-dot ' + color + sel + '" data-type="' + color + '"></div>';
+        });
+        html += '<div class="hl-sep"></div>';
+        const uSel = currentType === 'underline' ? ' selected' : '';
+        html += '<div class="hl-underline' + uSel + '" data-type="underline">가</div>';
+        if (showDelete) {
+            html += '<div class="hl-sep"></div>';
+            html += '<div class="hl-trash" data-action="delete">' + TRASH_SVG + '</div>';
+        }
+        return html;
+    }
+
+    function showSelectionPalette() {
+        hideSelectionPalette();
+        hideHighlightEditMenu();
+
+        const selection = window.getSelection();
+        if (!selection.rangeCount || selection.toString().trim().length === 0) return;
+
+        const range = selection.getRangeAt(0);
+        const rect = range.getBoundingClientRect();
+
+        const palette = document.createElement('div');
+        palette.className = 'hl-palette';
+        palette.setAttribute('data-role', 'selection');
+
+        const menuTop = rect.top - 46;
+        palette.style.top = (menuTop < 10 ? rect.bottom + 8 : menuTop) + 'px';
+        palette.style.left = Math.min(Math.max(rect.left + rect.width / 2, 120), window.innerWidth - 120) + 'px';
+
+        palette.innerHTML = buildPaletteHTML('', false);
+        document.body.appendChild(palette);
+
+        palette.querySelectorAll('.hl-dot, .hl-underline').forEach(function(btn) {
+            btn.addEventListener('click', function(e) {
+                e.stopPropagation();
+                e.preventDefault();
+                applyHighlight(btn.getAttribute('data-type'));
+                hideSelectionPalette();
+            });
+        });
+    }
+
+    function hideSelectionPalette() {
+        const p = document.querySelector('.hl-palette[data-role="selection"]');
+        if (p) p.remove();
     }
 
     function applyHighlight(color) {
@@ -358,10 +443,137 @@ enum ArticleHighlightJS {
     function applyUnderline() {
         applyHighlight('underline');
     }
+
+    // MARK: - 기존 하이라이트 클릭 편집 메뉴 (D, E)
+
+    let _focusedHighlight = null;
+
+    function setupHighlightClickHandlers() {
+        document.addEventListener('click', function(e) {
+            if (e.target.closest('.hl-palette')) return;
+
+            const highlight = e.target.closest('span[class*="highlight-"]');
+            if (highlight) {
+                const hlTypes = [
+                    'highlight-yellow','highlight-orange',
+                    'highlight-pink','highlight-green',
+                    'highlight-blue','highlight-underline'
+                ];
+                const isHighlight = hlTypes.some(function(t) { return highlight.classList.contains(t); });
+                if (isHighlight) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    window.getSelection().removeAllRanges();
+                    showHighlightEditMenu(highlight);
+                    return;
+                }
+            }
+
+            hideHighlightEditMenu();
+            hideSelectionPalette();
+        });
+    }
+
+    function getHighlightType(element) {
+        const types = ['yellow', 'orange', 'pink', 'green', 'blue', 'underline'];
+        for (const t of types) {
+            if (element.classList.contains('highlight-' + t)) return t;
+        }
+        return '';
+    }
+
+    function showHighlightEditMenu(element) {
+        hideHighlightEditMenu();
+        hideSelectionPalette();
+
+        element.classList.add('highlight-focused');
+        window._focusedHighlight = element;
+
+        const currentType = getHighlightType(element);
+        const rect = element.getBoundingClientRect();
+
+        const menu = document.createElement('div');
+        menu.className = 'hl-palette';
+        menu.setAttribute('data-role', 'edit');
+
+        const menuTop = rect.top - 46;
+        menu.style.top = (menuTop < 10 ? rect.bottom + 8 : menuTop) + 'px';
+        menu.style.left = Math.min(Math.max(rect.left + rect.width / 2, 120), window.innerWidth - 120) + 'px';
+
+        menu.innerHTML = buildPaletteHTML(currentType, true);
+        document.body.appendChild(menu);
+
+        menu.querySelectorAll('.hl-dot, .hl-underline').forEach(function(btn) {
+            btn.addEventListener('click', function(e) {
+                e.stopPropagation();
+                changeHighlightTypeFromMenu(btn.getAttribute('data-type'));
+            });
+        });
+        const trashBtn = menu.querySelector('.hl-trash');
+        if (trashBtn) {
+            trashBtn.addEventListener('click', function(e) {
+                e.stopPropagation();
+                deleteHighlightFromMenu();
+            });
+        }
+    }
+
+    function hideHighlightEditMenu() {
+        const menu = document.querySelector('.hl-palette[data-role="edit"]');
+        if (menu) menu.remove();
+
+        const focused = document.querySelector('.highlight-focused');
+        if (focused) focused.classList.remove('highlight-focused');
+
+        window._focusedHighlight = null;
+    }
+
+    function changeHighlightTypeFromMenu(newType) {
+        const element = window._focusedHighlight;
+        if (!element) return;
+
+        const currentType = getHighlightType(element);
+        if (currentType === newType) {
+            hideHighlightEditMenu();
+            return;
+        }
+
+        element.classList.remove('highlight-' + currentType);
+        element.classList.add('highlight-' + newType);
+
+        window.webkit.messageHandlers.highlightTypeChanged.postMessage({
+            text: element.textContent,
+            oldType: currentType,
+            newType: newType
+        });
+
+        hideHighlightEditMenu();
+    }
+
+    function deleteHighlightFromMenu() {
+        const element = window._focusedHighlight;
+        if (!element) return;
+
+        const text = element.textContent;
+
+        const parent = element.parentNode;
+        while (element.firstChild) {
+            parent.insertBefore(element.firstChild, element);
+        }
+        parent.removeChild(element);
+        parent.normalize();
+
+        window.webkit.messageHandlers.highlightDeleted.postMessage({
+            text: text
+        });
+
+        hideHighlightEditMenu();
+    }
     """
+}
 
-    // MARK: - Scroll & Remove Scripts
-
+// MARK: - Scroll & Remove Scripts
+extension ArticleHighlightJS {
     static func scrollToHighlightScript(text: String) -> String {
         let escapedText = text
             .replacingOccurrences(of: "\\", with: "\\\\")
