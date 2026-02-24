@@ -20,7 +20,7 @@ public struct ArticleDetailView: View {
     @State private var bookmarkToastMessage: String = ""
 
     // 폰트 크기 조절
-    @State private var fontSize: CGFloat = UserDefaults.standard.object(forKey: "articleFontSize") as? CGFloat ?? 15.0
+    @State private var fontSize: CGFloat = UserDefaults.standard.object(forKey: "articleFontSize") as? CGFloat ?? 20.0
     @State private var showFontSizeControl: Bool = false
 
     // WebView 참조 (JS 실행용)
@@ -29,6 +29,9 @@ public struct ArticleDetailView: View {
     // 하이라이트 목록
     @State private var showHighlightList: Bool = false
     @State private var pendingHighlightRemovals: [String] = []
+
+    // 스크롤 최상단 버튼
+    @State private var showScrollToTop: Bool = false
 
     public init(viewModel: ArticleDetailViewModel) {
         _viewModel = StateObject(wrappedValue: viewModel)
@@ -48,11 +51,43 @@ public struct ArticleDetailView: View {
                     fontSize: $fontSize,
                     webViewRef: $webViewRef,
                     selectedText: $viewModel.selectedText,
+                    showScrollToTop: $showScrollToTop,
                     onSaveHighlight: { type in
                         viewModel.saveHighlight(type: type)
+                    },
+                    onHighlightTypeChanged: { text, newType in
+                        viewModel.changeHighlightType(text: text, newType: newType)
+                    },
+                    onHighlightDeleted: { text in
+                        viewModel.deleteHighlightByText(text: text)
                     }
                 )
                 .ignoresSafeArea(edges: .bottom)
+            }
+
+            // 스크롤 최상단 버튼 (C)
+            if showScrollToTop {
+                VStack {
+                    Spacer()
+                    HStack {
+                        Spacer()
+                        Button {
+                            webViewRef?.scrollView.setContentOffset(.zero, animated: true)
+                        } label: {
+                            Image(systemName: "arrow.up")
+                                .font(.system(size: 16, weight: .bold))
+                                .foregroundColor(.black)
+                                .frame(width: 44, height: 44)
+                                .background(
+                                    Circle()
+                                        .fill(.white)
+                                        .shadow(color: .black.opacity(0.15), radius: 8, x: 0, y: 4)
+                                )
+                        }
+                        .padding(.trailing, 20)
+                        .padding(.bottom, 24)
+                    }
+                }
             }
         }
         .navigationBarBackButtonHidden(true)
@@ -183,64 +218,16 @@ public struct ArticleDetailView: View {
     }
 }
 
-// MARK: - Custom WKWebView with Edit Menu
+// MARK: - Custom WKWebView (네이티브 메뉴 억제, JS 팔레트 사용)
 class HighlightableWebView: WKWebView {
-    var onHighlight: ((String) -> Void)?
-    var onGetSelectedText: (() -> String?)?
-
     override func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {
-        // 기본 액션 허용
-        if super.canPerformAction(action, withSender: sender) {
-            return true
-        }
-        // 커스텀 하이라이트 액션 허용
-        if action == #selector(highlightYellow) ||
-           action == #selector(highlightPink) ||
-           action == #selector(highlightGreen) ||
-           action == #selector(highlightBlue) ||
-           action == #selector(highlightUnderline) {
-            return true
-        }
+        // 네이티브 에디트 메뉴 억제 → JS 커스텀 팔레트 사용
         return false
     }
 
     override func buildMenu(with builder: any UIMenuBuilder) {
-        super.buildMenu(with: builder)
-
-        let highlightMenu = UIMenu(
-            title: "형광펜",
-            image: UIImage(systemName: "highlighter"),
-            children: [
-                UIAction(title: "노랑", image: UIImage(systemName: "circle.fill")?.withTintColor(.systemYellow, renderingMode: .alwaysOriginal)) { [weak self] _ in
-                    self?.onHighlight?("yellow")
-                },
-                UIAction(title: "분홍", image: UIImage(systemName: "circle.fill")?.withTintColor(.systemPink, renderingMode: .alwaysOriginal)) { [weak self] _ in
-                    self?.onHighlight?("pink")
-                },
-                UIAction(title: "초록", image: UIImage(systemName: "circle.fill")?.withTintColor(.systemGreen, renderingMode: .alwaysOriginal)) { [weak self] _ in
-                    self?.onHighlight?("green")
-                },
-                UIAction(title: "파랑", image: UIImage(systemName: "circle.fill")?.withTintColor(.systemBlue, renderingMode: .alwaysOriginal)) { [weak self] _ in
-                    self?.onHighlight?("blue")
-                }
-            ]
-        )
-
-        let underlineAction = UIAction(
-            title: "밑줄",
-            image: UIImage(systemName: "underline")
-        ) { [weak self] _ in
-            self?.onHighlight?("underline")
-        }
-
-        builder.insertChild(UIMenu(title: "", options: .displayInline, children: [highlightMenu, underlineAction]), atStartOfMenu: .standardEdit)
+        // JS 팔레트를 사용하므로 네이티브 메뉴 비활성화
     }
-
-    @objc func highlightYellow() { onHighlight?("yellow") }
-    @objc func highlightPink() { onHighlight?("pink") }
-    @objc func highlightGreen() { onHighlight?("green") }
-    @objc func highlightBlue() { onHighlight?("blue") }
-    @objc func highlightUnderline() { onHighlight?("underline") }
 }
 
 // MARK: - Full WebView (헤더 포함, 스크롤 활성화)
@@ -254,7 +241,10 @@ struct FullWebView: UIViewRepresentable {
     @Binding var fontSize: CGFloat
     @Binding var webViewRef: WKWebView?
     @Binding var selectedText: String
+    @Binding var showScrollToTop: Bool
     var onSaveHighlight: ((String) -> Void)?
+    var onHighlightTypeChanged: ((String, String) -> Void)?
+    var onHighlightDeleted: ((String) -> Void)?
 
     func makeCoordinator() -> Coordinator {
         Coordinator(self)
@@ -266,6 +256,8 @@ struct FullWebView: UIViewRepresentable {
         config.userContentController.add(context.coordinator, name: "textSelected")
         config.userContentController.add(context.coordinator, name: "getSelectedText")
         config.userContentController.add(context.coordinator, name: "consoleLog")
+        config.userContentController.add(context.coordinator, name: "highlightTypeChanged")
+        config.userContentController.add(context.coordinator, name: "highlightDeleted")
 
         let webView = HighlightableWebView(frame: .zero, configuration: config)
         webView.uiDelegate = context.coordinator
@@ -276,16 +268,11 @@ struct FullWebView: UIViewRepresentable {
         webView.scrollView.bounces = true
         webView.scrollView.showsVerticalScrollIndicator = true
         webView.scrollView.contentInsetAdjustmentBehavior = .never
+        webView.scrollView.delegate = context.coordinator
 
         webView.isOpaque = false
         webView.backgroundColor = .white
         webView.allowsBackForwardNavigationGestures = false
-
-        // 하이라이트 콜백 설정
-        let coordinator = context.coordinator
-        webView.onHighlight = { color in
-            coordinator.applyHighlight(color: color, in: webView)
-        }
 
         DispatchQueue.main.async {
             self.webViewRef = webView
@@ -295,6 +282,8 @@ struct FullWebView: UIViewRepresentable {
     }
 
     func updateUIView(_ uiView: HighlightableWebView, context: Context) {
+        context.coordinator.parent = self
+
         // 콘텐츠 변경 시에만 재로드 (하이라이트 변경은 JS로 처리)
         let contentKey = "\(htmlContent)-\(headerImageUrl)"
 
@@ -323,7 +312,7 @@ struct FullWebView: UIViewRepresentable {
         }
     }
 
-    class Coordinator: NSObject, WKNavigationDelegate, WKUIDelegate, WKScriptMessageHandler {
+    class Coordinator: NSObject, WKNavigationDelegate, WKUIDelegate, WKScriptMessageHandler, UIScrollViewDelegate {
         var parent: FullWebView
         var lastContentKey: String?
         var lastFontSize: CGFloat?
@@ -333,6 +322,19 @@ struct FullWebView: UIViewRepresentable {
             self.parent = parent
         }
 
+        // MARK: - Scroll Tracking
+
+        func scrollViewDidScroll(_ scrollView: UIScrollView) {
+            let shouldShow = scrollView.contentOffset.y > 200
+            if parent.showScrollToTop != shouldShow {
+                DispatchQueue.main.async {
+                    self.parent.showScrollToTop = shouldShow
+                }
+            }
+        }
+
+        // MARK: - WKScriptMessageHandler
+
         func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
             // JavaScript console.log 출력
             if message.name == "consoleLog" {
@@ -341,7 +343,9 @@ struct FullWebView: UIViewRepresentable {
             }
 
             guard let body = message.body as? [String: Any] else { return }
-            if message.name == "textSelected" {
+
+            switch message.name {
+            case "textSelected":
                 let hasSelection = body["hasSelection"] as? Bool ?? false
                 let highlightApplied = body["highlightApplied"] as? Bool ?? false
                 let highlightColor = body["highlightColor"] as? String
@@ -350,18 +354,27 @@ struct FullWebView: UIViewRepresentable {
                     if hasSelection {
                         self.parent.selectedText = (body["text"] as? String) ?? ""
                     }
-
-                    // 하이라이트가 적용된 경우 저장
                     if highlightApplied, let color = highlightColor {
                         self.parent.onSaveHighlight?(color)
                     }
                 }
-            }
-        }
 
-        func applyHighlight(color: String, in webView: WKWebView) {
-            let script = "applyHighlight('\(color)');"
-            webView.evaluateJavaScript(script, completionHandler: nil)
+            case "highlightTypeChanged":
+                let text = body["text"] as? String ?? ""
+                let newType = body["newType"] as? String ?? ""
+                DispatchQueue.main.async {
+                    self.parent.onHighlightTypeChanged?(text, newType)
+                }
+
+            case "highlightDeleted":
+                let text = body["text"] as? String ?? ""
+                DispatchQueue.main.async {
+                    self.parent.onHighlightDeleted?(text)
+                }
+
+            default:
+                break
+            }
         }
 
         func webView(_ webView: WKWebView, createWebViewWith configuration: WKWebViewConfiguration,
@@ -380,7 +393,7 @@ struct FontSizeControlView: View {
     @Binding var fontSize: CGFloat
 
     private let minFontSize: CGFloat = 15
-    private let maxFontSize: CGFloat = 30
+    private let maxFontSize: CGFloat = 25
 
     var body: some View {
         VStack(spacing: 0) {
@@ -408,7 +421,7 @@ struct FontSizeControlView: View {
             // 컨트롤 영역
             VStack(spacing: 20) {
                 // 현재 폰트 크기 표시
-                Text("\(Int(fontSize))pt")
+                Text("\(Int(fontSize)) pt")
                     .font(.system(size: 32, weight: .bold))
                     .foregroundColor(.black)
                     .padding(.top, 24)
@@ -422,9 +435,14 @@ struct FontSizeControlView: View {
                             saveFontSize()
                         }
                     }) {
-                        Image(systemName: "minus.circle.fill")
-                            .font(.system(size: 36))
+                        Image(systemName: "minus")
+                            .font(.system(size: 16, weight: .medium))
                             .foregroundColor(fontSize <= minFontSize ? .gray.opacity(0.3) : Color.primaryNormal)
+                            .frame(width: 36, height: 36)
+                            .overlay(
+                                Circle()
+                                    .stroke(fontSize <= minFontSize ? Color.gray.opacity(0.3) : Color.primaryNormal, lineWidth: 1.5)
+                            )
                     }
                     .disabled(fontSize <= minFontSize)
 
@@ -448,9 +466,14 @@ struct FontSizeControlView: View {
                             saveFontSize()
                         }
                     }) {
-                        Image(systemName: "plus.circle.fill")
-                            .font(.system(size: 36))
+                        Image(systemName: "plus")
+                            .font(.system(size: 16, weight: .medium))
                             .foregroundColor(fontSize >= maxFontSize ? .gray.opacity(0.3) : Color.primaryNormal)
+                            .frame(width: 36, height: 36)
+                            .overlay(
+                                Circle()
+                                    .stroke(fontSize >= maxFontSize ? Color.gray.opacity(0.3) : Color.primaryNormal, lineWidth: 1.5)
+                            )
                     }
                     .disabled(fontSize >= maxFontSize)
                 }
@@ -496,131 +519,141 @@ struct HighlightListView: View {
     var onDeleteHighlight: ((ArticleHighlight) -> Void)?
 
     var body: some View {
-        NavigationView {
-            Group {
-                if highlights.isEmpty {
-                    VStack(spacing: 16) {
-                        Image(systemName: "highlighter")
-                            .font(.system(size: 48))
-                            .foregroundColor(.gray.opacity(0.5))
+        VStack(spacing: 0) {
+            // 헤더
+            HStack {
+                Text("하이라이트")
+                    .font(.hanSansNeo(18, .bold))
+                    .foregroundColor(.black)
+                    .tracking(-18 * 0.03)
+                    .lineSpacing(26 - 18)
 
-                        Text("저장된 하이라이트가 없습니다")
-                            .font(.hanSansNeo(16, .medium))
-                            .foregroundColor(.gray)
+                Spacer()
 
-                        Text("텍스트를 길게 눌러 형광펜이나\n밑줄을 추가해보세요")
-                            .font(.hanSansNeo(14, .regular))
-                            .foregroundColor(.gray.opacity(0.7))
-                            .multilineTextAlignment(.center)
-                    }
-                    .frame(maxWidth: .infinity, maxHeight: .infinity)
-                } else {
-                    List {
-                        ForEach(highlights, id: \.id) { highlight in
-                            HighlightRowView(highlight: highlight)
-                                .contentShape(Rectangle())
-                                .onTapGesture {
-                                    onSelectHighlight(highlight)
-                                }
-                                .swipeActions(edge: .trailing, allowsFullSwipe: true) {
-                                    Button(role: .destructive) {
-                                        onDeleteHighlight?(highlight)
-                                    } label: {
-                                        Label("삭제", systemImage: "trash")
-                                    }
-                                }
-                        }
-                    }
-                    .listStyle(.plain)
+                Button(action: { dismiss() }) {
+                    Image(asset: DesignSystemAsset.lineClose)
+                        .renderingMode(.template)
+                        .foregroundColor(Color(hex: "#565656"))
+                        .frame(width: 28, height: 28)
                 }
             }
-            .navigationTitle("내 하이라이트")
-            .navigationBarTitleDisplayMode(.inline)
-            .toolbar {
-                ToolbarItem(placement: .topBarTrailing) {
-                    Button("완료") {
-                        dismiss()
+            .padding(.leading, 20)
+            .padding(.trailing, 24)
+            .padding(.top, 53)
+            .padding(.bottom, 16)
+
+            if highlights.isEmpty {
+                VStack(spacing: 16) {
+                    Image(asset: DesignSystemAsset.nohighlight)
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(width: 260, height: 260)
+
+                    Text("하이라이트한 문장이 없어요")
+                        .font(.hanSansNeo(16, .bold))
+                        .foregroundColor(.black)
+                        .tracking(-16 * 0.03)
+                        .lineSpacing(24 - 16)
+
+                    Text("기억하고 싶은 문장을 길게 눌러\n형광펜이나 밑줄로 표시해 보세요")
+                        .font(.hanSansNeo(14, .medium))
+                        .foregroundColor(.gray)
+                        .tracking(-14 * 0.03)
+                        .lineSpacing(20 - 14)
+                        .multilineTextAlignment(.center)
+                }
+                .padding(.top, 84)
+                Spacer()
+            } else {
+                ScrollView {
+                    LazyVStack(spacing: 8) {
+                        ForEach(highlights, id: \.id) { highlight in
+                            HighlightRowView(
+                                highlight: highlight,
+                                onDelete: {
+                                    onDeleteHighlight?(highlight)
+                                }
+                            )
+                            .contentShape(Rectangle())
+                            .onTapGesture {
+                                onSelectHighlight(highlight)
+                            }
+                        }
                     }
+                    .padding(.horizontal, 20)
                 }
             }
         }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .background(Color.white)
     }
 }
 
 // MARK: - Highlight Row View
 struct HighlightRowView: View {
     let highlight: ArticleHighlight
+    let onDelete: () -> Void
 
     private var highlightColor: Color {
         switch highlight.highlightType {
-        case "yellow": return Color(red: 1.0, green: 0.96, blue: 0.62)
-        case "pink": return Color(red: 0.97, green: 0.73, blue: 0.85)
-        case "green": return Color(red: 0.78, green: 0.90, blue: 0.79)
-        case "blue": return Color(red: 0.73, green: 0.87, blue: 0.98)
-        case "underline": return .clear
-        default: return .clear
+        case "yellow": return Color(hex: "#FBE96C")
+        case "orange": return Color(hex: "#FFC194")
+        case "pink": return Color(hex: "#F1B2C7")
+        case "green": return Color(hex: "#D7EDA1")
+        case "blue": return Color(hex: "#95D5EC")
+        case "underline": return Color(hex: "#EF4444")
+        default: return Color.gray.opacity(0.4)
         }
     }
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 8) {
-            HStack(spacing: 8) {
-                if highlight.highlightType == "underline" {
-                    Image(systemName: "underline")
-                        .font(.system(size: 14))
+        HStack(alignment: .top, spacing: 0) {
+            // 좌측 컬러바
+            RoundedRectangle(cornerRadius: highlight.highlightType == "underline" ? 1 : 3)
+                .fill(highlightColor)
+                .frame(width: highlight.highlightType == "underline" ? 2 : 6)
+
+            // 콘텐츠
+            VStack(alignment: .leading, spacing: 4) {
+                Text("\u{201C}")
+                    .font(.hanSansNeo(16, .bold))
+                    .foregroundColor(.black)
+
+                Text(highlight.selectedText)
+                    .font(.hanSansNeo(14, .regular))
+                    .foregroundColor(.black)
+                    .lineLimit(2)
+
+                HStack(alignment: .bottom) {
+                    Text(formatDate(highlight.createdAt))
+                        .font(.hanSansNeo(12, .regular))
                         .foregroundColor(.gray)
-                } else {
-                    Circle()
-                        .fill(highlightColor)
-                        .frame(width: 16, height: 16)
-                        .overlay(
-                            Circle()
-                                .stroke(Color.gray.opacity(0.3), lineWidth: 1)
-                        )
-                }
 
-                Text(formatDate(highlight.createdAt))
-                    .font(.hanSansNeo(12, .regular))
-                    .foregroundColor(.gray)
+                    Spacer()
 
-                Spacer()
-
-                Image(systemName: "chevron.right")
-                    .font(.system(size: 12))
-                    .foregroundColor(.gray.opacity(0.5))
-            }
-
-            Text(highlight.selectedText)
-                .font(.hanSansNeo(14, .regular))
-                .foregroundColor(.black)
-                .lineLimit(3)
-                .padding(.vertical, 8)
-                .padding(.horizontal, 12)
-                .background(
-                    Group {
-                        if highlight.highlightType == "underline" {
-                            Rectangle()
-                                .fill(Color.clear)
-                                .overlay(
-                                    Rectangle()
-                                        .frame(height: 1)
-                                        .foregroundColor(.gray),
-                                    alignment: .bottom
-                                )
-                        } else {
-                            RoundedRectangle(cornerRadius: 4)
-                                .fill(highlightColor.opacity(0.5))
-                        }
+                    Button(action: onDelete) {
+                        Image(asset: DesignSystemAsset.lineTrash)
+                            .renderingMode(.template)
+                            .foregroundColor(.gray)
+                            .frame(width: 28, height: 28)
                     }
-                )
+                }
+            }
+            .padding(.leading, 12)
+            .padding(.vertical, 12)
         }
-        .padding(.vertical, 4)
+        .overlay(
+            Rectangle()
+                .fill(Color.gray.opacity(0.15))
+                .frame(height: 1),
+            alignment: .bottom
+        )
     }
 
     private func formatDate(_ date: Date) -> String {
         let formatter = DateFormatter()
         formatter.locale = Locale(identifier: "ko_KR")
-        formatter.dateFormat = "M월 d일 HH:mm"
+        formatter.dateFormat = "yyyy-MM-dd HH:mm"
         return formatter.string(from: date)
     }
 }

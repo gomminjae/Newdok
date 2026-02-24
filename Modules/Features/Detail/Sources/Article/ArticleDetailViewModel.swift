@@ -108,6 +108,26 @@ public final class ArticleDetailViewModel: ObservableObject {
         highlights = highlightStorage.fetchHighlights(for: actualArticleId)
     }
 
+    /// 하이라이트 타입 변경 (JS 에디트 메뉴에서 호출)
+    func changeHighlightType(text: String, newType: String) {
+        guard let detail = detail else { return }
+        let articleId = String(detail.articleId)
+        if let highlight = highlightStorage.fetchHighlight(for: articleId, text: text) {
+            highlightStorage.updateHighlightType(highlight, newType: newType)
+            loadHighlights()
+        }
+    }
+
+    /// 텍스트 기준으로 하이라이트 삭제 (JS 에디트 메뉴에서 호출)
+    func deleteHighlightByText(text: String) {
+        guard let detail = detail else { return }
+        let articleId = String(detail.articleId)
+        if let highlight = highlightStorage.fetchHighlight(for: articleId, text: text) {
+            highlightStorage.delete(highlight)
+            loadHighlights()
+        }
+    }
+
     /// 하이라이트 JSON 배열 (WebView용)
     func highlightsJSON() -> [[String: String]] {
         highlights.map { h in
