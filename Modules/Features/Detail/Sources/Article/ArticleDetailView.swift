@@ -33,121 +33,148 @@ public struct ArticleDetailView: View {
     // 스크롤 최상단 버튼
     @State private var showScrollToTop: Bool = false
 
+    // 렌더링 완료 후 표시
+    @State private var isViewReady: Bool = false
+
     public init(viewModel: ArticleDetailViewModel) {
         _viewModel = StateObject(wrappedValue: viewModel)
     }
 
-    public var body: some View {
-        ZStack {
-            // WebView가 전체 스크롤 담당 (시스템 메뉴로 하이라이트)
-            if let detail = viewModel.detail {
-                FullWebView(
-                    htmlContent: detail.articleHTML ?? "",
-                    headerImageUrl: detail.brandImageUrl ?? "",
-                    articleTitle: detail.articleTitle,
-                    articleDate: formatDate(detail.date ?? ""),
-                    articleId: viewModel.articleId,
-                    savedHighlights: viewModel.highlights,
-                    fontSize: $fontSize,
-                    webViewRef: $webViewRef,
-                    selectedText: $viewModel.selectedText,
-                    showScrollToTop: $showScrollToTop,
-                    onSaveHighlight: { type in
-                        viewModel.saveHighlight(type: type)
-                    },
-                    onHighlightTypeChanged: { text, newType in
-                        viewModel.changeHighlightType(text: text, newType: newType)
-                    },
-                    onHighlightDeleted: { text in
-                        viewModel.deleteHighlightByText(text: text)
-                    }
-                )
-                .ignoresSafeArea(edges: .bottom)
-            }
+    private var safeAreaTop: CGFloat {
+        UIApplication.shared.connectedScenes
+            .compactMap { $0 as? UIWindowScene }
+            .first?.windows.first?.safeAreaInsets.top ?? 0
+    }
 
-            // 스크롤 최상단 버튼 (C)
-            if showScrollToTop {
-                VStack {
-                    Spacer()
-                    HStack {
-                        Spacer()
-                        Button {
-                            webViewRef?.scrollView.setContentOffset(.zero, animated: true)
-                        } label: {
-                            Image(systemName: "arrow.up")
-                                .font(.system(size: 16, weight: .bold))
-                                .foregroundColor(.black)
-                                .frame(width: 44, height: 44)
-                                .background(
-                                    Circle()
-                                        .fill(.white)
-                                        .shadow(color: .black.opacity(0.15), radius: 8, x: 0, y: 4)
-                                )
-                        }
-                        .padding(.trailing, 20)
-                        .padding(.bottom, 24)
-                    }
-                }
-            }
-        }
-        .navigationBarBackButtonHidden(true)
-        .navigationBarTitleDisplayMode(.inline)
-        .enableSwipeBack(edgeOnly: true)
-        .toolbar {
-            // 뒤로가기
-            ToolbarItem(placement: .navigationBarLeading) {
+    public var body: some View {
+        VStack(spacing: 0) {
+            // 커스텀 네비게이션 바
+            HStack(spacing: 0) {
+                // 뒤로가기
                 Button {
                     NotificationCenter.default.post(name: .init("RefreshHome"), object: nil)
                     router.pop()
                 } label: {
                     Image(asset: DesignSystemAsset.back)
-                        .foregroundColor(.black)
+                        .foregroundColor(Color(hex: "#161616"))
+                        .frame(width: 28, height: 28)
                 }
-            }
-            // 타이틀
-            ToolbarItem(placement: .principal) {
+
+                // 타이틀
                 Text(viewModel.detail?.brandName ?? "")
                     .font(.hanSansNeo(16, .bold))
-                    .foregroundColor(.black)
-            }
-            // 하이라이트 목록 버튼
-            ToolbarItem(placement: .topBarTrailing) {
-                Button {
-                    showHighlightList = true
-                } label: {
-                    Image(systemName: "highlighter")
-                        .font(.system(size: 18))
-                        .foregroundColor(.black)
-                }
-            }
-            // 폰트 크기 조절 버튼
-            ToolbarItem(placement: .topBarTrailing) {
-                Button {
-                    showFontSizeControl = true
-                } label: {
-                    Image(systemName: "textformat.size")
-                        .font(.system(size: 18))
-                        .foregroundColor(.black)
-                }
-            }
-            // 북마크 버튼
-            ToolbarItem(placement: .topBarTrailing) {
-                Button {
-                    Task {
-                        let wasBookmarked = viewModel.detail?.isBookmarked ?? false
-                        await viewModel.bookmark()
-                        bookmarkToastMessage = wasBookmarked
-                            ? "북마크가 해제되었습니다."
-                            : "북마크함에 아티클을 저장했어요."
-                        showBookmarkToast = true
+                    .foregroundColor(Color(hex: "#161616"))
+                    .lineLimit(1)
+                    .padding(.leading, 8)
+
+                Spacer()
+
+                // 우측 버튼 3개
+                HStack(spacing: 12) {
+                    Button {
+                        showHighlightList = true
+                    } label: {
+                        Image(asset: DesignSystemAsset.highlight)
+                            .renderingMode(.template)
+                            .foregroundColor(Color(hex: "#161616"))
+                            .frame(width: 28, height: 28)
                     }
-                } label: {
-                    Image(
-                        asset: viewModel.detail?.isBookmarked == true
-                            ? DesignSystemAsset.bookmarked
-                            : DesignSystemAsset.lineBookmark
-                    )
+
+                    Button {
+                        showFontSizeControl = true
+                    } label: {
+                        Image(asset: DesignSystemAsset.font)
+                            .renderingMode(.template)
+                            .foregroundColor(Color(hex: "#161616"))
+                            .frame(width: 28, height: 28)
+                    }
+
+                    Button {
+                        Task {
+                            let wasBookmarked = viewModel.detail?.isBookmarked ?? false
+                            await viewModel.bookmark()
+                            bookmarkToastMessage = wasBookmarked
+                                ? "북마크가 해제되었습니다."
+                                : "북마크함에 아티클을 저장했어요."
+                            showBookmarkToast = true
+                        }
+                    } label: {
+                        Image(
+                            asset: viewModel.detail?.isBookmarked == true
+                                ? DesignSystemAsset.bookmarked
+                                : DesignSystemAsset.lineBookmark
+                        )
+                        .frame(width: 28, height: 28)
+                    }
                 }
+            }
+            .padding(.horizontal, 20)
+            .frame(height: 44)
+            .padding(.top, safeAreaTop)
+            .background(Color.white)
+
+            // WebView
+            ZStack {
+                if let detail = viewModel.detail {
+                    FullWebView(
+                        htmlContent: detail.articleHTML ?? "",
+                        headerImageUrl: detail.brandImageUrl ?? "",
+                        articleTitle: detail.articleTitle,
+                        articleDate: formatDate(detail.date ?? ""),
+                        articleId: viewModel.articleId,
+                        savedHighlights: viewModel.highlights,
+                        fontSize: $fontSize,
+                        webViewRef: $webViewRef,
+                        selectedText: $viewModel.selectedText,
+                        showScrollToTop: $showScrollToTop,
+                        onSaveHighlight: { type in
+                            viewModel.saveHighlight(type: type)
+                        },
+                        onHighlightTypeChanged: { text, newType in
+                            viewModel.changeHighlightType(text: text, newType: newType)
+                        },
+                        onHighlightDeleted: { text in
+                            viewModel.deleteHighlightByText(text: text)
+                        }
+                    )
+                    .ignoresSafeArea(edges: .bottom)
+                }
+
+                // 스크롤 최상단 버튼
+                if showScrollToTop {
+                    VStack {
+                        Spacer()
+                        HStack {
+                            Spacer()
+                            Button {
+                                webViewRef?.scrollView.setContentOffset(.zero, animated: true)
+                            } label: {
+                                Image(systemName: "arrow.up")
+                                    .font(.system(size: 16, weight: .bold))
+                                    .foregroundColor(.black)
+                                    .frame(width: 44, height: 44)
+                                    .background(
+                                        Circle()
+                                            .fill(.white)
+                                            .shadow(color: .black.opacity(0.15), radius: 8, x: 0, y: 4)
+                                    )
+                            }
+                            .padding(.trailing, 20)
+                            .padding(.bottom, 24)
+                        }
+                    }
+                }
+            }
+        }
+        .opacity(isViewReady ? 1 : 0)
+        .background(Color.white)
+        .ignoresSafeArea(edges: .top)
+        .navigationBarTitleDisplayMode(.inline)
+        .toolbar(.hidden, for: .navigationBar)
+        .enableSwipeBack(edgeOnly: true)
+        .onAppear {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.05) {
+                isViewReady = true
             }
         }
         .task {
@@ -284,13 +311,15 @@ struct FullWebView: UIViewRepresentable {
     func updateUIView(_ uiView: HighlightableWebView, context: Context) {
         context.coordinator.parent = self
 
-        // 콘텐츠 변경 시에만 재로드 (하이라이트 변경은 JS로 처리)
         let contentKey = "\(htmlContent)-\(headerImageUrl)"
+        let needsReload = context.coordinator.lastContentKey != contentKey
+            || context.coordinator.needsReload
 
-        if context.coordinator.lastContentKey != contentKey {
+        if needsReload {
             context.coordinator.lastContentKey = contentKey
             context.coordinator.lastFontSize = fontSize
             context.coordinator.lastHighlightCount = savedHighlights.count
+            context.coordinator.needsReload = false
 
             let highlightsJSON = savedHighlights.map { highlight in
                 ["text": highlight.selectedText, "type": highlight.highlightType]
@@ -317,9 +346,19 @@ struct FullWebView: UIViewRepresentable {
         var lastContentKey: String?
         var lastFontSize: CGFloat?
         var lastHighlightCount: Int = 0
+        var needsReload: Bool = false
 
         init(_ parent: FullWebView) {
             self.parent = parent
+        }
+
+        // MARK: - WebView Content Process Recovery
+
+        func webViewWebContentProcessDidTerminate(_ webView: WKWebView) {
+            // 메모리 압박 등으로 WebView 콘텐츠가 소실된 경우 재로드
+            print("[WebView] Content process terminated, will reload")
+            needsReload = true
+            lastContentKey = nil
         }
 
         // MARK: - Scroll Tracking

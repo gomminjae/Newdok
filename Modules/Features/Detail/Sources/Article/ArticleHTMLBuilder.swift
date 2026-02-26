@@ -40,6 +40,16 @@ struct ArticleHTMLBuilder {
                 \(Self.cssStyles)
             </style>
             <script>
+                // console.log를 네이티브로 포워딩
+                (function() {
+                    var origLog = console.log;
+                    console.log = function() {
+                        var msg = Array.prototype.slice.call(arguments).join(' ');
+                        try { window.webkit.messageHandlers.consoleLog.postMessage(msg); } catch(e) {}
+                        origLog.apply(console, arguments);
+                    };
+                })();
+
                 const savedHighlights = \(highlightsString);
 
                 document.addEventListener('DOMContentLoaded', function() {
@@ -144,6 +154,13 @@ struct ArticleHTMLBuilder {
             outline-offset: 1px;
             border-radius: 2px;
         }
+        .highlight-group-overlay {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            pointer-events: none;
+            z-index: 99998;
+        }
         /* 통합 팔레트 (선택 팔레트 + 하이라이트 에디트 메뉴) */
         .hl-palette {
             position: fixed;
@@ -159,6 +176,23 @@ struct ArticleHTMLBuilder {
             box-shadow: 0 3px 10px rgba(0,0,0,0.35);
             -webkit-user-select: none;
             user-select: none;
+        }
+        .hl-palette::after {
+            content: '';
+            position: absolute;
+            bottom: -6px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0; height: 0;
+            border-left: 7px solid transparent;
+            border-right: 7px solid transparent;
+            border-top: 7px solid rgba(55, 55, 55, 0.96);
+        }
+        .hl-palette.below::after {
+            bottom: auto;
+            top: -6px;
+            border-top: none;
+            border-bottom: 7px solid rgba(55, 55, 55, 0.96);
         }
         .hl-palette .hl-dot {
             width: 20px;

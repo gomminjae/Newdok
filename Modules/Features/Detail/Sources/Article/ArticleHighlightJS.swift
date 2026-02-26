@@ -22,6 +22,12 @@ extension ArticleHighlightJS {
     static let highlightScript = """
     let originalFontSizes = new Map();
     let savedRange = null;
+    let _highlightIdCounter = 0;
+
+    function generateHighlightId() {
+        _highlightIdCounter++;
+        return 'hl-' + Date.now() + '-' + _highlightIdCounter;
+    }
 
     function saveOriginalFontSizes() {
         document.querySelectorAll('.content *').forEach(function(el, index) {
@@ -62,6 +68,8 @@ extension ArticleHighlightJS {
             return false;
         }
 
+        const groupId = generateHighlightId();
+
         // 줄바꿈, 탭, 여러 공백을 모두 단일 스페이스로 정규화
         const normalizedSearch = searchText.replace(/[\\s\\n\\r\\t]+/g, ' ').trim();
         console.log('[Highlight] Searching for:', normalizedSearch.substring(0, 50));
@@ -80,6 +88,7 @@ extension ArticleHighlightJS {
                     range.setEnd(node, realIdx + findRealLength(node.textContent, realIdx, normalizedSearch));
                     const span = document.createElement('span');
                     span.className = 'highlight-' + highlightType;
+                    span.setAttribute('data-highlight-group', groupId);
                     try {
                         range.surroundContents(span);
                         console.log('[Highlight] Single node match success');
@@ -92,7 +101,7 @@ extension ArticleHighlightJS {
         }
 
         // 2차: 여러 노드에 걸친 텍스트 찾기
-        return highlightAcrossNodes(content, normalizedSearch, highlightType);
+        return highlightAcrossNodes(content, normalizedSearch, highlightType, groupId);
     }
 
     function findRealIndex(text, searchText) {
@@ -129,108 +138,86 @@ extension ArticleHighlightJS {
         return realLen;
     }
 
-    function highlightAcrossNodes(container, searchText, highlightType) {
+    function highlightAcrossNodes(container, searchText, highlightType, groupId) {
+        if (!groupId) groupId = generateHighlightId();
         const normalizedSearchText = searchText.replace(/[\\s\\n\\r\\t]+/g, ' ').trim();
 
         // 텍스트 노드 수집
         const textNodes = [];
         const walker = document.createTreeWalker(container, NodeFilter.SHOW_TEXT, null, false);
         let n;
-
         while (n = walker.nextNode()) {
             textNodes.push(n);
         }
 
+        if (textNodes.length === 0) return false;
         console.log('[Highlight] Found', textNodes.length, 'text nodes');
 
-        // 전체 텍스트 구성 (노드 사이에 공백 추가)
-        let fullText = '';
-        let nodePositions = []; // { node, startInFull, endInFull }
+        // 원본 텍스트를 그대로 이어붙이고 노드별 위치를 정확히 기록
+        
+        let rawFullText = '';
+        const nodeRanges = [];
 
         for (let i = 0; i < textNodes.length; i++) {
-            const node = textNodes[i];
-            const nodeText = node.textContent.replace(/[\\s\\n\\r\\t]+/g, ' ');
-            const startPos = fullText.length;
-            fullText += nodeText;
-            nodePositions.push({
-                node: node,
-                startInFull: startPos,
-                endInFull: fullText.length,
-                originalText: node.textContent
-            });
-            // 노드 사이에 공백 추가 (<br> 등을 보완)
-            if (i < textNodes.length - 1) {
-                fullText += ' ';
-            }
+            const startPos = rawFullText.length;
+            rawFullText += textNodes[i].textContent;
+            nodeRanges.push({ node: textNodes[i], start: startPos, end: rawFullText.length });
         }
 
-        fullText = fullText.replace(/[\\s]+/g, ' ');
-        const idx = fullText.indexOf(normalizedSearchText);
-        console.log('[Highlight] fullText:', fullText.substring(0, 80), '...');
-        console.log('[Highlight] searching:', normalizedSearchText.substring(0, 50), '...');
-        console.log('[Highlight] idx:', idx);
+        // 검색어의 각 단어를 정규식으로 변환: 단어 사이에 임의의 공백 매칭
+        const words = normalizedSearchText.split(' ').filter(function(w) { return w.length > 0; });
+        if (words.length === 0) return false;
 
-        if (idx < 0) {
-            // 부분 매칭 시도: 첫 30자로 찾기
-            const partialSearch = normalizedSearchText.substring(0, 30);
-            const partialIdx = fullText.indexOf(partialSearch);
-            console.log('[Highlight] Partial search idx:', partialIdx);
-            if (partialIdx >= 0) {
-                // 첫 번째 부분이 포함된 노드 찾기
-                for (const np of nodePositions) {
-                    const normalizedNode = np.originalText.replace(/[\\s\\n\\r\\t]+/g, ' ');
-                    if (normalizedNode.includes(partialSearch)) {
-                        // 이 노드에서 하이라이트
-                        highlightPartOfTextNode(np.node, 0, np.node.textContent.length, highlightType);
-                        return true;
-                    }
-                }
-            }
+        const regexStr = words.map(function(w) {
+            return w.replace(/[.*+?^${}()|[\\]\\\\]/g, '\\\\$&');
+        }).join('[\\\\s\\\\n\\\\r\\\\t]*');
+
+        console.log('[Highlight] Regex search:', regexStr.substring(0, 60));
+
+        let match = null;
+        try {
+            const regex = new RegExp(regexStr);
+            match = regex.exec(rawFullText);
+        } catch(e) {
+            console.log('[Highlight] Regex error:', e.message);
+        }
+
+        if (!match) {
+            console.log('[Highlight] Cross-node match failed');
             return false;
         }
 
-        const endIdx = idx + normalizedSearchText.length;
+        const matchStart = match.index;
+        const matchEnd = matchStart + match[0].length;
+        console.log('[Highlight] Match found at', matchStart, '-', matchEnd);
+
+        // 매칭 범위에 걸치는 노드들 찾기
         const nodesToHighlight = [];
+        for (let i = 0; i < nodeRanges.length; i++) {
+            const nr = nodeRanges[i];
+            if (nr.end <= matchStart) continue;
+            if (nr.start >= matchEnd) break;
 
-        // 재계산된 위치로 노드 찾기
-        let currentPos = 0;
-        for (let i = 0; i < textNodes.length; i++) {
-            const node = textNodes[i];
-            const nodeText = node.textContent.replace(/[\\s\\n\\r\\t]+/g, ' ');
-            const nodeStart = currentPos;
-            const nodeEnd = currentPos + nodeText.length;
+            const startInNode = Math.max(0, matchStart - nr.start);
+            const endInNode = Math.min(nr.end - nr.start, matchEnd - nr.start);
 
-            if (nodeEnd <= idx) {
-                currentPos = nodeEnd + 1; // +1 for space between nodes
-                continue;
+            if (startInNode < endInNode) {
+                nodesToHighlight.push({ node: nr.node, start: startInNode, end: endInNode });
             }
-            if (nodeStart >= endIdx) break;
-
-            const nodeStartInRange = Math.max(0, idx - nodeStart);
-            const nodeEndInRange = Math.min(nodeText.length, endIdx - nodeStart);
-
-            nodesToHighlight.push({
-                node: node,
-                start: nodeStartInRange,
-                end: nodeEndInRange
-            });
-
-            currentPos = nodeEnd + 1;
         }
 
         console.log('[Highlight] Nodes to highlight:', nodesToHighlight.length);
-
         if (nodesToHighlight.length === 0) return false;
 
         for (let i = nodesToHighlight.length - 1; i >= 0; i--) {
             const info = nodesToHighlight[i];
-            highlightPartOfTextNode(info.node, info.start, info.end, highlightType);
+            highlightPartOfTextNode(info.node, info.start, info.end, highlightType, groupId);
         }
 
         return true;
     }
 
-    function highlightPartOfTextNode(textNode, start, end, highlightType) {
+    function highlightPartOfTextNode(textNode, start, end, highlightType, groupId) {
         const text = textNode.textContent;
         if (start >= end || start >= text.length) return;
 
@@ -243,6 +230,7 @@ extension ArticleHighlightJS {
 
         const span = document.createElement('span');
         span.className = 'highlight-' + highlightType;
+        if (groupId) span.setAttribute('data-highlight-group', groupId);
         span.textContent = highlight;
 
         const fragment = document.createDocumentFragment();
@@ -293,6 +281,12 @@ extension ArticleHighlightJS {
                 }
             }, 300);
         }, { passive: true });
+
+        // 스크롤 시 편집 메뉴 및 오버레이 닫기
+        window.addEventListener('scroll', function() {
+            hideHighlightEditMenu();
+            hideSelectionPalette();
+        }, { passive: true });
     }
 
     // MARK: - 텍스트 선택 시 커스텀 팔레트 (기획서 D 에디트 메뉴)
@@ -337,8 +331,10 @@ extension ArticleHighlightJS {
         palette.setAttribute('data-role', 'selection');
 
         const menuTop = rect.top - 46;
-        palette.style.top = (menuTop < 10 ? rect.bottom + 8 : menuTop) + 'px';
+        const isBelow = menuTop < 10;
+        palette.style.top = (isBelow ? rect.bottom + 8 : menuTop) + 'px';
         palette.style.left = Math.min(Math.max(rect.left + rect.width / 2, 120), window.innerWidth - 120) + 'px';
+        if (isBelow) palette.classList.add('below');
 
         palette.innerHTML = buildPaletteHTML('', false);
         document.body.appendChild(palette);
@@ -376,16 +372,19 @@ extension ArticleHighlightJS {
             return;
         }
 
+        const groupId = generateHighlightId();
+
         if (range.startContainer === range.endContainer && range.startContainer.nodeType === Node.TEXT_NODE) {
             const span = document.createElement('span');
             span.className = 'highlight-' + color;
+            span.setAttribute('data-highlight-group', groupId);
             try {
                 range.surroundContents(span);
             } catch (e) {
-                highlightPartOfTextNode(range.startContainer, range.startOffset, range.endOffset, color);
+                highlightPartOfTextNode(range.startContainer, range.startOffset, range.endOffset, color, groupId);
             }
         } else {
-            highlightRangeAcrossNodes(range, color);
+            highlightRangeAcrossNodes(range, color, groupId);
         }
 
         window.webkit.messageHandlers.textSelected.postMessage({
@@ -399,7 +398,8 @@ extension ArticleHighlightJS {
         savedRange = null;
     }
 
-    function highlightRangeAcrossNodes(range, highlightType) {
+    function highlightRangeAcrossNodes(range, highlightType, groupId) {
+        if (!groupId) groupId = generateHighlightId();
         const textNodes = [];
         const walker = document.createTreeWalker(
             range.commonAncestorContainer,
@@ -435,7 +435,7 @@ extension ArticleHighlightJS {
             }
 
             if (start < end) {
-                highlightPartOfTextNode(textNode, start, end, highlightType);
+                highlightPartOfTextNode(textNode, start, end, highlightType, groupId);
             }
         }
     }
@@ -447,6 +447,15 @@ extension ArticleHighlightJS {
     // MARK: - 기존 하이라이트 클릭 편집 메뉴 (D, E)
 
     let _focusedHighlight = null;
+    let _focusedGroupId = null;
+
+    function getHighlightGroup(element) {
+        const groupId = element.getAttribute('data-highlight-group');
+        if (groupId) {
+            return document.querySelectorAll('[data-highlight-group="' + groupId + '"]');
+        }
+        return [element];
+    }
 
     function setupHighlightClickHandlers() {
         document.addEventListener('click', function(e) {
@@ -482,23 +491,88 @@ extension ArticleHighlightJS {
         return '';
     }
 
+    // 그룹의 모든 span bounding rect를 줄 단위로 합쳐 하나의 파란 오버레이를 그린다
+    function showGroupFocusOverlay(groupElements) {
+        removeGroupFocusOverlay();
+        if (!groupElements || groupElements.length === 0) return;
+
+        // 모든 ClientRect 수집
+        const allRects = [];
+        groupElements.forEach(function(el) {
+            const rects = el.getClientRects();
+            for (let i = 0; i < rects.length; i++) {
+                allRects.push(rects[i]);
+            }
+        });
+        if (allRects.length === 0) return;
+
+        // 같은 줄(top 차이 5px 이내)에 있는 rect를 하나로 합침
+        const lines = [];
+        allRects.forEach(function(r) {
+            let merged = false;
+            for (let line of lines) {
+                if (Math.abs(line.top - r.top) < 5) {
+                    line.left = Math.min(line.left, r.left);
+                    line.right = Math.max(line.right, r.right);
+                    line.top = Math.min(line.top, r.top);
+                    line.bottom = Math.max(line.bottom, r.bottom);
+                    merged = true;
+                    break;
+                }
+            }
+            if (!merged) {
+                lines.push({ top: r.top, bottom: r.bottom, left: r.left, right: r.right });
+            }
+        });
+
+        const container = document.createElement('div');
+        container.className = 'highlight-group-overlay';
+
+        lines.forEach(function(ln) {
+            const box = document.createElement('div');
+            box.style.cssText = 'position:fixed;pointer-events:none;'
+                + 'border:2px solid #2866D3;border-radius:3px;'
+                + 'left:' + (ln.left - 2) + 'px;'
+                + 'top:' + (ln.top - 2) + 'px;'
+                + 'width:' + (ln.right - ln.left + 4) + 'px;'
+                + 'height:' + (ln.bottom - ln.top + 4) + 'px;';
+            container.appendChild(box);
+        });
+
+        document.body.appendChild(container);
+    }
+
+    function removeGroupFocusOverlay() {
+        const el = document.querySelector('.highlight-group-overlay');
+        if (el) el.remove();
+    }
+
     function showHighlightEditMenu(element) {
         hideHighlightEditMenu();
         hideSelectionPalette();
 
-        element.classList.add('highlight-focused');
+        const groupElements = getHighlightGroup(element);
+        // 오버레이로 그룹 전체를 파란 박스로 감싸기
+        showGroupFocusOverlay(groupElements);
+
         window._focusedHighlight = element;
+        window._focusedGroupId = element.getAttribute('data-highlight-group');
 
         const currentType = getHighlightType(element);
-        const rect = element.getBoundingClientRect();
+
+        // 그룹 전체의 첫 번째 span 기준으로 메뉴 위치 결정
+        const firstEl = groupElements[0] || element;
+        const rect = firstEl.getBoundingClientRect();
 
         const menu = document.createElement('div');
         menu.className = 'hl-palette';
         menu.setAttribute('data-role', 'edit');
 
         const menuTop = rect.top - 46;
-        menu.style.top = (menuTop < 10 ? rect.bottom + 8 : menuTop) + 'px';
+        const isBelow = menuTop < 10;
+        menu.style.top = (isBelow ? rect.bottom + 8 : menuTop) + 'px';
         menu.style.left = Math.min(Math.max(rect.left + rect.width / 2, 120), window.innerWidth - 120) + 'px';
+        if (isBelow) menu.classList.add('below');
 
         menu.innerHTML = buildPaletteHTML(currentType, true);
         document.body.appendChild(menu);
@@ -522,10 +596,11 @@ extension ArticleHighlightJS {
         const menu = document.querySelector('.hl-palette[data-role="edit"]');
         if (menu) menu.remove();
 
-        const focused = document.querySelector('.highlight-focused');
-        if (focused) focused.classList.remove('highlight-focused');
+        // 오버레이 제거
+        removeGroupFocusOverlay();
 
         window._focusedHighlight = null;
+        window._focusedGroupId = null;
     }
 
     function changeHighlightTypeFromMenu(newType) {
@@ -538,11 +613,17 @@ extension ArticleHighlightJS {
             return;
         }
 
-        element.classList.remove('highlight-' + currentType);
-        element.classList.add('highlight-' + newType);
+        // 같은 그룹의 모든 span 타입 변경
+        const groupElements = getHighlightGroup(element);
+        let fullText = '';
+        groupElements.forEach(function(el) {
+            el.classList.remove('highlight-' + currentType);
+            el.classList.add('highlight-' + newType);
+            fullText += el.textContent;
+        });
 
         window.webkit.messageHandlers.highlightTypeChanged.postMessage({
-            text: element.textContent,
+            text: fullText,
             oldType: currentType,
             newType: newType
         });
@@ -554,17 +635,24 @@ extension ArticleHighlightJS {
         const element = window._focusedHighlight;
         if (!element) return;
 
-        const text = element.textContent;
+        // 같은 그룹의 모든 span에서 텍스트 수집 후 제거
+        const groupElements = Array.from(getHighlightGroup(element));
+        let fullText = '';
+        groupElements.forEach(function(el) {
+            fullText += el.textContent;
+        });
 
-        const parent = element.parentNode;
-        while (element.firstChild) {
-            parent.insertBefore(element.firstChild, element);
-        }
-        parent.removeChild(element);
-        parent.normalize();
+        groupElements.forEach(function(el) {
+            const parent = el.parentNode;
+            while (el.firstChild) {
+                parent.insertBefore(el.firstChild, el);
+            }
+            parent.removeChild(el);
+            parent.normalize();
+        });
 
         window.webkit.messageHandlers.highlightDeleted.postMessage({
-            text: text
+            text: fullText
         });
 
         hideHighlightEditMenu();
@@ -591,9 +679,13 @@ extension ArticleHighlightJS {
                 const normalizedEl = el.textContent.replace(/\\s+/g, ' ').trim();
                 if (normalizedEl.includes(normalizedSearch) || normalizedSearch.includes(normalizedEl)) {
                     el.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                    el.style.transition = 'outline 0.3s';
-                    el.style.outline = '2px solid #007AFF';
-                    setTimeout(() => { el.style.outline = 'none'; }, 1500);
+                    // 같은 그룹 전체를 파란 오버레이로 감싸기
+                    const groupId = el.getAttribute('data-highlight-group');
+                    const groupEls = groupId
+                        ? document.querySelectorAll('[data-highlight-group="' + groupId + '"]')
+                        : [el];
+                    showGroupFocusOverlay(groupEls);
+                    setTimeout(function() { removeGroupFocusOverlay(); }, 1500);
                     return true;
                 }
             }
@@ -642,11 +734,19 @@ extension ArticleHighlightJS {
             for (const el of highlights) {
                 const normalizedEl = el.textContent.replace(/\\s+/g, ' ').trim();
                 if (normalizedEl.includes(normalizedSearch) || normalizedSearch.includes(normalizedEl)) {
-                    const parent = el.parentNode;
-                    while (el.firstChild) {
-                        parent.insertBefore(el.firstChild, el);
-                    }
-                    parent.removeChild(el);
+                    // 같은 그룹의 모든 span 제거
+                    const groupId = el.getAttribute('data-highlight-group');
+                    const groupEls = groupId
+                        ? Array.from(document.querySelectorAll('[data-highlight-group="' + groupId + '"]'))
+                        : [el];
+                    groupEls.forEach(function(g) {
+                        const parent = g.parentNode;
+                        while (g.firstChild) {
+                            parent.insertBefore(g.firstChild, g);
+                        }
+                        parent.removeChild(g);
+                        parent.normalize();
+                    });
                     return true;
                 }
             }
