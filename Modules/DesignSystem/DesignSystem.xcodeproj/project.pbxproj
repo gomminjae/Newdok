@@ -11,6 +11,7 @@
 		1A358594D74B1F60E1BF9612 /* SubscribeCheckPopupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 470F5079EDDB033641E50DED /* SubscribeCheckPopupView.swift */; };
 		1FA24D3FDDFF21AFE5CFC0D9 /* NetworkErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43927DC076C8D16C0564FAD5 /* NetworkErrorView.swift */; };
 		222061C7A7A3B1724EA3FFF4 /* SpoqaHanSansNeo-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = 3A89362609648144517CFE75 /* SpoqaHanSansNeo-Medium.otf */; };
+		25340958D416067BB478FB71 /* Kingfisher.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 28746752247E3911CD5C3C07 /* Kingfisher.framework */; };
 		2C2A6F1B0843699ACFE53D23 /* TuistFonts+DesignSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1489E7809DA4DADA471C2CDC /* TuistFonts+DesignSystem.swift */; };
 		2EDDF3D2C0A79069831FB1B8 /* SpoqaHanSansNeo-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = D45E4F8E9B8A1813A5ADE0C1 /* SpoqaHanSansNeo-Light.otf */; };
 		3C49F77F8ACF1FC3BD37A181 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ED3D8DA640FE3624B7ACF45 /* LoadingView.swift */; };
@@ -30,11 +31,10 @@
 		8A62B4BD3A69AEF073CF5C9A /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5A48836E0BB8D0848154F17 /* UIColor+Extension.swift */; };
 		8A9C0A8F4FB5F65357DC241E /* SubscribeNoticeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 927C881A2F81BA000C05ABEF /* SubscribeNoticeView.swift */; };
 		90D6A5AEB9B8DACDEBE64A29 /* SystemErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE683B09BDE84B3483EE6137 /* SystemErrorView.swift */; };
-		930633ABD4AB1ABA3A0D07CE /* PopupView.framework in Dependencies */ = {isa = PBXBuildFile; fileRef = B6654808CA89C3FC25B33948 /* PopupView.framework */; };
 		963BD2E45D7172CE4BF69364 /* VerificationButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DEFF305135085B93F19593 /* VerificationButtonStyle.swift */; };
+		A202EC13E48DCA48C5318D26 /* PopupView.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B6654808CA89C3FC25B33948 /* PopupView.framework */; };
 		A34723E76FBB0E7BC50177C2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4F6AF114A38FDBD9663A6B1B /* Assets.xcassets */; };
 		ABB14811E13F7B1ECCF8B086 /* TuistAssets+DesignSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5263BC75B281154AC0B5A7B /* TuistAssets+DesignSystem.swift */; };
-		AF3606B9E55854B952C96078 /* Kingfisher.framework in Dependencies */ = {isa = PBXBuildFile; fileRef = 28746752247E3911CD5C3C07 /* Kingfisher.framework */; };
 		BC4360B914A0E6C10A4A851E /* CheckSubscribeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CF8A496C7E691DCF3A7C603 /* CheckSubscribeView.swift */; };
 		BDD988384DEC9A8C4E1B5F71 /* PullToRefreshView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 480127A043369072FC6A4A0E /* PullToRefreshView.swift */; };
 		C35D008C753D8412BCE4632E /* EmailInfoModalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0409EEB7627BF07C31330B2A /* EmailInfoModalView.swift */; };
@@ -71,8 +71,6 @@
 			buildActionMask = 8;
 			dstSubfolderSpec = 16;
 			files = (
-				AF3606B9E55854B952C96078 /* Kingfisher.framework in Dependencies */,
-				930633ABD4AB1ABA3A0D07CE /* PopupView.framework in Dependencies */,
 				ED3F89E53428547F316A4307 /* SDWebImage.framework in Dependencies */,
 				654333589294F1C702FC438B /* Shared.framework in Dependencies */,
 			);
@@ -166,6 +164,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				25340958D416067BB478FB71 /* Kingfisher.framework in Frameworks */,
+				A202EC13E48DCA48C5318D26 /* PopupView.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -342,8 +342,8 @@
 		EC9821EEC8CC800276475F6C = {
 			isa = PBXGroup;
 			children = (
-				2BB59E843B58BD9FFF395FEA /* Project */,
 				82664F67710540CBDEBE5B11 /* Products */,
+				2BB59E843B58BD9FFF395FEA /* Project */,
 			);
 			sourceTree = "<group>";
 		};
@@ -401,6 +401,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 05AE9C11574FFE2195EAFA90 /* Build configuration list for PBXNativeTarget "DesignSystem_DesignSystem" */;
 			buildPhases = (
+				97B9A85DB0C77866043716C8 /* Sources */,
 				B43C3DC03910608BAD041023 /* Resources */,
 				1964AC1CF76FA8EBDF2A15A1 /* Frameworks */,
 				3FBA6A1C0FF2C099107F7C40 /* Embed Frameworks */,
@@ -424,6 +425,8 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = YES;
 				ORGANIZATIONNAME = "Your Organization Name";
+				TargetAttributes = {
+				};
 			};
 			buildConfigurationList = 5C0CBBA2BFE0CEE21375AF0A /* Build configuration list for PBXProject "DesignSystem" */;
 			compatibilityVersion = "Xcode 14.0";
@@ -469,6 +472,13 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		97B9A85DB0C77866043716C8 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		BA6DF36C53063F00B80115EA /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -531,7 +541,7 @@
 				GENERATE_MASTER_OBJECT_FILE = NO;
 				INFOPLIST_FILE = "Derived/InfoPlists/DesignSystem_DesignSystem-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.newdok.designsystem.resources;
+				PRODUCT_BUNDLE_IDENTIFIER = com.newdok.designsystem.generated.resources;
 				PRODUCT_NAME = DesignSystem_DesignSystem;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
@@ -546,6 +556,7 @@
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "";
 			};
 			name = Debug;
 		};
@@ -644,7 +655,7 @@
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
 				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_COMPILATION_MODE = wholemodule;
-				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				SWIFT_STRICT_CONCURRENCY = complete;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -720,7 +731,7 @@
 				GENERATE_MASTER_OBJECT_FILE = NO;
 				INFOPLIST_FILE = "Derived/InfoPlists/DesignSystem_DesignSystem-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.newdok.designsystem.resources;
+				PRODUCT_BUNDLE_IDENTIFIER = com.newdok.designsystem.generated.resources;
 				PRODUCT_NAME = DesignSystem_DesignSystem;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
@@ -728,9 +739,10 @@
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
 				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_COMPILATION_MODE = wholemodule;
-				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "";
 			};
 			name = Release;
 		};

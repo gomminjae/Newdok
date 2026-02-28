@@ -235,8 +235,8 @@
 		31AD0DDEDFC02FF4D89A76D4 = {
 			isa = PBXGroup;
 			children = (
-				8BFA263778496DF044218BBB /* Project */,
 				23FB790DBB2E2B4343512188 /* Products */,
+				8BFA263778496DF044218BBB /* Project */,
 			);
 			sourceTree = "<group>";
 		};
@@ -403,6 +403,8 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = YES;
+				TargetAttributes = {
+				};
 			};
 			buildConfigurationList = 5B17347D429F14C389327C78 /* Build configuration list for PBXProject "Domain" */;
 			compatibilityVersion = "Xcode 14.0";
@@ -573,7 +575,7 @@
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
 				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_COMPILATION_MODE = wholemodule;
-				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				SWIFT_STRICT_CONCURRENCY = complete;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

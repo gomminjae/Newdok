@@ -4,12 +4,19 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
+		<key>Generate Project.xcscheme_^#shared#^_</key>
+		<dict>
+			<key>isShown</key>
+			<true/>
+			<key>orderHint</key>
+			<integer>11</integer>
+		</dict>
 		<key>Newdok-Workspace.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>isShown</key>
 			<true/>
 			<key>orderHint</key>
-			<integer>15</integer>
+			<integer>16</integer>
 		</dict>
 	</dict>
 </dict>

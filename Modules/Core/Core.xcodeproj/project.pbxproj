@@ -17,6 +17,7 @@
 		3C70BCF59122F24D77D22BC3 /* AccessTokenPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05ECDCC9A0A1527B8AAEE504 /* AccessTokenPlugin.swift */; };
 		547CE325F59B24CE8612138E /* NewsletterAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A500F39A85EDEA884FA67B7 /* NewsletterAPI.swift */; };
 		6060ADA578420B6B6DA0DED2 /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D2C05222F38012E3350EB44 /* NetworkError.swift */; };
+		78DE9E2870EA091066A98F3E /* Moya.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6260F75C087362295DDE52AE /* Moya.framework */; };
 		88E3C8D93D23DF1EABCEFAAA /* LogOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21B90BD9DAF1F16193798058 /* LogOutput.swift */; };
 		914F154986FC953CD03CBBFB /* APIEnvironment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37D20FB3473EE5354A38EDF4 /* APIEnvironment.swift */; };
 		9312E114DDCBE60BDD2DD032 /* NetworkLoggerPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC3BF1DA23727917D472C859 /* NetworkLoggerPlugin.swift */; };
@@ -25,7 +26,6 @@
 		AD013678AC0D52AFF93DE036 /* Shared.framework in Dependencies */ = {isa = PBXBuildFile; fileRef = B8E481F76A48C00550F37F55 /* Shared.framework */; };
 		AECBBB447FE9A2ED67703BF9 /* AuthInterceptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39C015A0A4F1E90FBDFFF855 /* AuthInterceptor.swift */; };
 		D32B53DF3BA93B1875B18F04 /* TokenPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29D52B2E4D0092141C27BCFB /* TokenPlugin.swift */; };
-		DE65D08F5F7CE0563545C32E /* Moya.framework in Dependencies */ = {isa = PBXBuildFile; fileRef = 6260F75C087362295DDE52AE /* Moya.framework */; };
 		E04A978CAE4A2D7499F40213 /* NetworkProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF091BF7231A5E1E4699673 /* NetworkProvider.swift */; };
 		ED6B6195294BC6C59ACC4C71 /* LogCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0244A14AF80D1EFFEFF82613 /* LogCategory.swift */; };
 /* End PBXBuildFile section */
@@ -46,7 +46,6 @@
 			buildActionMask = 8;
 			dstSubfolderSpec = 16;
 			files = (
-				DE65D08F5F7CE0563545C32E /* Moya.framework in Dependencies */,
 				AD013678AC0D52AFF93DE036 /* Shared.framework in Dependencies */,
 			);
 			name = Dependencies;
@@ -85,6 +84,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				78DE9E2870EA091066A98F3E /* Moya.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -142,8 +142,8 @@
 		62824534F75515F48E8114A7 = {
 			isa = PBXGroup;
 			children = (
-				E12816BA35F79D21E0D77318 /* Project */,
 				250C62EE12DB56ECEBB473C3 /* Products */,
+				E12816BA35F79D21E0D77318 /* Project */,
 			);
 			sourceTree = "<group>";
 		};
@@ -248,6 +248,8 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = YES;
 				ORGANIZATIONNAME = "Your Organization Name";
+				TargetAttributes = {
+				};
 			};
 			buildConfigurationList = 4EBE82DE9849E8F47BAECD7B /* Build configuration list for PBXProject "Core" */;
 			compatibilityVersion = "Xcode 14.0";
@@ -486,7 +488,7 @@
 				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_INSTALL_OBJC_HEADER = NO;
-				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				SWIFT_STRICT_CONCURRENCY = complete;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

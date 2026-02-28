@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0B27C940DF5DAA6C8C7B851E /* Swinject.framework in Dependencies */ = {isa = PBXBuildFile; fileRef = D908C008AEFA0721CDA34C29 /* Swinject.framework */; };
 		0BD3CF907A80694B031FE405 /* Detail.framework in Dependencies */ = {isa = PBXBuildFile; fileRef = 2B12389B9D34AA31B5777696 /* Detail.framework */; };
 		13C9A534034C115EDB4A8D03 /* AppDIContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3792451C4D850095AD92560 /* AppDIContainer.swift */; };
 		34A2F59BAF7B9E5834D8DE20 /* AppCoordinatorEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93A25D25F6C1F4D5F26B3F2E /* AppCoordinatorEntry.swift */; };
@@ -24,6 +23,7 @@
 		B2545A523BEE4D136BDE4B11 /* Home.framework in Dependencies */ = {isa = PBXBuildFile; fileRef = 275A08FCEAEEF8B617DD483F /* Home.framework */; };
 		C21939D632B215F2723E58BC /* Core.framework in Dependencies */ = {isa = PBXBuildFile; fileRef = 1B39CB14B95B55A6AC773E37 /* Core.framework */; };
 		C3E350D91B8ECF05EAB5C96F /* Domain.framework in Dependencies */ = {isa = PBXBuildFile; fileRef = 924788B4548B7D433D29F3B4 /* Domain.framework */; };
+		CAD0172AAB75BAD29D718D5F /* Swinject.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D908C008AEFA0721CDA34C29 /* Swinject.framework */; };
 		DEF770977A22146AD16904DF /* Shared.framework in Dependencies */ = {isa = PBXBuildFile; fileRef = E8AE92AE3530D16E11F67BC8 /* Shared.framework */; };
 		ED55B87429175EE6DDE7131A /* Survey.framework in Dependencies */ = {isa = PBXBuildFile; fileRef = AA2C6970F82306BD4F0E6381 /* Survey.framework */; };
 		F373A5E7496946CED72BCA90 /* Launch.framework in Dependencies */ = {isa = PBXBuildFile; fileRef = AA278F2074F296122B680809 /* Launch.framework */; };
@@ -51,7 +51,6 @@
 				DEF770977A22146AD16904DF /* Shared.framework in Dependencies */,
 				F91AF99636A3FA1190A4AF56 /* Subscribe.framework in Dependencies */,
 				ED55B87429175EE6DDE7131A /* Survey.framework in Dependencies */,
-				0B27C940DF5DAA6C8C7B851E /* Swinject.framework in Dependencies */,
 			);
 			name = Dependencies;
 			runOnlyForDeploymentPostprocessing = 1;
@@ -99,6 +98,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CAD0172AAB75BAD29D718D5F /* Swinject.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -209,8 +209,8 @@
 		FF9C75D1C6BD0118EBBF08B3 = {
 			isa = PBXGroup;
 			children = (
-				F5B57ABDCF2D48AA420D299B /* Project */,
 				C487856C8D01ED141375B340 /* Products */,
+				F5B57ABDCF2D48AA420D299B /* Project */,
 			);
 			sourceTree = "<group>";
 		};
@@ -245,6 +245,8 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = YES;
+				TargetAttributes = {
+				};
 			};
 			buildConfigurationList = B3B5F5AF9DFE38A9C441C778 /* Build configuration list for PBXProject "AppCoordinator" */;
 			compatibilityVersion = "Xcode 14.0";
@@ -384,7 +386,7 @@
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
 				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_COMPILATION_MODE = wholemodule;
-				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				SWIFT_STRICT_CONCURRENCY = complete;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

@@ -100,8 +100,8 @@
 		A265AAF9885BC77A31761249 = {
 			isa = PBXGroup;
 			children = (
-				092B684217D797260BE40BBB /* Project */,
 				BEF3F41E9B860D2AF6E4FE8E /* Products */,
+				092B684217D797260BE40BBB /* Project */,
 			);
 			sourceTree = "<group>";
 		};
@@ -177,6 +177,8 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = YES;
 				ORGANIZATIONNAME = Newdok;
+				TargetAttributes = {
+				};
 			};
 			buildConfigurationList = 731940972587373E5B45F8C7 /* Build configuration list for PBXProject "Search" */;
 			compatibilityVersion = "Xcode 14.0";
@@ -324,7 +326,7 @@
 				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_INSTALL_OBJC_HEADER = NO;
-				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				SWIFT_STRICT_CONCURRENCY = complete;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

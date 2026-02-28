@@ -8,10 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		019D7707E96677BDE05B7DD4 /* FeedbackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B082F291FB041B6D84EAF88B /* FeedbackView.swift */; };
-		07E4861F4E8E65B6A726B026 /* PopupView.framework in Dependencies */ = {isa = PBXBuildFile; fileRef = AC9681D4DFFD4DDB3C3849F8 /* PopupView.framework */; };
 		0B6B6B6ADF3036111E0A8DBE /* MypageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8596DB5B78443B0D49B09ED2 /* MypageViewModel.swift */; };
 		11CDCD1D420BEF12BFA2A269 /* PhoneUpdateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17886E6B7AEAB04E72C50AF7 /* PhoneUpdateView.swift */; };
 		1337F511CBE5A8A5BE781D4E /* TermsOfUseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22F52F2DC522EC78A80E317C /* TermsOfUseView.swift */; };
+		1882D0ADB503EC09C86A6155 /* PopupView.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AC9681D4DFFD4DDB3C3849F8 /* PopupView.framework */; };
 		1ED582B601FFE9A15EBDFEAB /* CheckPhoneErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C67CA1301A9D268781520C44 /* CheckPhoneErrorView.swift */; };
 		26310133009BC5878EE98201 /* DesignSystem.framework in Dependencies */ = {isa = PBXBuildFile; fileRef = F22BB87ADE60B2913D547027 /* DesignSystem.framework */; };
 		2FE8ED828978580159CC6D26 /* FAQView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E8E9C3F42B8E4E38C8F0BE /* FAQView.swift */; };
@@ -48,7 +48,6 @@
 				4FA68318217F4E9F32CB2B4E /* Core.framework in Dependencies */,
 				26310133009BC5878EE98201 /* DesignSystem.framework in Dependencies */,
 				A28A293B8057BAF57E22CB16 /* Domain.framework in Dependencies */,
-				07E4861F4E8E65B6A726B026 /* PopupView.framework in Dependencies */,
 				E53CFA17DB251E18A51C8B33 /* Shared.framework in Dependencies */,
 			);
 			name = Dependencies;
@@ -106,6 +105,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1882D0ADB503EC09C86A6155 /* PopupView.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -216,8 +216,8 @@
 		8FD39FA098B2F1A281659B01 = {
 			isa = PBXGroup;
 			children = (
-				DEB1F2368A648CAB66791F9C /* Project */,
 				66C40A27705DCBB89FAF70F8 /* Products */,
+				DEB1F2368A648CAB66791F9C /* Project */,
 			);
 			sourceTree = "<group>";
 		};
@@ -310,6 +310,8 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = YES;
 				ORGANIZATIONNAME = Newdok;
+				TargetAttributes = {
+				};
 			};
 			buildConfigurationList = 7B87E847630CB45F17FF25DD /* Build configuration list for PBXProject "Mypage" */;
 			compatibilityVersion = "Xcode 14.0";
@@ -529,7 +531,7 @@
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
 				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_COMPILATION_MODE = wholemodule;
-				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				SWIFT_STRICT_CONCURRENCY = complete;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

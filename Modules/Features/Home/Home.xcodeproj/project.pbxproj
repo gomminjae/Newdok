@@ -8,14 +8,11 @@
 
 /* Begin PBXBuildFile section */
 		0392BE3B9B3EFF4CDFDCF7D5 /* ArticleRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46845E4343A9BD010368908B /* ArticleRow.swift */; };
-		089FE2276BDE2BC76014FAF7 /* Kingfisher_Kingfisher.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 1D6C30E8A791165E485CC19F /* Kingfisher_Kingfisher.bundle */; };
 		0B433E96036502589F160DC0 /* Kingfisher.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EDB4C3569E3D5CCC18BE7FD7 /* Kingfisher.framework */; };
-		0F52C0F4F364DB1BD602558E /* Kingfisher_Kingfisher.bundle in Dependencies */ = {isa = PBXBuildFile; fileRef = 1D6C30E8A791165E485CC19F /* Kingfisher_Kingfisher.bundle */; };
 		0FC7D8641112F3785DC1F282 /* Shared.framework in Dependencies */ = {isa = PBXBuildFile; fileRef = 5D35F66BCBA8EB427B5DE027 /* Shared.framework */; };
 		269DAC6E999F4D87706612D6 /* Home.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9290645AFD421A6E8E0A3C77 /* Home.framework */; };
 		2B8F29F0ED90A533AB1AEC24 /* HomeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CADBDBCE22FDE304B4127596 /* HomeTests.swift */; };
 		30D2AC437EAEB059AF6636D7 /* DesignSystem.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8C3EBAC2F650C65DE1069CB5 /* DesignSystem.framework */; };
-		49ED293E9E4764FF14913ECF /* SwiftUIIntrospect.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7CD740F9B7C38138D1170D13 /* SwiftUIIntrospect.framework */; };
 		5958A795220236D936B094E6 /* PopupView.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B81F80C2FEAA1107F2AE9F09 /* PopupView.framework */; };
 		5BC163E8AAE46124A7EEE0DC /* HomeMain.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF03E4A61F76015E77430AF5 /* HomeMain.swift */; };
 		6AF94EE489A31CAB497CC765 /* Shared.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5D35F66BCBA8EB427B5DE027 /* Shared.framework */; };
@@ -68,7 +65,6 @@
 			dstSubfolderSpec = 16;
 			files = (
 				CAEDE3EF78324D11746C2B1E /* DesignSystem_DesignSystem.bundle in Dependencies */,
-				0F52C0F4F364DB1BD602558E /* Kingfisher_Kingfisher.bundle in Dependencies */,
 				E0D05510B8ADFA2344AB601B /* SDWebImage_SDWebImage.bundle in Dependencies */,
 			);
 			name = Dependencies;
@@ -90,7 +86,6 @@
 
 /* Begin PBXFileReference section */
 		016FDC511C6D703D44CFE3D6 /* HomeTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "HomeTests-Info.plist"; sourceTree = "<group>"; };
-		1D6C30E8A791165E485CC19F /* Kingfisher_Kingfisher.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Kingfisher_Kingfisher.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
 		288839B54CB18C6E0903651C /* SDWebImage_SDWebImage.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SDWebImage_SDWebImage.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
 		3E27707CF3AF39D07540B293 /* HomeTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HomeTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		46845E4343A9BD010368908B /* ArticleRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleRow.swift; sourceTree = "<group>"; };
@@ -98,7 +93,6 @@
 		5D35F66BCBA8EB427B5DE027 /* Shared.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Shared.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		61EC700930D1096A1F12C0D7 /* Home-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "Home-Info.plist"; sourceTree = "<group>"; };
 		719F7A4D0214C31A88FDE196 /* Domain.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Domain.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		7CD740F9B7C38138D1170D13 /* SwiftUIIntrospect.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SwiftUIIntrospect.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8C3EBAC2F650C65DE1069CB5 /* DesignSystem.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = DesignSystem.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9290645AFD421A6E8E0A3C77 /* Home.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Home.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A393F8EFC0690F199B785B09 /* DesignSystem_DesignSystem.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DesignSystem_DesignSystem.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -129,7 +123,6 @@
 				5958A795220236D936B094E6 /* PopupView.framework in Frameworks */,
 				C4621CC3B7F237FCC89480CB /* SDWebImage.framework in Frameworks */,
 				6AF94EE489A31CAB497CC765 /* Shared.framework in Frameworks */,
-				49ED293E9E4764FF14913ECF /* SwiftUIIntrospect.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -144,13 +137,11 @@
 				719F7A4D0214C31A88FDE196 /* Domain.framework */,
 				9290645AFD421A6E8E0A3C77 /* Home.framework */,
 				3E27707CF3AF39D07540B293 /* HomeTests.xctest */,
-				1D6C30E8A791165E485CC19F /* Kingfisher_Kingfisher.bundle */,
 				EDB4C3569E3D5CCC18BE7FD7 /* Kingfisher.framework */,
 				B81F80C2FEAA1107F2AE9F09 /* PopupView.framework */,
 				288839B54CB18C6E0903651C /* SDWebImage_SDWebImage.bundle */,
 				A82656BFB969153B10734939 /* SDWebImage.framework */,
 				5D35F66BCBA8EB427B5DE027 /* Shared.framework */,
-				7CD740F9B7C38138D1170D13 /* SwiftUIIntrospect.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -184,8 +175,8 @@
 		7EE17195DCED3B55274927B6 = {
 			isa = PBXGroup;
 			children = (
-				A0406DFCF5F3BCA58AF39988 /* Project */,
 				156072FA40260C0FBAAE35F3 /* Products */,
+				A0406DFCF5F3BCA58AF39988 /* Project */,
 			);
 			sourceTree = "<group>";
 		};
@@ -271,6 +262,8 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = YES;
 				ORGANIZATIONNAME = Newdok;
+				TargetAttributes = {
+				};
 			};
 			buildConfigurationList = AA685C1613CFBDFB4ED6BAE7 /* Build configuration list for PBXProject "Home" */;
 			compatibilityVersion = "Xcode 14.0";
@@ -304,7 +297,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				7F1749E8E21F3F81E13A5F02 /* DesignSystem_DesignSystem.bundle in Resources */,
-				089FE2276BDE2BC76014FAF7 /* Kingfisher_Kingfisher.bundle in Resources */,
 				D389D3BFCC5162BF6BF2F449 /* SDWebImage_SDWebImage.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -499,7 +491,7 @@
 				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_INSTALL_OBJC_HEADER = NO;
-				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				SWIFT_STRICT_CONCURRENCY = complete;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -529,6 +521,10 @@
 					"$(inherited)",
 					"-fmodule-map-file=$(SRCROOT)/../../../Tuist/.build/tuist-derived/SDWebImage/SDWebImage.modulemap",
 				);
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-L$(DT_TOOLCHAIN_DIR)/usr/lib/swift/$(PLATFORM_NAME)",
+				);
 				OTHER_SWIFT_FLAGS = (
 					"$(inherited)",
 					"-Xcc",
@@ -541,7 +537,7 @@
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
 				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_COMPILATION_MODE = wholemodule;
-				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -567,6 +563,10 @@
 				OTHER_CFLAGS = (
 					"$(inherited)",
 					"-fmodule-map-file=$(SRCROOT)/../../../Tuist/.build/tuist-derived/SDWebImage/SDWebImage.modulemap",
+				);
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-L$(DT_TOOLCHAIN_DIR)/usr/lib/swift/$(PLATFORM_NAME)",
 				);
 				OTHER_SWIFT_FLAGS = (
 					"$(inherited)",

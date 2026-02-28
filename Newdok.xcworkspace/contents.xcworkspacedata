@@ -67,6 +67,21 @@
          location = "group:Tuist/.build/tuist-derived/Alamofire/Alamofire.xcodeproj">
       </FileRef>
       <FileRef
+         location = "group:Tuist/.build/tuist-derived/Firebase/Firebase.xcodeproj">
+      </FileRef>
+      <FileRef
+         location = "group:Tuist/.build/tuist-derived/GoogleAdsOnDeviceConversion/GoogleAdsOnDeviceConversion.xcodeproj">
+      </FileRef>
+      <FileRef
+         location = "group:Tuist/.build/tuist-derived/GoogleAppMeasurement/GoogleAppMeasurement.xcodeproj">
+      </FileRef>
+      <FileRef
+         location = "group:Tuist/.build/tuist-derived/GoogleDataTransport/GoogleDataTransport.xcodeproj">
+      </FileRef>
+      <FileRef
+         location = "group:Tuist/.build/tuist-derived/GoogleUtilities/GoogleUtilities.xcodeproj">
+      </FileRef>
+      <FileRef
          location = "group:Tuist/.build/tuist-derived/Kingfisher/Kingfisher.xcodeproj">
       </FileRef>
       <FileRef
@@ -76,6 +91,9 @@
          location = "group:Tuist/.build/tuist-derived/PopupView/PopupView.xcodeproj">
       </FileRef>
       <FileRef
+         location = "group:Tuist/.build/tuist-derived/Promises/Promises.xcodeproj">
+      </FileRef>
+      <FileRef
          location = "group:Tuist/.build/tuist-derived/SDWebImage/SDWebImage.xcodeproj">
       </FileRef>
       <FileRef
@@ -83,6 +101,9 @@
       </FileRef>
       <FileRef
          location = "group:Tuist/.build/tuist-derived/combine-schedulers/combine-schedulers.xcodeproj">
+      </FileRef>
+      <FileRef
+         location = "group:Tuist/.build/tuist-derived/nanopb/nanopb.xcodeproj">
       </FileRef>
       <FileRef
          location = "group:Tuist/.build/tuist-derived/swift-case-paths/swift-case-paths.xcodeproj">

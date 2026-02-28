@@ -12,6 +12,7 @@
 		579FD491C39E775B1855B67E /* Shared.framework in Dependencies */ = {isa = PBXBuildFile; fileRef = 16E9D08E995905CE2B02915B /* Shared.framework */; };
 		62E57D9A477C43218EFCFD39 /* DetailMain.swift in Sources */ = {isa = PBXBuildFile; fileRef = A883D2FFA63ECF6643BD9A68 /* DetailMain.swift */; };
 		6A8236E417651CB2960F5445 /* HighlightModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D02A72CBE74EB794531DBBA /* HighlightModel.swift */; };
+		78582CE852B3A16DCF9DD930 /* HighlightListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 710255FE24DC1AA428EBD25C /* HighlightListView.swift */; };
 		96B4CA167A2F3F059B9FC0F2 /* BrandDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1081C5FB722791B45F1EF2AD /* BrandDetailViewModel.swift */; };
 		A9DD2BA21B126A3A9C9B7AB0 /* BrandDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B77220230DE1B29E53160F9 /* BrandDetailView.swift */; };
 		B0013A1AE532C53E1A6EC1B9 /* Domain.framework in Dependencies */ = {isa = PBXBuildFile; fileRef = 90CF425D4E5EBDB3EBFC30AF /* Domain.framework */; };
@@ -56,6 +57,7 @@
 		34DDDB8621421DCF7F7F24F2 /* Core.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Core.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3B95DEB0BB0769D679538C4A /* Detail.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Detail.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		520DC973A302CE54DF2F8D7A /* Detail-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "Detail-Info.plist"; sourceTree = "<group>"; };
+		710255FE24DC1AA428EBD25C /* HighlightListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HighlightListView.swift; sourceTree = "<group>"; };
 		90CF425D4E5EBDB3EBFC30AF /* Domain.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Domain.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A32E848FB34AC263D298782D /* ArticleDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleDetailView.swift; sourceTree = "<group>"; };
 		A883D2FFA63ECF6643BD9A68 /* DetailMain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailMain.swift; sourceTree = "<group>"; };
@@ -98,8 +100,8 @@
 		74ABD78C93A064FA833CD0CE = {
 			isa = PBXGroup;
 			children = (
-				AB86A8CAFD71B01947D74C75 /* Project */,
 				1E43E38C7AA0E336D84C5D66 /* Products */,
+				AB86A8CAFD71B01947D74C75 /* Project */,
 			);
 			sourceTree = "<group>";
 		};
@@ -118,6 +120,7 @@
 				14FFF62190471C071159E97A /* ArticleDetailViewModel.swift */,
 				FB01B27F8DEACEECEFDFA627 /* ArticleHighlightJS.swift */,
 				FDBA229B6B3EF2923D805D2D /* ArticleHTMLBuilder.swift */,
+				710255FE24DC1AA428EBD25C /* HighlightListView.swift */,
 				1D02A72CBE74EB794531DBBA /* HighlightModel.swift */,
 			);
 			path = Article;
@@ -182,6 +185,8 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = YES;
+				TargetAttributes = {
+				};
 			};
 			buildConfigurationList = F5AA2645D32A09D289BDD305 /* Build configuration list for PBXProject "Detail" */;
 			compatibilityVersion = "Xcode 14.0";
@@ -220,6 +225,7 @@
 				D5A476F4F89A71AFBACC56A8 /* ArticleDetailViewModel.swift in Sources */,
 				4C3F28585649FEC6674AB04D /* ArticleHTMLBuilder.swift in Sources */,
 				D04BFE6FA711D99D1C625A45 /* ArticleHighlightJS.swift in Sources */,
+				78582CE852B3A16DCF9DD930 /* HighlightListView.swift in Sources */,
 				6A8236E417651CB2960F5445 /* HighlightModel.swift in Sources */,
 				A9DD2BA21B126A3A9C9B7AB0 /* BrandDetailView.swift in Sources */,
 				96B4CA167A2F3F059B9FC0F2 /* BrandDetailViewModel.swift in Sources */,
@@ -272,7 +278,7 @@
 				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_INSTALL_OBJC_HEADER = NO;
-				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				SWIFT_STRICT_CONCURRENCY = complete;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

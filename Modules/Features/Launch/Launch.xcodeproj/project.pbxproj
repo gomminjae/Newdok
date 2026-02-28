@@ -18,13 +18,8 @@
 		43A5A462F575DCC9E67C36FA /* SDWebImage_SDWebImage.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 4A44B3CEFFDEB5B3A140EA29 /* SDWebImage_SDWebImage.bundle */; };
 		43DAFA287C241F9A81F3F9A6 /* Shared.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAD73AE618B7002C6F84BF4C /* Shared.framework */; };
 		45B48283F14B7CAE2E5F4216 /* Kingfisher.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C483202D74E2B6F40348B08 /* Kingfisher.framework */; };
-		5162314AD87F6B68A2D4DF27 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D33A37963E66C90FF7D02455 /* CFNetwork.framework */; };
 		52AC7A0F335A9275935DCE72 /* Core.framework in Dependencies */ = {isa = PBXBuildFile; fileRef = 7C03280DB77DA22A6B325D20 /* Core.framework */; };
 		54E628E567614EB1276AF953 /* SDWebImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22DCB891624A8204347D32B4 /* SDWebImage.framework */; };
-		73475470C6409B37D8B8B752 /* SwiftUIIntrospect.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D6AED6AB8BE0506E8CA44DA8 /* SwiftUIIntrospect.framework */; };
-		766975BD5A74B589996ECFE8 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A8F312E860DBF114F682C673 /* Alamofire.framework */; };
-		804BBA611201D6F5D0BE70BD /* Kingfisher_Kingfisher.bundle in Resources */ = {isa = PBXBuildFile; fileRef = BB1A3A9EDBD7826A38ECC0A4 /* Kingfisher_Kingfisher.bundle */; };
-		8D04E4027317E60549765C59 /* Kingfisher_Kingfisher.bundle in Dependencies */ = {isa = PBXBuildFile; fileRef = BB1A3A9EDBD7826A38ECC0A4 /* Kingfisher_Kingfisher.bundle */; };
 		91E7FC6828BFD26C633D7876 /* DesignSystem_DesignSystem.bundle in Dependencies */ = {isa = PBXBuildFile; fileRef = 33C3A825E35B81636156DB43 /* DesignSystem_DesignSystem.bundle */; };
 		988A639C908D85348FA3C893 /* SplashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AB4BC8E5564382493B0CEDB /* SplashView.swift */; };
 		9B8DE9786A8471253B1F77E3 /* DesignSystem.framework in Dependencies */ = {isa = PBXBuildFile; fileRef = 9229787BA766DFA18583ABFA /* DesignSystem.framework */; };
@@ -51,7 +46,6 @@
 			files = (
 				3100D54AF389EC3718E1A2C9 /* Alamofire_Alamofire.bundle in Dependencies */,
 				91E7FC6828BFD26C633D7876 /* DesignSystem_DesignSystem.bundle in Dependencies */,
-				8D04E4027317E60549765C59 /* Kingfisher_Kingfisher.bundle in Dependencies */,
 				06E58ABB773127D0F498C110 /* SDWebImage_SDWebImage.bundle in Dependencies */,
 			);
 			name = Dependencies;
@@ -102,14 +96,10 @@
 		9229787BA766DFA18583ABFA /* DesignSystem.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = DesignSystem.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9344A38258BFFA11347A61B2 /* Alamofire_Alamofire.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Alamofire_Alamofire.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
 		9A44DF136146F6B9A83C6AB1 /* LaunchMain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchMain.swift; sourceTree = "<group>"; };
-		A8F312E860DBF114F682C673 /* Alamofire.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Alamofire.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		AA5E611CA9D5AA49AF6715E1 /* PopupView.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = PopupView.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		BB1A3A9EDBD7826A38ECC0A4 /* Kingfisher_Kingfisher.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Kingfisher_Kingfisher.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
 		BB93BCF98AEAFC697627D166 /* Launch-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "Launch-Info.plist"; sourceTree = "<group>"; };
 		BBDAD9B03D0FE88C4A5BAE13 /* Moya.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Moya.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CAE9D80105EE847E612B7E64 /* Launch.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Launch.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		D33A37963E66C90FF7D02455 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS.sdk/System/Library/Frameworks/CFNetwork.framework; sourceTree = DEVELOPER_DIR; };
-		D6AED6AB8BE0506E8CA44DA8 /* SwiftUIIntrospect.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SwiftUIIntrospect.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F1768C712EE5D323E4A22AF4 /* LaunchTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LaunchTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		FAD73AE618B7002C6F84BF4C /* Shared.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Shared.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -126,8 +116,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5162314AD87F6B68A2D4DF27 /* CFNetwork.framework in Frameworks */,
-				766975BD5A74B589996ECFE8 /* Alamofire.framework in Frameworks */,
 				36B3EFC6EF9DD7BF9CBB0CF9 /* Core.framework in Frameworks */,
 				0B55C607E32BA0CA157B3BDA /* DesignSystem.framework in Frameworks */,
 				45B48283F14B7CAE2E5F4216 /* Kingfisher.framework in Frameworks */,
@@ -136,7 +124,6 @@
 				113F0CBB242B95E70E2B695B /* PopupView.framework in Frameworks */,
 				54E628E567614EB1276AF953 /* SDWebImage.framework in Frameworks */,
 				43DAFA287C241F9A81F3F9A6 /* Shared.framework in Frameworks */,
-				73475470C6409B37D8B8B752 /* SwiftUIIntrospect.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -149,14 +136,6 @@
 				0AB4BC8E5564382493B0CEDB /* SplashView.swift */,
 			);
 			path = Splash;
-			sourceTree = "<group>";
-		};
-		15A72CDDDFB0C4A378CB97DD /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				D33A37963E66C90FF7D02455 /* CFNetwork.framework */,
-			);
-			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		32BB0A50F283EF17265D91A0 /* Sources */ = {
@@ -181,9 +160,8 @@
 		98343DC38DEF862F3DC7DFFC = {
 			isa = PBXGroup;
 			children = (
-				532F9C4DD80B41B0A186B96E /* Project */,
 				DAD3AD821D47FA47C1C68E93 /* Products */,
-				15A72CDDDFB0C4A378CB97DD /* Frameworks */,
+				532F9C4DD80B41B0A186B96E /* Project */,
 			);
 			sourceTree = "<group>";
 		};
@@ -207,11 +185,9 @@
 			isa = PBXGroup;
 			children = (
 				9344A38258BFFA11347A61B2 /* Alamofire_Alamofire.bundle */,
-				A8F312E860DBF114F682C673 /* Alamofire.framework */,
 				7C03280DB77DA22A6B325D20 /* Core.framework */,
 				33C3A825E35B81636156DB43 /* DesignSystem_DesignSystem.bundle */,
 				9229787BA766DFA18583ABFA /* DesignSystem.framework */,
-				BB1A3A9EDBD7826A38ECC0A4 /* Kingfisher_Kingfisher.bundle */,
 				4C483202D74E2B6F40348B08 /* Kingfisher.framework */,
 				CAE9D80105EE847E612B7E64 /* Launch.framework */,
 				F1768C712EE5D323E4A22AF4 /* LaunchTests.xctest */,
@@ -220,7 +196,6 @@
 				4A44B3CEFFDEB5B3A140EA29 /* SDWebImage_SDWebImage.bundle */,
 				22DCB891624A8204347D32B4 /* SDWebImage.framework */,
 				FAD73AE618B7002C6F84BF4C /* Shared.framework */,
-				D6AED6AB8BE0506E8CA44DA8 /* SwiftUIIntrospect.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -288,6 +263,8 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = YES;
 				ORGANIZATIONNAME = Newdok;
+				TargetAttributes = {
+				};
 			};
 			buildConfigurationList = 999B9FBFD2E3FBDBAF3E7D24 /* Build configuration list for PBXProject "Launch" */;
 			compatibilityVersion = "Xcode 14.0";
@@ -315,7 +292,6 @@
 			files = (
 				BCF445D4EA85A0BA0458A5FC /* Alamofire_Alamofire.bundle in Resources */,
 				20F3FEBE364914EB1EF8A480 /* DesignSystem_DesignSystem.bundle in Resources */,
-				804BBA611201D6F5D0BE70BD /* Kingfisher_Kingfisher.bundle in Resources */,
 				43A5A462F575DCC9E67C36FA /* SDWebImage_SDWebImage.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -380,6 +356,10 @@
 					"$(inherited)",
 					"-fmodule-map-file=$(SRCROOT)/../../../Tuist/.build/tuist-derived/SDWebImage/SDWebImage.modulemap",
 				);
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-L$(DT_TOOLCHAIN_DIR)/usr/lib/swift/$(PLATFORM_NAME)",
+				);
 				OTHER_SWIFT_FLAGS = (
 					"$(inherited)",
 					"-Xcc",
@@ -392,7 +372,7 @@
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
 				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_COMPILATION_MODE = wholemodule;
-				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -552,7 +532,7 @@
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
 				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_COMPILATION_MODE = wholemodule;
-				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				SWIFT_STRICT_CONCURRENCY = complete;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -581,6 +561,10 @@
 				OTHER_CFLAGS = (
 					"$(inherited)",
 					"-fmodule-map-file=$(SRCROOT)/../../../Tuist/.build/tuist-derived/SDWebImage/SDWebImage.modulemap",
+				);
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-L$(DT_TOOLCHAIN_DIR)/usr/lib/swift/$(PLATFORM_NAME)",
 				);
 				OTHER_SWIFT_FLAGS = (
 					"$(inherited)",
