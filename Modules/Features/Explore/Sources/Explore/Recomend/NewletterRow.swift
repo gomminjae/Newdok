@@ -24,7 +24,7 @@ public struct NewsletterRow: View {
         VStack(alignment: .leading, spacing: 0) {
             HStack(alignment: .top, spacing: 0) {
                 KFImage(URL(string: newsletter.imageUrl ?? ""))
-                    .setProcessor(DownsamplingImageProcessor(size: CGSize(width: 112, height: 112)))
+                    .setProcessor(DownsamplingImageProcessor(size: CGSize(width: 112 * UIScreen.main.scale, height: 112 * UIScreen.main.scale)))
                     .placeholder {
                         // 로딩 중 표시
                         RoundedRectangle(cornerRadius: 10)

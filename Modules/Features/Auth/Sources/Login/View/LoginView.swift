@@ -195,5 +195,10 @@ public struct LoginView: View {
                 .font(.hanSansNeo(17, .medium))
             }
         }
+        .serverErrorPopup(
+            error: $viewModel.currentError,
+            onGoBack: { router.pop() },
+            onRetry: {}
+        )
     }
 }

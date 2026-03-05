@@ -14,4 +14,5 @@ public protocol FetchHomeDataUseCase {
     func fetchDayArticles(year: String, month: String, day: String) async throws -> [Article]
     func decorateTodayArticles(_ articles: [Article], readArticleIds: Set<Int>) -> [Article]
     func unreadCount(in articles: [Article]) -> Int
+    func refresh() async throws
 }

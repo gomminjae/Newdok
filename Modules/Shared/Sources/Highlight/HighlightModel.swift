@@ -1,6 +1,6 @@
 //
 //  HighlightModel.swift
-//  Detail
+//  Shared
 //
 //  Created by 권민재 on 2025.
 //

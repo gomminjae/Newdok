@@ -23,18 +23,28 @@ final class AuthPlugin: PluginType {
     }
 
     // 응답 후 처리 (401 등)
+    // Moya는 HTTP 4xx를 .success(response)로 전달하므로 success 케이스에서 statusCode 확인
     func didReceive(_ result: Result<Response, MoyaError>, target: TargetType) {
-        if case let .failure(error) = result,
-           case let .statusCode(response) = error,
-           response.statusCode == 401 {
-            // 토큰 삭제
-            TokenStorage.clear()
-            UserInfoStore.shared.clear()
-            
-            // 메인 스레드에서 라우터 리셋
-            DispatchQueue.main.async {
-                NotificationCenter.default.post(name: .didReceiveUnauthorized, object: nil)
+        let statusCode: Int? = {
+            switch result {
+            case .success(let response):
+                return response.statusCode
+            case .failure(let error):
+                if case let .statusCode(response) = error {
+                    return response.statusCode
+                }
+                return nil
             }
+        }()
+
+        guard statusCode == 401 else { return }
+
+        TokenStorage.clear()
+        UserInfoStore.shared.clear()
+
+        DispatchQueue.main.async {
+            AppState.shared.logout()
+            NotificationCenter.default.post(name: .didReceiveUnauthorized, object: nil)
         }
     }
 }

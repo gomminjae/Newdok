@@ -65,4 +65,8 @@ public class ArticleRepositoryImpl: ArticleRepository {
         let response: ArticlesCountDTO = try await provider.asyncRequest(.fetchReceivedArticleCount)
         return response.count
     }
+
+    public func refresh() async throws {
+        _ = try await provider.asyncVoidRequest(.refresh)
+    }
 }

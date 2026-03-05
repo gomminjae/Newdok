@@ -94,6 +94,10 @@ public struct SubscribeView: View {
         } customize: {
             $0.type(.toast).position(.bottom).autohideIn(1).animation(.easeInOut).closeOnTapOutside(false)
         }
+        .serverErrorPopup(
+            error: $viewModel.currentError,
+            onRetry: { Task { await viewModel.loadInitial() } }
+        )
     }
 
     // MARK: - Content

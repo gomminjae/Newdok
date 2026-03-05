@@ -220,6 +220,19 @@ public struct BrandDetailView: View {
                 .backgroundColor(Color.black.opacity(0.3))
                 .closeOnTapOutside(true)
         }
+        .serverErrorPopup(
+            error: $viewModel.currentError,
+            onGoBack: { router.pop() },
+            onRetry: {
+                Task {
+                    if isGuest {
+                        await viewModel.guestFetch()
+                    } else {
+                        await viewModel.fetch()
+                    }
+                }
+            }
+        )
     }
 
     @ViewBuilder
@@ -231,7 +244,7 @@ public struct BrandDetailView: View {
                     if let urlString = detail.imageUrl,
                        let url = URL(string: urlString) {
                         KFImage(url)
-                            .setProcessor(DownsamplingImageProcessor(size: CGSize(width: 750, height: 520)))
+                            .setProcessor(DownsamplingImageProcessor(size: CGSize(width: 750 * UIScreen.main.scale, height: 520 * UIScreen.main.scale)))
                             .resizable()
                     } else {
                         Color(hex: "#E6E6EA")

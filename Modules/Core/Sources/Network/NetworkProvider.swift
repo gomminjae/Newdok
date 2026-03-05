@@ -23,15 +23,13 @@ public final class NetworkProvider: NetworkProviding {
     
     private var plugins: [PluginType] {
         var pluginList: [PluginType] = [
-            TokenPlugin(tokenProvider: {
-                TokenStorage.accessToken
-            })
+            AuthPlugin()
         ]
-        
+
         #if DEBUG
         pluginList.append(NetworkLoggerPlugin())
         #endif
-        
+
         return pluginList
     }
 

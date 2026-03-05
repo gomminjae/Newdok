@@ -15,12 +15,12 @@ protocol MypageViewModelBindable {
 }
 
 @MainActor
-public class MypageViewModel: ObservableObject {
+public class MypageViewModel: ObservableObject, ErrorHandling {
     @Published var activeNavigation: String?
-    
+
     @Published var nickname: String = ""
     @Published var user: User?
-    
+
     @Published var shownicknameToast: Bool = false
     @Published var showIndustryToast: Bool = false
     @Published var showInterestToast: Bool = false
@@ -39,7 +39,7 @@ public class MypageViewModel: ObservableObject {
     @Published public var resendFailureCount: Int = 0
     private var timerTask: Task<Void, Never>?
     @Published public var isShowPopup: Bool = false
-    
+
     @Published public var oldPassword: String = ""
     @Published public var newPassword: String = ""
     @Published public var checkedPassword: String = ""
@@ -48,7 +48,8 @@ public class MypageViewModel: ObservableObject {
     @Published public var passwordError: String?
     @Published public var showPasswordSuccess: Bool = false
     @Published public var showPhoneNumberSuccess: Bool = false
-    
+    @Published public var currentError: AppError?
+
     private let useCase: UserUseCase
     private let profileUseCase: ProfileUseCase
 
@@ -56,16 +57,15 @@ public class MypageViewModel: ObservableObject {
         self.useCase = useCase
         self.profileUseCase = profileUseCase
     }
-    
+
     public func fetchuserInfo() async {
-        do {
+        await performAsync(feature: "mypage", operation: "fetchUserInfo") {
             user = try await profileUseCase.fetchProfile()
-        } catch {
         }
     }
-    
+
     public func updateNickname(nickname: String) async {
-        do {
+        await performAsync(feature: "mypage", operation: "updateNickname") {
             try await profileUseCase.updateNickname(nickname)
 
             // UI 상태 업데이트
@@ -85,12 +85,11 @@ public class MypageViewModel: ObservableObject {
             }
 
             showNicknameSuccess = true
-        } catch {
         }
     }
-    
+
     public func updateIndustry(id: Int) async {
-        do {
+        await performAsync(feature: "mypage", operation: "updateIndustry") {
             try await profileUseCase.updateIndustry(id)
 
             // UI 상태 업데이트
@@ -110,12 +109,11 @@ public class MypageViewModel: ObservableObject {
             }
 
             showIndustrySuccess = true
-        } catch {
         }
     }
-    
+
     public func updateInterests(ids: [Int]) async {
-        do {
+        await performAsync(feature: "mypage", operation: "updateInterests") {
             try await profileUseCase.updateInterests(ids)
 
             // UI 상태 업데이트
@@ -136,34 +134,27 @@ public class MypageViewModel: ObservableObject {
             }
 
             showInterestSuccess = true
-        } catch {
         }
     }
-    
+
     public func updatePhoneNumber() async {
+        // 인증번호 검증
+        guard verifyCode() else {
+            showError = true
+            isPhoneUpdateSuccess = false
+            return
+        }
+
         do {
-            // 인증번호 검증
-            guard verifyCode() else {
-                showError = true
-                isPhoneUpdateSuccess = false
-                return
-            }
-            
             try await useCase.updatePhoneNumber(phoneNumber)
-            
-            // 성공 시 플래그 설정
             isPhoneUpdateSuccess = true
             showPhoneNumberSuccess = true
         } catch {
             isPhoneUpdateSuccess = false
-            
-            // 실패 토스트 표시
-            DispatchQueue.main.async {
-                NotificationCenter.default.post(name: .showToast, object: "휴대폰 번호 변경에 실패했습니다.")
-            }
+            handleError(error, feature: "mypage", operation: "updatePhoneNumber")
         }
     }
-    
+
     public func updatePassword() async {
         do {
             try await profileUseCase.updatePassword(prevPassword: oldPassword, newPassword: newPassword)
@@ -176,9 +167,10 @@ public class MypageViewModel: ObservableObject {
         } catch {
             isPasswordUpdateSuccess = false
             passwordError = "현재 비밀번호가 일치하지 않습니다"
+            handleError(error, feature: "mypage", operation: "updatePassword")
         }
     }
-    
+
     public func sendVerificationCode() async {
         guard resendFailureCount < 3 else {
             isShowPopup = true
@@ -187,7 +179,7 @@ public class MypageViewModel: ObservableObject {
 
         defer { resendFailureCount += 1 }
 
-        do {
+        await performAsync(feature: "mypage", operation: "sendVerificationCode") {
             let response = try await useCase.authSMS(phoneNumber: phoneNumber)
             verificationCode = String(response.code)
             isRequestSent = true
@@ -195,18 +187,17 @@ public class MypageViewModel: ObservableObject {
             // 타이머 시작
             timerRemaining = 180 // 3분 = 180초
             startTimer()
-        } catch {
         }
     }
 
     func verifyCode() -> Bool {
         guard isRequestSent else { return false }
-        
+
         if timerRemaining <= 0 {
             showError = true
             return false
         }
-        
+
         if enteredVerificationCode == verificationCode {
             stopTimer()
             return true
@@ -215,7 +206,7 @@ public class MypageViewModel: ObservableObject {
             return false
         }
     }
-    
+
     private func startTimer() {
         stopTimer()
         timerTask = Task {
@@ -234,7 +225,7 @@ public class MypageViewModel: ObservableObject {
         timerTask?.cancel()
         timerTask = nil
     }
-    
+
     public var isOldPasswordValid: Bool {
         return oldPassword.count >= 8
     }
@@ -250,7 +241,7 @@ public class MypageViewModel: ObservableObject {
     public var isPasswordValid: Bool {
         return isOldPasswordValid && isNewPasswordValid && isNewPasswordConfirmed
     }
-    
+
     public var oldPasswordError: String? {
         if oldPassword.isEmpty || isOldPasswordValid { return nil }
         return "8자 이상의 비밀번호를 입력해주세요."

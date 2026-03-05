@@ -109,6 +109,11 @@ public struct SearchView: View {
         .task {
             await viewModel.loadPopularKeywords()
         }
+        .serverErrorPopup(
+            error: $viewModel.currentError,
+            onGoBack: { router.pop() },
+            onRetry: { Task { await viewModel.loadPopularKeywords() } }
+        )
     }
 
     @ViewBuilder

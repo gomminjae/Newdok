@@ -163,6 +163,10 @@ public struct BookmarkView: View {
             }
         }
         .onDisappear { viewModel.cancelLoads() }
+        .serverErrorPopup(
+            error: $viewModel.currentError,
+            onRetry: { viewModel.loadInitial() }
+        )
     }
     
     private var headerView: some View {

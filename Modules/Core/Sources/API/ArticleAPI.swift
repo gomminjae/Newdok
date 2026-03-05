@@ -27,6 +27,7 @@ public enum ArticleAPI {
     case search(keyword: String)
     case fetchArticleDetail(id: String)
     case fetchReceivedArticleCount
+    case refresh
 }
 
 extension ArticleAPI: TargetType {
@@ -55,6 +56,8 @@ extension ArticleAPI: TargetType {
             return "/received/count"
         case .fetchDayArticle:
             return "/day"
+        case .refresh:
+            return "/refresh"
         }
     }
     
@@ -100,7 +103,7 @@ extension ArticleAPI: TargetType {
             return .requestPlain
         case .search(let word):
             return .requestParameters(parameters: ["keyword": word], encoding: URLEncoding.default)
-        case .fetchArticleDetail, .fetchReceivedArticleCount:
+        case .fetchArticleDetail, .fetchReceivedArticleCount, .refresh:
             return .requestPlain
         }
     }

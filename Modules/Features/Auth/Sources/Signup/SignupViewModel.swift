@@ -29,7 +29,7 @@ public enum IDValidationError: Error {
 public enum NickNameValidationError: Error {
     case tooLong
     case containsSpecialCharacters
-    
+
     var message: String {
         switch self {
         case .tooLong:
@@ -43,7 +43,7 @@ public enum NickNameValidationError: Error {
 public enum NicknameValidationError: Error {
     case invalidLength
     case containsInvalidCharacters
-    
+
     var message: String {
         switch self {
         case .invalidLength:
@@ -55,10 +55,10 @@ public enum NicknameValidationError: Error {
 }
 
 @MainActor
-public final class SignupViewModel: ObservableObject {
+public final class SignupViewModel: ObservableObject, ErrorHandling {
     private let userUseCase: UserUseCase
     private let signupUseCase: SignupUseCase
-    
+
     @Published var currentStep: SignupStep = .phoneVerification
 
     // MARK: - Form
@@ -66,18 +66,18 @@ public final class SignupViewModel: ObservableObject {
     @Published public var enteredVerificationCode: String = ""
     private var verificationCode: String = ""
     @Published public var resendFailureCount: Int = 0
-    
+
     // MARK: - ID
     @Published public var loginID: String = "" {
-        didSet { 
+        didSet {
             // 실제로 값이 변경되었을 때만 초기화
             if oldValue != loginID {
-                isIDAvailable = nil 
+                isIDAvailable = nil
             }
         }
     }
     @Published public var isIDAvailable: Bool?
-    
+
     var idValidationError: IDValidationError? {
         guard !loginID.isEmpty else { return nil }
         return validateID()
@@ -102,7 +102,7 @@ public final class SignupViewModel: ObservableObject {
             return nil
         }
     }
-    
+
     // MARK: - State
     @Published public var isLoading = false
     @Published public var errorMessage: String?
@@ -115,39 +115,40 @@ public final class SignupViewModel: ObservableObject {
     @Published public var showError = false
     @Published public var skipUserCheck = false
     @Published public var shouldFocusVerificationCode = false
-    
+
     @Published public var emails: [String] = []
     @Published public var isShowPopup: Bool = false
+    @Published public var currentError: AppError?
 
     private var timerTask: Task<Void, Never>?
-    
+
     // MARK: password
     @Published public var password: String = ""
     @Published public var checkedPassword: String = ""
-    
+
     // MARK: profile
     @Published public var nickname: String = ""
     @Published public var birthYear: String = ""
     @Published public var gender: String = ""
-    
+
     @Published public var user: User?
-    
+
     // MARK: Investigate
     @Published public var myIndustry: String = ""
     @Published public var selectedInterests: Set<String> = []
     @Published public var recommendedPost: [RecommendedBrand] = []
     @Published public var isCurationLoading = false
-    
+
     public init(userUseCase: UserUseCase, signupUseCase: SignupUseCase) {
         self.userUseCase = userUseCase
         self.signupUseCase = signupUseCase
     }
-    
+
     deinit {
         timerTask?.cancel()
         timerTask = nil
     }
-    
+
     public func goToNextStep() {
         if let next = SignupStep(rawValue: currentStep.rawValue + 1) {
             currentStep = next
@@ -161,7 +162,7 @@ public final class SignupViewModel: ObservableObject {
             shouldFocusVerificationCode = false
         }
     }
-    
+
     public func goToPreviousStep() {
         if let prev = SignupStep(rawValue: currentStep.rawValue - 1) {
             currentStep = prev
@@ -175,7 +176,7 @@ public final class SignupViewModel: ObservableObject {
             shouldFocusVerificationCode = false
         }
     }
-    
+
     public func resetVerificationState() {
            stopTimer()
            isShowPopup = false
@@ -202,13 +203,13 @@ public final class SignupViewModel: ObservableObject {
         verificationCode = "121212" // 테스트용 고정 코드
         return
         #endif
-        
+
         // 재전송 3회 초과 시, 팝업 표시
         guard resendFailureCount < 3 else {
             isShowPopup = true
             return
         }
-        
+
         // 재전송인 경우 카운트 증가 (초기 전송이 아닌 경우)
         if isRequestSent {
             resendFailureCount += 1
@@ -242,7 +243,8 @@ public final class SignupViewModel: ObservableObject {
                     shouldFocusVerificationCode = true  // 인증번호 입력 필드로 포커스
                 }
             } catch {
-                errorMessage = error.localizedDescription
+                handleError(error, feature: "signup", operation: "sendVerificationCode")
+                errorMessage = currentError?.userFacingMessage
                 // 전송 실패 시에만 카운트 증가
                 resendFailureCount += 1
             }
@@ -257,7 +259,7 @@ public final class SignupViewModel: ObservableObject {
             showError = true
             return false
         }
-        
+
         // 테스트 앱에서는 121212도 통과
         #if DEBUG
         if enteredVerificationCode == "121212" {
@@ -267,7 +269,7 @@ public final class SignupViewModel: ObservableObject {
             return true
         }
         #endif
-        
+
         if enteredVerificationCode == verificationCode {
             stopTimer()
             // 성공 시 제한/에러 상태 초기화
@@ -279,7 +281,7 @@ public final class SignupViewModel: ObservableObject {
             return false
         }
     }
-    
+
     // MARK: - Timer
     private func startTimer() {
         stopTimer()
@@ -321,7 +323,7 @@ public final class SignupViewModel: ObservableObject {
         if !isAlphanumeric || !containsOnlyAllowed { return .invalidCombination }
         return nil
     }
-    
+
     public func checkIDDup() {
         guard validateID() == nil else {
             isIDAvailable = nil
@@ -340,10 +342,11 @@ public final class SignupViewModel: ObservableObject {
                 }
             } catch {
                 isIDAvailable = nil
+                handleError(error, feature: "signup", operation: "checkIDDup")
             }
         }
     }
-    
+
     // MARK: - Interests
     func toggleInterest(_ key: String) {
         if selectedInterests.contains(key) {
@@ -352,19 +355,19 @@ public final class SignupViewModel: ObservableObject {
             selectedInterests.insert(key)
         }
     }
-    
+
     func submitInterests() {
         isCurationLoading = true
         recommendedPost = []
         goToNextStep()
-        
+
         Task {
             do {
                 let result = try await userUseCase.preInvestigate(
                     industryId: myIndustry,
                     interestIds: Array(selectedInterests)
                 )
-                
+
                 if let currentUserInfo = UserInfoStore.shared.load() {
                     let updatedUserInfo = UserInfo(
                         id: currentUserInfo.id,
@@ -380,7 +383,7 @@ public final class SignupViewModel: ObservableObject {
                     )
                     UserInfoStore.shared.save(updatedUserInfo)
                 }
-                
+
                 await MainActor.run {
                     recommendedPost = result
                     isCurationLoading = false
@@ -388,11 +391,12 @@ public final class SignupViewModel: ObservableObject {
             } catch {
                 await MainActor.run {
                     isCurationLoading = false
+                    handleError(error, feature: "signup", operation: "submitInterests")
                 }
             }
         }
     }
-    
+
     // MARK: - Signup
     func signup() {
         Task {
@@ -414,41 +418,43 @@ public final class SignupViewModel: ObservableObject {
                 UserDefaults.standard.set(resultUser.nickname, forKey: "nickname")
                 UserDefaults.standard.set(resultUser.subscribeEmail ?? "", forKey: "email")
 
+                AppState.shared.login()
                 goToNextStep()
             } catch {
+                handleError(error, feature: "signup", operation: "signup")
                 errorMessage = "회원가입에 실패했습니다"
             }
         }
     }
-    
+
     // MARK: - 초기화 메서드
     public func reset() {
         currentStep = .phoneVerification
-        
+
         phoneNumber = ""
         enteredVerificationCode = ""
         verificationCode = ""
         resendFailureCount = 0
-        
+
         loginID = ""
         isIDAvailable = nil
         password = ""
         nickname = ""
         birthYear = ""
         gender = ""
-        
+
         user = nil
         recommendedPost = []
         selectedInterests.removeAll()
         myIndustry = ""
-        
+
         errorMessage = nil
         showError = false
         isLoading = false
         isRequestSent = false
         timerRemaining = 180
         isShowPopup = false
-        
+
         stopTimer()
         isCurationLoading = false
     }

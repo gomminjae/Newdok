@@ -21,6 +21,9 @@ struct NewdokApp: App {
     init() {
         // DesignSystem 폰트 등록
         DesignSystemFontFamily.registerAllCustomFonts()
+
+        // 에러 로깅 등록
+        ErrorLoggerRegistry.register(CoreErrorLogger())
     }
 
     var body: some Scene {

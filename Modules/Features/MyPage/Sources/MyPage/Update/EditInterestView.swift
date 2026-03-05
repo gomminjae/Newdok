@@ -70,15 +70,12 @@ public struct EditInterestView: View {
 
             Button(action: {
                 Task {
-                    do {
-                        try await viewModel.updateInterests(ids: Array(selectedIds))
-                        await viewModel.fetchuserInfo()
-                        await MainActor.run { router.pop() }
-                        Task.detached { @MainActor in
-                            try? await Task.sleep(nanoseconds: 150_000_000)
-                            ToastCenter.shared.show("관심사가 변경되었습니다.")
-                        }
-                    } catch {
+                    await viewModel.updateInterests(ids: Array(selectedIds))
+                    await viewModel.fetchuserInfo()
+                    await MainActor.run { router.pop() }
+                    Task.detached { @MainActor in
+                        try? await Task.sleep(nanoseconds: 150_000_000)
+                        ToastCenter.shared.show("관심사가 변경되었습니다.")
                     }
                 }
             }) {

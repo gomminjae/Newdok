@@ -56,6 +56,11 @@ public struct RecoveryView: View {
             }
         }
         .ignoresSafeArea(.keyboard)
+        .serverErrorPopup(
+            error: $viewModel.currentError,
+            onGoBack: { router.pop() },
+            onRetry: {}
+        )
     }
     private var tabSwitcher: some View {
         VStack(spacing: 0) {

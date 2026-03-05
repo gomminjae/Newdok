@@ -25,7 +25,7 @@ public struct SubscribeRow: View {
     public var body: some View {
         HStack(alignment: .center, spacing: 8) {
             KFImage(URL(string: newsletter.imageUrl))
-                .setProcessor(DownsamplingImageProcessor(size: CGSize(width: 56, height: 56)))
+                .setProcessor(DownsamplingImageProcessor(size: CGSize(width: 56 * UIScreen.main.scale, height: 56 * UIScreen.main.scale)))
                 .placeholder {
                     RoundedRectangle(cornerRadius: 10)
                         .fill(Color.gray.opacity(0.2))

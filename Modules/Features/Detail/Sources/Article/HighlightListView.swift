@@ -7,6 +7,7 @@
 
 import SwiftUI
 import DesignSystem
+import Shared
 
 // MARK: - Highlight List View
 struct HighlightListView: View {

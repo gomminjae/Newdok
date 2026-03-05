@@ -7,15 +7,17 @@
 import SwiftUI
 import DesignSystem
 import Domain
+import Shared
 import Kingfisher
 
 struct ArticleRow: View {
     let article: Article
+    @State private var highlightCount: Int = 0
 
     var body: some View {
         HStack(spacing: 12) {
             KFImage(URL(string: article.imageUrl))
-                .setProcessor(DownsamplingImageProcessor(size: CGSize(width: 56, height: 56)))
+                .setProcessor(DownsamplingImageProcessor(size: CGSize(width: 56 * UIScreen.main.scale, height: 56 * UIScreen.main.scale)))
                 .placeholder {
                     RoundedRectangle(cornerRadius: 12)
                         .fill(Color.gray.opacity(0.2))
@@ -38,9 +40,13 @@ struct ArticleRow: View {
 
                     Spacer()
 
-                    Text(article.status == "Read" ? "읽음" : "안읽음")
-                        .font(.hanSansNeo(11, .medium))
-                        .foregroundColor(article.status == "Read" ? Color(hex: "#767676") : Color.primaryNormal)
+                    if highlightCount > 0 {
+                        highlightBadge
+                    } else {
+                        Text(article.status == "Read" ? "읽음" : "안읽음")
+                            .font(.hanSansNeo(11, .medium))
+                            .foregroundColor(article.status == "Read" ? Color(hex: "#767676") : Color.primaryNormal)
+                    }
                 }
 
                 Text(article.articleTitle)
@@ -57,7 +63,28 @@ struct ArticleRow: View {
             RoundedRectangle(cornerRadius: 12)
                 .stroke(Color(hex: "#EBEBEB"), lineWidth: 1)
         )
-        .shadow(color: Color.black.opacity(0.05), radius: 2, x: 0, y: 1) 
+        .shadow(color: Color.black.opacity(0.05), radius: 2, x: 0, y: 1)
+        .task {
+            let count = await HighlightStorage.shared.fetchHighlights(for: String(article.articleId)).count
+            highlightCount = count
+        }
+    }
+
+    private var highlightBadge: some View {
+        HStack(spacing: 4) {
+            Image(asset: DesignSystemAsset.pen)
+                .renderingMode(.template)
+                .resizable()
+                .frame(width: 14, height: 14)
+                .foregroundColor(.white)
+            Text("\(highlightCount)+")
+                .font(.hanSansNeo(11, .bold))
+                .foregroundColor(.white)
+        }
+        .padding(.horizontal, 8)
+        .padding(.vertical, 4)
+        .background(Color(hex: "#6893E0"))
+        .clipShape(Capsule())
     }
 }
 
