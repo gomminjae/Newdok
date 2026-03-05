@@ -8,6 +8,7 @@
 import SwiftUI
 import Foundation
 import Domain
+import Shared
 
 public enum SubscribeState {
     case loading
@@ -17,7 +18,7 @@ public enum SubscribeState {
 }
 
 @MainActor
-public final class SubscribeViewModel: ObservableObject {
+public final class SubscribeViewModel: ObservableObject, ErrorHandling {
     private let useCase: NewsletterUseCase
 
     @Published public var activeNewsletters: [Newsletter] = []
@@ -28,6 +29,7 @@ public final class SubscribeViewModel: ObservableObject {
     @Published public var isLoadingActive: Bool = false
     @Published public var isLoadingPaused: Bool = false
     @Published public var lastRefreshTime = Date.distantPast
+    @Published public var currentError: AppError?
 
     public init(useCase: NewsletterUseCase) {
         self.useCase = useCase
@@ -37,50 +39,41 @@ public final class SubscribeViewModel: ObservableObject {
         guard !initialLoaded else { return }
         isLoadingActive = true
         isLoadingPaused = true
-        
+
         do {
             async let active = useCase.fetchActiveSubscription()
             async let paused = useCase.fetchPausedSubscription()
-            
+
             activeNewsletters = try await active
             pausedNewsletters = try await paused
-            
-            // 데이터 로딩 완료 후 초기 로딩 상태 설정
-            initialLoaded = true
         } catch {
-            // 에러가 발생해도 초기 로딩은 완료된 것으로 처리
-            initialLoaded = true
+            handleError(error, feature: "subscribe", operation: "loadInitial")
         }
-        
+
+        initialLoaded = true
         isLoadingActive = false
         isLoadingPaused = false
     }
 
     public func refresh(tab: Int) async {
-        isRefreshing = true
-        defer { isRefreshing = false }
-
-        do {
+        await performAsync(feature: "subscribe", operation: "refresh", loadingBinding: \.isRefreshing) {
             if tab == 0 {
                 activeNewsletters = try await useCase.fetchActiveSubscription()
             } else {
                 pausedNewsletters = try await useCase.fetchPausedSubscription()
             }
-        } catch {
         }
     }
 
     public func pause(newsletterId: String) async {
-        do {
+        await performAsync(feature: "subscribe", operation: "pause") {
             _ = try await useCase.pauseSubscription(newsletterId: newsletterId)
-        } catch {
         }
     }
 
     public func resume(newsletterId: String) async {
-        do {
+        await performAsync(feature: "subscribe", operation: "resume") {
             _ = try await useCase.resumeSubscription(newsletterId: newsletterId)
-        } catch {
         }
     }
 }

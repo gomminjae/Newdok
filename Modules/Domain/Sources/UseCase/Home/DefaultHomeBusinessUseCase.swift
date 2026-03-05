@@ -8,6 +8,15 @@
 import Foundation
 import Shared
 
+private func logHomeError(_ error: Error, operation: String) {
+    let context = ErrorContext(
+        underlyingError: error,
+        feature: "home",
+        operation: operation
+    )
+    ErrorLoggerRegistry.shared?.logError(context)
+}
+
 public actor DefaultHomeBusinessUseCase: HomeBusinessUseCase {
     private enum Constants {
         static let readArticlesKey = "readArticles"
@@ -83,6 +92,7 @@ public actor DefaultHomeBusinessUseCase: HomeBusinessUseCase {
             snapshotState.isLoaded = true
             lastLoadedDate = today
         } catch {
+            logHomeError(error, operation: "loadToday")
             snapshotState.isLoaded = true
             snapshotState.isCalendarLoading = false
         }
@@ -90,7 +100,12 @@ public actor DefaultHomeBusinessUseCase: HomeBusinessUseCase {
     }
 
     public func refreshToToday() async -> HomeSnapshot {
-        await loadToday()
+        do {
+            try await fetchUseCase.refresh()
+        } catch {
+            logHomeError(error, operation: "refresh")
+        }
+        return await loadToday()
     }
 
     public func loadMonthData(for date: Date, forceReload: Bool = false) async -> HomeSnapshot {
@@ -122,6 +137,7 @@ public actor DefaultHomeBusinessUseCase: HomeBusinessUseCase {
             prefetchAdjacentMonths(from: month)
         } catch {
             if Task.isCancelled { return snapshotState }
+            logHomeError(error, operation: "loadMonthData")
             snapshotState.isCalendarLoading = false
         }
 
@@ -211,6 +227,7 @@ public actor DefaultHomeBusinessUseCase: HomeBusinessUseCase {
             monthlyCache[key] = monthly
             updateDataDays(with: monthly, forKey: key, affectsSnapshot: false)
         } catch {
+            logHomeError(error, operation: "fetchDataDays")
             return []
         }
 
@@ -259,6 +276,7 @@ public actor DefaultHomeBusinessUseCase: HomeBusinessUseCase {
             storeArticles(decorated, for: date)
             return decorated
         } catch {
+            logHomeError(error, operation: "loadArticles")
             return []
         }
     }
@@ -373,7 +391,7 @@ public actor DefaultHomeBusinessUseCase: HomeBusinessUseCase {
             monthlyCache[key] = monthly
             updateDataDays(with: monthly, forKey: key, affectsSnapshot: false)
         } catch {
-            // ignore background prefetch failures
+            logHomeError(error, operation: "prefetchMonth")
         }
     }
 }

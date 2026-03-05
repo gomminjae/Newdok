@@ -253,6 +253,10 @@ public struct MypageView: View {
                     .animation(.easeInOut)
                     .closeOnTapOutside(false)
             }
+            .serverErrorPopup(
+                error: $viewModel.currentError,
+                onRetry: { Task { await viewModel.fetchuserInfo() } }
+            )
     }
 
     // MARK: - 셀 스타일

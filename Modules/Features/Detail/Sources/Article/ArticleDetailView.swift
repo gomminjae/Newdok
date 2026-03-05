@@ -40,15 +40,9 @@ public struct ArticleDetailView: View {
         _viewModel = StateObject(wrappedValue: viewModel)
     }
 
-    private var safeAreaTop: CGFloat {
-        UIApplication.shared.connectedScenes
-            .compactMap { $0 as? UIWindowScene }
-            .first?.windows.first?.safeAreaInsets.top ?? 0
-    }
-
     public var body: some View {
         VStack(spacing: 0) {
-            // 커스텀 네비게이션 바
+            // 커스텀 네비게이션 바 (항상 표시)
             HStack(spacing: 0) {
                 // 뒤로가기
                 Button {
@@ -110,10 +104,9 @@ public struct ArticleDetailView: View {
             }
             .padding(.horizontal, 20)
             .frame(height: 44)
-            .padding(.top, safeAreaTop)
             .background(Color.white)
 
-            // WebView
+            // WebView (렌더링 완료 후 표시)
             ZStack {
                 if let detail = viewModel.detail {
                     FullWebView(
@@ -167,15 +160,13 @@ public struct ArticleDetailView: View {
             }
         }
         .opacity(isViewReady ? 1 : 0)
-        .background(Color.white)
-        .ignoresSafeArea(edges: .top)
+        .animation(.easeIn(duration: 0.2), value: isViewReady)
+        .background(Color.white.ignoresSafeArea(edges: .top))
         .navigationBarTitleDisplayMode(.inline)
         .toolbar(.hidden, for: .navigationBar)
         .enableSwipeBack(edgeOnly: true)
-        .onAppear {
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.05) {
-                isViewReady = true
-            }
+        .onChange(of: viewModel.detail) { detail in
+            if detail != nil { isViewReady = true }
         }
         .task {
             await viewModel.fetch()
@@ -213,6 +204,11 @@ public struct ArticleDetailView: View {
                 }
             )
         }
+        .serverErrorPopup(
+            error: $viewModel.currentError,
+            onGoBack: { router.pop() },
+            onRetry: { Task { await viewModel.fetch() } }
+        )
     }
 
     private func formatDate(_ isoString: String) -> String {
@@ -435,6 +431,9 @@ struct FontSizeControlView: View {
     private let minFontSize: CGFloat = 15
     private let maxFontSize: CGFloat = 25
 
+    private var minusActive: Bool { fontSize > minFontSize }
+    private var plusActive: Bool { fontSize < maxFontSize }
+
     var body: some View {
         VStack(spacing: 0) {
             // 커스텀 그랩바
@@ -454,6 +453,7 @@ struct FontSizeControlView: View {
                 Button(action: { dismiss() }) {
                     Image(asset: DesignSystemAsset.lineClose)
                 }
+                .buttonStyle(PlainButtonStyle())
             }
             .padding(.horizontal, 24)
             .padding(.top, 16)
@@ -461,81 +461,48 @@ struct FontSizeControlView: View {
             // 컨트롤 영역
             VStack(spacing: 20) {
                 // 현재 폰트 크기 표시
-                Text("\(Int(fontSize)) pt")
-                    .font(.system(size: 32, weight: .bold))
-                    .foregroundColor(.black)
-                    .padding(.top, 24)
-
-                // 슬라이더와 +/- 버튼
-                HStack(spacing: 12) {
-                    // - 버튼
-                    Button(action: {
-                        if fontSize > minFontSize {
-                            fontSize -= 1
-                            saveFontSize()
-                        }
-                    }) {
-                        Image(systemName: "minus")
-                            .font(.system(size: 16, weight: .medium))
-                            .foregroundColor(fontSize <= minFontSize ? .gray.opacity(0.3) : Color.primaryNormal)
-                            .frame(width: 36, height: 36)
-                            .overlay(
-                                Circle().stroke(
-                                    fontSize <= minFontSize
-                                        ? Color.gray.opacity(0.3) : Color.primaryNormal,
-                                    lineWidth: 1.5
-                                )
-                            )
-                    }
-                    .disabled(fontSize <= minFontSize)
-
-                    // 슬라이더
-                    Slider(
-                        value: $fontSize,
-                        in: minFontSize...maxFontSize,
-                        step: 1,
-                        onEditingChanged: { editing in
-                            if !editing {
-                                saveFontSize()
-                            }
-                        }
-                    )
-                    .accentColor(Color.primaryNormal)
-
-                    // + 버튼
-                    Button(action: {
-                        if fontSize < maxFontSize {
-                            fontSize += 1
-                            saveFontSize()
-                        }
-                    }) {
-                        Image(systemName: "plus")
-                            .font(.system(size: 16, weight: .medium))
-                            .foregroundColor(fontSize >= maxFontSize ? .gray.opacity(0.3) : Color.primaryNormal)
-                            .frame(width: 36, height: 36)
-                            .overlay(
-                                Circle().stroke(
-                                    fontSize >= maxFontSize
-                                        ? Color.gray.opacity(0.3) : Color.primaryNormal,
-                                    lineWidth: 1.5
-                                )
-                            )
-                    }
-                    .disabled(fontSize >= maxFontSize)
+                HStack(alignment: .firstTextBaseline, spacing: 2) {
+                    Text("\(Int(fontSize))")
+                        .font(.system(size: 32, weight: .bold))
+                        .foregroundColor(.black)
+                    Text("pt")
+                        .font(.system(size: 20, weight: .bold))
+                        .foregroundColor(.black)
                 }
-                .padding(.horizontal, 24)
+                .padding(.top, 24)
 
-                // 범위 표시
-                HStack {
-                    Text("\(Int(minFontSize))pt")
-                        .font(.hanSansNeo(12, .medium))
-                        .foregroundColor(Color(hex: "#969696"))
+                VStack(spacing: 4) {
+                    // 슬라이더 + 버튼 (center Y 정렬)
+                    HStack(alignment: .center, spacing: 12) {
+                        fontSizeButton(systemName: "minus", isActive: minusActive) {
+                            if fontSize > minFontSize { fontSize -= 1; saveFontSize() }
+                        }
 
-                    Spacer()
+                        BorderedThumbSlider(
+                            value: $fontSize,
+                            range: minFontSize...maxFontSize,
+                            step: 1,
+                            onEditingChanged: { editing in
+                                if !editing { saveFontSize() }
+                            }
+                        )
 
-                    Text("\(Int(maxFontSize))pt")
-                        .font(.hanSansNeo(12, .medium))
-                        .foregroundColor(Color(hex: "#969696"))
+                        fontSizeButton(systemName: "plus", isActive: plusActive) {
+                            if fontSize < maxFontSize { fontSize += 1; saveFontSize() }
+                        }
+                    }
+
+                    // 범위 레이블
+                    HStack {
+                        Text("\(Int(minFontSize))pt")
+                            .font(.hanSansNeo(12, .medium))
+                            .foregroundColor(Color(hex: "#969696"))
+                        Spacer()
+                        Text("\(Int(maxFontSize))pt")
+                            .font(.hanSansNeo(12, .medium))
+                            .foregroundColor(Color(hex: "#969696"))
+                    }
+                    .padding(.horizontal, 36 + 12)
                 }
                 .padding(.horizontal, 24)
                 .padding(.bottom, 28)
@@ -543,7 +510,7 @@ struct FontSizeControlView: View {
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
         .background(Color.white)
-        .presentationCornerRadius(24)
+        .presentationCornerRadius(36)
         .presentationDetents([.height(280)])
         .presentationDragIndicator(.hidden)
         .safeAreaInset(edge: .bottom) {
@@ -551,7 +518,90 @@ struct FontSizeControlView: View {
         }
     }
 
+    @ViewBuilder
+    private func fontSizeButton(systemName: String, isActive: Bool, action: @escaping () -> Void) -> some View {
+        Button(action: action) {
+            Image(systemName: systemName)
+                .renderingMode(.template)
+                .font(.system(size: 16, weight: .medium))
+                .frame(width: 36, height: 36)
+                .overlay(
+                    RoundedRectangle(cornerRadius: 10).stroke(Color(hex: "#D0D0D0"), lineWidth: 1.5)
+                )
+        }
+        .buttonStyle(PlainButtonStyle())
+        .foregroundColor(isActive ? Color.primaryNormal : Color(hex: "#D0D0D0"))
+    }
+
     private func saveFontSize() {
         UserDefaults.standard.set(fontSize, forKey: "articleFontSize")
+    }
+}
+
+// MARK: - Bordered Thumb Slider
+private class TrackSlider: UISlider {
+    override func trackRect(forBounds bounds: CGRect) -> CGRect {
+        var rect = super.trackRect(forBounds: bounds)
+        rect.size.height = 6
+        rect.origin.y = bounds.midY - 3
+        return rect
+    }
+}
+
+private struct BorderedThumbSlider: UIViewRepresentable {
+    @Binding var value: CGFloat
+    let range: ClosedRange<CGFloat>
+    let step: CGFloat
+    let onEditingChanged: (Bool) -> Void
+
+    func makeUIView(context: Context) -> UISlider {
+        let slider = TrackSlider()
+        slider.minimumValue = Float(range.lowerBound)
+        slider.maximumValue = Float(range.upperBound)
+        slider.value = Float(value)
+        slider.minimumTrackTintColor = UIColor(red: 40/255, green: 102/255, blue: 211/255, alpha: 1)
+        slider.maximumTrackTintColor = UIColor.systemGray4
+        let thumb = makeThumbImage()
+        slider.setThumbImage(thumb, for: .normal)
+        slider.setThumbImage(thumb, for: .highlighted)
+        slider.addTarget(context.coordinator, action: #selector(Coordinator.valueChanged(_:)), for: .valueChanged)
+        slider.addTarget(context.coordinator, action: #selector(Coordinator.touchBegan(_:)), for: .touchDown)
+        slider.addTarget(context.coordinator, action: #selector(Coordinator.touchEnded(_:)), for: [.touchUpInside, .touchUpOutside, .touchCancel])
+        return slider
+    }
+
+    func updateUIView(_ uiView: UISlider, context: Context) {
+        let stepped = Float(round(value / step) * step)
+        if uiView.value != stepped { uiView.value = stepped }
+    }
+
+    func makeCoordinator() -> Coordinator { Coordinator(self) }
+
+    private func makeThumbImage() -> UIImage {
+        let size = CGSize(width: 28, height: 20)
+        let cornerRadius: CGFloat = 8
+        let borderWidth: CGFloat = 2
+        let borderColor = UIColor(red: 40/255, green: 102/255, blue: 211/255, alpha: 1)
+        return UIGraphicsImageRenderer(size: size).image { _ in
+            let fillRect = CGRect(origin: .zero, size: size).insetBy(dx: borderWidth / 2, dy: borderWidth / 2)
+            UIColor.white.setFill()
+            UIBezierPath(roundedRect: fillRect, cornerRadius: cornerRadius - borderWidth / 2).fill()
+            borderColor.setStroke()
+            let borderPath = UIBezierPath(roundedRect: fillRect, cornerRadius: cornerRadius - borderWidth / 2)
+            borderPath.lineWidth = borderWidth
+            borderPath.stroke()
+        }
+    }
+
+    class Coordinator: NSObject {
+        let parent: BorderedThumbSlider
+        init(_ parent: BorderedThumbSlider) { self.parent = parent }
+
+        @objc func valueChanged(_ slider: UISlider) {
+            let stepped = round(slider.value / Float(parent.step)) * Float(parent.step)
+            parent.value = CGFloat(stepped)
+        }
+        @objc func touchBegan(_ slider: UISlider) { parent.onEditingChanged(true) }
+        @objc func touchEnded(_ slider: UISlider) { parent.onEditingChanged(false) }
     }
 }

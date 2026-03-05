@@ -24,7 +24,7 @@ public protocol LoginViewModelBindable: ObservableObject {
 }
 
 @MainActor
-public final class LoginViewModel: LoginViewModelBindable {
+public final class LoginViewModel: LoginViewModelBindable, ErrorHandling {
     private let loginUseCase: LoginUseCase
 
     @Published public var loginId: String
@@ -45,6 +45,7 @@ public final class LoginViewModel: LoginViewModelBindable {
 
     @Published public var isLoginIdError: Bool = false
     @Published public var isPasswordError: Bool = false
+    @Published public var currentError: AppError?
 
     @AppStorage("isLoggedIn") public var isLoggedIn: Bool = false
     @AppStorage("isGuest") public var isGuest: Bool = false
@@ -77,13 +78,16 @@ public final class LoginViewModel: LoginViewModelBindable {
                 nickname = user.nickname
                 email = user.subscribeEmail ?? ""
 
+                AppState.shared.login()
                 onSuccess()
             } catch let error as LoginError {
                 handleLoginError(error)
+                handleError(error, feature: "login", operation: "login")
             } catch {
                 errorMessage = "로그인에 실패했습니다"
                 isPasswordError = false
                 isLoginIdError = false
+                handleError(error, feature: "login", operation: "login")
             }
         }
     }
@@ -99,7 +103,6 @@ public final class LoginViewModel: LoginViewModelBindable {
             isLoginIdError = true
             isPasswordError = false
         case .networkError:
-            errorMessage = "네트워크 오류가 발생했습니다"
             isPasswordError = false
             isLoginIdError = false
         }

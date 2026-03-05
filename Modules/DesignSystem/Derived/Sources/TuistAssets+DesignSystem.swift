@@ -52,6 +52,7 @@ public enum DesignSystemAsset: Sendable {
   public static let nologin = DesignSystemImages(name: "nologin")
   public static let noprofile = DesignSystemImages(name: "noprofile")
   public static let nosubscribe = DesignSystemImages(name: "nosubscribe")
+  public static let pen = DesignSystemImages(name: "pen")
   public static let person = DesignSystemImages(name: "person")
   public static let phone = DesignSystemImages(name: "phone")
   public static let post = DesignSystemImages(name: "post")

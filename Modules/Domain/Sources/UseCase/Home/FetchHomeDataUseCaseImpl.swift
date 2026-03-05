@@ -71,6 +71,10 @@ public class FetchHomeDataUseCaseImpl: FetchHomeDataUseCase {
         }
     }
     
+    public func refresh() async throws {
+        try await articleRepo.refresh()
+    }
+
     private func isRead(_ article: Article) -> Bool {
         article.status.caseInsensitiveCompare("Read") == .orderedSame
     }

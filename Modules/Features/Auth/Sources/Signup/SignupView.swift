@@ -103,6 +103,11 @@ public struct SignupView: View {
             .animation(.easeInOut(duration: 0.3), value: viewModel.currentStep)
         }
         .ignoresSafeArea(.keyboard)
+        .serverErrorPopup(
+            error: $viewModel.currentError,
+            onGoBack: { router.pop() },
+            onRetry: {}
+        )
     }
 
     private func nextStep() {

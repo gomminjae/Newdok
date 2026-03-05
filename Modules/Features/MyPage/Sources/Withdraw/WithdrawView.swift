@@ -60,6 +60,11 @@ public struct WithdrawView: View {
         .onAppear {
             Task { await viewModel.fetchUserInfo() }
         }
+        .serverErrorPopup(
+            error: $viewModel.currentError,
+            onGoBack: { router.pop() },
+            onRetry: { Task { await viewModel.fetchUserInfo() } }
+        )
     }
     
     // MARK: - 하단 고정 버튼 뷰

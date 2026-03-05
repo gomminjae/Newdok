@@ -5,7 +5,7 @@
 //  Created by 권민재 on 4/11/25.
 //
 
-public struct ArticleDetail {
+public struct ArticleDetail: Equatable {
     public let articleTitle: String
     public let articleId: Int
     public let date: String

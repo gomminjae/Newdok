@@ -135,6 +135,19 @@ public struct ExploreView: View {
                 // 앱이 포그라운드로 올 때 UserInfo 업데이트
                 userInfo = UserInfoStore.shared.load()
             }
+            .serverErrorPopup(
+                error: $viewModel.currentError,
+                onRetry: {
+                    Task {
+                        if isGuest {
+                            await viewModel.fetchGuestAllNewsletters()
+                        } else {
+                            await viewModel.fetchRecommendation()
+                            await viewModel.fetchAllNewsletters()
+                        }
+                    }
+                }
+            )
         }
     }
 

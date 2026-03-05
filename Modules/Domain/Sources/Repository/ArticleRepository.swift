@@ -23,4 +23,6 @@ public protocol ArticleRepository {
     func fetchArticleDetail(id: String) async throws -> ArticleDetail
     
     func fetchReceivedArticleCount() async throws -> Int
+
+    func refresh() async throws
 }

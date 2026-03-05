@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Shared
 
 public protocol ProfileUseCase {
     func fetchProfile() async throws -> User
@@ -17,4 +18,13 @@ public protocol ProfileUseCase {
 
 public enum ProfileError: Error {
     case userNotFound
+}
+
+extension ProfileError: AppErrorConvertible {
+    public func toAppError() -> AppError {
+        switch self {
+        case .userNotFound:
+            return .userMessage("사용자 정보를 찾을 수 없습니다")
+        }
+    }
 }

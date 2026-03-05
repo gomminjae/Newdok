@@ -67,7 +67,8 @@ struct AppRootView: View {
 
                 // 토큰 존재 여부 확인 (로그인 여부)
                 if TokenStorage.hasValidToken {
-                    // 토큰 있음 -> 메인 화면
+                    // 토큰 있음 -> 메인 화면 + 인증 상태 동기화
+                    AppState.shared.login()
                     router.resetTo(.tabbar(selectedTab: .home))
                 } else {
                     // 토큰 없음 -> 온보딩 (로그인하지 않은 사용자)
@@ -76,7 +77,11 @@ struct AppRootView: View {
             }
         }
         .onReceive(NotificationCenter.default.publisher(for: .didReceiveUnauthorized)) { _ in
-            // 401 에러 발생 시 팝업 표시
+            // 401 에러 발생 시 로그인 상태 정리 + 팝업 표시
+            UserDefaults.standard.set(false, forKey: "isLoggedIn")
+            UserDefaults.standard.set(false, forKey: "isGuest")
+            UserDefaults.standard.removeObject(forKey: "nickname")
+            UserDefaults.standard.removeObject(forKey: "email")
             showUnauthorizedAlert = true
         }
         .alert("로그인이 필요합니다", isPresented: $showUnauthorizedAlert) {

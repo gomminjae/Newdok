@@ -25,7 +25,7 @@ struct CurationRow: View {
         VStack(alignment: .leading, spacing: 12) {
             HStack(alignment: .top, spacing: 12) {
                 KFImage(URL(string: brand?.imageUrl ?? ""))
-                    .setProcessor(DownsamplingImageProcessor(size: CGSize(width: 90, height: 90)))
+                    .setProcessor(DownsamplingImageProcessor(size: CGSize(width: 90 * UIScreen.main.scale, height: 90 * UIScreen.main.scale)))
                     .placeholder {
                         Color.gray.opacity(0.2)
                     }

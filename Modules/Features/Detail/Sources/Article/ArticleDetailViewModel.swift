@@ -8,13 +8,15 @@
 import Domain
 import Foundation
 import Combine
+import Shared
 
 @MainActor
-public final class ArticleDetailViewModel: ObservableObject {
+public final class ArticleDetailViewModel: ObservableObject, ErrorHandling {
     // MARK: - Published Properties
 
     @Published var detail: ArticleDetail?
     @Published var isLoading: Bool = false
+    @Published public var currentError: AppError?
 
     // 하이라이트 관련
     @Published var selectedText: String = ""
@@ -48,7 +50,7 @@ public final class ArticleDetailViewModel: ObservableObject {
     // MARK: - Article Actions
 
     public func fetch() async {
-        do {
+        await performAsync(feature: "articleDetail", operation: "fetch", loadingBinding: \.isLoading) {
             let result = try await articleDetailUseCase.fetchDetail(articleId: id)
 
             // 하이라이트 로드
@@ -56,17 +58,14 @@ public final class ArticleDetailViewModel: ObservableObject {
 
             // detail 설정
             detail = result.detail
-        } catch {
-            print("[ArticleDetailVM] fetch error: \(error)")
         }
     }
 
     public func bookmark() async {
-        do {
+        await performAsync(feature: "articleDetail", operation: "bookmark") {
             guard let articleId = detail?.articleId else { return }
             try await articleDetailUseCase.toggleBookmark(articleId: "\(articleId)")
             detail?.isBookmarked.toggle()
-        } catch {
         }
     }
 
@@ -99,12 +98,10 @@ public final class ArticleDetailViewModel: ObservableObject {
     /// 하이라이트 목록 로드
     func loadHighlights() {
         guard let detail = detail else {
-            print("[ArticleDetailVM] loadHighlights: detail is nil, using id: \(id)")
             highlights = highlightStorage.fetchHighlights(for: id)
             return
         }
         let actualArticleId = String(detail.articleId)
-        print("[ArticleDetailVM] loadHighlights for articleId: \(actualArticleId)")
         highlights = highlightStorage.fetchHighlights(for: actualArticleId)
     }
 

@@ -8,11 +8,13 @@
 import Domain
 import Foundation
 import Combine
+import Shared
 
 @MainActor
-public final class BrandDetailViewModel: ObservableObject {
+public final class BrandDetailViewModel: ObservableObject, ErrorHandling {
     @Published var detail: BrandDetail?
     @Published var isLoading: Bool = false
+    @Published public var currentError: AppError?
 
     private let id: String
     private let useCase: NewsletterUseCase
@@ -23,37 +25,26 @@ public final class BrandDetailViewModel: ObservableObject {
     }
 
     public func fetch() async {
-        isLoading = true
-        do {
-            let data = try await useCase.fetchNewsletterBrand(id: id)
-            detail = data
-        } catch {
+        await performAsync(feature: "brandDetail", operation: "fetch", loadingBinding: \.isLoading) {
+            detail = try await useCase.fetchNewsletterBrand(id: id)
         }
-        isLoading = false
     }
-    
-    public func guestFetch() async {
-        isLoading = true
-        defer { isLoading = false }
 
-        do {
-            let data = try await useCase.fetchGuestNewsletterBrand(id: id)
-            detail = data
-        } catch {
+    public func guestFetch() async {
+        await performAsync(feature: "brandDetail", operation: "guestFetch", loadingBinding: \.isLoading) {
+            detail = try await useCase.fetchGuestNewsletterBrand(id: id)
         }
     }
-    
+
     public func resume() async {
-        do {
+        await performAsync(feature: "brandDetail", operation: "resume") {
             _ = try await useCase.resumeSubscription(newsletterId: id)
-        } catch {
         }
     }
-    
+
     public func pause() async {
-        do {
+        await performAsync(feature: "brandDetail", operation: "pause") {
             _ = try await useCase.pauseSubscription(newsletterId: id)
-        } catch {
         }
     }
 }
