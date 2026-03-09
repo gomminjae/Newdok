@@ -61,15 +61,25 @@ public struct InterestSelectionView: View {
             Button(action: {
                 viewModel.submitInterests()
             }) {
-                Text("뉴스레터추천받기")
-                    .font(.hanSansNeo(14, .bold))
-                    .frame(maxWidth: .infinity)
-                    .frame(height: 48)
-                    .background(viewModel.selectedInterests.count >= 3 ? Color(hex: "#2866D3") : Color(hex: "EBEBEB"))
-                    .foregroundColor(viewModel.selectedInterests.count >= 3 ? .white : Color(hex: "BDBDBD"))
-                    .cornerRadius(4)
+                Group {
+                    if viewModel.isCurationLoading {
+                        LoadingDotsView()
+                    } else {
+                        Text("뉴스레터추천받기")
+                            .font(.hanSansNeo(14, .bold))
+                    }
+                }
+                .frame(maxWidth: .infinity)
+                .frame(height: 48)
+                .background(
+                    viewModel.isCurationLoading
+                        ? Color(hex: "#D4E0F6")
+                        : (viewModel.selectedInterests.count >= 3 ? Color(hex: "#2866D3") : Color(hex: "EBEBEB"))
+                )
+                .foregroundColor(viewModel.selectedInterests.count >= 3 ? .white : Color(hex: "BDBDBD"))
+                .cornerRadius(4)
             }
-            .disabled(viewModel.selectedInterests.count < 3)
+            .disabled(viewModel.selectedInterests.count < 3 || viewModel.isCurationLoading)
             .padding(.top, 34)
             .padding(.bottom, 20)
         }

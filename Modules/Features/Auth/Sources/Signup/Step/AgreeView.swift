@@ -84,18 +84,30 @@ public struct AgreeView: View {
 
             Spacer()
 
-            Button("가입완료") {
+            Button(action: {
                 viewModel.signup()
+            }) {
+                Group {
+                    if viewModel.isLoading {
+                        LoadingDotsView()
+                    } else {
+                        Text("가입완료")
+                            .font(.hanSansNeo(14, .bold))
+                    }
+                }
+                .frame(maxWidth: .infinity)
+                .frame(height: 48)
+                .background(
+                    viewModel.isLoading
+                        ? Color(hex: "#D4E0F6")
+                        : (isSignUpEnabled ? Color.primaryNormal : Color.lineNeutral)
+                )
+                .foregroundColor(.white)
+                .cornerRadius(4)
             }
-            .font(.hanSansNeo(14, .bold))
-            .frame(maxWidth: .infinity)
-            .frame(height: 48)
-            .background(isSignUpEnabled ? Color.primaryNormal : Color.lineNeutral)
-            .foregroundColor(.white)
-            .cornerRadius(4)
             .padding(.horizontal, 24)
             .padding(.bottom, 20)
-            .disabled(!isSignUpEnabled)
+            .disabled(!isSignUpEnabled || viewModel.isLoading)
         }
         .sheet(isPresented: $showSheet) {
             if let type = sheetType {

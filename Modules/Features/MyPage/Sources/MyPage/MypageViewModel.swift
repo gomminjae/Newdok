@@ -49,6 +49,7 @@ public class MypageViewModel: ObservableObject, ErrorHandling {
     @Published public var showPasswordSuccess: Bool = false
     @Published public var showPhoneNumberSuccess: Bool = false
     @Published public var currentError: AppError?
+    @Published public var isInterestUpdating: Bool = false
 
     private let useCase: UserUseCase
     private let profileUseCase: ProfileUseCase
@@ -113,6 +114,7 @@ public class MypageViewModel: ObservableObject, ErrorHandling {
     }
 
     public func updateInterests(ids: [Int]) async {
+        isInterestUpdating = true
         await performAsync(feature: "mypage", operation: "updateInterests") {
             try await profileUseCase.updateInterests(ids)
 
@@ -135,6 +137,7 @@ public class MypageViewModel: ObservableObject, ErrorHandling {
 
             showInterestSuccess = true
         }
+        isInterestUpdating = false
     }
 
     public func updatePhoneNumber() async {

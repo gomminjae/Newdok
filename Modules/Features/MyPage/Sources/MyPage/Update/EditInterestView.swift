@@ -79,17 +79,27 @@ public struct EditInterestView: View {
                     }
                 }
             }) {
-                Text("변경하기")
-                    .font(.hanSansNeo(14, .bold))
-                    .frame(maxWidth: .infinity)
-                    .frame(height: 48)
-                    .background(selectedIds.count >= 3 ? Color.primaryNormal : Color(hex: "#F0F0F0"))
-                    .foregroundColor(selectedIds.count >= 3 ? .white : Color(hex: "#B0B0B0"))
-                    .cornerRadius(4)
-                    .padding(.horizontal, 20)
-                    .padding(.vertical, 12)
+                Group {
+                    if viewModel.isInterestUpdating {
+                        LoadingDotsView()
+                    } else {
+                        Text("변경하기")
+                            .font(.hanSansNeo(14, .bold))
+                    }
+                }
+                .frame(maxWidth: .infinity)
+                .frame(height: 48)
+                .background(
+                    viewModel.isInterestUpdating
+                        ? Color(hex: "#D4E0F6")
+                        : (selectedIds.count >= 3 ? Color.primaryNormal : Color(hex: "#F0F0F0"))
+                )
+                .foregroundColor(selectedIds.count >= 3 ? .white : Color(hex: "#B0B0B0"))
+                .cornerRadius(4)
+                .padding(.horizontal, 20)
+                .padding(.vertical, 12)
             }
-            .disabled(selectedIds.count < 3)
+            .disabled(selectedIds.count < 3 || viewModel.isInterestUpdating)
         }
         .onAppear {
             Task {

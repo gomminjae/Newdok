@@ -36,6 +36,7 @@
 		995B9101E7615E81051315F2 /* ServerErrorPopupModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C99E8042EF39E3FF60FBED8 /* ServerErrorPopupModifier.swift */; };
 		A202EC13E48DCA48C5318D26 /* PopupView.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B6654808CA89C3FC25B33948 /* PopupView.framework */; };
 		A34723E76FBB0E7BC50177C2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4F6AF114A38FDBD9663A6B1B /* Assets.xcassets */; };
+		AB862E59C188B650427CF4E2 /* LoadingDotsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 531101C9CF4F7EADA8C4F207 /* LoadingDotsView.swift */; };
 		ABB14811E13F7B1ECCF8B086 /* TuistAssets+DesignSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5263BC75B281154AC0B5A7B /* TuistAssets+DesignSystem.swift */; };
 		BC4360B914A0E6C10A4A851E /* CheckSubscribeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CF8A496C7E691DCF3A7C603 /* CheckSubscribeView.swift */; };
 		BDD988384DEC9A8C4E1B5F71 /* PullToRefreshView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 480127A043369072FC6A4A0E /* PullToRefreshView.swift */; };
@@ -123,6 +124,7 @@
 		48854A6B16F3CFBA5DA0F0AD /* load.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = load.gif; sourceTree = "<group>"; };
 		4B7519630D4BA8D550F1D471 /* BirthYearPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BirthYearPickerView.swift; sourceTree = "<group>"; };
 		4F6AF114A38FDBD9663A6B1B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		531101C9CF4F7EADA8C4F207 /* LoadingDotsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingDotsView.swift; sourceTree = "<group>"; };
 		56A7772AA0518B04428BE5C5 /* Shared.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Shared.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		56DFA51B1676775D07DC3DD2 /* SpoqaHanSansNeo-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SpoqaHanSansNeo-Regular.otf"; sourceTree = "<group>"; };
 		69B7BBEAD5472C7195924AC8 /* DesignSystem.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = DesignSystem.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -217,6 +219,7 @@
 				4B7519630D4BA8D550F1D471 /* BirthYearPickerView.swift */,
 				743901F00E06BB210FBD1E5B /* CalendarPopupView.swift */,
 				1A381D7F2C70367E5C3D8005 /* CustomSegmentedSlider.swift */,
+				531101C9CF4F7EADA8C4F207 /* LoadingDotsView.swift */,
 				9ED3D8DA640FE3624B7ACF45 /* LoadingView.swift */,
 				F249E8F2A7648435125CF681 /* LottieView.swift */,
 				6AF6A52DBE12C84500829BA2 /* NoDataView.swift */,
@@ -500,6 +503,7 @@
 				EBF8A05ADDF1FF48833C370E /* BirthYearPickerView.swift in Sources */,
 				D748D56D7CAC703E51B32DD4 /* CalendarPopupView.swift in Sources */,
 				81691FB03997BD9E75987B6E /* CustomSegmentedSlider.swift in Sources */,
+				AB862E59C188B650427CF4E2 /* LoadingDotsView.swift in Sources */,
 				3C49F77F8ACF1FC3BD37A181 /* LoadingView.swift in Sources */,
 				70C7D51B82F95045C9DDF2D0 /* LottieView.swift in Sources */,
 				07AB90021A70B1D55E233DDA /* NoDataView.swift in Sources */,

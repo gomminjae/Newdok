@@ -377,8 +377,9 @@ public struct ExploreView: View {
                                 .font(.hanSansNeo(14, .medium))
                                 .foregroundStyle(viewModel.industry != nil ? Color.primaryNormal : Color(hex: "969696"))
                             Image(asset: DesignSystemAsset.lineDown)
+                                .renderingMode(.template)
                                 .resizable()
-                                .frame(width: 12, height: 12)
+                                .frame(width: 20, height: 20)
                                 .foregroundStyle(viewModel.industry != nil ? Color.primaryNormal : Color(hex: "969696"))
                         }
                         .padding(.horizontal, 12)
@@ -403,8 +404,9 @@ public struct ExploreView: View {
                                 .font(.hanSansNeo(14, .medium))
                                 .foregroundStyle(viewModel.day != nil ? Color.primaryNormal : Color(hex: "969696"))
                             Image(asset: DesignSystemAsset.lineDown)
+                                .renderingMode(.template)
                                 .resizable()
-                                .frame(width: 12, height: 12)
+                                .frame(width: 20, height: 20)
                                 .foregroundStyle(viewModel.day != nil ? Color.primaryNormal : Color(hex: "969696"))
                         }
                         .padding(.horizontal, 12)

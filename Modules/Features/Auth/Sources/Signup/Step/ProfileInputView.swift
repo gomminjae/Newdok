@@ -20,7 +20,7 @@ public struct ProfileInputView: View {
         let currentYear = Calendar.current.component(.year, from: Date())
         let minYear = currentYear - 14  // 14세 이상
         let maxYear = 1950  // 최대 연도
-        
+
         return (maxYear...minYear).reversed().map {
             DropdownOption(key: "\($0)", value: "\($0)")
         }
@@ -28,6 +28,9 @@ public struct ProfileInputView: View {
 
     public init(viewModel: SignupViewModel) {
         self.viewModel = viewModel
+        if !viewModel.birthYear.isEmpty {
+            _selectedBirthYear = State(initialValue: viewModel.birthYear)
+        }
     }
 
     public var body: some View {

@@ -160,6 +160,8 @@ public struct BrandDetailView: View {
                 .animation(.easeInOut)
                 .backgroundColor(Color.black.opacity(0.3))
                 .closeOnTapOutside(true)
+                .closeOnTap(false)
+                .allowTapThroughBG(false)
         }
         .popup(isPresented: $isShowGuestAlert) {
             SubscribeGuestAlertView(isPresented: $isShowGuestAlert,
@@ -174,6 +176,8 @@ public struct BrandDetailView: View {
                 .animation(.easeInOut)
                 .backgroundColor(Color.black.opacity(0.3))
                 .closeOnTapOutside(true)
+                .closeOnTap(false)
+                .allowTapThroughBG(false)
         }
         .popup(isPresented: $showPauseToast) {
             ToastView(message: "구독이 중지되었습니다.")
@@ -219,6 +223,8 @@ public struct BrandDetailView: View {
                 .animation(.easeInOut)
                 .backgroundColor(Color.black.opacity(0.3))
                 .closeOnTapOutside(true)
+                .closeOnTap(false)
+                .allowTapThroughBG(false)
         }
         .serverErrorPopup(
             error: $viewModel.currentError,
@@ -467,6 +473,8 @@ public struct BrandDetailView: View {
                     .animation(.easeInOut)
                     .backgroundColor(Color.black.opacity(0.3))
                     .closeOnTapOutside(true)
+                    .closeOnTap(false)
+                    .allowTapThroughBG(false)
             }
         }
         .onAppear {

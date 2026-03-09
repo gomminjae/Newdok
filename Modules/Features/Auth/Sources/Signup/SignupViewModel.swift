@@ -399,6 +399,8 @@ public final class SignupViewModel: ObservableObject, ErrorHandling {
 
     // MARK: - Signup
     func signup() {
+        guard !isLoading else { return }
+        isLoading = true
         Task {
             do {
                 let request = SignupRequest(
@@ -419,8 +421,10 @@ public final class SignupViewModel: ObservableObject, ErrorHandling {
                 UserDefaults.standard.set(resultUser.subscribeEmail ?? "", forKey: "email")
 
                 AppState.shared.login()
+                isLoading = false
                 goToNextStep()
             } catch {
+                isLoading = false
                 handleError(error, feature: "signup", operation: "signup")
                 errorMessage = "회원가입에 실패했습니다"
             }

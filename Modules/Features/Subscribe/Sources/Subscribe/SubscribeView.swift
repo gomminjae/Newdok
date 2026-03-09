@@ -144,7 +144,9 @@ public struct SubscribeView: View {
                 .padding(.bottom, 20)
 
             ForEach(Array(filteredSubscriptions.enumerated()), id: \.element.id) { index, newsletter in
-                SubscribeRow(newsletter: newsletter, isSubscribed: selectedTab == 0) {
+                SubscribeRow(newsletter: newsletter, isSubscribed: selectedTab == 0, onNavigate: {
+                    router.push(.brandDetail(id: "\(newsletter.id ?? 0)"))
+                }) {
                     if selectedTab == 0 {
                         selectedNewsletter = newsletter
                         showUnsubscribeAlert = true

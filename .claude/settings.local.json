@@ -17,7 +17,10 @@
       "Bash(tuist version:*)",
       "Bash(tuist fetch:*)",
       "Bash(ls:*)",
-      "Bash(swift package resolve:*)"
+      "Bash(swift package resolve:*)",
+      "WebFetch(domain:raw.githubusercontent.com)",
+      "WebSearch",
+      "Bash(tuist:*)"
     ]
   }
 }
