@@ -125,7 +125,7 @@ public struct EditNicknameView: View {
                 .font(.hanSansNeo(17, .medium))
             }
         }
-        .hideKeyboardOnTap()
+
         .ignoresSafeArea(.keyboard)
         .onAppear {
             // 닉네임 필드에 자동 포커스

@@ -5,6 +5,7 @@
 //  Created by 권민재 on 3/6/25.
 //
 import SwiftUI
+import UIKit
 
 public struct CustomTextFieldModifier: ViewModifier {
     @FocusState.Binding private var isFocused: Bool
@@ -108,14 +109,43 @@ public struct PasswordFieldModifier: ViewModifier {
     }
 }
 
+// MARK: - UIKit 기반 키보드 dismiss (탭바 터치 간섭 없음)
+private struct KeyboardDismissHelper: UIViewRepresentable {
+    func makeUIView(context: Context) -> UIView {
+        let view = KeyboardDismissUIView()
+        DispatchQueue.main.async {
+            view.setup()
+        }
+        return view
+    }
+
+    func updateUIView(_ uiView: UIView, context: Context) {}
+}
+
+private class KeyboardDismissUIView: UIView {
+    func setup() {
+        guard let window = self.window else { return }
+        // 이미 추가된 제스처가 있으면 중복 추가 방지
+        let alreadyAdded = window.gestureRecognizers?.contains(where: { $0 is KeyboardDismissTapGesture }) ?? false
+        guard !alreadyAdded else { return }
+
+        let tap = KeyboardDismissTapGesture(target: self, action: #selector(dismissKeyboard))
+        tap.cancelsTouchesInView = false // 핵심: 다른 뷰(탭바 등)의 터치를 막지 않음
+        window.addGestureRecognizer(tap)
+    }
+
+    @objc private func dismissKeyboard() {
+        UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+    }
+}
+
+private class KeyboardDismissTapGesture: UITapGestureRecognizer {}
+
 extension View {
     public func hideKeyboardOnTap() -> some View {
-        self.onTapGesture {
-            UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
-        }
-        .allowsHitTesting(true)
+        self.background(KeyboardDismissHelper())
     }
-    
+
     public func hideKeyboardOnTapExcludingTextField() -> some View {
         self.background(
             Color.clear

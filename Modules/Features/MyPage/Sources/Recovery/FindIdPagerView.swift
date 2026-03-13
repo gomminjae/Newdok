@@ -104,7 +104,7 @@ struct FindIdPhoneInputView: View {
                 .font(.hanSansNeo(17, .medium))
             }
         }
-        .hideKeyboardOnTap()
+
         .ignoresSafeArea(.keyboard)
         
         .popup(isPresented: $isShowPhoneNumberError) {

@@ -103,6 +103,7 @@ public struct SearchView: View {
             }
             Spacer()
         }
+
         .navigationBarBackButtonHidden(true)
         .navigationBarHidden(true)
         .enableSwipeBack()

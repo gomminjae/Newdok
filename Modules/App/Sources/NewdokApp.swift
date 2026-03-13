@@ -31,6 +31,7 @@ struct NewdokApp: App {
             OverlayRootView {
                 AppCoordinatorEntry.makeAFlow(router: router, exploreIntent: exploreIntent)
             }
+            .hideKeyboardOnTap()
             .environmentObject(router)
             .environmentObject(tabSelection)
             .environmentObject(exploreIntent)

@@ -62,7 +62,7 @@ public struct IDInputView: View {
                 }
                 .padding(.horizontal, 24)
             }
-            .hideKeyboardOnTap()
+
             .ignoresSafeArea(.keyboard)
 
             Button(action: {

@@ -106,7 +106,7 @@ public struct EditProfileView: View {
                     .font(.hanSansNeo(17, .medium))
             }
         }
-        .hideKeyboardOnTap()
+
         // [CHANGED] 로컬 .popup 토스트 제거. 전역 PopupView(루트) 하나만 사용
     }
 

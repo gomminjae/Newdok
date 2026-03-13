@@ -104,7 +104,7 @@ public struct AccountManagementView: View {
             $0
                 .type(.default)
                 .position(.center)
-                .closeOnTapOutside(false)
+                .closeOnTapOutside(true)
                 .backgroundColor(Color.black.opacity(0.3))
         }
         .onReceive(NotificationCenter.default.publisher(for: .showToast)) { notification in

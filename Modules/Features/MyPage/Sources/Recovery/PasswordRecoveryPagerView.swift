@@ -94,7 +94,7 @@ struct PasswordRecoveryIdInputView: View {
             .padding(.horizontal, 24)
             .padding(.bottom, 32)
         }
-        .hideKeyboardOnTap()
+
         .popup(isPresented: $showNotRegisteredPopup) {
             NotRegisteredIdPopupView { showNotRegisteredPopup = false }
         } customize: {
@@ -102,7 +102,7 @@ struct PasswordRecoveryIdInputView: View {
              .position(.center)
              .animation(.easeInOut)
              .backgroundColor(Color.black.opacity(0.3))
-             .closeOnTapOutside(false)
+             .closeOnTapOutside(true)
         }
         .ignoresSafeArea(.keyboard)
         .toolbar {
@@ -231,7 +231,7 @@ struct PasswordRecoveryPhoneView: View {
                         .font(.hanSansNeo(17, .medium))
                 }
             }
-            .hideKeyboardOnTap()
+    
         }
         .popup(isPresented: $viewModel.isShowPopup) {
             AuthFailView(onClose: {
@@ -245,7 +245,7 @@ struct PasswordRecoveryPhoneView: View {
              .position(.center)
              .animation(.easeInOut)
              .backgroundColor(Color.black.opacity(0.3))
-             .closeOnTapOutside(false)
+             .closeOnTapOutside(true)
         }
     }
 }
@@ -344,8 +344,9 @@ struct PasswordRecoveryNewPasswordView: View {
                     await viewModel.resetPassword()
                     if viewModel.passwordResetSuccess == true {
                         router.resetTo(.login)
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                            NotificationCenter.default.post(name: .showToast, object: "비밀번호가 재설정되었습니다.")
+                        Task { @MainActor in
+                            try? await Task.sleep(nanoseconds: 500_000_000)
+                            ToastCenter.shared.show("비밀번호가 재설정되었습니다.")
                         }
                     } else {
                         error = "비밀번호가 일치하지 않거나 조건에 맞지 않습니다."
@@ -374,7 +375,7 @@ struct PasswordRecoveryNewPasswordView: View {
                 .font(.hanSansNeo(17, .medium))
             }
         }
-        .hideKeyboardOnTap()
+
     }
 }
 

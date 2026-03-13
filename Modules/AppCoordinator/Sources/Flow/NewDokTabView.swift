@@ -66,12 +66,9 @@ struct TabBarBackgroundModifier: ViewModifier {
             // iOS 26+: 기본 Liquid Glass 유지
             content
         } else {
-            // iOS 18-25: 하단 흰색 배경으로 TabBar 샘플링 색상 제어
+            // iOS 18-25: 흰색 배경 (ignoresSafeArea 제거 - 탭바 터치 영역 간섭 방지)
             content
-                .background(
-                    Color.white
-                        .ignoresSafeArea(.container, edges: .bottom)
-                )
+                .background(Color.white)
         }
     }
 }
@@ -100,12 +97,11 @@ struct BottomWhiteOverlayModifier: ViewModifier {
             // iOS 18-25: 하단만 흰색 레이어 추가
             ZStack {
                 content
-                
+
                 VStack {
                     Spacer()
                     Color.white
                         .frame(height: TabBarConstants.bottomOverlayHeight)
-                        .ignoresSafeArea(.container, edges: .bottom)
                 }
                 .allowsHitTesting(false)
             }
@@ -255,23 +251,8 @@ public struct NewDokTabView: View {
                 tabSelection.selectedTab = .home
                 router.push(.login)
             }
-            switch newTab {
-            case .explore:
-                router.root = .tabbar(selectedTab: .explore)
-            case .home:
-                router.root = .tabbar(selectedTab: .home)
-
-            case .subscribe:
-                router.root = .tabbar(selectedTab: .subscribe)
-
-            case .bookmark:
-                router.root = .tabbar(selectedTab: .bookmark)
-
-            case .profile:
-                router.root = .tabbar(selectedTab: .profile)
-            }
         }
-        .modifier(TabBarBackgroundModifier())
+        .navigationBarHidden(true)
         .accentColor(Color.primaryNormal)
         .environmentObject(tabSelection)
         .environmentObject(exploreViewModel)

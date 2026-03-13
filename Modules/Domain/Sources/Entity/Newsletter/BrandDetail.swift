@@ -8,7 +8,7 @@
 public struct BrandDetail {
     public let brandId: Int
     public let brandName: String
-    public let detailDescription: String
+    public let detailDescription: String?
     public let publicationCycle: String
     public let subscribeUrl: String
     public let imageUrl: String?
@@ -20,7 +20,7 @@ public struct BrandDetail {
     public init(
         brandId: Int,
         brandName: String,
-        detailDescription: String,
+        detailDescription: String?,
         publicationCycle: String,
         subscribeUrl: String,
         imageUrl: String?,

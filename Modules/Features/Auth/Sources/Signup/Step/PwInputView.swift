@@ -96,7 +96,7 @@ public struct PwInputView: View {
                 .padding(.horizontal, 24)
             }
             .ignoresSafeArea(.keyboard)
-            .hideKeyboardOnTap()
+
 
             // MARK: - 다음 버튼
             Button(action: {

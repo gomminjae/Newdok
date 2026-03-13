@@ -379,7 +379,7 @@ public struct BrandDetailView: View {
             }
             .frame(height: 300)
 
-            Text(detail.detailDescription)
+            Text(detail.detailDescription ?? "")
                 .font(.hanSansNeo(14, .regular))
                 .lineSpacing(4)
                 .foregroundStyle(Color(hex: "555555"))

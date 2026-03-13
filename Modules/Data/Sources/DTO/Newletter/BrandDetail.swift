@@ -9,7 +9,7 @@ import Domain
 public struct BrandDetailDTO: Decodable {
     public let brandId: Int
     public let brandName: String
-    public let detailDescription: String
+    public let detailDescription: String?
     public let publicationCycle: String
     public let subscribeUrl: String
     public let imageUrl: String?

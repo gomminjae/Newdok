@@ -125,11 +125,15 @@ public struct SignupView: View {
     private var signupHeaderView: some View {
         VStack(spacing: 0) {
             HStack {
-                Button(action: {
-                    previousStepOrExit()
-                }) {
-                    Image(asset: DesignSystemAsset.back)
-                        .padding(.leading, 20)
+                if viewModel.currentStep.rawValue < SignupStep.complete.rawValue {
+                    Button(action: {
+                        previousStepOrExit()
+                    }) {
+                        Image(asset: DesignSystemAsset.back)
+                            .padding(.leading, 20)
+                    }
+                } else {
+                    Spacer().frame(width: 40)
                 }
 
                 Spacer()

@@ -88,6 +88,7 @@ public struct ProfileInputView: View {
                         .padding(.top, 32)
 
                     Button(action: {
+                        isNicknameFocused = false
                         withAnimation {
                             isExpanded.toggle()
                         }
@@ -171,7 +172,7 @@ public struct ProfileInputView: View {
                 .padding(.horizontal, 24)
                 .scrollDisabled(true)
                 .ignoresSafeArea(.keyboard)
-                .hideKeyboardOnTap()
+
                 .toolbar {
                     ToolbarItemGroup(placement: .keyboard) {
                         Spacer()

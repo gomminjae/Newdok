@@ -141,7 +141,7 @@ public struct PhoneVerificationView: View {
                     .font(.hanSansNeo(17, .medium))
                 }
             }
-            .hideKeyboardOnTap()
+
             .onChange(of: viewModel.shouldFocusVerificationCode) { _, shouldFocus in
                 if shouldFocus {
                     // UI 업데이트 완료를 위한 약간의 지연
@@ -203,7 +203,7 @@ public struct PhoneVerificationView: View {
                 .type(.default)
                 .position(.center)
                 .animation(.easeInOut)
-                .closeOnTapOutside(false)
+                .closeOnTapOutside(true)
                 .backgroundColor(Color(hex: "#25242C").opacity(0.6))
         }
         
@@ -216,7 +216,7 @@ public struct PhoneVerificationView: View {
               .type(.default)
               .position(.center)
               .animation(.easeInOut)
-              .closeOnTapOutside(false)
+              .closeOnTapOutside(true)
               .backgroundColor(Color(hex: "#25242C").opacity(0.6))
         }
     }

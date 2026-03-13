@@ -152,7 +152,7 @@ public struct PhoneUpdateView: View {
                     .font(.hanSansNeo(17, .medium))
                 }
             }
-            .hideKeyboardOnTap()
+
 
             if viewModel.isRequestSent {
                 Button(action: {
@@ -196,7 +196,7 @@ public struct PhoneUpdateView: View {
                 .type(.default)
                 .position(.center)
                 .animation(.easeInOut)
-                .closeOnTapOutside(false)
+                .closeOnTapOutside(true)
                 .backgroundColor(Color(hex: "#25242C").opacity(0.6))
         }
     }

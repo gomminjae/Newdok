@@ -86,6 +86,7 @@ public struct SearchResultView: View {
             }
             .background(Color.gray.opacity(0.05))
         }
+
         .navigationBarBackButtonHidden(true)
         .navigationBarHidden(true)
         .enableSwipeBack()

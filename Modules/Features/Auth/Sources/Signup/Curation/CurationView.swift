@@ -53,17 +53,21 @@ private extension CurationView {
             }
             .padding(.top, 32)
             .scrollIndicators(.hidden)
-            
-            Button("메인으로") {
+
+            Button {
                 viewModel.reset()
                 router.resetTo(.tabbar(selectedTab: .home))
+            } label: {
+                Text("메인으로")
+                    .font(.hanSansNeo(14, .bold))
+                    .foregroundStyle(Color.white)
+                    .frame(maxWidth: .infinity)
+                    .frame(height: 48)
+                    .background(Color.primaryNormal)
+                    .cornerRadius(4)
+                    .contentShape(Rectangle())
             }
-            .font(.hanSansNeo(14, .bold))
-            .foregroundStyle(Color.white)
-            .frame(maxWidth: .infinity)
-            .frame(height: 48)
-            .background(Color.primaryNormal)
-            .cornerRadius(4)
+            .buttonStyle(.plain)
             .padding(.bottom, 16)
         }
     }
