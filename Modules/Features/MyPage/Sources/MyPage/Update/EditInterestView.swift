@@ -31,12 +31,12 @@ public struct EditInterestView: View {
             VStack(alignment: .leading, spacing: 8) {
                 Text("관심사")
                     .font(.hanSansNeo(18, .bold))
-                    .foregroundStyle(Color(hex: "1E1E1E"))
+                    .foregroundStyle(Color.captionDeep)
                     .allowsHitTesting(false)
 
                 Text("최소 3가지 이상을 선택해주세요.")
                     .font(.hanSansNeo(14, .regular))
-                    .foregroundColor(Color(hex: "555555"))
+                    .foregroundColor(Color.captionBody)
                     .allowsHitTesting(false)
             }
             .frame(maxWidth: .infinity, alignment: .leading)
@@ -55,10 +55,10 @@ public struct EditInterestView: View {
                                 .frame(maxWidth: .infinity)
                                 .frame(height: 48)
                                 .background(Color.white)
-                                .foregroundColor(selectedIds.contains(item.id) ? Color.primaryNormal : Color(hex: "565656"))
+                                .foregroundColor(selectedIds.contains(item.id) ? Color.primaryNormal : Color.captionNeutral)
                                 .overlay(
                                     RoundedRectangle(cornerRadius: 4)
-                                        .stroke(selectedIds.contains(item.id) ? Color.primaryNormal : Color(hex: "EBEBEB"))
+                                        .stroke(selectedIds.contains(item.id) ? Color.primaryNormal : Color.lineNeutral)
                                 )
                                 .cornerRadius(4)
                         }
@@ -91,10 +91,10 @@ public struct EditInterestView: View {
                 .frame(height: 48)
                 .background(
                     viewModel.isInterestUpdating
-                        ? Color(hex: "#D4E0F6")
-                        : (selectedIds.count >= 3 ? Color.primaryNormal : Color(hex: "#F0F0F0"))
+                        ? Color.primaryBgSubtle
+                        : (selectedIds.count >= 3 ? Color.primaryNormal : Color.bgTertiary)
                 )
-                .foregroundColor(selectedIds.count >= 3 ? .white : Color(hex: "#B0B0B0"))
+                .foregroundColor(selectedIds.count >= 3 ? .white : Color.graySubtle)
                 .cornerRadius(4)
                 .padding(.horizontal, 20)
                 .padding(.vertical, 12)
@@ -110,7 +110,6 @@ public struct EditInterestView: View {
             }
         }
         .navigationBarBackButtonHidden(true)
-        .enableSwipeBack()
         .toolbar {
             ToolbarItem(placement: .navigationBarLeading) {
                 Button { router.pop() } label: {

@@ -28,12 +28,12 @@ struct MyIndustryView: View {
                 .padding(.top, 24)
             Text("선택하신 산업과 관련된 뉴스레터를 찾아드려요")
                 .font(.hanSansNeo(14, .medium))
-                .foregroundStyle(Color(hex: "#565656"))
+                .foregroundStyle(Color.captionNeutral)
                 .padding(.top, 8)
             
             Text("종사산업")
                 .font(.hanSansNeo(14, .medium))
-                .foregroundStyle(Color(hex: "#565656"))
+                .foregroundStyle(Color.captionNeutral)
                 .padding(.top, 42)
             
             DropdownSelector(
@@ -51,8 +51,8 @@ struct MyIndustryView: View {
                     .font(.hanSansNeo(14, .bold))
                     .frame(maxWidth: .infinity)
                     .frame(height: 48)
-                    .foregroundColor(viewModel.myIndustry == "" ? Color(hex: "BDBDBD") : .white)
-                    .background(viewModel.myIndustry == "" ? Color(hex: "EBEBEB") : Color.primaryNormal)
+                    .foregroundColor(viewModel.myIndustry == "" ? Color.grayLight : .white)
+                    .background(viewModel.myIndustry == "" ? Color.lineNeutral : Color.primaryNormal)
                     .cornerRadius(4)
             }
             .disabled(viewModel.myIndustry == "")

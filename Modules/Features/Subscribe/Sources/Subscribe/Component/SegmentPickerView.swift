@@ -25,10 +25,10 @@ public struct CustomSegmentedSlider: View {
 
             ZStack(alignment: .leading) {
                 RoundedRectangle(cornerRadius: 6)
-                    .fill(Color(hex: "#F5F5F7"))
+                    .fill(Color.bgSystem)
                     .overlay(
                         RoundedRectangle(cornerRadius: 6)
-                            .stroke(Color(hex: "#EBEBEB"), lineWidth: 1)
+                            .stroke(Color.lineNeutral, lineWidth: 1)
                     )
 
                 RoundedRectangle(cornerRadius: 6)

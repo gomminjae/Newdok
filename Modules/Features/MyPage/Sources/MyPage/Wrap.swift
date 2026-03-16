@@ -41,14 +41,14 @@ struct Wrap: View {
                 Text(tag)
                     .font(.hanSansNeo(14, .medium))
                     .frame(height: 20)
-                    .foregroundStyle(Color(hex: "555555"))
+                    .foregroundStyle(Color.captionBody)
                     .padding(.vertical, 6)
                     .padding(.horizontal, 12)
                     .background(.white)
                     .clipShape(Capsule())
                     .overlay {
                         Capsule()
-                            .stroke(Color(hex: "C0C0C0"), lineWidth: 1)
+                            .stroke(Color.captionDisabled, lineWidth: 1)
                     }
             }
         }

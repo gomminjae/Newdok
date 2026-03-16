@@ -47,10 +47,15 @@ extension NetworkError: AppErrorConvertible {
             return .timeout
         case .cancelled:
             return .silent
-        case .serverError(let statusCode, _):
+        case .serverError(let statusCode, let message):
             if statusCode == 401 {
                 return .unauthorized
             }
+            // 400번대: 클라이언트 에러 → 뷰에서 자체 처리
+            if (400..<500).contains(statusCode) {
+                return .silent
+            }
+            // 500번대: 서버 에러 → 일시적 오류 팝업
             return .serverError
         case .decodeError, .underlying, .unknown:
             return .userMessage("일시적인 오류가 발생했습니다")

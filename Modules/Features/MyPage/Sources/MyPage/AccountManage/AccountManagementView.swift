@@ -51,7 +51,7 @@ public struct AccountManagementView: View {
             }) {
                 Text("회원탈퇴")
                     .font(.hanSansNeo(13, .regular))
-                    .foregroundColor(Color(hex: "565656"))
+                    .foregroundColor(Color.captionNeutral)
                     .underline()
             }
             .padding(.vertical, 13)
@@ -62,7 +62,6 @@ public struct AccountManagementView: View {
         .padding(.horizontal, 24)
         .navigationBarBackButtonHidden(true)
         .navigationBarTitleDisplayMode(.inline)
-        .enableSwipeBack()
         .toolbar {
             ToolbarItem(placement: .navigationBarLeading) {
                 Button(action: { router.pop() }) {
@@ -120,7 +119,7 @@ public struct AccountManagementView: View {
         HStack {
             Text(title)
                 .font(.hanSansNeo(16, .medium))
-                .foregroundStyle(Color(hex: "363636"))
+                .foregroundStyle(Color.captionStrong)
             Spacer()
             Image(asset: DesignSystemAsset.lineRight)
         }
@@ -135,23 +134,23 @@ private struct LogoutPopupView: View {
             Image(asset: DesignSystemAsset.warning)
                 .resizable()
                 .frame(width: 80, height: 80)
-                .foregroundColor(Color(hex: "C4C4C4"))
+                .foregroundColor(Color.grayMedium)
 
             Text("로그아웃 할까요?")
                 .font(.hanSansNeo(20, .bold))
-                .foregroundColor(Color(hex: "161616"))
+                .foregroundColor(Color.captionHeavy)
 
             HStack(spacing: 8) {
                 Button(action: onCancel) {
                     Text("취소")
                         .font(.hanSansNeo(14, .bold))
-                        .foregroundStyle(Color(hex: "565656"))
+                        .foregroundStyle(Color.captionNeutral)
                         .frame(maxWidth: .infinity)
                         .frame(height: 48)
                         .background(Color.white)
                         .overlay(
                             RoundedRectangle(cornerRadius: 4)
-                                .stroke(Color(hex: "EBEBEB"))
+                                .stroke(Color.lineNeutral)
                         )
                 }
 

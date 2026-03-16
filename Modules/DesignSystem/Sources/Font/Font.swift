@@ -11,7 +11,16 @@ public extension Font {
         case .light: fontName = "SpoqaHanSansNeo-Light"
         default: fontName = "SpoqaHanSansNeo-Regular"
         }
-        
+
+        // UIFont로 생성 후 이모지 fallback을 위한 cascade 적용
+        if let baseFont = UIFont(name: fontName, size: size) {
+            let emojiFont = UIFont.systemFont(ofSize: size)
+            let descriptor = baseFont.fontDescriptor.addingAttributes([
+                .cascadeList: [emojiFont.fontDescriptor]
+            ])
+            return Font(UIFont(descriptor: descriptor, size: size))
+        }
+
         return .custom(fontName, size: size)
     }
-} 
+}

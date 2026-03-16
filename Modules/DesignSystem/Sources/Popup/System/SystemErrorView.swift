@@ -19,7 +19,7 @@ struct SystemErrorView: View {
                 .padding(.bottom, 6)
             Text("인터넷 연결 상태를 확인한 후 다시 시도해 주세요.")
                 .font(.hanSansNeo(14, .medium))
-                .foregroundStyle(Color(hex: "#565656"))
+                .foregroundStyle(Color.captionNeutral)
                 .padding(.bottom, 24)
             Button(action: {
             }) {

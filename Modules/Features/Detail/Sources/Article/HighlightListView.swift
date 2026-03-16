@@ -33,7 +33,7 @@ struct HighlightListView: View {
                 Button(action: { dismiss() }) {
                     Image(asset: DesignSystemAsset.lineClose)
                         .renderingMode(.template)
-                        .foregroundColor(Color(hex: "#565656"))
+                        .foregroundColor(Color.captionNeutral)
                         .frame(width: 28, height: 28)
                 }
             }
@@ -96,12 +96,12 @@ struct HighlightRowView: View {
 
     private var highlightColor: Color {
         switch highlight.highlightType {
-        case "yellow": return Color(hex: "#FBE96C")
-        case "orange": return Color(hex: "#FFC194")
-        case "pink": return Color(hex: "#F1B2C7")
-        case "green": return Color(hex: "#D7EDA1")
-        case "blue": return Color(hex: "#95D5EC")
-        case "underline": return Color(hex: "#EF4444")
+        case "yellow": return Color.highlightYellow
+        case "orange": return Color.highlightOrange
+        case "pink": return Color.highlightPink
+        case "green": return Color.highlightGreen
+        case "blue": return Color.highlightBlue
+        case "underline": return Color.errorLight
         default: return Color.gray.opacity(0.4)
         }
     }

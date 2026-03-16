@@ -56,7 +56,7 @@ public struct LoginView: View {
                 if viewModel.isLoginIdError {
                     Text(viewModel.errorMessage ?? "")
                         .font(.hanSansNeo(12, .medium))
-                        .foregroundStyle(Color(hex: "#E32727"))
+                        .foregroundStyle(Color.errorNormal)
                 }
 
                 Text("비밀번호")
@@ -87,7 +87,7 @@ public struct LoginView: View {
                 if viewModel.isPasswordError {
                     Text(viewModel.errorMessage ?? "")
                         .font(.hanSansNeo(12, .medium))
-                        .foregroundStyle(Color(hex: "#E32727"))
+                        .foregroundStyle(Color.errorNormal)
                 }
                 
                 HStack {
@@ -96,7 +96,7 @@ public struct LoginView: View {
                         router.push(.recovery)
                     }
                     .font(.hanSansNeo(14, .medium))
-                    .foregroundStyle(Color(hex: "565656"))
+                    .foregroundStyle(Color.captionNeutral)
                 }
                 .padding(.top, 10)
 
@@ -114,8 +114,8 @@ public struct LoginView: View {
                         .disabled(!viewModel.isLoginEnabled)
                         .frame(maxWidth: .infinity)
                         .frame(height: 48)
-                        .background(viewModel.isLoginEnabled ? Color.primaryNormal : Color(hex: "#EBEBEB"))
-                        .foregroundColor(viewModel.isLoginEnabled ? .white : Color(hex: "#C0C0C0"))
+                        .background(viewModel.isLoginEnabled ? Color.primaryNormal : Color.lineNeutral)
+                        .foregroundColor(viewModel.isLoginEnabled ? .white : Color.captionDisabled)
                         .cornerRadius(4)
                         .contentShape(Rectangle())
                 }
@@ -127,17 +127,17 @@ public struct LoginView: View {
                         router.resetTo(.tabbar(selectedTab: .home))
                     }
                     .font(.hanSansNeo(14, .medium))
-                    .foregroundStyle(Color(hex: "565656"))
+                    .foregroundStyle(Color.captionNeutral)
                     .padding(.leading, 80)
 
                     Text("|")
-                        .foregroundStyle(Color(hex: "#DADADA"))
+                        .foregroundStyle(Color.lineAlternative)
 
                     Button("회원가입") {
                         router.push(.signup)
                     }
                     .font(.hanSansNeo(14, .medium))
-                    .foregroundStyle(Color(hex: "#2866D3"))
+                    .foregroundStyle(Color.primaryNormal)
                 }
                 // .frame(maxWidth: .infinity)
                 .padding(.bottom, 56)
@@ -152,7 +152,6 @@ public struct LoginView: View {
         .ignoresSafeArea(.keyboard)
         .navigationBarTitleDisplayMode(.inline)
         .navigationBarBackButtonHidden(true)
-        .enableSwipeBack()
         .onReceive(NotificationCenter.default.publisher(for: .showToast)) { notification in
             if let message = notification.object as? String {
                 toastMessage = message
@@ -182,7 +181,7 @@ public struct LoginView: View {
             ToolbarItem(placement: .principal) {
                 Text("로그인")
                     .font(.hanSansNeo(16, .bold))
-                    .foregroundStyle(Color(hex: "161616"))
+                    .foregroundStyle(Color.captionHeavy)
             }
         }
         .toolbar {

@@ -19,11 +19,11 @@ struct NetworkErrorView: View {
                 .padding(.top, 20)
             Text("네트워크에 연결할 수 없습니다.")
                 .font(.hanSansNeo(20, .bold))
-                .foregroundStyle(Color(hex: "#161616"))
+                .foregroundStyle(Color.captionHeavy)
                 .padding(.top, 6)
             Text("인터넷 연결 상태를 확인한 후 다시 시도해 주세요.")
                 .font(.hanSansNeo(14, .medium))
-                .foregroundStyle(Color(hex: "#565656"))
+                .foregroundStyle(Color.captionNeutral)
                 .padding(.top, 6)
             Button(action: {
                 // 네트워크 상태 재확인

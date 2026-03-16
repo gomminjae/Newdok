@@ -19,7 +19,7 @@ public struct CustomTextFieldModifier: ViewModifier {
         HStack {
             Image(asset: DesignSystemAsset.lineUser)
                 .renderingMode(.template)
-                .foregroundStyle(isFocused ? Color(hex: "363636") : Color(hex: "969696"))
+                .foregroundStyle(isFocused ? Color.captionStrong : Color.captionAssistive)
                 .allowsHitTesting(false)
             content
                 .foregroundColor(.primary)
@@ -28,12 +28,12 @@ public struct CustomTextFieldModifier: ViewModifier {
         }
         .padding(.horizontal)
         .frame(height: 50)
-        .background((isError == false) ? Color.white : Color(hex: "#FEE6E6"))
+        .background((isError == false) ? Color.white : Color.errorBg)
         .overlay(
             RoundedRectangle(cornerRadius: 4)
                 .stroke(
-                    isError ? Color(hex: "#E32727") :
-                        (isFocused ? Color.primaryNormal : Color(hex: "#DADADA")),
+                    isError ? Color.errorNormal :
+                        (isFocused ? Color.primaryNormal : Color.lineAlternative),
                     lineWidth: 1
                 )
         )
@@ -42,11 +42,11 @@ public struct CustomTextFieldModifier: ViewModifier {
 
     private var borderColor: Color {
         if isError {
-            return Color(hex: "#E32727")
+            return Color.errorNormal
         } else if isFocused {
             return Color.primaryNormal
         } else {
-            return Color(hex: "#DADADA")
+            return Color.lineAlternative
         }
     }
 }
@@ -76,7 +76,7 @@ public struct PasswordFieldModifier: ViewModifier {
         HStack {
             Image(asset: DesignSystemAsset.lineLock)
                 .renderingMode(.template)
-                .foregroundStyle(isFocused ? Color(hex: "363636") : Color(hex: "969696"))
+                .foregroundStyle(isFocused ? Color.captionStrong : Color.captionAssistive)
                 .allowsHitTesting(false)
             content
                 .contentShape(Rectangle())
@@ -85,12 +85,12 @@ public struct PasswordFieldModifier: ViewModifier {
             }) {
                 Image(asset: isSecure ? DesignSystemAsset.lineCloseEye : DesignSystemAsset.lineEye)
                     .renderingMode(.template)
-                    .foregroundStyle(isFocused ? Color(hex: "363636") : Color(hex: "969696"))
+                    .foregroundStyle(isFocused ? Color.captionStrong : Color.captionAssistive)
             }
         }
         .padding(.horizontal)
         .frame(height: 48)
-        .background(isError ? Color(hex: "#FEE6E6") : .white)
+        .background(isError ? Color.errorBg : .white)
         .overlay(
             RoundedRectangle(cornerRadius: 4)
                 .stroke(borderColor, lineWidth: 1)
@@ -100,11 +100,11 @@ public struct PasswordFieldModifier: ViewModifier {
 
     private var borderColor: Color {
         if isError {
-            return Color(hex: "#E32727")
+            return Color.errorNormal
         } else if isFocused {
             return Color.primaryNormal
         } else {
-            return Color(hex: "#DADADA")
+            return Color.lineAlternative
         }
     }
 }

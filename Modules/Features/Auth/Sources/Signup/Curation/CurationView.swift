@@ -40,7 +40,7 @@ private extension CurationView {
             
             Text("구독한 뉴스레터는 발행일에 맞춰 홈으로 배달해드려요.\n구독하기를 누르면 구독 이메일이 자동으로 복사돼요.")
                 .font(.hanSansNeo(14, .medium))
-                .foregroundStyle(Color(hex: "#565656"))
+                .foregroundStyle(Color.captionNeutral)
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .padding(.top, 8)
             

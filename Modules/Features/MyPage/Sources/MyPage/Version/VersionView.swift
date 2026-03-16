@@ -60,11 +60,11 @@ public struct VersionView: View {
                 VStack(spacing: 8) {
                     Text("현재 버전")
                         .font(.hanSansNeo(14, .medium))
-                        .foregroundColor(Color(hex: "#565656"))
+                        .foregroundColor(Color.captionNeutral)
                     
                     Text(appVersion)
                         .font(.hanSansNeo(20, .bold))
-                        .foregroundColor(Color(hex: "#161616"))
+                        .foregroundColor(Color.captionHeavy)
                 }
                 .padding(.top, 40)
                 
@@ -74,6 +74,5 @@ public struct VersionView: View {
         }
         .navigationBarBackButtonHidden(true)
         .navigationBarTitleDisplayMode(.inline)
-        .enableSwipeBack()
     }
 } 

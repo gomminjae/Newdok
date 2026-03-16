@@ -38,7 +38,7 @@ public struct SubscribeView: View {
                 .padding(.horizontal, 20)
 
             contentSection
-                .background(Color(hex: "#F5F5F7"))
+                .background(Color.bgSystem)
         }
         .task { await viewModel.loadInitial() }
         .onChange(of: selectedTab) { _, newTab in
@@ -118,7 +118,7 @@ public struct SubscribeView: View {
                 await viewModel.refresh(tab: selectedTab)
             }
         )
-        .background(Color(hex: "#F5F5F7"))
+        .background(Color.bgSystem)
     }
 
     @ViewBuilder
@@ -194,7 +194,7 @@ public struct SubscribeView: View {
         HStack {
             Text("내 구독")
                 .font(.hanSansNeo(18, .bold))
-                .foregroundStyle(Color(hex: "161616"))
+                .foregroundStyle(Color.captionHeavy)
             Spacer()
             Button {
                 router.push(.search)
@@ -219,7 +219,7 @@ public struct SubscribeView: View {
                  ? "구독신청 후 첫 아티클을 수신받으면 내 구독에 추가돼요."
                  : "구독을 재개하면 다시 아티클을 받아볼 수 있어요")
                 .font(.hanSansNeo(14, .medium))
-                .foregroundStyle(Color(hex: "#565656"))
+                .foregroundStyle(Color.captionNeutral)
         }
     }
 }

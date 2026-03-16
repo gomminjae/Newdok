@@ -33,7 +33,7 @@ public struct PwdUpdateView: View {
                 // 현재 비밀번호
                 Text("현재 비밀번호")
                     .font(.hanSansNeo(14, .medium))
-                    .foregroundStyle(Color(hex: "#565656"))
+                    .foregroundStyle(Color.captionNeutral)
                     
                 Group {
                     if isSecureOldPassword {
@@ -50,14 +50,14 @@ public struct PwdUpdateView: View {
                 if let error = viewModel.passwordError {
                     Text(error)
                         .font(.hanSansNeo(12, .medium))
-                        .foregroundColor(Color(hex: "#E32727"))
+                        .foregroundColor(Color.errorNormal)
                         .padding(.top, 4)
                 }
 
                 // 새 비밀번호
                 Text("새 비밀번호")
                     .font(.hanSansNeo(14, .medium))
-                    .foregroundStyle(Color(hex: "#565656"))
+                    .foregroundStyle(Color.captionNeutral)
                     .padding(.top, 22)
 
                 Group {
@@ -81,7 +81,7 @@ public struct PwdUpdateView: View {
                 // 새 비밀번호 확인
                 Text("새 비밀번호 확인")
                     .font(.hanSansNeo(14, .medium))
-                    .foregroundStyle(Color(hex: "#565656"))
+                    .foregroundStyle(Color.captionNeutral)
                     .padding(.top, 22)
 
                 Group {
@@ -130,7 +130,6 @@ public struct PwdUpdateView: View {
             .disabled(!viewModel.isPasswordValid)
 
         .navigationBarBackButtonHidden(true)
-        .enableSwipeBack()
         .toolbar {
             ToolbarItem(placement: .navigationBarLeading) {
                 Button {

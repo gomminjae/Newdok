@@ -104,7 +104,7 @@ public struct CalendarPopupView: View {
                         previousMonth()
                     }) {
                         Image(systemName: "chevron.left")
-                            .foregroundStyle(Color(hex: "#333333"))
+                            .foregroundStyle(Color.captionTitle)
                             .frame(width: 44, height: 44)
                             .contentShape(Rectangle())
                     }
@@ -113,14 +113,14 @@ public struct CalendarPopupView: View {
                     Text(yearMonthTitle)
                         .frame(width: 120, height: 20)
                         .font(.hanSansNeo(14, .medium))
-                        .foregroundStyle(Color(hex: "#1E1E1E"))
+                        .foregroundStyle(Color.captionDeep)
                         .id("month-title-\(localDisplayedMonthDate)")
                     
                     Button(action: {
                         nextMonth()
                     }) {
                         Image(systemName: "chevron.right")
-                            .foregroundStyle(Color(hex: "#333333"))
+                            .foregroundStyle(Color.captionTitle)
                             .frame(width: 44, height: 44)
                             .contentShape(Rectangle())
                     }
@@ -141,7 +141,7 @@ public struct CalendarPopupView: View {
         }
         .frame(height: 44)
         .background(
-            Color(hex: "#FAFAFA")
+            Color.bgElevated
                 .clipShape(RoundedCorners(radius: 16, corners: [.topLeft, .topRight]))
         )
     }
@@ -181,9 +181,9 @@ public struct CalendarPopupView: View {
                                 .frame(maxWidth: .infinity, maxHeight: 40)
                                 .aspectRatio(1, contentMode: .fit)
                                 .foregroundColor(
-                                    isFuture ? Color(hex: "#C0C0C0") :
+                                    isFuture ? Color.captionDisabled :
                                     (isToday ? .white :
-                                     (isSelected ? Color(hex: "#171414") : Color(hex: "#171414")))
+                                     (isSelected ? Color.captionMuted : Color.captionMuted))
                                 )
                                 .background(
                                     RoundedRectangle(cornerRadius: 12)
@@ -194,7 +194,7 @@ public struct CalendarPopupView: View {
                                 .overlay(
                                     RoundedRectangle(cornerRadius: 12)
                                         .stroke(
-                                            isSelected && !isToday ? Color(hex: "#052B6C") : Color.clear,
+                                            isSelected && !isToday ? Color.primaryDark : Color.clear,
                                             lineWidth: 1
                                         )
                                 )

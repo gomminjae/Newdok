@@ -39,13 +39,13 @@ public struct MypageView: View {
                     HStack(spacing: 4) {
                         Text("구독이메일")
                             .font(.hanSansNeo(14, .medium))
-                            .foregroundColor(Color(hex: "#565656"))
+                            .foregroundColor(Color.captionNeutral)
                         Button {
                             showEmailAlert = true
                         } label: {
                             Image(systemName: "questionmark.circle")
                                 .font(.system(size: 13))
-                                .foregroundColor(Color(hex: "#565656"))
+                                .foregroundColor(Color.captionNeutral)
                         }
                     }
 
@@ -69,7 +69,7 @@ public struct MypageView: View {
 
                         Text(viewModel.user?.subscribeEmail ?? userInfo?.subscribeEmail ?? "")
                             .font(.system(size: 14))
-                            .foregroundColor(Color(hex: "#161616"))
+                            .foregroundColor(Color.captionHeavy)
                             .lineLimit(1)
                             .truncationMode(.middle)
                     }
@@ -80,12 +80,12 @@ public struct MypageView: View {
                     } label: {
                         Text("프로필 편집")
                             .font(.hanSansNeo(14, .bold))
-                            .foregroundColor(Color(hex: "#565656"))
+                            .foregroundColor(Color.captionNeutral)
                             .frame(maxWidth: .infinity)
                             .frame(height: 44)
                             .overlay {
                                 RoundedRectangle(cornerRadius: 4)
-                                    .stroke(Color(hex: "#EBEBEB"), lineWidth: 1)
+                                    .stroke(Color.lineNeutral, lineWidth: 1)
                             }
                     }
                     .padding(.top, 12)
@@ -102,10 +102,10 @@ public struct MypageView: View {
                         HStack {
                             Text("계정 관리")
                                 .font(.hanSansNeo(16, .medium))
-                                .foregroundStyle(Color(hex: "363636"))
+                                .foregroundStyle(Color.captionStrong)
                             Spacer()
                             Image(asset: DesignSystemAsset.lineRight)
-                                .foregroundColor(Color(hex: "#565656"))
+                                .foregroundColor(Color.captionNeutral)
                                 .frame(width: 24, height: 24)
                         }
                         .padding(.horizontal, 0)
@@ -124,10 +124,10 @@ public struct MypageView: View {
                         HStack {
                             Text("알림 설정")
                                 .font(.hanSansNeo(16, .medium))
-                                .foregroundStyle(Color(hex: "363636"))
+                                .foregroundStyle(Color.captionStrong)
                             Spacer()
                             Image(asset: DesignSystemAsset.lineRight)
-                                .foregroundColor(Color(hex: "#565656"))
+                                .foregroundColor(Color.captionNeutral)
                                 .frame(width: 24, height: 24)
                         }
                         .padding(.horizontal, 0)
@@ -148,10 +148,10 @@ public struct MypageView: View {
                         HStack {
                             Text("FAQ")
                                 .font(.hanSansNeo(16, .medium))
-                                .foregroundStyle(Color(hex: "363636"))
+                                .foregroundStyle(Color.captionStrong)
                             Spacer()
                             Image(asset: DesignSystemAsset.lineRight)
-                                .foregroundColor(Color(hex: "#565656"))
+                                .foregroundColor(Color.captionNeutral)
                                 .frame(width: 24, height: 24)
                         }
                         .padding(.horizontal, 0)
@@ -166,10 +166,10 @@ public struct MypageView: View {
                         HStack {
                             Text("서비스 피드백")
                                 .font(.hanSansNeo(16, .medium))
-                                .foregroundStyle(Color(hex: "363636"))
+                                .foregroundStyle(Color.captionStrong)
                             Spacer()
                             Image(asset: DesignSystemAsset.lineRight)
-                                .foregroundColor(Color(hex: "#565656"))
+                                .foregroundColor(Color.captionNeutral)
                                 .frame(width: 24, height: 24)
                         }
                         .padding(.horizontal, 0)
@@ -184,10 +184,10 @@ public struct MypageView: View {
                         HStack {
                             Text("약관 및 정책")
                                 .font(.hanSansNeo(16, .medium))
-                                .foregroundStyle(Color(hex: "363636"))
+                                .foregroundStyle(Color.captionStrong)
                             Spacer()
                             Image(asset: DesignSystemAsset.lineRight)
-                                .foregroundColor(Color(hex: "#565656"))
+                                .foregroundColor(Color.captionNeutral)
                                 .frame(width: 24, height: 24)
                         }
                         .padding(.horizontal, 0)
@@ -199,11 +199,11 @@ public struct MypageView: View {
                     HStack {
                         Text("버전")
                             .font(.hanSansNeo(16, .medium))
-                            .foregroundStyle(Color(hex: "363636"))
+                            .foregroundStyle(Color.captionStrong)
                         Spacer()
                         Text("1.0.0")
                             .font(.hanSansNeo(14, .medium))
-                            .foregroundColor(Color(hex: "#969696"))
+                            .foregroundColor(Color.captionAssistive)
                     }
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .frame(height: 48)
@@ -264,7 +264,7 @@ public struct MypageView: View {
         HStack {
             Text(title)
                 .font(.hanSansNeo(12, .regular))
-                .foregroundColor(Color(hex: "#969696"))
+                .foregroundColor(Color.captionAssistive)
             Spacer()
         }
         .padding(.top, 24)

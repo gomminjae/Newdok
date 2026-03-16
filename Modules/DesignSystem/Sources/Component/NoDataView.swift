@@ -121,14 +121,14 @@ public struct NoDataView: View {
 
             Text(type.title)
                 .font(.hanSansNeo(16, .bold))
-                .foregroundStyle(Color(hex: "161616"))
+                .foregroundStyle(Color.captionHeavy)
                 .multilineTextAlignment(.center)
                 .padding(.top, 24)
 
             if !type.subTitle.isEmpty {
                 Text(type.subTitle)
                     .font(.hanSansNeo(14, .medium))
-                    .foregroundStyle(Color(hex: "565656"))
+                    .foregroundStyle(Color.captionNeutral)
                     .multilineTextAlignment(.center)
                     .padding(.top, 4)
             }
@@ -163,6 +163,6 @@ public struct NoDataView: View {
             }
         }
         .frame(maxWidth: .infinity)
-        .background(Color(hex: "F5F5F7"))
+        .background(Color.bgSystem)
     }
 }

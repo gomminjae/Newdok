@@ -27,7 +27,7 @@ public struct SearchView: View {
                         .renderingMode(.template)
                         .resizable()
                         .frame(width: 24, height: 24)
-                        .foregroundStyle(Color(hex: "#969696"))
+                        .foregroundStyle(Color.captionAssistive)
                         .padding(8)
                 }
 
@@ -48,7 +48,7 @@ public struct SearchView: View {
                             Image(systemName: "xmark.circle.fill")
                                 .resizable()
                                 .frame(width: 20, height: 20)
-                                .foregroundColor(Color(hex: "#DADADA"))
+                                .foregroundColor(Color.lineAlternative)
                         }
                         .padding(.trailing, 4)
                     }
@@ -106,7 +106,6 @@ public struct SearchView: View {
 
         .navigationBarBackButtonHidden(true)
         .navigationBarHidden(true)
-        .enableSwipeBack()
         .task {
             await viewModel.loadPopularKeywords()
         }
@@ -152,7 +151,7 @@ public struct SearchView: View {
             } else {
                 Text("표시할 인기 검색어가 없습니다.")
                     .font(.hanSansNeo(14, .medium))
-                    .foregroundColor(Color(hex: "#565656"))
+                    .foregroundColor(Color.captionNeutral)
             }
             Spacer()
         }
@@ -165,11 +164,10 @@ public struct SearchView: View {
             Text("\(keyword.rank)")
                 .font(.hanSansNeo(14, .bold))
                 .foregroundColor(.primaryNormal)
-                .frame(width: 24, alignment: .leading)
             
             Text(keyword.keyword)
                 .font(.hanSansNeo(14, .medium))
-                .foregroundColor(Color(hex: "#565656"))
+                .foregroundColor(Color.captionNeutral)
             Spacer()
         }
         .padding(.vertical, 4)
@@ -210,7 +208,7 @@ public struct SearchView: View {
                 .padding(.top, 8)
             Text("찾는 뉴스레터가 없다면 등록을 요청해보세요.")
                 .font(.hanSansNeo(14, .medium))
-                .foregroundColor(Color(hex: "#565656"))
+                .foregroundColor(Color.captionNeutral)
             Button(action: {
                 router.push(.feedback)
             }) {
@@ -244,7 +242,7 @@ struct SearchNewsletterRow: View {
                 }
                 .overlay {
                     RoundedRectangle(cornerRadius: 10)
-                        .stroke(Color(hex: "#EBEBEB"), lineWidth: 1)
+                        .stroke(Color.lineNeutral, lineWidth: 1)
                 }
                 .frame(width: 56, height: 56)
                 .cornerRadius(10)
@@ -252,10 +250,10 @@ struct SearchNewsletterRow: View {
             VStack(alignment: .leading, spacing: 4) {
                 Text(result.brandName)
                     .font(.hanSansNeo(14, .bold))
-                    .foregroundStyle(Color(hex: "#333333"))
+                    .foregroundStyle(Color.captionTitle)
                 Text(result.firstDescription)
                     .font(.hanSansNeo(14, .medium))
-                    .foregroundColor(Color(hex: "#363636"))
+                    .foregroundColor(Color.captionStrong)
             }
             Spacer()
         }

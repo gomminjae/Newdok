@@ -50,12 +50,12 @@ struct SortBottomSheet: View {
                         HStack(spacing: 0) {
                             Text(option.text)
                                 .font(.hanSansNeo(14, .medium))
-                                .foregroundColor(Color(hex: "363636"))
+                                .foregroundColor(Color.captionStrong)
                             Spacer()
                             if orderOpt == option.value {
                                 Image(asset: DesignSystemAsset.lineCheckmark)
                                     .renderingMode(.template)
-                                    .foregroundColor(Color(hex: "#2866D3"))
+                                    .foregroundColor(Color.primaryNormal)
                             }
                         }
                         .padding(.horizontal, 24)

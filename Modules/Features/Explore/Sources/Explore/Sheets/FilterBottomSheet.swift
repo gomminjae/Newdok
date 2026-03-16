@@ -78,7 +78,7 @@ struct FilterBottomSheet: View {
             VStack(alignment: .leading, spacing: 0) {
                 Text("산업 카테고리")
                     .font(.hanSansNeo(14, .medium))
-                    .foregroundColor(Color(hex: "565656"))
+                    .foregroundColor(Color.captionNeutral)
                     .padding(.bottom, L.titleToChips)
 
                 // ⬇️ Layout 컨테이너는 callAsFunction로 호출해야 View가 됩니다.
@@ -101,7 +101,7 @@ struct FilterBottomSheet: View {
             VStack(alignment: .leading, spacing: 0) {
                 Text("발행요일")
                     .font(.hanSansNeo(14, .medium))
-                    .foregroundColor(Color(hex: "565656"))
+                    .foregroundColor(Color.captionNeutral)
                     .padding(.bottom, L.titleToChips)
 
                 FlowRowsLayout(spacing: L.chipRowSpacing).callAsFunction {
@@ -129,7 +129,7 @@ struct FilterBottomSheet: View {
                         Image(asset: DesignSystemAsset.lineReload)
                         Text("재설정")
                             .font(.hanSansNeo(14, .medium))
-                            .foregroundStyle(Color(hex: "565656"))
+                            .foregroundStyle(Color.captionNeutral)
                     }
                     .frame(width: 88, height: 40)
                 }
@@ -205,10 +205,10 @@ struct SelectableChip: View {
             .padding(.vertical, 8)
             .padding(.horizontal, 12)
             .background(Color.white)
-            .foregroundColor(isSelected ? .primaryNormal : Color(hex: "363636"))
+            .foregroundColor(isSelected ? .primaryNormal : Color.captionStrong)
             .overlay(
                 RoundedRectangle(cornerRadius: 16)
-                    .strokeBorder(isSelected ? .primaryNormal : Color(hex: "EBEBEB"), lineWidth: 1)
+                    .strokeBorder(isSelected ? .primaryNormal : Color.lineNeutral, lineWidth: 1)
             )
             .cornerRadius(16)
             .contentShape(Rectangle())

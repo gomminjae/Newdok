@@ -21,7 +21,6 @@ public struct TermsOfUseView: View {
         }
         .navigationBarBackButtonHidden(true)
         .navigationBarTitleDisplayMode(.inline)
-        .enableSwipeBack()
         .toolbar {
             // ⬅️ Back 버튼
             ToolbarItem(placement: .navigationBarLeading) {

@@ -25,7 +25,7 @@ struct RecommendView: View {
                 .padding(.top, 24)
             Text("종사 산업과 관심사를 선택하면,\n내게 도움이 될 뉴스레터를 만나볼 수 있어요!")
                 .font(.hanSansNeo(14, .medium))
-                .foregroundStyle(Color(hex: "#565656"))
+                .foregroundStyle(Color.captionNeutral)
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .padding(.horizontal, 24)
                 .padding(.top, 8)

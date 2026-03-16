@@ -50,14 +50,14 @@ public struct ArticleDetailView: View {
                     router.pop()
                 } label: {
                     Image(asset: DesignSystemAsset.back)
-                        .foregroundColor(Color(hex: "#161616"))
+                        .foregroundColor(Color.captionHeavy)
                         .frame(width: 28, height: 28)
                 }
 
                 // 타이틀
                 Text(viewModel.detail?.brandName ?? "")
                     .font(.hanSansNeo(16, .bold))
-                    .foregroundColor(Color(hex: "#161616"))
+                    .foregroundColor(Color.captionHeavy)
                     .lineLimit(1)
                     .padding(.leading, 8)
 
@@ -70,7 +70,7 @@ public struct ArticleDetailView: View {
                     } label: {
                         Image(asset: DesignSystemAsset.highlight)
                             .renderingMode(.template)
-                            .foregroundColor(Color(hex: "#161616"))
+                            .foregroundColor(Color.captionHeavy)
                             .frame(width: 28, height: 28)
                     }
 
@@ -79,7 +79,7 @@ public struct ArticleDetailView: View {
                     } label: {
                         Image(asset: DesignSystemAsset.font)
                             .renderingMode(.template)
-                            .foregroundColor(Color(hex: "#161616"))
+                            .foregroundColor(Color.captionHeavy)
                             .frame(width: 28, height: 28)
                     }
 
@@ -164,7 +164,6 @@ public struct ArticleDetailView: View {
         .background(Color.white.ignoresSafeArea(edges: .top))
         .navigationBarTitleDisplayMode(.inline)
         .toolbar(.hidden, for: .navigationBar)
-        .enableSwipeBack(edgeOnly: true)
         .onChange(of: viewModel.detail) { detail in
             if detail != nil { isViewReady = true }
         }
@@ -496,11 +495,11 @@ struct FontSizeControlView: View {
                     HStack {
                         Text("\(Int(minFontSize))pt")
                             .font(.hanSansNeo(12, .medium))
-                            .foregroundColor(Color(hex: "#969696"))
+                            .foregroundColor(Color.captionAssistive)
                         Spacer()
                         Text("\(Int(maxFontSize))pt")
                             .font(.hanSansNeo(12, .medium))
-                            .foregroundColor(Color(hex: "#969696"))
+                            .foregroundColor(Color.captionAssistive)
                     }
                     .padding(.horizontal, 36 + 12)
                 }
@@ -526,11 +525,11 @@ struct FontSizeControlView: View {
                 .font(.system(size: 16, weight: .medium))
                 .frame(width: 36, height: 36)
                 .overlay(
-                    RoundedRectangle(cornerRadius: 10).stroke(Color(hex: "#D0D0D0"), lineWidth: 1.5)
+                    RoundedRectangle(cornerRadius: 10).stroke(Color.graySoft, lineWidth: 1.5)
                 )
         }
         .buttonStyle(PlainButtonStyle())
-        .foregroundColor(isActive ? Color.primaryNormal : Color(hex: "#D0D0D0"))
+        .foregroundColor(isActive ? Color.primaryNormal : Color.graySoft)
     }
 
     private func saveFontSize() {

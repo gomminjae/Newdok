@@ -46,7 +46,7 @@ public struct SubscribeModalView: View {
                 Text("\(title) 구독하기")
                     .font(.hanSansNeo(20, .bold))
                     .frame(maxWidth: .infinity)
-                    .foregroundStyle(Color(hex: "#161616"))
+                    .foregroundStyle(Color.captionHeavy)
                     .multilineTextAlignment(.center)
 
                 HStack {
@@ -58,7 +58,7 @@ public struct SubscribeModalView: View {
                             .renderingMode(.template)
                             .resizable()
                             .frame(width: 24, height: 24)
-                            .foregroundStyle(Color(hex: "#565656"))
+                            .foregroundStyle(Color.captionNeutral)
                     }
                     .padding(.trailing, 16)
                 }

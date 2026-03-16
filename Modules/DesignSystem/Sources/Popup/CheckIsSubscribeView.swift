@@ -36,7 +36,7 @@ public struct CheckIsSubscribeView: View {
 
                 Text("이 뉴스레터는 구독 확인이 필요해요.\n홈에서 확인 메일을 찾아 '확인' 버튼을 눌러주세요.")
                     .font(.hanSansNeo(14, .medium))
-                    .foregroundStyle(Color(hex: "565656"))
+                    .foregroundStyle(Color.captionNeutral)
                     .multilineTextAlignment(.center)
                     .fixedSize(horizontal: false, vertical: true)
 
@@ -69,7 +69,7 @@ public struct CheckIsSubscribeView: View {
             Button(action: onClose) {
                 Image(asset: DesignSystemAsset.lineClose)
                     .renderingMode(.template)
-                    .foregroundColor(Color(hex: "969696"))
+                    .foregroundColor(Color.captionAssistive)
                     .accessibilityLabel("닫기")
             }
             .padding(.top, 20)

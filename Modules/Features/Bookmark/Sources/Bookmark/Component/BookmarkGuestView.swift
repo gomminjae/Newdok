@@ -26,7 +26,7 @@ struct BookmarkGuestView: View {
             
             Text("저장한 아티클이 없어요.")
                 .font(.hanSansNeo(16, .bold))
-                .foregroundStyle(Color(hex: "#161616"))
+                .foregroundStyle(Color.captionHeavy)
                 .padding(.bottom, 4)
             HStack(spacing: 0) {
                 Text("로그인")
@@ -38,7 +38,7 @@ struct BookmarkGuestView: View {
                     }
                 Text(" 후 다시 보고 싶은 아티클을 저장해보세요.")
                     .font(.hanSansNeo(14, .medium))
-                    .foregroundColor(Color(hex: "#565656"))
+                    .foregroundColor(Color.captionNeutral)
             }
             Spacer()
         }

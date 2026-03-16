@@ -18,8 +18,8 @@ public struct LoadingDotsView: View {
 
     public init(
         dotSize: CGFloat = 6,
-        activeColor: Color = Color(hex: "#3D6FCA"),
-        inactiveColor: Color = Color(hex: "#A8BFE6"),
+        activeColor: Color = Color.primaryStrong,
+        inactiveColor: Color = Color.primarySoft,
         spacing: CGFloat = 4
     ) {
         self.dotSize = dotSize

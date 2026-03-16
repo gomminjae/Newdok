@@ -56,12 +56,12 @@ struct BookmarkSortBottomSheet: View {
                         HStack(spacing: 0) {
                             Text(option.text)
                                 .font(.hanSansNeo(14, .medium))
-                                .foregroundColor(Color(hex: "363636"))
+                                .foregroundColor(Color.captionStrong)
                             Spacer()
                             if sortOrder == option.value {
                                 Image(asset: DesignSystemAsset.lineCheckmark)
                                     .renderingMode(.template)
-                                    .foregroundColor(Color(hex: "#2866D3"))
+                                    .foregroundColor(Color.primaryNormal)
                             }
                         }
                         .padding(.horizontal, 24)
@@ -140,7 +140,7 @@ public struct BookmarkView: View {
                     }
                 }
             )
-            .background(Color(hex: "#F5F5F7"))
+            .background(Color.bgSystem)
         }
         .background(.white)
         .sheet(isPresented: $showSortSheet) {
@@ -173,7 +173,7 @@ public struct BookmarkView: View {
         HStack {
             Text("북마크함")
                 .font(.hanSansNeo(18, .bold))
-                .foregroundStyle(Color(hex: "161616"))
+                .foregroundStyle(Color.captionHeavy)
             Spacer()
             Button {
                 router.push(.search)
@@ -212,9 +212,9 @@ public struct BookmarkView: View {
                             )
                             .overlay(
                                 RoundedRectangle(cornerRadius: 16)
-                                    .stroke(selectedCategory == name ? Color.primaryNormal : Color(hex: "#EBEBEB"), lineWidth: 1)
+                                    .stroke(selectedCategory == name ? Color.primaryNormal : Color.lineNeutral, lineWidth: 1)
                             )
-                            .foregroundColor(selectedCategory == name ? Color.primaryNormal : Color(hex: "#363636"))
+                            .foregroundColor(selectedCategory == name ? Color.primaryNormal : Color.captionStrong)
                     }
                 }
             }
@@ -235,10 +235,10 @@ public struct BookmarkView: View {
                 HStack(spacing: 0) {
                     Text(viewModel.sortOrder)
                         .font(.hanSansNeo(13, .medium))
-                        .foregroundColor(Color(hex: "#363636"))
+                        .foregroundColor(Color.captionStrong)
                     Image(asset: DesignSystemAsset.updown)
                         .renderingMode(.template)
-                        .foregroundColor(Color(hex: "#363636"))
+                        .foregroundColor(Color.captionStrong)
                 }
             }
         }

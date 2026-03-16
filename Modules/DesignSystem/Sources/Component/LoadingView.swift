@@ -112,5 +112,5 @@ private final class GIFCache: @unchecked Sendable {
         LoadingView()
     }
     .padding()
-    .background(Color(hex: "#F5F5F7"))
+    .background(Color.bgSystem)
 }

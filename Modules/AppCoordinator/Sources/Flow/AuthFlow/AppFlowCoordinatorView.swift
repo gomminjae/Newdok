@@ -62,18 +62,17 @@ struct AppRootView: View {
             // Splash 화면 표시 후 초기 화면 결정
             try? await Task.sleep(nanoseconds: UInt64(AppConstants.Duration.splash * 1_000_000_000))
 
+            // 토큰 존재 여부 확인 → splash 뒤에서 root를 먼저 결정
+            if TokenStorage.hasValidToken {
+                AppState.shared.login()
+                router.resetTo(.tabbar(selectedTab: .home))
+            } else {
+                router.resetTo(.onboarding)
+            }
+
+            // root가 세팅된 후 splash를 걷음 → 온보딩 깜빡임 방지
             withAnimation(.easeInOut(duration: AppConstants.Animation.default)) {
                 launched = true
-
-                // 토큰 존재 여부 확인 (로그인 여부)
-                if TokenStorage.hasValidToken {
-                    // 토큰 있음 -> 메인 화면 + 인증 상태 동기화
-                    AppState.shared.login()
-                    router.resetTo(.tabbar(selectedTab: .home))
-                } else {
-                    // 토큰 없음 -> 온보딩 (로그인하지 않은 사용자)
-                    router.resetTo(.onboarding)
-                }
             }
         }
         .onReceive(NotificationCenter.default.publisher(for: .didReceiveUnauthorized)) { _ in
@@ -155,15 +154,8 @@ struct AppRootView: View {
 
     @ViewBuilder
     private func destinationView(for route: AppRoute) -> some View {
-        // articleDetail은 WebView가 있어서 edge 범위만 사용
-        if case .articleDetail = route {
-            makeView(for: route)
-                .environmentObject(router)
-                .enableSwipeBack(edgeOnly: true)
-        } else {
-            makeView(for: route)
-                .environmentObject(router)
-                .enableSwipeBack()
-        }
+        makeView(for: route)
+            .environmentObject(router)
+            .enableSwipeBack()
     }
 }

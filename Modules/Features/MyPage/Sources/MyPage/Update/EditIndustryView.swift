@@ -30,7 +30,7 @@ public struct EditIndustryView: View {
         VStack(alignment: .leading, spacing: 12) {
             Text("종사 산업")
                 .font(.hanSansNeo(14, .medium))
-                .foregroundStyle(Color(hex: "565656"))
+                .foregroundStyle(Color.captionNeutral)
                 .allowsHitTesting(false) // 터치 불가능하게 설정
 
             Button(action: {
@@ -42,11 +42,11 @@ public struct EditIndustryView: View {
                             .ifEmpty("선택해주세요")
                     )
                     .font(.hanSansNeo(14, .medium))
-                    .foregroundColor(Color(hex: "363636"))
+                    .foregroundColor(Color.captionStrong)
 
                     Spacer()
                     Image(asset: isExpanded ? DesignSystemAsset.lineUp : DesignSystemAsset.lineDown)
-                        .foregroundColor(Color(hex: "#363636"))
+                        .foregroundColor(Color.captionStrong)
                 }
                 .padding(.horizontal, 16)
                 .frame(height: 50)
@@ -54,7 +54,7 @@ public struct EditIndustryView: View {
                 .cornerRadius(4)
                 .overlay(
                     RoundedRectangle(cornerRadius: 4)
-                        .stroke(isExpanded ? Color.primaryNormal : Color(hex: "#DADADA"), lineWidth: 1)
+                        .stroke(isExpanded ? Color.primaryNormal : Color.lineAlternative, lineWidth: 1)
                 )
             }
 
@@ -68,7 +68,7 @@ public struct EditIndustryView: View {
                             } label: {
                                 HStack {
                                     Text(item.name)
-                                        .foregroundColor(item.id == selectedId ? Color.primaryNormal : Color(hex: "363636"))
+                                        .foregroundColor(item.id == selectedId ? Color.primaryNormal : Color.captionStrong)
                                         .font(.hanSansNeo(14, .medium))
                                     Spacer()
                                 }
@@ -76,7 +76,7 @@ public struct EditIndustryView: View {
                                 .padding(.horizontal, 16)
                                 .background(
                                     item.id == selectedId
-                                        ? Color(hex: "#E9EFFA")
+                                        ? Color.primaryBgLight
                                         : Color.white
                                 )
                             }
@@ -86,7 +86,7 @@ public struct EditIndustryView: View {
                 .frame(maxHeight: 240)
                 .background(Color.white)
                 .cornerRadius(4)
-                .shadow(color: Color(hex: "#191919").opacity(0.12), radius: 20, x: 0, y: 0)
+                .shadow(color: Color.captionDark.opacity(0.12), radius: 20, x: 0, y: 0)
             }
 
             Spacer()
@@ -110,12 +110,12 @@ public struct EditIndustryView: View {
                     .background(
                         selectedId != viewModel.user?.industryId
                         ? Color.primaryNormal
-                        : Color(hex: "#EBEBEB")
+                        : Color.lineNeutral
                     )
                     .foregroundColor(
                         selectedId != viewModel.user?.industryId
                         ? .white
-                        : Color(hex: "#BDBDBD")
+                        : Color.grayLight
                     )
                     .cornerRadius(4)
             }
@@ -131,7 +131,6 @@ public struct EditIndustryView: View {
         .padding(20)
         .navigationBarTitleDisplayMode(.inline)
         .navigationBarBackButtonHidden(true)
-        .enableSwipeBack()
         .toolbar {
             ToolbarItem(placement: .navigationBarLeading) {
                 Button { router.pop() } label: {

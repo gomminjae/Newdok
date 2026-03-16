@@ -29,7 +29,7 @@ public struct SignupPopupView: View {
 
                 Text("한 번호로 최대 3개의\n계정을 만들 수 있어요.")
                     .font(.hanSansNeo(14, .regular))
-                    .foregroundStyle(Color(hex: "555555"))
+                    .foregroundStyle(Color.captionBody)
                     .multilineTextAlignment(.center)
                     .padding(.top, 6)
 
@@ -40,11 +40,11 @@ public struct SignupPopupView: View {
                         VStack(alignment: .leading, spacing: 4) {
                             Text(info.maskedLoginId)
                                 .font(.hanSansNeo(14, .medium))
-                                .foregroundColor(Color(hex: "#161616"))
+                                .foregroundColor(Color.captionHeavy)
 
                             Text(info.formattedCreatedAt) 
                                 .font(.hanSansNeo(12, .medium))
-                                .foregroundColor(Color(hex: "#565656"))
+                                .foregroundColor(Color.captionNeutral)
                         }
                         .padding(.horizontal, 16)
                         .padding(.top, index == 0 ? 16 : 0)
@@ -52,7 +52,7 @@ public struct SignupPopupView: View {
                     }
                 }
                 .frame(maxWidth: .infinity, alignment: .leading)
-                .background(Color(hex: "F5F5F5"))
+                .background(Color.bgSecondary)
                 .cornerRadius(4)
                 .padding(.top, 24)
                 .padding(.horizontal, 20)

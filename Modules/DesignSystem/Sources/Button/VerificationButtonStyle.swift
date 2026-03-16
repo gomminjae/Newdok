@@ -31,7 +31,7 @@ public struct VerificationButtonStyle: ButtonStyle {
     
     private var borderColor: Color {
         if isDisabled {
-            return Color(hex: "#C0C0C0")
+            return Color.captionDisabled
         } else if isRequestSent {
             return Color.blue
         } else {

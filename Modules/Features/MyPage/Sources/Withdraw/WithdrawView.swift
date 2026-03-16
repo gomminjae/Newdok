@@ -34,7 +34,6 @@ public struct WithdrawView: View {
         .safeAreaInset(edge: .bottom) { bottomBar }   // 하단 고정 버튼
         .navigationBarBackButtonHidden(true)
         .navigationBarTitleDisplayMode(.inline)
-        .enableSwipeBack()
         .toolbar {
             ToolbarItem(placement: .navigationBarLeading) {
                 Button { 
@@ -79,8 +78,8 @@ public struct WithdrawView: View {
                 .font(.hanSansNeo(14, .bold))
                 .frame(maxWidth: .infinity)
                 .frame(height: 48)
-                .background(isChecked ? Color.primaryNormal : Color(hex: "#EBEBEB"))
-                .foregroundColor(isChecked ? .white : Color(hex: "#BDBDBD"))
+                .background(isChecked ? Color.primaryNormal : Color.lineNeutral)
+                .foregroundColor(isChecked ? .white : Color.grayLight)
                 .cornerRadius(4)
                 .disabled(!isChecked)
             } else {
@@ -96,7 +95,7 @@ public struct WithdrawView: View {
                 .background(
                     withdrawReasons.contains(true)
                         ? Color.primaryNormal
-                        : Color(hex: "#EBEBEB")
+                        : Color.lineNeutral
                 )
                 .foregroundColor(
                     withdrawReasons.contains(true)
@@ -119,14 +118,14 @@ public struct WithdrawView: View {
                 // 제목
                 Text("'\(viewModel.nickName)'님\n정말 떠나시나요?")
                     .font(.hanSansNeo(20, .bold))
-                    .foregroundStyle(Color(hex: "#161616"))
+                    .foregroundStyle(Color.captionHeavy)
                     .padding(.top, 20)
                     .padding(.horizontal, 24)
                 
                 // 설명
                 Text("뉴독을 탈퇴하면 활동 내용이 다 사라져요.")
                     .font(.hanSansNeo(14, .medium))
-                    .foregroundColor(Color(hex: "#565656"))
+                    .foregroundColor(Color.captionNeutral)
                     .padding(.top, 8)
                     .padding(.horizontal, 24)
                 
@@ -135,7 +134,7 @@ public struct WithdrawView: View {
                     HStack {
                         Text("구독 중인 뉴스레터")
                             .font(.hanSansNeo(16, .bold))
-                            .foregroundStyle(Color(hex: "#363636"))
+                            .foregroundStyle(Color.captionStrong)
                         Spacer()
                         Text("\(viewModel.newsletterCount)개")
                             .font(.hanSansNeo(16, .bold))
@@ -145,7 +144,7 @@ public struct WithdrawView: View {
                     HStack {
                         Text("지금까지 수신받은 아티클")
                             .font(.hanSansNeo(16, .bold))
-                            .foregroundStyle(Color(hex: "#363636"))
+                            .foregroundStyle(Color.captionStrong)
                         Spacer()
                         Text("\(viewModel.articleCount)개")
                             .font(.hanSansNeo(16, .bold))
@@ -167,7 +166,7 @@ public struct WithdrawView: View {
                     
                     Text("탈퇴하시면 등록한 정보는 모두 삭제되어 복구할 수 없습니다.")
                         .font(.hanSansNeo(14, .medium))
-                        .foregroundStyle(Color(hex: "#161616"))
+                        .foregroundStyle(Color.captionHeavy)
                         .multilineTextAlignment(.leading)
                         .fixedSize(horizontal: false, vertical: true)
                         .layoutPriority(1)
@@ -191,14 +190,14 @@ public struct WithdrawView: View {
                 // 제목
                 Text("떠나시는 이유는\n무엇인가요?")
                     .font(.hanSansNeo(20, .bold))
-                    .foregroundStyle(Color(hex: "#161616"))
+                    .foregroundStyle(Color.captionHeavy)
                     .padding(.top, 32)
                     .padding(.horizontal, 24)
                 
                 // 설명
                 Text("하나 이상의 항목을 선택하시면 탈퇴가 완료돼요.")
                     .font(.hanSansNeo(14, .medium))
-                    .foregroundColor(Color(hex: "#888888"))
+                    .foregroundColor(Color.grayMuted)
                     .padding(.top, 8)
                     .padding(.horizontal, 24)
                     .padding(.bottom, 32)
@@ -215,7 +214,7 @@ public struct WithdrawView: View {
                         }
                         Text(reasonTexts[idx])
                             .font(.hanSansNeo(14, .medium))
-                            .foregroundStyle(Color(hex: "#161616"))
+                            .foregroundStyle(Color.captionHeavy)
                         Spacer()
                     }
                     .padding(.vertical, 12)

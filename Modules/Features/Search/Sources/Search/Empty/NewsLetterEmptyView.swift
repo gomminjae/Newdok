@@ -16,7 +16,7 @@ struct NewsLetterEmptyView: View {
                 .font(.hanSansNeo(16, .medium))
             Text("찾는 뉴스레터가 없다면 등록을 요청해보세요.")
                 .font(.hanSansNeo(14, .regular))
-                .foregroundStyle(Color(hex: "555555"))
+                .foregroundStyle(Color.captionBody)
                 .padding(.top, 4)
             Button("뉴스레터 등록 요청하기") {
                 router.push(.serviceFeedback)

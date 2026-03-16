@@ -56,7 +56,7 @@ public struct OnboardingView: View {
                             .font(.hanSansNeo(14, .bold))
                             .frame(maxWidth: .infinity)
                             .padding()
-                            .background(Color(hex: "#2866D3"))
+                            .background(Color.primaryNormal)
                             .foregroundColor(.white)
                             .cornerRadius(4)
                     }
@@ -66,7 +66,7 @@ public struct OnboardingView: View {
                     HStack {
                         Text("이미 계정이 있나요?")
                             .font(.hanSansNeo(14, .medium))
-                            .foregroundColor(Color(hex: "#969696"))
+                            .foregroundColor(Color.captionAssistive)
 
                         Button(action: {
                             TokenStorage.markOnboardingCompleted()

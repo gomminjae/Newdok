@@ -29,7 +29,7 @@ public struct NewsLetterView: View {
                         Spacer()
                         Text("구독중")
                             .frame(width: 50, height: 26)
-                            .background(Color(hex: "#5184DB"))
+                            .background(Color.primaryLight)
                             .foregroundStyle(Color.white)
                             .clipShape(Capsule())
                     }
@@ -60,7 +60,7 @@ public struct NewsLetterView: View {
                     VStack(alignment: .leading, spacing: 16) {
                         Text("지난 아티클 보기")
                             .font(.hanSansNeo(16, .bold))
-                            .foregroundColor(Color(hex: "#161616"))
+                            .foregroundColor(Color.captionHeavy)
                             .padding(.horizontal, 20)
                         
                         VStack(spacing: 12) {
@@ -76,7 +76,7 @@ public struct NewsLetterView: View {
                 .offset(y: -50)
                 .padding(.horizontal, 16)
             }
-            .background(Color(hex: "#F5F5F7"))
+            .background(Color.bgSystem)
         }
     }
     
@@ -87,7 +87,7 @@ public struct NewsLetterView: View {
                     .font(.hanSansNeo(16, .bold))
                 Label("매주 평일 아침", systemImage: "clock")
                     .font(.hanSansNeo(12, .regular))
-                    .foregroundColor(Color(hex: "#565656"))
+                    .foregroundColor(Color.captionNeutral)
             }
             Spacer()
             Button(action: {}) {
@@ -104,7 +104,7 @@ public struct NewsLetterView: View {
         .frame(maxWidth: .infinity)
         .background(
             RoundedRectangle(cornerRadius: 8)
-                .fill(Color(hex: "ffffff").opacity(0.6))
+                .fill(Color.bgNormal.opacity(0.6))
                 .shadow(radius: 3)
         )
         .padding(.horizontal, 16)
@@ -134,13 +134,13 @@ public struct ArticleCard: View {
         VStack(alignment: .leading, spacing: 8) {
             Text(title)
                 .font(.hanSansNeo(14, .medium))
-                .foregroundColor(Color(hex: "#161616"))
+                .foregroundColor(Color.captionHeavy)
                 .lineLimit(2)
                 .multilineTextAlignment(.leading)
             
             Text(date)
                 .font(.hanSansNeo(12, .regular))
-                .foregroundColor(Color(hex: "#565656"))
+                .foregroundColor(Color.captionNeutral)
         }
         .frame(maxWidth: .infinity, alignment: .leading)
         .padding(.horizontal, 16)
@@ -148,7 +148,7 @@ public struct ArticleCard: View {
         .background(Color.white)
         .overlay(
             RoundedRectangle(cornerRadius: 12)
-                .stroke(Color(hex: "#EBEBEB"), lineWidth: 1)
+                .stroke(Color.lineNeutral, lineWidth: 1)
         )
         .cornerRadius(12)
     }

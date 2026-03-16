@@ -83,7 +83,6 @@ public struct EditProfileView: View {
         .padding(.horizontal, 20)
         .navigationBarTitleDisplayMode(.inline)
         .navigationBarBackButtonHidden(true)
-        .enableSwipeBack()
         .toolbar {
             ToolbarItem(placement: .navigationBarLeading) {
                 Button { router.pop() } label: {
@@ -126,7 +125,7 @@ public struct EditProfileView: View {
         let section = VStack(alignment: .leading, spacing: 8) {
             Text("관심사")
                 .font(.hanSansNeo(14, .medium))
-                .foregroundStyle(Color(hex: "#565656"))
+                .foregroundStyle(Color.captionNeutral)
                 .allowsHitTesting(false)
 
             ChipFlowLayout(spacing: 8).callAsFunction {
@@ -138,7 +137,7 @@ public struct EditProfileView: View {
                         .background(Color.white)
                         .overlay(
                             RoundedRectangle(cornerRadius: 16)
-                                .stroke(Color(hex: "#DADADA"), lineWidth: 1)
+                                .stroke(Color.lineAlternative, lineWidth: 1)
                         )
                         .allowsHitTesting(false)
                 }
@@ -176,10 +175,10 @@ struct EditableRow: View {
         VStack(alignment: .leading, spacing: 8) {
             Text(title)
                 .font(.hanSansNeo(14, .medium))
-                .foregroundStyle(Color(hex: "#565656"))
+                .foregroundStyle(Color.captionNeutral)
             HStack {
                 Text(text.isEmpty ? placeholder : text)
-                    .foregroundColor(text.isEmpty ? Color(hex: "#969696") : Color(hex: "#565656"))
+                    .foregroundColor(text.isEmpty ? Color.captionAssistive : Color.captionNeutral)
                     .font(.hanSansNeo(14, .medium))
                 Spacer()
                 Button(action: { onEdit?() }) {
@@ -187,7 +186,7 @@ struct EditableRow: View {
                         .renderingMode(.template)
                         .resizable()
                         .frame(width: 24, height: 24)
-                        .foregroundColor(Color(hex: "#363636"))
+                        .foregroundColor(Color.captionStrong)
                 }
             }
             .padding()
@@ -196,7 +195,7 @@ struct EditableRow: View {
             .clipShape(RoundedRectangle(cornerRadius: 4))
             .overlay {
                 RoundedRectangle(cornerRadius: 4)
-                    .stroke(Color(hex: "#DADADA"), lineWidth: 1)
+                    .stroke(Color.lineAlternative, lineWidth: 1)
             }
         }
     }

@@ -63,7 +63,7 @@ public struct AgreeView: View {
             .padding(.horizontal, 24)
 
             Divider()
-                .background(Color(hex: "C0C0C0"))
+                .background(Color.captionDisabled)
                 .padding(.horizontal, 24)
 
             HStack {
@@ -99,7 +99,7 @@ public struct AgreeView: View {
                 .frame(height: 48)
                 .background(
                     viewModel.isLoading
-                        ? Color(hex: "#D4E0F6")
+                        ? Color.primaryBgSubtle
                         : (isSignUpEnabled ? Color.primaryNormal : Color.lineNeutral)
                 )
                 .foregroundColor(.white)
@@ -166,11 +166,11 @@ struct SimpleAgreementRow: View {
             HStack(spacing: 0) {
                 Text(title)
                     .font(.hanSansNeo(14, .medium))
-                    .foregroundColor(Color(hex: "363636"))
+                    .foregroundColor(Color.captionStrong)
                 
                 Text(required ? " (필수)" : " (선택)")
                     .font(.hanSansNeo(14, .medium))
-                    .foregroundColor(Color(hex: "969696"))
+                    .foregroundColor(Color.captionAssistive)
             }
             
             Spacer()
@@ -197,16 +197,16 @@ struct TappableAgreementRow: View {
                 HStack(spacing: 0) {
                     Text(mainText)
                         .font(.hanSansNeo(14, .medium))
-                        .foregroundColor(Color(hex: "363636"))
-                        .underline(true, color: Color(hex: "363636"))
+                        .foregroundColor(Color.captionStrong)
+                        .underline(true, color: Color.captionStrong)
                     
                     Text(" 동의")
                         .font(.hanSansNeo(14, .medium))
-                        .foregroundColor(Color(hex: "363636"))
+                        .foregroundColor(Color.captionStrong)
                     
                     Text(required ? " (필수)" : " (선택)")
                         .font(.hanSansNeo(14, .medium))
-                        .foregroundColor(Color(hex: "969696"))
+                        .foregroundColor(Color.captionAssistive)
                 }
             }
             .buttonStyle(PlainButtonStyle())

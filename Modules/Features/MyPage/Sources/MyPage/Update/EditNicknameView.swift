@@ -44,8 +44,8 @@ public struct EditNicknameView: View {
                             RoundedRectangle(cornerRadius: 4)
                                 .stroke(
                                     validationState == .invalidChar || validationState == .tooLong || validationState == .tooShort 
-                                    ? Color(hex: "E32727") 
-                                    : isFocused ? .primaryNormal : Color(hex: "DADADA"),
+                                    ? Color.errorNormal 
+                                    : isFocused ? .primaryNormal : Color.lineAlternative,
                                     lineWidth: 1
                                 )
                         )
@@ -86,8 +86,8 @@ public struct EditNicknameView: View {
                     .font(.hanSansNeo(14, .bold))
                     .frame(maxWidth: .infinity)
                     .frame(height: 48)
-                    .background(isButtonEnabled ? Color.primaryNormal : Color(hex: "#EBEBEB"))
-                    .foregroundColor(isButtonEnabled ? .white : Color(hex: "#BDBDBD"))
+                    .background(isButtonEnabled ? Color.primaryNormal : Color.lineNeutral)
+                    .foregroundColor(isButtonEnabled ? .white : Color.grayLight)
                     .cornerRadius(4)
                     .padding(.horizontal, 20)
                     .padding(.bottom, 20)
@@ -96,7 +96,6 @@ public struct EditNicknameView: View {
         }
         .navigationBarTitleDisplayMode(.inline)
         .navigationBarBackButtonHidden(true)
-        .enableSwipeBack()
         .toolbar {
             ToolbarItem(placement: .navigationBarLeading) {
                 Button {
@@ -172,16 +171,16 @@ enum ValidationState {
     var textColor: Color {
         switch self {
         case .valid: return .primaryNormal
-        case .invalidChar, .tooLong, .tooShort: return Color(hex: "E32727")
-        case .none: return Color(hex: "969696")
+        case .invalidChar, .tooLong, .tooShort: return Color.errorNormal
+        case .none: return Color.captionAssistive
         }
     }
 
     var borderColor: Color {
         switch self {
         case .valid: return .primaryNormal
-        case .invalidChar, .tooLong, .tooShort: return Color(hex: "E32727")
-        case .none: return Color(hex: "DADADA")
+        case .invalidChar, .tooLong, .tooShort: return Color.errorNormal
+        case .none: return Color.lineAlternative
         }
     }
 }

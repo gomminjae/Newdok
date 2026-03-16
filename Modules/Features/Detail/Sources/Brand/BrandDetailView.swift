@@ -62,9 +62,9 @@ enum SubscriptionStatus: String {
         case .initial:
             return (Color.primaryNormal, .white, .clear)
         case .check:
-            return (Color.white, Color(hex: "565656"), Color(hex: "ebebeb"))
+            return (Color.white, Color.captionNeutral, Color.lineNeutral)
         case .confirmed:
-            return (Color.white, Color(hex: "565656"), Color(hex: "ebebeb"))
+            return (Color.white, Color.captionNeutral, Color.lineNeutral)
         case .paused:
             return (.white, Color.primaryNormal, Color.primaryNormal)
         }
@@ -107,7 +107,7 @@ public struct BrandDetailView: View {
                     .padding()
             }
         }
-        .background(Color(hex: "F5F5F7"))
+        .background(Color.bgSystem)
         .onAppear {
             if viewModel.detail == nil {
                 if isGuest {
@@ -140,7 +140,6 @@ public struct BrandDetailView: View {
         .navigationBarTitleDisplayMode(.inline)
         .toolbarBackground(Color.white, for: .navigationBar)
         .toolbarBackground(.visible, for: .navigationBar)
-        .enableSwipeBack()
         .popup(isPresented: $isShowPauseAlert) {
             UnsubscribePopupView(brandName: viewModel.detail?.brandName ?? "",
                                  onCancel: {
@@ -253,7 +252,7 @@ public struct BrandDetailView: View {
                             .setProcessor(DownsamplingImageProcessor(size: CGSize(width: 750 * UIScreen.main.scale, height: 520 * UIScreen.main.scale)))
                             .resizable()
                     } else {
-                        Color(hex: "#E6E6EA")
+                        Color.lineSoft
                     }
                 }
                 .frame(maxWidth: .infinity)
@@ -279,7 +278,7 @@ public struct BrandDetailView: View {
                 
                 // 구독 확인 중 오버레이
                 if let status = SubscriptionStatus(rawValue: detail.isSubscribed ?? ""), status == .check {
-                    Color(hex: "25242C").opacity(0.6) 
+                    Color.bgPopupDim.opacity(0.6) 
                         .frame(maxWidth: .infinity)
                         .frame(height: 260)
                         .mask(
@@ -297,14 +296,14 @@ public struct BrandDetailView: View {
                     ForEach(detail.interests.prefix(3), id: \.id) { interest in
                         Text(interest.name)
                             .font(.hanSansNeo(11, .medium))
-                            .foregroundStyle(Color(hex: "363636"))
+                            .foregroundStyle(Color.captionStrong)
                             .padding(.horizontal, 12)
                             .padding(.vertical, 6)
-                            .background(Color(hex: "ffffff").opacity(0.61))
+                            .background(Color.bgNormal.opacity(0.61))
                             .clipShape(Capsule())
                             .overlay {
                                 Capsule()
-                                    .stroke(Color(hex: "EBEBEB"), lineWidth: 1)
+                                    .stroke(Color.lineNeutral, lineWidth: 1)
                             }
                     }
                     
@@ -315,7 +314,7 @@ public struct BrandDetailView: View {
                             .font(.hanSansNeo(11, .medium))
                             .foregroundStyle(Color.white)
                             .frame(width: 50, height: 26)
-                            .background(Color(hex: "#5184DB"))
+                            .background(Color.primaryLight)
                             .clipShape(Capsule())
                             .overlay {
                                 Capsule()
@@ -338,12 +337,12 @@ public struct BrandDetailView: View {
                                 Image(asset: DesignSystemAsset.lineClock)
                                     .renderingMode(.template)
                                     .resizable()
-                                    .foregroundStyle(Color(hex: "565656"))
+                                    .foregroundStyle(Color.captionNeutral)
                                     .frame(width: 20, height: 20)
 
                                 Text(detail.publicationCycle)
                                     .font(.hanSansNeo(12, .medium))
-                                    .foregroundStyle(Color(hex: "565656"))
+                                    .foregroundStyle(Color.captionNeutral)
                             }
                             .frame(maxWidth: .infinity, alignment: .leading)
                         }
@@ -358,7 +357,7 @@ public struct BrandDetailView: View {
                     .padding(.bottom, 21)
                     .background(
                         // background: #FFFFFF99 (60% opacity)
-                        Color(hex: "FFFFFF").opacity(0.6)
+                        Color.bgNormal.opacity(0.6)
                     )
                     .background(
                         // backdrop-filter: blur(8px)
@@ -382,25 +381,25 @@ public struct BrandDetailView: View {
             Text(detail.detailDescription ?? "")
                 .font(.hanSansNeo(14, .regular))
                 .lineSpacing(4)
-                .foregroundStyle(Color(hex: "555555"))
+                .foregroundStyle(Color.captionBody)
                 .padding(.horizontal)
                 .padding(.vertical, 24)
                 
             VStack(alignment: .leading, spacing: 8) {
                 Text("지난 아티클 보기")
                     .font(.hanSansNeo(14, .bold))
-                    .foregroundStyle(Color(hex: "#565656"))
+                    .foregroundStyle(Color.captionNeutral)
                     .padding(.leading, 20)
                     .padding(.top, 20)
                 if detail.brandArticleList.isEmpty {
                     VStack(alignment: .center, spacing: 4) {
                         Text("아티클을 준비하는 중이에요.")
                             .font(.hanSansNeo(16, .bold))
-                            .foregroundStyle(Color(hex: "161616"))
+                            .foregroundStyle(Color.captionHeavy)
                         
                         Text("조금만 기다려 주세요!")
                             .font(.hanSansNeo(14, .medium))
-                            .foregroundStyle(Color(hex: "#565656"))
+                            .foregroundStyle(Color.captionNeutral)
                     }
                     .frame(maxWidth: .infinity, alignment: .center) // 스택을 수평 중앙
                     .multilineTextAlignment(.center)                // 각 Text의 문단 중앙
@@ -410,19 +409,19 @@ public struct BrandDetailView: View {
                         VStack(alignment: .leading, spacing: 4) {
                             Text(article.title)
                                 .font(.hanSansNeo(14, .bold))
-                                .foregroundStyle(Color(hex: "363636"))
+                                .foregroundStyle(Color.captionStrong)
                                 .padding(.bottom, 4)
 
                             HStack {
                                 Text(article.date.prefix(10))
                                     .font(.hanSansNeo(12, .medium))
-                                    .foregroundColor(Color(hex: "565656"))
+                                    .foregroundColor(Color.captionNeutral)
 
                                 Divider()
 
                                 Text(extractTime(from: article.date))
                                     .font(.hanSansNeo(12, .medium))
-                                    .foregroundColor(Color(hex: "565656"))
+                                    .foregroundColor(Color.captionNeutral)
                             }
                         }
                         .frame(maxWidth: .infinity, alignment: .leading)
@@ -430,7 +429,7 @@ public struct BrandDetailView: View {
                         .padding(.vertical, 16)
                         .background(Color.white)
                         .clipShape(RoundedRectangle(cornerRadius: 8))
-                        .overlay(RoundedRectangle(cornerRadius: 8).stroke(Color(hex: "EBEBEB"), lineWidth: 1))
+                        .overlay(RoundedRectangle(cornerRadius: 8).stroke(Color.lineNeutral, lineWidth: 1))
                         .padding(.horizontal)
                         .onTapGesture {
                             router.push(.articleDetail(id: "\(article.id)"))

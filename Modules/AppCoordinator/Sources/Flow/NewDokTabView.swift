@@ -190,6 +190,7 @@ public struct NewDokTabView: View {
     }
     
     @AppStorage("userId") private var userId: Int = 0
+    @State private var didApplyInitialTab = false
 
     public var body: some View {
         TabView(selection: $tabSelection.selectedTab) {
@@ -257,8 +258,11 @@ public struct NewDokTabView: View {
         .environmentObject(tabSelection)
         .environmentObject(exploreViewModel)
         .onAppear {
-            // 다크모드 방지 설정
             setupTabBarAppearance()
+            if !didApplyInitialTab, let tab = initialSelectedTab {
+                tabSelection.selectedTab = tab
+                didApplyInitialTab = true
+            }
         }
     }
 }

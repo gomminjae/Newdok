@@ -26,20 +26,20 @@ public struct SubscribeGuestAlertView: View {
                     Image(asset: DesignSystemAsset.warning)
                         .resizable()
                         .frame(width: 80, height: 80)
-                        .foregroundStyle(Color(hex: "#DADADA"))
+                        .foregroundStyle(Color.lineAlternative)
                         .padding(.top, 20)
                     
                     Spacer().frame(height: 16)
                     
                     Text("구독 신청은 회원가입이 필요해요.")
                         .font(.hanSansNeo(20, .bold))
-                        .foregroundColor(Color(hex: "#161616"))
+                        .foregroundColor(Color.captionHeavy)
                     
                     Spacer().frame(height: 8)
                     
                     Text("회원가입 후 간편하게\n뉴스레터를 받아보세요!")
                         .font(.hanSansNeo(14, .medium))
-                        .foregroundColor(Color(hex: "#565656"))
+                        .foregroundColor(Color.captionNeutral)
                         .multilineTextAlignment(.center)
                     
                     Spacer().frame(height: 24)
@@ -69,7 +69,7 @@ public struct SubscribeGuestAlertView: View {
                         Image(asset: DesignSystemAsset.lineClose)
                             .resizable()
                             .renderingMode(.template)
-                            .foregroundStyle(Color(hex: "#000000"))
+                            .foregroundStyle(Color.bgDimmed)
                             .frame(width: 24, height: 24)
                             .padding(16)
                     }

@@ -25,13 +25,13 @@ public struct ServerErrorPopupView: View {
 
             Text("일시적인 오류가 발생했습니다.")
                 .font(.hanSansNeo(20, .bold))
-                .foregroundStyle(Color(hex: "#161616"))
+                .foregroundStyle(Color.captionHeavy)
                 .padding(.top, 6)
 
             Text("새로고침을 눌러 다시 시도해 주세요.\n문제가 계속되면 서비스 피드백을 통해\n문의해 주세요.")
                 .multilineTextAlignment(.center)
                 .font(.hanSansNeo(14, .medium))
-                .foregroundStyle(Color(hex: "#565656"))
+                .foregroundStyle(Color.captionNeutral)
                 .padding(.top, 6)
 
             if let onGoBack = onGoBack {
@@ -39,10 +39,10 @@ public struct ServerErrorPopupView: View {
                     Button(action: onGoBack) {
                         Text("이전으로")
                             .font(.hanSansNeo(14, .bold))
-                            .foregroundColor(Color(hex: "#565656"))
+                            .foregroundColor(Color.captionNeutral)
                             .frame(maxWidth: .infinity, minHeight: 48)
                             .background(Color.white)
-                            .overlay(RoundedRectangle(cornerRadius: 4).stroke(Color(hex: "#EBEBEB")))
+                            .overlay(RoundedRectangle(cornerRadius: 4).stroke(Color.lineNeutral))
                     }
 
                     Button(action: onRetry) {
@@ -50,7 +50,7 @@ public struct ServerErrorPopupView: View {
                             .font(.hanSansNeo(14, .bold))
                             .foregroundColor(.white)
                             .frame(maxWidth: .infinity, minHeight: 48)
-                            .background(Color(hex: "#2866D3"))
+                            .background(Color.primaryNormal)
                             .cornerRadius(4)
                     }
                 }
@@ -64,7 +64,7 @@ public struct ServerErrorPopupView: View {
                         .frame(maxWidth: .infinity)
                         .frame(height: 48)
                         .foregroundStyle(Color.white)
-                        .background(Color(hex: "#2866D3"))
+                        .background(Color.primaryNormal)
                         .cornerRadius(4)
                 }
                 .padding(.top, 24)

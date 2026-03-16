@@ -38,7 +38,7 @@ enum SubscriptionStatus: String {
     }
     var color: Color {
         switch self {
-        case .confirmed: return Color(hex: "#5184DB")
+        case .confirmed: return Color.primaryLight
         case .paused: return .white
         default: return .clear
         }
@@ -47,15 +47,15 @@ enum SubscriptionStatus: String {
     var foregroundColor: Color {
         switch self {
         case .confirmed: return Color.white
-        case .paused: return Color(hex: "#BDBDBD")
+        case .paused: return Color.grayLight
         default: return .clear
         }
     }
     
     var borderColor: Color {
         switch self {
-        case .paused: return Color(hex: "#C0C0C0")
-        case .confirmed: return Color(hex: "#2866D3")
+        case .paused: return Color.captionDisabled
+        case .confirmed: return Color.primaryNormal
         default: return .clear
         }
     }
@@ -92,19 +92,19 @@ struct NewsletterDetailRow: View {
                     .clipShape(RoundedRectangle(cornerRadius: 10))
                     .overlay {
                         RoundedRectangle(cornerRadius: 10)
-                            .stroke(Color(hex: "EBEBEB"), lineWidth: 1)
+                            .stroke(Color.lineNeutral, lineWidth: 1)
                     }
 
                 VStack(alignment: .leading, spacing: 12) {
                     Text(brand.brandName)
                         .font(.hanSansNeo(16, .bold))
-                        .foregroundColor(Color(hex: "#161616"))
+                        .foregroundColor(Color.captionHeavy)
                         .padding(.leading, 8)
                         .padding(.top, 2)
 
                     Text(brand.shortDescription)
                         .font(.hanSansNeo(14, .medium))
-                        .foregroundColor(Color(hex: "#565656"))
+                        .foregroundColor(Color.captionNeutral)
                         .lineLimit(2)
                         .multilineTextAlignment(.leading)
                         .padding(.leading, 8)
@@ -142,7 +142,7 @@ struct NewsletterDetailRow: View {
         .clipShape(RoundedRectangle(cornerRadius: 8))
         .overlay {
             RoundedRectangle(cornerRadius: 8)
-                .stroke(Color(hex: "EBEBEB"), lineWidth: 1)
+                .stroke(Color.lineNeutral, lineWidth: 1)
         }
     }
 }

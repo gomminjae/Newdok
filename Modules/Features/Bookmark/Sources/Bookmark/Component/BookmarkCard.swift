@@ -18,13 +18,13 @@ struct BookmarkCard: View {
         VStack(alignment: .leading, spacing: 0) {
             Text(article.articleTitle)
                 .font(.hanSansNeo(16, .bold))
-                .foregroundColor(Color(hex: "#363636"))
+                .foregroundColor(Color.captionStrong)
                 .lineLimit(2)
                 .padding(.bottom, 8)
             
             Text(article.sampleText)
                 .font(.hanSansNeo(14, .regular))
-                .foregroundColor(Color(hex: "#565656"))
+                .foregroundColor(Color.captionNeutral)
                 .lineLimit(2)
                 .padding(.bottom, 12)
             
@@ -37,7 +37,7 @@ struct BookmarkCard: View {
                         .clipShape(Circle())
                         .overlay {
                             Circle()
-                                .stroke(Color(hex: "#EBEBEB"))
+                                .stroke(Color.lineNeutral)
                         }
                     Text(article.brandName)
                         .font(.hanSansNeo(12, .medium))
@@ -46,7 +46,7 @@ struct BookmarkCard: View {
                 Spacer()
                 Text(article.date.prefix(10))
                     .font(.hanSansNeo(12, .medium))
-                    .foregroundColor(Color(hex: "#969696"))
+                    .foregroundColor(Color.captionAssistive)
             }
         }
         .padding(.vertical, 20)
@@ -55,7 +55,7 @@ struct BookmarkCard: View {
         .cornerRadius(8)
         .overlay(
             RoundedRectangle(cornerRadius: 8)
-                .stroke(Color(hex: "#EBEBEB"), lineWidth: 1)
+                .stroke(Color.lineNeutral, lineWidth: 1)
         )
     }
 }

@@ -95,9 +95,9 @@ public final class SignupViewModel: ObservableObject, ErrorHandling {
     var idValidationMessage: (text: String, color: Color)? {
         if let available = isIDAvailable {
             return (available ? "사용 가능한 아이디입니다" : "이미 사용중인 아이디입니다",
-                    available ? Color(hex: "#2866D3") : Color(hex: "#E32727"))
+                    available ? Color.primaryNormal : Color.errorNormal)
         } else if let error = idValidationError {
-            return (error.message, Color(hex: "#E32727"))
+            return (error.message, Color.errorNormal)
         } else {
             return nil
         }

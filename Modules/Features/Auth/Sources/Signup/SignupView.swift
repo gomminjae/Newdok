@@ -170,7 +170,7 @@ public struct SignupView: View {
             GeometryReader { geometry in
                 ZStack(alignment: .leading) {
                     Rectangle()
-                        .fill(Color(hex: "#ECF3FF"))
+                        .fill(Color.primaryBg)
                         .frame(height: 4)
 
                     Rectangle()

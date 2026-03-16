@@ -43,7 +43,7 @@ public struct ProfileInputView: View {
 
                     Text("닉네임")
                         .font(.hanSansNeo(14, .medium))
-                        .foregroundStyle(Color(hex: "#565656"))
+                        .foregroundStyle(Color.captionNeutral)
                         .padding(.top, 42)
                         .padding(.bottom, 8)
                         .padding(.leading, 4)
@@ -51,20 +51,20 @@ public struct ProfileInputView: View {
                     HStack {
                         Image(asset: DesignSystemAsset.lineUser)
                             .renderingMode(.template)
-                            .foregroundStyle(isNicknameFocused ? Color(hex: "363636") : Color(hex: "969696"))
+                            .foregroundStyle(isNicknameFocused ? Color.captionStrong : Color.captionAssistive)
                         TextField("12자 이내, 특수문자 사용 불가", text: $viewModel.nickname)
                             .font(.hanSansNeo(14, .medium))
                             .focused($isNicknameFocused)
                     }
                     .padding(.horizontal, 16)
                     .frame(height: 50)
-                    .background(viewModel.showNicknameError ? Color(hex: "#FEE6E6") : Color.white)
+                    .background(viewModel.showNicknameError ? Color.errorBg : Color.white)
                     .overlay(
                         RoundedRectangle(cornerRadius: 4)
                             .stroke(
                                 viewModel.showNicknameError
-                                ? Color(hex: "#E32727")
-                                : (isNicknameFocused ? Color.primaryNormal : Color(hex: "#DADADA")),
+                                ? Color.errorNormal
+                                : (isNicknameFocused ? Color.primaryNormal : Color.lineAlternative),
                                 lineWidth: 1
                             )
                     )
@@ -73,16 +73,16 @@ public struct ProfileInputView: View {
                     if viewModel.showNicknameError, let error = viewModel.nicknameValidationError {
                         Text(error.message)
                             .font(.footnote)
-                            .foregroundStyle(Color(hex: "#E32727"))
+                            .foregroundStyle(Color.errorNormal)
                     } else if viewModel.showNicknameSuccess {
                         Text("사용 가능한 닉네임 입니다.")
                             .font(.hanSansNeo(12, .medium))
-                            .foregroundStyle(Color(hex: "#2866D3"))
+                            .foregroundStyle(Color.primaryNormal)
                     }
 
                     Text("출생연도")
                         .font(.hanSansNeo(14, .medium))
-                        .foregroundStyle(Color(hex: "#565656"))
+                        .foregroundStyle(Color.captionNeutral)
                         .padding(.bottom, 8)
                         .padding(.leading, 4)
                         .padding(.top, 32)
@@ -96,7 +96,7 @@ public struct ProfileInputView: View {
                         HStack {
                             Text(selectedBirthYear ?? "선택")
                                 .font(.hanSansNeo(14, .medium))
-                                .foregroundColor(Color(hex: "363636"))
+                                .foregroundColor(Color.captionStrong)
 
                             Spacer()
                             Image(asset: isExpanded ? DesignSystemAsset.lineDown : DesignSystemAsset.lineUp)
@@ -108,7 +108,7 @@ public struct ProfileInputView: View {
                         .cornerRadius(4)
                         .overlay(
                             RoundedRectangle(cornerRadius: 4)
-                                .stroke(isExpanded ? Color.primaryNormal : Color(hex: "#DADADA"), lineWidth: 1)
+                                .stroke(isExpanded ? Color.primaryNormal : Color.lineAlternative, lineWidth: 1)
                         )
                         .background(
                             GeometryReader { geo in
@@ -124,12 +124,12 @@ public struct ProfileInputView: View {
 
                     Text("출생연도는 뉴스레터 추천에 활용돼요.")
                         .font(.hanSansNeo(12, .medium))
-                        .foregroundStyle(Color(hex: "#565656"))
+                        .foregroundStyle(Color.captionNeutral)
                         .padding(.top, 8)
 
                     Text("성별")
                         .font(.hanSansNeo(14, .medium))
-                        .foregroundStyle(Color(hex: "#565656"))
+                        .foregroundStyle(Color.captionNeutral)
                         .padding(.top, 32)
 
                     HStack(spacing: 8) {
@@ -148,7 +148,7 @@ public struct ProfileInputView: View {
 
                     Text("성별은 뉴스레터 추천에 활용돼요.")
                         .font(.hanSansNeo(12, .medium))
-                        .foregroundStyle(Color(hex: "#565656"))
+                        .foregroundStyle(Color.captionNeutral)
                         .padding(.top, 8)
 
                     Spacer()
@@ -160,7 +160,7 @@ public struct ProfileInputView: View {
                             .font(.hanSansNeo(14, .bold))
                             .frame(height: 48)
                             .frame(maxWidth: .infinity)
-                            .background(viewModel.isProfileInputValid ? Color.primaryNormal : Color(hex: "#EBEBEB"))
+                            .background(viewModel.isProfileInputValid ? Color.primaryNormal : Color.lineNeutral)
                             .foregroundColor(.white)
                             .cornerRadius(4)
                     }
@@ -196,7 +196,7 @@ public struct ProfileInputView: View {
                                     } label: {
                                         HStack {
                                             Text(item.value)
-                                                .foregroundColor(item.value == selectedBirthYear ? .primaryNormal : Color(hex: "363636"))
+                                                .foregroundColor(item.value == selectedBirthYear ? .primaryNormal : Color.captionStrong)
                                                 .font(.hanSansNeo(14, .medium))
                                             Spacer()
                                         }
@@ -204,7 +204,7 @@ public struct ProfileInputView: View {
                                         .padding(.horizontal, 20)
                                         .background(
                                             item.value == selectedBirthYear
-                                                ? Color(hex: "#E9EFFA")
+                                                ? Color.primaryBgLight
                                                 : Color.white
                                         )
                                     }
@@ -215,7 +215,7 @@ public struct ProfileInputView: View {
                         .frame(height: 240)
                         .background(Color.white)
                         .cornerRadius(4)
-                        .shadow(color: Color(hex: "#191919").opacity(0.12), radius: 20, x: 0, y: 0)
+                        .shadow(color: Color.captionDark.opacity(0.12), radius: 20, x: 0, y: 0)
                     }
                     .padding(.horizontal, 24)
                     .background(Color.white)
@@ -237,12 +237,12 @@ struct GenderButton: View {
         Button(action: action) {
             Text(title)
                 .font(.hanSansNeo(16, .medium))
-                .foregroundColor(isSelected ? Color.primaryNormal : Color(hex: "#969696"))
+                .foregroundColor(isSelected ? Color.primaryNormal : Color.captionAssistive)
                 .padding(.vertical, 14)
                 .frame(maxWidth: .infinity)
                 .overlay(
                     RoundedRectangle(cornerRadius: 4)
-                        .stroke(isSelected ? Color.primaryNormal : Color(hex: "#DADADA"), lineWidth: 1)
+                        .stroke(isSelected ? Color.primaryNormal : Color.lineAlternative, lineWidth: 1)
                 )
         }
     }

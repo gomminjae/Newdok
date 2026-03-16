@@ -33,7 +33,7 @@ struct CheckPhoneErrorView: View {
             // 서브 메시지
             Text("회원가입을 원하시면\n아래 버튼을 눌러주세요.")
                 .font(.hanSansNeo(14, .medium))
-                .foregroundColor(Color(hex: "#565656"))
+                .foregroundColor(Color.captionNeutral)
                 .multilineTextAlignment(.center)
                 .padding(.horizontal, 24)
                 .padding(.bottom, 24)
@@ -58,7 +58,7 @@ struct CheckPhoneErrorView: View {
                     .renderingMode(.template)
                     .resizable()
                     .frame(width: 24, height: 24)
-                    .foregroundColor(Color(hex: "#969696"))
+                    .foregroundColor(Color.captionAssistive)
                     .padding(16) // 터치 영역 확장
             },
             alignment: .topTrailing

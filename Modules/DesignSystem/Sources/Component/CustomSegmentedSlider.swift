@@ -12,10 +12,10 @@ public struct CustomSegmentedSlider: View {
     public var body: some View {
         ZStack(alignment: .leading) {
             RoundedRectangle(cornerRadius: 6)
-                .fill(Color(hex: "#F5F5F7"))
+                .fill(Color.bgSystem)
                 .overlay(
                     RoundedRectangle(cornerRadius: 6)
-                        .stroke(Color(hex: "#EBEBEB"), lineWidth: 1)
+                        .stroke(Color.lineNeutral, lineWidth: 1)
                 )
 
             GeometryReader { geometry in

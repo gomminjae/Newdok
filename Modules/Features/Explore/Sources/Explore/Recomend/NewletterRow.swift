@@ -48,19 +48,19 @@ public struct NewsletterRow: View {
                     .clipShape(RoundedRectangle(cornerRadius: 10))
                     .overlay {
                         RoundedRectangle(cornerRadius: 10)
-                            .stroke(Color(hex: "EBEBEB"), lineWidth: 1)
+                            .stroke(Color.lineNeutral, lineWidth: 1)
                     }
 
                 VStack(alignment: .leading, spacing: 12) {
                     Text(newsletter.brandName)
                         .font(.hanSansNeo(16, .bold))
-                        .foregroundColor(Color(hex: "#161616"))
+                        .foregroundColor(Color.captionHeavy)
                         .padding(.leading, 8)
                         .padding(.top, 2)
 
                     Text(newsletter.firstDescription)
                         .font(.hanSansNeo(14, .medium))
-                        .foregroundColor(Color(hex: "#565656"))
+                        .foregroundColor(Color.captionNeutral)
                         .lineLimit(2)
                         .multilineTextAlignment(.leading)
                         .padding(.leading, 8)
@@ -87,7 +87,7 @@ public struct NewsletterRow: View {
         .clipShape(RoundedRectangle(cornerRadius: 8))
         .overlay {
             RoundedRectangle(cornerRadius: 8)
-                .stroke(Color(hex: "EBEBEB"), lineWidth: 1)
+                .stroke(Color.lineNeutral, lineWidth: 1)
         }
     }
 }

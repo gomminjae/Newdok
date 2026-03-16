@@ -33,7 +33,7 @@ public struct PhoneVerificationView: View {
 
                     Text("휴대폰 번호")
                         .font(.hanSansNeo(14, .medium))
-                        .foregroundStyle(Color(hex: "#565656"))
+                        .foregroundStyle(Color.captionNeutral)
                         .padding(.top, 42)
                         .padding(.leading, 28)
                         .padding(.bottom, 8)
@@ -42,7 +42,7 @@ public struct PhoneVerificationView: View {
                         HStack {
                             Image(asset: DesignSystemAsset.phone)
                                 .renderingMode(.template)
-                                .foregroundStyle(isPhoneFieldFocused ? Color(hex: "363636") : Color(hex: "969696"))
+                                .foregroundStyle(isPhoneFieldFocused ? Color.captionStrong : Color.captionAssistive)
                                 .padding(.leading, 20)
 
                             TextField("-구분 없이 입력", text: $viewModel.phoneNumber)
@@ -56,7 +56,7 @@ public struct PhoneVerificationView: View {
                         .background(Color.white)
                         .overlay(
                             RoundedRectangle(cornerRadius: 4)
-                                .stroke(isPhoneFieldFocused ? Color.primaryNormal : Color(hex: "#DADADA"), lineWidth: 1)
+                                .stroke(isPhoneFieldFocused ? Color.primaryNormal : Color.lineAlternative, lineWidth: 1)
                         )
 
                         // 일반적인 인증 요청/재전송 버튼 (항상 표시)
@@ -71,12 +71,12 @@ public struct PhoneVerificationView: View {
                             }
                         }
                         .font(.hanSansNeo(14, .bold))
-                        .foregroundStyle(viewModel.phoneNumber.count < 11 ? Color(hex: "#BDBDBD") : Color.primaryNormal)
+                        .foregroundStyle(viewModel.phoneNumber.count < 11 ? Color.grayLight : Color.primaryNormal)
                         .disabled(viewModel.phoneNumber.count < 11)
                         .frame(width: 94, height: 48)
                         .overlay(
                             RoundedRectangle(cornerRadius: 4)
-                                .stroke(viewModel.phoneNumber.count < 11 ? Color(hex: "#C0C0C0") : Color.primaryNormal, lineWidth: 1)
+                                .stroke(viewModel.phoneNumber.count < 11 ? Color.captionDisabled : Color.primaryNormal, lineWidth: 1)
                         )
                     }
                     .padding(.horizontal, 24)
@@ -92,7 +92,7 @@ public struct PhoneVerificationView: View {
                                 HStack {
                                     Image(asset: DesignSystemAsset.lineLock)
                                         .renderingMode(.template)
-                                        .foregroundStyle(isVerificationCodeFocused ? Color(hex: "363636") : Color(hex: "969696"))
+                                        .foregroundStyle(isVerificationCodeFocused ? Color.captionStrong : Color.captionAssistive)
                                     TextField("6자리 숫자 입력", text: $viewModel.enteredVerificationCode)
                                         .keyboardType(.numberPad)
                                         .font(.hanSansNeo(14, .medium))
@@ -108,20 +108,20 @@ public struct PhoneVerificationView: View {
                                 .frame(height: 50)
 
                                 Text(viewModel.timerRemaining > 0 ? formatTime(viewModel.timerRemaining) : "만료됨")
-                                    .foregroundStyle(Color(hex: "#363636"))
+                                    .foregroundStyle(Color.captionStrong)
                                     .font(.hanSansNeo(12, .medium))
                                     .padding(.trailing, 10)
                             }
                             .background(viewModel.showError || viewModel.timerRemaining <= 0 ? Color.red.opacity(0.1) : .white)
                             .overlay(
                                 RoundedRectangle(cornerRadius: 5)
-                                    .stroke(viewModel.showError || viewModel.timerRemaining <= 0 ? .red : (isVerificationCodeFocused ? Color.primaryNormal : Color(hex: "#DADADA")), lineWidth: 1)
+                                    .stroke(viewModel.showError || viewModel.timerRemaining <= 0 ? .red : (isVerificationCodeFocused ? Color.primaryNormal : Color.lineAlternative), lineWidth: 1)
                             )
                             .padding(.horizontal, 24)
 
                             Text(viewModel.timerRemaining <= 0 ? "인증번호를 재전송해주세요." : (viewModel.showError ? "인증번호를 다시 확인해주세요." : "문자가 오지 않는다면 '재전송'을 눌러주세요."))
                                 .font(.hanSansNeo(12, .medium))
-                                .foregroundStyle(viewModel.timerRemaining <= 0 || viewModel.showError ? .red : Color(hex: "555555"))
+                                .foregroundStyle(viewModel.timerRemaining <= 0 || viewModel.showError ? .red : Color.captionBody)
                                 .padding(.leading, 24)
                                 .padding(.top, 6)
                         }
@@ -204,7 +204,7 @@ public struct PhoneVerificationView: View {
                 .position(.center)
                 .animation(.easeInOut)
                 .closeOnTapOutside(true)
-                .backgroundColor(Color(hex: "#25242C").opacity(0.6))
+                .backgroundColor(Color.bgPopupDim.opacity(0.6))
         }
         
         .popup(isPresented: $viewModel.isShowPopup) {
@@ -217,7 +217,7 @@ public struct PhoneVerificationView: View {
               .position(.center)
               .animation(.easeInOut)
               .closeOnTapOutside(true)
-              .backgroundColor(Color(hex: "#25242C").opacity(0.6))
+              .backgroundColor(Color.bgPopupDim.opacity(0.6))
         }
     }
 

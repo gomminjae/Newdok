@@ -26,34 +26,34 @@ public struct CheckSubscribeView: View {
                 }) {
                     Image(asset: DesignSystemAsset.lineClose)
                         .renderingMode(.template)
-                        .foregroundColor(Color(hex: "#969696"))
+                        .foregroundColor(Color.captionAssistive)
                 }
             }
             
             Image(asset: DesignSystemAsset.warning)
                 .resizable()
                 .frame(width: 80, height: 80)
-                .foregroundColor(Color(hex: "#C4C4C4"))
+                .foregroundColor(Color.grayMedium)
 
             Text("구독 확인 필요")
                 .multilineTextAlignment(.center)
                 .font(.hanSansNeo(20, .bold))
-                .foregroundColor(Color(hex: "#161616"))
+                .foregroundColor(Color.captionHeavy)
                 .padding(.bottom, 8)
 
             Text("구독 신청을 완료하기 위해\n구 독 확인 메일의 확인 버튼을 눌러주세요.")
                 .multilineTextAlignment(.center)
                 .font(.hanSansNeo(14, .medium))
-                .foregroundColor(Color(hex: "#555555"))
+                .foregroundColor(Color.captionBody)
                 .padding(.bottom, 20)
 
             Text("구독 확인 메일은 홈에서 확인할 수 있어요.")
                 .font(.hanSansNeo(12, .medium))
-                .foregroundColor(Color(hex: "#2866D3"))
+                .foregroundColor(Color.primaryNormal)
                 .padding()
                 .frame(maxWidth: .infinity)
                 .frame(height: 50)
-                .background(Color(hex: "#F5F5F5"))
+                .background(Color.bgSecondary)
                 .cornerRadius(6)
                 .padding(.bottom, 24)
 
@@ -64,10 +64,10 @@ public struct CheckSubscribeView: View {
                 }) {
                     Text("메일 확인하기")
                         .font(.hanSansNeo(14, .bold))
-                        .foregroundColor(Color(hex: "#FFFFFF"))
+                        .foregroundColor(Color.bgNormal)
                         .frame(maxWidth: .infinity, minHeight: 48)
                         .background(Color.primaryNormal)
-                        .overlay(RoundedRectangle(cornerRadius: 4).stroke(Color(hex: "#EBEBEB")))
+                        .overlay(RoundedRectangle(cornerRadius: 4).stroke(Color.lineNeutral))
                 }
             }
         }

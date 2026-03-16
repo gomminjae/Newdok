@@ -36,7 +36,7 @@ struct ArticleRow: View {
                 HStack {
                     Text(article.brandName)
                         .font(.hanSansNeo(11, .medium))
-                        .foregroundColor(Color(hex: "#565656"))
+                        .foregroundColor(Color.captionNeutral)
 
                     Spacer()
 
@@ -45,23 +45,23 @@ struct ArticleRow: View {
                     } else {
                         Text(article.status == "Read" ? "읽음" : "안읽음")
                             .font(.hanSansNeo(11, .medium))
-                            .foregroundColor(article.status == "Read" ? Color(hex: "#767676") : Color.primaryNormal)
+                            .foregroundColor(article.status == "Read" ? Color.captionAlternative : Color.primaryNormal)
                     }
                 }
 
                 Text(article.articleTitle)
                     .font(.hanSansNeo(14, .medium))
-                    .foregroundColor(Color(hex: "#363636"))
+                    .foregroundColor(Color.captionStrong)
                     .lineLimit(1)
                     .padding(.trailing, 20)
             }
         }
         .padding(16)
-        .background(article.status == "Read" ? Color(hex: "EBEBEB") : Color(hex: "#FFFFFF"))
+        .background(article.status == "Read" ? Color.lineNeutral : Color.bgNormal)
         .clipShape(RoundedRectangle(cornerRadius: 12))
         .overlay(
             RoundedRectangle(cornerRadius: 12)
-                .stroke(Color(hex: "#EBEBEB"), lineWidth: 1)
+                .stroke(Color.lineNeutral, lineWidth: 1)
         )
         .shadow(color: Color.black.opacity(0.05), radius: 2, x: 0, y: 1)
         .task {
@@ -83,7 +83,7 @@ struct ArticleRow: View {
         }
         .padding(.horizontal, 8)
         .padding(.vertical, 4)
-        .background(Color(hex: "#6893E0"))
+        .background(Color.primaryMuted)
         .clipShape(Capsule())
     }
 }

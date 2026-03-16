@@ -32,7 +32,7 @@ public struct PwInputView: View {
                     // MARK: - 비밀번호
                     Text("비밀번호")
                         .font(.hanSansNeo(14, .medium))
-                        .foregroundStyle(Color(hex: "#565656"))
+                        .foregroundStyle(Color.captionNeutral)
                         .padding(.top, 42)
 
                     Group {
@@ -63,7 +63,7 @@ public struct PwInputView: View {
                     // MARK: - 비밀번호 확인
                     Text("비밀번호 확인")
                         .font(.hanSansNeo(14, .medium))
-                        .foregroundStyle(Color(hex: "#565656"))
+                        .foregroundStyle(Color.captionNeutral)
                         .padding(.top, 22)
 
                     Group {

@@ -16,11 +16,11 @@ struct LoginErrorView: View {
                 .frame(width: 80, height: 80)
             Text("로그인 정보가 만료되었습니다.")
                 .font(.hanSansNeo(20, .bold))
-                .foregroundStyle(Color(hex: "#161616"))
+                .foregroundStyle(Color.captionHeavy)
                 .padding(.bottom, 6)
             Text("계속하려면 다시 로그인해 주세요.")
                 .font(.hanSansNeo(14, .medium))
-                .foregroundStyle(Color(hex: "#565656"))
+                .foregroundStyle(Color.captionNeutral)
                 .padding(.bottom, 24)
             Button(action: {
             }) {

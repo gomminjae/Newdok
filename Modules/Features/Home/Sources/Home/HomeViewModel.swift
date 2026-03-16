@@ -60,7 +60,8 @@ public final class CalendarState: ObservableObject {
 }
 
 public enum HomeState {
-    case none
+    case idle
+    case loading
     case guest
     case noSubscriptions
     case noArticles
@@ -73,7 +74,7 @@ public final class HomeViewModel: ObservableObject {
     @Published public var calendarState: CalendarState
     private var cancellables = Set<AnyCancellable>()
     
-    @Published public var isLoaded: Bool = false
+    @Published public var homeState: HomeState = .idle
     @Published public var filteredArticles: [Article] = []
     @Published public var subscribedNewsletters: [Newsletter] = []
     @Published public var articlesByMonth: [Articles] = []
@@ -98,6 +99,8 @@ public final class HomeViewModel: ObservableObject {
             guard let self else { return }
             let snapshot = await useCase.snapshot()
             await MainActor.run {
+                // 이미 loading/loaded 상태면 stale snapshot으로 덮어쓰지 않음
+                guard self.homeState == .idle else { return }
                 self.applySnapshot(snapshot)
             }
         }
@@ -125,11 +128,9 @@ public final class HomeViewModel: ObservableObject {
         })
     }
     
-    public var homeState: HomeState {
+    private func resolveState() -> HomeState {
         if isGuest { return .guest }
-        if !isLoaded { return .none }
         if subscribedNewsletters.isEmpty && filteredArticles.isEmpty { return .noSubscriptions }
-        if subscribedNewsletters.isEmpty && !filteredArticles.isEmpty { return .noSubscriptions }
         if filteredArticles.isEmpty { return .noArticles }
         return .articles
     }
@@ -149,6 +150,7 @@ public final class HomeViewModel: ObservableObject {
     
     // MARK: - Intent Handlers
     public func loadToday() async {
+        if homeState == .idle { homeState = .loading }
         let snapshot = await useCase.loadToday()
         applySnapshot(snapshot)
     }
@@ -214,6 +216,7 @@ public final class HomeViewModel: ObservableObject {
     }
     
     public func resetForAuthChange() async {
+        homeState = .loading
         dataDaysCache.removeAll()
         let snapshot = await useCase.resetForAuthChange()
         applySnapshot(snapshot)
@@ -234,7 +237,9 @@ public final class HomeViewModel: ObservableObject {
             filteredArticles = snapshot.filteredArticles
             subscribedNewsletters = snapshot.subscribedNewsletters
             articlesByMonth = snapshot.articlesByMonth
-            isLoaded = snapshot.isLoaded
+            if snapshot.isLoaded {
+                homeState = resolveState()
+            }
         }
     }
     

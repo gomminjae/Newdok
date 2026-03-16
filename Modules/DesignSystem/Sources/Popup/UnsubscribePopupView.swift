@@ -24,26 +24,26 @@ public struct UnsubscribePopupView: View {
             Image(asset: DesignSystemAsset.warning)
                 .resizable()
                 .frame(width: 80, height: 80)
-                .foregroundColor(Color(hex: "#C4C4C4"))
+                .foregroundColor(Color.grayMedium)
 
             Text("‘\(brandName)’\n구독 중지")
                 .multilineTextAlignment(.center)
                 .font(.hanSansNeo(20, .bold))
-                .foregroundColor(Color(hex: "#161616"))
+                .foregroundColor(Color.captionHeavy)
                 .padding(.bottom, 6)
 
             Text("구독을 중지하면 더이상\n새로운 아티클이 수신되지 않아요.")
                 .multilineTextAlignment(.center)
                 .font(.hanSansNeo(14, .medium))
-                .foregroundColor(Color(hex: "#555555"))
+                .foregroundColor(Color.captionBody)
                 .padding(.bottom, 24)
 
             Text("구독 재개로 언제든 아티클을 다시 받아볼 수 있어요.")
                 .font(.hanSansNeo(12, .medium))
-                .foregroundColor(Color(hex: "#2866D3"))
+                .foregroundColor(Color.primaryNormal)
                 .padding()
                 .frame(maxWidth: .infinity)
-                .background(Color(hex: "#F5F5F5"))
+                .background(Color.bgSecondary)
                 .cornerRadius(6)
                 .padding(.bottom, 24)
 
@@ -51,10 +51,10 @@ public struct UnsubscribePopupView: View {
                 Button(action: onCancel) {
                     Text("취소")
                         .font(.hanSansNeo(14, .bold))
-                        .foregroundColor(Color(hex: "#565656"))
+                        .foregroundColor(Color.captionNeutral)
                         .frame(maxWidth: .infinity, minHeight: 48)
                         .background(Color.white)
-                        .overlay(RoundedRectangle(cornerRadius: 4).stroke(Color(hex: "#EBEBEB")))
+                        .overlay(RoundedRectangle(cornerRadius: 4).stroke(Color.lineNeutral))
                 }
 
                 Button(action: onConfirm) {
@@ -62,7 +62,7 @@ public struct UnsubscribePopupView: View {
                         .font(.hanSansNeo(14, .bold))
                         .foregroundColor(.white)
                         .frame(maxWidth: .infinity, minHeight: 48)
-                        .background(Color(hex: "#2866D3"))
+                        .background(Color.primaryNormal)
                         .cornerRadius(4)
                 }
             }

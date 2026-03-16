@@ -39,7 +39,6 @@ public struct RecoveryView: View {
                       alignment: .topLeading)
         .navigationTitle("")
         .navigationBarBackButtonHidden(true)
-        .enableSwipeBack()
         .toolbar {
             ToolbarItem(placement: .navigationBarLeading) {
                 Button {
@@ -72,7 +71,7 @@ public struct RecoveryView: View {
             GeometryReader { geometry in
                 let width = geometry.size.width / 2
                 Rectangle()
-                    .fill(Color(hex: "#363636"))
+                    .fill(Color.captionStrong)
                     .frame(width: width, height: 2)
                     .offset(x: selectedTab == 0 ? 0 : width)
                     .animation(.easeInOut(duration: 0.3), value: selectedTab)
@@ -88,7 +87,7 @@ public struct RecoveryView: View {
         }) {
             Text(title)
                 .font(.hanSansNeo(14, .bold))
-                .foregroundColor(selectedTab == index ? Color(hex: "#363636") : Color(hex: "#767676"))
+                .foregroundColor(selectedTab == index ? Color.captionStrong : Color.captionAlternative)
                 .frame(maxWidth: .infinity)
                 .padding(.vertical, 12)
         }

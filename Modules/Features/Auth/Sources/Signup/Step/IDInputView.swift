@@ -27,7 +27,7 @@ public struct IDInputView: View {
 
                     Text("아이디")
                         .font(.hanSansNeo(14, .medium))
-                        .foregroundStyle(Color(hex: "#565656"))
+                        .foregroundStyle(Color.captionNeutral)
                         .padding(.top, 42)
                         .padding(.bottom, 8)
 
@@ -43,10 +43,10 @@ public struct IDInputView: View {
                         }
                         .font(.hanSansNeo(14, .bold))
                         .frame(width: 94, height: 48)
-                        .foregroundStyle(viewModel.isIDCheckEnabled ? Color.primaryNormal : Color(hex: "C0C0C0"))
+                        .foregroundStyle(viewModel.isIDCheckEnabled ? Color.primaryNormal : Color.captionDisabled)
                         .overlay {
                             RoundedRectangle(cornerRadius: 4)
-                                .stroke(viewModel.isIDCheckEnabled ? Color.primaryNormal : Color(hex: "C0C0C0"), lineWidth: 1)
+                                .stroke(viewModel.isIDCheckEnabled ? Color.primaryNormal : Color.captionDisabled, lineWidth: 1)
                         }
                         .disabled(!viewModel.isIDCheckEnabled)
                     }
@@ -72,7 +72,7 @@ public struct IDInputView: View {
                     .font(.hanSansNeo(14, .bold))
                     .frame(height: 48)
                     .frame(maxWidth: .infinity)
-                    .background(viewModel.isIDAvailable == true ? Color.primaryNormal : Color(hex: "#EBEBEB"))
+                    .background(viewModel.isIDAvailable == true ? Color.primaryNormal : Color.lineNeutral)
                     .foregroundColor(.white)
                     .cornerRadius(4)
             }

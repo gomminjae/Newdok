@@ -8,86 +8,74 @@
 import SwiftUI
 import UIKit
 
-// MARK: - SwiftUI Swipe Back Gesture
+// MARK: - 시스템 스와이프백 활성화
 public extension View {
-    /// 커스텀 네비게이션 바를 사용하면서도 swipe back 제스처를 활성화합니다.
-    /// - Parameter edgeOnly: true면 화면 왼쪽 가장자리(30pt)에서만 스와이프 백 허용
-    func enableSwipeBack(edgeOnly: Bool = false) -> some View {
-        self.background(SwipeBackEnabler(edgeOnly: edgeOnly))
+    /// navigationBarHidden 상태에서도 시스템 스와이프백 제스처를 활성화합니다.
+    func enableSwipeBack() -> some View {
+        self.background(SystemPopGestureEnabler())
+    }
+
+    /// 스와이프백 제스처를 조건부로 비활성화합니다.
+    func swipeBackDisabled(_ disabled: Bool) -> some View {
+        self.background(PopGestureToggle(disabled: disabled))
     }
 }
 
-// MARK: - Swipe Back Enabler
-private struct SwipeBackEnabler: UIViewControllerRepresentable {
-    let edgeOnly: Bool
-
-    func makeUIViewController(context: Context) -> SwipeBackEnablerVC {
-        SwipeBackEnablerVC(edgeOnly: edgeOnly)
+// MARK: - 시스템 Pop 제스처 활성화 (delegate = nil)
+private struct SystemPopGestureEnabler: UIViewControllerRepresentable {
+    func makeUIViewController(context: Context) -> UIViewController {
+        PopGestureEnablerVC()
     }
+    func updateUIViewController(_ vc: UIViewController, context: Context) {}
+}
 
-    func updateUIViewController(_ uiViewController: SwipeBackEnablerVC, context: Context) {
-        uiViewController.edgeOnly = edgeOnly
+private class PopGestureEnablerVC: UIViewController {
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        guard let nav = navigationController else { return }
+        // delegate를 nil로 설정하면 시스템이 알아서 처리
+        nav.interactivePopGestureRecognizer?.delegate = nil
+        nav.interactivePopGestureRecognizer?.isEnabled = true
     }
 }
 
-private class SwipeBackEnablerVC: UIViewController, UIGestureRecognizerDelegate {
-    var edgeOnly: Bool
+// MARK: - 스와이프백 조건부 비활성화
+private struct PopGestureToggle: UIViewControllerRepresentable {
+    let disabled: Bool
 
-    init(edgeOnly: Bool) {
-        self.edgeOnly = edgeOnly
+    func makeUIViewController(context: Context) -> PopGestureToggleVC {
+        PopGestureToggleVC(disabled: disabled)
+    }
+
+    func updateUIViewController(_ vc: PopGestureToggleVC, context: Context) {
+        vc.disabled = disabled
+        vc.updateGesture()
+    }
+}
+
+private class PopGestureToggleVC: UIViewController {
+    var disabled: Bool
+
+    init(disabled: Bool) {
+        self.disabled = disabled
         super.init(nibName: nil, bundle: nil)
     }
 
     required init?(coder: NSCoder) {
-        self.edgeOnly = false
+        self.disabled = false
         super.init(coder: coder)
-    }
-
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        setupGesture()
     }
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        setupGesture()
+        updateGesture()
     }
 
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        setupGesture()
-    }
-
-    private func setupGesture() {
+    func updateGesture() {
         guard let nav = navigationController else { return }
-
-        if nav.interactivePopGestureRecognizer?.delegate !== self {
-            nav.interactivePopGestureRecognizer?.delegate = self
+        nav.interactivePopGestureRecognizer?.isEnabled = !disabled
+        if #available(iOS 26.0, *) {
+            nav.interactiveContentPopGestureRecognizer?.isEnabled = !disabled
         }
-        nav.interactivePopGestureRecognizer?.isEnabled = true
-    }
-
-    // MARK: - UIGestureRecognizerDelegate
-
-    func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
-        guard let nav = navigationController else { return false }
-
-        // 스택에 2개 이상 있을 때만 pop 허용
-        if nav.viewControllers.count <= 1 {
-            return false
-        }
-
-        // edgeOnly가 true면 화면 왼쪽 가장자리(30pt)에서만 허용
-        if edgeOnly {
-            let location = gestureRecognizer.location(in: gestureRecognizer.view)
-            return location.x < 30
-        }
-
-        return true
-    }
-
-    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer,
-                           shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
-        return false
     }
 }

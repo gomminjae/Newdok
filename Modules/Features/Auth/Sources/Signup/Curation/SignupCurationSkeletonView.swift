@@ -68,12 +68,12 @@ private struct SkeletonBlock: View {
     var body: some View {
         if let width {
             RoundedRectangle(cornerRadius: cornerRadius)
-                .fill(Color(hex: "#F1F2F6"))
+                .fill(Color.bgInput)
                 .frame(width: width, height: height)
                 .signupShimmer()
         } else {
             RoundedRectangle(cornerRadius: cornerRadius)
-                .fill(Color(hex: "#F1F2F6"))
+                .fill(Color.bgInput)
                 .frame(height: height)
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .signupShimmer()
@@ -125,5 +125,5 @@ private extension View {
 #Preview {
     SignupCurationSkeletonView()
         .padding()
-        .background(Color(hex: "#F5F5F7"))
+        .background(Color.bgSystem)
 }

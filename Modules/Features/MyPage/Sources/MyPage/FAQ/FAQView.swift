@@ -167,7 +167,6 @@ public struct FAQView: View {
         }
         .navigationBarBackButtonHidden(true)
         .navigationBarTitleDisplayMode(.inline)
-        .enableSwipeBack()
         .toolbar {
             ToolbarItem(placement: .navigationBarLeading) {
                 Button {
@@ -203,7 +202,7 @@ struct FAQRow: View {
             HStack(alignment: .top, spacing: 8) {
                 Text(faq.question)
                     .font(.hanSansNeo(16, .medium))
-                    .foregroundColor(Color(hex: "#161616"))
+                    .foregroundColor(Color.captionHeavy)
                     .fixedSize(horizontal: false, vertical: true)
                  
                 Spacer()
@@ -233,7 +232,7 @@ struct FAQRow: View {
                 .stroke(
                     isExpanded
                         ? Color.primaryNormal
-                        : Color(hex: "#DADADA"),
+                        : Color.lineAlternative,
                     lineWidth: 1
                 )
                 .background(Color.white.cornerRadius(12))

@@ -29,7 +29,7 @@ public struct PhoneUpdateView: View {
                 VStack(alignment: .leading, spacing: 0) {
                     Text("휴대폰 번호")
                         .font(.hanSansNeo(14, .medium))
-                        .foregroundStyle(Color(hex: "#565656"))
+                        .foregroundStyle(Color.captionNeutral)
                         .padding(.top, 10)
                         .padding(.leading, 28)
                         .padding(.bottom, 8)
@@ -60,7 +60,7 @@ public struct PhoneUpdateView: View {
                         .background(Color.white)
                         .overlay(
                             RoundedRectangle(cornerRadius: 4)
-                                .stroke(isPhoneFieldFocused ? Color.primaryNormal : Color(hex: "#DADADA"), lineWidth: 1)
+                                .stroke(isPhoneFieldFocused ? Color.primaryNormal : Color.lineAlternative, lineWidth: 1)
                         )
 
                         Button(viewModel.isRequestSent ? "재전송" : "인증 요청") {
@@ -76,12 +76,12 @@ public struct PhoneUpdateView: View {
                             }
                         }
                         .font(.hanSansNeo(14, .bold))
-                        .foregroundStyle(viewModel.phoneNumber.count < 11 ? Color(hex: "#BDBDBD") : Color.primaryNormal)
+                        .foregroundStyle(viewModel.phoneNumber.count < 11 ? Color.grayLight : Color.primaryNormal)
                         .disabled(viewModel.phoneNumber.count < 11)
                         .frame(width: 94, height: 48)
                         .overlay(
                             RoundedRectangle(cornerRadius: 4)
-                                .stroke(viewModel.phoneNumber.count < 11 ? Color(hex: "#C0C0C0") : Color.primaryNormal, lineWidth: 1)
+                                .stroke(viewModel.phoneNumber.count < 11 ? Color.captionDisabled : Color.primaryNormal, lineWidth: 1)
                         )
                     }
                     .padding(.horizontal, 24)
@@ -102,20 +102,20 @@ public struct PhoneUpdateView: View {
                                     .focused($isNumberPadFocused)
 
                                 Text(viewModel.timerRemaining > 0 ? formatTime(viewModel.timerRemaining) : "만료됨")
-                                    .foregroundStyle(Color(hex: "#363636"))
+                                    .foregroundStyle(Color.captionStrong)
                                     .font(.hanSansNeo(12, .medium))
                                     .padding(.trailing, 10)
                             }
                             .background(viewModel.showError || viewModel.timerRemaining <= 0 ? Color.red.opacity(0.1) : .white)
                             .overlay(
                                 RoundedRectangle(cornerRadius: 4)
-                                    .stroke(viewModel.showError || viewModel.timerRemaining <= 0 ? .red : (isNumberPadFocused ? Color.primaryNormal : Color(hex: "EBEBEB")), lineWidth: 1)
+                                    .stroke(viewModel.showError || viewModel.timerRemaining <= 0 ? .red : (isNumberPadFocused ? Color.primaryNormal : Color.lineNeutral), lineWidth: 1)
                             )
                             .padding(.horizontal, 24)
  
                             Text(viewModel.timerRemaining <= 0 ? "인증번호가 만료되었습니다. 재전송해주세요." : (viewModel.showError ? "인증번호를 다시 확인해주세요." : "문자가 오지 않는다면 '재전송'을 눌러주세요."))
                                 .font(.hanSansNeo(12, .medium))
-                                .foregroundStyle(viewModel.timerRemaining <= 0 || viewModel.showError ? .red : Color(hex: "555555"))
+                                .foregroundStyle(viewModel.timerRemaining <= 0 || viewModel.showError ? .red : Color.captionBody)
                                 .padding(.leading, 24)
                                 .padding(.top, 6)
                         }
@@ -125,7 +125,6 @@ public struct PhoneUpdateView: View {
                 }
             }
             .navigationBarBackButtonHidden(true)
-            .enableSwipeBack()
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
                     Button {
@@ -197,7 +196,7 @@ public struct PhoneUpdateView: View {
                 .position(.center)
                 .animation(.easeInOut)
                 .closeOnTapOutside(true)
-                .backgroundColor(Color(hex: "#25242C").opacity(0.6))
+                .backgroundColor(Color.bgPopupDim.opacity(0.6))
         }
     }
 

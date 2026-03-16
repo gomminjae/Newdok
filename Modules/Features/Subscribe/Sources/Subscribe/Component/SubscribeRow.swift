@@ -51,23 +51,23 @@ public struct SubscribeRow: View {
                         .clipShape(RoundedRectangle(cornerRadius: 10))
                         .overlay(
                             RoundedRectangle(cornerRadius: 10)
-                                .stroke(Color(hex: "#EBEBEB"), lineWidth: 1)
+                                .stroke(Color.lineNeutral, lineWidth: 1)
                         )
 
                     VStack(alignment: .leading, spacing: 4) {
                         Text(newsletter.brandName)
                             .font(.hanSansNeo(14, .bold))
-                            .foregroundColor(Color(hex: "#161616"))
+                            .foregroundColor(Color.captionHeavy)
 
                         HStack(spacing: 4) {
                             Image(asset: DesignSystemAsset.lineClock)
                                 .renderingMode(.template)
                                 .resizable()
                                 .frame(width: 20, height: 20)
-                                .foregroundColor(Color(hex: "#969696"))
+                                .foregroundColor(Color.captionAssistive)
                             Text(newsletter.publicationCycle ?? "")
                                 .font(.hanSansNeo(12, .medium))
-                                .foregroundColor(Color(hex: "#969696"))
+                                .foregroundColor(Color.captionAssistive)
                         }
                     }
                 }
@@ -84,14 +84,14 @@ public struct SubscribeRow: View {
             }) {
                 Text(isSubscribed ? "구독중지" : "구독재개")
                     .font(.hanSansNeo(13, .medium))
-                    .foregroundColor(isSubscribed ? Color(hex: "#565656") : Color.primaryNormal)
+                    .foregroundColor(isSubscribed ? Color.captionNeutral : Color.primaryNormal)
                     .padding(.horizontal, 12)
                     .padding(.vertical, 6)
                     .background(Color.white)
                     .clipShape(RoundedRectangle(cornerRadius: 4))
                     .overlay(
                         RoundedRectangle(cornerRadius: 4)
-                            .stroke(isSubscribed ? Color(hex: "#EBEBEB") : Color.primaryNormal, lineWidth: 1)
+                            .stroke(isSubscribed ? Color.lineNeutral : Color.primaryNormal, lineWidth: 1)
                     )
             }
         }
@@ -101,7 +101,7 @@ public struct SubscribeRow: View {
         .clipShape(RoundedRectangle(cornerRadius: 12))
         .overlay(
             RoundedRectangle(cornerRadius: 12)
-                .stroke(Color(hex: "#EBEBEB"), lineWidth: 1)
+                .stroke(Color.lineNeutral, lineWidth: 1)
         )
         .shadow(color: Color.black.opacity(0.02), radius: 1, y: 1)
     }

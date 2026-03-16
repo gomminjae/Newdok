@@ -89,7 +89,6 @@ public struct SearchResultView: View {
 
         .navigationBarBackButtonHidden(true)
         .navigationBarHidden(true)
-        .enableSwipeBack()
         .background(Color.gray.opacity(0.05).ignoresSafeArea())
         .onReceive(NotificationCenter.default.publisher(for: .didReceiveUnauthorized)) { _ in
             // 로그아웃 시 검색 결과 초기화
@@ -111,7 +110,7 @@ extension SearchResultView {
                 .padding(.top, 8)
             Text("찾는 뉴스레터가 없다면 등록을 요청해보세요.")
                 .font(.hanSansNeo(14, .medium))
-                .foregroundColor(Color(hex: "#565656"))
+                .foregroundColor(Color.captionNeutral)
             Button(action: {
                 router.push(.feedback)
             }) {

@@ -16,11 +16,11 @@ struct UpdateView: View {
                 .frame(width: 80, height: 80)
             Text("최신 버전 업데이트가 있습니다.")
                 .font(.hanSansNeo(20, .bold))
-                .foregroundStyle(Color(hex: "#161616"))
+                .foregroundStyle(Color.captionHeavy)
                 .padding(.bottom, 6)
             Text("안정적인 서비스 사용을 위해\n최신 버전으로 업데이트를 진행해 주세요.")
                 .font(.hanSansNeo(14, .medium))
-                .foregroundStyle(Color(hex: "#565656"))
+                .foregroundStyle(Color.captionNeutral)
                 .padding(.bottom, 24)
                 .multilineTextAlignment(.center)
             Button(action: {

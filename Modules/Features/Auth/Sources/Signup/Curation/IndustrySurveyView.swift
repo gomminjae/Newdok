@@ -37,7 +37,7 @@ public struct InterestSelectionView: View {
 
             Text("취향에 맞는 뉴스레터를 추천해드려요.")
                 .font(.hanSansNeo(14, .medium))
-                .foregroundColor(Color(hex: "#565656"))
+                .foregroundColor(Color.captionNeutral)
                 .padding(.top, 8)
 
             ScrollView {
@@ -73,10 +73,10 @@ public struct InterestSelectionView: View {
                 .frame(height: 48)
                 .background(
                     viewModel.isCurationLoading
-                        ? Color(hex: "#D4E0F6")
-                        : (viewModel.selectedInterests.count >= 3 ? Color(hex: "#2866D3") : Color(hex: "EBEBEB"))
+                        ? Color.primaryBgSubtle
+                        : (viewModel.selectedInterests.count >= 3 ? Color.primaryNormal : Color.lineNeutral)
                 )
-                .foregroundColor(viewModel.selectedInterests.count >= 3 ? .white : Color(hex: "BDBDBD"))
+                .foregroundColor(viewModel.selectedInterests.count >= 3 ? .white : Color.grayLight)
                 .cornerRadius(4)
             }
             .disabled(viewModel.selectedInterests.count < 3 || viewModel.isCurationLoading)
@@ -96,14 +96,14 @@ struct InterestButton: View {
         Button(action: action) {
             Text(title)
                 .font(.hanSansNeo(14, .medium))
-                .foregroundColor(isSelected ? .primaryNormal : Color(hex: "#565656"))
+                .foregroundColor(isSelected ? .primaryNormal : Color.captionNeutral)
                 .padding(.vertical, 12)
                 .frame(maxWidth: .infinity)
                 .frame(height: 48)
                 .background(Color.white)
                 .overlay(
                     RoundedRectangle(cornerRadius: 4)
-                        .stroke(isSelected ? Color(hex: "#2866D3") : Color.gray.opacity(0.3), lineWidth: 1)
+                        .stroke(isSelected ? Color.primaryNormal : Color.gray.opacity(0.3), lineWidth: 1)
                 )
         }
     }

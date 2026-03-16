@@ -30,7 +30,7 @@ public struct ToastView: View {
         .padding(.horizontal, 16)
         .frame(maxWidth: .infinity)
         .frame(height: 56)
-        .background(Color(hex: "#2866D3"))
+        .background(Color.primaryNormal)
         .cornerRadius(8)
         .padding(.horizontal, 24)
     }

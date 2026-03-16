@@ -32,7 +32,7 @@ public struct AuthFailView: View {
                 .frame(maxWidth: .infinity)
                 .frame(height: 48)
                 .foregroundStyle(Color.white)
-                .background(Color(hex: "2866D3"))
+                .background(Color.primaryNormal)
                 .cornerRadius(4)
                 .padding(.horizontal, 20)
                 .padding(.bottom, 28)

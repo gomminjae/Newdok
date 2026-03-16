@@ -18,12 +18,12 @@ struct BookmarkEmptyView: View {
             
             Text("저장한 아티클이 없어요.")
                 .font(.hanSansNeo(16, .bold))
-                .foregroundStyle(Color(hex: "#161616"))
+                .foregroundStyle(Color.captionHeavy)
                 .padding(.bottom, 4)
             
             Text("북마크를 눌러 다시 보고싶은 아티클을 저장해보세요.")
                 .font(.hanSansNeo(14, .medium))
-                .foregroundStyle(Color(hex: "#565656"))
+                .foregroundStyle(Color.captionNeutral)
             Spacer()
         }
         .background(.clear)

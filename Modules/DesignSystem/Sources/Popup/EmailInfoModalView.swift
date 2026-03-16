@@ -18,13 +18,13 @@ public struct EmailInfoModalView: View {
             VStack(alignment: .leading, spacing: 0) {
                 Text("구독 이메일")
                     .font(.hanSansNeo(20, .bold))
-                    .foregroundStyle(Color(hex: "#161616"))
+                    .foregroundStyle(Color.captionHeavy)
                     .padding(.top, 24)
                     .padding(.leading, 20)
                 
                 Text("회원가입 시 자동으로 생성되는\n뉴스레터 구독을 위한 이메일 주소예요.")
                     .font(.hanSansNeo(14, .medium))
-                    .foregroundColor(Color(hex: "#161616"))
+                    .foregroundColor(Color.captionHeavy)
                     .padding(.top, 8)
                     .padding(.leading, 20)
                 
@@ -36,12 +36,12 @@ public struct EmailInfoModalView: View {
                         메일을 보내는 것이 불가능해요.
                         """)
                         .font(.hanSansNeo(12, .medium))
-                        .foregroundColor(Color(hex: "#2866D3"))
+                        .foregroundColor(Color.primaryNormal)
                         .multilineTextAlignment(.leading)
                         .padding(16)
                 }
                 .frame(maxWidth: .infinity, alignment: .leading)
-                .background(Color(hex: "#F5F5F5"))
+                .background(Color.bgSecondary)
                 .cornerRadius(6)
                 .padding(.leading, 20)
                 .padding(.trailing, 20)
@@ -54,7 +54,7 @@ public struct EmailInfoModalView: View {
                         .font(.hanSansNeo(14, .bold))
                         .foregroundColor(.white)
                         .frame(maxWidth: .infinity, minHeight: 48)
-                        .background(Color(hex: "#2866D3"))
+                        .background(Color.primaryNormal)
                         .cornerRadius(4)
                 }
                 .padding(.leading, 20)

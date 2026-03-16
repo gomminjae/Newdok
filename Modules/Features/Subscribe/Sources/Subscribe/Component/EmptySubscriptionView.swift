@@ -32,7 +32,7 @@ public struct EmptySubscriptionView: View {
 
             Text(isSubscribedTab ? "구독 중인 뉴스레터가 없어요." : "구독을 중지한 뉴스레터가 없어요.")
                 .font(.hanSansNeo(16, .bold))
-                .foregroundColor(Color(hex: "#161616"))
+                .foregroundColor(Color.captionHeavy)
                 .padding(.bottom, 4)
             
             if isGuest {
@@ -47,7 +47,7 @@ public struct EmptySubscriptionView: View {
                         .padding(.trailing, 4)
                     Text("후 뉴스레터를 구독해 보세요.")
                         .font(.hanSansNeo(14, .medium))
-                        .foregroundColor(Color(hex: "#565656"))
+                        .foregroundColor(Color.captionNeutral)
                 }
             } else {
                 Text(isSubscribedTab ?
@@ -55,11 +55,11 @@ public struct EmptySubscriptionView: View {
                         "구독 중지 후에도 언제든 아티클을 다시 받아볼 수 있어요.")
                 .multilineTextAlignment(.center)
                 .font(.hanSansNeo(14, .medium))
-                .foregroundColor(Color(hex: "#565656"))
+                .foregroundColor(Color.captionNeutral)
             }
             Spacer()
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .background(Color(hex: "#F5F5F7"))
+        .background(Color.bgSystem)
     }
 }

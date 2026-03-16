@@ -57,11 +57,11 @@ public struct ExploreView: View {
                                 ScrollView(showsIndicators: false) {
                                     recommendationSection
                                 }
-                                .background(Color(hex: "#F5F5F7"))
+                                .background(Color.bgSystem)
                             }
                         } else if viewModel.selectedTab == 1 {
                             allNewsletterSection
-                                .background(Color(hex: "#F5F5F7"))
+                                .background(Color.bgSystem)
                         }
                     }
                     .padding(.bottom, 0)
@@ -156,7 +156,7 @@ public struct ExploreView: View {
         HStack {
             Text("둘러보기")
                 .font(.hanSansNeo(18, .bold))
-                .foregroundStyle(Color(hex: "161616"))
+                .foregroundStyle(Color.captionHeavy)
             Spacer()
             Button {
                 router.push(.search)
@@ -190,7 +190,7 @@ public struct ExploreView: View {
             GeometryReader { geometry in
                 let width = geometry.size.width / 2
                 Rectangle()
-                    .fill(Color(hex: "#363636"))
+                    .fill(Color.captionStrong)
                     .frame(width: width, height: 2)
                     .offset(x: viewModel.selectedTab == 0 ? 0 : width)
                     .animation(.easeInOut(duration: 0.3), value: viewModel.selectedTab)
@@ -211,12 +211,12 @@ public struct ExploreView: View {
 
                 Text("프로필을 등록해 주세요.")
                     .font(.hanSansNeo(16, .bold))
-                    .foregroundStyle(Color(hex: "#161616"))
+                    .foregroundStyle(Color.captionHeavy)
                     .padding(.bottom, 4)
 
                 Text("\(nickname)님만을 위한 뉴스레터를 찾아드릴게요!")
                     .font(.hanSansNeo(14, .medium))
-                    .foregroundStyle(Color(hex: "#555555"))
+                    .foregroundStyle(Color.captionBody)
                     .padding(.bottom, 24)
 
                 Button(action: {
@@ -236,7 +236,7 @@ public struct ExploreView: View {
             Spacer()
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .background(Color(hex: "#F5F5F7"))
+        .background(Color.bgSystem)
     }
     
     private var guestSection: some View {
@@ -249,7 +249,7 @@ public struct ExploreView: View {
             Text("회원이 되면 뉴스레터를\n간편하게 모아볼 수 있어요!")
                 .font(.hanSansNeo(16, .bold))
                 .multilineTextAlignment(.center)
-                .foregroundStyle(Color(hex: "161616"))
+                .foregroundStyle(Color.captionHeavy)
                 .padding(.bottom, 24)
             
             Button(action: {
@@ -268,7 +268,7 @@ public struct ExploreView: View {
             HStack {
                 Text("이미 계정이 있나요?")
                     .font(.hanSansNeo(14, .medium))
-                    .foregroundStyle(Color(hex: "555555"))
+                    .foregroundStyle(Color.captionBody)
                 Text("로그인")
                     .font(.hanSansNeo(14, .medium))
                     .foregroundStyle(Color.primaryNormal)
@@ -279,7 +279,7 @@ public struct ExploreView: View {
             }
             Spacer()
         }
-        .background(Color(hex: "#F5F5F7"))
+        .background(Color.bgSystem)
     }
 
     private var recommendationSection: some View {
@@ -347,10 +347,10 @@ public struct ExploreView: View {
                         HStack(spacing: 4) {
                             Text(viewModel.orderOpt ?? "인기순")
                                 .font(.hanSansNeo(14, .medium))
-                                .foregroundStyle(Color(hex: "#363636"))
+                                .foregroundStyle(Color.captionStrong)
                             Image(systemName: "arrow.up.arrow.down")
                                 .font(.system(size: 12))
-                                .foregroundStyle(Color(hex: "#363636"))
+                                .foregroundStyle(Color.captionStrong)
                         }
                         .padding(.horizontal, 12)
                         .padding(.vertical, 8)
@@ -360,13 +360,13 @@ public struct ExploreView: View {
                         )
                         .overlay(
                             RoundedRectangle(cornerRadius: 20)
-                                .strokeBorder(Color(hex: "EBEBEB"), lineWidth: 1)
+                                .strokeBorder(Color.lineNeutral, lineWidth: 1)
                         )
                     }
                     .buttonStyle(PlainButtonStyle())
                     Rectangle()
                         .frame(width: 1, height: 20)
-                        .foregroundColor(Color(hex: "EBEBEB"))
+                        .foregroundColor(Color.lineNeutral)
 
                     // 산업 필터
                     Button(action: {
@@ -375,12 +375,12 @@ public struct ExploreView: View {
                         HStack(spacing: 4) {
                             Text(industryText)
                                 .font(.hanSansNeo(14, .medium))
-                                .foregroundStyle(viewModel.industry != nil ? Color.primaryNormal : Color(hex: "969696"))
+                                .foregroundStyle(viewModel.industry != nil ? Color.primaryNormal : Color.captionAssistive)
                             Image(asset: DesignSystemAsset.lineDown)
                                 .renderingMode(.template)
                                 .resizable()
                                 .frame(width: 20, height: 20)
-                                .foregroundStyle(viewModel.industry != nil ? Color.primaryNormal : Color(hex: "969696"))
+                                .foregroundStyle(viewModel.industry != nil ? Color.primaryNormal : Color.captionAssistive)
                         }
                         .padding(.horizontal, 12)
                         .padding(.vertical, 8)
@@ -390,7 +390,7 @@ public struct ExploreView: View {
                         )
                         .overlay(
                             RoundedRectangle(cornerRadius: 20)
-                                .strokeBorder(viewModel.industry != nil ? Color.primaryNormal : Color(hex: "EBEBEB"), lineWidth: 1)
+                                .strokeBorder(viewModel.industry != nil ? Color.primaryNormal : Color.lineNeutral, lineWidth: 1)
                         )
                     }
                     .buttonStyle(PlainButtonStyle())
@@ -402,12 +402,12 @@ public struct ExploreView: View {
                         HStack(spacing: 4) {
                             Text(dayText)
                                 .font(.hanSansNeo(14, .medium))
-                                .foregroundStyle(viewModel.day != nil ? Color.primaryNormal : Color(hex: "969696"))
+                                .foregroundStyle(viewModel.day != nil ? Color.primaryNormal : Color.captionAssistive)
                             Image(asset: DesignSystemAsset.lineDown)
                                 .renderingMode(.template)
                                 .resizable()
                                 .frame(width: 20, height: 20)
-                                .foregroundStyle(viewModel.day != nil ? Color.primaryNormal : Color(hex: "969696"))
+                                .foregroundStyle(viewModel.day != nil ? Color.primaryNormal : Color.captionAssistive)
                         }
                         .padding(.horizontal, 12)
                         .padding(.vertical, 8)
@@ -417,7 +417,7 @@ public struct ExploreView: View {
                         )
                         .overlay(
                             RoundedRectangle(cornerRadius: 20)
-                                .strokeBorder(viewModel.day != nil ? Color.primaryNormal : Color(hex: "EBEBEB"), lineWidth: 1)
+                                .strokeBorder(viewModel.day != nil ? Color.primaryNormal : Color.lineNeutral, lineWidth: 1)
                         )
                     }
                     .buttonStyle(PlainButtonStyle())
@@ -537,7 +537,7 @@ public struct ExploreView: View {
         }) {
             Text(title)
                 .font(.hanSansNeo(14, .bold))
-                .foregroundColor(viewModel.selectedTab == index ? Color(hex: "#363636") : Color(hex: "#767676"))
+                .foregroundColor(viewModel.selectedTab == index ? Color.captionStrong : Color.captionAlternative)
                 .frame(maxWidth: .infinity)
                 .padding(.vertical, 12)
         }
@@ -667,7 +667,7 @@ struct PagingScrollView: View {
                             Circle()
                                 .fill(idx == (currentPage % indicatorCount)
                                       ? Color.primaryNormal
-                                      : Color(hex: "#CCDFFF"))
+                                      : Color.primaryBgMuted)
                                 .frame(width: 6, height: 6)
                         }
                     }

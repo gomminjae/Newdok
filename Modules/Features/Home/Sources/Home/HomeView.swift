@@ -30,22 +30,29 @@ public struct HomeView: View {
         VStack(spacing: 0) {
             headerView
 
-            PullToRefreshView(
-                threshold: 120,
-                cooldownInterval: 3.0,
-                content: {
-                    dateBarView
-                    contentView
-                },
-                animationView: {
-                    AnyView(LoadingView())
-                },
-                onRefresh: {
-                    await viewModel.refreshToToday()
-                }
-            )
+            if viewModel.homeState == .idle || viewModel.homeState == .loading {
+                Spacer()
+                ProgressView()
+                    .tint(Color.primaryNormal)
+                Spacer()
+            } else {
+                PullToRefreshView(
+                    threshold: 120,
+                    cooldownInterval: 3.0,
+                    content: {
+                        dateBarView
+                        contentView
+                    },
+                    animationView: {
+                        AnyView(LoadingView())
+                    },
+                    onRefresh: {
+                        await viewModel.refreshToToday()
+                    }
+                )
+            }
         }
-        .background(Color(hex: "F5F5F7").ignoresSafeArea())
+        .background(Color.bgSystem.ignoresSafeArea())
         .popup(isPresented: $showCalendar) {
                 CalendarPopupView(
                     isPresented: $showCalendar,
@@ -68,7 +75,7 @@ public struct HomeView: View {
                   .closeOnTap(false)
                   .closeOnTapOutside(true)
                   .allowTapThroughBG(false)
-                  .backgroundColor(Color(hex: "#25242C").opacity(0.6))
+                  .backgroundColor(Color.bgPopupDim.opacity(0.6))
             }
             .navigationBarHidden(true)
             .onAppear {
@@ -128,7 +135,7 @@ public struct HomeView: View {
         }
         .padding(.horizontal, 20)
         .padding(.vertical, 17)
-        .background(Color(hex: "#F5F5F7"))
+        .background(Color.bgSystem)
     }
 
     // MARK: — 날짜 바
@@ -136,7 +143,7 @@ public struct HomeView: View {
         HStack(spacing: 0) {
             Text(viewModel.formattedDate)
                 .font(.hanSansNeo(16, .bold))
-                .foregroundStyle(Color(hex: "#363636"))
+                .foregroundStyle(Color.captionStrong)
                 .padding(.leading, 24)
 
             Spacer()
@@ -170,7 +177,7 @@ public struct HomeView: View {
     @ViewBuilder
     private var contentView: some View {
         switch viewModel.homeState {
-        case .none:
+        case .idle, .loading:
             EmptyView()
         case .guest:
             NoDataView(

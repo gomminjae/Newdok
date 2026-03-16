@@ -38,7 +38,7 @@ struct DropdownRow: View {
         }
         .frame(height: 48)
         .padding(.horizontal, 16)
-        .background(isSelected ? Color(hex: "#E9EFFA") : Color.clear)
+        .background(isSelected ? Color.primaryBgLight : Color.clear)
     }
 }
 
@@ -63,7 +63,7 @@ struct Dropdown: View {
         .padding(.vertical, 8)
         .background(Color.white)
         .cornerRadius(4)
-        .shadow(color: Color(hex: "#191919").opacity(0.12), radius: 20, x: 0, y: 0)
+        .shadow(color: Color.captionDark.opacity(0.12), radius: 20, x: 0, y: 0)
         // 보더 제거하고 그림자 추가
     }
 }
@@ -105,14 +105,14 @@ struct DropdownSelector: View {
                 Spacer()
 
                 Image(asset: self.shouldShowDropdown ? DesignSystemAsset.lineUp : DesignSystemAsset.lineDown)
-                    .foregroundColor(Color(hex: "#363636"))
+                    .foregroundColor(Color.captionStrong)
             }
         }
         .frame(height: 48)
         .padding(.horizontal)
         .overlay(
             RoundedRectangle(cornerRadius: 4)
-                .stroke(shouldShowDropdown ? Color.primaryNormal : Color(hex: "#DADADA"), lineWidth: 1)
+                .stroke(shouldShowDropdown ? Color.primaryNormal : Color.lineAlternative, lineWidth: 1)
         )
         .overlay(
             VStack {

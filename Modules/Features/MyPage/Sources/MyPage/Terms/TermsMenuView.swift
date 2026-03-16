@@ -22,7 +22,7 @@ public struct TermsMenuView: View {
             } label: {
                 HStack {
                     Text("서비스 이용약관")
-                        .foregroundColor(Color(hex: "#363636"))
+                        .foregroundColor(Color.captionStrong)
                         .font(.hanSansNeo(16, .medium))
                     Spacer()
                     Image(systemName: "chevron.right")
@@ -38,7 +38,7 @@ public struct TermsMenuView: View {
             } label: {
                 HStack {
                     Text("개인정보 처리방침")
-                        .foregroundColor(Color(hex: "#363636"))
+                        .foregroundColor(Color.captionStrong)
                         .font(.hanSansNeo(16, .medium))
                     Spacer()
                     Image(systemName: "chevron.right")
@@ -52,7 +52,6 @@ public struct TermsMenuView: View {
         }
         .navigationBarBackButtonHidden(true)
         .navigationBarTitleDisplayMode(.inline)
-        .enableSwipeBack()
         .toolbar {
             ToolbarItem(placement: .navigationBarLeading) {
                 Button {
@@ -88,7 +87,6 @@ public struct WebLinkView: View {
             .ignoresSafeArea(edges: .bottom)
             .navigationBarBackButtonHidden(true)
             .navigationBarTitleDisplayMode(.inline)
-            .enableSwipeBack()
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
                     Button(action: {

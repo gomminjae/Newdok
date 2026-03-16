@@ -61,25 +61,25 @@ struct CurationRow: View {
                 }) {
                     Text("구독하기")
                         .font(.hanSansNeo(13, .bold))
-                        .foregroundStyle(Color(hex: "#2866D3"))
+                        .foregroundStyle(Color.primaryNormal)
                         .frame(width: 80, height: 32)
                         .background(Color.white)
                         .overlay(
                             RoundedRectangle(cornerRadius: 4)
-                                .stroke(Color(hex: "#2866D3"), lineWidth: 1)
+                                .stroke(Color.primaryNormal, lineWidth: 1)
                         )
                 }
             }
             .padding(.horizontal, 16)
             .padding(.top, 16)
             .padding(.bottom, 12)
-            .background(Color(hex: "#F7F7F7"))
+            .background(Color.grayBg)
 
             // 🔹 하단 흰 배경 영역
             VStack(alignment: .leading, spacing: 12) {
                 Text(brand?.description ?? "핵심만 꾹꾹 눌러 담은 세상 돌아가는 이야기")
                     .font(.hanSansNeo(14, .medium))
-                    .foregroundStyle(Color(hex: "#363636"))
+                    .foregroundStyle(Color.captionStrong)
 
                 HStack(spacing: 8) {
                     ForEach(brand?.interests.prefix(3) ?? [], id: \.id) { interest in
@@ -95,7 +95,7 @@ struct CurationRow: View {
         .cornerRadius(12)
         .overlay(
             RoundedRectangle(cornerRadius: 12)
-                .stroke(Color(hex: "#EBEBEB"), lineWidth: 1)
+                .stroke(Color.lineNeutral, lineWidth: 1)
         )
         .sheet(isPresented: $showSubscribeSheet) {
             SubscribeModalView(title: brand?.name ?? "", url: brand?.subscribeUrl ?? "")
@@ -113,13 +113,13 @@ struct TagView: View {
     var body: some View {
         Text(text)
             .font(.hanSansNeo(12))
-            .foregroundStyle(Color(hex: "#363636"))
+            .foregroundStyle(Color.captionStrong)
             .padding(.horizontal, 10)
             .padding(.vertical, 6)
             .background(Color.white)
             .overlay(
                 RoundedRectangle(cornerRadius: 16)
-                    .stroke(Color(hex: "#EBEBEB"), lineWidth: 1)
+                    .stroke(Color.lineNeutral, lineWidth: 1)
             )
     }
 }

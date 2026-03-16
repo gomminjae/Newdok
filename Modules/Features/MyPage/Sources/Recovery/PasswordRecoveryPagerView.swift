@@ -44,13 +44,13 @@ struct PasswordRecoveryIdInputView: View {
                     .padding(.top, 24)
                 Text("아이디")
                     .font(.hanSansNeo(14, .medium))
-                    .foregroundStyle(Color(hex: "#565656"))
+                    .foregroundStyle(Color.captionNeutral)
                     .padding(.top, 42)
                     .padding(.bottom, 8)
                 HStack {
                     Image(asset: DesignSystemAsset.lineUser)
                         .renderingMode(.template)
-                        .foregroundStyle(isFieldFocused ? Color(hex: "363636") : Color(hex: "969696"))
+                        .foregroundStyle(isFieldFocused ? Color.captionStrong : Color.captionAssistive)
                     TextField("아이디를 입력해주세요", text: $viewModel.recoveryId)
                         .font(.hanSansNeo(14, .medium))
                         .focused($isFieldFocused)
@@ -61,7 +61,7 @@ struct PasswordRecoveryIdInputView: View {
                 .background(Color.white)
                 .overlay(
                     RoundedRectangle(cornerRadius: 4)
-                        .stroke(isFieldFocused ? Color.primaryNormal : Color(hex: "#DADADA"), lineWidth: 1)
+                        .stroke(isFieldFocused ? Color.primaryNormal : Color.lineAlternative, lineWidth: 1)
                 )
                 if let error = error {
                     Text(error).foregroundColor(.red).font(.hanSansNeo(14, .medium))
@@ -87,7 +87,7 @@ struct PasswordRecoveryIdInputView: View {
                     .font(.hanSansNeo(16, .bold))
                     .foregroundColor(.white)
                     .frame(maxWidth: .infinity, minHeight: 48)
-                    .background(viewModel.recoveryId.isEmpty ? Color(hex: "#EBEBEB") : Color.primaryNormal)
+                    .background(viewModel.recoveryId.isEmpty ? Color.lineNeutral : Color.primaryNormal)
                     .cornerRadius(4)
             }
             .disabled(viewModel.recoveryId.isEmpty)
@@ -137,7 +137,7 @@ struct PasswordRecoveryPhoneView: View {
                     .padding(.top, 24)
                 Text("인증번호")
                     .font(.hanSansNeo(14, .medium))
-                    .foregroundStyle(Color(hex: "#565656"))
+                    .foregroundStyle(Color.captionNeutral)
                     .padding(.top, 42)
                     .padding(.bottom, 8)
                 HStack {
@@ -146,17 +146,17 @@ struct PasswordRecoveryPhoneView: View {
                         .font(.hanSansNeo(14, .medium))
                         .focused($isNumberPadFocused)
                     Text(mmss(viewModel.timerRemaining))
-                        .foregroundStyle(Color(hex: "#363636"))
+                        .foregroundStyle(Color.captionStrong)
                         .font(.hanSansNeo(12, .medium))
                         .padding(.trailing, 10)
                 }
                 .padding(.horizontal, 16)
                 .frame(height: 50)
-                .background(error != nil ? Color(hex: "#FEE6E6") : Color.white)
+                .background(error != nil ? Color.errorBg : Color.white)
                 .overlay(
                     RoundedRectangle(cornerRadius: 4).stroke(
                         error != nil ? .red :
-                        (isNumberPadFocused ? Color.primaryNormal : Color(hex: "#DADADA")),
+                        (isNumberPadFocused ? Color.primaryNormal : Color.lineAlternative),
                         lineWidth: 1
                     )
                 )
@@ -185,7 +185,7 @@ struct PasswordRecoveryPhoneView: View {
                     HStack(spacing: 0) {
                         Text("재전송은 3회까지만 가능해요. ")
                             .font(.hanSansNeo(12, .medium))
-                            .foregroundColor(Color(hex: "#565656"))
+                            .foregroundColor(Color.captionNeutral)
                         Button {
                             Task {
                                 await viewModel.sendRecoveryCode(isResend: true)
@@ -217,7 +217,7 @@ struct PasswordRecoveryPhoneView: View {
                     .font(.hanSansNeo(16, .bold))
                     .foregroundColor(.white)
                     .frame(maxWidth: .infinity, minHeight: 48)
-                    .background(viewModel.recoveryCode.isEmpty ? Color(hex: "#EBEBEB") : Color.primaryNormal)
+                    .background(viewModel.recoveryCode.isEmpty ? Color.lineNeutral : Color.primaryNormal)
                     .cornerRadius(4)
             }
             .disabled(viewModel.recoveryCode.isEmpty)
@@ -279,7 +279,7 @@ struct PasswordRecoveryNewPasswordView: View {
                 
                 Text("비밀번호")
                     .font(.hanSansNeo(14, .medium))
-                    .foregroundStyle(Color(hex: "#565656"))
+                    .foregroundStyle(Color.captionNeutral)
                     .padding(.top, 42)
                     .padding(.bottom, 8)
                 
@@ -308,7 +308,7 @@ struct PasswordRecoveryNewPasswordView: View {
                 
                 Text("비밀번호 확인")
                     .font(.hanSansNeo(14, .medium))
-                    .foregroundStyle(Color(hex: "#565656"))
+                    .foregroundStyle(Color.captionNeutral)
                     .padding(.top, 30)
                     .padding(.bottom, 8)
                 
@@ -357,7 +357,7 @@ struct PasswordRecoveryNewPasswordView: View {
                     .font(.hanSansNeo(16, .bold))
                     .foregroundColor(.white)
                     .frame(maxWidth: .infinity, minHeight: 48)
-                    .background(isPasswordValid && isPasswordMatch ? Color.primaryNormal : Color(hex: "#EBEBEB"))
+                    .background(isPasswordValid && isPasswordMatch ? Color.primaryNormal : Color.lineNeutral)
                     .cornerRadius(4)
             }
             .disabled(!isPasswordValid || !isPasswordMatch)

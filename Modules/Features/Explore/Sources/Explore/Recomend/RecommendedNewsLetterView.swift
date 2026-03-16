@@ -31,7 +31,7 @@ struct RecommendedNewsLetterView: View {
                     .font(.hanSansNeo(16, .bold))
                     .padding(.top, 16)
                     .padding(.bottom, 8)
-                    .foregroundStyle(Color(hex: "#161616"))
+                    .foregroundStyle(Color.captionHeavy)
 
                 Text(recommendation.firstDescription)
                     .font(.hanSansNeo(14, .medium))
@@ -39,7 +39,7 @@ struct RecommendedNewsLetterView: View {
                     .truncationMode(.tail)
                     .frame(height: 40, alignment: .top)
                     .padding(.bottom, 12)
-                    .foregroundStyle(Color(hex: "#565656"))
+                    .foregroundStyle(Color.captionNeutral)
 
                 ScrollView(.horizontal, showsIndicators: false) {
                     HStack(spacing: 6) {
@@ -59,7 +59,7 @@ struct RecommendedNewsLetterView: View {
         .clipShape(RoundedRectangle(cornerRadius: 12))
         .overlay(
             RoundedRectangle(cornerRadius: 12)
-                .stroke(Color(hex: "#EBEBEB"), lineWidth: 1)
+                .stroke(Color.lineNeutral, lineWidth: 1)
         )
     }
 }
@@ -70,13 +70,13 @@ struct TagView: View {
     var body: some View {
         Text(text)
             .font(.hanSansNeo(12))
-            .foregroundStyle(Color(hex: "#363636"))
+            .foregroundStyle(Color.captionStrong)
             .padding(.horizontal, 10)
             .padding(.vertical, 6)
             .background(Color.white)
             .overlay(
                 RoundedRectangle(cornerRadius: 16)
-                    .strokeBorder(Color(hex: "#EBEBEB"), lineWidth: 1)
+                    .strokeBorder(Color.lineNeutral, lineWidth: 1)
             )
     }
 }

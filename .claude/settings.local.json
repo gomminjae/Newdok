@@ -20,7 +20,15 @@
       "Bash(swift package resolve:*)",
       "WebFetch(domain:raw.githubusercontent.com)",
       "WebSearch",
-      "Bash(tuist:*)"
+      "Bash(tuist:*)",
+      "Bash(for module in App AppCoordinator Core Data DesignSystem Domain Shared)",
+      "Bash(do echo \"=== Modules/$module/Sources ===\" ls -la /Users/minjae/Desktop/Newdok/Modules/$module/Sources/)",
+      "Bash(done)",
+      "Bash(do:*)",
+      "Bash(for feature in Auth Bookmark Detail Explore Home Launch MyPage Search Subscribe Survey)",
+      "Bash(echo \"=== $feature ===\")",
+      "Read(//Users/minjae/Desktop/Newdok/Modules/Features/$feature/**)",
+      "WebFetch(domain:gist.github.com)"
     ]
   }
 }

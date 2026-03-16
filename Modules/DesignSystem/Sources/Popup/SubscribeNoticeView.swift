@@ -22,7 +22,7 @@ struct SubscribeNoticeView: View {
 
                 Text("회원가입 시 자동으로 생성되는\n뉴스레터 구독을 위한 이메일 주소예요.")
                     .font(.hanSansNeo(14, .medium))
-                    .foregroundStyle(Color(hex: "555555"))
+                    .foregroundStyle(Color.captionBody)
 
                 VStack(alignment: .leading) {
                     Text("뉴독으로 아티클을 받아보기 위해선\n뉴독의 구독 이메일 주소로 구독을 신청해야 해요.\n구독 이메일은 개인적인 용도로 사용하거나\n메일을 보내는 것이 불가능해요.")
@@ -32,7 +32,7 @@ struct SubscribeNoticeView: View {
                 }
                 
                 .padding(.vertical, 12)
-                .background(Color(hex: "F5F5F5"))
+                .background(Color.bgSecondary)
                 .cornerRadius(4)
                 .frame(maxWidth: .infinity)
                 .padding(.horizontal, 16)

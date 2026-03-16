@@ -45,14 +45,14 @@ struct FindIdPhoneInputView: View {
 
                 Text("휴대폰 번호")
                     .font(.hanSansNeo(14, .medium))
-                    .foregroundStyle(Color(hex: "#565656"))
+                    .foregroundStyle(Color.captionNeutral)
                     .padding(.top, 42)
                     .padding(.bottom, 8)
 
                 HStack {
                     Image(asset: DesignSystemAsset.lineMobile)
                         .renderingMode(.template)
-                        .foregroundStyle(isPhoneFieldFocused ? Color(hex: "363636") : Color(hex: "969696"))
+                        .foregroundStyle(isPhoneFieldFocused ? Color.captionStrong : Color.captionAssistive)
                     TextField("-구분없이 입력", text: $viewModel.phoneNumber)
                         .font(.hanSansNeo(14, .medium))
                         .keyboardType(.numberPad)
@@ -63,7 +63,7 @@ struct FindIdPhoneInputView: View {
                 .background(Color.white)
                 .overlay(
                     RoundedRectangle(cornerRadius: 4)
-                        .stroke(isPhoneFieldFocused ? Color.primaryNormal : Color(hex: "#DADADA"), lineWidth: 1)
+                        .stroke(isPhoneFieldFocused ? Color.primaryNormal : Color.lineAlternative, lineWidth: 1)
                 )
 
                 Spacer()
@@ -85,7 +85,7 @@ struct FindIdPhoneInputView: View {
                     .foregroundColor(.white)
                     .frame(maxWidth: .infinity)
                     .frame(height: 48)
-                    .background(viewModel.phoneNumber.count < 11 ? Color(hex: "#EBEBEB") : Color.primaryNormal)
+                    .background(viewModel.phoneNumber.count < 11 ? Color.lineNeutral : Color.primaryNormal)
                     .cornerRadius(4)
                     .padding(.horizontal, 24)
                     .padding(.bottom, 32)
@@ -120,7 +120,7 @@ struct FindIdPhoneInputView: View {
                 .type(.default)
                 .position(.center)
                 .closeOnTapOutside(true)
-                .backgroundColor(Color(hex: "#25242C").opacity(0.6))
+                .backgroundColor(Color.bgPopupDim.opacity(0.6))
         }
     }
 }
@@ -138,7 +138,7 @@ struct FindIdResultView: View {
 
                 Text("로그인을 원하시면 계정을 선택해주세요.")
                     .font(.hanSansNeo(14, .medium))
-                    .foregroundColor(Color(hex: "#565656"))
+                    .foregroundColor(Color.captionNeutral)
                     .padding(.bottom, 32)
 
                 ForEach(viewModel.users) { user in
@@ -156,7 +156,7 @@ struct FindIdResultView: View {
         }
         
     private var inquiryLine: some View {
-        let gray   = Color(hex: "#565656")
+        let gray   = Color.captionNeutral
         let prefix = Text("전체 아이디 확인을 원하시면 ")
             .font(.hanSansNeo(14, .medium))
             .foregroundColor(gray)
@@ -186,16 +186,16 @@ private struct UserRow: View {
             VStack(alignment: .leading, spacing: 4) {
                 Text(user.maskedLoginId)
                     .font(.hanSansNeo(16, .medium))
-                    .foregroundStyle(Color(hex: "#363636"))
+                    .foregroundStyle(Color.captionStrong)
                 Text(user.formattedCreatedAt)
                     .font(.hanSansNeo(12, .medium))
-                    .foregroundColor(Color(hex: "#969696"))
+                    .foregroundColor(Color.captionAssistive)
             }
             .padding(.leading, 20)
             Spacer()
             Image(asset: DesignSystemAsset.lineRight)
                 .renderingMode(.template)
-                .foregroundStyle(Color(hex: "#565656"))
+                .foregroundStyle(Color.captionNeutral)
                 .padding(.vertical, 26)
                 .padding(.trailing, 20)
         }
@@ -205,7 +205,7 @@ private struct UserRow: View {
         .background(Color.white)
         .clipShape(RoundedRectangle(cornerRadius: 12))
         .overlay { RoundedRectangle(cornerRadius: 12)
-            .stroke(Color(hex: "#DADADA"))
+            .stroke(Color.lineAlternative)
         }
     }
 }

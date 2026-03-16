@@ -42,20 +42,20 @@ struct CompleteView: View {
             Text("이제 뉴독으로 구독을 신청할 수 있어요.\n지금 바로 내게 도움이 될 뉴스레터를 만나보세요.")
                 .font(.hanSansNeo(14, .medium))
                 .multilineTextAlignment(.center)
-                .foregroundStyle(Color(hex: "#363636"))
+                .foregroundStyle(Color.captionStrong)
                 .padding(.horizontal, 24)
                 .padding(.top, 24)
 
             VStack(alignment: .leading, spacing: 4) {
                 Text("구독 이메일")
                     .font(.hanSansNeo(14, .medium))
-                    .foregroundStyle(Color(hex: "#565656"))
+                    .foregroundStyle(Color.captionNeutral)
                     .padding(.top, 20)
                     .padding(.leading, 20)
 
                 Text(viewModel.user?.subscribeEmail ?? "newdok12@newdok.site")
                     .font(.hanSansNeo(16, .bold))
-                    .foregroundStyle(Color(hex: "#2866D3"))
+                    .foregroundStyle(Color.primaryNormal)
                     .padding(.top, 8)
                     .padding(.leading, 20)
                     .padding(.bottom, 20)
@@ -64,7 +64,7 @@ struct CompleteView: View {
             }
             .frame(maxWidth: .infinity, alignment: .leading)
             .frame(height: 90)
-            .background(Color(hex: "#FAFAFA"))
+            .background(Color.bgElevated)
             .cornerRadius(12)
             .padding(.horizontal, 24)
             .padding(.top, 24)
