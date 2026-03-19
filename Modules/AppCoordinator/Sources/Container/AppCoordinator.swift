@@ -82,9 +82,9 @@ final class AppCoordinator {
         return BrandDetailView(viewModel: vm).environmentObject(router)
     }
     
-    func makeArticleDetail(id: String) -> some View {
+    func makeArticleDetail(id: String, isPastArticle: Bool = false) -> some View {
         let vm = container.container.resolve(ArticleDetailViewModel.self, argument: id)!
-        return ArticleDetailView(viewModel: vm).environmentObject(router)
+        return ArticleDetailView(viewModel: vm, isPastArticle: isPastArticle).environmentObject(router)
     }
     
     func makeEditProfileView() -> some View {

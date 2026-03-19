@@ -14,9 +14,11 @@ public extension Font {
 
         // UIFont로 생성 후 이모지 fallback을 위한 cascade 적용
         if let baseFont = UIFont(name: fontName, size: size) {
-            let emojiFont = UIFont.systemFont(ofSize: size)
+            let cascadeKey = UIFontDescriptor.AttributeName(rawValue: "NSCTFontCascadeListAttribute")
+            let emojiFontDescriptor = UIFontDescriptor(fontAttributes: [.name: "AppleColorEmoji"])
+            let systemFontDescriptor = UIFont.systemFont(ofSize: size).fontDescriptor
             let descriptor = baseFont.fontDescriptor.addingAttributes([
-                .cascadeList: [emojiFont.fontDescriptor]
+                cascadeKey: [emojiFontDescriptor, systemFontDescriptor]
             ])
             return Font(UIFont(descriptor: descriptor, size: size))
         }

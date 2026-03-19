@@ -112,8 +112,8 @@ struct AppRootView: View {
             coordinator.makeExploreView()
         case .brandDetail(let id):
             coordinator.makeBrandDetail(id: id)
-        case .articleDetail(let id):
-            coordinator.makeArticleDetail(id: id)
+        case .articleDetail(let id, let isPastArticle):
+            coordinator.makeArticleDetail(id: id, isPastArticle: isPastArticle)
         case .editProfile:
             coordinator.makeEditProfileView()
         case .recovery:
@@ -154,8 +154,16 @@ struct AppRootView: View {
 
     @ViewBuilder
     private func destinationView(for route: AppRoute) -> some View {
-        makeView(for: route)
-            .environmentObject(router)
-            .enableSwipeBack()
+        if case .articleDetail = route {
+            // 아티클 디테일: 하이라이트 드래그와 full-width pop 충돌 방지
+            makeView(for: route)
+                .environmentObject(router)
+                .enableSwipeBack()
+                .swipeBackFullWidthDisabled(true)
+        } else {
+            makeView(for: route)
+                .environmentObject(router)
+                .enableSwipeBack()
+        }
     }
 }

@@ -36,8 +36,12 @@ public struct ArticleDetailView: View {
     // 렌더링 완료 후 표시
     @State private var isViewReady: Bool = false
 
-    public init(viewModel: ArticleDetailViewModel) {
+    // 지난 아티클 여부 (하이라이트/북마크 숨김)
+    private let isPastArticle: Bool
+
+    public init(viewModel: ArticleDetailViewModel, isPastArticle: Bool = false) {
         _viewModel = StateObject(wrappedValue: viewModel)
+        self.isPastArticle = isPastArticle
     }
 
     public var body: some View {
@@ -63,15 +67,17 @@ public struct ArticleDetailView: View {
 
                 Spacer()
 
-                // 우측 버튼 3개
+                // 우측 버튼
                 HStack(spacing: 12) {
-                    Button {
-                        showHighlightList = true
-                    } label: {
-                        Image(asset: DesignSystemAsset.highlight)
-                            .renderingMode(.template)
-                            .foregroundColor(Color.captionHeavy)
-                            .frame(width: 28, height: 28)
+                    if !isPastArticle {
+                        Button {
+                            showHighlightList = true
+                        } label: {
+                            Image(asset: DesignSystemAsset.highlight)
+                                .renderingMode(.template)
+                                .foregroundColor(Color.captionHeavy)
+                                .frame(width: 28, height: 28)
+                        }
                     }
 
                     Button {
@@ -83,22 +89,24 @@ public struct ArticleDetailView: View {
                             .frame(width: 28, height: 28)
                     }
 
-                    Button {
-                        Task {
-                            let wasBookmarked = viewModel.detail?.isBookmarked ?? false
-                            await viewModel.bookmark()
-                            bookmarkToastMessage = wasBookmarked
-                                ? "북마크가 해제되었습니다."
-                                : "북마크함에 아티클을 저장했어요."
-                            showBookmarkToast = true
+                    if !isPastArticle {
+                        Button {
+                            Task {
+                                let wasBookmarked = viewModel.detail?.isBookmarked ?? false
+                                await viewModel.bookmark()
+                                bookmarkToastMessage = wasBookmarked
+                                    ? "북마크가 해제되었습니다."
+                                    : "북마크함에 아티클을 저장했어요."
+                                showBookmarkToast = true
+                            }
+                        } label: {
+                            Image(
+                                asset: viewModel.detail?.isBookmarked == true
+                                    ? DesignSystemAsset.bookmarked
+                                    : DesignSystemAsset.lineBookmark
+                            )
+                            .frame(width: 28, height: 28)
                         }
-                    } label: {
-                        Image(
-                            asset: viewModel.detail?.isBookmarked == true
-                                ? DesignSystemAsset.bookmarked
-                                : DesignSystemAsset.lineBookmark
-                        )
-                        .frame(width: 28, height: 28)
                     }
                 }
             }
@@ -115,11 +123,12 @@ public struct ArticleDetailView: View {
                         articleTitle: detail.articleTitle,
                         articleDate: formatDate(detail.date ?? ""),
                         articleId: viewModel.articleId,
-                        savedHighlights: viewModel.highlights,
+                        savedHighlights: isPastArticle ? [] : viewModel.highlights,
                         fontSize: $fontSize,
                         webViewRef: $webViewRef,
                         selectedText: $viewModel.selectedText,
                         showScrollToTop: $showScrollToTop,
+                        disableHighlight: isPastArticle,
                         onSaveHighlight: { type in
                             viewModel.saveHighlight(type: type)
                         },
@@ -242,13 +251,19 @@ public struct ArticleDetailView: View {
 
 // MARK: - Custom WKWebView (네이티브 메뉴 억제, JS 팔레트 사용)
 class HighlightableWebView: WKWebView {
+    var disableHighlight: Bool = false
+
     override func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {
+        if disableHighlight {
+            // 지난 아티클: 복사/붙여넣기 등 모든 메뉴 차단 (유출 방지)
+            return false
+        }
         // 네이티브 에디트 메뉴 억제 → JS 커스텀 팔레트 사용
         return false
     }
 
     override func buildMenu(with builder: any UIMenuBuilder) {
-        // JS 팔레트를 사용하므로 네이티브 메뉴 비활성화
+        // 네이티브 메뉴 비활성화 (지난 아티클 + 일반 아티클 모두)
     }
 }
 
@@ -264,6 +279,7 @@ struct FullWebView: UIViewRepresentable {
     @Binding var webViewRef: WKWebView?
     @Binding var selectedText: String
     @Binding var showScrollToTop: Bool
+    var disableHighlight: Bool = false
     var onSaveHighlight: ((String) -> Void)?
     var onHighlightTypeChanged: ((String, String) -> Void)?
     var onHighlightDeleted: ((String) -> Void)?
@@ -282,6 +298,7 @@ struct FullWebView: UIViewRepresentable {
         config.userContentController.add(context.coordinator, name: "highlightDeleted")
 
         let webView = HighlightableWebView(frame: .zero, configuration: config)
+        webView.disableHighlight = disableHighlight
         webView.uiDelegate = context.coordinator
         webView.navigationDelegate = context.coordinator
 
@@ -326,7 +343,8 @@ struct FullWebView: UIViewRepresentable {
                 articleTitle: articleTitle,
                 articleDate: articleDate,
                 savedHighlights: highlightsJSON,
-                fontSize: fontSize
+                fontSize: fontSize,
+                disableHighlight: disableHighlight
             )
 
             uiView.loadHTMLString(htmlBuilder.build(), baseURL: nil)

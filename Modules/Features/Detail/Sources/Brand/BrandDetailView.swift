@@ -432,7 +432,7 @@ public struct BrandDetailView: View {
                         .overlay(RoundedRectangle(cornerRadius: 8).stroke(Color.lineNeutral, lineWidth: 1))
                         .padding(.horizontal)
                         .onTapGesture {
-                            router.push(.articleDetail(id: "\(article.id)"))
+                            router.push(.articleDetail(id: "\(article.id)", isPastArticle: true))
                         }
                     }
                 }

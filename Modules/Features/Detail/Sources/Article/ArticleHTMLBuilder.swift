@@ -17,6 +17,7 @@ struct ArticleHTMLBuilder {
     let articleDate: String
     let savedHighlights: [[String: String]]
     let fontSize: CGFloat
+    var disableHighlight: Bool = false
 
     // MARK: - Build
 
@@ -38,6 +39,7 @@ struct ArticleHTMLBuilder {
             <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
             <style>
                 \(Self.cssStyles)
+                \(disableHighlight ? "/* 지난 아티클: 텍스트 선택 및 팔레트 차단 */ .hl-palette { display: none !important; } html, body, .content, .content * { -webkit-user-select: none !important; user-select: none !important; -webkit-touch-callout: none !important; }" : "")
             </style>
             <script>
                 // console.log를 네이티브로 포워딩
@@ -55,9 +57,7 @@ struct ArticleHTMLBuilder {
                 document.addEventListener('DOMContentLoaded', function() {
                     saveOriginalFontSizes();
                     adjustFontSize(\(fontSize));
-                    applySavedHighlights();
-                    setupTextSelection();
-                    setupHighlightClickHandlers();
+                    \(disableHighlight ? "" : "applySavedHighlights(); setupTextSelection(); setupHighlightClickHandlers();")
                 });
 
                 \(ArticleHighlightJS.coreScript)
