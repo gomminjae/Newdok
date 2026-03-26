@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Domain
 import Shared
 
 public final class SignupUseCaseImpl: SignupUseCase {

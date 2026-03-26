@@ -5,6 +5,8 @@
 //  Created by 권민재 on 7/13/25.
 //
 
+import Domain
+
 public final class SearchUseCaseImpl: SearchUseCase {
     private let searchRepository: SearchRepository
     

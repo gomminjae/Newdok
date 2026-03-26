@@ -75,51 +75,15 @@ public final class AppDIContainer {
             return ArticleUseCaseImpl(articleRepository: repo)
         }
 
-        container.register(FetchHomeDataUseCase.self) { r in
-            let articleRepo = r.resolve(ArticleRepository.self)!
-            let newsletterRepo = r.resolve(NewsletterRepository.self)!
-            return FetchHomeDataUseCaseImpl(newsletterRepo: newsletterRepo, articleRepo: articleRepo)
-        }.inObjectScope(.container)
-
-        container.register(HomeBusinessUseCase.self) { r in
-            let fetchUseCase = r.resolve(FetchHomeDataUseCase.self)!
-            return DefaultHomeBusinessUseCase(fetchUseCase: fetchUseCase)
-        }.inObjectScope(.container)
-
         container.register(NewsletterUseCase.self) { r in
             let repo = r.resolve(NewsletterRepository.self)!
             return NewsletterUseCaseImpl(repository: repo)
         }
-
-        container.register(SearchUseCase.self) { r in
-            let repo = r.resolve(SearchRepository.self)!
-            return SearchUseCaseImpl(searchRepository: repo)
-        }.inObjectScope(.container)
 
         container.register(LoadOptionsUseCase.self) { r in
             let newsletterUseCase = r.resolve(NewsletterUseCase.self)!
             return LoadOptionsUseCaseImpl(newsletterUseCase: newsletterUseCase)
         }.inObjectScope(.container)
 
-        container.register(LoginUseCase.self) { r in
-            let userUseCase = r.resolve(UserUseCase.self)!
-            return LoginUseCaseImpl(userUseCase: userUseCase)
-        }.inObjectScope(.transient)
-
-        container.register(SignupUseCase.self) { r in
-            let userUseCase = r.resolve(UserUseCase.self)!
-            let loginUseCase = r.resolve(LoginUseCase.self)!
-            return SignupUseCaseImpl(userUseCase: userUseCase, loginUseCase: loginUseCase)
-        }.inObjectScope(.transient)
-
-        container.register(ProfileUseCase.self) { r in
-            let userUseCase = r.resolve(UserUseCase.self)!
-            return ProfileUseCaseImpl(userUseCase: userUseCase)
-        }.inObjectScope(.transient)
-
-        container.register(ArticleDetailUseCase.self) { r in
-            let articleUseCase = r.resolve(ArticleUseCase.self)!
-            return ArticleDetailUseCaseImpl(articleUseCase: articleUseCase)
-        }.inObjectScope(.transient)
     }
 }
