@@ -1,6 +1,6 @@
 //
 //  SwipeBackHandler.swift
-//  Shared
+//  DesignSystem
 //
 //  Created by 권민재 on 8/7/25.
 //

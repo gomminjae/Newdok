@@ -9,6 +9,7 @@ import Launch
 import Auth
 import Shared
 import Domain
+import DesignSystem
 
 struct AppRootView: View {
     @EnvironmentObject private var tabSelection: TabSelection
