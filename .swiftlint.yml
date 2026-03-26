@@ -155,7 +155,7 @@ number_separator:
 
 type_body_length:
   warning: 300
-  error: 500
+  error: 700
 
 type_name:
   min_length: 3
