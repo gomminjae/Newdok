@@ -5,6 +5,21 @@ let project = Project(
     organizationName: "Newdok",
     targets: [
         .target(
+            name: "AuthInterface",
+            destinations: .iOS,
+            product: .staticFramework,
+            bundleId: "com.newdok.auth.interface",
+            deploymentTargets: .iOS("17.0"),
+            infoPlist: .default,
+            sources: ["Interface/Sources/**"],
+            settings: .settings(
+                base: [
+                    "SKIP_INSTALL": "YES",
+                    "SWIFT_STRICT_CONCURRENCY": "complete"
+                ]
+            )
+        ),
+        .target(
             name: "Auth",
             destinations: .iOS,
             product: .staticFramework,
@@ -14,9 +29,10 @@ let project = Project(
             sources: ["Sources/**"],
             resources: ["Resources/**"],
             dependencies: [
-                 .project(target: "DesignSystem", path: "../../DesignSystem"),
-                 .project(target: "Domain", path: "../../Domain"),
-                 .project(target: "Shared", path: "../../Shared")
+                .target(name: "AuthInterface"),
+                .project(target: "DesignSystem", path: "../../DesignSystem"),
+                .project(target: "Domain", path: "../../Domain"),
+                .project(target: "Shared", path: "../../Shared")
             ],
             settings: .settings(
                 base: [
@@ -36,7 +52,7 @@ let project = Project(
             dependencies: [
                 .target(name: "Auth"),
                 .project(target: "DesignSystem", path: "../../DesignSystem"),
-                .project(target: "Shared", path: "../../Shared") 
+                .project(target: "Shared", path: "../../Shared")
             ]
         )
     ]

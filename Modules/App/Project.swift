@@ -79,11 +79,36 @@ let project = Project(
                 "Resources/**"
             ],
             dependencies: [
-                .project(target: "Core", path: "../Core"),
-                .project(target: "DesignSystem", path: "../DesignSystem"),
+                // Coordinator (Interface-based)
                 .project(target: "AppCoordinator", path: "../AppCoordinator"),
+                // Infrastructure
+                .project(target: "Core", path: "../Core"),
+                .project(target: "Domain", path: "../Domain"),
+                .project(target: "DesignSystem", path: "../DesignSystem"),
                 .project(target: "Shared", path: "../Shared"),
+                // Feature Interfaces
+                .project(target: "AuthInterface", path: "../Features/Auth"),
+                .project(target: "HomeInterface", path: "../Features/Home"),
+                .project(target: "ExploreInterface", path: "../Features/Explore"),
+                .project(target: "SubscribeInterface", path: "../Features/Subscribe"),
+                .project(target: "BookmarkInterface", path: "../Features/Bookmark"),
+                .project(target: "DetailInterface", path: "../Features/Detail"),
+                .project(target: "SearchInterface", path: "../Features/Search"),
+                .project(target: "MypageInterface", path: "../Features/MyPage"),
+                .project(target: "LaunchInterface", path: "../Features/Launch"),
+                // Feature Implementations (for CompositionRoot)
+                .project(target: "Auth", path: "../Features/Auth"),
+                .project(target: "Home", path: "../Features/Home"),
+                .project(target: "Explore", path: "../Features/Explore"),
+                .project(target: "Subscribe", path: "../Features/Subscribe"),
+                .project(target: "Bookmark", path: "../Features/Bookmark"),
+                .project(target: "Detail", path: "../Features/Detail"),
+                .project(target: "Search", path: "../Features/Search"),
+                .project(target: "Mypage", path: "../Features/MyPage"),
+                .project(target: "Launch", path: "../Features/Launch"),
+                // External
                 .external(name: "PopupView"),
+                .external(name: "Swinject"),
                 .external(name: "FirebaseAnalytics"),
                 .external(name: "FirebaseCrashlytics")
             ]

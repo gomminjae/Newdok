@@ -5,6 +5,21 @@ let project = Project(
     organizationName: "Newdok",
     targets: [
         .target(
+            name: "HomeInterface",
+            destinations: .iOS,
+            product: .staticFramework,
+            bundleId: "com.newdok.home.interface",
+            deploymentTargets: .iOS("17.0"),
+            infoPlist: .default,
+            sources: ["Interface/Sources/**"],
+            settings: .settings(
+                base: [
+                    "SKIP_INSTALL": "YES",
+                    "SWIFT_STRICT_CONCURRENCY": "complete"
+                ]
+            )
+        ),
+        .target(
             name: "Home",
             destinations: .iOS,
             product: .staticFramework,
@@ -14,6 +29,7 @@ let project = Project(
             sources: ["Sources/**"],
             resources: ["Resources/**"],
             dependencies: [
+                .target(name: "HomeInterface"),
                 .project(target: "DesignSystem", path: "../../DesignSystem"),
                 .project(target: "Domain", path: "../../Domain"),
                 .project(target: "Shared", path: "../../Shared")

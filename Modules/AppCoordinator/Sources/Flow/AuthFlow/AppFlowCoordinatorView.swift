@@ -1,12 +1,6 @@
-//
-//  AppFlowCoordinatorView.swift
-//  AppCoordinator
-//
-//  Created by 권민재 on 4/6/25.
-//
 import SwiftUI
-import Launch
-import Auth
+import LaunchInterface
+import AuthInterface
 import Shared
 import Domain
 import DesignSystem
@@ -15,23 +9,21 @@ struct AppRootView: View {
     @EnvironmentObject private var tabSelection: TabSelection
     @ObservedObject var router: AppRouter
     let exploreIntent: ExploreIntent
-
-    private var coordinator: AppCoordinator {
-        AppCoordinator(router: router, exploreIntent: exploreIntent)
-    }
+    let coordinator: AppCoordinator
 
     @State private var launched = false
     @State private var showUnauthorizedAlert = false
 
-    init(router: AppRouter, exploreIntent: ExploreIntent) {
+    init(router: AppRouter, exploreIntent: ExploreIntent, coordinator: AppCoordinator) {
         self.router = router
         self.exploreIntent = exploreIntent
+        self.coordinator = coordinator
     }
-    
+
     var body: some View {
         ZStack {
             if !launched {
-                SplashView()
+                coordinator.launchFactory.makeSplashView()
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
                     .ignoresSafeArea()
                     .transition(.opacity)
@@ -46,11 +38,10 @@ struct AppRootView: View {
             }
             .environmentObject(router)
             .environmentObject(tabSelection)
-            .opacity(launched ? 1 : 0) // Splash 후 메인뷰 서서히 등장
+            .opacity(launched ? 1 : 0)
             .animation(.easeInOut(duration: 0.3), value: launched)
         }
         .task {
-            // 옵션 리스트 로드
             do {
                 guard let loadOptionsUseCase = AppDIContainer.shared.container.resolve(LoadOptionsUseCase.self) else {
                     fatalError("LoadOptionsUseCase is not registered in DI container")
@@ -60,10 +51,8 @@ struct AppRootView: View {
                 print("Failed to load options: \(error)")
             }
 
-            // Splash 화면 표시 후 초기 화면 결정
             try? await Task.sleep(nanoseconds: UInt64(AppConstants.Duration.splash * 1_000_000_000))
 
-            // 토큰 존재 여부 확인 → splash 뒤에서 root를 먼저 결정
             if TokenStorage.hasValidToken {
                 AppState.shared.login()
                 router.resetTo(.tabbar(selectedTab: .home))
@@ -71,13 +60,11 @@ struct AppRootView: View {
                 router.resetTo(.onboarding)
             }
 
-            // root가 세팅된 후 splash를 걷음 → 온보딩 깜빡임 방지
             withAnimation(.easeInOut(duration: AppConstants.Animation.default)) {
                 launched = true
             }
         }
         .onReceive(NotificationCenter.default.publisher(for: .didReceiveUnauthorized)) { _ in
-            // 401 에러 발생 시 로그인 상태 정리 + 팝업 표시
             UserDefaults.standard.set(false, forKey: "isLoggedIn")
             UserDefaults.standard.set(false, forKey: "isGuest")
             UserDefaults.standard.removeObject(forKey: "nickname")
@@ -108,7 +95,7 @@ struct AppRootView: View {
         case let .tabbar(selectedTab, exploreDay, exploreSelectedTab):
             coordinator.makeTabView(selectedTab: selectedTab, exploreDay: exploreDay, exploreSelectedTab: exploreSelectedTab)
         case .profile:
-            coordinator.mekeProfileView()
+            coordinator.makeProfileView()
         case .explore:
             coordinator.makeExploreView()
         case .brandDetail(let id):
@@ -156,7 +143,6 @@ struct AppRootView: View {
     @ViewBuilder
     private func destinationView(for route: AppRoute) -> some View {
         if case .articleDetail = route {
-            // 아티클 디테일: 하이라이트 드래그와 full-width pop 충돌 방지
             makeView(for: route)
                 .environmentObject(router)
                 .enableSwipeBack()

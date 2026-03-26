@@ -1,10 +1,3 @@
-//
-//  NewdokApp.swift
-//  Newdok
-//
-//  Created by 권민재 on 2/14/25.
-//
-
 import SwiftUI
 import Core
 import Shared
@@ -13,6 +6,7 @@ import DesignSystem
 import PopupView
 import FirebaseCore
 import FirebaseAnalytics
+
 @main
 struct NewdokApp: App {
     @State private var showUpdateAlert = false
@@ -21,27 +15,33 @@ struct NewdokApp: App {
     @StateObject private var exploreIntent = ExploreIntent()
 
     init() {
-        // Firebase 초기화
         FirebaseApp.configure()
-
-        // DesignSystem 폰트 등록
         DesignSystemFontFamily.registerAllCustomFonts()
-
-        // 에러 로깅 등록
         ErrorLoggerRegistry.register(CoreErrorLogger())
     }
 
     var body: some Scene {
         WindowGroup {
             OverlayRootView {
-                AppCoordinatorEntry.makeAFlow(router: router, exploreIntent: exploreIntent)
+                AppCoordinatorEntry.makeAFlow(
+                    router: router,
+                    exploreIntent: exploreIntent,
+                    authFactory: CompositionRoot.makeAuthFactory(),
+                    homeFactory: CompositionRoot.makeHomeFactory(),
+                    exploreFactory: CompositionRoot.makeExploreFactory(),
+                    subscribeFactory: CompositionRoot.makeSubscribeFactory(),
+                    bookmarkFactory: CompositionRoot.makeBookmarkFactory(),
+                    detailFactory: CompositionRoot.makeDetailFactory(),
+                    searchFactory: CompositionRoot.makeSearchFactory(),
+                    mypageFactory: CompositionRoot.makeMypageFactory(),
+                    launchFactory: CompositionRoot.makeLaunchFactory()
+                )
             }
             .hideKeyboardOnTap()
             .environmentObject(router)
             .environmentObject(tabSelection)
             .environmentObject(exploreIntent)
             .environmentObject(ToastCenter.shared)
-            // ToastHost가 상위에서 환경 객체를 못 물려받는 경우가 있어 직접 주입
             .overlay(
                 AppToastHost()
                     .environmentObject(ToastCenter.shared)

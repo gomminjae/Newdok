@@ -1,18 +1,11 @@
-//
-//  NewDokTabView.swift
-//  AppCoordinator
-//
-//  Created by 권민재 on 4/13/25.
-//
-
 import SwiftUI
 import UIKit
-import Home
-import Mypage
+import HomeInterface
+import MypageInterface
 import DesignSystem
-import Explore
-import Subscribe
-import Bookmark
+import ExploreInterface
+import SubscribeInterface
+import BookmarkInterface
 import Shared
 
 // MARK: - TabBar Appearance Setup
@@ -24,7 +17,6 @@ private func setupTabBarAppearance() {
     let appearance = UITabBarAppearance()
 
     if #available(iOS 26.0, *) {
-        // iOS 26+: 기본 Liquid Glass 유지
         appearance.configureWithDefaultBackground()
         appearance.shadowColor = nil
     } else {
@@ -63,10 +55,8 @@ private struct TabBarConstants {
 struct TabBarBackgroundModifier: ViewModifier {
     func body(content: Content) -> some View {
         if #available(iOS 26.0, *) {
-            // iOS 26+: 기본 Liquid Glass 유지
             content
         } else {
-            // iOS 18-25: 흰색 배경 (ignoresSafeArea 제거 - 탭바 터치 영역 간섭 방지)
             content
                 .background(Color.white)
         }
@@ -77,10 +67,8 @@ struct TabBarBackgroundModifier: ViewModifier {
 struct ScrollContentBackgroundModifier: ViewModifier {
     func body(content: Content) -> some View {
         if #available(iOS 26.0, *) {
-            // iOS 26+: 기본 유지
             content
         } else {
-            // iOS 18-25: 스크롤 컨텐츠 배경을 흰색으로 고정
             content
                 .background(Color.white)
         }
@@ -91,10 +79,8 @@ struct ScrollContentBackgroundModifier: ViewModifier {
 struct BottomWhiteOverlayModifier: ViewModifier {
     func body(content: Content) -> some View {
         if #available(iOS 26.0, *) {
-            // iOS 26+: 기본 유지
             content
         } else {
-            // iOS 18-25: 하단만 흰색 레이어 추가
             ZStack {
                 content
 
@@ -114,11 +100,11 @@ extension View {
     func tabBarBackground() -> some View {
         self.modifier(TabBarBackgroundModifier())
     }
-    
+
     func scrollContentBackground() -> some View {
         self.modifier(ScrollContentBackgroundModifier())
     }
-    
+
     func bottomWhiteOverlay() -> some View {
         self.modifier(BottomWhiteOverlayModifier())
     }
@@ -128,12 +114,12 @@ extension View {
 struct TabContentView<Content: View>: View {
     let content: Content
     private let useBottomOverlay: Bool
-    
+
     init(useBottomOverlay: Bool = false, @ViewBuilder content: () -> Content) {
         self.useBottomOverlay = useBottomOverlay
         self.content = content()
     }
-    
+
     var body: some View {
         Group {
             if useBottomOverlay {
@@ -151,51 +137,51 @@ struct TabContentView<Content: View>: View {
 public struct NewDokTabView: View {
     @State private var selectedTab: NewDokTab = .home
     @State private var previousTab: NewDokTab = .home
-    
+
     @AppStorage("isGuest") private var isGuest: Bool = false
     @EnvironmentObject private var router: AppRouter
     @EnvironmentObject private var tabSelection: TabSelection
 
-    private let homeViewModel: HomeViewModel
-    private let exploreViewModel: ExploreViewModel
-    private let subscribeViewModel: SubscribeViewModel
-    private let bookmarkViewModel: BookmarkViewModel
-    private let mypageViewModel: MypageViewModel
+    private let homeFactory: HomeViewFactory
+    private let exploreFactory: ExploreViewFactory
+    private let subscribeFactory: SubscribeViewFactory
+    private let bookmarkFactory: BookmarkViewFactory
+    private let mypageFactory: MypageViewFactory
     private let exploreIntent: ExploreIntent
 
-    private let initialSelectedTab: NewDokTab? 
+    private let initialSelectedTab: NewDokTab?
     private let exploreDay: Int?
     private let exploreSelectedTab: Int?
 
     public init(
-        homeViewModel: HomeViewModel,
-        exploreViewModel: ExploreViewModel,
-        subscribeViewModel: SubscribeViewModel,
-        bookmarkViewModel: BookmarkViewModel,
-        mypageViewModel: MypageViewModel,
+        homeFactory: HomeViewFactory,
+        exploreFactory: ExploreViewFactory,
+        subscribeFactory: SubscribeViewFactory,
+        bookmarkFactory: BookmarkViewFactory,
+        mypageFactory: MypageViewFactory,
         exploreIntent: ExploreIntent,
         selectedTab: NewDokTab? = nil,
         exploreDay: Int? = nil,
         exploreSelectedTab: Int? = nil
     ) {
-        self.homeViewModel = homeViewModel
-        self.exploreViewModel = exploreViewModel
-        self.subscribeViewModel = subscribeViewModel
-        self.bookmarkViewModel = bookmarkViewModel
-        self.mypageViewModel = mypageViewModel
+        self.homeFactory = homeFactory
+        self.exploreFactory = exploreFactory
+        self.subscribeFactory = subscribeFactory
+        self.bookmarkFactory = bookmarkFactory
+        self.mypageFactory = mypageFactory
         self.exploreIntent = exploreIntent
         self.initialSelectedTab = selectedTab
         self.exploreDay = exploreDay
         self.exploreSelectedTab = exploreSelectedTab
     }
-    
+
     @AppStorage("userId") private var userId: Int = 0
     @State private var didApplyInitialTab = false
 
     public var body: some View {
         TabView(selection: $tabSelection.selectedTab) {
             TabContentView {
-                ExploreView(viewModel: exploreViewModel)
+                exploreFactory.makeExploreView()
                     .environmentObject(exploreIntent)
             }
             .tabItem {
@@ -206,7 +192,7 @@ public struct NewDokTabView: View {
             .tag(NewDokTab.explore)
 
             TabContentView {
-                SubscribeView(viewModel: subscribeViewModel)
+                subscribeFactory.makeSubscribeView()
             }
             .tabItem {
                 Image(asset: DesignSystemAsset.lineMailbox)
@@ -216,7 +202,7 @@ public struct NewDokTabView: View {
             .tag(NewDokTab.subscribe)
 
             TabContentView {
-                HomeView(viewModel: homeViewModel)
+                homeFactory.makeHomeView()
                     .environmentObject(exploreIntent)
             }
             .tabItem {
@@ -227,7 +213,7 @@ public struct NewDokTabView: View {
             .tag(NewDokTab.home)
 
             TabContentView {
-                BookmarkView(viewModel: bookmarkViewModel)
+                bookmarkFactory.makeBookmarkView()
             }
             .tabItem {
                 Image(asset: DesignSystemAsset.lineBookmark)
@@ -237,7 +223,7 @@ public struct NewDokTabView: View {
             .tag(NewDokTab.bookmark)
 
             TabContentView {
-                MypageView(viewModel: mypageViewModel)
+                mypageFactory.makeMypageView()
             }
             .tabItem {
                 Image(asset: DesignSystemAsset.lineUser)
@@ -256,7 +242,6 @@ public struct NewDokTabView: View {
         .navigationBarHidden(true)
         .accentColor(Color.primaryNormal)
         .environmentObject(tabSelection)
-        .environmentObject(exploreViewModel)
         .onAppear {
             setupTabBarAppearance()
             if !didApplyInitialTab, let tab = initialSelectedTab {
@@ -269,11 +254,11 @@ public struct NewDokTabView: View {
 
 struct VisualEffectView: UIViewRepresentable {
     let effect: UIVisualEffect?
-    
+
     func makeUIView(context: UIViewRepresentableContext<Self>) -> UIVisualEffectView {
         UIVisualEffectView(effect: effect)
     }
-    
+
     func updateUIView(_ uiView: UIVisualEffectView, context: UIViewRepresentableContext<Self>) {
         uiView.effect = effect
     }
@@ -292,16 +277,16 @@ struct NewDokTabBar: View {
         VStack(spacing: 0) {
             Divider()
                 .background(Color.gray.opacity(0.3))
-            
+
             HStack(spacing: 0) {
                 tabItem(.explore, normalAsset: DesignSystemAsset.lineNewsletter, selectedAsset: DesignSystemAsset.fillNewsletter, title: "둘러보기")
-                
+
                 tabItem(.subscribe, normalAsset: DesignSystemAsset.lineMailbox, selectedAsset: DesignSystemAsset.fillMailbox, title: "구독관리")
-                
+
                 tabItem(.home, normalAsset: DesignSystemAsset.lineHome, selectedAsset: DesignSystemAsset.fillHome, title: "홈")
-                
+
                 tabItem(.bookmark, normalAsset: DesignSystemAsset.lineBookmark, selectedAsset: DesignSystemAsset.fillBookmark, title: "북마크함")
-                
+
                 tabItem(.profile, normalAsset: DesignSystemAsset.lineUser, selectedAsset: DesignSystemAsset.fillUser, title: "마이페이지")
             }
             .padding(.horizontal, 20)
@@ -320,7 +305,7 @@ struct NewDokTabBar: View {
             withAnimation(.spring(response: 0.3, dampingFraction: 0.7)) {
                 tabAnimations[newTab] = true
             }
-            
+
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
                 withAnimation(.easeOut(duration: 0.2)) {
                     tabAnimations[newTab] = false
@@ -338,7 +323,7 @@ struct NewDokTabBar: View {
                     .frame(width: 24, height: 24)
                     .scaleEffect(selectedTab == tab ? 0.8 : 1.0)
                     .opacity(selectedTab == tab ? 0 : 1)
-                
+
                 Image(asset: selectedAsset)
                     .renderingMode(.original)
                     .frame(width: 24, height: 24)
@@ -346,7 +331,7 @@ struct NewDokTabBar: View {
                     .opacity(selectedTab == tab ? 1 : 0)
             }
             .animation(.spring(response: 0.3, dampingFraction: 0.7), value: selectedTab)
-            
+
             Text(title)
                 .font(.hanSansNeo(10, selectedTab == tab ? .bold : .medium))
                 .foregroundColor(selectedTab == tab ? Color.primaryNormal : Color.gray.opacity(0.7))
@@ -358,8 +343,7 @@ struct NewDokTabBar: View {
         .onTapGesture {
             if selectedTab != tab {
                 selectedTab = tab
-                
-                // Haptic feedback
+
                 let impactFeedback = UIImpactFeedbackGenerator(style: .light)
                 impactFeedback.impactOccurred()
             }

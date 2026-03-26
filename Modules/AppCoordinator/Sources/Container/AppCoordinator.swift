@@ -1,168 +1,159 @@
-//
-//  AppCoordinator.swift
-//  AppCoordinator
-//
-//  Created by 권민재 on 4/9/25.
-//
-
 import SwiftUI
 import Shared
-import Auth
-import Home
-import Mypage
-import Explore
-import Foundation
-import Subscribe
-import Bookmark
-import Detail
+import AuthInterface
+import HomeInterface
+import MypageInterface
+import ExploreInterface
+import SubscribeInterface
+import BookmarkInterface
+import DetailInterface
+import SearchInterface
+import LaunchInterface
 import Domain
-import Search
 
-final class AppCoordinator {
-    private let container = AppDIContainer.shared
+public final class AppCoordinator {
     private let router: AppRouter
     private let exploreIntent: ExploreIntent
 
-    init(router: AppRouter, exploreIntent: ExploreIntent) {
+    let authFactory: AuthViewFactory
+    let homeFactory: HomeViewFactory
+    let exploreFactory: ExploreViewFactory
+    let subscribeFactory: SubscribeViewFactory
+    let bookmarkFactory: BookmarkViewFactory
+    let detailFactory: DetailViewFactory
+    let searchFactory: SearchViewFactory
+    let mypageFactory: MypageViewFactory
+    let launchFactory: LaunchViewFactory
+
+    public init(
+        router: AppRouter,
+        exploreIntent: ExploreIntent,
+        authFactory: AuthViewFactory,
+        homeFactory: HomeViewFactory,
+        exploreFactory: ExploreViewFactory,
+        subscribeFactory: SubscribeViewFactory,
+        bookmarkFactory: BookmarkViewFactory,
+        detailFactory: DetailViewFactory,
+        searchFactory: SearchViewFactory,
+        mypageFactory: MypageViewFactory,
+        launchFactory: LaunchViewFactory
+    ) {
         self.router = router
         self.exploreIntent = exploreIntent
+        self.authFactory = authFactory
+        self.homeFactory = homeFactory
+        self.exploreFactory = exploreFactory
+        self.subscribeFactory = subscribeFactory
+        self.bookmarkFactory = bookmarkFactory
+        self.detailFactory = detailFactory
+        self.searchFactory = searchFactory
+        self.mypageFactory = mypageFactory
+        self.launchFactory = launchFactory
     }
 
-    func makeSignupView() -> some View {
-        let vm = container.container.resolve(SignupViewModel.self)!
-        return SignupView(viewModel: vm)
-            .environmentObject(router)
+    @MainActor func makeSignupView() -> AnyView {
+        authFactory.makeSignupView()
     }
 
-    func makeLoginView() -> some View {
-        let vm = container.container.resolve(LoginViewModel.self)!
-        return LoginView(viewModel: vm).environmentObject(router)
+    @MainActor func makeLoginView() -> AnyView {
+        authFactory.makeLoginView()
     }
 
-    func makeOnboardingView() -> some View {
-        return OnboardingView().environmentObject(router)
+    @MainActor func makeOnboardingView() -> AnyView {
+        authFactory.makeOnboardingView()
     }
-    
-    func makeHomeView() -> some View {
-        let vm = container.container.resolve(HomeViewModel.self)!
-        return HomeView(viewModel: vm).environmentObject(router)
-    }
-    func makeExploreView() -> some View {
-        let vm = container.container.resolve(ExploreViewModel.self)!
-        return ExploreView(viewModel: vm).environmentObject(router)
-    }
-    func makeTabView(selectedTab: NewDokTab? = nil, exploreDay: Int? = nil, exploreSelectedTab: Int? = nil) -> some View {
-        let homeVm = container.container.resolve(HomeViewModel.self)!
-        let exploreVm = container.container.resolve(ExploreViewModel.self)!
-        let subscribeVm = container.container.resolve(SubscribeViewModel.self)!
-        let bookmakrVm = container.container.resolve(BookmarkViewModel.self)!
-        let mypageVm = container.container.resolve(MypageViewModel.self)!
 
-        return NewDokTabView(
-            homeViewModel: homeVm,
-            exploreViewModel: exploreVm,
-            subscribeViewModel: subscribeVm,
-            bookmarkViewModel: bookmakrVm,
-            mypageViewModel: mypageVm,
+    @MainActor func makeHomeView() -> AnyView {
+        homeFactory.makeHomeView()
+    }
+
+    @MainActor func makeExploreView() -> AnyView {
+        exploreFactory.makeExploreView()
+    }
+
+    @MainActor func makeTabView(selectedTab: NewDokTab? = nil, exploreDay: Int? = nil, exploreSelectedTab: Int? = nil) -> some View {
+        NewDokTabView(
+            homeFactory: homeFactory,
+            exploreFactory: exploreFactory,
+            subscribeFactory: subscribeFactory,
+            bookmarkFactory: bookmarkFactory,
+            mypageFactory: mypageFactory,
             exploreIntent: exploreIntent,
             selectedTab: selectedTab,
             exploreDay: exploreDay,
             exploreSelectedTab: exploreSelectedTab
         ).environmentObject(router)
     }
-    func mekeProfileView() -> some View {
-        let vm = container.container.resolve(MypageViewModel.self)!
-        return MypageView(viewModel: vm)
-            .environmentObject(router)
+
+    @MainActor func makeProfileView() -> AnyView {
+        mypageFactory.makeMypageView()
     }
-    
-    func makeBrandDetail(id: String) -> some View {
-        let vm = container.container.resolve(BrandDetailViewModel.self, argument: id)!
-        
-        return BrandDetailView(viewModel: vm).environmentObject(router)
+
+    @MainActor func makeBrandDetail(id: String) -> AnyView {
+        detailFactory.makeBrandDetailView(id: id)
     }
-    
-    func makeArticleDetail(id: String, isPastArticle: Bool = false) -> some View {
-        let vm = container.container.resolve(ArticleDetailViewModel.self, argument: id)!
-        return ArticleDetailView(viewModel: vm, isPastArticle: isPastArticle).environmentObject(router)
+
+    @MainActor func makeArticleDetail(id: String, isPastArticle: Bool = false) -> AnyView {
+        detailFactory.makeArticleDetailView(id: id, isPastArticle: isPastArticle)
     }
-    
-    func makeEditProfileView() -> some View {
-        let vm = container.container.resolve(MypageViewModel.self)!
-        return EditProfileView()
-            .environmentObject(router)
-            .environmentObject(vm)
+
+    @MainActor func makeEditProfileView() -> AnyView {
+        mypageFactory.makeEditProfileView()
     }
-    
-    // MARK: - 프로필 편집
-    func makeEditNicknameView() -> some View {
-        let vm = container.container.resolve(MypageViewModel.self)!
-        return EditNicknameView(nickname: .constant(""))
-            .environmentObject(router)
-            .environmentObject(vm)
+
+    @MainActor func makeEditNicknameView() -> AnyView {
+        mypageFactory.makeEditNicknameView()
     }
-    
-    func makeEditIndustryView() -> some View {
-        let vm = container.container.resolve(MypageViewModel.self)!
-        return EditIndustryView()
-            .environmentObject(router)
-            .environmentObject(vm)
+
+    @MainActor func makeEditIndustryView() -> AnyView {
+        mypageFactory.makeEditIndustryView()
     }
-    
-    func makeEditInterestView() -> some View {
-        let vm = container.container.resolve(MypageViewModel.self)!
-        return EditInterestView()
-            .environmentObject(router)
-            .environmentObject(vm)
+
+    @MainActor func makeEditInterestView() -> AnyView {
+        mypageFactory.makeEditInterestView()
     }
-    
-    func makeRecoveryView() -> some View {
-        let vm = container.container.resolve(RecoveryViewModel.self)!
-        return RecoveryView(viewModel: vm).environmentObject(router)
+
+    @MainActor func makeRecoveryView() -> AnyView {
+        mypageFactory.makeRecoveryView()
     }
-    
-    func makeAccountManageView() -> some View {
-        return AccountManagementView().environmentObject(router)
+
+    @MainActor func makeAccountManageView() -> AnyView {
+        mypageFactory.makeAccountManageView()
     }
-    
-    func makeChangePasswordView() -> some View {
-        let vm = container.container.resolve(MypageViewModel.self)!
-        return PwdUpdateView(viewModel: vm).environmentObject(router)
+
+    @MainActor func makeChangePasswordView() -> AnyView {
+        mypageFactory.makeChangePasswordView()
     }
-    
-    func makeChangePhoneNumberView() -> some View {
-        let vm = container.container.resolve(MypageViewModel.self)!
-        return PhoneUpdateView(viewModel: vm).environmentObject(router)
+
+    @MainActor func makeChangePhoneNumberView() -> AnyView {
+        mypageFactory.makeChangePhoneNumberView()
     }
-    
-    func makeSearchView() -> some View {
-        let vm = container.container.resolve(SearchViewModel.self)!
-        return SearchView(viewModel: vm).environmentObject(router)
+
+    @MainActor func makeSearchView() -> AnyView {
+        searchFactory.makeSearchView()
     }
-    
-    func makeServiceFeedbackView() -> some View {
-        return FeedbackView().environmentObject(router)
+
+    @MainActor func makeServiceFeedbackView() -> AnyView {
+        mypageFactory.makeFeedbackView()
     }
-    
-    func makeWithdrawView() -> some View {
-        let vm = container.container.resolve(WithdrawViewModel.self)!
-        return WithdrawView(viewModel: vm).environmentObject(router)
+
+    @MainActor func makeWithdrawView() -> AnyView {
+        mypageFactory.makeWithdrawView()
     }
-    
-    // MARK: - 고객센터
-    func makeFAQView() -> some View {
-        return FAQView().environmentObject(router)
+
+    @MainActor func makeFAQView() -> AnyView {
+        mypageFactory.makeFAQView()
     }
-    
-    func makeFeedbackView() -> some View {
-        return FeedbackView().environmentObject(router)
+
+    @MainActor func makeFeedbackView() -> AnyView {
+        mypageFactory.makeFeedbackView()
     }
-    
-    func makeTermsMenuView() -> some View {
-        return TermsMenuView().environmentObject(router)
+
+    @MainActor func makeTermsMenuView() -> AnyView {
+        mypageFactory.makeTermsMenuView()
     }
-    
-    func makeEditAlert() -> some View {
-        return EditAlertView().environmentObject(router)
+
+    @MainActor func makeEditAlert() -> AnyView {
+        mypageFactory.makeEditAlertView()
     }
 }

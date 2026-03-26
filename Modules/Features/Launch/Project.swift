@@ -5,6 +5,21 @@ let project = Project(
     organizationName: "Newdok",
     targets: [
         .target(
+            name: "LaunchInterface",
+            destinations: .iOS,
+            product: .staticFramework,
+            bundleId: "com.newdok.launch.interface",
+            deploymentTargets: .iOS("17.0"),
+            infoPlist: .default,
+            sources: ["Interface/Sources/**"],
+            settings: .settings(
+                base: [
+                    "SKIP_INSTALL": "YES",
+                    "SWIFT_STRICT_CONCURRENCY": "complete"
+                ]
+            )
+        ),
+        .target(
             name: "Launch",
             destinations: .iOS,
             product: .staticFramework,
@@ -14,7 +29,8 @@ let project = Project(
             sources: ["Sources/**"],
             resources: ["Resources/**"],
             dependencies: [
-                 .project(target: "DesignSystem", path: "../../DesignSystem")
+                .target(name: "LaunchInterface"),
+                .project(target: "DesignSystem", path: "../../DesignSystem")
             ],
             settings: .settings(
                 base: [
