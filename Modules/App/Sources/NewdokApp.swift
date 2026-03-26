@@ -26,15 +26,17 @@ struct NewdokApp: App {
                 AppCoordinatorEntry.makeAFlow(
                     router: router,
                     exploreIntent: exploreIntent,
-                    authFactory: CompositionRoot.makeAuthFactory(),
-                    homeFactory: CompositionRoot.makeHomeFactory(),
-                    exploreFactory: CompositionRoot.makeExploreFactory(),
-                    subscribeFactory: CompositionRoot.makeSubscribeFactory(),
-                    bookmarkFactory: CompositionRoot.makeBookmarkFactory(),
-                    detailFactory: CompositionRoot.makeDetailFactory(),
-                    searchFactory: CompositionRoot.makeSearchFactory(),
-                    mypageFactory: CompositionRoot.makeMypageFactory(),
-                    launchFactory: CompositionRoot.makeLaunchFactory()
+                    factories: FeatureFactories(
+                        auth: CompositionRoot.makeAuthFactory(),
+                        home: CompositionRoot.makeHomeFactory(),
+                        explore: CompositionRoot.makeExploreFactory(),
+                        subscribe: CompositionRoot.makeSubscribeFactory(),
+                        bookmark: CompositionRoot.makeBookmarkFactory(),
+                        detail: CompositionRoot.makeDetailFactory(),
+                        search: CompositionRoot.makeSearchFactory(),
+                        mypage: CompositionRoot.makeMypageFactory(),
+                        launch: CompositionRoot.makeLaunchFactory()
+                    )
                 )
             }
             .hideKeyboardOnTap()
