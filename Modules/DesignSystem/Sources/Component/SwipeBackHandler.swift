@@ -40,9 +40,11 @@ private class PopGestureEnablerVC: UIViewController {
         guard let nav = navigationController else { return }
         nav.interactivePopGestureRecognizer?.delegate = nil
         nav.interactivePopGestureRecognizer?.isEnabled = true
+        #if compiler(>=6.2)
         if #available(iOS 26.0, *) {
             nav.interactiveContentPopGestureRecognizer?.isEnabled = true
         }
+        #endif
     }
 }
 
@@ -94,9 +96,11 @@ private class FullWidthPopGestureToggleVC: UIViewController {
 
     func updateGesture() {
         guard let nav = navigationController else { return }
+        #if compiler(>=6.2)
         if #available(iOS 26.0, *) {
             nav.interactiveContentPopGestureRecognizer?.isEnabled = !disabled
         }
+        #endif
     }
 }
 
@@ -121,8 +125,10 @@ private class PopGestureToggleVC: UIViewController {
     func updateGesture() {
         guard let nav = navigationController else { return }
         nav.interactivePopGestureRecognizer?.isEnabled = !disabled
+        #if compiler(>=6.2)
         if #available(iOS 26.0, *) {
             nav.interactiveContentPopGestureRecognizer?.isEnabled = !disabled
         }
+        #endif
     }
 }
