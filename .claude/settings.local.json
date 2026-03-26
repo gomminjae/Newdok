@@ -28,7 +28,10 @@
       "Bash(for feature in Auth Bookmark Detail Explore Home Launch MyPage Search Subscribe Survey)",
       "Bash(echo \"=== $feature ===\")",
       "Read(//Users/minjae/Desktop/Newdok/Modules/Features/$feature/**)",
-      "WebFetch(domain:gist.github.com)"
+      "WebFetch(domain:gist.github.com)",
+      "Bash(git:*)",
+      "Bash(/tmp/audited_files.txt:*)",
+      "Read(//tmp/**)"
     ]
   }
 }

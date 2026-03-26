@@ -102,10 +102,14 @@ public struct EditInterestView: View {
             .disabled(selectedIds.count < 3 || viewModel.isInterestUpdating)
         }
         .onAppear {
-            Task {
-                await viewModel.fetchuserInfo()
-                if let userInterests = viewModel.user?.interests {
-                    selectedIds = Set(userInterests.map { $0.id })
+            if let userInterests = viewModel.user?.interests {
+                selectedIds = Set(userInterests.map { $0.id })
+            } else {
+                Task {
+                    await viewModel.fetchuserInfo()
+                    if let userInterests = viewModel.user?.interests {
+                        selectedIds = Set(userInterests.map { $0.id })
+                    }
                 }
             }
         }
@@ -124,11 +128,6 @@ public struct EditInterestView: View {
                 Text("관심사 변경")
                     .font(.hanSansNeo(16, .bold))
                     .foregroundColor(.black)
-            }
-        }
-        .onAppear {
-            if let interests = viewModel.user?.interests {
-                selectedIds = Set(interests.map { $0.id })
             }
         }
         .onChange(of: viewModel.showInterestSuccess) { _, showToast in

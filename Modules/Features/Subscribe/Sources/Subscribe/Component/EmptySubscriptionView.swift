@@ -41,6 +41,7 @@ public struct EmptySubscriptionView: View {
                         .font(.hanSansNeo(14, .medium))
                         .foregroundStyle(Color.primaryNormal)
                         .underline()
+                        .contentShape(Rectangle())
                         .onTapGesture {
                             router.push(.login)
                         }

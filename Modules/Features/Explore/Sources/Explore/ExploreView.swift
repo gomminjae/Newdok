@@ -273,6 +273,7 @@ public struct ExploreView: View {
                     .font(.hanSansNeo(14, .medium))
                     .foregroundStyle(Color.primaryNormal)
                     .underline()
+                    .contentShape(Rectangle())
                     .onTapGesture {
                         router.push(.login)
                     }
@@ -328,6 +329,7 @@ public struct ExploreView: View {
                         prioritizedInterests: viewModel.prioritizeInterestsForNewsletter(newsletter)
                     )
                     .padding(.horizontal, 20)
+                    .contentShape(Rectangle())
                     .onTapGesture {
                         router.push(.brandDetail(id: "\(newsletter.id)"))
                     }
@@ -497,6 +499,7 @@ public struct ExploreView: View {
                         ForEach(viewModel.allNewsletters) { brand in
                             NewsletterDetailRow(brand: brand)
                                 .padding(.horizontal, 20)
+                                .contentShape(Rectangle())
                                 .onTapGesture {
                                     router.push(.brandDetail(id: "\(brand.id)"))
                                 }
@@ -631,6 +634,7 @@ struct PagingScrollView: View {
                             RecommendedNewsLetterView(recommendation: newsletter)
                                 .frame(width: itemWidth, height: itemHeight)
                                 .id(index)
+                                .contentShape(Rectangle())
                                 .onTapGesture {
                                     router.push(.brandDetail(id: "\(newsletter.id)"))
                                 }

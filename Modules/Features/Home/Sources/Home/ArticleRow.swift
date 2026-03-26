@@ -63,7 +63,7 @@ struct ArticleRow: View {
             RoundedRectangle(cornerRadius: 12)
                 .stroke(Color.lineNeutral, lineWidth: 1)
         )
-        .shadow(color: Color.black.opacity(0.05), radius: 2, x: 0, y: 1)
+
         .task {
             let count = await HighlightStorage.shared.fetchHighlights(for: String(article.articleId)).count
             highlightCount = count

@@ -81,7 +81,10 @@ public struct HomeView: View {
             .onAppear {
                 calendarDisplayedMonth = viewModel.calendarState.displayedMonth
                 calendarDataDays = viewModel.calendarState.dataDays
-                guard !isGuest else { return }
+                if isGuest {
+                    viewModel.homeState = .guest
+                    return
+                }
                 Task {
                     if await viewModel.shouldReloadToday() {
                         await viewModel.loadToday()
@@ -255,6 +258,7 @@ public struct HomeView: View {
                 ForEach(viewModel.filteredArticles) { article in
                     ArticleRow(article: article)
                         .frame(height: 88)
+                        .contentShape(Rectangle())
                         .onTapGesture {
                             Task { await viewModel.markArticleAsRead(articleId: article.articleId) }
                             router.push(.articleDetail(id: "\(article.articleId)"))

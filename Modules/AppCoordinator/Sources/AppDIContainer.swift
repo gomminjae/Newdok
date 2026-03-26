@@ -203,7 +203,7 @@ public final class AppDIContainer {
             return MainActor.assumeIsolated {
                 return MypageViewModel(useCase: userUseCase, profileUseCase: profileUseCase)
             }
-        }.inObjectScope(.transient)
+        }.inObjectScope(.container)
         
         container.register(RecoveryViewModel.self) { r in
             let useCase = r.resolve(UserUseCase.self)!

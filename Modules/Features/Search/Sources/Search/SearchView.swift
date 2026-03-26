@@ -75,7 +75,10 @@ public struct SearchView: View {
             Divider()
 
             if viewModel.isLoading {
+                Spacer()
                 ProgressView()
+                    .tint(Color.primaryNormal)
+                Spacer()
             } else if let error = viewModel.errorMessage {
                 Text(error).foregroundColor(.red)
             } else if !viewModel.searchResults.isEmpty {
@@ -133,6 +136,7 @@ public struct SearchView: View {
             
             if viewModel.isPopularLoading {
                 ProgressView()
+                    .tint(Color.primaryNormal)
                     .frame(maxWidth: .infinity)
             } else if let keywords = viewModel.popularKeywords?.keywords, !keywords.isEmpty {
                 ForEach(keywords) { keyword in
@@ -237,15 +241,16 @@ struct SearchNewsletterRow: View {
             if let url = URL(string: result.imageUrl) {
                 AsyncImage(url: url) { image in
                     image.resizable()
+                        .aspectRatio(contentMode: .fill)
                 } placeholder: {
                     Color.gray.opacity(0.2)
                 }
+                .frame(width: 56, height: 56)
+                .clipShape(RoundedRectangle(cornerRadius: 10))
                 .overlay {
                     RoundedRectangle(cornerRadius: 10)
                         .stroke(Color.lineNeutral, lineWidth: 1)
                 }
-                .frame(width: 56, height: 56)
-                .cornerRadius(10)
             }
             VStack(alignment: .leading, spacing: 4) {
                 Text(result.brandName)
@@ -260,6 +265,5 @@ struct SearchNewsletterRow: View {
         .padding()
         .background(.white)
         .cornerRadius(12)
-        .shadow(color: .gray.opacity(0.2), radius: 2)
     }
 }

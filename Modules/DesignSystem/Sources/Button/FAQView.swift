@@ -133,6 +133,7 @@ struct FAQView: View {
                         faq: item,
                         isExpanded: expandedFAQID == item.id
                     )
+                    .contentShape(Rectangle())
                     .onTapGesture {
                         withAnimation(.easeInOut(duration: 0.25)) {
                             if expandedFAQID == item.id {

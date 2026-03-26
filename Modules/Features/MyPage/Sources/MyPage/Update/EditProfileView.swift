@@ -74,8 +74,10 @@ public struct EditProfileView: View {
             Spacer()
         }
         .onAppear {
-            // [CHANGED] 전역 ToastCenter만 사용. 지역 체크/NotificationCenter 제거
-            Task { await viewModel.fetchuserInfo() }
+            // 싱글톤 VM에 데이터 없을 때만 fetch
+            if viewModel.user == nil {
+                Task { await viewModel.fetchuserInfo() }
+            }
         }
         .onReceive(NotificationCenter.default.publisher(for: .init("RefreshProfile"))) { _ in
             Task { await viewModel.fetchuserInfo() }
@@ -187,7 +189,9 @@ struct EditableRow: View {
                         .resizable()
                         .frame(width: 24, height: 24)
                         .foregroundColor(Color.captionStrong)
+                        .contentShape(Rectangle())
                 }
+                .buttonStyle(.plain)
             }
             .padding()
             .frame(height: 48)

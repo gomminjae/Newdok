@@ -14,6 +14,7 @@ struct SubscribeNoticeView: View {
         ZStack {
             Color.black.opacity(0.4)
                 .edgesIgnoringSafeArea(.all)
+                .contentShape(Rectangle())
                 .onTapGesture { onClose() }
 
             VStack(alignment: .leading, spacing: 12) {

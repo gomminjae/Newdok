@@ -113,6 +113,7 @@ public struct PasswordFieldModifier: ViewModifier {
 private struct KeyboardDismissHelper: UIViewRepresentable {
     func makeUIView(context: Context) -> UIView {
         let view = KeyboardDismissUIView()
+        view.isUserInteractionEnabled = false
         DispatchQueue.main.async {
             view.setup()
         }
@@ -123,6 +124,8 @@ private struct KeyboardDismissHelper: UIViewRepresentable {
 }
 
 private class KeyboardDismissUIView: UIView {
+    override var intrinsicContentSize: CGSize { .zero }
+
     func setup() {
         guard let window = self.window else { return }
         // 이미 추가된 제스처가 있으면 중복 추가 방지
@@ -131,6 +134,8 @@ private class KeyboardDismissUIView: UIView {
 
         let tap = KeyboardDismissTapGesture(target: self, action: #selector(dismissKeyboard))
         tap.cancelsTouchesInView = false // 핵심: 다른 뷰(탭바 등)의 터치를 막지 않음
+        tap.delaysTouchesBegan = false   // 터치 시작 딜레이 방지
+        tap.delaysTouchesEnded = false   // 터치 종료 딜레이 방지
         window.addGestureRecognizer(tap)
     }
 

@@ -119,7 +119,9 @@ struct FindIdPhoneInputView: View {
             $0
                 .type(.default)
                 .position(.center)
-                .closeOnTapOutside(true)
+                .closeOnTapOutside(false)
+                .closeOnTap(false)
+                .allowTapThroughBG(false)
                 .backgroundColor(Color.bgPopupDim.opacity(0.6))
         }
     }
@@ -143,6 +145,7 @@ struct FindIdResultView: View {
 
                 ForEach(viewModel.users) { user in
                     UserRow(user: user)
+                        .contentShape(Rectangle())
                         .onTapGesture { router.push(.login) }
                         .padding(.bottom, 12)
                 }

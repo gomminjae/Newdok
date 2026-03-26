@@ -33,6 +33,7 @@ struct BookmarkGuestView: View {
                     .font(.hanSansNeo(14, .medium))
                     .foregroundColor(Color.primaryNormal)
                     .underline()
+                    .contentShape(Rectangle())
                     .onTapGesture {
                         onLogin()
                     }

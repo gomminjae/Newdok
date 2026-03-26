@@ -141,6 +141,7 @@ public struct FAQView: View {
                             isExpanded: expandedFAQID == item.id
                         )
                         .id(item.id) // ScrollViewReader를 위한 ID
+                        .contentShape(Rectangle())
                         .onTapGesture {
                             withAnimation(.easeInOut(duration: 0.25)) {
                                 if expandedFAQID == item.id {

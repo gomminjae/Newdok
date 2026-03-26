@@ -1,0 +1,385 @@
+{
+  "version": "1.0.0",
+  "lastScanned": 1774353052277,
+  "projectRoot": "/Users/minjae/Desktop/Newdok",
+  "techStack": {
+    "languages": [],
+    "frameworks": [],
+    "packageManager": null,
+    "runtime": null
+  },
+  "build": {
+    "buildCommand": null,
+    "testCommand": null,
+    "lintCommand": null,
+    "devCommand": null,
+    "scripts": {}
+  },
+  "conventions": {
+    "namingStyle": null,
+    "importStyle": null,
+    "testPattern": null,
+    "fileOrganization": null
+  },
+  "structure": {
+    "isMonorepo": false,
+    "workspaces": [],
+    "mainDirectories": [],
+    "gitBranches": {
+      "defaultBranch": "develop",
+      "branchingStrategy": null
+    }
+  },
+  "customNotes": [],
+  "directoryMap": {
+    "Configurations": {
+      "path": "Configurations",
+      "purpose": null,
+      "fileCount": 3,
+      "lastAccessed": 1774353052228,
+      "keyFiles": [
+        "Debug.xcconfig",
+        "Release.xcconfig",
+        "env.xcconfig"
+      ]
+    },
+    "Modules": {
+      "path": "Modules",
+      "purpose": null,
+      "fileCount": 1,
+      "lastAccessed": 1774353052229,
+      "keyFiles": []
+    },
+    "Newdok.xcworkspace": {
+      "path": "Newdok.xcworkspace",
+      "purpose": null,
+      "fileCount": 2,
+      "lastAccessed": 1774353052229,
+      "keyFiles": [
+        "contents.xcworkspacedata"
+      ]
+    },
+    "Sources": {
+      "path": "Sources",
+      "purpose": null,
+      "fileCount": 1,
+      "lastAccessed": 1774353052233,
+      "keyFiles": []
+    },
+    "Tuist": {
+      "path": "Tuist",
+      "purpose": null,
+      "fileCount": 4,
+      "lastAccessed": 1774353052235,
+      "keyFiles": [
+        "Config.swift",
+        "Package.resolved",
+        "Package.swift"
+      ]
+    },
+    "Modules/App": {
+      "path": "Modules/App",
+      "purpose": "Application code",
+      "fileCount": 3,
+      "lastAccessed": 1774353052237,
+      "keyFiles": [
+        "GoogleService-Info.plist",
+        "Project.swift"
+      ]
+    },
+    "Modules/Data": {
+      "path": "Modules/Data",
+      "purpose": "Data files",
+      "fileCount": 2,
+      "lastAccessed": 1774353052238,
+      "keyFiles": [
+        "Project.swift"
+      ]
+    }
+  },
+  "hotPaths": [
+    {
+      "path": "",
+      "accessCount": 7,
+      "lastAccessed": 1774354157269,
+      "type": "directory"
+    },
+    {
+      "path": "Modules/Features/Detail/Sources/Brand/BrandDetailView.swift",
+      "accessCount": 5,
+      "lastAccessed": 1774360363256,
+      "type": "file"
+    },
+    {
+      "path": "Modules/Features/Search/Sources/Search/SearchView.swift",
+      "accessCount": 3,
+      "lastAccessed": 1774357647601,
+      "type": "file"
+    },
+    {
+      "path": "Modules/Features/Detail/Sources/Article/ArticleDetailView.swift",
+      "accessCount": 2,
+      "lastAccessed": 1774355257020,
+      "type": "file"
+    },
+    {
+      "path": "Modules/Features/Detail/Sources/Article/ArticleHighlightJS.swift",
+      "accessCount": 2,
+      "lastAccessed": 1774355257083,
+      "type": "file"
+    },
+    {
+      "path": "Modules/Features/Home/Sources/Home/ArticleRow.swift",
+      "accessCount": 2,
+      "lastAccessed": 1774357593034,
+      "type": "file"
+    },
+    {
+      "path": "Modules/App/Project.swift",
+      "accessCount": 2,
+      "lastAccessed": 1774359946789,
+      "type": "file"
+    },
+    {
+      "path": "Workspace.swift",
+      "accessCount": 1,
+      "lastAccessed": 1774353083690,
+      "type": "file"
+    },
+    {
+      "path": "Modules/Core/Project.swift",
+      "accessCount": 1,
+      "lastAccessed": 1774353087555,
+      "type": "file"
+    },
+    {
+      "path": "Modules/Domain/Project.swift",
+      "accessCount": 1,
+      "lastAccessed": 1774353087828,
+      "type": "file"
+    },
+    {
+      "path": "Modules/Data/Project.swift",
+      "accessCount": 1,
+      "lastAccessed": 1774353088067,
+      "type": "file"
+    },
+    {
+      "path": "Modules/AppCoordinator/Project.swift",
+      "accessCount": 1,
+      "lastAccessed": 1774353090956,
+      "type": "file"
+    },
+    {
+      "path": "Modules/DesignSystem/Project.swift",
+      "accessCount": 1,
+      "lastAccessed": 1774353091123,
+      "type": "file"
+    },
+    {
+      "path": "Modules/AppCoordinator/Sources/AppDIContainer.swift",
+      "accessCount": 1,
+      "lastAccessed": 1774353101236,
+      "type": "file"
+    },
+    {
+      "path": "Modules/Features/Auth/Project.swift",
+      "accessCount": 1,
+      "lastAccessed": 1774353101460,
+      "type": "file"
+    },
+    {
+      "path": "Modules/Features/Home/Project.swift",
+      "accessCount": 1,
+      "lastAccessed": 1774353101688,
+      "type": "file"
+    },
+    {
+      "path": "Modules/AppCoordinator/Sources/Container/AppCoordinator.swift",
+      "accessCount": 1,
+      "lastAccessed": 1774353104811,
+      "type": "file"
+    },
+    {
+      "path": "Modules/AppCoordinator/Sources/Flow/NewDokTabView.swift",
+      "accessCount": 1,
+      "lastAccessed": 1774353105247,
+      "type": "file"
+    },
+    {
+      "path": "Modules/Domain/Sources/Entity/Article/Article.swift",
+      "accessCount": 1,
+      "lastAccessed": 1774353112010,
+      "type": "file"
+    },
+    {
+      "path": "Modules/Domain/Sources/Entity/Newsletter/Newsletter.swift",
+      "accessCount": 1,
+      "lastAccessed": 1774353112224,
+      "type": "file"
+    },
+    {
+      "path": "Modules/Domain/Sources/Entity/User/User.swift",
+      "accessCount": 1,
+      "lastAccessed": 1774353112431,
+      "type": "file"
+    },
+    {
+      "path": "Modules/Domain/Sources/Repository/ArticleRepository.swift",
+      "accessCount": 1,
+      "lastAccessed": 1774353112735,
+      "type": "file"
+    },
+    {
+      "path": "Modules/Domain/Sources/Repository/UserRepository.swift",
+      "accessCount": 1,
+      "lastAccessed": 1774353112838,
+      "type": "file"
+    },
+    {
+      "path": "Modules/Data/Sources/Repository/ArticleRepositoryImpl.swift",
+      "accessCount": 1,
+      "lastAccessed": 1774353119038,
+      "type": "file"
+    },
+    {
+      "path": "Modules/Features/Home/Sources/Home/HomeViewModel.swift",
+      "accessCount": 1,
+      "lastAccessed": 1774353127111,
+      "type": "file"
+    },
+    {
+      "path": "Modules/Shared/Sources/Router/AppRouter.swift",
+      "accessCount": 1,
+      "lastAccessed": 1774353130597,
+      "type": "file"
+    },
+    {
+      "path": "Modules/Shared/Sources/Router/AppRoute.swift",
+      "accessCount": 1,
+      "lastAccessed": 1774353130722,
+      "type": "file"
+    },
+    {
+      "path": "Modules/Core/Sources/Network/NetworkProvider.swift",
+      "accessCount": 1,
+      "lastAccessed": 1774353134362,
+      "type": "file"
+    },
+    {
+      "path": "Modules/Core/Sources/API/ArticleAPI.swift",
+      "accessCount": 1,
+      "lastAccessed": 1774353134566,
+      "type": "file"
+    },
+    {
+      "path": "Modules/Core/Sources/Network/APIEnvironment.swift",
+      "accessCount": 1,
+      "lastAccessed": 1774353134841,
+      "type": "file"
+    },
+    {
+      "path": "Modules/Domain/Sources/UseCase/Auth/LoginUseCase.swift",
+      "accessCount": 1,
+      "lastAccessed": 1774353142810,
+      "type": "file"
+    },
+    {
+      "path": "Modules/Features/Detail/Sources/Article/ArticleDetailViewModel.swift",
+      "accessCount": 1,
+      "lastAccessed": 1774354144820,
+      "type": "file"
+    },
+    {
+      "path": "Modules/Features/MyPage/Sources/MyPage/Terms/TermsOfUseView.swift",
+      "accessCount": 1,
+      "lastAccessed": 1774354145058,
+      "type": "file"
+    },
+    {
+      "path": "Modules/Features/Auth/Sources/Signup/Popup/PolicyWebSheetView.swift",
+      "accessCount": 1,
+      "lastAccessed": 1774354145120,
+      "type": "file"
+    },
+    {
+      "path": "Modules/Features/Detail/Sources/Article/ArticleHTMLBuilder.swift",
+      "accessCount": 1,
+      "lastAccessed": 1774354153500,
+      "type": "file"
+    },
+    {
+      "path": "Modules/Features/Detail/Sources/Article/HighlightListView.swift",
+      "accessCount": 1,
+      "lastAccessed": 1774354154015,
+      "type": "file"
+    },
+    {
+      "path": "Modules/Features/MyPage/Sources/MyPage/Terms",
+      "accessCount": 1,
+      "lastAccessed": 1774354158410,
+      "type": "directory"
+    },
+    {
+      "path": "Modules/Features/MyPage/Sources/MyPage/Terms/TermsMenuView.swift",
+      "accessCount": 1,
+      "lastAccessed": 1774354158555,
+      "type": "file"
+    },
+    {
+      "path": "Modules/Shared/Sources/Highlight/HighlightModel.swift",
+      "accessCount": 1,
+      "lastAccessed": 1774354161532,
+      "type": "file"
+    },
+    {
+      "path": "Modules/DesignSystem/Sources/Components/Modal/SubscribeModalView.swift",
+      "accessCount": 1,
+      "lastAccessed": 1774354164375,
+      "type": "file"
+    },
+    {
+      "path": "Modules/Features/MyPage/Sources/MyPage/Feedback/FeedbackView.swift",
+      "accessCount": 1,
+      "lastAccessed": 1774354164546,
+      "type": "file"
+    },
+    {
+      "path": "Modules/Domain/Sources/Entity/Article/ArticleDetail.swift",
+      "accessCount": 1,
+      "lastAccessed": 1774354168194,
+      "type": "file"
+    },
+    {
+      "path": "Modules/Data/Sources/DTO/Article/ArticleDetailDTO.swift",
+      "accessCount": 1,
+      "lastAccessed": 1774354171647,
+      "type": "file"
+    },
+    {
+      "path": "Modules/Features/Home/Sources/Home/HomeView.swift",
+      "accessCount": 1,
+      "lastAccessed": 1774357462781,
+      "type": "file"
+    },
+    {
+      "path": "Modules/Features/Home",
+      "accessCount": 1,
+      "lastAccessed": 1774357467764,
+      "type": "directory"
+    },
+    {
+      "path": "Modules/Features/Search",
+      "accessCount": 1,
+      "lastAccessed": 1774357618107,
+      "type": "directory"
+    },
+    {
+      "path": "Modules/App/GoogleService-Info.plist",
+      "accessCount": 1,
+      "lastAccessed": 1774359942062,
+      "type": "file"
+    }
+  ],
+  "userDirectives": []
+}

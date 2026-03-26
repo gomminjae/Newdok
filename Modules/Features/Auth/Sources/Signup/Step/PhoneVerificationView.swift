@@ -203,10 +203,12 @@ public struct PhoneVerificationView: View {
                 .type(.default)
                 .position(.center)
                 .animation(.easeInOut)
-                .closeOnTapOutside(true)
+                .closeOnTapOutside(false)
+                .closeOnTap(false)
+                .allowTapThroughBG(false)
                 .backgroundColor(Color.bgPopupDim.opacity(0.6))
         }
-        
+
         .popup(isPresented: $viewModel.isShowPopup) {
             AuthFailView(onClose: {
                 viewModel.resetVerificationState()
@@ -216,7 +218,9 @@ public struct PhoneVerificationView: View {
               .type(.default)
               .position(.center)
               .animation(.easeInOut)
-              .closeOnTapOutside(true)
+              .closeOnTapOutside(false)
+              .closeOnTap(false)
+              .allowTapThroughBG(false)
               .backgroundColor(Color.bgPopupDim.opacity(0.6))
         }
     }

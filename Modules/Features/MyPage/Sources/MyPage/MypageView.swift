@@ -46,7 +46,10 @@ public struct MypageView: View {
                             Image(systemName: "questionmark.circle")
                                 .font(.system(size: 13))
                                 .foregroundColor(Color.captionNeutral)
+                                .frame(width: 24, height: 24)
+                                .contentShape(Rectangle())
                         }
+                        .buttonStyle(.plain)
                     }
 
                     // 이메일 텍스트 + 복사 버튼
@@ -55,7 +58,7 @@ public struct MypageView: View {
                             let email = viewModel.user?.subscribeEmail ?? userInfo?.subscribeEmail ?? ""
                             UIPasteboard.general.string = email
                             isCopy = true
-                            
+
                             DispatchQueue.main.asyncAfter(deadline: .now() + 2.1) {
                                     withAnimation {
                                         isCopy = false
@@ -65,7 +68,10 @@ public struct MypageView: View {
                             Image(asset: DesignSystemAsset.lineCopy)
                                 .renderingMode(.template)
                                 .foregroundStyle(Color.primaryNormal)
+                                .frame(width: 24, height: 24)
+                                .contentShape(Rectangle())
                         }
+                        .buttonStyle(.plain)
 
                         Text(viewModel.user?.subscribeEmail ?? userInfo?.subscribeEmail ?? "")
                             .font(.system(size: 14))
@@ -83,11 +89,13 @@ public struct MypageView: View {
                             .foregroundColor(Color.captionNeutral)
                             .frame(maxWidth: .infinity)
                             .frame(height: 44)
+                            .contentShape(Rectangle())
                             .overlay {
                                 RoundedRectangle(cornerRadius: 4)
                                     .stroke(Color.lineNeutral, lineWidth: 1)
                             }
                     }
+                    .buttonStyle(.plain)
                     .padding(.top, 12)
                 }
                 .padding(.horizontal, 20)

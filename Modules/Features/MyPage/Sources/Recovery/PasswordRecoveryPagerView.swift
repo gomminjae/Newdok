@@ -102,7 +102,9 @@ struct PasswordRecoveryIdInputView: View {
              .position(.center)
              .animation(.easeInOut)
              .backgroundColor(Color.black.opacity(0.3))
-             .closeOnTapOutside(true)
+             .closeOnTapOutside(false)
+             .closeOnTap(false)
+             .allowTapThroughBG(false)
         }
         .ignoresSafeArea(.keyboard)
         .toolbar {
@@ -245,7 +247,9 @@ struct PasswordRecoveryPhoneView: View {
              .position(.center)
              .animation(.easeInOut)
              .backgroundColor(Color.black.opacity(0.3))
-             .closeOnTapOutside(true)
+             .closeOnTapOutside(false)
+             .closeOnTap(false)
+             .allowTapThroughBG(false)
         }
     }
 }

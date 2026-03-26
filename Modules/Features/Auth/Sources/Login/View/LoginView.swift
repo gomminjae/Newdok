@@ -49,10 +49,6 @@ public struct LoginView: View {
                     .frame(height: 56)
                     .customTextFieldStyle(isError: viewModel.isLoginIdError, isFocused: $isIdFocused)
                     .focused($isIdFocused)
-                    .contentShape(Rectangle())
-                    .onTapGesture {
-                        isIdFocused = true
-                    }
                 if viewModel.isLoginIdError {
                     Text(viewModel.errorMessage ?? "")
                         .font(.hanSansNeo(12, .medium))
@@ -80,10 +76,6 @@ public struct LoginView: View {
                         isError: viewModel.isPasswordError
                     )
                 )
-                .contentShape(Rectangle())
-                .onTapGesture {
-                    isPwdFocused = true
-                }
                 if viewModel.isPasswordError {
                     Text(viewModel.errorMessage ?? "")
                         .font(.hanSansNeo(12, .medium))

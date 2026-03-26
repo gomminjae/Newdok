@@ -7,7 +7,7 @@ let project = Project(
         base: [
             "DEVELOPMENT_TEAM": "AU24ZRJ649",
             "SWIFT_VERSION": "6.0",
-            "MARKETING_VERSION": "1.0.0",
+            "MARKETING_VERSION": "1.0.1",
             "CURRENT_PROJECT_VERSION": "1",
             "CODE_SIGN_STYLE": "Automatic"
         ],

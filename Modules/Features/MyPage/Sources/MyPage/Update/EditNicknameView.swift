@@ -53,9 +53,6 @@ public struct EditNicknameView: View {
                         .onChange(of: draftNickname) { _, newValue in
                             validate(newValue)
                         }
-                        .onTapGesture {
-                            isFocused = true
-                        }
 
                     if validationState != .none {
                         Text(validationState.message)

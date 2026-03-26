@@ -122,10 +122,14 @@ public struct EditIndustryView: View {
             .disabled(selectedId == viewModel.user?.industryId)
         }
         .onAppear {
-            Task {
-                // 사용자 정보 로드 후 현재 선택된 종사산업으로 초기화
-                await viewModel.fetchuserInfo()
+            // 싱글톤 VM에 이미 user 데이터가 있으면 바로 사용
+            if viewModel.user != nil {
                 selectedId = viewModel.user?.industryId
+            } else {
+                Task {
+                    await viewModel.fetchuserInfo()
+                    selectedId = viewModel.user?.industryId
+                }
             }
         }
         .padding(20)

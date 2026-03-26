@@ -14,6 +14,7 @@ public struct StopSubscribeView: View {
         ZStack {
             Color.black.opacity(0.4)
                 .edgesIgnoringSafeArea(.all)
+                .contentShape(Rectangle())
                 .onTapGesture {
                     onClose()
                 }

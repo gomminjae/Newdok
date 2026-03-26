@@ -29,7 +29,6 @@ public struct WithdrawView: View {
                 .tag(1)
         }
         .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
-        .highPriorityGesture(DragGesture())           // 스와이프 방지
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .safeAreaInset(edge: .bottom) { bottomBar }   // 하단 고정 버튼
         .navigationBarBackButtonHidden(true)
@@ -163,6 +162,7 @@ public struct WithdrawView: View {
                             .resizable()
                             .frame(width: 20, height: 20)
                     }
+                    .buttonStyle(.plain)
                     
                     Text("탈퇴하시면 등록한 정보는 모두 삭제되어 복구할 수 없습니다.")
                         .font(.hanSansNeo(14, .medium))
@@ -212,6 +212,7 @@ public struct WithdrawView: View {
                                 .resizable()
                                 .frame(width: 24, height: 24)
                         }
+                        .buttonStyle(.plain)
                         Text(reasonTexts[idx])
                             .font(.hanSansNeo(14, .medium))
                             .foregroundStyle(Color.captionHeavy)

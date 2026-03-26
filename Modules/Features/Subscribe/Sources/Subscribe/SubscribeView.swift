@@ -81,7 +81,7 @@ public struct SubscribeView: View {
                 .animation(.easeInOut)
                 .backgroundColor(Color.black.opacity(0.3))
                 .closeOnTap(false)
-                .closeOnTapOutside(true)
+                .closeOnTapOutside(false)
                 .allowTapThroughBG(false)
         }
         .popup(isPresented: $showPauseToast) {

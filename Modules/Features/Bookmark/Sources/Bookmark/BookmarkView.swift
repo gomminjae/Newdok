@@ -66,7 +66,9 @@ struct BookmarkSortBottomSheet: View {
                         }
                         .padding(.horizontal, 24)
                         .frame(height: 56)
+                        .contentShape(Rectangle())
                     }
+                    .buttonStyle(.plain)
                     
                     if option.value != sortOptions.last?.value {
                         Divider()
@@ -258,6 +260,7 @@ public struct BookmarkView: View {
                 BookmarkCard(article: article)
                     .padding(.horizontal, 24)
                     .padding(.bottom, 8)
+                    .contentShape(Rectangle())
                     .onTapGesture {
                         router.push(.articleDetail(id: "\(article.id)"))
                     }

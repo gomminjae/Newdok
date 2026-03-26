@@ -27,6 +27,7 @@ public struct AccountManagementView: View {
             } label: {
                 rowLabel(title: "휴대폰 번호 변경")
             }
+            .buttonStyle(.plain)
             .padding(.vertical, 13)
 
             // 비밀번호 변경
@@ -35,6 +36,7 @@ public struct AccountManagementView: View {
             } label: {
                 rowLabel(title: "비밀번호 변경")
             }
+            .buttonStyle(.plain)
             .padding(.vertical, 13)
 
             // 로그아웃 버튼
@@ -43,6 +45,7 @@ public struct AccountManagementView: View {
             } label: {
                 rowLabel(title: "로그아웃")
             }
+            .buttonStyle(.plain)
             .padding(.vertical, 13)
 
             // 회원탈퇴
@@ -54,6 +57,7 @@ public struct AccountManagementView: View {
                     .foregroundColor(Color.captionNeutral)
                     .underline()
             }
+            .buttonStyle(.plain)
             .padding(.vertical, 13)
 
             Spacer()
@@ -103,7 +107,9 @@ public struct AccountManagementView: View {
             $0
                 .type(.default)
                 .position(.center)
-                .closeOnTapOutside(true)
+                .closeOnTapOutside(false)
+                .closeOnTap(false)
+                .allowTapThroughBG(false)
                 .backgroundColor(Color.black.opacity(0.3))
         }
         .onReceive(NotificationCenter.default.publisher(for: .showToast)) { notification in
@@ -123,6 +129,7 @@ public struct AccountManagementView: View {
             Spacer()
             Image(asset: DesignSystemAsset.lineRight)
         }
+        .contentShape(Rectangle())
     }
 }
 private struct LogoutPopupView: View {

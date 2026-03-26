@@ -11,6 +11,8 @@ import Shared
 import AppCoordinator
 import DesignSystem
 import PopupView
+import FirebaseCore
+import FirebaseAnalytics
 @main
 struct NewdokApp: App {
     @State private var showUpdateAlert = false
@@ -19,6 +21,9 @@ struct NewdokApp: App {
     @StateObject private var exploreIntent = ExploreIntent()
 
     init() {
+        // Firebase 초기화
+        FirebaseApp.configure()
+
         // DesignSystem 폰트 등록
         DesignSystemFontFamily.registerAllCustomFonts()
 
