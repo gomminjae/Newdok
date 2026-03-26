@@ -7,7 +7,7 @@
 
 import Domain
 
-public class FetchHomeDataUseCaseImpl: FetchHomeDataUseCase {
+public final class FetchHomeDataUseCaseImpl: FetchHomeDataUseCase, @unchecked Sendable {
     private let newsletterRepo: NewsletterRepository
     private let articleRepo: ArticleRepository
     
