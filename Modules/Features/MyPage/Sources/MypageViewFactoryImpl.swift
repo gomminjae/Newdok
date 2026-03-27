@@ -4,10 +4,12 @@ import Domain
 import DesignSystem
 import Shared
 
-public struct MypageViewFactoryImpl: MypageViewFactory {
+public final class MypageViewFactoryImpl: MypageViewFactory {
     private let mypageViewModelProvider: @MainActor () -> MypageViewModel
     private let recoveryViewModelProvider: @MainActor () -> RecoveryViewModel
     private let withdrawViewModelProvider: @MainActor () -> WithdrawViewModel
+
+    @MainActor private var cachedMypageViewModel: MypageViewModel?
 
     public init(
         mypageViewModelProvider: @MainActor @escaping () -> MypageViewModel,
@@ -17,30 +19,59 @@ public struct MypageViewFactoryImpl: MypageViewFactory {
         self.mypageViewModelProvider = mypageViewModelProvider
         self.recoveryViewModelProvider = recoveryViewModelProvider
         self.withdrawViewModelProvider = withdrawViewModelProvider
+
+        NotificationCenter.default.addObserver(
+            forName: .init("ResetMypageCache"),
+            object: nil,
+            queue: .main
+        ) { [weak self] _ in
+            Task { @MainActor in
+                self?.resetCache()
+            }
+        }
+    }
+
+    @MainActor public func resetCache() {
+        cachedMypageViewModel = nil
+    }
+
+    @MainActor private func sharedMypageViewModel() -> MypageViewModel {
+        if let cached = cachedMypageViewModel {
+            return cached
+        }
+        let vm = mypageViewModelProvider()
+        cachedMypageViewModel = vm
+        return vm
     }
 
     @MainActor public func makeMypageView() -> AnyView {
-        let vm = mypageViewModelProvider()
+        let vm = sharedMypageViewModel()
         return AnyView(MypageView(viewModel: vm))
     }
 
     @MainActor public func makeEditProfileView() -> AnyView {
-        let vm = mypageViewModelProvider()
+        let vm = sharedMypageViewModel()
         return AnyView(EditProfileView().environmentObject(vm))
     }
 
     @MainActor public func makeEditNicknameView() -> AnyView {
-        let vm = mypageViewModelProvider()
-        return AnyView(EditNicknameView(nickname: .constant("")).environmentObject(vm))
+        let vm = sharedMypageViewModel()
+        let currentNickname = vm.user?.nickname
+            ?? UserInfoStore.shared.load()?.nickname
+            ?? ""
+        return AnyView(
+            EditNicknameView(initialNickname: currentNickname)
+                .environmentObject(vm)
+        )
     }
 
     @MainActor public func makeEditIndustryView() -> AnyView {
-        let vm = mypageViewModelProvider()
+        let vm = sharedMypageViewModel()
         return AnyView(EditIndustryView().environmentObject(vm))
     }
 
     @MainActor public func makeEditInterestView() -> AnyView {
-        let vm = mypageViewModelProvider()
+        let vm = sharedMypageViewModel()
         return AnyView(EditInterestView().environmentObject(vm))
     }
 
@@ -54,12 +85,12 @@ public struct MypageViewFactoryImpl: MypageViewFactory {
     }
 
     @MainActor public func makeChangePasswordView() -> AnyView {
-        let vm = mypageViewModelProvider()
+        let vm = sharedMypageViewModel()
         return AnyView(PwdUpdateView(viewModel: vm))
     }
 
     @MainActor public func makeChangePhoneNumberView() -> AnyView {
-        let vm = mypageViewModelProvider()
+        let vm = sharedMypageViewModel()
         return AnyView(PhoneUpdateView(viewModel: vm))
     }
 

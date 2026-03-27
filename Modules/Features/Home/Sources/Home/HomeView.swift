@@ -8,7 +8,7 @@
 import SwiftUI
 import DesignSystem
 import Shared
-import Domain
+import HomeDomain
 import PopupView
 
 public struct HomeView: View {

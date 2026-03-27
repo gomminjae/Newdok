@@ -15,7 +15,15 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Cache SwiftLint
+        id: cache-swiftlint
+        uses: actions/cache@v4
+        with:
+          path: swiftlint-bin
+          key: swiftlint-0.62.2
+
       - name: Install SwiftLint 0.62.2
+        if: steps.cache-swiftlint.outputs.cache-hit != 'true'
         run: |
           curl -sL https://github.com/realm/SwiftLint/releases/download/0.62.2/portable_swiftlint.zip -o swiftlint.zip
           unzip -o swiftlint.zip -d swiftlint-bin
@@ -39,6 +47,15 @@ jobs:
           path: Tuist/.build
           key: spm-${{ runner.os }}-${{ hashFiles('Tuist/Package.resolved') }}
           restore-keys: spm-${{ runner.os }}-
+
+      - name: Cache DerivedData
+        uses: actions/cache@v4
+        with:
+          path: ~/Library/Developer/Xcode/DerivedData
+          key: deriveddata-${{ runner.os }}-${{ hashFiles('Tuist/Package.resolved') }}-${{ github.sha }}
+          restore-keys: |
+            deriveddata-${{ runner.os }}-${{ hashFiles('Tuist/Package.resolved') }}-
+            deriveddata-${{ runner.os }}-
 
       - name: Generate CI xcconfig files
         run: |
@@ -81,6 +98,7 @@ jobs:
             -scheme Newdok \
             -destination 'generic/platform=iOS Simulator' \
             -configuration Debug \
+            -derivedDataPath ~/Library/Developer/Xcode/DerivedData \
             CODE_SIGN_IDENTITY="" \
             CODE_SIGNING_REQUIRED=NO \
             CODE_SIGNING_ALLOWED=NO \
