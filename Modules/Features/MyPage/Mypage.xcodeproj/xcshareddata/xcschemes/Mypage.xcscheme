@@ -20,6 +20,20 @@
                ReferencedContainer = "container:Mypage.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "8AF4554538C6F28E16CDD379"
+               BuildableName = "MypageInterface.framework"
+               BlueprintName = "MypageInterface"
+               ReferencedContainer = "container:Mypage.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
       </BuildActionEntries>
    </BuildAction>
    <TestAction

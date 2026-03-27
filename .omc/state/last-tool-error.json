@@ -1,0 +1,7 @@
+{
+  "tool_name": "Bash",
+  "tool_input_preview": "{\"command\":\"gh pr create --base develop --title \\\"refactor: MFA Step 3 — Auth/Home 수직 슬라이스 전환 + 버그 수정\\\" --body \\\"$(cat <<'EOF'\\n## Summary\\n- Auth Feature 수직 슬라이스 전환 — AuthDomain + AuthData 서브타겟 분리\\n-...",
+  "error": "Exit code 4\nTo get started with GitHub CLI, please run:  gh auth login\nAlternatively, populate the GH_TOKEN environment variable with a GitHub API authentication token.",
+  "timestamp": "2026-03-27T16:02:58.852Z",
+  "retry_count": 1
+}
