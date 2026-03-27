@@ -63,6 +63,11 @@ public struct WithdrawView: View {
             onGoBack: { router.pop() },
             onRetry: { Task { await viewModel.fetchUserInfo() } }
         )
+        .onChange(of: viewModel.withdrawSuccess) { _, success in
+            if success {
+                router.resetTo(.onboarding)
+            }
+        }
     }
     
     // MARK: - 하단 고정 버튼 뷰
@@ -85,7 +90,6 @@ public struct WithdrawView: View {
                 Button("탈퇴완료") {
                     Task {
                         await viewModel.withdraw()
-                        router.resetTo(.onboarding)
                     }
                 }
                 .font(.hanSansNeo(14, .bold))

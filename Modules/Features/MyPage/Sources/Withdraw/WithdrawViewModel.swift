@@ -51,6 +51,9 @@ public final class WithdrawViewModel: ObservableObject, ErrorHandling {
             // 탈퇴 성공 시 모든 로컬 데이터 정리
             clearAllLocalData()
 
+            // 캐시된 뷰모델 초기화
+            NotificationCenter.default.post(name: .init("ResetMypageCache"), object: nil)
+
             self.withdrawSuccess = true
         }
     }

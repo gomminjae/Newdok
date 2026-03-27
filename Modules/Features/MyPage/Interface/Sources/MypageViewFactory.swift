@@ -1,6 +1,7 @@
 import SwiftUI
 
-public protocol MypageViewFactory {
+public protocol MypageViewFactory: AnyObject {
+    @MainActor func resetCache()
     @MainActor func makeMypageView() -> AnyView
     @MainActor func makeEditProfileView() -> AnyView
     @MainActor func makeEditNicknameView() -> AnyView

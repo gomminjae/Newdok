@@ -90,16 +90,19 @@ public struct AccountManagementView: View {
                     // 로그아웃 시 모든 사용자 데이터 초기화
                     TokenStorage.clear()
                     UserInfoStore.shared.clear()
-                    
+
+                    // 캐시된 뷰모델 초기화
+                    NotificationCenter.default.post(name: .init("ResetMypageCache"), object: nil)
+
                     // 앱 상태 초기화
                     @AppStorage("isGuest") var isGuest: Bool = true
                     @AppStorage("isLoggedIn") var isLoggedIn: Bool = false
                     isGuest = true
                     isLoggedIn = false
-                    
+
                     // AppState를 통한 중앙 집중식 상태 관리
                     AppState.shared.logout()
-                    
+
                     router.resetTo(.login)
                 }
             )

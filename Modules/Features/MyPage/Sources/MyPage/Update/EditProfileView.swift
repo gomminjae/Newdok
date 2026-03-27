@@ -1,11 +1,3 @@
-//
-//  EditProfileView.swift
-//  Mypage
-//
-//  Created by 권민재 on 5/8/25.
-//  Copyright © 2025 Newdok. All rights reserved.
-//
-
 import SwiftUI
 import DesignSystem
 import Shared
@@ -14,7 +6,7 @@ import Combine
 import PopupView
 
 public struct EditProfileView: View {
-    @AppStorage("nickname") private var nickname: String = ""
+    @State private var userInfo: UserInfo?
     @State private var showEditInterest = false
 
     @EnvironmentObject private var router: AppRouter
@@ -32,16 +24,16 @@ public struct EditProfileView: View {
                 .padding(.top, 24)
                 .padding(.bottom, 40)
                 .allowsHitTesting(false)
-            
+
             // MARK: 닉네임
             EditableRow(
                 title: "닉네임",
-                text: viewModel.user?.nickname ?? "",
+                text: viewModel.user?.nickname ?? userInfo?.nickname ?? "",
                 onEdit: {
                     router.push(.editNickname)
                 }
             )
-           
+
             // MARK: 종사산업
             let industryName = getIndustryName()
             EditableRow(
@@ -74,13 +66,19 @@ public struct EditProfileView: View {
             Spacer()
         }
         .onAppear {
-            // 싱글톤 VM에 데이터 없을 때만 fetch
+            userInfo = UserInfoStore.shared.load()
             if viewModel.user == nil {
-                Task { await viewModel.fetchuserInfo() }
+                Task {
+                    await viewModel.fetchuserInfo()
+                    userInfo = UserInfoStore.shared.load()
+                }
             }
         }
         .onReceive(NotificationCenter.default.publisher(for: .init("RefreshProfile"))) { _ in
-            Task { await viewModel.fetchuserInfo() }
+            Task {
+                await viewModel.fetchuserInfo()
+                userInfo = UserInfoStore.shared.load()
+            }
         }
         .padding(.horizontal, 20)
         .navigationBarTitleDisplayMode(.inline)
@@ -107,23 +105,35 @@ public struct EditProfileView: View {
                     .font(.hanSansNeo(17, .medium))
             }
         }
-
-        // [CHANGED] 로컬 .popup 토스트 제거. 전역 PopupView(루트) 하나만 사용
     }
 
     // MARK: - Helper
     private func getIndustryName() -> String {
-        guard let id = viewModel.user?.industryId else { return "" }
-        return SelectableItemStore.shared.name(for: id, in: .industry) ?? ""
+        if let id = viewModel.user?.industryId {
+            return SelectableItemStore.shared.name(for: id, in: .industry) ?? ""
+        }
+        if let id = userInfo?.industryId {
+            return SelectableItemStore.shared.name(for: id, in: .industry) ?? ""
+        }
+        return ""
     }
 
     private func interestSectionView() -> AnyView? {
-        guard let interests = viewModel.user?.interests, !interests.isEmpty else { return nil }
-        
-        let interestNames = interests.compactMap {
-            SelectableItemStore.shared.name(for: $0.id, in: .interest)
+        // VM 데이터 우선, 없으면 UserInfoStore fallback
+        let interestIds: [Int]
+        if let interests = viewModel.user?.interests, !interests.isEmpty {
+            interestIds = interests.map { $0.id }
+        } else if let ids = userInfo?.interestIds, !ids.isEmpty {
+            interestIds = ids
+        } else {
+            return nil
         }
-        let items = interestNames + ["+"]
+
+        let interestNames = interestIds.compactMap {
+            SelectableItemStore.shared.name(for: $0, in: .interest)
+        }
+        guard !interestNames.isEmpty else { return nil }
+
         let section = VStack(alignment: .leading, spacing: 8) {
             Text("관심사")
                 .font(.hanSansNeo(14, .medium))
@@ -172,7 +182,7 @@ struct EditableRow: View {
     let text: String
     var placeholder: String = ""
     var onEdit: (() -> Void)?
-    
+
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
             Text(title)
@@ -221,7 +231,7 @@ private struct ChipFlowLayout: Layout {
         subviews: Subviews,
         cache: inout Cache
     ) -> CGSize {
-        let horizontalPadding: CGFloat = 40 // EditProfileView uses 20pt horizontal padding on each side
+        let horizontalPadding: CGFloat = 40
         let fallbackWidth = UIScreen.main.bounds.width - horizontalPadding
         let maxWidth = proposal.width ?? fallbackWidth
 

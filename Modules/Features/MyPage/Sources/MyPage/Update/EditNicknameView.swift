@@ -14,18 +14,18 @@ import Shared
 import Domain
 
 public struct EditNicknameView: View {
-    @Binding var nickname: String
+    private let initialNickname: String
     @State private var draftNickname: String
     @State private var validationState: ValidationState = .none
     @FocusState private var isFocused: Bool
-    
+
     @EnvironmentObject private var viewModel: MypageViewModel
     @EnvironmentObject private var toast: ToastCenter
     @EnvironmentObject private var router: AppRouter
-    
-    public init(nickname: Binding<String>) {
-        self._nickname = nickname
-        self._draftNickname = State(initialValue: nickname.wrappedValue)
+
+    public init(initialNickname: String) {
+        self.initialNickname = initialNickname
+        self._draftNickname = State(initialValue: initialNickname)
     }
     
     public var body: some View {
@@ -69,7 +69,6 @@ public struct EditNicknameView: View {
                 Task {
                     await viewModel.updateNickname(nickname: draftNickname)
                     await viewModel.fetchuserInfo()
-                    nickname = draftNickname
                     // 먼저 화면을 닫고, 다음 프레임에서 토스트 노출(팝된 뷰에서 보이도록)
                     await MainActor.run { router.pop() }
                     // pop 이후에도 살아있는 전역 싱글톤을 통해 토스트 표시 (뷰 생명주기와 분리)
@@ -132,7 +131,7 @@ public struct EditNicknameView: View {
     }
     
     private var isButtonEnabled: Bool {
-        return validationState == .valid && draftNickname != nickname
+        return validationState == .valid && draftNickname != initialNickname
     }
     
     private func validate(_ text: String) {
