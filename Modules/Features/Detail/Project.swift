@@ -19,6 +19,43 @@ let project = Project(
             )
         ),
         .target(
+            name: "DetailDomain",
+            destinations: .iOS,
+            product: .staticFramework,
+            bundleId: "com.newdok.detail.domain",
+            deploymentTargets: .iOS("17.0"),
+            infoPlist: .default,
+            sources: ["Domain/Sources/**"],
+            dependencies: [
+                .project(target: "Shared", path: "../../Shared")
+            ],
+            settings: .settings(
+                base: [
+                    "SKIP_INSTALL": "YES",
+                    "SWIFT_STRICT_CONCURRENCY": "complete"
+                ]
+            )
+        ),
+        .target(
+            name: "DetailData",
+            destinations: .iOS,
+            product: .staticFramework,
+            bundleId: "com.newdok.detail.data",
+            deploymentTargets: .iOS("17.0"),
+            infoPlist: .default,
+            sources: ["Data/Sources/**"],
+            dependencies: [
+                .target(name: "DetailDomain"),
+                .project(target: "Core", path: "../../Core")
+            ],
+            settings: .settings(
+                base: [
+                    "SKIP_INSTALL": "YES",
+                    "SWIFT_STRICT_CONCURRENCY": "complete"
+                ]
+            )
+        ),
+        .target(
             name: "Detail",
             destinations: .iOS,
             product: .staticFramework,
@@ -28,7 +65,7 @@ let project = Project(
             sources: ["Sources/**"],
             dependencies: [
                 .target(name: "DetailInterface"),
-                .project(target: "Domain", path: "../../Domain"),
+                .target(name: "DetailDomain"),
                 .project(target: "DesignSystem", path: "../../DesignSystem"),
                 .project(target: "Shared", path: "../../Shared")
             ],

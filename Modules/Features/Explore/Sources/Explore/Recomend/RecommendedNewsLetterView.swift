@@ -8,11 +8,11 @@
 import SwiftUI
 import DesignSystem
 import Shared
-import Domain
+import ExploreDomain
 import Kingfisher
 
 struct RecommendedNewsLetterView: View {
-    var recommendation: NewsletterDetail
+    var recommendation: ExploreNewsletterDetail
 
     var body: some View {
         VStack(spacing: 0) {

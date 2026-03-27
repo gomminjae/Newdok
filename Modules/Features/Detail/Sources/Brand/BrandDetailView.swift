@@ -8,7 +8,7 @@
 import SwiftUI
 import DesignSystem
 import Kingfisher
-import Domain
+import DetailDomain
 import Shared
 import PopupView
 
@@ -242,7 +242,7 @@ public struct BrandDetailView: View {
 
     @ViewBuilder
     // swiftlint:disable:next function_body_length
-    private func detailContent(_ detail: BrandDetail) -> some View {
+    private func detailContent(_ detail: DetailBrandDetail) -> some View {
         VStack(spacing: 0) {
             ZStack(alignment: .topLeading) {
                 Group {
@@ -524,7 +524,7 @@ public struct BrandDetailView: View {
         }
     }
 
-    private func presentCheckSubscribePopupIfNeeded(for detail: BrandDetail) {
+    private func presentCheckSubscribePopupIfNeeded(for detail: DetailBrandDetail) {
         guard !hasPresentedSubscribeCheckPopup else { return }
 
         let needsPopup = SubscriptionStatus(rawValue: detail.isSubscribed ?? "") == .check

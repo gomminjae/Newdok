@@ -7,7 +7,7 @@
 //
 import SwiftUI
 import DesignSystem
-import Domain
+import MypageDomain
 import Shared
 import PopupView
 
@@ -182,7 +182,7 @@ struct FindIdResultView: View {
     }
 }
 private struct UserRow: View {
-    let user: SimpleUser
+    let user: MypageSimpleUser
 
     var body: some View {
         HStack {

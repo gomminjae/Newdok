@@ -20,6 +20,43 @@ let project = Project(
             )
         ),
         .target(
+            name: "BookmarkDomain",
+            destinations: .iOS,
+            product: .staticFramework,
+            bundleId: "com.newdok.bookmark.domain",
+            deploymentTargets: .iOS("17.0"),
+            infoPlist: .default,
+            sources: ["Domain/Sources/**"],
+            dependencies: [
+                .project(target: "Shared", path: "../../Shared")
+            ],
+            settings: .settings(
+                base: [
+                    "SKIP_INSTALL": "YES",
+                    "SWIFT_STRICT_CONCURRENCY": "complete"
+                ]
+            )
+        ),
+        .target(
+            name: "BookmarkData",
+            destinations: .iOS,
+            product: .staticFramework,
+            bundleId: "com.newdok.bookmark.data",
+            deploymentTargets: .iOS("17.0"),
+            infoPlist: .default,
+            sources: ["Data/Sources/**"],
+            dependencies: [
+                .target(name: "BookmarkDomain"),
+                .project(target: "Core", path: "../../Core")
+            ],
+            settings: .settings(
+                base: [
+                    "SKIP_INSTALL": "YES",
+                    "SWIFT_STRICT_CONCURRENCY": "complete"
+                ]
+            )
+        ),
+        .target(
             name: "Bookmark",
             destinations: .iOS,
             product: .staticFramework,
@@ -30,9 +67,9 @@ let project = Project(
             resources: ["Resources/**"],
             dependencies: [
                 .target(name: "BookmarkInterface"),
+                .target(name: "BookmarkDomain"),
                 .project(target: "DesignSystem", path: "../../DesignSystem"),
-                .project(target: "Shared", path: "../../Shared"),
-                .project(target: "Domain", path: "../../Domain")
+                .project(target: "Shared", path: "../../Shared")
             ],
             settings: .settings(
                 base: [
@@ -52,9 +89,9 @@ let project = Project(
             sources: ["Tests/**"],
             dependencies: [
                 .target(name: "Bookmark"),
+                .target(name: "BookmarkDomain"),
                 .project(target: "DesignSystem", path: "../../DesignSystem"),
-                .project(target: "Shared", path: "../../Shared"),
-                .project(target: "Domain", path: "../../Domain")
+                .project(target: "Shared", path: "../../Shared")
             ]
         )
     ]

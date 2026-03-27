@@ -2,7 +2,6 @@ import Foundation
 import Swinject
 import Moya
 import Core
-import Domain
 import AppCoordinator
 import Auth
 import AuthInterface
@@ -14,22 +13,44 @@ import HomeDomain
 import HomeData
 import Explore
 import ExploreInterface
+import ExploreDomain
+import ExploreData
 import Subscribe
 import SubscribeInterface
+import SubscribeDomain
+import SubscribeData
 import Bookmark
 import BookmarkInterface
+import BookmarkDomain
+import BookmarkData
 import Detail
 import DetailInterface
+import DetailDomain
+import DetailData
 import Search
 import SearchInterface
+import SearchDomain
+import SearchData
 import Mypage
 import MypageInterface
+import MypageDomain
+import MypageData
 import Launch
 import LaunchInterface
 
 @MainActor
 enum CompositionRoot {
     private static var container: Container { AppDIContainer.shared.container }
+
+    static func registerGlobalDependencies() {
+        let exploreRepo = ExploreNewsletterRepositoryImpl(
+            provider: container.resolve(MoyaProvider<NewsletterAPI>.self)!
+        )
+        let exploreUseCase = ExploreNewsletterUseCaseImpl(repository: exploreRepo)
+        container.register(LoadOptionsUseCase.self) { _ in
+            LoadOptionsUseCaseImpl(newsletterUseCase: exploreUseCase)
+        }.inObjectScope(.container)
+    }
 
     static func makeAuthFactory() -> AuthViewFactory {
         let authRepo = AuthRepositoryImpl(
@@ -64,21 +85,30 @@ enum CompositionRoot {
 
     static func makeExploreFactory() -> ExploreViewFactory {
         return ExploreViewFactoryImpl(viewModelProvider: {
-            let useCase = container.resolve(NewsletterUseCase.self)!
+            let repo = ExploreNewsletterRepositoryImpl(
+                provider: container.resolve(MoyaProvider<NewsletterAPI>.self)!
+            )
+            let useCase = ExploreNewsletterUseCaseImpl(repository: repo)
             return ExploreViewModel(useCase: useCase)
         })
     }
 
     static func makeSubscribeFactory() -> SubscribeViewFactory {
         return SubscribeViewFactoryImpl(viewModelProvider: {
-            let useCase = container.resolve(NewsletterUseCase.self)!
+            let repo = SubscribeNewsletterRepositoryImpl(
+                provider: container.resolve(MoyaProvider<NewsletterAPI>.self)!
+            )
+            let useCase = SubscribeUseCaseImpl(repository: repo)
             return SubscribeViewModel(useCase: useCase)
         })
     }
 
     static func makeBookmarkFactory() -> BookmarkViewFactory {
         return BookmarkViewFactoryImpl(viewModelProvider: {
-            let useCase = container.resolve(ArticleUseCase.self)!
+            let repo = BookmarkRepositoryImpl(
+                provider: container.resolve(MoyaProvider<ArticleAPI>.self)!
+            )
+            let useCase = BookmarkUseCaseImpl(repository: repo)
             return BookmarkViewModel(useCase: useCase)
         })
     }
@@ -86,12 +116,16 @@ enum CompositionRoot {
     static func makeDetailFactory() -> DetailViewFactory {
         return DetailViewFactoryImpl(
             brandDetailViewModelProvider: { id in
-                let useCase = container.resolve(NewsletterUseCase.self)!
-                return BrandDetailViewModel(id: id, useCase: useCase)
+                let brandRepo = DetailBrandRepositoryImpl(
+                    provider: container.resolve(MoyaProvider<NewsletterAPI>.self)!
+                )
+                return BrandDetailViewModel(id: id, brandRepository: brandRepo)
             },
             articleDetailViewModelProvider: { id in
-                let articleUseCase = container.resolve(ArticleUseCase.self)!
-                let detailUseCase = ArticleDetailUseCaseImpl(articleUseCase: articleUseCase)
+                let articleRepo = DetailArticleRepositoryImpl(
+                    provider: container.resolve(MoyaProvider<ArticleAPI>.self)!
+                )
+                let detailUseCase = ArticleDetailUseCaseImpl(articleRepository: articleRepo)
                 return ArticleDetailViewModel(id: id, articleDetailUseCase: detailUseCase)
             }
         )
@@ -99,31 +133,38 @@ enum CompositionRoot {
 
     static func makeSearchFactory() -> SearchViewFactory {
         return SearchViewFactoryImpl(viewModelProvider: {
-            let repo = container.resolve(SearchRepository.self)!
+            let repo = SearchRepositoryImpl(
+                provider: container.resolve(MoyaProvider<SearchAPI>.self)!
+            )
             let useCase = SearchUseCaseImpl(searchRepository: repo)
             return SearchViewModel(useCase: useCase)
         })
     }
 
     static func makeMypageFactory() -> MypageViewFactory {
+        let userRepo = MypageUserRepositoryImpl(
+            provider: container.resolve(MoyaProvider<UserAPI>.self)!
+        )
+        let statsRepo = MypageStatsRepositoryImpl(
+            articleProvider: container.resolve(MoyaProvider<ArticleAPI>.self)!,
+            newsletterProvider: container.resolve(MoyaProvider<NewsletterAPI>.self)!
+        )
         return MypageViewFactoryImpl(
             mypageViewModelProvider: {
-                let userUseCase = container.resolve(UserUseCase.self)!
+                let userUseCase = MypageUserUseCaseImpl(repository: userRepo)
                 let profileUseCase = ProfileUseCaseImpl(userUseCase: userUseCase)
                 return MypageViewModel(useCase: userUseCase, profileUseCase: profileUseCase)
             },
             recoveryViewModelProvider: {
-                let useCase = container.resolve(UserUseCase.self)!
-                return RecoveryViewModel(useCase: useCase)
+                let userUseCase = MypageUserUseCaseImpl(repository: userRepo)
+                return RecoveryViewModel(useCase: userUseCase)
             },
             withdrawViewModelProvider: {
-                let userUseCase = container.resolve(UserUseCase.self)!
-                let newsletterUseCase = container.resolve(NewsletterUseCase.self)!
-                let articleUseCase = container.resolve(ArticleUseCase.self)!
+                let userUseCase = MypageUserUseCaseImpl(repository: userRepo)
+                let statsUseCase = MypageStatsUseCaseImpl(repository: statsRepo)
                 return WithdrawViewModel(
                     userUseCase: userUseCase,
-                    newsletterUseCase: newsletterUseCase,
-                    articleUseCase: articleUseCase
+                    statsUseCase: statsUseCase
                 )
             }
         )

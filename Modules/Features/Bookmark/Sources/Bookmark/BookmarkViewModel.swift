@@ -7,7 +7,7 @@
 //
 import Foundation
 import SwiftUI
-import Domain
+import BookmarkDomain
 import Combine
 import Shared
 
@@ -19,16 +19,16 @@ protocol BookmarkViewModelBindable {
 @MainActor
 public class BookmarkViewModel: ObservableObject, BookmarkViewModelBindable, ErrorHandling {
     @Published public var interest: String = ""
-    @Published public var interests: [Interest] = []
+    @Published public var interests: [BookmarkInterest] = []
 
     @Published public var bookmarks: BookmarkedArticles?
     @Published public var sortOrder: String = "추가순"
     @Published public var currentError: AppError?
 
-    private let useCase: ArticleUseCase
+    private let useCase: BookmarkUseCase
     private var cancellables = Set<AnyCancellable>()
 
-    public init(useCase: ArticleUseCase) {
+    public init(useCase: BookmarkUseCase) {
         self.useCase = useCase
 
         AppState.shared.$authState

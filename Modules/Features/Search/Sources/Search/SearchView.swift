@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-import Domain
+import SearchDomain
 import Shared
 import DesignSystem
 

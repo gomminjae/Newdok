@@ -23,11 +23,11 @@ let project = Project(
                 .project(target: "DetailInterface", path: "../Features/Detail"),
                 .project(target: "LaunchInterface", path: "../Features/Launch"),
                 // Infrastructure
-                .project(target: "Data", path: "../Data"),
-                .project(target: "Domain", path: "../Domain"),
                 .project(target: "Core", path: "../Core"),
                 .project(target: "DesignSystem", path: "../DesignSystem"),
                 .project(target: "Shared", path: "../Shared"),
+                // ExploreDomain (for LoadOptionsUseCase)
+                .project(target: "ExploreDomain", path: "../Features/Explore"),
                 .external(name: "Swinject")
             ],
             settings: .settings(

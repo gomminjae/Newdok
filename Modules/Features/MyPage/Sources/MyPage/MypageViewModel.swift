@@ -8,7 +8,7 @@
 
 import Foundation
 import Combine
-import Domain
+import MypageDomain
 import Shared
 
 protocol MypageViewModelBindable {
@@ -19,7 +19,7 @@ public class MypageViewModel: ObservableObject, ErrorHandling {
     @Published var activeNavigation: String?
 
     @Published var nickname: String = ""
-    @Published var user: User?
+    @Published var user: MypageUser?
 
     @Published var shownicknameToast: Bool = false
     @Published var showIndustryToast: Bool = false
@@ -51,10 +51,10 @@ public class MypageViewModel: ObservableObject, ErrorHandling {
     @Published public var currentError: AppError?
     @Published public var isInterestUpdating: Bool = false
 
-    private let useCase: UserUseCase
-    private let profileUseCase: ProfileUseCase
+    private let useCase: MypageUserUseCase
+    private let profileUseCase: MypageProfileUseCase
 
-    public init(useCase: UserUseCase, profileUseCase: ProfileUseCase) {
+    public init(useCase: MypageUserUseCase, profileUseCase: MypageProfileUseCase) {
         self.useCase = useCase
         self.profileUseCase = profileUseCase
     }
@@ -71,7 +71,7 @@ public class MypageViewModel: ObservableObject, ErrorHandling {
 
             // UI 상태 업데이트
             if let currentUser = user {
-                user = User(
+                user = MypageUser(
                     id: currentUser.id,
                     loginId: currentUser.loginId,
                     phoneNumber: currentUser.phoneNumber,
@@ -95,7 +95,7 @@ public class MypageViewModel: ObservableObject, ErrorHandling {
 
             // UI 상태 업데이트
             if let currentUser = user {
-                user = User(
+                user = MypageUser(
                     id: currentUser.id,
                     loginId: currentUser.loginId,
                     phoneNumber: currentUser.phoneNumber,
@@ -120,8 +120,8 @@ public class MypageViewModel: ObservableObject, ErrorHandling {
 
             // UI 상태 업데이트
             if let currentUser = user {
-                let updatedInterests = ids.map { Interest(id: $0, name: SelectableItemStore.shared.name(for: $0, in: .interest) ?? "") }
-                user = User(
+                let updatedInterests = ids.map { MypageInterest(id: $0, name: SelectableItemStore.shared.name(for: $0, in: .interest) ?? "") }
+                user = MypageUser(
                     id: currentUser.id,
                     loginId: currentUser.loginId,
                     phoneNumber: currentUser.phoneNumber,

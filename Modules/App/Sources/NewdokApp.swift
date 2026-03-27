@@ -18,6 +18,7 @@ struct NewdokApp: App {
         FirebaseApp.configure()
         DesignSystemFontFamily.registerAllCustomFonts()
         ErrorLoggerRegistry.register(CoreErrorLogger())
+        CompositionRoot.registerGlobalDependencies()
     }
 
     var body: some Scene {

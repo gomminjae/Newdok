@@ -8,7 +8,7 @@
 
 import SwiftUI
 import Kingfisher
-import Domain
+import ExploreDomain
 import DesignSystem
 
 enum SubscriptionStatus: String {
@@ -62,7 +62,7 @@ enum SubscriptionStatus: String {
 }
 
 struct NewsletterDetailRow: View {
-    var brand: Brand
+    var brand: ExploreBrand
 
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {

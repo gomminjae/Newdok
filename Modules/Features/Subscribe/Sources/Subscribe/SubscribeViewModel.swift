@@ -7,7 +7,7 @@
 //
 import SwiftUI
 import Foundation
-import Domain
+import SubscribeDomain
 import Shared
 
 public enum SubscribeState {
@@ -19,10 +19,10 @@ public enum SubscribeState {
 
 @MainActor
 public final class SubscribeViewModel: ObservableObject, ErrorHandling {
-    private let useCase: NewsletterUseCase
+    private let useCase: SubscribeUseCase
 
-    @Published public var activeNewsletters: [Newsletter] = []
-    @Published public var pausedNewsletters: [Newsletter] = []
+    @Published public var activeNewsletters: [SubscribeNewsletter] = []
+    @Published public var pausedNewsletters: [SubscribeNewsletter] = []
 
     @Published public var initialLoaded: Bool = false
     @Published public var isRefreshing: Bool = false
@@ -31,7 +31,7 @@ public final class SubscribeViewModel: ObservableObject, ErrorHandling {
     @Published public var lastRefreshTime = Date.distantPast
     @Published public var currentError: AppError?
 
-    public init(useCase: NewsletterUseCase) {
+    public init(useCase: SubscribeUseCase) {
         self.useCase = useCase
     }
 

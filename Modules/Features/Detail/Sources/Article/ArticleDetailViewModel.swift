@@ -5,7 +5,7 @@
 //  Created by 권민재 on 5/12/25.
 //
 
-import Domain
+import DetailDomain
 import Foundation
 import Combine
 import Shared
@@ -14,7 +14,7 @@ import Shared
 public final class ArticleDetailViewModel: ObservableObject, ErrorHandling {
     // MARK: - Published Properties
 
-    @Published var detail: ArticleDetail?
+    @Published var detail: DetailArticleDetail?
     @Published var isLoading: Bool = false
     @Published public var currentError: AppError?
 

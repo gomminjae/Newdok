@@ -7,21 +7,21 @@
 //
 import Combine
 import Shared
-import Domain
+import ExploreDomain
 import SwiftUI
 
 @MainActor
 public class ExploreViewModel: ObservableObject, ErrorHandling {
-    @Published public var myRecommendation: [NewsletterDetail] = []
-    @Published public var unionRecommendation: [NewsletterDetail] = []
-    @Published public var fixedMyRecommendation: [NewsletterDetail] = []
-    @Published public var fixedUnionRecommendation: [NewsletterDetail] = []
+    @Published public var myRecommendation: [ExploreNewsletterDetail] = []
+    @Published public var unionRecommendation: [ExploreNewsletterDetail] = []
+    @Published public var fixedMyRecommendation: [ExploreNewsletterDetail] = []
+    @Published public var fixedUnionRecommendation: [ExploreNewsletterDetail] = []
 
     // 캐시된 데이터 (메모리 최적화)
-    private var cachedRecommendation: RecommendedNewsletter?
+    private var cachedRecommendation: ExploreRecommendedNewsletter?
     private var lastFetchTime: Date?
 
-    @Published public var allNewsletters: [Brand] = []
+    @Published public var allNewsletters: [ExploreBrand] = []
 
     // 현재 선택된 탭 (0: 추천, 1: 전체)
     @Published public var selectedTab: Int = 0
@@ -44,10 +44,10 @@ public class ExploreViewModel: ObservableObject, ErrorHandling {
         return UserInfoStore.shared.hasProfile
     }
 
-    private let useCase: NewsletterUseCase
+    private let useCase: ExploreNewsletterUseCase
     private var cancellables = Set<AnyCancellable>()
 
-    public init(useCase: NewsletterUseCase) {
+    public init(useCase: ExploreNewsletterUseCase) {
         self.useCase = useCase
 
         // AppState 구독
@@ -82,7 +82,7 @@ public class ExploreViewModel: ObservableObject, ErrorHandling {
         }
     }
 
-    private func updateRecommendationData(from response: RecommendedNewsletter) {
+    private func updateRecommendationData(from response: ExploreRecommendedNewsletter) {
         myRecommendation = response.intersection
         unionRecommendation = response.union
 
@@ -100,7 +100,7 @@ public class ExploreViewModel: ObservableObject, ErrorHandling {
     }
 
     // 사용자 관심사 우선순위로 뉴스레터 정렬
-    private func prioritizeInterests(for newsletters: [NewsletterDetail]) -> [NewsletterDetail] {
+    private func prioritizeInterests(for newsletters: [ExploreNewsletterDetail]) -> [ExploreNewsletterDetail] {
         guard let userInterests = UserInfoStore.shared.load()?.interestIds else {
             // 사용자 관심사가 없으면 랜덤하게 섞어서 반환
             return newsletters.shuffled()
@@ -121,7 +121,7 @@ public class ExploreViewModel: ObservableObject, ErrorHandling {
     }
 
     // 뉴스레터의 관심사를 사용자 관심사 우선순위로 정렬
-    public func prioritizeInterestsForNewsletter(_ newsletter: NewsletterDetail) -> [Interest] {
+    public func prioritizeInterestsForNewsletter(_ newsletter: ExploreNewsletterDetail) -> [ExploreInterest] {
         guard let userInterests = UserInfoStore.shared.load()?.interestIds else {
             // 사용자 관심사가 없으면 랜덤하게 섞어서 반환
             return newsletter.interests.shuffled()
@@ -143,13 +143,13 @@ public class ExploreViewModel: ObservableObject, ErrorHandling {
 
     // 원형큐처럼 무한 스크롤을 위한 추천 데이터 생성 (5개 유지)
     private func buildRecommendationCarousel(
-        primary: [NewsletterDetail],
-        fallback: [NewsletterDetail]
-    ) -> [NewsletterDetail] {
-        var uniqueRecommendations: [NewsletterDetail] = []
+        primary: [ExploreNewsletterDetail],
+        fallback: [ExploreNewsletterDetail]
+    ) -> [ExploreNewsletterDetail] {
+        var uniqueRecommendations: [ExploreNewsletterDetail] = []
         var seenIDs = Set<Int>()
 
-        func appendIfNeeded(_ detail: NewsletterDetail) {
+        func appendIfNeeded(_ detail: ExploreNewsletterDetail) {
             guard !seenIDs.contains(detail.id) else { return }
             seenIDs.insert(detail.id)
             uniqueRecommendations.append(detail)

@@ -1,6 +1,6 @@
 import SwiftUI
 import SubscribeInterface
-import Domain
+import SubscribeDomain
 import DesignSystem
 import Shared
 

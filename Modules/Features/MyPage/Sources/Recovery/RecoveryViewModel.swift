@@ -7,12 +7,12 @@
 //
 
 import Foundation
-import Domain
+import MypageDomain
 import Shared
 
 @MainActor
 public class RecoveryViewModel: ObservableObject, ErrorHandling {
-    private let userUseCase: UserUseCase
+    private let userUseCase: MypageUserUseCase
 
     // 화면 흐름 그대로 유지 (0: 아이디, 1: 인증, 2: 비번입력, 3: 완료)
     @Published var passwordRecoveryStep: Int = 0
@@ -20,7 +20,7 @@ public class RecoveryViewModel: ObservableObject, ErrorHandling {
     @Published var currentPage = 0
 
     // 아이디/번호
-    @Published public var users: [SimpleUser] = []
+    @Published public var users: [MypageSimpleUser] = []
     @Published public var phoneNumber: String = ""
     @Published public var loginID: String = ""
 
@@ -52,7 +52,7 @@ public class RecoveryViewModel: ObservableObject, ErrorHandling {
     @Published public var timerRemaining: Int = 180
     private var timerTask: Task<Void, Never>?
 
-    public init(useCase: UserUseCase) {
+    public init(useCase: MypageUserUseCase) {
         self.userUseCase = useCase
     }
 
@@ -65,7 +65,7 @@ public class RecoveryViewModel: ObservableObject, ErrorHandling {
     }
 
     // MARK: - 아이디 존재 확인 (기존 시그니처 유지)
-    public func checkIdExists() async -> SimpleUser? {
+    public func checkIdExists() async -> MypageSimpleUser? {
         do {
             let result = try await userUseCase.checkIDDup(recoveryId)
             switch result {

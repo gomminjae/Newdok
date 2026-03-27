@@ -2,7 +2,7 @@ import SwiftUI
 import LaunchInterface
 import AuthInterface
 import Shared
-import Domain
+import ExploreDomain
 import DesignSystem
 
 struct AppRootView: View {

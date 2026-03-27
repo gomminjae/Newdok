@@ -9,13 +9,13 @@
 import SwiftUI
 import Kingfisher
 import DesignSystem
-import Domain
+import ExploreDomain
 
 public struct NewsletterRow: View {
-    public let newsletter: NewsletterDetail
-    public let prioritizedInterests: [Interest]
+    public let newsletter: ExploreNewsletterDetail
+    public let prioritizedInterests: [ExploreInterest]
 
-    public init(newsletter: NewsletterDetail, prioritizedInterests: [Interest]? = nil) {
+    public init(newsletter: ExploreNewsletterDetail, prioritizedInterests: [ExploreInterest]? = nil) {
         self.newsletter = newsletter
         self.prioritizedInterests = prioritizedInterests ?? newsletter.interests
     }

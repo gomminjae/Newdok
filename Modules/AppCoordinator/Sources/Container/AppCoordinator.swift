@@ -9,7 +9,7 @@ import BookmarkInterface
 import DetailInterface
 import SearchInterface
 import LaunchInterface
-import Domain
+import Shared
 
 public final class AppCoordinator {
     private let router: AppRouter

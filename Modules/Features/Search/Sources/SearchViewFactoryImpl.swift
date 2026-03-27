@@ -1,6 +1,6 @@
 import SwiftUI
 import SearchInterface
-import Domain
+import SearchDomain
 import DesignSystem
 import Shared
 

@@ -11,7 +11,7 @@ import DesignSystem
 import Foundation
 import Combine
 import Shared
-import Domain
+import MypageDomain
 
 public struct EditNicknameView: View {
     private let initialNickname: String
