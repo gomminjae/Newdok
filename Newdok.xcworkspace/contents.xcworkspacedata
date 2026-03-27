@@ -14,13 +14,7 @@
          location = "group:Core/Core.xcodeproj">
       </FileRef>
       <FileRef
-         location = "group:Data/Data.xcodeproj">
-      </FileRef>
-      <FileRef
          location = "group:DesignSystem/DesignSystem.xcodeproj">
-      </FileRef>
-      <FileRef
-         location = "group:Domain/Domain.xcodeproj">
       </FileRef>
       <FileRef
          location = "group:Shared/Shared.xcodeproj">

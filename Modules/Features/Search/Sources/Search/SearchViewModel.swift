@@ -7,7 +7,7 @@
 //
 
 import Foundation
-import Domain
+import SearchDomain
 import Shared
 
 @MainActor

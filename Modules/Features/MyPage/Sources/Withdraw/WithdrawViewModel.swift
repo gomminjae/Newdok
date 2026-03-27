@@ -7,7 +7,7 @@
 //
 
 import Foundation
-import Domain
+import MypageDomain
 import Shared
 
 @MainActor
@@ -20,18 +20,15 @@ public final class WithdrawViewModel: ObservableObject, ErrorHandling {
     @Published public var withdrawSuccess: Bool = false
     @Published public var currentError: AppError?
 
-    private let userUseCase: UserUseCase
-    private let newsletterUseCase: NewsletterUseCase
-    private let articleUseCase: ArticleUseCase
+    private let userUseCase: MypageUserUseCase
+    private let statsUseCase: MypageStatsUseCase
 
     public init(
-        userUseCase: UserUseCase,
-        newsletterUseCase: NewsletterUseCase,
-        articleUseCase: ArticleUseCase
+        userUseCase: MypageUserUseCase,
+        statsUseCase: MypageStatsUseCase
     ) {
         self.userUseCase = userUseCase
-        self.newsletterUseCase = newsletterUseCase
-        self.articleUseCase = articleUseCase
+        self.statsUseCase = statsUseCase
     }
 
     public func fetchUserInfo() async {
@@ -39,8 +36,8 @@ public final class WithdrawViewModel: ObservableObject, ErrorHandling {
             let user = try await userUseCase.getProfile()
             self.nickName = user.nickname
 
-            self.newsletterCount = try await newsletterUseCase.fetchSubscriptionCount()
-            self.articleCount = try await articleUseCase.fetchReceivedArticleCount()
+            self.newsletterCount = try await statsUseCase.fetchSubscriptionCount()
+            self.articleCount = try await statsUseCase.fetchReceivedArticleCount()
         }
     }
 

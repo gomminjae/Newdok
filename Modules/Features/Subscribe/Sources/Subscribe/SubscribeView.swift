@@ -6,7 +6,7 @@
 //
 import SwiftUI
 import DesignSystem
-import Domain
+import SubscribeDomain
 import PopupView
 import Shared
 
@@ -15,7 +15,7 @@ public struct SubscribeView: View {
     @StateObject private var viewModel: SubscribeViewModel
 
     @State private var showUnsubscribeAlert: Bool = false
-    @State private var selectedNewsletter: Newsletter?
+    @State private var selectedNewsletter: SubscribeNewsletter?
 
     @EnvironmentObject private var router: AppRouter
 
@@ -183,7 +183,7 @@ public struct SubscribeView: View {
         return .data
     }
 
-    private var filteredSubscriptions: [Newsletter] {
+    private var filteredSubscriptions: [SubscribeNewsletter] {
         // 초기 로딩이 완료되지 않았으면 빈 배열 반환
         guard viewModel.initialLoaded else { return [] }
         return selectedTab == 0 ? viewModel.activeNewsletters : viewModel.pausedNewsletters

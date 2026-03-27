@@ -7,12 +7,12 @@
 //
 import SwiftUI
 import Foundation
-import Domain
+import BookmarkDomain
 import DesignSystem
 import Kingfisher
 
 struct BookmarkCard: View {
-    let article: Bookmark
+    let article: BookmarkItem
     
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {

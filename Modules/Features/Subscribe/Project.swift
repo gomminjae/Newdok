@@ -20,6 +20,43 @@ let project = Project(
             )
         ),
         .target(
+            name: "SubscribeDomain",
+            destinations: .iOS,
+            product: .staticFramework,
+            bundleId: "com.newdok.subscribe.domain",
+            deploymentTargets: .iOS("17.0"),
+            infoPlist: .default,
+            sources: ["Domain/Sources/**"],
+            dependencies: [
+                .project(target: "Shared", path: "../../Shared")
+            ],
+            settings: .settings(
+                base: [
+                    "SKIP_INSTALL": "YES",
+                    "SWIFT_STRICT_CONCURRENCY": "complete"
+                ]
+            )
+        ),
+        .target(
+            name: "SubscribeData",
+            destinations: .iOS,
+            product: .staticFramework,
+            bundleId: "com.newdok.subscribe.data",
+            deploymentTargets: .iOS("17.0"),
+            infoPlist: .default,
+            sources: ["Data/Sources/**"],
+            dependencies: [
+                .target(name: "SubscribeDomain"),
+                .project(target: "Core", path: "../../Core")
+            ],
+            settings: .settings(
+                base: [
+                    "SKIP_INSTALL": "YES",
+                    "SWIFT_STRICT_CONCURRENCY": "complete"
+                ]
+            )
+        ),
+        .target(
             name: "Subscribe",
             destinations: .iOS,
             product: .staticFramework,
@@ -30,9 +67,9 @@ let project = Project(
             resources: ["Resources/**"],
             dependencies: [
                 .target(name: "SubscribeInterface"),
+                .target(name: "SubscribeDomain"),
                 .project(target: "DesignSystem", path: "../../DesignSystem"),
-                .project(target: "Shared", path: "../../Shared"),
-                .project(target: "Domain", path: "../../Domain")
+                .project(target: "Shared", path: "../../Shared")
             ],
             settings: .settings(
                 base: [

@@ -10,7 +10,7 @@ import SwiftUI
 import PopupView
 import Shared
 import DesignSystem
-import Domain
+import MypageDomain
 
 struct PasswordRecoveryPagerView: View {
     @ObservedObject var viewModel: RecoveryViewModel

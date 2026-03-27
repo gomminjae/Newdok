@@ -5,16 +5,16 @@
 //  Created by 권민재 on 7/13/25.
 //
 
-import Domain
+import SearchDomain
 
 public final class SearchUseCaseImpl: SearchUseCase {
     private let searchRepository: SearchRepository
-    
+
     public init(searchRepository: SearchRepository) {
         self.searchRepository = searchRepository
     }
-    
-    public func searchNewsletters(brandName: String) async throws -> [Domain.SearchedNewsletter] {
+
+    public func searchNewsletters(brandName: String) async throws -> [SearchedNewsletter] {
         return try await searchRepository.searchNewsletters(brandName: brandName)
     }
 

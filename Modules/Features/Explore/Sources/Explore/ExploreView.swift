@@ -6,7 +6,7 @@
 //
 import SwiftUI
 import DesignSystem
-import Domain
+import ExploreDomain
 import Shared
 
 import Combine
@@ -579,12 +579,12 @@ extension Array {
 }
 
 struct PagingScrollView: View {
-    private let items: [NewsletterDetail]
+    private let items: [ExploreNewsletterDetail]
     @Binding var currentPage: Int
-    
+
     @EnvironmentObject private var router: AppRouter
     @State private var scrollID: Int?
-    @State private var dynamicItems: [NewsletterDetail] = []
+    @State private var dynamicItems: [ExploreNewsletterDetail] = []
     
     private let itemWidth: CGFloat = 320
     private let itemHeight: CGFloat = 350
@@ -592,7 +592,7 @@ struct PagingScrollView: View {
     
     private let leadingMargin: CGFloat = 24
     
-    init(newsletters: [NewsletterDetail], currentPage: Binding<Int>) {
+    init(newsletters: [ExploreNewsletterDetail], currentPage: Binding<Int>) {
         self._currentPage = currentPage
         self.items = newsletters
     }

@@ -8,16 +8,16 @@
 
 import SwiftUI
 import DesignSystem
-import Domain
+import SubscribeDomain
 import Kingfisher
 
 public struct SubscribeRow: View {
-    public let newsletter: Newsletter
+    public let newsletter: SubscribeNewsletter
     public let isSubscribed: Bool
     public let onNavigate: (() -> Void)?
     public let onTap: () async -> Void
 
-    public init(newsletter: Newsletter, isSubscribed: Bool, onNavigate: (() -> Void)? = nil, onTap: @escaping () async -> Void) {
+    public init(newsletter: SubscribeNewsletter, isSubscribed: Bool, onNavigate: (() -> Void)? = nil, onTap: @escaping () async -> Void) {
         self.newsletter = newsletter
         self.isSubscribed = isSubscribed
         self.onNavigate = onNavigate

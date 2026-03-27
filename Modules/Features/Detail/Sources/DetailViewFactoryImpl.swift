@@ -1,6 +1,6 @@
 import SwiftUI
 import DetailInterface
-import Domain
+import DetailDomain
 import DesignSystem
 import Shared
 

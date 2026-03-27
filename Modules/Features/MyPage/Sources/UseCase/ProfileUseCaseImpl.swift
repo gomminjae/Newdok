@@ -1,22 +1,22 @@
 //
 //  ProfileUseCaseImpl.swift
-//  Domain
+//  Mypage
 //
 //  Created by 권민재 on 2/14/26.
 //
 
 import Foundation
-import Domain
+import MypageDomain
 import Shared
 
-public final class ProfileUseCaseImpl: ProfileUseCase {
-    private let userUseCase: UserUseCase
+public final class ProfileUseCaseImpl: MypageProfileUseCase {
+    private let userUseCase: MypageUserUseCase
 
-    public init(userUseCase: UserUseCase) {
+    public init(userUseCase: MypageUserUseCase) {
         self.userUseCase = userUseCase
     }
 
-    public func fetchProfile() async throws -> User {
+    public func fetchProfile() async throws -> MypageUser {
         let user = try await userUseCase.getProfile()
 
         // 사용자 정보 로컬 저장소 업데이트
@@ -61,7 +61,7 @@ public final class ProfileUseCaseImpl: ProfileUseCase {
 
     public func updatePassword(prevPassword: String, newPassword: String) async throws {
         guard let userInfo = UserInfoStore.shared.load() else {
-            throw ProfileError.userNotFound
+            throw MypageProfileError.userNotFound
         }
 
         try await userUseCase.updatePassword(

@@ -8,7 +8,7 @@
 
 import SwiftUI
 import DesignSystem
-import Domain
+import BookmarkDomain
 import Shared
 
 // MARK: - 북마크 정렬 모달
@@ -249,7 +249,7 @@ public struct BookmarkView: View {
         .padding(.bottom, 12)
     }
     
-    private func section(month: String, articles: [Bookmark]) -> some View {
+    private func section(month: String, articles: [BookmarkItem]) -> some View {
         VStack(alignment: .leading, spacing: 0) {
             Text(month)
                 .font(.hanSansNeo(18, .bold))

@@ -83,7 +83,6 @@ let project = Project(
                 .project(target: "AppCoordinator", path: "../AppCoordinator"),
                 // Infrastructure
                 .project(target: "Core", path: "../Core"),
-                .project(target: "Domain", path: "../Domain"),
                 .project(target: "DesignSystem", path: "../DesignSystem"),
                 .project(target: "Shared", path: "../Shared"),
                 // Feature Domain + Data
@@ -91,6 +90,18 @@ let project = Project(
                 .project(target: "AuthData", path: "../Features/Auth"),
                 .project(target: "HomeDomain", path: "../Features/Home"),
                 .project(target: "HomeData", path: "../Features/Home"),
+                .project(target: "MypageDomain", path: "../Features/MyPage"),
+                .project(target: "MypageData", path: "../Features/MyPage"),
+                .project(target: "ExploreDomain", path: "../Features/Explore"),
+                .project(target: "ExploreData", path: "../Features/Explore"),
+                .project(target: "SubscribeDomain", path: "../Features/Subscribe"),
+                .project(target: "SubscribeData", path: "../Features/Subscribe"),
+                .project(target: "BookmarkDomain", path: "../Features/Bookmark"),
+                .project(target: "BookmarkData", path: "../Features/Bookmark"),
+                .project(target: "DetailDomain", path: "../Features/Detail"),
+                .project(target: "DetailData", path: "../Features/Detail"),
+                .project(target: "SearchDomain", path: "../Features/Search"),
+                .project(target: "SearchData", path: "../Features/Search"),
                 // Feature Interfaces
                 .project(target: "AuthInterface", path: "../Features/Auth"),
                 .project(target: "HomeInterface", path: "../Features/Home"),

@@ -9,7 +9,7 @@
 import SwiftUI
 import DesignSystem
 import Shared
-import Domain
+import SearchDomain
 
 public struct SearchResultView: View {
     @Environment(\.dismiss) private var dismiss

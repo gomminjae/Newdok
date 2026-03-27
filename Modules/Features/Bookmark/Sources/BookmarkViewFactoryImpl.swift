@@ -1,6 +1,6 @@
 import SwiftUI
 import BookmarkInterface
-import Domain
+import BookmarkDomain
 import DesignSystem
 import Shared
 

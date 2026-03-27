@@ -1,29 +1,29 @@
 //
 //  ArticleDetailUseCaseImpl.swift
-//  Domain
+//  Detail
 //
 //  Created by 권민재 on 2/14/26.
 //
 
 import Foundation
-import Domain
+import DetailDomain
 
 public final class ArticleDetailUseCaseImpl: ArticleDetailUseCase {
-    private let articleUseCase: ArticleUseCase
+    private let articleRepository: DetailArticleRepository
 
-    public init(articleUseCase: ArticleUseCase) {
-        self.articleUseCase = articleUseCase
+    public init(articleRepository: DetailArticleRepository) {
+        self.articleRepository = articleRepository
     }
 
-    public func fetchDetail(articleId: String) async throws -> ArticleDetailResult {
-        let detail = try await articleUseCase.fetchArticleDetail(articleId: articleId)
-        return ArticleDetailResult(
+    public func fetchDetail(articleId: String) async throws -> DetailArticleDetailResult {
+        let detail = try await articleRepository.fetchArticleDetail(id: articleId)
+        return DetailArticleDetailResult(
             detail: detail,
             articleId: String(detail.articleId)
         )
     }
 
     public func toggleBookmark(articleId: String) async throws {
-        _ = try await articleUseCase.toggleBookmarkStatus(articleId: articleId)
+        try await articleRepository.changeBookmarkState(articleId: articleId)
     }
 }

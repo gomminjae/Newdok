@@ -1,0 +1,11 @@
+import ExploreDomain
+
+struct ExploreBrandArticleDTO: Decodable {
+    let id: Int
+    let title: String
+    let date: String
+
+    func toDomain() -> ExploreBrandArticle {
+        return ExploreBrandArticle(id: id, title: title, date: date)
+    }
+}

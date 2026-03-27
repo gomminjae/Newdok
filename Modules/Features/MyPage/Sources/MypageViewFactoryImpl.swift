@@ -1,6 +1,6 @@
 import SwiftUI
 import MypageInterface
-import Domain
+import MypageDomain
 import DesignSystem
 import Shared
 
