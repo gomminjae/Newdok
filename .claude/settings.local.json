@@ -31,7 +31,9 @@
       "WebFetch(domain:gist.github.com)",
       "Bash(git:*)",
       "Bash(/tmp/audited_files.txt:*)",
-      "Read(//tmp/**)"
+      "Read(//tmp/**)",
+      "Bash(du:*)",
+      "Bash(gh pr:*)"
     ]
   }
 }

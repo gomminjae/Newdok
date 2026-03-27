@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		0A31F646E7C019CF28F858E4 /* ErrorContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = E80F84F2471E74E153A95E3D /* ErrorContext.swift */; };
 		1E4FC189D89AE0C0186D6241 /* AppError.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD702AB7C476E6478EBDE1D1 /* AppError.swift */; };
-		21D0255E1B97374B99BD13EA /* SwipeBackHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F396D82D2E12A0857F73DC0 /* SwipeBackHandler.swift */; };
 		2440871C3D29D9C5EBE970A2 /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7E2402EF9A73970D230C689 /* AppState.swift */; };
 		2543C610AB3A48B4D249A302 /* TabSelection.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDF80E5080EED4A4B010B1F2 /* TabSelection.swift */; };
 		56E86C3A63173151BE4B29EC /* TokenStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = EABBA1D82B5FD64F3A9B1FE3 /* TokenStorage.swift */; };
@@ -48,7 +47,6 @@
 		2125DE09B958AC81707B7938 /* ErrorHandling.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorHandling.swift; sourceTree = "<group>"; };
 		4B096E627FE70C90AF4A1A2C /* ExploreIntent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreIntent.swift; sourceTree = "<group>"; };
 		675DC976D9F58E8233DABE05 /* UserInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfo.swift; sourceTree = "<group>"; };
-		6F396D82D2E12A0857F73DC0 /* SwipeBackHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipeBackHandler.swift; sourceTree = "<group>"; };
 		7B003F7CC7D7753A3F19A643 /* AppRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppRouter.swift; sourceTree = "<group>"; };
 		962B163644F815D1BF4ECB11 /* SelectableCategoryType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectableCategoryType.swift; sourceTree = "<group>"; };
 		990582F8C227FE7665BA5DC8 /* AppRoute.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppRoute.swift; sourceTree = "<group>"; };
@@ -166,7 +164,6 @@
 				3FAE17830536DDA6AD6B5910 /* Token */,
 				8F54AA9A9618928650E31805 /* User */,
 				0616F85852A726E9E6A1E31B /* CheckResult.swift */,
-				6F396D82D2E12A0857F73DC0 /* SwipeBackHandler.swift */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -294,7 +291,6 @@
 				817D96211910CBF827E43430 /* ExploreIntent.swift in Sources */,
 				73A91ABEF61282418D59684A /* UserInfo.swift in Sources */,
 				72104A94ACE064372DD74143 /* UserInfoStore.swift in Sources */,
-				21D0255E1B97374B99BD13EA /* SwipeBackHandler.swift in Sources */,
 				7EA17643B1BF737840760B76 /* ToastCenter.swift in Sources */,
 				56E86C3A63173151BE4B29EC /* TokenStorage.swift in Sources */,
 				5A3D4395DDCD980070A0BE03 /* SelectableCategoryType.swift in Sources */,
