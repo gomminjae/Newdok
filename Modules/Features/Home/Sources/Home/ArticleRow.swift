@@ -6,12 +6,12 @@
 //
 import SwiftUI
 import DesignSystem
-import Domain
+import HomeDomain
 import Shared
 import Kingfisher
 
 struct ArticleRow: View {
-    let article: Article
+    let article: HomeArticle
     @State private var highlightCount: Int = 0
 
     var body: some View {
@@ -89,7 +89,7 @@ struct ArticleRow: View {
 }
 
 #Preview {
-    ArticleRow(article: Article(brandName: "네오", imageUrl: "", articleTitle: "헬로", articleId: 3, status: "Read"
+    ArticleRow(article: HomeArticle(brandName: "네오", imageUrl: "", articleTitle: "헬로", articleId: 3, status: "Read"
     ))
     .previewLayout(.sizeThatFits)
     .padding()

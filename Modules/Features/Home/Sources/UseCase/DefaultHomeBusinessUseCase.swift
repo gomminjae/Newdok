@@ -1,12 +1,5 @@
-//
-//  DefaultHomeBusinessUseCase.swift
-//  Domain
-//
-//  Created by 권민재 on 4/22/25.
-//
-
 import Foundation
-import Domain
+import HomeDomain
 import Shared
 
 private func logHomeError(_ error: Error, operation: String) {
@@ -38,11 +31,11 @@ public actor DefaultHomeBusinessUseCase: HomeBusinessUseCase {
     private let fetchUseCase: FetchHomeDataUseCase
 
     private var snapshotState: HomeSnapshot
-    private var monthlyCache: [String: [Articles]] = [:]
+    private var monthlyCache: [String: [HomeArticles]] = [:]
     private var dataDaysByMonthCache: [String: Set<Int>] = [:]
     private var readArticleIds: Set<Int> = []
     private var lastLoadedDate: Date?
-    private var dayArticlesCache: [String: [Article]] = [:]
+    private var dayArticlesCache: [String: [HomeArticle]] = [:]
     private var isTodayLoading = false
 
     public init(fetchUseCase: FetchHomeDataUseCase) {
@@ -236,14 +229,14 @@ public actor DefaultHomeBusinessUseCase: HomeBusinessUseCase {
     }
 
     // MARK: - Helpers
-    private func fetchMonthly(for date: Date) async throws -> [Articles] {
+    private func fetchMonthly(for date: Date) async throws -> [HomeArticles] {
         try await fetchUseCase.fetchMonthlyData(
             year: formatYear(date),
             month: formatMonth(date)
         )
     }
 
-    private func updateDataDays(with monthly: [Articles], forKey key: String, affectsSnapshot: Bool = true) {
+    private func updateDataDays(with monthly: [HomeArticles], forKey key: String, affectsSnapshot: Bool = true) {
         let days = Set(
             monthly
                 .filter { $0.hasArticles }
@@ -262,7 +255,7 @@ public actor DefaultHomeBusinessUseCase: HomeBusinessUseCase {
         applyMonthlyAdjustment(for: target, articles: articles)
     }
 
-    private func loadArticles(for date: Date) async -> [Article] {
+    private func loadArticles(for date: Date) async -> [HomeArticle] {
         if let cached = cachedArticles(for: date) {
             return cached
         }
@@ -282,17 +275,17 @@ public actor DefaultHomeBusinessUseCase: HomeBusinessUseCase {
         }
     }
 
-    private func storeArticles(_ articles: [Article], for date: Date) {
+    private func storeArticles(_ articles: [HomeArticle], for date: Date) {
         dayArticlesCache[dayKey(for: date)] = articles
     }
 
-    private func cachedArticles(for date: Date) -> [Article]? {
+    private func cachedArticles(for date: Date) -> [HomeArticle]? {
         dayArticlesCache[dayKey(for: date)]
     }
 
-    private func applyMonthlyAdjustment(for date: Date, articles: [Article]) {
+    private func applyMonthlyAdjustment(for date: Date, articles: [HomeArticle]) {
         let day = Calendar.current.component(.day, from: date)
-        let entry = Articles(
+        let entry = HomeArticles(
             publishDate: day,
             hasArticles: !articles.isEmpty,
             totalCount: articles.count,
@@ -311,7 +304,7 @@ public actor DefaultHomeBusinessUseCase: HomeBusinessUseCase {
         }
     }
 
-    private func replaceEntry(_ entry: Articles, in list: inout [Articles]) {
+    private func replaceEntry(_ entry: HomeArticles, in list: inout [HomeArticles]) {
         if let index = list.firstIndex(where: { $0.publishDate == entry.publishDate }) {
             list[index] = entry
         } else {

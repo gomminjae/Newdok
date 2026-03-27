@@ -1,0 +1,8 @@
+import Foundation
+
+public protocol HomeArticleRepository {
+    func fetchArticles(year: String, publicationMonth: String) async throws -> [HomeArticles]
+    func fetchDayArticles(year: String, publicationMonth: String, publicationDate: String) async throws -> [HomeArticle]
+    func fetchTodayArticles() async throws -> [HomeArticle]
+    func refresh() async throws
+}

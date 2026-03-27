@@ -8,7 +8,7 @@
 
 import SwiftUI
 import Combine
-import Domain
+import HomeDomain
 import Shared
 import Foundation
 
@@ -75,9 +75,9 @@ public final class HomeViewModel: ObservableObject {
     private var cancellables = Set<AnyCancellable>()
     
     @Published public var homeState: HomeState = .idle
-    @Published public var filteredArticles: [Article] = []
-    @Published public var subscribedNewsletters: [Newsletter] = []
-    @Published public var articlesByMonth: [Articles] = []
+    @Published public var filteredArticles: [HomeArticle] = []
+    @Published public var subscribedNewsletters: [HomeNewsletter] = []
+    @Published public var articlesByMonth: [HomeArticles] = []
     
     private var dataDaysCache: [String: Set<Int>] = [:]
     private var latestMonthRequestKey: String?

@@ -10,6 +10,8 @@ import AuthDomain
 import AuthData
 import Home
 import HomeInterface
+import HomeDomain
+import HomeData
 import Explore
 import ExploreInterface
 import Subscribe
@@ -48,8 +50,12 @@ enum CompositionRoot {
 
     static func makeHomeFactory() -> HomeViewFactory {
         return HomeViewFactoryImpl(viewModelProvider: {
-            let articleRepo = container.resolve(ArticleRepository.self)!
-            let newsletterRepo = container.resolve(NewsletterRepository.self)!
+            let articleRepo = HomeArticleRepositoryImpl(
+                provider: container.resolve(MoyaProvider<ArticleAPI>.self)!
+            )
+            let newsletterRepo = HomeNewsletterRepositoryImpl(
+                provider: container.resolve(MoyaProvider<NewsletterAPI>.self)!
+            )
             let fetchUseCase = FetchHomeDataUseCaseImpl(newsletterRepo: newsletterRepo, articleRepo: articleRepo)
             let businessUseCase = DefaultHomeBusinessUseCase(fetchUseCase: fetchUseCase)
             return HomeViewModel(useCase: businessUseCase)
