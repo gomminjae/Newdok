@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Domain
 import Shared
 
 private func logHomeError(_ error: Error, operation: String) {

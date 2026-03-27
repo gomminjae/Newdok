@@ -23,31 +23,35 @@ import LaunchInterface
 
 @MainActor
 enum CompositionRoot {
+    private static var container: Container { AppDIContainer.shared.container }
+
     static func makeAuthFactory() -> AuthViewFactory {
-        let container = AppDIContainer.shared.container
         return AuthViewFactoryImpl(
             signupViewModelProvider: {
                 let userUseCase = container.resolve(UserUseCase.self)!
-                let signupUseCase = container.resolve(SignupUseCase.self)!
+                let loginUseCase = LoginUseCaseImpl(userUseCase: userUseCase)
+                let signupUseCase = SignupUseCaseImpl(userUseCase: userUseCase, loginUseCase: loginUseCase)
                 return SignupViewModel(userUseCase: userUseCase, signupUseCase: signupUseCase)
             },
             loginViewModelProvider: {
-                let loginUseCase = container.resolve(LoginUseCase.self)!
+                let userUseCase = container.resolve(UserUseCase.self)!
+                let loginUseCase = LoginUseCaseImpl(userUseCase: userUseCase)
                 return LoginViewModel(loginUseCase: loginUseCase)
             }
         )
     }
 
     static func makeHomeFactory() -> HomeViewFactory {
-        let container = AppDIContainer.shared.container
         return HomeViewFactoryImpl(viewModelProvider: {
-            let useCase = container.resolve(HomeBusinessUseCase.self)!
-            return HomeViewModel(useCase: useCase)
+            let articleRepo = container.resolve(ArticleRepository.self)!
+            let newsletterRepo = container.resolve(NewsletterRepository.self)!
+            let fetchUseCase = FetchHomeDataUseCaseImpl(newsletterRepo: newsletterRepo, articleRepo: articleRepo)
+            let businessUseCase = DefaultHomeBusinessUseCase(fetchUseCase: fetchUseCase)
+            return HomeViewModel(useCase: businessUseCase)
         })
     }
 
     static func makeExploreFactory() -> ExploreViewFactory {
-        let container = AppDIContainer.shared.container
         return ExploreViewFactoryImpl(viewModelProvider: {
             let useCase = container.resolve(NewsletterUseCase.self)!
             return ExploreViewModel(useCase: useCase)
@@ -55,7 +59,6 @@ enum CompositionRoot {
     }
 
     static func makeSubscribeFactory() -> SubscribeViewFactory {
-        let container = AppDIContainer.shared.container
         return SubscribeViewFactoryImpl(viewModelProvider: {
             let useCase = container.resolve(NewsletterUseCase.self)!
             return SubscribeViewModel(useCase: useCase)
@@ -63,7 +66,6 @@ enum CompositionRoot {
     }
 
     static func makeBookmarkFactory() -> BookmarkViewFactory {
-        let container = AppDIContainer.shared.container
         return BookmarkViewFactoryImpl(viewModelProvider: {
             let useCase = container.resolve(ArticleUseCase.self)!
             return BookmarkViewModel(useCase: useCase)
@@ -71,33 +73,32 @@ enum CompositionRoot {
     }
 
     static func makeDetailFactory() -> DetailViewFactory {
-        let container = AppDIContainer.shared.container
         return DetailViewFactoryImpl(
             brandDetailViewModelProvider: { id in
                 let useCase = container.resolve(NewsletterUseCase.self)!
                 return BrandDetailViewModel(id: id, useCase: useCase)
             },
             articleDetailViewModelProvider: { id in
-                let useCase = container.resolve(ArticleDetailUseCase.self)!
-                return ArticleDetailViewModel(id: id, articleDetailUseCase: useCase)
+                let articleUseCase = container.resolve(ArticleUseCase.self)!
+                let detailUseCase = ArticleDetailUseCaseImpl(articleUseCase: articleUseCase)
+                return ArticleDetailViewModel(id: id, articleDetailUseCase: detailUseCase)
             }
         )
     }
 
     static func makeSearchFactory() -> SearchViewFactory {
-        let container = AppDIContainer.shared.container
         return SearchViewFactoryImpl(viewModelProvider: {
-            let useCase = container.resolve(SearchUseCase.self)!
+            let repo = container.resolve(SearchRepository.self)!
+            let useCase = SearchUseCaseImpl(searchRepository: repo)
             return SearchViewModel(useCase: useCase)
         })
     }
 
     static func makeMypageFactory() -> MypageViewFactory {
-        let container = AppDIContainer.shared.container
         return MypageViewFactoryImpl(
             mypageViewModelProvider: {
                 let userUseCase = container.resolve(UserUseCase.self)!
-                let profileUseCase = container.resolve(ProfileUseCase.self)!
+                let profileUseCase = ProfileUseCaseImpl(userUseCase: userUseCase)
                 return MypageViewModel(useCase: userUseCase, profileUseCase: profileUseCase)
             },
             recoveryViewModelProvider: {

@@ -5,7 +5,9 @@
 //  Created by 권민재 on 4/19/25.
 //
 
-public class FetchHomeDataUseCaseImpl: FetchHomeDataUseCase {
+import Domain
+
+public final class FetchHomeDataUseCaseImpl: FetchHomeDataUseCase, @unchecked Sendable {
     private let newsletterRepo: NewsletterRepository
     private let articleRepo: ArticleRepository
     
