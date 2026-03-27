@@ -1,6 +1,6 @@
 import SwiftUI
 import AuthInterface
-import Domain
+import AuthDomain
 import DesignSystem
 import Shared
 

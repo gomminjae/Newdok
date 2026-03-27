@@ -6,17 +6,17 @@
 //
 
 import SwiftUI
-import Domain
+import AuthDomain
 import Kingfisher
 import DesignSystem
 import Shared
 
 struct CurationRow: View {
-    let brand: RecommendedBrand?
+    let brand: AuthRecommendedBrand?
     let viewModel: SignupViewModel
     @State private var showSubscribeSheet = false
     
-    init(brand: RecommendedBrand? = nil, viewModel: SignupViewModel) {
+    init(brand: AuthRecommendedBrand? = nil, viewModel: SignupViewModel) {
         self.brand = brand
         self.viewModel = viewModel
     }

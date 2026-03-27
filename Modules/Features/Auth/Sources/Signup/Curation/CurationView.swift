@@ -8,7 +8,7 @@
 import SwiftUI
 import DesignSystem
 import Shared
-import Domain
+import AuthDomain
 
 public struct CurationView: View {
     @ObservedObject private var viewModel: SignupViewModel

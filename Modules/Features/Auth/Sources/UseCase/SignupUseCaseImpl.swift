@@ -1,28 +1,21 @@
-//
-//  SignupUseCaseImpl.swift
-//  Domain
-//
-//  Created by 권민재 on 2/14/26.
-//
-
 import Foundation
-import Domain
+import AuthDomain
 import Shared
 
 public final class SignupUseCaseImpl: SignupUseCase {
-    private let userUseCase: UserUseCase
+    private let authRepository: AuthRepository
     private let loginUseCase: LoginUseCase
 
-    public init(userUseCase: UserUseCase, loginUseCase: LoginUseCase) {
-        self.userUseCase = userUseCase
+    public init(authRepository: AuthRepository, loginUseCase: LoginUseCase) {
+        self.authRepository = authRepository
         self.loginUseCase = loginUseCase
     }
 
-    public func execute(request: SignupRequest) async throws -> User {
+    public func execute(request: AuthSignupRequest) async throws -> AuthUser {
         let trimmedNickname = request.nickname.trimmingCharacters(in: .whitespacesAndNewlines)
 
         // 1. 회원가입 API 호출
-        let result = try await userUseCase.signup(
+        let result = try await authRepository.signup(
             loginId: request.loginId,
             password: request.password,
             phoneNumber: request.phoneNumber,
@@ -45,7 +38,7 @@ public final class SignupUseCaseImpl: SignupUseCase {
             gender: result.user.gender,
             createdAt: result.user.createdAt,
             industryId: result.user.industryId,
-            interestIds: result.user.interests.map { $0.id }
+            interestIds: result.user.interestIds
         )
         UserInfoStore.shared.save(userInfo)
 
