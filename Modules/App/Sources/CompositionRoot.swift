@@ -1,9 +1,13 @@
 import Foundation
 import Swinject
+import Moya
+import Core
 import Domain
 import AppCoordinator
 import Auth
 import AuthInterface
+import AuthDomain
+import AuthData
 import Home
 import HomeInterface
 import Explore
@@ -26,16 +30,17 @@ enum CompositionRoot {
     private static var container: Container { AppDIContainer.shared.container }
 
     static func makeAuthFactory() -> AuthViewFactory {
+        let authRepo = AuthRepositoryImpl(
+            provider: container.resolve(MoyaProvider<UserAPI>.self)!
+        )
         return AuthViewFactoryImpl(
             signupViewModelProvider: {
-                let userUseCase = container.resolve(UserUseCase.self)!
-                let loginUseCase = LoginUseCaseImpl(userUseCase: userUseCase)
-                let signupUseCase = SignupUseCaseImpl(userUseCase: userUseCase, loginUseCase: loginUseCase)
-                return SignupViewModel(userUseCase: userUseCase, signupUseCase: signupUseCase)
+                let loginUseCase = LoginUseCaseImpl(authRepository: authRepo)
+                let signupUseCase = SignupUseCaseImpl(authRepository: authRepo, loginUseCase: loginUseCase)
+                return SignupViewModel(authRepository: authRepo, signupUseCase: signupUseCase)
             },
             loginViewModelProvider: {
-                let userUseCase = container.resolve(UserUseCase.self)!
-                let loginUseCase = LoginUseCaseImpl(userUseCase: userUseCase)
+                let loginUseCase = LoginUseCaseImpl(authRepository: authRepo)
                 return LoginViewModel(loginUseCase: loginUseCase)
             }
         )

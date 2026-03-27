@@ -7,7 +7,7 @@
 
 import SwiftUI
 import DesignSystem
-import Domain
+import AuthDomain
 import Shared
 import PopupView
 

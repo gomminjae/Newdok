@@ -6,18 +6,18 @@
 //
 
 import Foundation
-import Domain
+import AuthDomain
 import Shared
 
 public final class LoginUseCaseImpl: LoginUseCase {
-    private let userUseCase: UserUseCase
+    private let authRepository: AuthRepository
 
-    public init(userUseCase: UserUseCase) {
-        self.userUseCase = userUseCase
+    public init(authRepository: AuthRepository) {
+        self.authRepository = authRepository
     }
 
-    public func execute(loginId: String, password: String) async throws -> User {
-        let (user, token) = try await userUseCase.login(loginId: loginId, password: password)
+    public func execute(loginId: String, password: String) async throws -> AuthUser {
+        let (user, token) = try await authRepository.login(loginId: loginId, password: password)
 
         // 토큰 저장
         TokenStorage.accessToken = token
@@ -33,7 +33,7 @@ public final class LoginUseCaseImpl: LoginUseCase {
             gender: user.gender,
             createdAt: user.createdAt,
             industryId: user.industryId,
-            interestIds: user.interests.map { $0.id }
+            interestIds: user.interestIds
         )
         UserInfoStore.shared.save(userInfo)
 

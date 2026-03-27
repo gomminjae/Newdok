@@ -20,6 +20,43 @@ let project = Project(
             )
         ),
         .target(
+            name: "AuthDomain",
+            destinations: .iOS,
+            product: .staticFramework,
+            bundleId: "com.newdok.auth.domain",
+            deploymentTargets: .iOS("17.0"),
+            infoPlist: .default,
+            sources: ["Domain/Sources/**"],
+            dependencies: [
+                .project(target: "Shared", path: "../../Shared")
+            ],
+            settings: .settings(
+                base: [
+                    "SKIP_INSTALL": "YES",
+                    "SWIFT_STRICT_CONCURRENCY": "complete"
+                ]
+            )
+        ),
+        .target(
+            name: "AuthData",
+            destinations: .iOS,
+            product: .staticFramework,
+            bundleId: "com.newdok.auth.data",
+            deploymentTargets: .iOS("17.0"),
+            infoPlist: .default,
+            sources: ["Data/Sources/**"],
+            dependencies: [
+                .target(name: "AuthDomain"),
+                .project(target: "Core", path: "../../Core")
+            ],
+            settings: .settings(
+                base: [
+                    "SKIP_INSTALL": "YES",
+                    "SWIFT_STRICT_CONCURRENCY": "complete"
+                ]
+            )
+        ),
+        .target(
             name: "Auth",
             destinations: .iOS,
             product: .staticFramework,
@@ -30,8 +67,8 @@ let project = Project(
             resources: ["Resources/**"],
             dependencies: [
                 .target(name: "AuthInterface"),
+                .target(name: "AuthDomain"),
                 .project(target: "DesignSystem", path: "../../DesignSystem"),
-                .project(target: "Domain", path: "../../Domain"),
                 .project(target: "Shared", path: "../../Shared")
             ],
             settings: .settings(

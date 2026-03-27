@@ -7,11 +7,11 @@
 //
 
 import SwiftUI
-import Domain
+import AuthDomain
 import DesignSystem
 
 public struct SignupPopupView: View {
-    var infos: [SimpleUser]
+    var infos: [AuthSimpleUser]
     var onClose: () -> Void
     var onLogin: () -> Void
     var onRecovery: () -> Void

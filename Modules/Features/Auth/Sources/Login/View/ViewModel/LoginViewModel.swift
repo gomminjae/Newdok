@@ -6,7 +6,7 @@
 //
 import SwiftUI
 import Combine
-import Domain
+import AuthDomain
 import Shared
 
 @MainActor
@@ -41,7 +41,7 @@ public final class LoginViewModel: LoginViewModelBindable, ErrorHandling {
 
     @Published public var isSecurePassword: Bool = true
 
-    @Published public var user: User?
+    @Published public var user: AuthUser?
 
     @Published public var isLoginIdError: Bool = false
     @Published public var isPasswordError: Bool = false

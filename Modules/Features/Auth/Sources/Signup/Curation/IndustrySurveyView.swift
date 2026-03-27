@@ -7,7 +7,7 @@
 
 import SwiftUI
 import DesignSystem
-import Domain
+import AuthDomain
 
 public struct InterestSelectionView: View {
     let interestMap: [String: String] = [

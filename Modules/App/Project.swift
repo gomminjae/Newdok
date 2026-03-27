@@ -86,6 +86,9 @@ let project = Project(
                 .project(target: "Domain", path: "../Domain"),
                 .project(target: "DesignSystem", path: "../DesignSystem"),
                 .project(target: "Shared", path: "../Shared"),
+                // Feature Domain + Data
+                .project(target: "AuthDomain", path: "../Features/Auth"),
+                .project(target: "AuthData", path: "../Features/Auth"),
                 // Feature Interfaces
                 .project(target: "AuthInterface", path: "../Features/Auth"),
                 .project(target: "HomeInterface", path: "../Features/Home"),

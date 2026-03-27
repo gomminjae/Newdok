@@ -1,12 +1,5 @@
-//
-//  SignupViewModel.swift
-//  Newdok
-//
-//  Created by 권민재 on 3/6/25.
-//
-
 import Foundation
-import Domain
+import AuthDomain
 import SwiftUI
 import Shared
 
@@ -56,7 +49,7 @@ public enum NicknameValidationError: Error {
 
 @MainActor
 public final class SignupViewModel: ObservableObject, ErrorHandling {
-    private let userUseCase: UserUseCase
+    private let authRepository: AuthRepository
     private let signupUseCase: SignupUseCase
 
     @Published var currentStep: SignupStep = .phoneVerification
@@ -70,7 +63,6 @@ public final class SignupViewModel: ObservableObject, ErrorHandling {
     // MARK: - ID
     @Published public var loginID: String = "" {
         didSet {
-            // 실제로 값이 변경되었을 때만 초기화
             if oldValue != loginID {
                 isIDAvailable = nil
             }
@@ -106,7 +98,7 @@ public final class SignupViewModel: ObservableObject, ErrorHandling {
     // MARK: - State
     @Published public var isLoading = false
     @Published public var errorMessage: String?
-    @Published public var userList: [SimpleUser] = []
+    @Published public var userList: [AuthSimpleUser] = []
     @Published public var isShowUserList = false
     @Published public var isRequestSent = false
     @Published public var isTimerActive = false
@@ -131,16 +123,16 @@ public final class SignupViewModel: ObservableObject, ErrorHandling {
     @Published public var birthYear: String = ""
     @Published public var gender: String = ""
 
-    @Published public var user: User?
+    @Published public var user: AuthUser?
 
     // MARK: Investigate
     @Published public var myIndustry: String = ""
     @Published public var selectedInterests: Set<String> = []
-    @Published public var recommendedPost: [RecommendedBrand] = []
+    @Published public var recommendedPost: [AuthRecommendedBrand] = []
     @Published public var isCurationLoading = false
 
-    public init(userUseCase: UserUseCase, signupUseCase: SignupUseCase) {
-        self.userUseCase = userUseCase
+    public init(authRepository: AuthRepository, signupUseCase: SignupUseCase) {
+        self.authRepository = authRepository
         self.signupUseCase = signupUseCase
     }
 
@@ -152,7 +144,6 @@ public final class SignupViewModel: ObservableObject, ErrorHandling {
     public func goToNextStep() {
         if let next = SignupStep(rawValue: currentStep.rawValue + 1) {
             currentStep = next
-            // 인증 관련 상태 초기화
             resendFailureCount = 0
             stopTimer()
             isRequestSent = false
@@ -166,7 +157,6 @@ public final class SignupViewModel: ObservableObject, ErrorHandling {
     public func goToPreviousStep() {
         if let prev = SignupStep(rawValue: currentStep.rawValue - 1) {
             currentStep = prev
-            // 인증 관련 상태 초기화
             resendFailureCount = 0
             stopTimer()
             isRequestSent = false
@@ -192,7 +182,6 @@ public final class SignupViewModel: ObservableObject, ErrorHandling {
 
     // MARK: - 인증코드 전송 (초기/재전송 공통)
     public func sendVerificationCode(skipCheck: Bool = false) {
-        // 테스트 앱에서는 API 호출 없이 바로 인증 상태로 전환
         #if DEBUG
         enteredVerificationCode = ""
         showError = false
@@ -200,17 +189,15 @@ public final class SignupViewModel: ObservableObject, ErrorHandling {
         isRequestSent = true
         startTimer()
         shouldFocusVerificationCode = true
-        verificationCode = "121212" // 테스트용 고정 코드
+        verificationCode = "121212"
         return
         #endif
 
-        // 재전송 3회 초과 시, 팝업 표시
         guard resendFailureCount < 3 else {
             isShowPopup = true
             return
         }
 
-        // 재전송인 경우 카운트 증가 (초기 전송이 아닌 경우)
         if isRequestSent {
             resendFailureCount += 1
         }
@@ -225,7 +212,7 @@ public final class SignupViewModel: ObservableObject, ErrorHandling {
                 timerRemaining = 180
 
                 if !skipCheck && !skipUserCheck {
-                    let users = try await userUseCase.checkPhoneNumber(phoneNumber)
+                    let users = try await authRepository.checkPhoneNumber(phoneNumber)
                     if !users.isEmpty {
                         userList = users
                         isShowUserList = true
@@ -235,17 +222,16 @@ public final class SignupViewModel: ObservableObject, ErrorHandling {
                     }
                 }
 
-                let result = try await userUseCase.authSMS(phoneNumber: phoneNumber)
+                let result = try await authRepository.authSMS(phoneNumber: phoneNumber)
                 verificationCode = String(result.code)
                 await MainActor.run {
                     isRequestSent = true
                     startTimer()
-                    shouldFocusVerificationCode = true  // 인증번호 입력 필드로 포커스
+                    shouldFocusVerificationCode = true
                 }
             } catch {
                 handleError(error, feature: "signup", operation: "sendVerificationCode")
                 errorMessage = currentError?.userFacingMessage
-                // 전송 실패 시에만 카운트 증가
                 resendFailureCount += 1
             }
             isLoading = false
@@ -260,7 +246,6 @@ public final class SignupViewModel: ObservableObject, ErrorHandling {
             return false
         }
 
-        // 테스트 앱에서는 121212도 통과
         #if DEBUG
         if enteredVerificationCode == "121212" {
             stopTimer()
@@ -272,7 +257,6 @@ public final class SignupViewModel: ObservableObject, ErrorHandling {
 
         if enteredVerificationCode == verificationCode {
             stopTimer()
-            // 성공 시 제한/에러 상태 초기화
             resendFailureCount = 0
             showError = false
             return true
@@ -333,7 +317,7 @@ public final class SignupViewModel: ObservableObject, ErrorHandling {
         isIDAvailable = nil
         Task { @MainActor in
             do {
-                let result = try await userUseCase.checkIDDup(loginID)
+                let result = try await authRepository.checkIDDup(loginID)
                 switch result {
                 case .exists:
                     isIDAvailable = false
@@ -363,7 +347,7 @@ public final class SignupViewModel: ObservableObject, ErrorHandling {
 
         Task {
             do {
-                let result = try await userUseCase.preInvestigate(
+                let result = try await authRepository.preInvestigate(
                     industryId: myIndustry,
                     interestIds: Array(selectedInterests)
                 )
@@ -403,7 +387,7 @@ public final class SignupViewModel: ObservableObject, ErrorHandling {
         isLoading = true
         Task {
             do {
-                let request = SignupRequest(
+                let request = AuthSignupRequest(
                     loginId: loginID,
                     password: password,
                     phoneNumber: phoneNumber,
