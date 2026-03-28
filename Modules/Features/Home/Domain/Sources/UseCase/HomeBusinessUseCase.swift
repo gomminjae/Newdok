@@ -1,6 +1,6 @@
 import Foundation
 
-public protocol HomeBusinessUseCase: AnyObject {
+public protocol HomeBusinessUseCase: AnyObject, Sendable {
     func snapshot() async -> HomeSnapshot
     func loadToday() async -> HomeSnapshot
     func loadMonthData(for date: Date, forceReload: Bool) async -> HomeSnapshot

@@ -1,6 +1,6 @@
 import Foundation
 
-public protocol FetchHomeDataUseCase {
+public protocol FetchHomeDataUseCase: Sendable {
     func fetchTodayData() async throws -> HomeData
     func fetchMonthlyData(year: String, month: String) async throws -> [HomeArticles]
     func fetchDayArticles(year: String, month: String, day: String) async throws -> [HomeArticle]

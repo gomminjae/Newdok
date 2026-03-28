@@ -3,6 +3,7 @@ import Swinject
 import Core
 import Moya
 
+@MainActor
 public final class AppDIContainer {
     public static let shared = AppDIContainer()
 

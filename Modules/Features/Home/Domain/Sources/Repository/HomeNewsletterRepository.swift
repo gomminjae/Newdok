@@ -1,5 +1,5 @@
 import Foundation
 
-public protocol HomeNewsletterRepository {
+public protocol HomeNewsletterRepository: Sendable {
     func fetchActiveSubscription() async throws -> [HomeNewsletter]
 }

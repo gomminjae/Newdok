@@ -7,7 +7,7 @@
 
 import Foundation
 
-public protocol BookmarkUseCase {
+public protocol BookmarkUseCase: Sendable {
     func fetchBookmarkedArticles(interest: String?, sortBy: String?) async throws -> BookmarkedArticles
     func toggleBookmarkStatus(articleId: String) async throws
     func fetchBookmarkedInterests() async throws -> [BookmarkInterest]

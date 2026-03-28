@@ -25,6 +25,6 @@ public struct AuthSignupRequest {
     }
 }
 
-public protocol SignupUseCase {
+public protocol SignupUseCase: Sendable {
     func execute(request: AuthSignupRequest) async throws -> AuthUser
 }

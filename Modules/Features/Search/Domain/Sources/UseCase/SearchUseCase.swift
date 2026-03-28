@@ -9,7 +9,7 @@
 import Foundation
 import Shared
 
-public protocol SearchUseCase {
+public protocol SearchUseCase: Sendable {
     func searchNewsletters(brandName: String) async throws -> [SearchedNewsletter]
     func fetchPopularKeywords() async throws -> PopularKeywordList
 }

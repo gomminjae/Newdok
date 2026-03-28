@@ -7,6 +7,7 @@
 import SwiftUI
 import Combine
 
+@MainActor
 public final class TabSelection: ObservableObject {
     @Published public var selectedTab: NewDokTab = .home
 

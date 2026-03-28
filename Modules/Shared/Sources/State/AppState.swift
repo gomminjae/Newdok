@@ -13,6 +13,7 @@ public enum AuthState {
     case authenticated
 }
 
+@MainActor
 public final class AppState: ObservableObject {
     @Published public var authState: AuthState = .guest
     

@@ -1,4 +1,4 @@
-public protocol ExploreNewsletterRepository {
+public protocol ExploreNewsletterRepository: Sendable {
     func fetchNewsletters(orderOpt: String?, industry: [Int]?, day: [Int]?) async throws -> [ExploreBrand]
     func fetchNewsletterBrand(id: String) async throws -> ExploreBrandDetail
     func fetchGuestAllNewsletters(orderOpt: String?, industry: [Int]?, day: [Int]?) async throws -> [ExploreBrand]

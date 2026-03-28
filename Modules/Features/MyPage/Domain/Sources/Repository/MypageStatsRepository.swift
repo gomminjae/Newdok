@@ -8,7 +8,7 @@
 
 import Foundation
 
-public protocol MypageStatsRepository {
+public protocol MypageStatsRepository: Sendable {
     func fetchReceivedArticleCount() async throws -> Int
     func fetchSubscriptionCount() async throws -> Int
 }

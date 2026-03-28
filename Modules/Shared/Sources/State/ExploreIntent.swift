@@ -8,6 +8,7 @@
 import Foundation
 import SwiftUI
 
+@MainActor
 public final class ExploreIntent: ObservableObject {
     @Published public var day: Int?
     @Published public var selectedTab: Int?
