@@ -7,21 +7,45 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		18C097FEE30E087906590A11 /* SubscribeDomain.framework in Dependencies */ = {isa = PBXBuildFile; fileRef = C4490CBDF56FA86E240C6B38 /* SubscribeDomain.framework */; };
+		36E1397C9EE4F8F460BE5E43 /* SubscribeNewsletter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2CE49290E0FD0B806E2DF98 /* SubscribeNewsletter.swift */; };
+		4A38A0AC6ACD1BD2DBDD257C /* SubscribeNewslettersCountDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01376EF9123D0D467E8F814A /* SubscribeNewslettersCountDTO.swift */; };
 		5F9D05B7F1E2203A0BDEA43F /* SubscribeInterface.framework in Dependencies */ = {isa = PBXBuildFile; fileRef = 32659030D723322E066C81FA /* SubscribeInterface.framework */; };
+		615499A365293F6A6C6E745E /* Shared.framework in Dependencies */ = {isa = PBXBuildFile; fileRef = 818348BBF6B997119C6F5E6A /* Shared.framework */; };
+		6F3B2F8C0EC22404C42DD60F /* Core.framework in Dependencies */ = {isa = PBXBuildFile; fileRef = 0946787ED777F4BD36CFCB17 /* Core.framework */; };
 		7E373051E56150C452EB9F8A /* Shared.framework in Dependencies */ = {isa = PBXBuildFile; fileRef = 818348BBF6B997119C6F5E6A /* Shared.framework */; };
+		7EBB7D52E29B9F9617B05B0C /* SubscribeNewsletterDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 902DD38A5009735AFD6ABECD /* SubscribeNewsletterDTO.swift */; };
 		8B094C7028F7E2E1363D1236 /* EmptySubscriptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0C1BA120221BB2C5DA202ED /* EmptySubscriptionView.swift */; };
 		AD8D062E02DA893ED7820381 /* SubscribeViewFactoryImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C56BE37800CBB7B22C5AB4E /* SubscribeViewFactoryImpl.swift */; };
 		B367D451559FD411702993F5 /* SubscribeViewFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 987E16AE3DB26B1725F09DEC /* SubscribeViewFactory.swift */; };
+		B650321A47288AC2F84CB7DB /* SubscribeUseCaseImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 062F35FD12E691D36D31C5BA /* SubscribeUseCaseImpl.swift */; };
+		B9EF7BD4594311D2B8656900 /* SubscribeUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 955E54A3E3875FDFA4224AD5 /* SubscribeUseCase.swift */; };
 		C4D403ADB487A63B26DEBCBD /* SubscribeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B7D112BBF7502924041ED21 /* SubscribeView.swift */; };
 		DB5C9D560E785B286AAA4E2E /* SubscribeRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 518873D08881857BF9308510 /* SubscribeRow.swift */; };
+		E1EBA253F7B66ABCB8E6167F /* SubscribeDomain.framework in Dependencies */ = {isa = PBXBuildFile; fileRef = C4490CBDF56FA86E240C6B38 /* SubscribeDomain.framework */; };
 		EA6088EE736EA710C61A29C6 /* SubscribeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 210E740423E2557577E07549 /* SubscribeViewModel.swift */; };
+		EA6395FFFF6759BD38A8252A /* SubscribeNewsletterRepositoryImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5478AD7CFD21E8DFD1DAAB8A /* SubscribeNewsletterRepositoryImpl.swift */; };
 		ECB3A6D8A5EE4F0D5BDA3B5A /* SubscribeMain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 601DDD48F11BCA082BCDC946 /* SubscribeMain.swift */; };
-		EE2DD2E0D2FAE26753CAB364 /* Domain.framework in Dependencies */ = {isa = PBXBuildFile; fileRef = B2642F864ADC580169E7271B /* Domain.framework */; };
+		F34D9DBEC1E48FCAFAEF3336 /* SubscribeNewsletterRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80AC022782541B311A1C6B99 /* SubscribeNewsletterRepository.swift */; };
 		F3CB6A79FD601706C034F708 /* SegmentPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27BE4372D9C9BB0DAF5A3985 /* SegmentPickerView.swift */; };
 		FDB9C9A8EA11ED7D892A2B48 /* DesignSystem.framework in Dependencies */ = {isa = PBXBuildFile; fileRef = AC1A311498193AE6DF677F49 /* DesignSystem.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		21AC3F2E9F6D2AB202B52DC8 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 25E1861679C8E5CA89EA1FE9 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 3251148EFED43DA17994B35E;
+			remoteInfo = SubscribeDomain;
+		};
+		47A4AD391AFE444F7F5F03D8 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 25E1861679C8E5CA89EA1FE9 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 3251148EFED43DA17994B35E;
+			remoteInfo = SubscribeDomain;
+		};
 		7F617195300C623B822DB0AF /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 25E1861679C8E5CA89EA1FE9 /* Project object */;
@@ -42,6 +66,16 @@
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		4447817A2B1A77A7CDC82D26 /* Dependencies */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 8;
+			dstSubfolderSpec = 16;
+			files = (
+				615499A365293F6A6C6E745E /* Shared.framework in Dependencies */,
+			);
+			name = Dependencies;
+			runOnlyForDeploymentPostprocessing = 1;
+		};
 		4FB9CC78584B9BFF161AFD2A /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -58,35 +92,91 @@
 			dstSubfolderSpec = 16;
 			files = (
 				FDB9C9A8EA11ED7D892A2B48 /* DesignSystem.framework in Dependencies */,
-				EE2DD2E0D2FAE26753CAB364 /* Domain.framework in Dependencies */,
 				7E373051E56150C452EB9F8A /* Shared.framework in Dependencies */,
+				18C097FEE30E087906590A11 /* SubscribeDomain.framework in Dependencies */,
 				5F9D05B7F1E2203A0BDEA43F /* SubscribeInterface.framework in Dependencies */,
 			);
 			name = Dependencies;
 			runOnlyForDeploymentPostprocessing = 1;
 		};
+		98C3D81492B2CF3243908FCA /* Dependencies */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 8;
+			dstSubfolderSpec = 16;
+			files = (
+				6F3B2F8C0EC22404C42DD60F /* Core.framework in Dependencies */,
+				E1EBA253F7B66ABCB8E6167F /* SubscribeDomain.framework in Dependencies */,
+			);
+			name = Dependencies;
+			runOnlyForDeploymentPostprocessing = 1;
+		};
+		D556E907A3E87622AF9B29D3 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DE0BE8038BAB72A202964389 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		01376EF9123D0D467E8F814A /* SubscribeNewslettersCountDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscribeNewslettersCountDTO.swift; sourceTree = "<group>"; };
+		062F35FD12E691D36D31C5BA /* SubscribeUseCaseImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscribeUseCaseImpl.swift; sourceTree = "<group>"; };
+		0946787ED777F4BD36CFCB17 /* Core.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Core.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		18103EAB1632CB16F9D38228 /* SubscribeDomain-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "SubscribeDomain-Info.plist"; sourceTree = "<group>"; };
 		210E740423E2557577E07549 /* SubscribeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscribeViewModel.swift; sourceTree = "<group>"; };
 		27BE4372D9C9BB0DAF5A3985 /* SegmentPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentPickerView.swift; sourceTree = "<group>"; };
 		32659030D723322E066C81FA /* SubscribeInterface.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SubscribeInterface.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		518873D08881857BF9308510 /* SubscribeRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscribeRow.swift; sourceTree = "<group>"; };
+		5478AD7CFD21E8DFD1DAAB8A /* SubscribeNewsletterRepositoryImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscribeNewsletterRepositoryImpl.swift; sourceTree = "<group>"; };
 		5595DBABF800B949A8877D83 /* Subscribe.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Subscribe.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5C56BE37800CBB7B22C5AB4E /* SubscribeViewFactoryImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscribeViewFactoryImpl.swift; sourceTree = "<group>"; };
 		601DDD48F11BCA082BCDC946 /* SubscribeMain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscribeMain.swift; sourceTree = "<group>"; };
 		7B7D112BBF7502924041ED21 /* SubscribeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscribeView.swift; sourceTree = "<group>"; };
+		80AC022782541B311A1C6B99 /* SubscribeNewsletterRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscribeNewsletterRepository.swift; sourceTree = "<group>"; };
 		80C0B3B0D19108DC3253B219 /* SubscribeInterface-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "SubscribeInterface-Info.plist"; sourceTree = "<group>"; };
 		818348BBF6B997119C6F5E6A /* Shared.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Shared.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		902DD38A5009735AFD6ABECD /* SubscribeNewsletterDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscribeNewsletterDTO.swift; sourceTree = "<group>"; };
+		955E54A3E3875FDFA4224AD5 /* SubscribeUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscribeUseCase.swift; sourceTree = "<group>"; };
 		987E16AE3DB26B1725F09DEC /* SubscribeViewFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscribeViewFactory.swift; sourceTree = "<group>"; };
+		A80D97104AC5352523E57C90 /* SubscribeData-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "SubscribeData-Info.plist"; sourceTree = "<group>"; };
 		AC1A311498193AE6DF677F49 /* DesignSystem.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = DesignSystem.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B0C1BA120221BB2C5DA202ED /* EmptySubscriptionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptySubscriptionView.swift; sourceTree = "<group>"; };
-		B2642F864ADC580169E7271B /* Domain.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Domain.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C2CE49290E0FD0B806E2DF98 /* SubscribeNewsletter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscribeNewsletter.swift; sourceTree = "<group>"; };
+		C4490CBDF56FA86E240C6B38 /* SubscribeDomain.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SubscribeDomain.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D7B3585C3C74FC24341FFA4E /* Subscribe-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "Subscribe-Info.plist"; sourceTree = "<group>"; };
+		DF5FF2A79CAAD6E1707060E8 /* SubscribeData.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SubscribeData.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		14665C06D002073E8440EB77 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		545312C16F6606DC2D71DDC3 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8C1B2BB0076D67285329A2EF /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -117,6 +207,8 @@
 			isa = PBXGroup;
 			children = (
 				D7B3585C3C74FC24341FFA4E /* Subscribe-Info.plist */,
+				A80D97104AC5352523E57C90 /* SubscribeData-Info.plist */,
+				18103EAB1632CB16F9D38228 /* SubscribeDomain-Info.plist */,
 				80C0B3B0D19108DC3253B219 /* SubscribeInterface-Info.plist */,
 			);
 			path = InfoPlists;
@@ -141,10 +233,12 @@
 		46A85862377EC9F7C2F801A2 /* Products */ = {
 			isa = PBXGroup;
 			children = (
+				0946787ED777F4BD36CFCB17 /* Core.framework */,
 				AC1A311498193AE6DF677F49 /* DesignSystem.framework */,
-				B2642F864ADC580169E7271B /* Domain.framework */,
 				818348BBF6B997119C6F5E6A /* Shared.framework */,
 				5595DBABF800B949A8877D83 /* Subscribe.framework */,
+				DF5FF2A79CAAD6E1707060E8 /* SubscribeData.framework */,
+				C4490CBDF56FA86E240C6B38 /* SubscribeDomain.framework */,
 				32659030D723322E066C81FA /* SubscribeInterface.framework */,
 			);
 			name = Products;
@@ -158,6 +252,23 @@
 			);
 			sourceTree = "<group>";
 		};
+		4A15EE45EC087C787B4A9ABE /* DTO */ = {
+			isa = PBXGroup;
+			children = (
+				902DD38A5009735AFD6ABECD /* SubscribeNewsletterDTO.swift */,
+				01376EF9123D0D467E8F814A /* SubscribeNewslettersCountDTO.swift */,
+			);
+			path = DTO;
+			sourceTree = "<group>";
+		};
+		5F29B8B6A191CDA5B7C41D2D /* Repository */ = {
+			isa = PBXGroup;
+			children = (
+				80AC022782541B311A1C6B99 /* SubscribeNewsletterRepository.swift */,
+			);
+			path = Repository;
+			sourceTree = "<group>";
+		};
 		6E156403C82EB8BEAF99E3FF /* Derived */ = {
 			isa = PBXGroup;
 			children = (
@@ -166,10 +277,45 @@
 			path = Derived;
 			sourceTree = "<group>";
 		};
+		76F21174E907467E7219EA44 /* Sources */ = {
+			isa = PBXGroup;
+			children = (
+				D7E74FC5FCD53F4E604F6F2C /* Models */,
+				5F29B8B6A191CDA5B7C41D2D /* Repository */,
+				93A6A62713B4DC2E3BFBE040 /* UseCase */,
+			);
+			path = Sources;
+			sourceTree = "<group>";
+		};
+		8DCFC5E44C8C620803EA5C35 /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				CF041E645373A93611000DFD /* Sources */,
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
+		93A6A62713B4DC2E3BFBE040 /* UseCase */ = {
+			isa = PBXGroup;
+			children = (
+				955E54A3E3875FDFA4224AD5 /* SubscribeUseCase.swift */,
+			);
+			path = UseCase;
+			sourceTree = "<group>";
+		};
+		98BAC4B1468C7D5F1E82EE86 /* Repository */ = {
+			isa = PBXGroup;
+			children = (
+				5478AD7CFD21E8DFD1DAAB8A /* SubscribeNewsletterRepositoryImpl.swift */,
+			);
+			path = Repository;
+			sourceTree = "<group>";
+		};
 		C8F0A55850302A4AB6D60684 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
 				CF52A3EA81666835B3D77E5F /* Subscribe */,
+				F10F32C76E0AA9BE4568CBA2 /* UseCase */,
 				601DDD48F11BCA082BCDC946 /* SubscribeMain.swift */,
 				5C56BE37800CBB7B22C5AB4E /* SubscribeViewFactoryImpl.swift */,
 			);
@@ -179,11 +325,22 @@
 		CD81B89F7B2087DE17E417A9 /* Project */ = {
 			isa = PBXGroup;
 			children = (
+				8DCFC5E44C8C620803EA5C35 /* Data */,
 				6E156403C82EB8BEAF99E3FF /* Derived */,
+				E1B3AD6A63003649A604758F /* Domain */,
 				1A505032B8D0E9F1235B8F16 /* Interface */,
 				C8F0A55850302A4AB6D60684 /* Sources */,
 			);
 			name = Project;
+			sourceTree = "<group>";
+		};
+		CF041E645373A93611000DFD /* Sources */ = {
+			isa = PBXGroup;
+			children = (
+				4A15EE45EC087C787B4A9ABE /* DTO */,
+				98BAC4B1468C7D5F1E82EE86 /* Repository */,
+			);
+			path = Sources;
 			sourceTree = "<group>";
 		};
 		CF52A3EA81666835B3D77E5F /* Subscribe */ = {
@@ -196,9 +353,76 @@
 			path = Subscribe;
 			sourceTree = "<group>";
 		};
+		D7E74FC5FCD53F4E604F6F2C /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				C2CE49290E0FD0B806E2DF98 /* SubscribeNewsletter.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		E1B3AD6A63003649A604758F /* Domain */ = {
+			isa = PBXGroup;
+			children = (
+				76F21174E907467E7219EA44 /* Sources */,
+			);
+			path = Domain;
+			sourceTree = "<group>";
+		};
+		F10F32C76E0AA9BE4568CBA2 /* UseCase */ = {
+			isa = PBXGroup;
+			children = (
+				062F35FD12E691D36D31C5BA /* SubscribeUseCaseImpl.swift */,
+			);
+			path = UseCase;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		3251148EFED43DA17994B35E /* SubscribeDomain */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = ABCF9D9A2B129689787A3444 /* Build configuration list for PBXNativeTarget "SubscribeDomain" */;
+			buildPhases = (
+				0E4020A00BA5B70155D62C30 /* Sources */,
+				0C06CFB247770889124BE460 /* Resources */,
+				14665C06D002073E8440EB77 /* Frameworks */,
+				D556E907A3E87622AF9B29D3 /* Embed Frameworks */,
+				4447817A2B1A77A7CDC82D26 /* Dependencies */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = SubscribeDomain;
+			packageProductDependencies = (
+			);
+			productName = SubscribeDomain;
+			productReference = C4490CBDF56FA86E240C6B38 /* SubscribeDomain.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		4B600EF0C9C9D9B448755700 /* SubscribeData */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 3F3FBC4DEB605EBF14B1C8E2 /* Build configuration list for PBXNativeTarget "SubscribeData" */;
+			buildPhases = (
+				86542C5255A34AA7A5452969 /* Sources */,
+				7817581477BBE5010EA9F6D6 /* Resources */,
+				8C1B2BB0076D67285329A2EF /* Frameworks */,
+				DE0BE8038BAB72A202964389 /* Embed Frameworks */,
+				98C3D81492B2CF3243908FCA /* Dependencies */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				16146B11928982B0B6E618E8 /* PBXTargetDependency */,
+			);
+			name = SubscribeData;
+			packageProductDependencies = (
+			);
+			productName = SubscribeData;
+			productReference = DF5FF2A79CAAD6E1707060E8 /* SubscribeData.framework */;
+			productType = "com.apple.product-type.framework";
+		};
 		9210C9D863AE640CB72D85DF /* SubscribeInterface */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = C4B305F49770905A49AA158E /* Build configuration list for PBXNativeTarget "SubscribeInterface" */;
@@ -232,6 +456,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				2F639CA1F1D7DE9906FB05B1 /* PBXTargetDependency */,
 				85B1F1855E18CE539DBEA73A /* PBXTargetDependency */,
 			);
 			name = Subscribe;
@@ -266,13 +491,29 @@
 			projectRoot = "";
 			targets = (
 				AB64776038A7A7B975B07604 /* Subscribe */,
+				4B600EF0C9C9D9B448755700 /* SubscribeData */,
+				3251148EFED43DA17994B35E /* SubscribeDomain */,
 				9210C9D863AE640CB72D85DF /* SubscribeInterface */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		0C06CFB247770889124BE460 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		4D239D0F49322EA8AF7CE2A8 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		7817581477BBE5010EA9F6D6 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -289,6 +530,26 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		0E4020A00BA5B70155D62C30 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				36E1397C9EE4F8F460BE5E43 /* SubscribeNewsletter.swift in Sources */,
+				F34D9DBEC1E48FCAFAEF3336 /* SubscribeNewsletterRepository.swift in Sources */,
+				B9EF7BD4594311D2B8656900 /* SubscribeUseCase.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		86542C5255A34AA7A5452969 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7EBB7D52E29B9F9617B05B0C /* SubscribeNewsletterDTO.swift in Sources */,
+				4A38A0AC6ACD1BD2DBDD257C /* SubscribeNewslettersCountDTO.swift in Sources */,
+				EA6395FFFF6759BD38A8252A /* SubscribeNewsletterRepositoryImpl.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		B204944BC4A65015B980EC43 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -300,6 +561,7 @@
 				EA6088EE736EA710C61A29C6 /* SubscribeViewModel.swift in Sources */,
 				ECB3A6D8A5EE4F0D5BDA3B5A /* SubscribeMain.swift in Sources */,
 				AD8D062E02DA893ED7820381 /* SubscribeViewFactoryImpl.swift in Sources */,
+				B650321A47288AC2F84CB7DB /* SubscribeUseCaseImpl.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -314,6 +576,18 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		16146B11928982B0B6E618E8 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = SubscribeDomain;
+			target = 3251148EFED43DA17994B35E /* SubscribeDomain */;
+			targetProxy = 21AC3F2E9F6D2AB202B52DC8 /* PBXContainerItemProxy */;
+		};
+		2F639CA1F1D7DE9906FB05B1 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = SubscribeDomain;
+			target = 3251148EFED43DA17994B35E /* SubscribeDomain */;
+			targetProxy = 47A4AD391AFE444F7F5F03D8 /* PBXContainerItemProxy */;
+		};
 		85B1F1855E18CE539DBEA73A /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = SubscribeInterface;
@@ -382,6 +656,76 @@
 				MACH_O_TYPE = staticlib;
 				PRODUCT_BUNDLE_IDENTIFIER = com.newdok.subscribe.interface;
 				PRODUCT_NAME = SubscribeInterface;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_STRICT_CONCURRENCY = complete;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		49B9D3E3E811910E9D1D844D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = "Derived/InfoPlists/SubscribeData-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MACH_O_TYPE = staticlib;
+				PRODUCT_BUNDLE_IDENTIFIER = com.newdok.subscribe.data;
+				PRODUCT_NAME = SubscribeData;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_STRICT_CONCURRENCY = complete;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		6E445EA616D600E75D2CB97F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = "Derived/InfoPlists/SubscribeDomain-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MACH_O_TYPE = staticlib;
+				PRODUCT_BUNDLE_IDENTIFIER = com.newdok.subscribe.domain;
+				PRODUCT_NAME = SubscribeDomain;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 				SUPPORTS_MACCATALYST = NO;
@@ -583,6 +927,84 @@
 			};
 			name = Debug;
 		};
+		DC1DEC34786E2A55F39A8765 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = "Derived/InfoPlists/SubscribeDomain-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MACH_O_TYPE = staticlib;
+				PRODUCT_BUNDLE_IDENTIFIER = com.newdok.subscribe.domain;
+				PRODUCT_NAME = SubscribeDomain;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = (
+					"$(inherited)",
+					DEBUG,
+				);
+				SWIFT_COMPILATION_MODE = singlefile;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_STRICT_CONCURRENCY = complete;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		EA270E743B4DB49EB87F32B2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = "Derived/InfoPlists/SubscribeData-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MACH_O_TYPE = staticlib;
+				PRODUCT_BUNDLE_IDENTIFIER = com.newdok.subscribe.data;
+				PRODUCT_NAME = SubscribeData;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = (
+					"$(inherited)",
+					DEBUG,
+				);
+				SWIFT_COMPILATION_MODE = singlefile;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_STRICT_CONCURRENCY = complete;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -595,11 +1017,29 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
+		3F3FBC4DEB605EBF14B1C8E2 /* Build configuration list for PBXNativeTarget "SubscribeData" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				EA270E743B4DB49EB87F32B2 /* Debug */,
+				49B9D3E3E811910E9D1D844D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		A319BE77A52B3D03180ED219 /* Build configuration list for PBXProject "Subscribe" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				D36A140815A258E80B5FBB88 /* Debug */,
 				B1E78B9572940305CFA7A154 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		ABCF9D9A2B129689787A3444 /* Build configuration list for PBXNativeTarget "SubscribeDomain" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DC1DEC34786E2A55F39A8765 /* Debug */,
+				6E445EA616D600E75D2CB97F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

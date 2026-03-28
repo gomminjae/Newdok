@@ -1,25 +1,136 @@
 digraph {
-  A [fillcolor=deepskyblue penwidth="1.5" shape=box3d style=filled]
-  ATests [fillcolor=limegreen shape=octagon style=filled]
   Alamofire [fillcolor=coral1 shape=cylinder style=filled]
   App [fillcolor=deepskyblue penwidth="1.5" shape=box3d style=filled]
+  AppCheckCore [fillcolor=coral1 shape=cylinder style=filled]
+  AppCoordinator [fillcolor=coral1 shape=cylinder style=filled]
+  AppKit [fillcolor=violet shape=rectangle style=filled]
   Auth [fillcolor=coral1 shape=cylinder style=filled]
+  AuthData [fillcolor=coral1 shape=cylinder style=filled]
+  AuthDomain [fillcolor=coral1 shape=cylinder style=filled]
+  AuthInterface [fillcolor=coral1 shape=cylinder style=filled]
   AuthTests [fillcolor=limegreen shape=octagon style=filled]
-  B [fillcolor=deepskyblue penwidth="1.5" shape=box3d style=filled]
-  BTests [fillcolor=limegreen shape=octagon style=filled]
+  Bookmark [fillcolor=coral1 shape=cylinder style=filled]
+  BookmarkData [fillcolor=coral1 shape=cylinder style=filled]
+  BookmarkDomain [fillcolor=coral1 shape=cylinder style=filled]
+  BookmarkInterface [fillcolor=coral1 shape=cylinder style=filled]
+  BookmarkTests [fillcolor=limegreen shape=octagon style=filled]
   CFNetwork [fillcolor=violet shape=rectangle style=filled]
   CombineMoya [fillcolor=coral1 shape=cylinder style=filled]
-  Data [fillcolor=coral1 shape=cylinder style=filled]
-  DesignSystem [fillcolor=darkgoldenrod1 shape=cylinder style=filled]
-  Domain [fillcolor=coral1 shape=cylinder style=filled]
+  Core [fillcolor=coral1 shape=cylinder style=filled]
+  CoreTelephony [fillcolor=violet shape=rectangle style=filled]
+  DesignSystem [fillcolor=coral1 shape=cylinder style=filled]
+  Detail [fillcolor=coral1 shape=cylinder style=filled]
+  DetailData [fillcolor=coral1 shape=cylinder style=filled]
+  DetailDomain [fillcolor=coral1 shape=cylinder style=filled]
+  DetailInterface [fillcolor=coral1 shape=cylinder style=filled]
+  DeviceCheck [fillcolor=violet shape=rectangle style=filled]
+  Explore [fillcolor=coral1 shape=cylinder style=filled]
+  ExploreData [fillcolor=coral1 shape=cylinder style=filled]
+  ExploreDomain [fillcolor=coral1 shape=cylinder style=filled]
+  ExploreInterface [fillcolor=coral1 shape=cylinder style=filled]
+  ExploreTests [fillcolor=limegreen shape=octagon style=filled]
+  FBLPromises [fillcolor=coral1 shape=cylinder style=filled]
+  FBLPromisesTestHelpers [fillcolor=coral1 shape=cylinder style=filled]
+  Firebase [fillcolor=coral1 shape=cylinder style=filled]
+  FirebaseABTesting [fillcolor=coral1 shape=cylinder style=filled]
+  FirebaseAI [fillcolor=coral1 shape=cylinder style=filled]
+  FirebaseAnalytics [fillcolor=lightskyblue1 shape=trapezium style=filled]
+  FirebaseAnalyticsCoreTarget [fillcolor=coral1 shape=cylinder style=filled]
+  FirebaseAnalyticsCoreWrapper [fillcolor=coral1 shape=cylinder style=filled]
+  FirebaseAnalyticsIdentitySupportTarget [fillcolor=coral1 shape=cylinder style=filled]
+  FirebaseAnalyticsOnDeviceConversionTarget [fillcolor=coral1 shape=cylinder style=filled]
+  FirebaseAnalyticsTarget [fillcolor=coral1 shape=cylinder style=filled]
+  FirebaseAnalyticsWithoutAdIdSupportTarget [fillcolor=coral1 shape=cylinder style=filled]
+  FirebaseAnalyticsWithoutAdIdSupportWrapper [fillcolor=coral1 shape=cylinder style=filled]
+  FirebaseAnalyticsWrapper [fillcolor=coral1 shape=cylinder style=filled]
+  FirebaseAppCheck [fillcolor=coral1 shape=cylinder style=filled]
+  FirebaseAppCheckInterop [fillcolor=coral1 shape=cylinder style=filled]
+  FirebaseAppDistribution [fillcolor=coral1 shape=cylinder style=filled]
+  FirebaseAppDistributionTarget [fillcolor=coral1 shape=cylinder style=filled]
+  FirebaseAuth [fillcolor=coral1 shape=cylinder style=filled]
+  FirebaseAuthCombineSwift [fillcolor=coral1 shape=cylinder style=filled]
+  FirebaseAuthInternal [fillcolor=coral1 shape=cylinder style=filled]
+  FirebaseAuthInterop [fillcolor=coral1 shape=cylinder style=filled]
+  FirebaseCore [fillcolor=coral1 shape=cylinder style=filled]
+  FirebaseCoreExtension [fillcolor=coral1 shape=cylinder style=filled]
+  FirebaseCoreInternal [fillcolor=coral1 shape=cylinder style=filled]
+  FirebaseCrashlytics [fillcolor=coral1 shape=cylinder style=filled]
+  FirebaseCrashlyticsSwift [fillcolor=coral1 shape=cylinder style=filled]
+  FirebaseDatabase [fillcolor=coral1 shape=cylinder style=filled]
+  FirebaseDatabaseInternal [fillcolor=coral1 shape=cylinder style=filled]
+  FirebaseDynamicLinks [fillcolor=coral1 shape=cylinder style=filled]
+  FirebaseDynamicLinksTarget [fillcolor=coral1 shape=cylinder style=filled]
+  FirebaseFirestore [fillcolor=coral1 shape=cylinder style=filled]
+  FirebaseFirestoreCombineSwift [fillcolor=coral1 shape=cylinder style=filled]
+  FirebaseFirestoreInternal [fillcolor=lightskyblue1 shape=trapezium style=filled]
+  FirebaseFirestoreInternalWrapper [fillcolor=coral1 shape=cylinder style=filled]
+  FirebaseFirestoreTarget [fillcolor=coral1 shape=cylinder style=filled]
+  FirebaseFunctions [fillcolor=coral1 shape=cylinder style=filled]
+  FirebaseFunctionsCombineSwift [fillcolor=coral1 shape=cylinder style=filled]
+  FirebaseInAppMessaging [fillcolor=coral1 shape=cylinder style=filled]
+  FirebaseInAppMessagingInternal [fillcolor=coral1 shape=cylinder style=filled]
+  FirebaseInAppMessagingTarget [fillcolor=coral1 shape=cylinder style=filled]
+  FirebaseInAppMessaging_iOS [fillcolor=coral1 shape=cylinder style=filled]
+  FirebaseInstallations [fillcolor=coral1 shape=cylinder style=filled]
+  FirebaseMLModelDownloader [fillcolor=coral1 shape=cylinder style=filled]
+  FirebaseMessaging [fillcolor=coral1 shape=cylinder style=filled]
+  FirebaseMessagingInterop [fillcolor=coral1 shape=cylinder style=filled]
+  FirebasePerformance [fillcolor=coral1 shape=cylinder style=filled]
+  FirebasePerformanceTarget [fillcolor=coral1 shape=cylinder style=filled]
+  FirebaseRemoteConfig [fillcolor=coral1 shape=cylinder style=filled]
+  FirebaseRemoteConfigInternal [fillcolor=coral1 shape=cylinder style=filled]
+  FirebaseRemoteConfigInterop [fillcolor=coral1 shape=cylinder style=filled]
+  FirebaseSessions [fillcolor=coral1 shape=cylinder style=filled]
+  FirebaseSessionsObjC [fillcolor=coral1 shape=cylinder style=filled]
+  FirebaseSharedSwift [fillcolor=coral1 shape=cylinder style=filled]
+  FirebaseStorage [fillcolor=coral1 shape=cylinder style=filled]
+  FirebaseStorageCombineSwift [fillcolor=coral1 shape=cylinder style=filled]
+  FirebaseVertexAI [fillcolor=coral1 shape=cylinder style=filled]
+  GTMSessionFetcherCore [fillcolor=coral1 shape=cylinder style=filled]
+  GTMSessionFetcherFull [fillcolor=coral1 shape=cylinder style=filled]
+  GTMSessionFetcherLogView [fillcolor=coral1 shape=cylinder style=filled]
+  GoogleAdsOnDeviceConversion [fillcolor=lightskyblue1 shape=trapezium style=filled]
+  GoogleAdsOnDeviceConversionTarget [fillcolor=coral1 shape=cylinder style=filled]
+  GoogleAppMeasurement [fillcolor=lightskyblue1 shape=trapezium style=filled]
+  GoogleAppMeasurementCoreTarget [fillcolor=coral1 shape=cylinder style=filled]
+  GoogleAppMeasurementIdentitySupport [fillcolor=lightskyblue1 shape=trapezium style=filled]
+  GoogleAppMeasurementIdentitySupportTarget [fillcolor=coral1 shape=cylinder style=filled]
+  GoogleAppMeasurementOnDeviceConversion [fillcolor=lightskyblue1 shape=trapezium style=filled]
+  GoogleAppMeasurementOnDeviceConversionTarget [fillcolor=coral1 shape=cylinder style=filled]
+  GoogleAppMeasurementTarget [fillcolor=coral1 shape=cylinder style=filled]
+  GoogleAppMeasurementWithoutAdIdSupportTarget [fillcolor=coral1 shape=cylinder style=filled]
+  GoogleDataTransport [fillcolor=coral1 shape=cylinder style=filled]
+  "GoogleUtilities-AppDelegateSwizzler" [fillcolor=coral1 shape=cylinder style=filled]
+  "GoogleUtilities-Environment" [fillcolor=coral1 shape=cylinder style=filled]
+  "GoogleUtilities-Logger" [fillcolor=coral1 shape=cylinder style=filled]
+  "GoogleUtilities-MethodSwizzler" [fillcolor=coral1 shape=cylinder style=filled]
+  "GoogleUtilities-NSData" [fillcolor=coral1 shape=cylinder style=filled]
+  "GoogleUtilities-Network" [fillcolor=coral1 shape=cylinder style=filled]
+  "GoogleUtilities-Reachability" [fillcolor=coral1 shape=cylinder style=filled]
+  "GoogleUtilities-SwizzlerTestHelpers" [fillcolor=coral1 shape=cylinder style=filled]
+  "GoogleUtilities-UserDefaults" [fillcolor=coral1 shape=cylinder style=filled]
   Home [fillcolor=coral1 shape=cylinder style=filled]
+  HomeData [fillcolor=coral1 shape=cylinder style=filled]
+  HomeDomain [fillcolor=coral1 shape=cylinder style=filled]
+  HomeInterface [fillcolor=coral1 shape=cylinder style=filled]
   HomeTests [fillcolor=limegreen shape=octagon style=filled]
+  Kingfisher [fillcolor=darkgoldenrod1 shape=cylinder style=filled]
   Launch [fillcolor=coral1 shape=cylinder style=filled]
+  LaunchInterface [fillcolor=coral1 shape=cylinder style=filled]
   LaunchTests [fillcolor=limegreen shape=octagon style=filled]
-  Moya [fillcolor=coral1 shape=cylinder style=filled]
-  Network [fillcolor=darkgoldenrod1 shape=cylinder style=filled]
+  MobileCoreServices [fillcolor=violet shape=rectangle style=filled]
+  Moya [fillcolor=darkgoldenrod1 shape=cylinder style=filled]
+  Mypage [fillcolor=coral1 shape=cylinder style=filled]
+  MypageData [fillcolor=coral1 shape=cylinder style=filled]
+  MypageDomain [fillcolor=coral1 shape=cylinder style=filled]
+  MypageInterface [fillcolor=coral1 shape=cylinder style=filled]
+  PopupView [fillcolor=darkgoldenrod1 shape=cylinder style=filled]
+  Promises [fillcolor=coral1 shape=cylinder style=filled]
+  PromisesTestHelpers [fillcolor=coral1 shape=cylinder style=filled]
+  QuartzCore [fillcolor=violet shape=rectangle style=filled]
   ReactiveMoya [fillcolor=coral1 shape=cylinder style=filled]
   ReactiveSwift [fillcolor=coral1 shape=cylinder style=filled]
+  RecaptchaInterop [fillcolor=coral1 shape=cylinder style=filled]
   RxBlocking [fillcolor=coral1 shape=cylinder style=filled]
   RxCocoa [fillcolor=coral1 shape=cylinder style=filled]
   RxCocoaRuntime [fillcolor=coral1 shape=cylinder style=filled]
@@ -27,57 +138,489 @@ digraph {
   RxRelay [fillcolor=coral1 shape=cylinder style=filled]
   RxSwift [fillcolor=darkgoldenrod1 shape=cylinder style=filled]
   RxTest [fillcolor=coral1 shape=cylinder style=filled]
-  Signup [fillcolor=coral1 shape=cylinder style=filled]
-  SignupTests [fillcolor=limegreen shape=octagon style=filled]
+  SafariServices [fillcolor=violet shape=rectangle style=filled]
+  Search [fillcolor=coral1 shape=cylinder style=filled]
+  SearchData [fillcolor=coral1 shape=cylinder style=filled]
+  SearchDomain [fillcolor=coral1 shape=cylinder style=filled]
+  SearchInterface [fillcolor=coral1 shape=cylinder style=filled]
+  Security [fillcolor=violet shape=rectangle style=filled]
+  Shared [fillcolor=coral1 shape=cylinder style=filled]
+  StoreKit [fillcolor=violet shape=rectangle style=filled]
+  Subscribe [fillcolor=coral1 shape=cylinder style=filled]
+  SubscribeData [fillcolor=coral1 shape=cylinder style=filled]
+  SubscribeDomain [fillcolor=coral1 shape=cylinder style=filled]
+  SubscribeInterface [fillcolor=coral1 shape=cylinder style=filled]
   Survey [fillcolor=coral1 shape=cylinder style=filled]
   SurveyTests [fillcolor=limegreen shape=octagon style=filled]
-  A -> Launch
-  ATests -> A
-  ATests -> Launch
+  SwiftProtobuf [fillcolor=coral1 shape=cylinder style=filled]
+  SwiftProtobufPluginLibrary [fillcolor=coral1 shape=cylinder style=filled]
+  SwiftUIIntrospect [fillcolor=coral1 shape=cylinder style=filled]
+  Swinject [fillcolor=darkgoldenrod1 shape=cylinder style=filled]
+  SystemConfiguration [fillcolor=violet shape=rectangle style=filled]
+  UIKit [fillcolor=violet shape=rectangle style=filled]
+  WatchKit [fillcolor=violet shape=rectangle style=filled]
+  absl [fillcolor=lightskyblue1 shape=trapezium style=filled]
+  abslWrapper [fillcolor=coral1 shape=cylinder style=filled]
+  grpc [fillcolor=lightskyblue1 shape=trapezium style=filled]
+  grpcWrapper [fillcolor=coral1 shape=cylinder style=filled]
+  grpcpp [fillcolor=lightskyblue1 shape=trapezium style=filled]
+  grpcppWrapper [fillcolor=coral1 shape=cylinder style=filled]
+  leveldb [fillcolor=coral1 shape=cylinder style=filled]
+  "libc++" [fillcolor=violet shape=rectangle style=filled]
+  libsqlite3 [fillcolor=violet shape=rectangle style=filled]
+  libz [fillcolor=violet shape=rectangle style=filled]
+  nanopb [fillcolor=coral1 shape=cylinder style=filled]
+  opensslWrapper [fillcolor=coral1 shape=cylinder style=filled]
+  openssl_grpc [fillcolor=lightskyblue1 shape=trapezium style=filled]
+  "third-party-IsAppEncrypted" [fillcolor=coral1 shape=cylinder style=filled]
   Alamofire -> CFNetwork
-  App -> Network
-  App -> DesignSystem
-  App -> Survey
-  App -> Signup
-  App -> Launch
-  App -> Home
+  App -> Subscribe
+  App -> Explore
+  App -> ExploreData
+  App -> BookmarkDomain
+  App -> LaunchInterface
+  App -> ExploreDomain
+  App -> DetailDomain
+  App -> MypageData
+  App -> ExploreInterface
+  App -> AuthInterface
   App -> Auth
+  App -> BookmarkData
+  App -> SearchData
+  App -> DetailInterface
+  App -> Search
+  App -> Launch
+  App -> Bookmark
+  App -> DesignSystem
+  App -> AuthDomain
+  App -> AuthData
+  App -> DetailData
+  App -> FirebaseAnalyticsTarget
+  App -> SearchInterface
+  App -> FirebaseCrashlytics
+  App -> SubscribeDomain
+  App -> Detail
+  App -> Swinject
+  App -> SearchDomain
+  App -> PopupView
+  App -> HomeInterface
+  App -> HomeData
+  App -> Core
+  App -> MypageInterface
+  App -> SubscribeData
+  App -> Mypage
+  App -> AppCoordinator
+  App -> Shared
+  App -> Home
+  App -> MypageDomain
+  App -> HomeDomain
+  App -> BookmarkInterface
+  App -> SubscribeInterface
+  AppCheckCore -> "GoogleUtilities-UserDefaults"
+  AppCheckCore -> DeviceCheck
+  AppCheckCore -> "GoogleUtilities-Environment"
+  AppCheckCore -> FBLPromises
+  AppCoordinator -> ExploreDomain
+  AppCoordinator -> Core
+  AppCoordinator -> Shared
+  AppCoordinator -> SearchInterface
+  AppCoordinator -> HomeInterface
+  AppCoordinator -> AuthInterface
+  AppCoordinator -> BookmarkInterface
+  AppCoordinator -> DesignSystem
+  AppCoordinator -> DetailInterface
+  AppCoordinator -> LaunchInterface
+  AppCoordinator -> ExploreInterface
+  AppCoordinator -> Swinject
+  AppCoordinator -> SubscribeInterface
+  AppCoordinator -> MypageInterface
   Auth -> DesignSystem
-  Auth -> Data
-  Auth -> Domain
-  AuthTests -> DesignSystem
+  Auth -> AuthDomain
+  Auth -> Shared
+  Auth -> AuthInterface
+  AuthData -> AuthDomain
+  AuthData -> Core
+  AuthDomain -> Shared
   AuthTests -> Auth
-  B -> Launch
-  B -> Auth
-  B -> Signup
-  BTests -> B
+  AuthTests -> DesignSystem
+  AuthTests -> Shared
+  Bookmark -> BookmarkDomain
+  Bookmark -> Shared
+  Bookmark -> BookmarkInterface
+  Bookmark -> DesignSystem
+  BookmarkData -> BookmarkDomain
+  BookmarkData -> Core
+  BookmarkDomain -> Shared
+  BookmarkTests -> DesignSystem
+  BookmarkTests -> BookmarkDomain
+  BookmarkTests -> Shared
+  BookmarkTests -> Bookmark
   CombineMoya -> Moya
-  Data -> Network
-  Data -> Domain
+  Core -> Shared
+  Core -> Moya
+  DesignSystem -> Kingfisher
+  DesignSystem -> Shared
+  DesignSystem -> PopupView
+  Detail -> DesignSystem
+  Detail -> DetailDomain
+  Detail -> DetailInterface
+  Detail -> Shared
+  DetailData -> DetailDomain
+  DetailData -> Core
+  DetailDomain -> Shared
+  Explore -> ExploreDomain
+  Explore -> ExploreInterface
+  Explore -> Shared
+  Explore -> DesignSystem
+  ExploreData -> Core
+  ExploreData -> ExploreDomain
+  ExploreDomain -> Shared
+  ExploreTests -> DesignSystem
+  ExploreTests -> Shared
+  ExploreTests -> Explore
+  FBLPromisesTestHelpers -> FBLPromises
+  FirebaseABTesting -> FirebaseCore
+  FirebaseAI -> FirebaseCoreExtension
+  FirebaseAI -> FirebaseAuthInterop
+  FirebaseAI -> FirebaseAppCheckInterop
+  FirebaseAI -> FirebaseCore
+  FirebaseAnalyticsCoreTarget -> FirebaseAnalyticsCoreWrapper
+  FirebaseAnalyticsCoreWrapper -> libz
+  FirebaseAnalyticsCoreWrapper -> libsqlite3
+  FirebaseAnalyticsCoreWrapper -> FirebaseCore
+  FirebaseAnalyticsCoreWrapper -> StoreKit
+  FirebaseAnalyticsCoreWrapper -> "GoogleUtilities-NSData"
+  FirebaseAnalyticsCoreWrapper -> "GoogleUtilities-Network"
+  FirebaseAnalyticsCoreWrapper -> nanopb
+  FirebaseAnalyticsCoreWrapper -> "GoogleUtilities-AppDelegateSwizzler"
+  FirebaseAnalyticsCoreWrapper -> FirebaseAnalytics
+  FirebaseAnalyticsCoreWrapper -> "GoogleUtilities-MethodSwizzler"
+  FirebaseAnalyticsCoreWrapper -> FirebaseInstallations
+  FirebaseAnalyticsCoreWrapper -> "libc++"
+  FirebaseAnalyticsCoreWrapper -> GoogleAppMeasurementCoreTarget
+  FirebaseAnalyticsIdentitySupportTarget -> StoreKit
+  FirebaseAnalyticsIdentitySupportTarget -> FirebaseInstallations
+  FirebaseAnalyticsIdentitySupportTarget -> FirebaseAnalytics
+  FirebaseAnalyticsIdentitySupportTarget -> GoogleAppMeasurementIdentitySupportTarget
+  FirebaseAnalyticsIdentitySupportTarget -> "GoogleUtilities-NSData"
+  FirebaseAnalyticsIdentitySupportTarget -> FirebaseCore
+  FirebaseAnalyticsIdentitySupportTarget -> "GoogleUtilities-MethodSwizzler"
+  FirebaseAnalyticsIdentitySupportTarget -> nanopb
+  FirebaseAnalyticsIdentitySupportTarget -> libz
+  FirebaseAnalyticsIdentitySupportTarget -> "GoogleUtilities-Network"
+  FirebaseAnalyticsIdentitySupportTarget -> "GoogleUtilities-AppDelegateSwizzler"
+  FirebaseAnalyticsIdentitySupportTarget -> libsqlite3
+  FirebaseAnalyticsIdentitySupportTarget -> "libc++"
+  FirebaseAnalyticsOnDeviceConversionTarget -> GoogleAppMeasurementOnDeviceConversionTarget
+  FirebaseAnalyticsOnDeviceConversionTarget -> "libc++"
+  FirebaseAnalyticsTarget -> FirebaseAnalyticsWrapper
+  FirebaseAnalyticsWithoutAdIdSupportTarget -> FirebaseAnalyticsWithoutAdIdSupportWrapper
+  FirebaseAnalyticsWithoutAdIdSupportWrapper -> StoreKit
+  FirebaseAnalyticsWithoutAdIdSupportWrapper -> "GoogleUtilities-Network"
+  FirebaseAnalyticsWithoutAdIdSupportWrapper -> FirebaseCore
+  FirebaseAnalyticsWithoutAdIdSupportWrapper -> GoogleAppMeasurementWithoutAdIdSupportTarget
+  FirebaseAnalyticsWithoutAdIdSupportWrapper -> libz
+  FirebaseAnalyticsWithoutAdIdSupportWrapper -> "GoogleUtilities-MethodSwizzler"
+  FirebaseAnalyticsWithoutAdIdSupportWrapper -> nanopb
+  FirebaseAnalyticsWithoutAdIdSupportWrapper -> FirebaseAnalytics
+  FirebaseAnalyticsWithoutAdIdSupportWrapper -> FirebaseInstallations
+  FirebaseAnalyticsWithoutAdIdSupportWrapper -> "GoogleUtilities-AppDelegateSwizzler"
+  FirebaseAnalyticsWithoutAdIdSupportWrapper -> libsqlite3
+  FirebaseAnalyticsWithoutAdIdSupportWrapper -> "GoogleUtilities-NSData"
+  FirebaseAnalyticsWithoutAdIdSupportWrapper -> "libc++"
+  FirebaseAnalyticsWrapper -> FirebaseCore
+  FirebaseAnalyticsWrapper -> "GoogleUtilities-MethodSwizzler"
+  FirebaseAnalyticsWrapper -> "GoogleUtilities-AppDelegateSwizzler"
+  FirebaseAnalyticsWrapper -> "libc++"
+  FirebaseAnalyticsWrapper -> "GoogleUtilities-Network"
+  FirebaseAnalyticsWrapper -> nanopb
+  FirebaseAnalyticsWrapper -> "GoogleUtilities-NSData"
+  FirebaseAnalyticsWrapper -> StoreKit
+  FirebaseAnalyticsWrapper -> FirebaseAnalytics
+  FirebaseAnalyticsWrapper -> libz
+  FirebaseAnalyticsWrapper -> libsqlite3
+  FirebaseAnalyticsWrapper -> GoogleAppMeasurementTarget
+  FirebaseAnalyticsWrapper -> FirebaseInstallations
+  FirebaseAppCheck -> "GoogleUtilities-UserDefaults"
+  FirebaseAppCheck -> DeviceCheck
+  FirebaseAppCheck -> FirebaseCore
+  FirebaseAppCheck -> "GoogleUtilities-Environment"
+  FirebaseAppCheck -> AppCheckCore
+  FirebaseAppCheck -> FirebaseAppCheckInterop
+  FirebaseAppDistribution -> FirebaseCore
+  FirebaseAppDistribution -> "GoogleUtilities-AppDelegateSwizzler"
+  FirebaseAppDistribution -> FirebaseInstallations
+  FirebaseAppDistribution -> "GoogleUtilities-UserDefaults"
+  FirebaseAppDistributionTarget -> FirebaseAppDistribution
+  FirebaseAuth -> SafariServices
+  FirebaseAuth -> FirebaseCore
+  FirebaseAuth -> FirebaseAuthInternal
+  FirebaseAuth -> FirebaseAuthInterop
+  FirebaseAuth -> "GoogleUtilities-AppDelegateSwizzler"
+  FirebaseAuth -> FirebaseAppCheckInterop
+  FirebaseAuth -> "GoogleUtilities-Environment"
+  FirebaseAuth -> GTMSessionFetcherCore
+  FirebaseAuth -> FirebaseCoreExtension
+  FirebaseAuth -> Security
+  FirebaseAuthCombineSwift -> FirebaseAuth
+  FirebaseAuthInternal -> RecaptchaInterop
+  FirebaseCore -> "GoogleUtilities-Logger"
+  FirebaseCore -> FirebaseCoreInternal
+  FirebaseCore -> UIKit
+  FirebaseCore -> "GoogleUtilities-Environment"
+  FirebaseCore -> Firebase
+  FirebaseCore -> AppKit
+  FirebaseCoreInternal -> "GoogleUtilities-NSData"
+  FirebaseCrashlytics -> FirebaseRemoteConfigInterop
+  FirebaseCrashlytics -> nanopb
+  FirebaseCrashlytics -> GoogleDataTransport
+  FirebaseCrashlytics -> FBLPromises
+  FirebaseCrashlytics -> SystemConfiguration
+  FirebaseCrashlytics -> FirebaseInstallations
+  FirebaseCrashlytics -> FirebaseCore
+  FirebaseCrashlytics -> FirebaseCrashlyticsSwift
+  FirebaseCrashlytics -> "GoogleUtilities-Environment"
+  FirebaseCrashlytics -> FirebaseSessions
+  FirebaseCrashlytics -> Security
+  FirebaseCrashlyticsSwift -> FirebaseRemoteConfigInterop
+  FirebaseDatabase -> FirebaseDatabaseInternal
+  FirebaseDatabase -> FirebaseSharedSwift
+  FirebaseDatabaseInternal -> FirebaseAppCheckInterop
+  FirebaseDatabaseInternal -> Security
+  FirebaseDatabaseInternal -> WatchKit
+  FirebaseDatabaseInternal -> FirebaseCore
+  FirebaseDatabaseInternal -> CFNetwork
+  FirebaseDatabaseInternal -> SystemConfiguration
+  FirebaseDatabaseInternal -> "GoogleUtilities-UserDefaults"
+  FirebaseDatabaseInternal -> leveldb
+  FirebaseDynamicLinks -> FirebaseCore
+  FirebaseDynamicLinks -> QuartzCore
+  FirebaseDynamicLinksTarget -> FirebaseDynamicLinks
+  FirebaseFirestore -> FirebaseCore
+  FirebaseFirestore -> SystemConfiguration
+  FirebaseFirestore -> abslWrapper
+  FirebaseFirestore -> nanopb
+  FirebaseFirestore -> UIKit
+  FirebaseFirestore -> FirebaseSharedSwift
+  FirebaseFirestore -> FirebaseCoreExtension
+  FirebaseFirestore -> FirebaseFirestoreInternalWrapper
+  FirebaseFirestore -> FirebaseAppCheckInterop
+  FirebaseFirestore -> leveldb
+  FirebaseFirestore -> grpcppWrapper
+  FirebaseFirestore -> "libc++"
+  FirebaseFirestoreCombineSwift -> FirebaseFirestoreTarget
+  FirebaseFirestoreInternalWrapper -> FirebaseFirestoreInternal
+  FirebaseFirestoreTarget -> FirebaseFirestore
+  FirebaseFunctions -> FirebaseSharedSwift
+  FirebaseFunctions -> FirebaseCoreExtension
+  FirebaseFunctions -> FirebaseAppCheckInterop
+  FirebaseFunctions -> FirebaseMessagingInterop
+  FirebaseFunctions -> GTMSessionFetcherCore
+  FirebaseFunctions -> FirebaseAuthInterop
+  FirebaseFunctions -> FirebaseCore
+  FirebaseFunctionsCombineSwift -> FirebaseFunctions
+  FirebaseInAppMessaging -> FirebaseInAppMessagingInternal
+  FirebaseInAppMessagingInternal -> nanopb
+  FirebaseInAppMessagingInternal -> FirebaseCore
+  FirebaseInAppMessagingInternal -> FirebaseABTesting
+  FirebaseInAppMessagingInternal -> "GoogleUtilities-UserDefaults"
+  FirebaseInAppMessagingInternal -> FirebaseInAppMessaging_iOS
+  FirebaseInAppMessagingInternal -> "GoogleUtilities-Environment"
+  FirebaseInAppMessagingInternal -> FirebaseInstallations
+  FirebaseInAppMessagingTarget -> FirebaseInAppMessaging
+  FirebaseInstallations -> "GoogleUtilities-UserDefaults"
+  FirebaseInstallations -> Security
+  FirebaseInstallations -> FBLPromises
+  FirebaseInstallations -> "GoogleUtilities-Environment"
+  FirebaseInstallations -> FirebaseCore
+  FirebaseMLModelDownloader -> FirebaseCore
+  FirebaseMLModelDownloader -> "GoogleUtilities-UserDefaults"
+  FirebaseMLModelDownloader -> GoogleDataTransport
+  FirebaseMLModelDownloader -> SwiftProtobuf
+  FirebaseMLModelDownloader -> FirebaseCoreExtension
+  FirebaseMLModelDownloader -> FirebaseInstallations
+  FirebaseMessaging -> "GoogleUtilities-UserDefaults"
+  FirebaseMessaging -> SystemConfiguration
+  FirebaseMessaging -> "GoogleUtilities-Reachability"
+  FirebaseMessaging -> FirebaseInstallations
+  FirebaseMessaging -> nanopb
+  FirebaseMessaging -> "GoogleUtilities-Environment"
+  FirebaseMessaging -> "GoogleUtilities-AppDelegateSwizzler"
+  FirebaseMessaging -> GoogleDataTransport
+  FirebaseMessaging -> FirebaseCore
+  FirebasePerformance -> MobileCoreServices
+  FirebasePerformance -> FirebaseInstallations
+  FirebasePerformance -> FirebaseCore
+  FirebasePerformance -> nanopb
+  FirebasePerformance -> "GoogleUtilities-MethodSwizzler"
+  FirebasePerformance -> FirebaseRemoteConfigInternal
+  FirebasePerformance -> GoogleDataTransport
+  FirebasePerformance -> "GoogleUtilities-UserDefaults"
+  FirebasePerformance -> FirebaseSessions
+  FirebasePerformance -> QuartzCore
+  FirebasePerformance -> "GoogleUtilities-Environment"
+  FirebasePerformanceTarget -> FirebasePerformance
+  FirebaseRemoteConfig -> FirebaseSharedSwift
+  FirebaseRemoteConfig -> FirebaseRemoteConfigInternal
+  FirebaseRemoteConfigInternal -> FirebaseRemoteConfigInterop
+  FirebaseRemoteConfigInternal -> "GoogleUtilities-NSData"
+  FirebaseRemoteConfigInternal -> FirebaseInstallations
+  FirebaseRemoteConfigInternal -> FirebaseCore
+  FirebaseRemoteConfigInternal -> FirebaseABTesting
+  FirebaseSessions -> Security
+  FirebaseSessions -> FirebaseSessionsObjC
+  FirebaseSessions -> FirebaseCoreExtension
+  FirebaseSessions -> SystemConfiguration
+  FirebaseSessions -> FirebaseInstallations
+  FirebaseSessions -> "GoogleUtilities-UserDefaults"
+  FirebaseSessions -> Promises
+  FirebaseSessions -> "GoogleUtilities-Environment"
+  FirebaseSessions -> GoogleDataTransport
+  FirebaseSessions -> FirebaseCore
+  FirebaseSessionsObjC -> nanopb
+  FirebaseSessionsObjC -> SystemConfiguration
+  FirebaseSessionsObjC -> Security
+  FirebaseSessionsObjC -> "GoogleUtilities-Environment"
+  FirebaseSessionsObjC -> FirebaseCore
+  FirebaseSessionsObjC -> FirebaseCoreExtension
+  FirebaseStorage -> FirebaseCore
+  FirebaseStorage -> FirebaseAuthInterop
+  FirebaseStorage -> GTMSessionFetcherCore
+  FirebaseStorage -> FirebaseCoreExtension
+  FirebaseStorage -> FirebaseAppCheckInterop
+  FirebaseStorage -> "GoogleUtilities-Environment"
+  FirebaseStorageCombineSwift -> FirebaseStorage
+  FirebaseVertexAI -> FirebaseAI
+  GTMSessionFetcherFull -> GTMSessionFetcherCore
+  GTMSessionFetcherLogView -> GTMSessionFetcherCore
+  GoogleAdsOnDeviceConversionTarget -> "libc++"
+  GoogleAdsOnDeviceConversionTarget -> "GoogleUtilities-Logger"
+  GoogleAdsOnDeviceConversionTarget -> "GoogleUtilities-Network"
+  GoogleAdsOnDeviceConversionTarget -> nanopb
+  GoogleAdsOnDeviceConversionTarget -> GoogleAdsOnDeviceConversion
+  GoogleAppMeasurementCoreTarget -> libz
+  GoogleAppMeasurementCoreTarget -> "GoogleUtilities-MethodSwizzler"
+  GoogleAppMeasurementCoreTarget -> "GoogleUtilities-NSData"
+  GoogleAppMeasurementCoreTarget -> "libc++"
+  GoogleAppMeasurementCoreTarget -> "GoogleUtilities-Network"
+  GoogleAppMeasurementCoreTarget -> "GoogleUtilities-AppDelegateSwizzler"
+  GoogleAppMeasurementCoreTarget -> libsqlite3
+  GoogleAppMeasurementCoreTarget -> StoreKit
+  GoogleAppMeasurementCoreTarget -> nanopb
+  GoogleAppMeasurementCoreTarget -> GoogleAppMeasurement
+  GoogleAppMeasurementIdentitySupportTarget -> "GoogleUtilities-Network"
+  GoogleAppMeasurementIdentitySupportTarget -> GoogleAppMeasurement
+  GoogleAppMeasurementIdentitySupportTarget -> libsqlite3
+  GoogleAppMeasurementIdentitySupportTarget -> GoogleAppMeasurementIdentitySupport
+  GoogleAppMeasurementIdentitySupportTarget -> "GoogleUtilities-MethodSwizzler"
+  GoogleAppMeasurementIdentitySupportTarget -> nanopb
+  GoogleAppMeasurementIdentitySupportTarget -> "GoogleUtilities-AppDelegateSwizzler"
+  GoogleAppMeasurementIdentitySupportTarget -> libz
+  GoogleAppMeasurementIdentitySupportTarget -> "GoogleUtilities-NSData"
+  GoogleAppMeasurementIdentitySupportTarget -> StoreKit
+  GoogleAppMeasurementIdentitySupportTarget -> "libc++"
+  GoogleAppMeasurementOnDeviceConversionTarget -> "libc++"
+  GoogleAppMeasurementOnDeviceConversionTarget -> GoogleAppMeasurementOnDeviceConversion
+  GoogleAppMeasurementTarget -> GoogleAppMeasurementIdentitySupport
+  GoogleAppMeasurementTarget -> StoreKit
+  GoogleAppMeasurementTarget -> libsqlite3
+  GoogleAppMeasurementTarget -> "GoogleUtilities-NSData"
+  GoogleAppMeasurementTarget -> "GoogleUtilities-Network"
+  GoogleAppMeasurementTarget -> nanopb
+  GoogleAppMeasurementTarget -> "libc++"
+  GoogleAppMeasurementTarget -> GoogleAppMeasurement
+  GoogleAppMeasurementTarget -> libz
+  GoogleAppMeasurementTarget -> "GoogleUtilities-MethodSwizzler"
+  GoogleAppMeasurementTarget -> GoogleAdsOnDeviceConversionTarget
+  GoogleAppMeasurementTarget -> "GoogleUtilities-AppDelegateSwizzler"
+  GoogleAppMeasurementWithoutAdIdSupportTarget -> "GoogleUtilities-Network"
+  GoogleAppMeasurementWithoutAdIdSupportTarget -> "GoogleUtilities-AppDelegateSwizzler"
+  GoogleAppMeasurementWithoutAdIdSupportTarget -> "GoogleUtilities-MethodSwizzler"
+  GoogleAppMeasurementWithoutAdIdSupportTarget -> GoogleAppMeasurement
+  GoogleAppMeasurementWithoutAdIdSupportTarget -> libz
+  GoogleAppMeasurementWithoutAdIdSupportTarget -> StoreKit
+  GoogleAppMeasurementWithoutAdIdSupportTarget -> "GoogleUtilities-NSData"
+  GoogleAppMeasurementWithoutAdIdSupportTarget -> libsqlite3
+  GoogleAppMeasurementWithoutAdIdSupportTarget -> nanopb
+  GoogleAppMeasurementWithoutAdIdSupportTarget -> "libc++"
+  GoogleDataTransport -> SystemConfiguration
+  GoogleDataTransport -> nanopb
+  GoogleDataTransport -> CoreTelephony
+  GoogleDataTransport -> FBLPromises
+  "GoogleUtilities-AppDelegateSwizzler" -> "GoogleUtilities-Network"
+  "GoogleUtilities-AppDelegateSwizzler" -> "GoogleUtilities-Environment"
+  "GoogleUtilities-AppDelegateSwizzler" -> "GoogleUtilities-Logger"
+  "GoogleUtilities-Environment" -> "third-party-IsAppEncrypted"
+  "GoogleUtilities-Logger" -> "GoogleUtilities-Environment"
+  "GoogleUtilities-MethodSwizzler" -> "GoogleUtilities-Logger"
+  "GoogleUtilities-NSData" -> libz
+  "GoogleUtilities-Network" -> "GoogleUtilities-Logger"
+  "GoogleUtilities-Network" -> "GoogleUtilities-NSData"
+  "GoogleUtilities-Network" -> "GoogleUtilities-Reachability"
+  "GoogleUtilities-Reachability" -> "GoogleUtilities-Logger"
+  "GoogleUtilities-SwizzlerTestHelpers" -> "GoogleUtilities-MethodSwizzler"
+  "GoogleUtilities-UserDefaults" -> "GoogleUtilities-Logger"
+  Home -> Shared
   Home -> DesignSystem
+  Home -> HomeDomain
+  Home -> HomeInterface
+  HomeData -> HomeDomain
+  HomeData -> Core
+  HomeDomain -> Shared
   HomeTests -> DesignSystem
   HomeTests -> Home
+  HomeTests -> Shared
+  Launch -> LaunchInterface
   Launch -> DesignSystem
-  LaunchTests -> Launch
   LaunchTests -> DesignSystem
+  LaunchTests -> Shared
+  LaunchTests -> Launch
   Moya -> Alamofire
-  Network -> Moya
-  ReactiveMoya -> ReactiveSwift
+  Mypage -> PopupView
+  Mypage -> MypageInterface
+  Mypage -> DesignSystem
+  Mypage -> Shared
+  Mypage -> MypageDomain
+  MypageData -> MypageDomain
+  MypageData -> Core
+  MypageDomain -> Shared
+  PopupView -> SwiftUIIntrospect
+  Promises -> FBLPromises
+  PromisesTestHelpers -> Promises
   ReactiveMoya -> Moya
+  ReactiveMoya -> ReactiveSwift
   RxBlocking -> RxSwift
-  RxCocoa -> RxCocoaRuntime
-  RxCocoa -> RxRelay
   RxCocoa -> RxSwift
+  RxCocoa -> RxRelay
+  RxCocoa -> RxCocoaRuntime
   RxCocoaRuntime -> RxSwift
   RxMoya -> RxSwift
   RxMoya -> Moya
   RxRelay -> RxSwift
   RxTest -> RxSwift
-  Signup -> Auth
-  Signup -> Domain
-  Signup -> DesignSystem
-  SignupTests -> DesignSystem
-  SignupTests -> Signup
+  Search -> Shared
+  Search -> SearchInterface
+  Search -> DesignSystem
+  Search -> SearchDomain
+  SearchData -> SearchDomain
+  SearchData -> Core
+  SearchDomain -> Shared
+  Subscribe -> DesignSystem
+  Subscribe -> SubscribeDomain
+  Subscribe -> SubscribeInterface
+  Subscribe -> Shared
+  SubscribeData -> SubscribeDomain
+  SubscribeData -> Core
+  SubscribeDomain -> Shared
+  Survey -> Core
   SurveyTests -> Survey
   SurveyTests -> DesignSystem
+  SwiftProtobufPluginLibrary -> SwiftProtobuf
+  abslWrapper -> absl
+  grpcWrapper -> grpc
+  grpcppWrapper -> grpcpp
+  grpcppWrapper -> grpcWrapper
+  grpcppWrapper -> opensslWrapper
+  grpcppWrapper -> abslWrapper
+  opensslWrapper -> openssl_grpc
 }

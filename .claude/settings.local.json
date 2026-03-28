@@ -33,7 +33,9 @@
       "Bash(/tmp/audited_files.txt:*)",
       "Read(//tmp/**)",
       "Bash(du:*)",
-      "Bash(gh pr:*)"
+      "Bash(gh pr:*)",
+      "mcp__plugin_oh-my-claudecode_t__state_list_active",
+      "mcp__plugin_oh-my-claudecode_t__state_clear"
     ]
   }
 }
