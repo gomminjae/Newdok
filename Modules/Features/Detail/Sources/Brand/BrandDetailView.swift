@@ -248,9 +248,13 @@ public struct BrandDetailView: View {
                 Group {
                     if let urlString = detail.imageUrl,
                        let url = URL(string: urlString) {
-                        KFImage(url)
-                            .setProcessor(DownsamplingImageProcessor(size: CGSize(width: 750 * UIScreen.main.scale, height: 520 * UIScreen.main.scale)))
-                            .resizable()
+                        Color.clear.overlay {
+                            KFImage(url)
+                                .setProcessor(DownsamplingImageProcessor(size: CGSize(width: UIScreen.main.bounds.width * UIScreen.main.scale, height: 260 * UIScreen.main.scale)))
+                                .resizable()
+                                .scaledToFill()
+                        }
+                        .clipped()
                     } else {
                         Color.lineSoft
                     }

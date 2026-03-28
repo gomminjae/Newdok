@@ -17,7 +17,7 @@ struct RecommendedNewsLetterView: View {
     var body: some View {
         VStack(spacing: 0) {
             KFImage(URL(string: recommendation.imageUrl ?? ""))
-                .setProcessor(DownsamplingImageProcessor(size: CGSize(width: 640 * UIScreen.main.scale, height: 420 * UIScreen.main.scale)))
+                .setProcessor(DownsamplingImageProcessor(size: CGSize(width: 320 * UIScreen.main.scale, height: 210 * UIScreen.main.scale)))
                 .resizable()
                 .scaledToFill()
                 .frame(height: 210)

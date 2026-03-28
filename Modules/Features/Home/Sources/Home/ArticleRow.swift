@@ -17,7 +17,7 @@ struct ArticleRow: View {
     var body: some View {
         HStack(spacing: 12) {
             KFImage(URL(string: article.imageUrl))
-                .setProcessor(DownsamplingImageProcessor(size: CGSize(width: 112 * UIScreen.main.scale, height: 112 * UIScreen.main.scale)))
+                .setProcessor(DownsamplingImageProcessor(size: CGSize(width: 56 * UIScreen.main.scale, height: 56 * UIScreen.main.scale)))
                 .placeholder {
                     RoundedRectangle(cornerRadius: 12)
                         .fill(Color.gray.opacity(0.2))

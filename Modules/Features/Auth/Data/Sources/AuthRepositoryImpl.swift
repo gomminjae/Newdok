@@ -1,19 +1,18 @@
 import Foundation
 import AuthDomain
 import Core
-import Moya
 import Shared
 
 public final class AuthRepositoryImpl: AuthRepository {
-    private let provider: MoyaProvider<UserAPI>
+    private let network: any NetworkService<UserAPI>
 
-    public init(provider: MoyaProvider<UserAPI>) {
-        self.provider = provider
+    public init(network: any NetworkService<UserAPI>) {
+        self.network = network
     }
 
     public func login(loginId: String, password: String) async throws -> (AuthUser, String) {
         do {
-            let response: AuthLoginResponseDTO = try await provider.asyncRequest(
+            let response: AuthLoginResponseDTO = try await network.request(
                 .login(loginId: loginId, password: password)
             )
             let user = response.user.toDomain()
@@ -42,7 +41,7 @@ public final class AuthRepositoryImpl: AuthRepository {
         birthYear: String,
         gender: String
     ) async throws -> AuthSignupResponse {
-        let response: AuthSignupResponseDTO = try await provider.asyncRequest(
+        let response: AuthSignupResponseDTO = try await network.request(
             .signup(
                 loginId: loginId,
                 password: password,
@@ -57,7 +56,7 @@ public final class AuthRepositoryImpl: AuthRepository {
 
     public func checkPhoneNumber(_ phoneNumber: String) async throws -> [AuthSimpleUser] {
         do {
-            let response: [AuthSimpleUserDTO] = try await provider.asyncRequest(
+            let response: [AuthSimpleUserDTO] = try await network.request(
                 .checkPhoneNumber(phoneNumber: phoneNumber)
             )
             return response.map { $0.toDomain() }
@@ -73,7 +72,7 @@ public final class AuthRepositoryImpl: AuthRepository {
     }
 
     public func checkIDDup(_ loginId: String) async throws -> CheckResult<AuthSimpleUser> {
-        let result = try await provider.safeCheckRequest(
+        let result = try await network.checkRequest(
             .checkIDDup(loginId: loginId),
             decodeTo: AuthSimpleUserDTO.self
         )
@@ -86,7 +85,7 @@ public final class AuthRepositoryImpl: AuthRepository {
     }
 
     public func authSMS(phoneNumber: String) async throws -> AuthSMSResponse {
-        let response: AuthSMSResponseDTO = try await provider.asyncRequest(
+        let response: AuthSMSResponseDTO = try await network.request(
             .authSMS(phoneNumber: phoneNumber)
         )
         return response.toDomain()
@@ -96,7 +95,7 @@ public final class AuthRepositoryImpl: AuthRepository {
         industryId: String,
         interestIds: [String]
     ) async throws -> [AuthRecommendedBrand] {
-        let response: AuthRecommendedBrandListResponseDTO = try await provider.asyncRequest(
+        let response: AuthRecommendedBrandListResponseDTO = try await network.request(
             .preInvestigate(industryId: industryId, interestIds: interestIds)
         )
         return response.toDomain()

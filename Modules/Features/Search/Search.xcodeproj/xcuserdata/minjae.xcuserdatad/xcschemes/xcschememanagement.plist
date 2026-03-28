@@ -9,7 +9,21 @@
 			<key>isShown</key>
 			<true/>
 			<key>orderHint</key>
-			<integer>21</integer>
+			<integer>27</integer>
+		</dict>
+		<key>SearchData.xcscheme_^#shared#^_</key>
+		<dict>
+			<key>isShown</key>
+			<true/>
+			<key>orderHint</key>
+			<integer>28</integer>
+		</dict>
+		<key>SearchDomain.xcscheme_^#shared#^_</key>
+		<dict>
+			<key>isShown</key>
+			<true/>
+			<key>orderHint</key>
+			<integer>29</integer>
 		</dict>
 	</dict>
 </dict>

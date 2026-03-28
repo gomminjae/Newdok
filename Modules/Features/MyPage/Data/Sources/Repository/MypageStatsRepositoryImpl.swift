@@ -1,35 +1,26 @@
-//
-//  MypageStatsRepositoryImpl.swift
-//  MypageData
-//
-//  Created by 권민재 on 3/28/26.
-//  Copyright © 2026 Newdok. All rights reserved.
-//
-
 import Foundation
 import MypageDomain
 import Core
-import Moya
 
 public final class MypageStatsRepositoryImpl: MypageStatsRepository {
-    private let articleProvider: MoyaProvider<ArticleAPI>
-    private let newsletterProvider: MoyaProvider<NewsletterAPI>
+    private let articleNetwork: any NetworkService<ArticleAPI>
+    private let newsletterNetwork: any NetworkService<NewsletterAPI>
 
     public init(
-        articleProvider: MoyaProvider<ArticleAPI>,
-        newsletterProvider: MoyaProvider<NewsletterAPI>
+        articleNetwork: any NetworkService<ArticleAPI>,
+        newsletterNetwork: any NetworkService<NewsletterAPI>
     ) {
-        self.articleProvider = articleProvider
-        self.newsletterProvider = newsletterProvider
+        self.articleNetwork = articleNetwork
+        self.newsletterNetwork = newsletterNetwork
     }
 
     public func fetchReceivedArticleCount() async throws -> Int {
-        let response: MypageArticlesCountDTO = try await articleProvider.asyncRequest(.fetchReceivedArticleCount)
+        let response: MypageArticlesCountDTO = try await articleNetwork.request(.fetchReceivedArticleCount)
         return response.count
     }
 
     public func fetchSubscriptionCount() async throws -> Int {
-        let response: MypageNewslettersCountDTO = try await newsletterProvider.asyncRequest(.fetchSubscriptionCount)
+        let response: MypageNewslettersCountDTO = try await newsletterNetwork.request(.fetchSubscriptionCount)
         return response.count
     }
 }
