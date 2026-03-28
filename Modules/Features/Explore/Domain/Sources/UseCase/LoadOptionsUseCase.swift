@@ -1,6 +1,6 @@
 import Shared
 
-public protocol LoadOptionsUseCase {
+public protocol LoadOptionsUseCase: Sendable {
     func execute() async throws
 }
 

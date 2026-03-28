@@ -1,4 +1,4 @@
-public protocol SubscribeNewsletterRepository {
+public protocol SubscribeNewsletterRepository: Sendable {
     func fetchActiveSubscription() async throws -> [SubscribeNewsletter]
     func fetchPausedSubscription() async throws -> [SubscribeNewsletter]
     func pauseSubscription(newsletterId: String) async throws

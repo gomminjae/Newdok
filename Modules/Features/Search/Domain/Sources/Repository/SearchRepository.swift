@@ -8,7 +8,7 @@
 
 import Foundation
 
-public protocol SearchRepository {
+public protocol SearchRepository: Sendable {
     func searchNewsletters(brandName: String) async throws -> [SearchedNewsletter]
     func fetchPopularKeywords() async throws -> PopularKeywordList
 }

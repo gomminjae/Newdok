@@ -8,7 +8,7 @@
 
 import Foundation
 
-public protocol MypageProfileUseCase {
+public protocol MypageProfileUseCase: Sendable {
     func fetchProfile() async throws -> MypageUser
     func updateNickname(_ nickname: String) async throws
     func updateIndustry(_ industryId: Int) async throws

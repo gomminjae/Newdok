@@ -1,7 +1,7 @@
 import Foundation
 import Shared
 
-public protocol AuthRepository {
+public protocol AuthRepository: Sendable {
     func login(loginId: String, password: String) async throws -> (AuthUser, String)
     func signup(
         loginId: String,

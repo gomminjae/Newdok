@@ -9,7 +9,7 @@
 import Foundation
 import Shared
 
-public protocol MypageUserUseCase {
+public protocol MypageUserUseCase: Sendable {
     func getProfile() async throws -> MypageUser
     func updateNickname(_ nickname: String) async throws -> MypageNicknameResponse
     func updatePassword(loginId: String, prevPassword: String, newPassword: String) async throws

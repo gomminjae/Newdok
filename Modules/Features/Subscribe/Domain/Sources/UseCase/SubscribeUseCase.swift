@@ -1,4 +1,4 @@
-public protocol SubscribeUseCase {
+public protocol SubscribeUseCase: Sendable {
     func fetchActiveSubscription() async throws -> [SubscribeNewsletter]
     func fetchPausedSubscription() async throws -> [SubscribeNewsletter]
     func pauseSubscription(newsletterId: String) async throws
