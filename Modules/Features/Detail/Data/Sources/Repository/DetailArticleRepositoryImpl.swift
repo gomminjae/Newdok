@@ -1,26 +1,20 @@
-//
-//  DetailArticleRepositoryImpl.swift
-//  DetailData
-//
-
 import DetailDomain
 import Core
-import Moya
 import Shared
 
 public class DetailArticleRepositoryImpl: DetailArticleRepository {
-    private let provider: MoyaProvider<ArticleAPI>
+    private let network: any NetworkService<ArticleAPI>
 
-    public init(provider: MoyaProvider<ArticleAPI>) {
-        self.provider = provider
+    public init(network: any NetworkService<ArticleAPI>) {
+        self.network = network
     }
 
     public func fetchArticleDetail(id: String) async throws -> DetailArticleDetail {
-        let response: DetailArticleDetailDTO = try await provider.asyncRequest(.fetchArticleDetail(id: id))
+        let response: DetailArticleDetailDTO = try await network.request(.fetchArticleDetail(id: id))
         return response.toDomain()
     }
 
     public func changeBookmarkState(articleId: String) async throws {
-        _ = try await provider.asyncVoidRequest(.changeBookmarkState(articleId: articleId))
+        try await network.requestVoid(.changeBookmarkState(articleId: articleId))
     }
 }

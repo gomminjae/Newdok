@@ -20,25 +20,25 @@ public final class AppDIContainer {
             return NetworkProvider()
         }.inObjectScope(.container)
 
-        // MARK: - MoyaProvider
-        container.register(MoyaProvider<UserAPI>.self) { r in
+        // MARK: - NetworkService
+        container.register(MoyaNetworkService<UserAPI>.self) { r in
             let network = r.resolve(NetworkProviding.self)!
-            return network.makeAuthProvider()
+            return MoyaNetworkService(provider: network.makeAuthProvider())
         }.inObjectScope(.container)
 
-        container.register(MoyaProvider<NewsletterAPI>.self) { r in
+        container.register(MoyaNetworkService<NewsletterAPI>.self) { r in
             let network = r.resolve(NetworkProviding.self)!
-            return network.makeNewsletterProvider()
+            return MoyaNetworkService(provider: network.makeNewsletterProvider())
         }.inObjectScope(.container)
 
-        container.register(MoyaProvider<ArticleAPI>.self) { r in
+        container.register(MoyaNetworkService<ArticleAPI>.self) { r in
             let network = r.resolve(NetworkProviding.self)!
-            return network.makeArticleProvider()
+            return MoyaNetworkService(provider: network.makeArticleProvider())
         }.inObjectScope(.container)
 
-        container.register(MoyaProvider<SearchAPI>.self) { r in
+        container.register(MoyaNetworkService<SearchAPI>.self) { r in
             let network = r.resolve(NetworkProviding.self)!
-            return network.makeSearchProvider()
+            return MoyaNetworkService(provider: network.makeSearchProvider())
         }.inObjectScope(.container)
     }
 }

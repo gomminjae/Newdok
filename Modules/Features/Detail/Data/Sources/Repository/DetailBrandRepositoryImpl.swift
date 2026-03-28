@@ -1,37 +1,31 @@
-//
-//  DetailBrandRepositoryImpl.swift
-//  DetailData
-//
-
 import DetailDomain
 import Core
-import Moya
 import Shared
 
 public class DetailBrandRepositoryImpl: DetailBrandRepository {
-    private let provider: MoyaProvider<NewsletterAPI>
+    private let network: any NetworkService<NewsletterAPI>
 
-    public init(provider: MoyaProvider<NewsletterAPI>) {
-        self.provider = provider
+    public init(network: any NetworkService<NewsletterAPI>) {
+        self.network = network
     }
 
     public func fetchNewsletterBrand(id: String) async throws -> DetailBrandDetail {
         logDebug("브랜드 상세 조회 - ID: \(id)", category: .repository)
-        let response: DetailBrandDetailDTO = try await provider.asyncRequest(.fetchNewsletterBrand(id: id))
+        let response: DetailBrandDetailDTO = try await network.request(.fetchNewsletterBrand(id: id))
         logDebug("브랜드 상세 조회 완료", category: .repository)
         return response.toDomain()
     }
 
     public func fetchGuestNewsletterBrand(id: String) async throws -> DetailBrandDetail {
-        let response: DetailBrandDetailDTO = try await provider.asyncRequest(.fetchGuestNewsletterBrand(id: id))
+        let response: DetailBrandDetailDTO = try await network.request(.fetchGuestNewsletterBrand(id: id))
         return response.toDomain()
     }
 
     public func pauseSubscription(newsletterId: String) async throws {
-        try await provider.asyncVoidRequest(.pauseSubscription(newsletterId: newsletterId))
+        try await network.requestVoid(.pauseSubscription(newsletterId: newsletterId))
     }
 
     public func resumeSubscription(newsletterId: String) async throws {
-        try await provider.asyncVoidRequest(.resumeSubscription(newsletterId: newsletterId))
+        try await network.requestVoid(.resumeSubscription(newsletterId: newsletterId))
     }
 }

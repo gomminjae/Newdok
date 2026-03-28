@@ -68,23 +68,11 @@ struct NewsletterDetailRow: View {
         VStack(alignment: .leading, spacing: 0) {
             HStack(alignment: .top, spacing: 0) {
                 KFImage(URL(string: brand.imageUrl ?? ""))
-                    .setProcessor(DownsamplingImageProcessor(size: CGSize(width: 112 * UIScreen.main.scale, height: 112 * UIScreen.main.scale)))
+                    .setProcessor(DownsamplingImageProcessor(size: CGSize(width: 56 * UIScreen.main.scale, height: 56 * UIScreen.main.scale)))
                     .placeholder {
-                        // 로딩 중 표시
                         RoundedRectangle(cornerRadius: 10)
                             .fill(Color.gray.opacity(0.2))
                             .frame(width: 56, height: 56)
-                    }
-                    .onFailure { _ in
-                    }
-                    .onFailure { _ in
-                        // 실패 시 기본 이미지 표시
-                        Image(systemName: "photo")
-                            .font(.system(size: 24))
-                            .foregroundColor(Color.gray.opacity(0.5))
-                            .frame(width: 56, height: 56)
-                            .background(Color.gray.opacity(0.1))
-                            .clipShape(RoundedRectangle(cornerRadius: 10))
                     }
                     .resizable()
                     .aspectRatio(contentMode: .fill)

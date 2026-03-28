@@ -1,6 +1,5 @@
 import Foundation
 import Swinject
-import Moya
 import Core
 import AppCoordinator
 import Auth
@@ -44,7 +43,7 @@ enum CompositionRoot {
 
     static func registerGlobalDependencies() {
         let exploreRepo = ExploreNewsletterRepositoryImpl(
-            provider: container.resolve(MoyaProvider<NewsletterAPI>.self)!
+            network: container.resolve(MoyaNetworkService<NewsletterAPI>.self)!
         )
         let exploreUseCase = ExploreNewsletterUseCaseImpl(repository: exploreRepo)
         container.register(LoadOptionsUseCase.self) { _ in
@@ -54,7 +53,7 @@ enum CompositionRoot {
 
     static func makeAuthFactory() -> AuthViewFactory {
         let authRepo = AuthRepositoryImpl(
-            provider: container.resolve(MoyaProvider<UserAPI>.self)!
+            network: container.resolve(MoyaNetworkService<UserAPI>.self)!
         )
         return AuthViewFactoryImpl(
             signupViewModelProvider: {
@@ -72,10 +71,10 @@ enum CompositionRoot {
     static func makeHomeFactory() -> HomeViewFactory {
         return HomeViewFactoryImpl(viewModelProvider: {
             let articleRepo = HomeArticleRepositoryImpl(
-                provider: container.resolve(MoyaProvider<ArticleAPI>.self)!
+                network: container.resolve(MoyaNetworkService<ArticleAPI>.self)!
             )
             let newsletterRepo = HomeNewsletterRepositoryImpl(
-                provider: container.resolve(MoyaProvider<NewsletterAPI>.self)!
+                network: container.resolve(MoyaNetworkService<NewsletterAPI>.self)!
             )
             let fetchUseCase = FetchHomeDataUseCaseImpl(newsletterRepo: newsletterRepo, articleRepo: articleRepo)
             let businessUseCase = DefaultHomeBusinessUseCase(fetchUseCase: fetchUseCase)
@@ -86,7 +85,7 @@ enum CompositionRoot {
     static func makeExploreFactory() -> ExploreViewFactory {
         return ExploreViewFactoryImpl(viewModelProvider: {
             let repo = ExploreNewsletterRepositoryImpl(
-                provider: container.resolve(MoyaProvider<NewsletterAPI>.self)!
+                network: container.resolve(MoyaNetworkService<NewsletterAPI>.self)!
             )
             let useCase = ExploreNewsletterUseCaseImpl(repository: repo)
             return ExploreViewModel(useCase: useCase)
@@ -96,7 +95,7 @@ enum CompositionRoot {
     static func makeSubscribeFactory() -> SubscribeViewFactory {
         return SubscribeViewFactoryImpl(viewModelProvider: {
             let repo = SubscribeNewsletterRepositoryImpl(
-                provider: container.resolve(MoyaProvider<NewsletterAPI>.self)!
+                network: container.resolve(MoyaNetworkService<NewsletterAPI>.self)!
             )
             let useCase = SubscribeUseCaseImpl(repository: repo)
             return SubscribeViewModel(useCase: useCase)
@@ -106,7 +105,7 @@ enum CompositionRoot {
     static func makeBookmarkFactory() -> BookmarkViewFactory {
         return BookmarkViewFactoryImpl(viewModelProvider: {
             let repo = BookmarkRepositoryImpl(
-                provider: container.resolve(MoyaProvider<ArticleAPI>.self)!
+                network: container.resolve(MoyaNetworkService<ArticleAPI>.self)!
             )
             let useCase = BookmarkUseCaseImpl(repository: repo)
             return BookmarkViewModel(useCase: useCase)
@@ -117,13 +116,13 @@ enum CompositionRoot {
         return DetailViewFactoryImpl(
             brandDetailViewModelProvider: { id in
                 let brandRepo = DetailBrandRepositoryImpl(
-                    provider: container.resolve(MoyaProvider<NewsletterAPI>.self)!
+                    network: container.resolve(MoyaNetworkService<NewsletterAPI>.self)!
                 )
                 return BrandDetailViewModel(id: id, brandRepository: brandRepo)
             },
             articleDetailViewModelProvider: { id in
                 let articleRepo = DetailArticleRepositoryImpl(
-                    provider: container.resolve(MoyaProvider<ArticleAPI>.self)!
+                    network: container.resolve(MoyaNetworkService<ArticleAPI>.self)!
                 )
                 let detailUseCase = ArticleDetailUseCaseImpl(articleRepository: articleRepo)
                 return ArticleDetailViewModel(id: id, articleDetailUseCase: detailUseCase)
@@ -134,7 +133,7 @@ enum CompositionRoot {
     static func makeSearchFactory() -> SearchViewFactory {
         return SearchViewFactoryImpl(viewModelProvider: {
             let repo = SearchRepositoryImpl(
-                provider: container.resolve(MoyaProvider<SearchAPI>.self)!
+                network: container.resolve(MoyaNetworkService<SearchAPI>.self)!
             )
             let useCase = SearchUseCaseImpl(searchRepository: repo)
             return SearchViewModel(useCase: useCase)
@@ -143,11 +142,11 @@ enum CompositionRoot {
 
     static func makeMypageFactory() -> MypageViewFactory {
         let userRepo = MypageUserRepositoryImpl(
-            provider: container.resolve(MoyaProvider<UserAPI>.self)!
+            network: container.resolve(MoyaNetworkService<UserAPI>.self)!
         )
         let statsRepo = MypageStatsRepositoryImpl(
-            articleProvider: container.resolve(MoyaProvider<ArticleAPI>.self)!,
-            newsletterProvider: container.resolve(MoyaProvider<NewsletterAPI>.self)!
+            articleNetwork: container.resolve(MoyaNetworkService<ArticleAPI>.self)!,
+            newsletterNetwork: container.resolve(MoyaNetworkService<NewsletterAPI>.self)!
         )
         return MypageViewFactoryImpl(
             mypageViewModelProvider: {

@@ -1,17 +1,16 @@
 import HomeDomain
 import Core
 import Shared
-import Moya
 
 public class HomeNewsletterRepositoryImpl: HomeNewsletterRepository {
-    private let provider: MoyaProvider<NewsletterAPI>
+    private let network: any NetworkService<NewsletterAPI>
 
-    public init(provider: MoyaProvider<NewsletterAPI>) {
-        self.provider = provider
+    public init(network: any NetworkService<NewsletterAPI>) {
+        self.network = network
     }
 
     public func fetchActiveSubscription() async throws -> [HomeNewsletter] {
-        let response: [HomeNewsletterDTO] = try await provider.asyncRequest(.fetchActiveNewletters)
+        let response: [HomeNewsletterDTO] = try await network.request(.fetchActiveNewletters)
         return response.map { $0.toDomain() }
     }
 }
