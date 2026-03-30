@@ -1,9 +1,3 @@
-//
-//  LoginViewModel.swift
-//  Newdok
-//
-//  Created by 권민재 on 2/15/25.
-//
 import SwiftUI
 import Combine
 import AuthDomain
@@ -26,34 +20,26 @@ public protocol LoginViewModelBindable: ObservableObject {
 @MainActor
 public final class LoginViewModel: LoginViewModelBindable, ErrorHandling {
     private let loginUseCase: LoginUseCase
+    private let authState: Authenticatable
 
     @Published public var loginId: String
-
     @Published public var password: String
-
     @Published public var isUserIdValid: Bool
-
     @Published public var isUserPwdValid: Bool
-
     @Published public var errorMessage: String?
-
     @Published public var isLoading: Bool
-
     @Published public var isSecurePassword: Bool = true
-
     @Published public var user: AuthUser?
-
     @Published public var isLoginIdError: Bool = false
     @Published public var isPasswordError: Bool = false
     @Published public var currentError: AppError?
 
-    @AppStorage("isLoggedIn") public var isLoggedIn: Bool = false
-    @AppStorage("isGuest") public var isGuest: Bool = false
-    @AppStorage("nickname") public var nickname: String = ""
-    @AppStorage("email") public var email: String = ""
-
-    public init(loginUseCase: LoginUseCase) {
+    public init(
+        loginUseCase: LoginUseCase,
+        authState: Authenticatable
+    ) {
         self.loginUseCase = loginUseCase
+        self.authState = authState
         self.loginId = ""
         self.password = ""
         self.isUserIdValid = false
@@ -69,16 +55,13 @@ public final class LoginViewModel: LoginViewModelBindable, ErrorHandling {
 
             do {
                 let user = try await loginUseCase.execute(loginId: loginId, password: password)
+                self.user = user
 
                 errorMessage = nil
                 isLoginIdError = false
                 isPasswordError = false
-                isLoggedIn = true
-                isGuest = false
-                nickname = user.nickname
-                email = user.subscribeEmail ?? ""
 
-                AppState.shared.login()
+                authState.login()
                 onSuccess()
             } catch let error as LoginError {
                 handleLoginError(error)

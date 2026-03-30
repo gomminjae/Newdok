@@ -65,10 +65,7 @@ struct AppRootView: View {
             }
         }
         .onReceive(NotificationCenter.default.publisher(for: .didReceiveUnauthorized)) { _ in
-            UserDefaults.standard.set(false, forKey: "isLoggedIn")
-            UserDefaults.standard.set(false, forKey: "isGuest")
-            UserDefaults.standard.removeObject(forKey: "nickname")
-            UserDefaults.standard.removeObject(forKey: "email")
+            SessionStore.shared.clearSession()
             showUnauthorizedAlert = true
         }
         .alert("로그인이 필요합니다", isPresented: $showUnauthorizedAlert) {

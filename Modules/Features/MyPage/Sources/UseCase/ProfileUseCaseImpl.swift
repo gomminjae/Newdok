@@ -1,25 +1,19 @@
-//
-//  ProfileUseCaseImpl.swift
-//  Mypage
-//
-//  Created by 권민재 on 2/14/26.
-//
-
 import Foundation
 import MypageDomain
 import Shared
 
 public final class ProfileUseCaseImpl: MypageProfileUseCase {
     private let userUseCase: MypageUserUseCase
+    private let userInfoStore: UserInfoStorable
 
-    public init(userUseCase: MypageUserUseCase) {
+    public init(userUseCase: MypageUserUseCase, userInfoStore: UserInfoStorable) {
         self.userUseCase = userUseCase
+        self.userInfoStore = userInfoStore
     }
 
     public func fetchProfile() async throws -> MypageUser {
         let user = try await userUseCase.getProfile()
 
-        // 사용자 정보 로컬 저장소 업데이트
         let userInfo = UserInfo(
             id: user.id,
             loginId: user.loginId,
@@ -32,7 +26,7 @@ public final class ProfileUseCaseImpl: MypageProfileUseCase {
             industryId: user.industryId,
             interestIds: user.interests.map { $0.id }
         )
-        UserInfoStore.shared.save(userInfo)
+        userInfoStore.save(userInfo)
 
         return user
     }
@@ -55,12 +49,12 @@ public final class ProfileUseCaseImpl: MypageProfileUseCase {
     // MARK: - Private Helpers
 
     private func updateLocalUserInfo(_ transform: (UserInfo) -> UserInfo) {
-        guard let userInfo = UserInfoStore.shared.load() else { return }
-        UserInfoStore.shared.save(transform(userInfo))
+        guard let userInfo = userInfoStore.load() else { return }
+        userInfoStore.save(transform(userInfo))
     }
 
     public func updatePassword(prevPassword: String, newPassword: String) async throws {
-        guard let userInfo = UserInfoStore.shared.load() else {
+        guard let userInfo = userInfoStore.load() else {
             throw MypageProfileError.userNotFound
         }
 

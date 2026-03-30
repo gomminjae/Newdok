@@ -20,6 +20,20 @@
                ReferencedContainer = "container:Survey.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "EFBF27282033A41F1E11D833"
+               BuildableName = "SurveyInterface.framework"
+               BlueprintName = "SurveyInterface"
+               ReferencedContainer = "container:Survey.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
       </BuildActionEntries>
    </BuildAction>
    <TestAction

@@ -2,6 +2,7 @@ import Foundation
 import Swinject
 import Core
 import Moya
+import Shared
 
 @MainActor
 public final class AppDIContainer {
@@ -15,9 +16,30 @@ public final class AppDIContainer {
     }
 
     private func registerDependencies() {
+        // MARK: - Shared Dependencies
+        container.register(Authenticatable.self) { _ in
+            AppState.shared
+        }.inObjectScope(.container)
+
+        container.register(TokenStorable.self) { _ in
+            TokenStorageAdapter.shared
+        }.inObjectScope(.container)
+
+        container.register(UserInfoStorable.self) { _ in
+            UserInfoStore.shared
+        }.inObjectScope(.container)
+
+        container.register(SessionStorable.self) { _ in
+            SessionStore.shared
+        }.inObjectScope(.container)
+
         // MARK: - Network
-        container.register(NetworkProviding.self) { _ in
-            return NetworkProvider()
+        container.register(NetworkProviding.self) { r in
+            return NetworkProvider(
+                tokenStorage: r.resolve(TokenStorable.self)!,
+                userInfoStore: r.resolve(UserInfoStorable.self)!,
+                authState: r.resolve(Authenticatable.self)!
+            )
         }.inObjectScope(.container)
 
         // MARK: - NetworkService

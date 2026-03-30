@@ -1,28 +1,30 @@
-//
-//  LoginUseCaseImpl.swift
-//  Domain
-//
-//  Created by 권민재 on 2/14/26.
-//
-
 import Foundation
 import AuthDomain
 import Shared
 
 public final class LoginUseCaseImpl: LoginUseCase {
     private let authRepository: AuthRepository
+    private let tokenStorage: TokenStorable
+    private let userInfoStore: UserInfoStorable
+    private let sessionStore: SessionStorable
 
-    public init(authRepository: AuthRepository) {
+    public init(
+        authRepository: AuthRepository,
+        tokenStorage: TokenStorable,
+        userInfoStore: UserInfoStorable,
+        sessionStore: SessionStorable
+    ) {
         self.authRepository = authRepository
+        self.tokenStorage = tokenStorage
+        self.userInfoStore = userInfoStore
+        self.sessionStore = sessionStore
     }
 
     public func execute(loginId: String, password: String) async throws -> AuthUser {
         let (user, token) = try await authRepository.login(loginId: loginId, password: password)
 
-        // 토큰 저장
-        TokenStorage.accessToken = token
+        tokenStorage.accessToken = token
 
-        // 사용자 정보 저장
         let userInfo = UserInfo(
             id: user.id,
             loginId: user.loginId,
@@ -35,7 +37,11 @@ public final class LoginUseCaseImpl: LoginUseCase {
             industryId: user.industryId,
             interestIds: user.interestIds
         )
-        UserInfoStore.shared.save(userInfo)
+        userInfoStore.save(userInfo)
+        sessionStore.saveLoginSession(
+            nickname: user.nickname,
+            email: user.subscribeEmail ?? ""
+        )
 
         return user
     }

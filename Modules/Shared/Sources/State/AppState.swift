@@ -14,19 +14,21 @@ public enum AuthState {
 }
 
 @MainActor
-public final class AppState: ObservableObject {
+public final class AppState: ObservableObject, Authenticatable {
     @Published public var authState: AuthState = .guest
-    
+
     public static let shared = AppState()
-    
+
+    public var authStatePublisher: AnyPublisher<AuthState, Never> {
+        $authState.eraseToAnyPublisher()
+    }
+
     private init() {}
-    
-    // 로그아웃 시 호출
+
     public func logout() {
         authState = .guest
     }
-    
-    // 로그인 시 호출
+
     public func login() {
         authState = .authenticated
     }

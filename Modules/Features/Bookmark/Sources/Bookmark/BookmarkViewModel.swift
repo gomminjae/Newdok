@@ -1,10 +1,3 @@
-//
-//  BookmarkViewModel.swift
-//  Bookmark
-//
-//  Created by 권민재 on 5/2/25.
-//  Copyright © 2025 Newdok. All rights reserved.
-//
 import Foundation
 import SwiftUI
 import BookmarkDomain
@@ -28,13 +21,13 @@ public class BookmarkViewModel: ObservableObject, BookmarkViewModelBindable, Err
     private let useCase: BookmarkUseCase
     private var cancellables = Set<AnyCancellable>()
 
-    public init(useCase: BookmarkUseCase) {
+    public init(useCase: BookmarkUseCase, authState: Authenticatable) {
         self.useCase = useCase
 
-        AppState.shared.$authState
+        authState.authStatePublisher
             .receive(on: DispatchQueue.main)
-            .sink { [weak self] authState in
-                if authState == .guest {
+            .sink { [weak self] state in
+                if state == .guest {
                     self?.clearData()
                 }
             }
@@ -63,7 +56,6 @@ public class BookmarkViewModel: ObservableObject, BookmarkViewModelBindable, Err
         }
     }
 
-    // 최초 로드: 관심사/목록 병렬 + 스켈레톤 표시용 플래그
     @Published public var isLoading: Bool = false
     func loadInitial() {
         cancelLoads()
@@ -77,7 +69,6 @@ public class BookmarkViewModel: ObservableObject, BookmarkViewModelBindable, Err
         }
     }
 
-    // 정렬 기준을 API 형식으로 변환
     private func convertSortOrderToOption(_ sortOrder: String) -> String {
         switch sortOrder {
         case "추가순":
@@ -91,7 +82,6 @@ public class BookmarkViewModel: ObservableObject, BookmarkViewModelBindable, Err
         }
     }
 
-    // 로그아웃 시 데이터 초기화
     private func clearData() {
         interest = ""
         interests = []

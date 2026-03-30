@@ -1,11 +1,3 @@
-//
-//  HomeViewModel.swift
-//  Home
-//
-//  Created by 권민재 on 4/16/25. 
-//  Copyright © 2025 Newdok. All rights reserved.
-//
-
 import SwiftUI
 import Combine
 import HomeDomain
@@ -19,15 +11,14 @@ public final class CalendarState: ObservableObject {
     @Published public var displayedMonth: Date
     @Published public var dataDays: Set<Int> = []
     @Published public var isLoading: Bool = false
-    
+
     private var cancellables = Set<AnyCancellable>()
-    
+
     public init(initialDate: Date = Date()) {
         self.selectedDate = initialDate
         self.displayedMonth = initialDate
     }
-    
-    // Combine 기반 반응형 업데이트
+
     public func bind(to viewModel: HomeViewModel) {
         $displayedMonth
             .removeDuplicates { Calendar.current.isDate($0, equalTo: $1, toGranularity: .month) }
@@ -71,52 +62,55 @@ public enum HomeState {
 @MainActor
 public final class HomeViewModel: ObservableObject {
     private let useCase: HomeBusinessUseCase
+    private let authState: Authenticatable
     @Published public var calendarState: CalendarState
     private var cancellables = Set<AnyCancellable>()
-    
+
     @Published public var homeState: HomeState = .idle
     @Published public var filteredArticles: [HomeArticle] = []
     @Published public var subscribedNewsletters: [HomeNewsletter] = []
     @Published public var articlesByMonth: [HomeArticles] = []
-    
+
     private var dataDaysCache: [String: Set<Int>] = [:]
     private var latestMonthRequestKey: String?
-    
-    @AppStorage("isGuest") public var isGuest: Bool = false
-    
-    public init(useCase: HomeBusinessUseCase) {
+
+    public var isGuest: Bool {
+        authState.authState == .guest
+    }
+
+    public init(useCase: HomeBusinessUseCase, authState: Authenticatable) {
         self.useCase = useCase
+        self.authState = authState
         self.calendarState = CalendarState()
-        
+
         calendarState.objectWillChange
             .receive(on: RunLoop.main)
             .sink { [weak self] _ in self?.objectWillChange.send() }
             .store(in: &cancellables)
-        
+
         calendarState.bind(to: self)
-        
+
         Task { [weak self] in
             guard let self else { return }
             let snapshot = await useCase.snapshot()
             await MainActor.run {
-                // 이미 loading/loaded 상태면 stale snapshot으로 덮어쓰지 않음
                 guard self.homeState == .idle else { return }
                 self.applySnapshot(snapshot)
             }
         }
     }
-    
+
     // MARK: - Computed Properties
     public var selectedDate: Date {
         get { calendarState.selectedDate }
         set { calendarState.selectedDate = newValue }
     }
-    
+
     public var displayedMonth: Date {
         get { calendarState.displayedMonth }
         set { calendarState.displayedMonth = newValue }
     }
-    
+
     public var articlesByMonthDates: Set<Date> {
         let calendar = Calendar.current
         let comps = calendar.dateComponents([.year, .month], from: selectedDate)
@@ -127,46 +121,46 @@ public final class HomeViewModel: ObservableObject {
             return calendar.date(from: dc)
         })
     }
-    
+
     private func resolveState() -> HomeState {
         if isGuest { return .guest }
         if subscribedNewsletters.isEmpty && filteredArticles.isEmpty { return .noSubscriptions }
         if filteredArticles.isEmpty { return .noArticles }
         return .articles
     }
-    
+
     public var activeArticeDays: [Int] {
         articlesByMonth
             .filter { $0.unreadCount > 0 }
             .map { $0.publishDate }
     }
-    
+
     public var formattedDate: String {
         let formatter = DateFormatter()
         formatter.locale = Locale(identifier: "ko_KR")
         formatter.dateFormat = "M월 d일(E)"
         return formatter.string(from: selectedDate)
     }
-    
+
     // MARK: - Intent Handlers
     public func loadToday() async {
         if homeState == .idle { homeState = .loading }
         let snapshot = await useCase.loadToday()
         applySnapshot(snapshot)
     }
-    
+
     public func loadMonthDataIfNeeded(for date: Date) async {
         await performMonthRequest(for: date) {
             await self.useCase.loadMonthDataIfNeeded(for: date)
         }
     }
-    
+
     public func loadMonthData(for date: Date, forceReload: Bool = false) async {
         await performMonthRequest(for: date) {
             await self.useCase.loadMonthData(for: date, forceReload: forceReload)
         }
     }
-    
+
     public func selectDateWithMonthGuarantee(_ date: Date) {
         calendarState.selectedDate = date
         Task { [weak self] in
@@ -175,17 +169,17 @@ public final class HomeViewModel: ObservableObject {
             await MainActor.run { self.applySnapshot(snapshot) }
         }
     }
-    
+
     public func refreshCurrentData() async {
         let snapshot = await useCase.refreshCurrentData()
         applySnapshot(snapshot)
     }
-    
+
     public func refreshToToday() async {
         let snapshot = await useCase.refreshToToday()
         applySnapshot(snapshot)
     }
-    
+
     public func applyDataDaysForMonth(_ date: Date) {
         let key = monthKey(for: date)
         if let cached = dataDaysCache[key] {
@@ -209,23 +203,23 @@ public final class HomeViewModel: ObservableObject {
             }
         }
     }
-    
+
     public func markArticleAsRead(articleId: Int) async {
         let snapshot = await useCase.markArticleAsRead(articleId: articleId)
         applySnapshot(snapshot)
     }
-    
+
     public func resetForAuthChange() async {
         homeState = .loading
         dataDaysCache.removeAll()
         let snapshot = await useCase.resetForAuthChange()
         applySnapshot(snapshot)
     }
-    
+
     public func shouldReloadToday(currentDate: Date = Date()) async -> Bool {
         await useCase.shouldReloadToday(currentDate: currentDate)
     }
-    
+
     // MARK: - Snapshot Application
     private func applySnapshot(_ snapshot: HomeSnapshot) {
         calendarState.selectedDate = snapshot.selectedDate
@@ -242,11 +236,11 @@ public final class HomeViewModel: ObservableObject {
             }
         }
     }
-    
+
     private func storeDataDays(_ days: Set<Int>, for date: Date) {
         dataDaysCache[monthKey(for: date)] = days
     }
-    
+
     private func fetchDataDays(for date: Date) {
         Task { [weak self] in
             guard let self else { return }
@@ -259,28 +253,28 @@ public final class HomeViewModel: ObservableObject {
             }
         }
     }
-    
+
     public func calendarDataDays(for date: Date) async -> Set<Int> {
         let key = monthKey(for: date)
         if let cached = dataDaysCache[key] {
             return cached
         }
-        
+
         let cached = await useCase.cachedDataDays(for: date)
         if !cached.isEmpty {
             await MainActor.run { self.storeDataDays(cached, for: date) }
             return cached
         }
-        
+
         let fetched = await useCase.fetchDataDays(for: date)
         await MainActor.run { self.storeDataDays(fetched, for: date) }
         return fetched
     }
-    
+
     private func monthKey(for date: Date) -> String {
         monthKeyFormatter.string(from: date)
     }
-    
+
     private func performMonthRequest(for date: Date, loader: @escaping () async -> HomeSnapshot) async {
         let requestKey = monthKey(for: date)
         latestMonthRequestKey = requestKey
@@ -310,7 +304,7 @@ public final class HomeViewModel: ObservableObject {
             }
         }
     }
-    
+
     private let monthKeyFormatter: DateFormatter = {
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy-MM"

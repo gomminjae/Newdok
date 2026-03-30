@@ -36,10 +36,24 @@ import MypageDomain
 import MypageData
 import Launch
 import LaunchInterface
+import Shared
 
 @MainActor
 enum CompositionRoot {
     private static var container: Container { AppDIContainer.shared.container }
+
+    private static var authState: Authenticatable {
+        container.resolve(Authenticatable.self)!
+    }
+    private static var tokenStorage: TokenStorable {
+        container.resolve(TokenStorable.self)!
+    }
+    private static var userInfoStore: UserInfoStorable {
+        container.resolve(UserInfoStorable.self)!
+    }
+    private static var sessionStore: SessionStorable {
+        container.resolve(SessionStorable.self)!
+    }
 
     static func registerGlobalDependencies() {
         let exploreRepo = ExploreNewsletterRepositoryImpl(
@@ -57,13 +71,36 @@ enum CompositionRoot {
         )
         return AuthViewFactoryImpl(
             signupViewModelProvider: {
-                let loginUseCase = LoginUseCaseImpl(authRepository: authRepo)
-                let signupUseCase = SignupUseCaseImpl(authRepository: authRepo, loginUseCase: loginUseCase)
-                return SignupViewModel(authRepository: authRepo, signupUseCase: signupUseCase)
+                let loginUseCase = LoginUseCaseImpl(
+                    authRepository: authRepo,
+                    tokenStorage: tokenStorage,
+                    userInfoStore: userInfoStore,
+                    sessionStore: sessionStore
+                )
+                let signupUseCase = SignupUseCaseImpl(
+                    authRepository: authRepo,
+                    loginUseCase: loginUseCase,
+                    tokenStorage: tokenStorage,
+                    userInfoStore: userInfoStore,
+                    sessionStore: sessionStore
+                )
+                return SignupViewModel(
+                    signupUseCase: signupUseCase,
+                    authState: authState,
+                    userInfoStore: userInfoStore
+                )
             },
             loginViewModelProvider: {
-                let loginUseCase = LoginUseCaseImpl(authRepository: authRepo)
-                return LoginViewModel(loginUseCase: loginUseCase)
+                let loginUseCase = LoginUseCaseImpl(
+                    authRepository: authRepo,
+                    tokenStorage: tokenStorage,
+                    userInfoStore: userInfoStore,
+                    sessionStore: sessionStore
+                )
+                return LoginViewModel(
+                    loginUseCase: loginUseCase,
+                    authState: authState
+                )
             }
         )
     }
@@ -78,7 +115,7 @@ enum CompositionRoot {
             )
             let fetchUseCase = FetchHomeDataUseCaseImpl(newsletterRepo: newsletterRepo, articleRepo: articleRepo)
             let businessUseCase = DefaultHomeBusinessUseCase(fetchUseCase: fetchUseCase)
-            return HomeViewModel(useCase: businessUseCase)
+            return HomeViewModel(useCase: businessUseCase, authState: authState)
         })
     }
 
@@ -88,7 +125,11 @@ enum CompositionRoot {
                 network: container.resolve(MoyaNetworkService<NewsletterAPI>.self)!
             )
             let useCase = ExploreNewsletterUseCaseImpl(repository: repo)
-            return ExploreViewModel(useCase: useCase)
+            return ExploreViewModel(
+                useCase: useCase,
+                authState: authState,
+                userInfoStore: userInfoStore
+            )
         })
     }
 
@@ -108,7 +149,7 @@ enum CompositionRoot {
                 network: container.resolve(MoyaNetworkService<ArticleAPI>.self)!
             )
             let useCase = BookmarkUseCaseImpl(repository: repo)
-            return BookmarkViewModel(useCase: useCase)
+            return BookmarkViewModel(useCase: useCase, authState: authState)
         })
     }
 
@@ -151,7 +192,10 @@ enum CompositionRoot {
         return MypageViewFactoryImpl(
             mypageViewModelProvider: {
                 let userUseCase = MypageUserUseCaseImpl(repository: userRepo)
-                let profileUseCase = ProfileUseCaseImpl(userUseCase: userUseCase)
+                let profileUseCase = ProfileUseCaseImpl(
+                    userUseCase: userUseCase,
+                    userInfoStore: userInfoStore
+                )
                 return MypageViewModel(useCase: userUseCase, profileUseCase: profileUseCase)
             },
             recoveryViewModelProvider: {
@@ -163,7 +207,10 @@ enum CompositionRoot {
                 let statsUseCase = MypageStatsUseCaseImpl(repository: statsRepo)
                 return WithdrawViewModel(
                     userUseCase: userUseCase,
-                    statsUseCase: statsUseCase
+                    statsUseCase: statsUseCase,
+                    tokenStorage: tokenStorage,
+                    userInfoStore: userInfoStore,
+                    sessionStore: sessionStore
                 )
             }
         )

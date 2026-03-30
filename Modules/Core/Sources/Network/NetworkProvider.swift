@@ -1,10 +1,3 @@
-//
-//  NetworkProvider.swift
-//  Network
-//
-//  Created by 권민재 on 4/6/25.
-//  Copyright © 2025 Your Organization Name. All rights reserved.
-//
 import Moya
 import Foundation
 import Alamofire
@@ -18,12 +11,28 @@ public protocol NetworkProviding {
 }
 
 public final class NetworkProvider: NetworkProviding {
-    public init() {
+    private let tokenStorage: TokenStorable
+    private let userInfoStore: UserInfoStorable
+    private let authState: Authenticatable
+
+    @MainActor
+    public init(
+        tokenStorage: TokenStorable,
+        userInfoStore: UserInfoStorable,
+        authState: Authenticatable
+    ) {
+        self.tokenStorage = tokenStorage
+        self.userInfoStore = userInfoStore
+        self.authState = authState
     }
-    
+
     private var plugins: [PluginType] {
         var pluginList: [PluginType] = [
-            AuthPlugin()
+            AuthPlugin(
+                tokenStorage: tokenStorage,
+                userInfoStore: userInfoStore,
+                authState: authState
+            )
         ]
 
         #if DEBUG
@@ -39,28 +48,28 @@ public final class NetworkProvider: NetworkProviding {
             plugins: plugins
         )
     }
-    
+
     public func makeArticleProvider() -> MoyaProvider<ArticleAPI> {
         return MoyaProvider<ArticleAPI>(
             session: makeSafeSession(),
             plugins: plugins
         )
     }
-    
+
     public func makeNewsletterProvider() -> MoyaProvider<NewsletterAPI> {
         return MoyaProvider<NewsletterAPI>(
             session: makeSafeSession(),
             plugins: plugins
         )
     }
-    
+
     public func makeSearchProvider() -> MoyaProvider<SearchAPI> {
         return MoyaProvider<SearchAPI>(
             session: makeSafeSession(),
             plugins: plugins
         )
     }
-    
+
     private func makeSafeSession() -> Session {
         #if targetEnvironment(simulator)
         let config = URLSessionConfiguration.ephemeral

@@ -49,8 +49,9 @@ public enum NicknameValidationError: Error {
 
 @MainActor
 public final class SignupViewModel: ObservableObject, ErrorHandling {
-    private let authRepository: AuthRepository
     private let signupUseCase: SignupUseCase
+    private let authState: Authenticatable
+    private let userInfoStore: UserInfoStorable
 
     @Published var currentStep: SignupStep = .phoneVerification
 
@@ -131,9 +132,14 @@ public final class SignupViewModel: ObservableObject, ErrorHandling {
     @Published public var recommendedPost: [AuthRecommendedBrand] = []
     @Published public var isCurationLoading = false
 
-    public init(authRepository: AuthRepository, signupUseCase: SignupUseCase) {
-        self.authRepository = authRepository
+    public init(
+        signupUseCase: SignupUseCase,
+        authState: Authenticatable,
+        userInfoStore: UserInfoStorable
+    ) {
         self.signupUseCase = signupUseCase
+        self.authState = authState
+        self.userInfoStore = userInfoStore
     }
 
     deinit {
@@ -168,17 +174,17 @@ public final class SignupViewModel: ObservableObject, ErrorHandling {
     }
 
     public func resetVerificationState() {
-           stopTimer()
-           isShowPopup = false
-           isRequestSent = false
-           timerRemaining = 180
-           showError = false
-           enteredVerificationCode = ""
-           resendFailureCount = 0
-           verificationCode = ""
-           skipUserCheck = false
-           shouldFocusVerificationCode = false
-       }
+        stopTimer()
+        isShowPopup = false
+        isRequestSent = false
+        timerRemaining = 180
+        showError = false
+        enteredVerificationCode = ""
+        resendFailureCount = 0
+        verificationCode = ""
+        skipUserCheck = false
+        shouldFocusVerificationCode = false
+    }
 
     // MARK: - 인증코드 전송 (초기/재전송 공통)
     public func sendVerificationCode(skipCheck: Bool = false) {
@@ -212,7 +218,7 @@ public final class SignupViewModel: ObservableObject, ErrorHandling {
                 timerRemaining = 180
 
                 if !skipCheck && !skipUserCheck {
-                    let users = try await authRepository.checkPhoneNumber(phoneNumber)
+                    let users = try await signupUseCase.checkPhoneNumber(phoneNumber)
                     if !users.isEmpty {
                         userList = users
                         isShowUserList = true
@@ -222,7 +228,7 @@ public final class SignupViewModel: ObservableObject, ErrorHandling {
                     }
                 }
 
-                let result = try await authRepository.authSMS(phoneNumber: phoneNumber)
+                let result = try await signupUseCase.sendSMS(phoneNumber: phoneNumber)
                 verificationCode = String(result.code)
                 await MainActor.run {
                     isRequestSent = true
@@ -317,7 +323,7 @@ public final class SignupViewModel: ObservableObject, ErrorHandling {
         isIDAvailable = nil
         Task { @MainActor in
             do {
-                let result = try await authRepository.checkIDDup(loginID)
+                let result = try await signupUseCase.checkIDDuplicate(loginID)
                 switch result {
                 case .exists:
                     isIDAvailable = false
@@ -347,12 +353,12 @@ public final class SignupViewModel: ObservableObject, ErrorHandling {
 
         Task {
             do {
-                let result = try await authRepository.preInvestigate(
+                let result = try await signupUseCase.fetchRecommendations(
                     industryId: myIndustry,
                     interestIds: Array(selectedInterests)
                 )
 
-                if let currentUserInfo = UserInfoStore.shared.load() {
+                if let currentUserInfo = userInfoStore.load() {
                     let updatedUserInfo = UserInfo(
                         id: currentUserInfo.id,
                         loginId: currentUserInfo.loginId,
@@ -365,7 +371,7 @@ public final class SignupViewModel: ObservableObject, ErrorHandling {
                         industryId: Int(myIndustry),
                         interestIds: selectedInterests.compactMap { Int($0) }
                     )
-                    UserInfoStore.shared.save(updatedUserInfo)
+                    userInfoStore.save(updatedUserInfo)
                 }
 
                 await MainActor.run {
@@ -399,12 +405,7 @@ public final class SignupViewModel: ObservableObject, ErrorHandling {
                 let resultUser = try await signupUseCase.execute(request: request)
                 user = resultUser
 
-                UserDefaults.standard.set(true, forKey: "isLoggedIn")
-                UserDefaults.standard.set(false, forKey: "isGuest")
-                UserDefaults.standard.set(resultUser.nickname, forKey: "nickname")
-                UserDefaults.standard.set(resultUser.subscribeEmail ?? "", forKey: "email")
-
-                AppState.shared.login()
+                authState.login()
                 isLoading = false
                 goToNextStep()
             } catch {

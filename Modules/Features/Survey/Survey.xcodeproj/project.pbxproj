@@ -7,18 +7,17 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0841DB1B6F368AFD210ABB96 /* DesignSystem_DesignSystem.bundle in Dependencies */ = {isa = PBXBuildFile; fileRef = 93BD14D6C16F0C67E8146021 /* DesignSystem_DesignSystem.bundle */; };
-		1DDA834EAD852F7E6B8F157A /* Core.framework in Dependencies */ = {isa = PBXBuildFile; fileRef = FD12E525B40E5B3171F7E530 /* Core.framework */; };
-		5DB9D1ECE7941826FD6E377F /* Core.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FD12E525B40E5B3171F7E530 /* Core.framework */; };
-		5F1608186749089C760FC0C9 /* Moya.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2225B51F29CB2FA5A72B9D33 /* Moya.framework */; };
+		1D9B6184DAB453267B721103 /* SurveyInterface.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E657CE983D025C88682460D /* SurveyInterface.framework */; };
+		3777A06D5C9FF6E8CD300DA9 /* SurveyViewFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 161994DE180A087F78FBEF38 /* SurveyViewFactory.swift */; };
 		5F3D03F26D9A581F37632380 /* Shared.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8E6E7B87B988E328C1EE62A /* Shared.framework */; };
-		6BF318CB53D3DAA1314276C4 /* DesignSystem_DesignSystem.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 93BD14D6C16F0C67E8146021 /* DesignSystem_DesignSystem.bundle */; };
+		7C1DDDCE1618E6FC3AA1EAFA /* SurveyInterface.framework in Dependencies */ = {isa = PBXBuildFile; fileRef = 3E657CE983D025C88682460D /* SurveyInterface.framework */; };
+		8890400FC50DBF4FACE7E2F5 /* SurveyViewFactoryImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B234A19701DEA4460CB5C67 /* SurveyViewFactoryImpl.swift */; };
 		9833FA7C028A586DED7F9E1F /* Kingfisher.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C0AF2E88D48C7E38E1B898A9 /* Kingfisher.framework */; };
 		ADAB00D90C745D1B520C70BD /* SurveyMain.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1957E61D0F92B13C9D06D9C /* SurveyMain.swift */; };
 		B173CF7EDFA0725851501A4D /* SurveyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23A050A6322FE1A422FE3045 /* SurveyTests.swift */; };
+		B5A76CF2CA68103F8DDBCFBE /* DesignSystem.framework in Dependencies */ = {isa = PBXBuildFile; fileRef = CF891DF34D4455956C2DCD87 /* DesignSystem.framework */; };
+		C354BF0CB8ECE267180FB4D5 /* Shared.framework in Dependencies */ = {isa = PBXBuildFile; fileRef = D8E6E7B87B988E328C1EE62A /* Shared.framework */; };
 		D87034D43CB8E170E06B5B99 /* PopupView.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EB4280D393BFDC1132DD38D9 /* PopupView.framework */; };
-		D91145D7137B7232F21DCD8E /* Alamofire_Alamofire.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 2E18116300A883065B14493E /* Alamofire_Alamofire.bundle */; };
-		E5CEE469D4C8E522AC118F7A /* Alamofire_Alamofire.bundle in Dependencies */ = {isa = PBXBuildFile; fileRef = 2E18116300A883065B14493E /* Alamofire_Alamofire.bundle */; };
 		F28C9E3265EBCF43415D36C3 /* Survey.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8978804A1885621F914F866A /* Survey.framework */; };
 		F5642A981CA4588655D1FC79 /* DesignSystem.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CF891DF34D4455956C2DCD87 /* DesignSystem.framework */; };
 /* End PBXBuildFile section */
@@ -31,26 +30,34 @@
 			remoteGlobalIDString = 3AC192947DB2FAD63AFCCAEB;
 			remoteInfo = Survey;
 		};
+		E51786C70D7257047DBAF9D7 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 22BC19AFE2E41D11EAB9B152 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = EFBF27282033A41F1E11D833;
+			remoteInfo = SurveyInterface;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		B93CC2FCA058120891C13450 /* Dependencies */ = {
+		B018F47CB66444CF0F82D443 /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 8;
-			dstSubfolderSpec = 16;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
 			files = (
-				E5CEE469D4C8E522AC118F7A /* Alamofire_Alamofire.bundle in Dependencies */,
-				0841DB1B6F368AFD210ABB96 /* DesignSystem_DesignSystem.bundle in Dependencies */,
 			);
-			name = Dependencies;
-			runOnlyForDeploymentPostprocessing = 1;
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
 		};
 		BA721A36EEB5EC3AB3D1C7AA /* Dependencies */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 8;
 			dstSubfolderSpec = 16;
 			files = (
-				1DDA834EAD852F7E6B8F157A /* Core.framework in Dependencies */,
+				B5A76CF2CA68103F8DDBCFBE /* DesignSystem.framework in Dependencies */,
+				C354BF0CB8ECE267180FB4D5 /* Shared.framework in Dependencies */,
+				7C1DDDCE1618E6FC3AA1EAFA /* SurveyInterface.framework in Dependencies */,
 			);
 			name = Dependencies;
 			runOnlyForDeploymentPostprocessing = 1;
@@ -79,33 +86,39 @@
 
 /* Begin PBXFileReference section */
 		06A01EDB6FD9DB0E8A4F7809 /* Survey-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "Survey-Info.plist"; sourceTree = "<group>"; };
-		2225B51F29CB2FA5A72B9D33 /* Moya.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Moya.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		161994DE180A087F78FBEF38 /* SurveyViewFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SurveyViewFactory.swift; sourceTree = "<group>"; };
 		23A050A6322FE1A422FE3045 /* SurveyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SurveyTests.swift; sourceTree = "<group>"; };
-		2E18116300A883065B14493E /* Alamofire_Alamofire.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Alamofire_Alamofire.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
+		3E657CE983D025C88682460D /* SurveyInterface.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SurveyInterface.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4FF035E9E7D35EB77233BFDE /* SurveyTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "SurveyTests-Info.plist"; sourceTree = "<group>"; };
+		5B234A19701DEA4460CB5C67 /* SurveyViewFactoryImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SurveyViewFactoryImpl.swift; sourceTree = "<group>"; };
 		727F7D83813FA7F64C222B0F /* SurveyTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SurveyTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		8978804A1885621F914F866A /* Survey.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Survey.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		93BD14D6C16F0C67E8146021 /* DesignSystem_DesignSystem.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DesignSystem_DesignSystem.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
+		9B337CA50018CC2F154667F5 /* SurveyInterface-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "SurveyInterface-Info.plist"; sourceTree = "<group>"; };
 		C0AF2E88D48C7E38E1B898A9 /* Kingfisher.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Kingfisher.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CF891DF34D4455956C2DCD87 /* DesignSystem.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = DesignSystem.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D1957E61D0F92B13C9D06D9C /* SurveyMain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SurveyMain.swift; sourceTree = "<group>"; };
 		D8E6E7B87B988E328C1EE62A /* Shared.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Shared.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		EB4280D393BFDC1132DD38D9 /* PopupView.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = PopupView.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		FD12E525B40E5B3171F7E530 /* Core.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Core.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		3ACF83F501CB4AE5CE15A1F3 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		827414FFCE0AB4A1BD5754FE /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5DB9D1ECE7941826FD6E377F /* Core.framework in Frameworks */,
 				F5642A981CA4588655D1FC79 /* DesignSystem.framework in Frameworks */,
 				9833FA7C028A586DED7F9E1F /* Kingfisher.framework in Frameworks */,
-				5F1608186749089C760FC0C9 /* Moya.framework in Frameworks */,
 				D87034D43CB8E170E06B5B99 /* PopupView.framework in Frameworks */,
 				5F3D03F26D9A581F37632380 /* Shared.framework in Frameworks */,
 				F28C9E3265EBCF43415D36C3 /* Survey.framework in Frameworks */,
+				1D9B6184DAB453267B721103 /* SurveyInterface.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -131,6 +144,7 @@
 			isa = PBXGroup;
 			children = (
 				4C63CA600502A883CF12EDCE /* Derived */,
+				8344E05B158085A69B03CC50 /* Interface */,
 				9B5AFFDE7C7014E0B469C86C /* Sources */,
 				11CDD07C0F563E70DF0E649D /* Tests */,
 			);
@@ -148,24 +162,38 @@
 		586803EF3EEDDB6484551736 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				2E18116300A883065B14493E /* Alamofire_Alamofire.bundle */,
-				FD12E525B40E5B3171F7E530 /* Core.framework */,
-				93BD14D6C16F0C67E8146021 /* DesignSystem_DesignSystem.bundle */,
 				CF891DF34D4455956C2DCD87 /* DesignSystem.framework */,
 				C0AF2E88D48C7E38E1B898A9 /* Kingfisher.framework */,
-				2225B51F29CB2FA5A72B9D33 /* Moya.framework */,
 				EB4280D393BFDC1132DD38D9 /* PopupView.framework */,
 				D8E6E7B87B988E328C1EE62A /* Shared.framework */,
 				8978804A1885621F914F866A /* Survey.framework */,
+				3E657CE983D025C88682460D /* SurveyInterface.framework */,
 				727F7D83813FA7F64C222B0F /* SurveyTests.xctest */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		8344E05B158085A69B03CC50 /* Interface */ = {
+			isa = PBXGroup;
+			children = (
+				8DDBA38C683101B56953A9AA /* Sources */,
+			);
+			path = Interface;
+			sourceTree = "<group>";
+		};
+		8DDBA38C683101B56953A9AA /* Sources */ = {
+			isa = PBXGroup;
+			children = (
+				161994DE180A087F78FBEF38 /* SurveyViewFactory.swift */,
+			);
+			path = Sources;
 			sourceTree = "<group>";
 		};
 		914BEDE8840F4A12DDCA2B4C /* InfoPlists */ = {
 			isa = PBXGroup;
 			children = (
 				06A01EDB6FD9DB0E8A4F7809 /* Survey-Info.plist */,
+				9B337CA50018CC2F154667F5 /* SurveyInterface-Info.plist */,
 				4FF035E9E7D35EB77233BFDE /* SurveyTests-Info.plist */,
 			);
 			path = InfoPlists;
@@ -175,6 +203,7 @@
 			isa = PBXGroup;
 			children = (
 				D1957E61D0F92B13C9D06D9C /* SurveyMain.swift */,
+				5B234A19701DEA4460CB5C67 /* SurveyViewFactoryImpl.swift */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -198,7 +227,6 @@
 				2751CDD4E0F83EB33F8E0E63 /* Resources */,
 				827414FFCE0AB4A1BD5754FE /* Frameworks */,
 				ED5D7924B0EF482201D78315 /* Embed Frameworks */,
-				B93CC2FCA058120891C13450 /* Dependencies */,
 			);
 			buildRules = (
 			);
@@ -225,12 +253,33 @@
 			buildRules = (
 			);
 			dependencies = (
+				8A4F25C29A3944D635A552D3 /* PBXTargetDependency */,
 			);
 			name = Survey;
 			packageProductDependencies = (
 			);
 			productName = Survey;
 			productReference = 8978804A1885621F914F866A /* Survey.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		EFBF27282033A41F1E11D833 /* SurveyInterface */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = BB3AF52D2509E7EF77BD10C9 /* Build configuration list for PBXNativeTarget "SurveyInterface" */;
+			buildPhases = (
+				7F0EF46A706C0562B56E9B53 /* Sources */,
+				05B1C402CBA8B8C077170CB3 /* Resources */,
+				3ACF83F501CB4AE5CE15A1F3 /* Frameworks */,
+				B018F47CB66444CF0F82D443 /* Embed Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = SurveyInterface;
+			packageProductDependencies = (
+			);
+			productName = SurveyInterface;
+			productReference = 3E657CE983D025C88682460D /* SurveyInterface.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 /* End PBXNativeTarget section */
@@ -258,18 +307,24 @@
 			projectRoot = "";
 			targets = (
 				3AC192947DB2FAD63AFCCAEB /* Survey */,
+				EFBF27282033A41F1E11D833 /* SurveyInterface */,
 				0DC8F1540991EF674B7401A8 /* SurveyTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		05B1C402CBA8B8C077170CB3 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		2751CDD4E0F83EB33F8E0E63 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D91145D7137B7232F21DCD8E /* Alamofire_Alamofire.bundle in Resources */,
-				6BF318CB53D3DAA1314276C4 /* DesignSystem_DesignSystem.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -288,6 +343,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				ADAB00D90C745D1B520C70BD /* SurveyMain.swift in Sources */,
+				8890400FC50DBF4FACE7E2F5 /* SurveyViewFactoryImpl.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		7F0EF46A706C0562B56E9B53 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3777A06D5C9FF6E8CD300DA9 /* SurveyViewFactory.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -302,6 +366,12 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		8A4F25C29A3944D635A552D3 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = SurveyInterface;
+			target = EFBF27282033A41F1E11D833 /* SurveyInterface */;
+			targetProxy = E51786C70D7257047DBAF9D7 /* PBXContainerItemProxy */;
+		};
 		F32BAFA392DAC9355DC9B92B /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = Survey;
@@ -381,10 +451,6 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				OTHER_LDFLAGS = (
-					"$(inherited)",
-					"-L$(DT_TOOLCHAIN_DIR)/usr/lib/swift/$(PLATFORM_NAME)",
-				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.newdok.survey.tests;
 				PRODUCT_NAME = SurveyTests;
 				SDKROOT = iphoneos;
@@ -437,6 +503,41 @@
 			};
 			name = Release;
 		};
+		C76AD13E24617DFAFBEEED1F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = "Derived/InfoPlists/SurveyInterface-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MACH_O_TYPE = staticlib;
+				PRODUCT_BUNDLE_IDENTIFIER = com.newdok.survey.interface;
+				PRODUCT_NAME = SurveyInterface;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_STRICT_CONCURRENCY = complete;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
 		CA4C3559396242A8B52C6B26 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -457,6 +558,45 @@
 				MACH_O_TYPE = staticlib;
 				PRODUCT_BUNDLE_IDENTIFIER = com.newdok.survey;
 				PRODUCT_NAME = Survey;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = (
+					"$(inherited)",
+					DEBUG,
+				);
+				SWIFT_COMPILATION_MODE = singlefile;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_STRICT_CONCURRENCY = complete;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		CDFA18EA458C1FF53386DBB4 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = "Derived/InfoPlists/SurveyInterface-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MACH_O_TYPE = staticlib;
+				PRODUCT_BUNDLE_IDENTIFIER = com.newdok.survey.interface;
+				PRODUCT_NAME = SurveyInterface;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 				SUPPORTS_MACCATALYST = NO;
@@ -540,10 +680,6 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				OTHER_LDFLAGS = (
-					"$(inherited)",
-					"-L$(DT_TOOLCHAIN_DIR)/usr/lib/swift/$(PLATFORM_NAME)",
-				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.newdok.survey.tests;
 				PRODUCT_NAME = SurveyTests;
 				SDKROOT = iphoneos;
@@ -574,6 +710,15 @@
 			buildConfigurations = (
 				CA4C3559396242A8B52C6B26 /* Debug */,
 				9A075199B2BB5810E922129E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		BB3AF52D2509E7EF77BD10C9 /* Build configuration list for PBXNativeTarget "SurveyInterface" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CDFA18EA458C1FF53386DBB4 /* Debug */,
+				C76AD13E24617DFAFBEEED1F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

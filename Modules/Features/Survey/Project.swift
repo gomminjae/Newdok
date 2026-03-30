@@ -5,6 +5,21 @@ let project = Project(
     organizationName: "Newdok",
     targets: [
         .target(
+            name: "SurveyInterface",
+            destinations: .iOS,
+            product: .staticFramework,
+            bundleId: "com.newdok.survey.interface",
+            deploymentTargets: .iOS("17.0"),
+            infoPlist: .default,
+            sources: ["Interface/Sources/**"],
+            settings: .settings(
+                base: [
+                    "SKIP_INSTALL": "YES",
+                    "SWIFT_STRICT_CONCURRENCY": "complete"
+                ]
+            )
+        ),
+        .target(
             name: "Survey",
             destinations: .iOS,
             product: .staticFramework,
@@ -14,7 +29,9 @@ let project = Project(
             sources: ["Sources/**"],
             resources: ["Resources/**"],
             dependencies: [
-                .project(target: "Core", path: "../../Core")
+                .target(name: "SurveyInterface"),
+                .project(target: "DesignSystem", path: "../../DesignSystem"),
+                .project(target: "Shared", path: "../../Shared")
             ],
             settings: .settings(
                 base: [
@@ -33,7 +50,8 @@ let project = Project(
             sources: ["Tests/**"],
             dependencies: [
                 .target(name: "Survey"),
-                 .project(target: "DesignSystem", path: "../../DesignSystem")
+                .project(target: "DesignSystem", path: "../../DesignSystem"),
+                .project(target: "Shared", path: "../../Shared")
             ]
         )
     ]

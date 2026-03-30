@@ -5,16 +5,27 @@ import Shared
 public final class SignupUseCaseImpl: SignupUseCase {
     private let authRepository: AuthRepository
     private let loginUseCase: LoginUseCase
+    private let tokenStorage: TokenStorable
+    private let userInfoStore: UserInfoStorable
+    private let sessionStore: SessionStorable
 
-    public init(authRepository: AuthRepository, loginUseCase: LoginUseCase) {
+    public init(
+        authRepository: AuthRepository,
+        loginUseCase: LoginUseCase,
+        tokenStorage: TokenStorable,
+        userInfoStore: UserInfoStorable,
+        sessionStore: SessionStorable
+    ) {
         self.authRepository = authRepository
         self.loginUseCase = loginUseCase
+        self.tokenStorage = tokenStorage
+        self.userInfoStore = userInfoStore
+        self.sessionStore = sessionStore
     }
 
     public func execute(request: AuthSignupRequest) async throws -> AuthUser {
         let trimmedNickname = request.nickname.trimmingCharacters(in: .whitespacesAndNewlines)
 
-        // 1. 회원가입 API 호출
         let result = try await authRepository.signup(
             loginId: request.loginId,
             password: request.password,
@@ -24,10 +35,8 @@ public final class SignupUseCaseImpl: SignupUseCase {
             gender: request.gender
         )
 
-        // 2. 토큰 저장
-        TokenStorage.accessToken = result.accessToken
+        tokenStorage.accessToken = result.accessToken
 
-        // 3. 사용자 정보 저장
         let userInfo = UserInfo(
             id: result.user.id,
             loginId: result.user.loginId,
@@ -40,9 +49,8 @@ public final class SignupUseCaseImpl: SignupUseCase {
             industryId: result.user.industryId,
             interestIds: result.user.interestIds
         )
-        UserInfoStore.shared.save(userInfo)
+        userInfoStore.save(userInfo)
 
-        // 4. 자동 로그인 시도
         do {
             let loginUser = try await loginUseCase.execute(
                 loginId: request.loginId,
@@ -50,11 +58,27 @@ public final class SignupUseCaseImpl: SignupUseCase {
             )
             return loginUser
         } catch {
-            // 로그인 실패해도 회원가입은 성공했으므로 기본 상태 유지
-            UserDefaults.standard.set(true, forKey: "isLoggedIn")
-            UserDefaults.standard.set(false, forKey: "isGuest")
-            UserDefaults.standard.set(result.user.nickname, forKey: "nickname")
+            sessionStore.saveLoginSession(
+                nickname: result.user.nickname,
+                email: result.user.subscribeEmail ?? ""
+            )
             return result.user
         }
+    }
+
+    public func checkPhoneNumber(_ phoneNumber: String) async throws -> [AuthSimpleUser] {
+        try await authRepository.checkPhoneNumber(phoneNumber)
+    }
+
+    public func sendSMS(phoneNumber: String) async throws -> AuthSMSResponse {
+        try await authRepository.authSMS(phoneNumber: phoneNumber)
+    }
+
+    public func checkIDDuplicate(_ loginId: String) async throws -> CheckResult<AuthSimpleUser> {
+        try await authRepository.checkIDDup(loginId)
+    }
+
+    public func fetchRecommendations(industryId: String, interestIds: [String]) async throws -> [AuthRecommendedBrand] {
+        try await authRepository.preInvestigate(industryId: industryId, interestIds: interestIds)
     }
 }
