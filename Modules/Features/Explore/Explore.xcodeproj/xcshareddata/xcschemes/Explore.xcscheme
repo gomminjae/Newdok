@@ -20,6 +20,20 @@
                ReferencedContainer = "container:Explore.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "E52BBDBB17B2D125427A2803"
+               BuildableName = "ExploreInterface.framework"
+               BlueprintName = "ExploreInterface"
+               ReferencedContainer = "container:Explore.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
       </BuildActionEntries>
    </BuildAction>
    <TestAction

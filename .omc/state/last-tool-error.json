@@ -1,0 +1,7 @@
+{
+  "tool_name": "Bash",
+  "tool_input_preview": "{\"command\":\"tuist generate --no-open 2>&1\",\"timeout\":120000,\"description\":\"Regenerate Xcode project with new files\"}",
+  "error": "Exit code 1\nLoading and constructing the graph\nIt might take a while if the cache is empty\n✖ Error \n  `SDWebImage` is not a valid configured external dependency \n\n  Sorry this didn’t work. Here’s what to try next: \n   ▸ If the error is actionable, address it\n   ▸ If the error is not actionable, let's discuss it in the <Troubleshooting & how to: https://community.tuist.dev/c/troubleshooting-how-to/6>\n   ▸ If you are very certain it's a bug, <file an issue: https://github.com/tuist/tuist>\n   ▸ Che...",
+  "timestamp": "2026-03-30T01:54:04.341Z",
+  "retry_count": 1
+}

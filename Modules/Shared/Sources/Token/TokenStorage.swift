@@ -8,52 +8,37 @@
 import Foundation
 
 public enum TokenStorage {
-    private enum Key {
-        static let accessToken = "accessToken"
-        static let hasCompletedOnboarding = "hasCompletedOnboarding"
-        static let hideSubscribeStatePopupDate = "hideSubscribeStatePopupDate"
-    }
-
-    public static var accessToken: String? {
-        get {
-            UserDefaults.standard.string(forKey: Key.accessToken)
-        }
-        set {
-            if let newValue = newValue {
-                UserDefaults.standard.set(newValue, forKey: Key.accessToken)
-            } else {
-                UserDefaults.standard.removeObject(forKey: Key.accessToken)
-            }
-        }
-    }
+    @KeychainStored(key: "accessToken")
+    public static var accessToken: String?
 
     public static func clear() {
-        UserDefaults.standard.removeObject(forKey: Key.accessToken)
+        accessToken = nil
     }
-    
+
     public static var hasValidToken: Bool {
-        return accessToken != nil && !accessToken!.isEmpty
+        guard let token = accessToken else { return false }
+        return !token.isEmpty
     }
     
     public static var hasCompletedOnboarding: Bool {
         get {
-            UserDefaults.standard.bool(forKey: Key.hasCompletedOnboarding)
+            UserDefaults.standard.bool(forKey: "hasCompletedOnboarding")
         }
         set {
-            UserDefaults.standard.set(newValue, forKey: Key.hasCompletedOnboarding)
+            UserDefaults.standard.set(newValue, forKey: "hasCompletedOnboarding")
         }
     }
-    
+
     public static func markOnboardingCompleted() {
         hasCompletedOnboarding = true
     }
-    
+
     public static var hideSubscribeStatePopupDate: Date? {
         get {
-            UserDefaults.standard.object(forKey: Key.hideSubscribeStatePopupDate) as? Date
+            UserDefaults.standard.object(forKey: "hideSubscribeStatePopupDate") as? Date
         }
         set {
-            UserDefaults.standard.set(newValue, forKey: Key.hideSubscribeStatePopupDate)
+            UserDefaults.standard.set(newValue, forKey: "hideSubscribeStatePopupDate")
         }
     }
     

@@ -20,6 +20,20 @@
                ReferencedContainer = "container:Bookmark.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "B6E08EB0C955E3A126652189"
+               BuildableName = "BookmarkInterface.framework"
+               BlueprintName = "BookmarkInterface"
+               ReferencedContainer = "container:Bookmark.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
       </BuildActionEntries>
    </BuildAction>
    <TestAction

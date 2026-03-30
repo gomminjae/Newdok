@@ -21,6 +21,7 @@
 		4B40701BFDF0C8C2E2EEB8C2 /* load.gif in Resources */ = {isa = PBXBuildFile; fileRef = 48854A6B16F3CFBA5DA0F0AD /* load.gif */; };
 		4D1C8FAC5AA3A85D2B2BFAAF /* Color+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B424097EED4FD25BE22C5E1 /* Color+Extension.swift */; };
 		574EA4DB241751A576797002 /* NotRegisteredIdPopupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDF5531123A3004A8540D621 /* NotRegisteredIdPopupView.swift */; };
+		640485EA967CD4669600CD37 /* SwipeBackHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71BC3474A53F2F77D7EB19EC /* SwipeBackHandler.swift */; };
 		654333589294F1C702FC438B /* Shared.framework in Dependencies */ = {isa = PBXBuildFile; fileRef = 56A7772AA0518B04428BE5C5 /* Shared.framework */; };
 		68B44B93AD7ED2B47CD71A4A /* SubscribeGuestAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F04616C3C5DB23A49097D3BF /* SubscribeGuestAlertView.swift */; };
 		6F4DC4FB98D3EF58306E1CDA /* BackButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86103BCC821FCC1FE2B9F3CD /* BackButton.swift */; };
@@ -52,7 +53,6 @@
 		E76992BBB4AB0B14426864B0 /* OverlayRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8C517C8B4DCEC79C458B727 /* OverlayRootView.swift */; };
 		EA14ADB3FF1DCA11D8B9D962 /* ColorPalette.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFD516035027585AFC53F053 /* ColorPalette.swift */; };
 		EBF8A05ADDF1FF48833C370E /* BirthYearPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B7519630D4BA8D550F1D471 /* BirthYearPickerView.swift */; };
-		ED3F89E53428547F316A4307 /* SDWebImage.framework in Dependencies */ = {isa = PBXBuildFile; fileRef = CAC3D6C4B33E5AB73921E3EA /* SDWebImage.framework */; };
 		F6018B5F7748E322214C52D6 /* TuistBundle+DesignSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE4AD9735556ECA8C8008FEC /* TuistBundle+DesignSystem.swift */; };
 		F69B0539C8191095A861614C /* SubscribeStatePopupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCE4C52744BC5AEDA5913B79 /* SubscribeStatePopupView.swift */; };
 		F8D28129A82E22B7978D772C /* SpoqaHanSansNeo-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 1CFCDF29DFB293A9C3F9D6D9 /* SpoqaHanSansNeo-Bold.otf */; };
@@ -74,7 +74,6 @@
 			buildActionMask = 8;
 			dstSubfolderSpec = 16;
 			files = (
-				ED3F89E53428547F316A4307 /* SDWebImage.framework in Dependencies */,
 				654333589294F1C702FC438B /* Shared.framework in Dependencies */,
 			);
 			name = Dependencies;
@@ -129,6 +128,7 @@
 		56DFA51B1676775D07DC3DD2 /* SpoqaHanSansNeo-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SpoqaHanSansNeo-Regular.otf"; sourceTree = "<group>"; };
 		69B7BBEAD5472C7195924AC8 /* DesignSystem.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = DesignSystem.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6AF6A52DBE12C84500829BA2 /* NoDataView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoDataView.swift; sourceTree = "<group>"; };
+		71BC3474A53F2F77D7EB19EC /* SwipeBackHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipeBackHandler.swift; sourceTree = "<group>"; };
 		72E2C18DBF37D6CEFC146ADE /* UpdateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateView.swift; sourceTree = "<group>"; };
 		743901F00E06BB210FBD1E5B /* CalendarPopupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarPopupView.swift; sourceTree = "<group>"; };
 		84DEFF305135085B93F19593 /* VerificationButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerificationButtonStyle.swift; sourceTree = "<group>"; };
@@ -145,7 +145,6 @@
 		BE4AD9735556ECA8C8008FEC /* TuistBundle+DesignSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TuistBundle+DesignSystem.swift"; sourceTree = "<group>"; };
 		BFD516035027585AFC53F053 /* ColorPalette.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorPalette.swift; sourceTree = "<group>"; };
 		C8C517C8B4DCEC79C458B727 /* OverlayRootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverlayRootView.swift; sourceTree = "<group>"; };
-		CAC3D6C4B33E5AB73921E3EA /* SDWebImage.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SDWebImage.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CB0349579BBC3ABA50086B52 /* FAQView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FAQView.swift; sourceTree = "<group>"; };
 		CB10DEC593FE87C6FF2F2CEF /* ServerErrorPopupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerErrorPopupView.swift; sourceTree = "<group>"; };
 		CCE4C52744BC5AEDA5913B79 /* SubscribeStatePopupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscribeStatePopupView.swift; sourceTree = "<group>"; };
@@ -225,6 +224,7 @@
 				6AF6A52DBE12C84500829BA2 /* NoDataView.swift */,
 				C8C517C8B4DCEC79C458B727 /* OverlayRootView.swift */,
 				480127A043369072FC6A4A0E /* PullToRefreshView.swift */,
+				71BC3474A53F2F77D7EB19EC /* SwipeBackHandler.swift */,
 			);
 			path = Component;
 			sourceTree = "<group>";
@@ -259,7 +259,6 @@
 				69B7BBEAD5472C7195924AC8 /* DesignSystem.framework */,
 				28746752247E3911CD5C3C07 /* Kingfisher.framework */,
 				B6654808CA89C3FC25B33948 /* PopupView.framework */,
-				CAC3D6C4B33E5AB73921E3EA /* SDWebImage.framework */,
 				56A7772AA0518B04428BE5C5 /* Shared.framework */,
 			);
 			name = Products;
@@ -509,6 +508,7 @@
 				07AB90021A70B1D55E233DDA /* NoDataView.swift in Sources */,
 				E76992BBB4AB0B14426864B0 /* OverlayRootView.swift in Sources */,
 				BDD988384DEC9A8C4E1B5F71 /* PullToRefreshView.swift in Sources */,
+				640485EA967CD4669600CD37 /* SwipeBackHandler.swift in Sources */,
 				C762D2313D50B4F194A883EA /* SubscribeModalView.swift in Sources */,
 				72415CF40FB9EA2BE53157FD /* Font.swift in Sources */,
 				D077CFC5DD281F26BDA2376F /* AuthFailView.swift in Sources */,
@@ -581,12 +581,6 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				HEADER_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(SRCROOT)/../../Tuist/.build/checkouts/SDWebImage/SDWebImage/Core",
-					"$(SRCROOT)/../../Tuist/.build/checkouts/SDWebImage/SDWebImage/Private",
-					"$(SRCROOT)/../../Tuist/.build/checkouts/SDWebImage/SDWebImage/include",
-				);
 				INFOPLIST_FILE = "Derived/InfoPlists/DesignSystem-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
@@ -596,15 +590,6 @@
 					"@loader_path/Frameworks",
 				);
 				MACH_O_TYPE = staticlib;
-				OTHER_CFLAGS = (
-					"$(inherited)",
-					"-fmodule-map-file=$(SRCROOT)/../../Tuist/.build/tuist-derived/SDWebImage/SDWebImage.modulemap",
-				);
-				OTHER_SWIFT_FLAGS = (
-					"$(inherited)",
-					"-Xcc",
-					"-fmodule-map-file=$(SRCROOT)/../../Tuist/.build/tuist-derived/SDWebImage/SDWebImage.modulemap",
-				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.newdok.designsystem;
 				PRODUCT_NAME = DesignSystem;
 				SDKROOT = iphoneos;
@@ -635,12 +620,6 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				HEADER_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(SRCROOT)/../../Tuist/.build/checkouts/SDWebImage/SDWebImage/Core",
-					"$(SRCROOT)/../../Tuist/.build/checkouts/SDWebImage/SDWebImage/Private",
-					"$(SRCROOT)/../../Tuist/.build/checkouts/SDWebImage/SDWebImage/include",
-				);
 				INFOPLIST_FILE = "Derived/InfoPlists/DesignSystem-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
@@ -650,15 +629,6 @@
 					"@loader_path/Frameworks",
 				);
 				MACH_O_TYPE = staticlib;
-				OTHER_CFLAGS = (
-					"$(inherited)",
-					"-fmodule-map-file=$(SRCROOT)/../../Tuist/.build/tuist-derived/SDWebImage/SDWebImage.modulemap",
-				);
-				OTHER_SWIFT_FLAGS = (
-					"$(inherited)",
-					"-Xcc",
-					"-fmodule-map-file=$(SRCROOT)/../../Tuist/.build/tuist-derived/SDWebImage/SDWebImage.modulemap",
-				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.newdok.designsystem;
 				PRODUCT_NAME = DesignSystem;
 				SDKROOT = iphoneos;

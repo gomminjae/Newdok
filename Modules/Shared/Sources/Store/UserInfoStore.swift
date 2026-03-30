@@ -8,20 +8,26 @@ import Foundation
 
 public final class UserInfoStore {
     public static let shared = UserInfoStore()
-    private let key = "local_user_info"
+
+    @KeychainCodableStored(key: "local_user_info")
+    private var persisted: UserInfo?
+
+    private var cached: UserInfo?
 
     public func save(_ user: UserInfo) {
-        let data = try? JSONEncoder().encode(user)
-        UserDefaults.standard.set(data, forKey: key)
+        cached = user
+        persisted = user
     }
 
     public func load() -> UserInfo? {
-        guard let data = UserDefaults.standard.data(forKey: key) else { return nil }
-        return try? JSONDecoder().decode(UserInfo.self, from: data)
+        if let cached { return cached }
+        cached = persisted
+        return cached
     }
 
     public func clear() {
-        UserDefaults.standard.removeObject(forKey: key)
+        cached = nil
+        persisted = nil
     }
     
     public var hasProfile: Bool {

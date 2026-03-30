@@ -10,25 +10,35 @@
 		0392BE3B9B3EFF4CDFDCF7D5 /* ArticleRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46845E4343A9BD010368908B /* ArticleRow.swift */; };
 		0B433E96036502589F160DC0 /* Kingfisher.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EDB4C3569E3D5CCC18BE7FD7 /* Kingfisher.framework */; };
 		0FC7D8641112F3785DC1F282 /* Shared.framework in Dependencies */ = {isa = PBXBuildFile; fileRef = 5D35F66BCBA8EB427B5DE027 /* Shared.framework */; };
+		19FB135DC85F1720C88C08C1 /* HomeViewFactoryImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8722628F71F4AF45216DAEDD /* HomeViewFactoryImpl.swift */; };
 		269DAC6E999F4D87706612D6 /* Home.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9290645AFD421A6E8E0A3C77 /* Home.framework */; };
+		26D2B1ABA6662DD651B51D5E /* HomeViewFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E0698C1B55A7B1F3D5F5734 /* HomeViewFactory.swift */; };
 		2B8F29F0ED90A533AB1AEC24 /* HomeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CADBDBCE22FDE304B4127596 /* HomeTests.swift */; };
 		30D2AC437EAEB059AF6636D7 /* DesignSystem.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8C3EBAC2F650C65DE1069CB5 /* DesignSystem.framework */; };
+		468EE7C2A17CEB07A48DA21F /* HomeInterface.framework in Dependencies */ = {isa = PBXBuildFile; fileRef = FD41FB3E0EEA6290D73279DC /* HomeInterface.framework */; };
 		5958A795220236D936B094E6 /* PopupView.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B81F80C2FEAA1107F2AE9F09 /* PopupView.framework */; };
 		5BC163E8AAE46124A7EEE0DC /* HomeMain.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF03E4A61F76015E77430AF5 /* HomeMain.swift */; };
 		6AF94EE489A31CAB497CC765 /* Shared.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5D35F66BCBA8EB427B5DE027 /* Shared.framework */; };
 		71030EF79D191BF92B54CA94 /* Domain.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 719F7A4D0214C31A88FDE196 /* Domain.framework */; };
 		7F1749E8E21F3F81E13A5F02 /* DesignSystem_DesignSystem.bundle in Resources */ = {isa = PBXBuildFile; fileRef = A393F8EFC0690F199B785B09 /* DesignSystem_DesignSystem.bundle */; };
 		A05BDC4C3F8D50C667469855 /* Domain.framework in Dependencies */ = {isa = PBXBuildFile; fileRef = 719F7A4D0214C31A88FDE196 /* Domain.framework */; };
+		B339BC4845A14E6E0BAE3A57 /* DefaultHomeBusinessUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 882AECC594E6EDE72E0F0332 /* DefaultHomeBusinessUseCase.swift */; };
 		B6924E20A9BF2A8861BA0F53 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B902ED9ABC9C57E5C6F9A2D /* HomeView.swift */; };
 		C279A57619B644F716EFC768 /* DesignSystem.framework in Dependencies */ = {isa = PBXBuildFile; fileRef = 8C3EBAC2F650C65DE1069CB5 /* DesignSystem.framework */; };
-		C4621CC3B7F237FCC89480CB /* SDWebImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A82656BFB969153B10734939 /* SDWebImage.framework */; };
 		CAEDE3EF78324D11746C2B1E /* DesignSystem_DesignSystem.bundle in Dependencies */ = {isa = PBXBuildFile; fileRef = A393F8EFC0690F199B785B09 /* DesignSystem_DesignSystem.bundle */; };
-		D389D3BFCC5162BF6BF2F449 /* SDWebImage_SDWebImage.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 288839B54CB18C6E0903651C /* SDWebImage_SDWebImage.bundle */; };
-		E0D05510B8ADFA2344AB601B /* SDWebImage_SDWebImage.bundle in Dependencies */ = {isa = PBXBuildFile; fileRef = 288839B54CB18C6E0903651C /* SDWebImage_SDWebImage.bundle */; };
+		F1BEF5C8BB6B840B8C8BA965 /* FetchHomeDataUseCaseImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCA10512249BBB9A10C5A0AF /* FetchHomeDataUseCaseImpl.swift */; };
+		F20DD9B47D3A079BB31C93C5 /* HomeInterface.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FD41FB3E0EEA6290D73279DC /* HomeInterface.framework */; };
 		FFC8FCCA16E79951DFD5AA8D /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAD2FE377459D687CCBCE3E0 /* HomeViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		075E8D20D3A1A6928720744C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F648A09DF594BC533BCA5FD3 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = A9EED54876D44D485F1EEB8D;
+			remoteInfo = HomeInterface;
+		};
 		F59260D8476FA45929EC249E /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = F648A09DF594BC533BCA5FD3 /* Project object */;
@@ -65,7 +75,6 @@
 			dstSubfolderSpec = 16;
 			files = (
 				CAEDE3EF78324D11746C2B1E /* DesignSystem_DesignSystem.bundle in Dependencies */,
-				E0D05510B8ADFA2344AB601B /* SDWebImage_SDWebImage.bundle in Dependencies */,
 			);
 			name = Dependencies;
 			runOnlyForDeploymentPostprocessing = 1;
@@ -77,34 +86,56 @@
 			files = (
 				C279A57619B644F716EFC768 /* DesignSystem.framework in Dependencies */,
 				A05BDC4C3F8D50C667469855 /* Domain.framework in Dependencies */,
+				468EE7C2A17CEB07A48DA21F /* HomeInterface.framework in Dependencies */,
 				0FC7D8641112F3785DC1F282 /* Shared.framework in Dependencies */,
 			);
 			name = Dependencies;
 			runOnlyForDeploymentPostprocessing = 1;
 		};
+		94F3D35420D021522FC0F7EA /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		016FDC511C6D703D44CFE3D6 /* HomeTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "HomeTests-Info.plist"; sourceTree = "<group>"; };
-		288839B54CB18C6E0903651C /* SDWebImage_SDWebImage.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SDWebImage_SDWebImage.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
 		3E27707CF3AF39D07540B293 /* HomeTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HomeTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		46845E4343A9BD010368908B /* ArticleRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleRow.swift; sourceTree = "<group>"; };
 		4B902ED9ABC9C57E5C6F9A2D /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		5D35F66BCBA8EB427B5DE027 /* Shared.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Shared.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		5E0698C1B55A7B1F3D5F5734 /* HomeViewFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewFactory.swift; sourceTree = "<group>"; };
 		61EC700930D1096A1F12C0D7 /* Home-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "Home-Info.plist"; sourceTree = "<group>"; };
 		719F7A4D0214C31A88FDE196 /* Domain.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Domain.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		8722628F71F4AF45216DAEDD /* HomeViewFactoryImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewFactoryImpl.swift; sourceTree = "<group>"; };
+		882AECC594E6EDE72E0F0332 /* DefaultHomeBusinessUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultHomeBusinessUseCase.swift; sourceTree = "<group>"; };
 		8C3EBAC2F650C65DE1069CB5 /* DesignSystem.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = DesignSystem.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9290645AFD421A6E8E0A3C77 /* Home.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Home.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A393F8EFC0690F199B785B09 /* DesignSystem_DesignSystem.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DesignSystem_DesignSystem.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
-		A82656BFB969153B10734939 /* SDWebImage.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SDWebImage.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B81F80C2FEAA1107F2AE9F09 /* PopupView.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = PopupView.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		BCA10512249BBB9A10C5A0AF /* FetchHomeDataUseCaseImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchHomeDataUseCaseImpl.swift; sourceTree = "<group>"; };
 		CADBDBCE22FDE304B4127596 /* HomeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTests.swift; sourceTree = "<group>"; };
 		CF03E4A61F76015E77430AF5 /* HomeMain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeMain.swift; sourceTree = "<group>"; };
+		E924CB9177B075225BE1FDCE /* HomeInterface-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "HomeInterface-Info.plist"; sourceTree = "<group>"; };
 		EAD2FE377459D687CCBCE3E0 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		EDB4C3569E3D5CCC18BE7FD7 /* Kingfisher.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Kingfisher.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		FD41FB3E0EEA6290D73279DC /* HomeInterface.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = HomeInterface.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		81C2763196D7882FE3066343 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		989FE4D10E5FABD20EDC2D85 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -119,9 +150,9 @@
 				30D2AC437EAEB059AF6636D7 /* DesignSystem.framework in Frameworks */,
 				71030EF79D191BF92B54CA94 /* Domain.framework in Frameworks */,
 				269DAC6E999F4D87706612D6 /* Home.framework in Frameworks */,
+				F20DD9B47D3A079BB31C93C5 /* HomeInterface.framework in Frameworks */,
 				0B433E96036502589F160DC0 /* Kingfisher.framework in Frameworks */,
 				5958A795220236D936B094E6 /* PopupView.framework in Frameworks */,
-				C4621CC3B7F237FCC89480CB /* SDWebImage.framework in Frameworks */,
 				6AF94EE489A31CAB497CC765 /* Shared.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -136,14 +167,21 @@
 				8C3EBAC2F650C65DE1069CB5 /* DesignSystem.framework */,
 				719F7A4D0214C31A88FDE196 /* Domain.framework */,
 				9290645AFD421A6E8E0A3C77 /* Home.framework */,
+				FD41FB3E0EEA6290D73279DC /* HomeInterface.framework */,
 				3E27707CF3AF39D07540B293 /* HomeTests.xctest */,
 				EDB4C3569E3D5CCC18BE7FD7 /* Kingfisher.framework */,
 				B81F80C2FEAA1107F2AE9F09 /* PopupView.framework */,
-				288839B54CB18C6E0903651C /* SDWebImage_SDWebImage.bundle */,
-				A82656BFB969153B10734939 /* SDWebImage.framework */,
 				5D35F66BCBA8EB427B5DE027 /* Shared.framework */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		1B97398930726B411D706BC6 /* Sources */ = {
+			isa = PBXGroup;
+			children = (
+				5E0698C1B55A7B1F3D5F5734 /* HomeViewFactory.swift */,
+			);
+			path = Sources;
 			sourceTree = "<group>";
 		};
 		400DC7E225B26D6ADA5EE8F1 /* Tests */ = {
@@ -152,6 +190,15 @@
 				CADBDBCE22FDE304B4127596 /* HomeTests.swift */,
 			);
 			path = Tests;
+			sourceTree = "<group>";
+		};
+		495D0C5FA6473D79BABA1BB3 /* UseCase */ = {
+			isa = PBXGroup;
+			children = (
+				882AECC594E6EDE72E0F0332 /* DefaultHomeBusinessUseCase.swift */,
+				BCA10512249BBB9A10C5A0AF /* FetchHomeDataUseCaseImpl.swift */,
+			);
+			path = UseCase;
 			sourceTree = "<group>";
 		};
 		513D06EA886693B1B32A984C /* Home */ = {
@@ -180,10 +227,19 @@
 			);
 			sourceTree = "<group>";
 		};
+		9B13DC26BDB1B49E6D8E45E3 /* Interface */ = {
+			isa = PBXGroup;
+			children = (
+				1B97398930726B411D706BC6 /* Sources */,
+			);
+			path = Interface;
+			sourceTree = "<group>";
+		};
 		A0406DFCF5F3BCA58AF39988 /* Project */ = {
 			isa = PBXGroup;
 			children = (
 				70BB71A4919E9DCCA3DEA54A /* Derived */,
+				9B13DC26BDB1B49E6D8E45E3 /* Interface */,
 				B74810073A3D8A4993EE22B2 /* Sources */,
 				400DC7E225B26D6ADA5EE8F1 /* Tests */,
 			);
@@ -194,7 +250,9 @@
 			isa = PBXGroup;
 			children = (
 				513D06EA886693B1B32A984C /* Home */,
+				495D0C5FA6473D79BABA1BB3 /* UseCase */,
 				CF03E4A61F76015E77430AF5 /* HomeMain.swift */,
+				8722628F71F4AF45216DAEDD /* HomeViewFactoryImpl.swift */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -203,6 +261,7 @@
 			isa = PBXGroup;
 			children = (
 				61EC700930D1096A1F12C0D7 /* Home-Info.plist */,
+				E924CB9177B075225BE1FDCE /* HomeInterface-Info.plist */,
 				016FDC511C6D703D44CFE3D6 /* HomeTests-Info.plist */,
 			);
 			path = InfoPlists;
@@ -224,12 +283,33 @@
 			buildRules = (
 			);
 			dependencies = (
+				B2699962942C0C2D0BE9BE8B /* PBXTargetDependency */,
 			);
 			name = Home;
 			packageProductDependencies = (
 			);
 			productName = Home;
 			productReference = 9290645AFD421A6E8E0A3C77 /* Home.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		A9EED54876D44D485F1EEB8D /* HomeInterface */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B1384C962DE16758FEAAC13C /* Build configuration list for PBXNativeTarget "HomeInterface" */;
+			buildPhases = (
+				FEB34E1997958A9F6F59D396 /* Sources */,
+				A3219D7E2ED1B5A5F6147CDF /* Resources */,
+				81C2763196D7882FE3066343 /* Frameworks */,
+				94F3D35420D021522FC0F7EA /* Embed Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = HomeInterface;
+			packageProductDependencies = (
+			);
+			productName = HomeInterface;
+			productReference = FD41FB3E0EEA6290D73279DC /* HomeInterface.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 		AF31213DA71B06E9B09EA3F0 /* HomeTests */ = {
@@ -279,6 +359,7 @@
 			projectRoot = "";
 			targets = (
 				52E844066D197E3B81FA748F /* Home */,
+				A9EED54876D44D485F1EEB8D /* HomeInterface */,
 				AF31213DA71B06E9B09EA3F0 /* HomeTests */,
 			);
 		};
@@ -297,7 +378,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				7F1749E8E21F3F81E13A5F02 /* DesignSystem_DesignSystem.bundle in Resources */,
-				D389D3BFCC5162BF6BF2F449 /* SDWebImage_SDWebImage.bundle in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A3219D7E2ED1B5A5F6147CDF /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -312,6 +399,9 @@
 				B6924E20A9BF2A8861BA0F53 /* HomeView.swift in Sources */,
 				FFC8FCCA16E79951DFD5AA8D /* HomeViewModel.swift in Sources */,
 				5BC163E8AAE46124A7EEE0DC /* HomeMain.swift in Sources */,
+				19FB135DC85F1720C88C08C1 /* HomeViewFactoryImpl.swift in Sources */,
+				B339BC4845A14E6E0BAE3A57 /* DefaultHomeBusinessUseCase.swift in Sources */,
+				F1BEF5C8BB6B840B8C8BA965 /* FetchHomeDataUseCaseImpl.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -323,9 +413,23 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		FEB34E1997958A9F6F59D396 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				26D2B1ABA6662DD651B51D5E /* HomeViewFactory.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		B2699962942C0C2D0BE9BE8B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = HomeInterface;
+			target = A9EED54876D44D485F1EEB8D /* HomeInterface */;
+			targetProxy = 075E8D20D3A1A6928720744C /* PBXContainerItemProxy */;
+		};
 		E36DF25B0B5D8E224B93FC24 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = Home;
@@ -335,6 +439,41 @@
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
+		102DFA13CA538BD3FE4507E3 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = "Derived/InfoPlists/HomeInterface-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MACH_O_TYPE = staticlib;
+				PRODUCT_BUNDLE_IDENTIFIER = com.newdok.home.interface;
+				PRODUCT_NAME = HomeInterface;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_STRICT_CONCURRENCY = complete;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
 		1B0052CC5DCDA316E217CB85 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -344,12 +483,6 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				HEADER_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(SRCROOT)/../../../Tuist/.build/checkouts/SDWebImage/SDWebImage/Core",
-					"$(SRCROOT)/../../../Tuist/.build/checkouts/SDWebImage/SDWebImage/Private",
-					"$(SRCROOT)/../../../Tuist/.build/checkouts/SDWebImage/SDWebImage/include",
-				);
 				INFOPLIST_FILE = "Derived/InfoPlists/Home-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
@@ -359,15 +492,6 @@
 					"@loader_path/Frameworks",
 				);
 				MACH_O_TYPE = staticlib;
-				OTHER_CFLAGS = (
-					"$(inherited)",
-					"-fmodule-map-file=$(SRCROOT)/../../../Tuist/.build/tuist-derived/SDWebImage/SDWebImage.modulemap",
-				);
-				OTHER_SWIFT_FLAGS = (
-					"$(inherited)",
-					"-Xcc",
-					"-fmodule-map-file=$(SRCROOT)/../../../Tuist/.build/tuist-derived/SDWebImage/SDWebImage.modulemap",
-				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.newdok.home;
 				PRODUCT_NAME = Home;
 				SDKROOT = iphoneos;
@@ -449,6 +573,45 @@
 			};
 			name = Debug;
 		};
+		6CF9FF65A8F1F60E2C419F88 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = "Derived/InfoPlists/HomeInterface-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MACH_O_TYPE = staticlib;
+				PRODUCT_BUNDLE_IDENTIFIER = com.newdok.home.interface;
+				PRODUCT_NAME = HomeInterface;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = (
+					"$(inherited)",
+					DEBUG,
+				);
+				SWIFT_COMPILATION_MODE = singlefile;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_STRICT_CONCURRENCY = complete;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
 		A0D499078A2C717F0427DEEC /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -458,12 +621,6 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				HEADER_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(SRCROOT)/../../../Tuist/.build/checkouts/SDWebImage/SDWebImage/Core",
-					"$(SRCROOT)/../../../Tuist/.build/checkouts/SDWebImage/SDWebImage/Private",
-					"$(SRCROOT)/../../../Tuist/.build/checkouts/SDWebImage/SDWebImage/include",
-				);
 				INFOPLIST_FILE = "Derived/InfoPlists/Home-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
@@ -473,15 +630,6 @@
 					"@loader_path/Frameworks",
 				);
 				MACH_O_TYPE = staticlib;
-				OTHER_CFLAGS = (
-					"$(inherited)",
-					"-fmodule-map-file=$(SRCROOT)/../../../Tuist/.build/tuist-derived/SDWebImage/SDWebImage.modulemap",
-				);
-				OTHER_SWIFT_FLAGS = (
-					"$(inherited)",
-					"-Xcc",
-					"-fmodule-map-file=$(SRCROOT)/../../../Tuist/.build/tuist-derived/SDWebImage/SDWebImage.modulemap",
-				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.newdok.home;
 				PRODUCT_NAME = Home;
 				SDKROOT = iphoneos;
@@ -504,31 +652,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				HEADER_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(SRCROOT)/../../../Tuist/.build/checkouts/SDWebImage/SDWebImage/Core",
-					"$(SRCROOT)/../../../Tuist/.build/checkouts/SDWebImage/SDWebImage/Private",
-					"$(SRCROOT)/../../../Tuist/.build/checkouts/SDWebImage/SDWebImage/include",
-				);
 				INFOPLIST_FILE = "Derived/InfoPlists/HomeTests-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
-				);
-				OTHER_CFLAGS = (
-					"$(inherited)",
-					"-fmodule-map-file=$(SRCROOT)/../../../Tuist/.build/tuist-derived/SDWebImage/SDWebImage.modulemap",
-				);
-				OTHER_LDFLAGS = (
-					"$(inherited)",
-					"-L$(DT_TOOLCHAIN_DIR)/usr/lib/swift/$(PLATFORM_NAME)",
-				);
-				OTHER_SWIFT_FLAGS = (
-					"$(inherited)",
-					"-Xcc",
-					"-fmodule-map-file=$(SRCROOT)/../../../Tuist/.build/tuist-derived/SDWebImage/SDWebImage.modulemap",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.newdok.home.tests;
 				PRODUCT_NAME = HomeTests;
@@ -547,31 +676,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				HEADER_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(SRCROOT)/../../../Tuist/.build/checkouts/SDWebImage/SDWebImage/Core",
-					"$(SRCROOT)/../../../Tuist/.build/checkouts/SDWebImage/SDWebImage/Private",
-					"$(SRCROOT)/../../../Tuist/.build/checkouts/SDWebImage/SDWebImage/include",
-				);
 				INFOPLIST_FILE = "Derived/InfoPlists/HomeTests-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
-				);
-				OTHER_CFLAGS = (
-					"$(inherited)",
-					"-fmodule-map-file=$(SRCROOT)/../../../Tuist/.build/tuist-derived/SDWebImage/SDWebImage.modulemap",
-				);
-				OTHER_LDFLAGS = (
-					"$(inherited)",
-					"-L$(DT_TOOLCHAIN_DIR)/usr/lib/swift/$(PLATFORM_NAME)",
-				);
-				OTHER_SWIFT_FLAGS = (
-					"$(inherited)",
-					"-Xcc",
-					"-fmodule-map-file=$(SRCROOT)/../../../Tuist/.build/tuist-derived/SDWebImage/SDWebImage.modulemap",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.newdok.home.tests;
 				PRODUCT_NAME = HomeTests;
@@ -651,6 +761,15 @@
 			buildConfigurations = (
 				5B23AD7BA110686AF5014647 /* Debug */,
 				EBE000C2C15A2514D251F457 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		B1384C962DE16758FEAAC13C /* Build configuration list for PBXNativeTarget "HomeInterface" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				6CF9FF65A8F1F60E2C419F88 /* Debug */,
+				102DFA13CA538BD3FE4507E3 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

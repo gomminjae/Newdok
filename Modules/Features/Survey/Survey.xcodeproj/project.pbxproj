@@ -9,14 +9,11 @@
 /* Begin PBXBuildFile section */
 		0841DB1B6F368AFD210ABB96 /* DesignSystem_DesignSystem.bundle in Dependencies */ = {isa = PBXBuildFile; fileRef = 93BD14D6C16F0C67E8146021 /* DesignSystem_DesignSystem.bundle */; };
 		1DDA834EAD852F7E6B8F157A /* Core.framework in Dependencies */ = {isa = PBXBuildFile; fileRef = FD12E525B40E5B3171F7E530 /* Core.framework */; };
-		30E38E7D55799F213AD60DFF /* SDWebImage_SDWebImage.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 3A57AD50A0BC48299D30E2A2 /* SDWebImage_SDWebImage.bundle */; };
-		32061DCA3F32C6148654C91A /* SDWebImage_SDWebImage.bundle in Dependencies */ = {isa = PBXBuildFile; fileRef = 3A57AD50A0BC48299D30E2A2 /* SDWebImage_SDWebImage.bundle */; };
 		5DB9D1ECE7941826FD6E377F /* Core.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FD12E525B40E5B3171F7E530 /* Core.framework */; };
 		5F1608186749089C760FC0C9 /* Moya.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2225B51F29CB2FA5A72B9D33 /* Moya.framework */; };
 		5F3D03F26D9A581F37632380 /* Shared.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8E6E7B87B988E328C1EE62A /* Shared.framework */; };
 		6BF318CB53D3DAA1314276C4 /* DesignSystem_DesignSystem.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 93BD14D6C16F0C67E8146021 /* DesignSystem_DesignSystem.bundle */; };
 		9833FA7C028A586DED7F9E1F /* Kingfisher.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C0AF2E88D48C7E38E1B898A9 /* Kingfisher.framework */; };
-		A13AF89E97AF51FFE98C1ACA /* SDWebImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A2A5799D46D3C5722B35B76 /* SDWebImage.framework */; };
 		ADAB00D90C745D1B520C70BD /* SurveyMain.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1957E61D0F92B13C9D06D9C /* SurveyMain.swift */; };
 		B173CF7EDFA0725851501A4D /* SurveyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23A050A6322FE1A422FE3045 /* SurveyTests.swift */; };
 		D87034D43CB8E170E06B5B99 /* PopupView.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EB4280D393BFDC1132DD38D9 /* PopupView.framework */; };
@@ -44,7 +41,6 @@
 			files = (
 				E5CEE469D4C8E522AC118F7A /* Alamofire_Alamofire.bundle in Dependencies */,
 				0841DB1B6F368AFD210ABB96 /* DesignSystem_DesignSystem.bundle in Dependencies */,
-				32061DCA3F32C6148654C91A /* SDWebImage_SDWebImage.bundle in Dependencies */,
 			);
 			name = Dependencies;
 			runOnlyForDeploymentPostprocessing = 1;
@@ -86,12 +82,10 @@
 		2225B51F29CB2FA5A72B9D33 /* Moya.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Moya.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		23A050A6322FE1A422FE3045 /* SurveyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SurveyTests.swift; sourceTree = "<group>"; };
 		2E18116300A883065B14493E /* Alamofire_Alamofire.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Alamofire_Alamofire.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
-		3A57AD50A0BC48299D30E2A2 /* SDWebImage_SDWebImage.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SDWebImage_SDWebImage.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
 		4FF035E9E7D35EB77233BFDE /* SurveyTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "SurveyTests-Info.plist"; sourceTree = "<group>"; };
 		727F7D83813FA7F64C222B0F /* SurveyTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SurveyTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		8978804A1885621F914F866A /* Survey.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Survey.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		93BD14D6C16F0C67E8146021 /* DesignSystem_DesignSystem.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DesignSystem_DesignSystem.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
-		9A2A5799D46D3C5722B35B76 /* SDWebImage.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SDWebImage.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C0AF2E88D48C7E38E1B898A9 /* Kingfisher.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Kingfisher.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CF891DF34D4455956C2DCD87 /* DesignSystem.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = DesignSystem.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D1957E61D0F92B13C9D06D9C /* SurveyMain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SurveyMain.swift; sourceTree = "<group>"; };
@@ -110,7 +104,6 @@
 				9833FA7C028A586DED7F9E1F /* Kingfisher.framework in Frameworks */,
 				5F1608186749089C760FC0C9 /* Moya.framework in Frameworks */,
 				D87034D43CB8E170E06B5B99 /* PopupView.framework in Frameworks */,
-				A13AF89E97AF51FFE98C1ACA /* SDWebImage.framework in Frameworks */,
 				5F3D03F26D9A581F37632380 /* Shared.framework in Frameworks */,
 				F28C9E3265EBCF43415D36C3 /* Survey.framework in Frameworks */,
 			);
@@ -162,8 +155,6 @@
 				C0AF2E88D48C7E38E1B898A9 /* Kingfisher.framework */,
 				2225B51F29CB2FA5A72B9D33 /* Moya.framework */,
 				EB4280D393BFDC1132DD38D9 /* PopupView.framework */,
-				3A57AD50A0BC48299D30E2A2 /* SDWebImage_SDWebImage.bundle */,
-				9A2A5799D46D3C5722B35B76 /* SDWebImage.framework */,
 				D8E6E7B87B988E328C1EE62A /* Shared.framework */,
 				8978804A1885621F914F866A /* Survey.framework */,
 				727F7D83813FA7F64C222B0F /* SurveyTests.xctest */,
@@ -279,7 +270,6 @@
 			files = (
 				D91145D7137B7232F21DCD8E /* Alamofire_Alamofire.bundle in Resources */,
 				6BF318CB53D3DAA1314276C4 /* DesignSystem_DesignSystem.bundle in Resources */,
-				30E38E7D55799F213AD60DFF /* SDWebImage_SDWebImage.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -384,31 +374,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				HEADER_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(SRCROOT)/../../../Tuist/.build/checkouts/SDWebImage/SDWebImage/Core",
-					"$(SRCROOT)/../../../Tuist/.build/checkouts/SDWebImage/SDWebImage/Private",
-					"$(SRCROOT)/../../../Tuist/.build/checkouts/SDWebImage/SDWebImage/include",
-				);
 				INFOPLIST_FILE = "Derived/InfoPlists/SurveyTests-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
-				);
-				OTHER_CFLAGS = (
-					"$(inherited)",
-					"-fmodule-map-file=$(SRCROOT)/../../../Tuist/.build/tuist-derived/SDWebImage/SDWebImage.modulemap",
-				);
-				OTHER_LDFLAGS = (
-					"$(inherited)",
-					"-L$(DT_TOOLCHAIN_DIR)/usr/lib/swift/$(PLATFORM_NAME)",
-				);
-				OTHER_SWIFT_FLAGS = (
-					"$(inherited)",
-					"-Xcc",
-					"-fmodule-map-file=$(SRCROOT)/../../../Tuist/.build/tuist-derived/SDWebImage/SDWebImage.modulemap",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.newdok.survey.tests;
 				PRODUCT_NAME = SurveyTests;
@@ -558,31 +529,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				HEADER_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(SRCROOT)/../../../Tuist/.build/checkouts/SDWebImage/SDWebImage/Core",
-					"$(SRCROOT)/../../../Tuist/.build/checkouts/SDWebImage/SDWebImage/Private",
-					"$(SRCROOT)/../../../Tuist/.build/checkouts/SDWebImage/SDWebImage/include",
-				);
 				INFOPLIST_FILE = "Derived/InfoPlists/SurveyTests-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
-				);
-				OTHER_CFLAGS = (
-					"$(inherited)",
-					"-fmodule-map-file=$(SRCROOT)/../../../Tuist/.build/tuist-derived/SDWebImage/SDWebImage.modulemap",
-				);
-				OTHER_LDFLAGS = (
-					"$(inherited)",
-					"-L$(DT_TOOLCHAIN_DIR)/usr/lib/swift/$(PLATFORM_NAME)",
-				);
-				OTHER_SWIFT_FLAGS = (
-					"$(inherited)",
-					"-Xcc",
-					"-fmodule-map-file=$(SRCROOT)/../../../Tuist/.build/tuist-derived/SDWebImage/SDWebImage.modulemap",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.newdok.survey.tests;
 				PRODUCT_NAME = SurveyTests;

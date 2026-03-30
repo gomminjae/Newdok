@@ -7,25 +7,21 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		06E58ABB773127D0F498C110 /* SDWebImage_SDWebImage.bundle in Dependencies */ = {isa = PBXBuildFile; fileRef = 4A44B3CEFFDEB5B3A140EA29 /* SDWebImage_SDWebImage.bundle */; };
-		08D6182E3B0058349D16B62C /* Moya.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BBDAD9B03D0FE88C4A5BAE13 /* Moya.framework */; };
 		0B55C607E32BA0CA157B3BDA /* DesignSystem.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9229787BA766DFA18583ABFA /* DesignSystem.framework */; };
 		113F0CBB242B95E70E2B695B /* PopupView.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA5E611CA9D5AA49AF6715E1 /* PopupView.framework */; };
 		1AEFE7FA6BB5863FD0BA5386 /* LaunchMain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A44DF136146F6B9A83C6AB1 /* LaunchMain.swift */; };
 		20F3FEBE364914EB1EF8A480 /* DesignSystem_DesignSystem.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 33C3A825E35B81636156DB43 /* DesignSystem_DesignSystem.bundle */; };
-		3100D54AF389EC3718E1A2C9 /* Alamofire_Alamofire.bundle in Dependencies */ = {isa = PBXBuildFile; fileRef = 9344A38258BFFA11347A61B2 /* Alamofire_Alamofire.bundle */; };
-		36B3EFC6EF9DD7BF9CBB0CF9 /* Core.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7C03280DB77DA22A6B325D20 /* Core.framework */; };
-		43A5A462F575DCC9E67C36FA /* SDWebImage_SDWebImage.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 4A44B3CEFFDEB5B3A140EA29 /* SDWebImage_SDWebImage.bundle */; };
 		43DAFA287C241F9A81F3F9A6 /* Shared.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAD73AE618B7002C6F84BF4C /* Shared.framework */; };
 		45B48283F14B7CAE2E5F4216 /* Kingfisher.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C483202D74E2B6F40348B08 /* Kingfisher.framework */; };
-		52AC7A0F335A9275935DCE72 /* Core.framework in Dependencies */ = {isa = PBXBuildFile; fileRef = 7C03280DB77DA22A6B325D20 /* Core.framework */; };
-		54E628E567614EB1276AF953 /* SDWebImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22DCB891624A8204347D32B4 /* SDWebImage.framework */; };
 		91E7FC6828BFD26C633D7876 /* DesignSystem_DesignSystem.bundle in Dependencies */ = {isa = PBXBuildFile; fileRef = 33C3A825E35B81636156DB43 /* DesignSystem_DesignSystem.bundle */; };
 		988A639C908D85348FA3C893 /* SplashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AB4BC8E5564382493B0CEDB /* SplashView.swift */; };
+		9A4DBE0E24EAAFFBEB54354C /* LaunchInterface.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 305BE5FAD756EB0981AE448A /* LaunchInterface.framework */; };
 		9B8DE9786A8471253B1F77E3 /* DesignSystem.framework in Dependencies */ = {isa = PBXBuildFile; fileRef = 9229787BA766DFA18583ABFA /* DesignSystem.framework */; };
 		A7AB08F321F5FB1D2A837467 /* Launch.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CAE9D80105EE847E612B7E64 /* Launch.framework */; };
 		B1F79015784E7B2762AE008B /* LaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C397ED87CA36DDB17BA0A60 /* LaunchTests.swift */; };
-		BCF445D4EA85A0BA0458A5FC /* Alamofire_Alamofire.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 9344A38258BFFA11347A61B2 /* Alamofire_Alamofire.bundle */; };
+		CED0B87B293B504648CFAEF9 /* LaunchInterface.framework in Dependencies */ = {isa = PBXBuildFile; fileRef = 305BE5FAD756EB0981AE448A /* LaunchInterface.framework */; };
+		E539C3DF8F6013955627F594 /* LaunchViewFactoryImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59E54D6EA9CEACA2379E4DA4 /* LaunchViewFactoryImpl.swift */; };
+		FBBE8990FCDC354915F75A61 /* LaunchViewFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57C6632004CFCD89734E3716 /* LaunchViewFactory.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,6 +32,13 @@
 			remoteGlobalIDString = 74131FA0A8CF20351DC20C20;
 			remoteInfo = Launch;
 		};
+		9F6D4D6B1C4F15CE0D8C9182 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 47995782CDA5C0A5A948839D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 97FCB05A057ADEF3610B54C2;
+			remoteInfo = LaunchInterface;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -44,9 +47,7 @@
 			buildActionMask = 8;
 			dstSubfolderSpec = 16;
 			files = (
-				3100D54AF389EC3718E1A2C9 /* Alamofire_Alamofire.bundle in Dependencies */,
 				91E7FC6828BFD26C633D7876 /* DesignSystem_DesignSystem.bundle in Dependencies */,
-				06E58ABB773127D0F498C110 /* SDWebImage_SDWebImage.bundle in Dependencies */,
 			);
 			name = Dependencies;
 			runOnlyForDeploymentPostprocessing = 1;
@@ -66,8 +67,8 @@
 			buildActionMask = 8;
 			dstSubfolderSpec = 16;
 			files = (
-				52AC7A0F335A9275935DCE72 /* Core.framework in Dependencies */,
 				9B8DE9786A8471253B1F77E3 /* DesignSystem.framework in Dependencies */,
+				CED0B87B293B504648CFAEF9 /* LaunchInterface.framework in Dependencies */,
 			);
 			name = Dependencies;
 			runOnlyForDeploymentPostprocessing = 1;
@@ -82,29 +83,45 @@
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		E25D711F41C0EB9E5E52CCFF /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		0AB4BC8E5564382493B0CEDB /* SplashView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashView.swift; sourceTree = "<group>"; };
 		0C397ED87CA36DDB17BA0A60 /* LaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchTests.swift; sourceTree = "<group>"; };
-		22DCB891624A8204347D32B4 /* SDWebImage.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SDWebImage.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		305BE5FAD756EB0981AE448A /* LaunchInterface.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = LaunchInterface.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		33C3A825E35B81636156DB43 /* DesignSystem_DesignSystem.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DesignSystem_DesignSystem.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
 		45D9FF020D2DC8F6DABC4415 /* LaunchTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "LaunchTests-Info.plist"; sourceTree = "<group>"; };
-		4A44B3CEFFDEB5B3A140EA29 /* SDWebImage_SDWebImage.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SDWebImage_SDWebImage.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
 		4C483202D74E2B6F40348B08 /* Kingfisher.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Kingfisher.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		7C03280DB77DA22A6B325D20 /* Core.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Core.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		57C6632004CFCD89734E3716 /* LaunchViewFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchViewFactory.swift; sourceTree = "<group>"; };
+		59E54D6EA9CEACA2379E4DA4 /* LaunchViewFactoryImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchViewFactoryImpl.swift; sourceTree = "<group>"; };
 		9229787BA766DFA18583ABFA /* DesignSystem.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = DesignSystem.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		9344A38258BFFA11347A61B2 /* Alamofire_Alamofire.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Alamofire_Alamofire.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
 		9A44DF136146F6B9A83C6AB1 /* LaunchMain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchMain.swift; sourceTree = "<group>"; };
 		AA5E611CA9D5AA49AF6715E1 /* PopupView.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = PopupView.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		AC4967EE7A92B6BB12AC145D /* LaunchInterface-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "LaunchInterface-Info.plist"; sourceTree = "<group>"; };
 		BB93BCF98AEAFC697627D166 /* Launch-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "Launch-Info.plist"; sourceTree = "<group>"; };
-		BBDAD9B03D0FE88C4A5BAE13 /* Moya.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Moya.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CAE9D80105EE847E612B7E64 /* Launch.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Launch.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F1768C712EE5D323E4A22AF4 /* LaunchTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LaunchTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		FAD73AE618B7002C6F84BF4C /* Shared.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Shared.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		47642D60C09B2C6C5D141E7D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		610F67C5679EE4F65D75E231 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -116,13 +133,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				36B3EFC6EF9DD7BF9CBB0CF9 /* Core.framework in Frameworks */,
 				0B55C607E32BA0CA157B3BDA /* DesignSystem.framework in Frameworks */,
 				45B48283F14B7CAE2E5F4216 /* Kingfisher.framework in Frameworks */,
 				A7AB08F321F5FB1D2A837467 /* Launch.framework in Frameworks */,
-				08D6182E3B0058349D16B62C /* Moya.framework in Frameworks */,
+				9A4DBE0E24EAAFFBEB54354C /* LaunchInterface.framework in Frameworks */,
 				113F0CBB242B95E70E2B695B /* PopupView.framework in Frameworks */,
-				54E628E567614EB1276AF953 /* SDWebImage.framework in Frameworks */,
 				43DAFA287C241F9A81F3F9A6 /* Shared.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -143,6 +158,7 @@
 			children = (
 				122A7DDF4ACC02D14ACE9C69 /* Splash */,
 				9A44DF136146F6B9A83C6AB1 /* LaunchMain.swift */,
+				59E54D6EA9CEACA2379E4DA4 /* LaunchViewFactoryImpl.swift */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -151,6 +167,7 @@
 			isa = PBXGroup;
 			children = (
 				9B4595BBFAD7CCC665CC64B1 /* Derived */,
+				F3E9E16202FEBAD8AA2607C5 /* Interface */,
 				32BB0A50F283EF17265D91A0 /* Sources */,
 				BC845FB878380BC671467AC6 /* Tests */,
 			);
@@ -173,6 +190,14 @@
 			path = Derived;
 			sourceTree = "<group>";
 		};
+		A9CE9BAFB678BEC5598727BA /* Sources */ = {
+			isa = PBXGroup;
+			children = (
+				57C6632004CFCD89734E3716 /* LaunchViewFactory.swift */,
+			);
+			path = Sources;
+			sourceTree = "<group>";
+		};
 		BC845FB878380BC671467AC6 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
@@ -184,17 +209,13 @@
 		DAD3AD821D47FA47C1C68E93 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				9344A38258BFFA11347A61B2 /* Alamofire_Alamofire.bundle */,
-				7C03280DB77DA22A6B325D20 /* Core.framework */,
 				33C3A825E35B81636156DB43 /* DesignSystem_DesignSystem.bundle */,
 				9229787BA766DFA18583ABFA /* DesignSystem.framework */,
 				4C483202D74E2B6F40348B08 /* Kingfisher.framework */,
 				CAE9D80105EE847E612B7E64 /* Launch.framework */,
+				305BE5FAD756EB0981AE448A /* LaunchInterface.framework */,
 				F1768C712EE5D323E4A22AF4 /* LaunchTests.xctest */,
-				BBDAD9B03D0FE88C4A5BAE13 /* Moya.framework */,
 				AA5E611CA9D5AA49AF6715E1 /* PopupView.framework */,
-				4A44B3CEFFDEB5B3A140EA29 /* SDWebImage_SDWebImage.bundle */,
-				22DCB891624A8204347D32B4 /* SDWebImage.framework */,
 				FAD73AE618B7002C6F84BF4C /* Shared.framework */,
 			);
 			name = Products;
@@ -204,9 +225,18 @@
 			isa = PBXGroup;
 			children = (
 				BB93BCF98AEAFC697627D166 /* Launch-Info.plist */,
+				AC4967EE7A92B6BB12AC145D /* LaunchInterface-Info.plist */,
 				45D9FF020D2DC8F6DABC4415 /* LaunchTests-Info.plist */,
 			);
 			path = InfoPlists;
+			sourceTree = "<group>";
+		};
+		F3E9E16202FEBAD8AA2607C5 /* Interface */ = {
+			isa = PBXGroup;
+			children = (
+				A9CE9BAFB678BEC5598727BA /* Sources */,
+			);
+			path = Interface;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -225,12 +255,33 @@
 			buildRules = (
 			);
 			dependencies = (
+				1830BC1B81EBED7C373487E5 /* PBXTargetDependency */,
 			);
 			name = Launch;
 			packageProductDependencies = (
 			);
 			productName = Launch;
 			productReference = CAE9D80105EE847E612B7E64 /* Launch.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		97FCB05A057ADEF3610B54C2 /* LaunchInterface */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A0EEA0F528EF500DD344DE59 /* Build configuration list for PBXNativeTarget "LaunchInterface" */;
+			buildPhases = (
+				E4BFC4FA6B13BFE357FE17F0 /* Sources */,
+				D8E37A0B9D1C2482F9F9D795 /* Resources */,
+				47642D60C09B2C6C5D141E7D /* Frameworks */,
+				E25D711F41C0EB9E5E52CCFF /* Embed Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = LaunchInterface;
+			packageProductDependencies = (
+			);
+			productName = LaunchInterface;
+			productReference = 305BE5FAD756EB0981AE448A /* LaunchInterface.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 		A5B58474C7423FAD1222B902 /* LaunchTests */ = {
@@ -280,6 +331,7 @@
 			projectRoot = "";
 			targets = (
 				74131FA0A8CF20351DC20C20 /* Launch */,
+				97FCB05A057ADEF3610B54C2 /* LaunchInterface */,
 				A5B58474C7423FAD1222B902 /* LaunchTests */,
 			);
 		};
@@ -290,13 +342,18 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BCF445D4EA85A0BA0458A5FC /* Alamofire_Alamofire.bundle in Resources */,
 				20F3FEBE364914EB1EF8A480 /* DesignSystem_DesignSystem.bundle in Resources */,
-				43A5A462F575DCC9E67C36FA /* SDWebImage_SDWebImage.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		D0AA979D909C4C6226996417 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D8E37A0B9D1C2482F9F9D795 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -311,6 +368,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1AEFE7FA6BB5863FD0BA5386 /* LaunchMain.swift in Sources */,
+				E539C3DF8F6013955627F594 /* LaunchViewFactoryImpl.swift in Sources */,
 				988A639C908D85348FA3C893 /* SplashView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -323,6 +381,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		E4BFC4FA6B13BFE357FE17F0 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FBBE8990FCDC354915F75A61 /* LaunchViewFactory.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -332,6 +398,12 @@
 			target = 74131FA0A8CF20351DC20C20 /* Launch */;
 			targetProxy = 3C3E7E346845A8FEEA856663 /* PBXContainerItemProxy */;
 		};
+		1830BC1B81EBED7C373487E5 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = LaunchInterface;
+			target = 97FCB05A057ADEF3610B54C2 /* LaunchInterface */;
+			targetProxy = 9F6D4D6B1C4F15CE0D8C9182 /* PBXContainerItemProxy */;
+		};
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
@@ -339,31 +411,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				HEADER_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(SRCROOT)/../../../Tuist/.build/checkouts/SDWebImage/SDWebImage/Core",
-					"$(SRCROOT)/../../../Tuist/.build/checkouts/SDWebImage/SDWebImage/Private",
-					"$(SRCROOT)/../../../Tuist/.build/checkouts/SDWebImage/SDWebImage/include",
-				);
 				INFOPLIST_FILE = "Derived/InfoPlists/LaunchTests-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
-				);
-				OTHER_CFLAGS = (
-					"$(inherited)",
-					"-fmodule-map-file=$(SRCROOT)/../../../Tuist/.build/tuist-derived/SDWebImage/SDWebImage.modulemap",
-				);
-				OTHER_LDFLAGS = (
-					"$(inherited)",
-					"-L$(DT_TOOLCHAIN_DIR)/usr/lib/swift/$(PLATFORM_NAME)",
-				);
-				OTHER_SWIFT_FLAGS = (
-					"$(inherited)",
-					"-Xcc",
-					"-fmodule-map-file=$(SRCROOT)/../../../Tuist/.build/tuist-derived/SDWebImage/SDWebImage.modulemap",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.newdok.launch.tests;
 				PRODUCT_NAME = LaunchTests;
@@ -377,6 +430,45 @@
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
+		};
+		739E4FF94412CC5F60A5AC26 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = "Derived/InfoPlists/LaunchInterface-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MACH_O_TYPE = staticlib;
+				PRODUCT_BUNDLE_IDENTIFIER = com.newdok.launch.interface;
+				PRODUCT_NAME = LaunchInterface;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = (
+					"$(inherited)",
+					DEBUG,
+				);
+				SWIFT_COMPILATION_MODE = singlefile;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_STRICT_CONCURRENCY = complete;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
 		};
 		7F077DE54F09D9A922D546FC /* Debug */ = {
 			isa = XCBuildConfiguration;
@@ -446,12 +538,6 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				HEADER_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(SRCROOT)/../../../Tuist/.build/checkouts/SDWebImage/SDWebImage/Core",
-					"$(SRCROOT)/../../../Tuist/.build/checkouts/SDWebImage/SDWebImage/Private",
-					"$(SRCROOT)/../../../Tuist/.build/checkouts/SDWebImage/SDWebImage/include",
-				);
 				INFOPLIST_FILE = "Derived/InfoPlists/Launch-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
@@ -461,15 +547,6 @@
 					"@loader_path/Frameworks",
 				);
 				MACH_O_TYPE = staticlib;
-				OTHER_CFLAGS = (
-					"$(inherited)",
-					"-fmodule-map-file=$(SRCROOT)/../../../Tuist/.build/tuist-derived/SDWebImage/SDWebImage.modulemap",
-				);
-				OTHER_SWIFT_FLAGS = (
-					"$(inherited)",
-					"-Xcc",
-					"-fmodule-map-file=$(SRCROOT)/../../../Tuist/.build/tuist-derived/SDWebImage/SDWebImage.modulemap",
-				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.newdok.launch;
 				PRODUCT_NAME = Launch;
 				SDKROOT = iphoneos;
@@ -500,12 +577,6 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				HEADER_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(SRCROOT)/../../../Tuist/.build/checkouts/SDWebImage/SDWebImage/Core",
-					"$(SRCROOT)/../../../Tuist/.build/checkouts/SDWebImage/SDWebImage/Private",
-					"$(SRCROOT)/../../../Tuist/.build/checkouts/SDWebImage/SDWebImage/include",
-				);
 				INFOPLIST_FILE = "Derived/InfoPlists/Launch-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
@@ -515,17 +586,43 @@
 					"@loader_path/Frameworks",
 				);
 				MACH_O_TYPE = staticlib;
-				OTHER_CFLAGS = (
-					"$(inherited)",
-					"-fmodule-map-file=$(SRCROOT)/../../../Tuist/.build/tuist-derived/SDWebImage/SDWebImage.modulemap",
-				);
-				OTHER_SWIFT_FLAGS = (
-					"$(inherited)",
-					"-Xcc",
-					"-fmodule-map-file=$(SRCROOT)/../../../Tuist/.build/tuist-derived/SDWebImage/SDWebImage.modulemap",
-				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.newdok.launch;
 				PRODUCT_NAME = Launch;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_STRICT_CONCURRENCY = complete;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		D235DDD151218CD64010548B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = "Derived/InfoPlists/LaunchInterface-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MACH_O_TYPE = staticlib;
+				PRODUCT_BUNDLE_IDENTIFIER = com.newdok.launch.interface;
+				PRODUCT_NAME = LaunchInterface;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 				SUPPORTS_MACCATALYST = NO;
@@ -545,31 +642,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				HEADER_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(SRCROOT)/../../../Tuist/.build/checkouts/SDWebImage/SDWebImage/Core",
-					"$(SRCROOT)/../../../Tuist/.build/checkouts/SDWebImage/SDWebImage/Private",
-					"$(SRCROOT)/../../../Tuist/.build/checkouts/SDWebImage/SDWebImage/include",
-				);
 				INFOPLIST_FILE = "Derived/InfoPlists/LaunchTests-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
-				);
-				OTHER_CFLAGS = (
-					"$(inherited)",
-					"-fmodule-map-file=$(SRCROOT)/../../../Tuist/.build/tuist-derived/SDWebImage/SDWebImage.modulemap",
-				);
-				OTHER_LDFLAGS = (
-					"$(inherited)",
-					"-L$(DT_TOOLCHAIN_DIR)/usr/lib/swift/$(PLATFORM_NAME)",
-				);
-				OTHER_SWIFT_FLAGS = (
-					"$(inherited)",
-					"-Xcc",
-					"-fmodule-map-file=$(SRCROOT)/../../../Tuist/.build/tuist-derived/SDWebImage/SDWebImage.modulemap",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.newdok.launch.tests;
 				PRODUCT_NAME = LaunchTests;
@@ -658,6 +736,15 @@
 			buildConfigurations = (
 				7F077DE54F09D9A922D546FC /* Debug */,
 				F95FFA5C9506CE9947DC15C1 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		A0EEA0F528EF500DD344DE59 /* Build configuration list for PBXNativeTarget "LaunchInterface" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				739E4FF94412CC5F60A5AC26 /* Debug */,
+				D235DDD151218CD64010548B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

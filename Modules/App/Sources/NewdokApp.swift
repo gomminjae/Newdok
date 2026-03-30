@@ -21,6 +21,9 @@ struct NewdokApp: App {
     @StateObject private var exploreIntent = ExploreIntent()
 
     init() {
+        // 앱 재설치 시 Keychain 잔여 데이터 정리
+        Self.cleanKeychainIfNeeded()
+
         // Firebase 초기화
         FirebaseApp.configure()
 
@@ -29,6 +32,15 @@ struct NewdokApp: App {
 
         // 에러 로깅 등록
         ErrorLoggerRegistry.register(CoreErrorLogger())
+    }
+
+    private static func cleanKeychainIfNeeded() {
+        let hasLaunchedKey = "hasLaunchedBefore"
+        if !UserDefaults.standard.bool(forKey: hasLaunchedKey) {
+            TokenStorage.clear()
+            UserInfoStore.shared.clear()
+            UserDefaults.standard.set(true, forKey: hasLaunchedKey)
+        }
     }
 
     var body: some Scene {

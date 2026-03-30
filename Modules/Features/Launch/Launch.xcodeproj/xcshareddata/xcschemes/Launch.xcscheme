@@ -20,6 +20,20 @@
                ReferencedContainer = "container:Launch.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "97FCB05A057ADEF3610B54C2"
+               BuildableName = "LaunchInterface.framework"
+               BlueprintName = "LaunchInterface"
+               ReferencedContainer = "container:Launch.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
       </BuildActionEntries>
    </BuildAction>
    <TestAction
