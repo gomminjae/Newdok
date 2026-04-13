@@ -1,0 +1,51 @@
+default_platform(:ios)
+
+platform :ios do
+  before_all do
+    sh("tuist", "install")
+    sh("tuist", "generate", "--no-open")
+  end
+
+  desc "인증서/프로비저닝 프로파일 동기화"
+  lane :sync_certs do
+    match(type: "appstore")
+  end
+
+  desc "TestFlight 배포"
+  lane :beta do
+    sync_certs
+
+    api_key = app_store_connect_api_key(
+      key_id: ENV["ASC_KEY_ID"],
+      issuer_id: ENV["ASC_ISSUER_ID"],
+      key_filepath: ENV["ASC_KEY_FILEPATH"],
+    )
+
+    increment_build_number(
+      build_number: latest_testflight_build_number(api_key: api_key) + 1,
+      xcodeproj: "Modules/App/App.xcodeproj"
+    )
+
+    build_app(
+      workspace: "Newdok.xcworkspace",
+      scheme: "Newdok",
+      configuration: "Release",
+      export_method: "app-store",
+      clean: true
+    )
+
+    upload_to_testflight(api_key: api_key)
+  end
+
+  desc "빌드만 (CI용)"
+  lane :build_only do
+    build_app(
+      workspace: "Newdok.xcworkspace",
+      scheme: "Newdok",
+      configuration: "Release",
+      export_method: "app-store",
+      clean: true,
+      skip_archive: true
+    )
+  end
+end
