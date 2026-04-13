@@ -1,5 +1,6 @@
-git_url(ENV["MATCH_GIT_URL"])
+git_url("https://github.com/gomminjae/certificates")
+git_branch("newdok")
 storage_mode("git")
 type("appstore")
-app_identifier(["com.newdok.app"])
+app_identifier(["com.newdok.app", "com.newdok.test"])
 team_id("AU24ZRJ649")

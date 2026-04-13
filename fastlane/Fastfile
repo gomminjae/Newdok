@@ -2,27 +2,34 @@ default_platform(:ios)
 
 platform :ios do
   before_all do
-    sh("tuist", "install")
-    sh("tuist", "generate", "--no-open")
+    Dir.chdir("..") do
+      sh("tuist", "install")
+      sh("tuist", "generate", "--no-open")
+    end
   end
 
-  desc "인증서/프로비저닝 프로파일 동기화"
-  lane :sync_certs do
-    match(type: "appstore")
-  end
-
-  desc "TestFlight 배포"
-  lane :beta do
-    sync_certs
-
-    api_key = app_store_connect_api_key(
+  desc "App Store Connect API Key 설정"
+  private_lane :setup_api_key do
+    app_store_connect_api_key(
       key_id: ENV["ASC_KEY_ID"],
       issuer_id: ENV["ASC_ISSUER_ID"],
       key_filepath: ENV["ASC_KEY_FILEPATH"],
     )
+  end
+
+  desc "인증서/프로비저닝 프로파일 동기화"
+  lane :sync_certs do
+    key = setup_api_key
+    match(type: "appstore", app_identifier: ["com.newdok.app", "com.newdok.test"], api_key: key)
+  end
+
+  desc "상용 TestFlight 배포"
+  lane :beta_prod do
+    key = setup_api_key
+    match(type: "appstore", app_identifier: ["com.newdok.app"], api_key: key)
 
     increment_build_number(
-      build_number: latest_testflight_build_number(api_key: api_key) + 1,
+      build_number: latest_testflight_build_number(api_key: key, app_identifier: "com.newdok.app") + 1,
       xcodeproj: "Modules/App/App.xcodeproj"
     )
 
@@ -34,7 +41,34 @@ platform :ios do
       clean: true
     )
 
-    upload_to_testflight(api_key: api_key)
+    upload_to_testflight(api_key: key)
+  end
+
+  desc "테섭 TestFlight 배포"
+  lane :beta_dev do
+    key = setup_api_key
+    match(type: "appstore", app_identifier: ["com.newdok.test"], api_key: key)
+
+    increment_build_number(
+      build_number: latest_testflight_build_number(api_key: key, app_identifier: "com.newdok.test") + 1,
+      xcodeproj: "Modules/App/App.xcodeproj"
+    )
+
+    build_app(
+      workspace: "Newdok.xcworkspace",
+      scheme: "Newdok",
+      configuration: "Debug",
+      export_method: "app-store",
+      clean: true
+    )
+
+    upload_to_testflight(api_key: key)
+  end
+
+  desc "상용 + 테섭 동시 TestFlight 배포"
+  lane :beta_all do
+    beta_prod
+    beta_dev
   end
 
   desc "빌드만 (CI용)"
