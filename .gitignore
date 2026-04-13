@@ -18,3 +18,16 @@ xcuserdata/
 # Derived data
 Modules/App/Derived/
 
+# Fastlane
+fastlane/report.xml
+fastlane/Preview.html
+fastlane/screenshots/**/*.png
+fastlane/test_output
+*.ipa
+*.dSYM.zip
+
+# Code signing
+*.p8
+*.cer
+*.mobileprovision
+*.p12

@@ -1,0 +1,85 @@
+name: Deploy to TestFlight
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: deploy-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    name: TestFlight
+    runs-on: macos-15
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup mise
+        uses: jdx/mise-action@v2
+
+      - name: Setup Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          bundler-cache: true
+
+      - name: Cache SPM dependencies
+        uses: actions/cache@v4
+        with:
+          path: Tuist/.build
+          key: spm-${{ runner.os }}-${{ hashFiles('Tuist/Package.resolved') }}
+          restore-keys: spm-${{ runner.os }}-
+
+      - name: Cache DerivedData
+        uses: actions/cache@v4
+        with:
+          path: ~/Library/Developer/Xcode/DerivedData
+          key: deriveddata-${{ runner.os }}-${{ hashFiles('Tuist/Package.resolved') }}-${{ github.sha }}
+          restore-keys: |
+            deriveddata-${{ runner.os }}-${{ hashFiles('Tuist/Package.resolved') }}-
+            deriveddata-${{ runner.os }}-
+
+      - name: Generate xcconfig files
+        run: |
+          mkdir -p Configurations
+          cat <<'XCCONFIG' > Configurations/env.xcconfig
+          DEV_BASE_URL = http:/$()//3.38.79.19
+          BASE_URL = https:/$()//newdok.shop
+          XCCONFIG
+
+          cat <<'XCCONFIG' > Configurations/Debug.xcconfig
+          #include "env.xcconfig"
+          API_BASE_URL = $(DEV_BASE_URL)
+          PRODUCT_BUNDLE_IDENTIFIER = com.newdok.app.dev
+          APP_DISPLAY_NAME = Newdok-Dev
+          ASSETCATALOG_COMPILER_APPICON_NAME = DevAppIcon
+          SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG
+          OTHER_LDFLAGS = $(inherited) -ObjC
+          XCCONFIG
+
+          cat <<'XCCONFIG' > Configurations/Release.xcconfig
+          #include "env.xcconfig"
+          API_BASE_URL = $(BASE_URL)
+          PRODUCT_BUNDLE_IDENTIFIER = com.newdok.app
+          APP_DISPLAY_NAME = Newdok
+          ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon
+          SWIFT_ACTIVE_COMPILATION_CONDITIONS = RELEASE
+          OTHER_LDFLAGS = $(inherited) -ObjC
+          XCCONFIG
+
+      - name: Write App Store Connect API Key
+        run: |
+          mkdir -p private_keys
+          echo "${{ secrets.ASC_KEY_CONTENT }}" > private_keys/AuthKey_${{ secrets.ASC_KEY_ID }}.p8
+
+      - name: Deploy to TestFlight
+        env:
+          ASC_KEY_ID: ${{ secrets.ASC_KEY_ID }}
+          ASC_ISSUER_ID: ${{ secrets.ASC_ISSUER_ID }}
+          ASC_KEY_FILEPATH: private_keys/AuthKey_${{ secrets.ASC_KEY_ID }}.p8
+          MATCH_GIT_URL: ${{ secrets.MATCH_GIT_URL }}
+          MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
+          MATCH_GIT_BASIC_AUTHORIZATION: ${{ secrets.MATCH_GIT_BASIC_AUTHORIZATION }}
+        run: bundle exec fastlane beta
