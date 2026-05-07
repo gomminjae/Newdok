@@ -12,7 +12,7 @@ import WebKit
 import Shared
 
 public struct FeedbackView: View {
-    @EnvironmentObject private var router: AppRouter
+    @Environment(AppRouter.self) private var router
 
     private let faqURL = "https://7xrdp4cp24a.typeform.com/to/Lkh7C9zd"
 

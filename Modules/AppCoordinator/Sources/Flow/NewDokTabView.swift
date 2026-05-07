@@ -138,9 +138,9 @@ public struct NewDokTabView: View {
     @State private var selectedTab: NewDokTab = .home
     @State private var previousTab: NewDokTab = .home
 
-    @EnvironmentObject private var router: AppRouter
-    @EnvironmentObject private var tabSelection: TabSelection
-    @EnvironmentObject private var appState: AppState
+    @Environment(AppRouter.self) private var router
+    @Environment(TabSelection.self) private var tabSelection
+    @Environment(AppState.self) private var appState
 
     private var isGuest: Bool { appState.authState == .guest }
 
@@ -181,10 +181,11 @@ public struct NewDokTabView: View {
     @State private var didApplyInitialTab = false
 
     public var body: some View {
+        @Bindable var tabSelection = tabSelection
         TabView(selection: $tabSelection.selectedTab) {
             TabContentView {
                 exploreFactory.makeExploreView()
-                    .environmentObject(exploreIntent)
+                    .environment(exploreIntent)
             }
             .tabItem {
                 Image(asset: DesignSystemAsset.lineNewsletter)
@@ -205,7 +206,7 @@ public struct NewDokTabView: View {
 
             TabContentView {
                 homeFactory.makeHomeView()
-                    .environmentObject(exploreIntent)
+                    .environment(exploreIntent)
             }
             .tabItem {
                 Image(asset: DesignSystemAsset.lineHome)
@@ -243,7 +244,7 @@ public struct NewDokTabView: View {
         }
         .navigationBarHidden(true)
         .accentColor(Color.primaryNormal)
-        .environmentObject(tabSelection)
+        .environment(tabSelection)
         .onAppear {
             setupTabBarAppearance()
             if !didApplyInitialTab, let tab = initialSelectedTab {

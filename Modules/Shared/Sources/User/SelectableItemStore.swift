@@ -6,15 +6,16 @@
 //
 
 import Foundation
-import Combine
+import Observation
 
+@Observable
 @MainActor
-public final class SelectableItemStore: ObservableObject {
+public final class SelectableItemStore {
     public static let shared = SelectableItemStore()
 
-    @Published public private(set) var interests: [SelectableItem] = []
-    @Published public private(set) var industries: [SelectableItem] = []
-    @Published public private(set) var days: [SelectableItem] = []
+    public private(set) var interests: [SelectableItem] = []
+    public private(set) var industries: [SelectableItem] = []
+    public private(set) var days: [SelectableItem] = []
 
     private var isLoaded = false
 

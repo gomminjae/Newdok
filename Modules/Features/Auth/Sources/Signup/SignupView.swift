@@ -62,13 +62,13 @@ public enum SignupStep: Int, CaseIterable {
 }
 
 public struct SignupView: View {
-    @StateObject public var viewModel: SignupViewModel
-    
-    @EnvironmentObject private var router: AppRouter
+    @State public var viewModel: SignupViewModel
+
+    @Environment(AppRouter.self) private var router
 
     public init(viewModel: SignupViewModel) {
-            _viewModel = StateObject(wrappedValue: viewModel)
-        }
+        self.viewModel = viewModel
+    }
 
     public var body: some View {
         VStack(spacing: 0) {
@@ -78,7 +78,7 @@ public struct SignupView: View {
                 switch viewModel.currentStep {
                 case .phoneVerification:
                     PhoneVerificationView(viewModel: viewModel)
-                        .environmentObject(router)
+                        .environment(router)
                 case .idInput:
                     IDInputView(viewModel: viewModel)
                 case .pwInput:
@@ -89,7 +89,7 @@ public struct SignupView: View {
                     AgreeView(viewModel: viewModel)
                 case .complete:
                     CompleteView(viewModel: viewModel)
-                        .environmentObject(router)
+                        .environment(router)
                 case .recommend:
                     RecommendView(viewModel: viewModel)
                 case .myIndustry:

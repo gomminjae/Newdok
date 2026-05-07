@@ -7,49 +7,50 @@
 //
 
 import Foundation
-import Combine
 import MypageDomain
 import Shared
+import Observation
 
 protocol MypageViewModelBindable {
 }
 
+@Observable
 @MainActor
-public class MypageViewModel: ObservableObject, ErrorHandling {
-    @Published var activeNavigation: String?
+public final class MypageViewModel: ErrorHandling {
+    var activeNavigation: String?
 
-    @Published var nickname: String = ""
-    @Published var user: MypageUser?
+    var nickname: String = ""
+    var user: MypageUser?
 
-    @Published var shownicknameToast: Bool = false
-    @Published var showIndustryToast: Bool = false
-    @Published var showInterestToast: Bool = false
-    @Published public var showNicknameSuccess: Bool = false
-    @Published public var showIndustrySuccess: Bool = false
-    @Published public var showInterestSuccess: Bool = false
+    var shownicknameToast: Bool = false
+    var showIndustryToast: Bool = false
+    var showInterestToast: Bool = false
+    public var showNicknameSuccess: Bool = false
+    public var showIndustrySuccess: Bool = false
+    public var showInterestSuccess: Bool = false
 
-    @Published var phoneNumber: String = ""
-    @Published public var isRequestSent = false
-    @Published public var isTimerActive = false
-    @Published public var timerRemaining = 180
-    @Published public var showAlreadyRegisteredAlert = false
-    @Published public var showError = false
-    @Published public var enteredVerificationCode: String = ""
+    var phoneNumber: String = ""
+    public var isRequestSent = false
+    public var isTimerActive = false
+    public var timerRemaining = 180
+    public var showAlreadyRegisteredAlert = false
+    public var showError = false
+    public var enteredVerificationCode: String = ""
     private var verificationCode: String = ""
-    @Published public var resendFailureCount: Int = 0
+    public var resendFailureCount: Int = 0
     private var timerTask: Task<Void, Never>?
-    @Published public var isShowPopup: Bool = false
+    public var isShowPopup: Bool = false
 
-    @Published public var oldPassword: String = ""
-    @Published public var newPassword: String = ""
-    @Published public var checkedPassword: String = ""
-    @Published public var isPasswordUpdateSuccess: Bool = false
-    @Published public var isPhoneUpdateSuccess: Bool = false
-    @Published public var passwordError: String?
-    @Published public var showPasswordSuccess: Bool = false
-    @Published public var showPhoneNumberSuccess: Bool = false
-    @Published public var currentError: AppError?
-    @Published public var isInterestUpdating: Bool = false
+    public var oldPassword: String = ""
+    public var newPassword: String = ""
+    public var checkedPassword: String = ""
+    public var isPasswordUpdateSuccess: Bool = false
+    public var isPhoneUpdateSuccess: Bool = false
+    public var passwordError: String?
+    public var showPasswordSuccess: Bool = false
+    public var showPhoneNumberSuccess: Bool = false
+    public var currentError: AppError?
+    public var isInterestUpdating: Bool = false
 
     private let useCase: MypageUserUseCase
     private let profileUseCase: MypageProfileUseCase

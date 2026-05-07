@@ -3,8 +3,8 @@ import DesignSystem
 import Shared
 
 public struct WithdrawView: View {
-    @StateObject private var viewModel: WithdrawViewModel
-    @EnvironmentObject private var router: AppRouter
+    @State private var viewModel: WithdrawViewModel
+    @Environment(AppRouter.self) private var router
     @State private var isChecked = false
     @State private var tabSelection = 0
     @State private var withdrawReasons = [false, false, false, false]
@@ -17,7 +17,7 @@ public struct WithdrawView: View {
     ]
     
     public init(viewModel: WithdrawViewModel) {
-        _viewModel = StateObject(wrappedValue: viewModel)
+        self.viewModel = viewModel
     }
     
     public var body: some View {
@@ -240,5 +240,5 @@ public struct WithdrawView: View {
 //        newsletterUseCase: DummyNewsletterUseCase(),
 //        articleUseCase: DummyArticleUseCase()
 //    ))
-//    .environmentObject(AppRouter())
+//    .environment(AppRouter())
 // }

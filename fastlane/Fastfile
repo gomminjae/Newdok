@@ -41,7 +41,7 @@ platform :ios do
       clean: true
     )
 
-    upload_to_testflight(api_key: key)
+    upload_to_testflight(api_key: key, skip_waiting_for_build_processing: true)
   end
 
   desc "테섭 TestFlight 배포"
@@ -62,7 +62,7 @@ platform :ios do
       clean: true
     )
 
-    upload_to_testflight(api_key: key, app_identifier: "com.newdok.test")
+    upload_to_testflight(api_key: key, app_identifier: "com.newdok.test", skip_waiting_for_build_processing: true)
   end
 
   desc "상용 + 테섭 동시 TestFlight 배포"

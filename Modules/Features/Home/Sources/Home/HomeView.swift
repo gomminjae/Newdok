@@ -12,20 +12,20 @@ import HomeDomain
 import PopupView
 
 public struct HomeView: View {
-    @StateObject private var viewModel: HomeViewModel
+    @State private var viewModel: HomeViewModel
     @State private var showCalendar = false
     @State private var refreshSpinAngle: Double = 0
     @State private var calendarDisplayedMonth = Date()
     @State private var calendarDataDays: Set<Int> = []
-    @EnvironmentObject private var router: AppRouter
-    @EnvironmentObject private var tabSelection: TabSelection
-    @EnvironmentObject private var exploreIntent: ExploreIntent
-    @EnvironmentObject private var appState: AppState
+    @Environment(AppRouter.self) private var router
+    @Environment(TabSelection.self) private var tabSelection
+    @Environment(ExploreIntent.self) private var exploreIntent
+    @Environment(AppState.self) private var appState
 
     private var isGuest: Bool { appState.authState == .guest }
 
     public init(viewModel: HomeViewModel) {
-        _viewModel = StateObject(wrappedValue: viewModel)
+        self.viewModel = viewModel
     }
 
     public var body: some View {

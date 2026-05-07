@@ -12,8 +12,8 @@ import DesignSystem
 import Kingfisher
 
 public struct ArticleDetailView: View {
-    @StateObject private var viewModel: ArticleDetailViewModel
-    @EnvironmentObject private var router: AppRouter
+    @State private var viewModel: ArticleDetailViewModel
+    @Environment(AppRouter.self) private var router
 
     // 북마크 토스트 상태
     @State private var showBookmarkToast: Bool = false
@@ -40,7 +40,7 @@ public struct ArticleDetailView: View {
     private let isPastArticle: Bool
 
     public init(viewModel: ArticleDetailViewModel, isPastArticle: Bool = false) {
-        _viewModel = StateObject(wrappedValue: viewModel)
+        self.viewModel = viewModel
         self.isPastArticle = isPastArticle
     }
 

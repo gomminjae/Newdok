@@ -12,7 +12,7 @@ import Shared
 
 public struct PwdUpdateView: View {
     @Environment(\.dismiss) private var dismiss
-    @EnvironmentObject private var router: AppRouter
+    @Environment(AppRouter.self) private var router
 
     @State private var isSecureOldPassword: Bool = true
     @State private var isSecureNewPassword: Bool = true
@@ -22,7 +22,7 @@ public struct PwdUpdateView: View {
     @FocusState private var isNewPasswordFocused: Bool
     @FocusState private var isConfirmPasswordFocused: Bool
 
-    @ObservedObject private var viewModel: MypageViewModel
+    @Bindable private var viewModel: MypageViewModel
 
     public init(viewModel: MypageViewModel) {
         self.viewModel = viewModel

@@ -11,14 +11,14 @@ import Shared
 import PopupView
 
 public struct PhoneUpdateView: View {
-    @EnvironmentObject private var router: AppRouter
+    @Environment(AppRouter.self) private var router
     @Environment(\.dismiss) private var dismiss
     
     @FocusState private var isPhoneFieldFocused: Bool
     @FocusState private var isNumberPadFocused: Bool
 
-    @ObservedObject private var viewModel: MypageViewModel
-    
+    @Bindable private var viewModel: MypageViewModel
+
     public init(viewModel: MypageViewModel) {
         self.viewModel = viewModel
     }

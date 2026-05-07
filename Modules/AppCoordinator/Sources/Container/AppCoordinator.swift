@@ -82,7 +82,7 @@ public final class AppCoordinator {
             selectedTab: selectedTab,
             exploreDay: exploreDay,
             exploreSelectedTab: exploreSelectedTab
-        ).environmentObject(router)
+        ).environment(router)
     }
 
     @MainActor func makeProfileView() -> AnyView {

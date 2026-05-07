@@ -10,7 +10,7 @@ import SwiftUI
 import DesignSystem
 
 struct RecommendView: View {
-    @ObservedObject private var viewModel: SignupViewModel
+    @Bindable private var viewModel: SignupViewModel
     
     init(viewModel: SignupViewModel) {
         self.viewModel = viewModel

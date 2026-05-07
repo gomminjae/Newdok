@@ -51,7 +51,7 @@ public final class MypageViewFactoryImpl: MypageViewFactory {
 
     @MainActor public func makeEditProfileView() -> AnyView {
         let vm = sharedMypageViewModel()
-        return AnyView(EditProfileView().environmentObject(vm))
+        return AnyView(EditProfileView().environment(vm))
     }
 
     @MainActor public func makeEditNicknameView() -> AnyView {
@@ -61,18 +61,18 @@ public final class MypageViewFactoryImpl: MypageViewFactory {
             ?? ""
         return AnyView(
             EditNicknameView(initialNickname: currentNickname)
-                .environmentObject(vm)
+                .environment(vm)
         )
     }
 
     @MainActor public func makeEditIndustryView() -> AnyView {
         let vm = sharedMypageViewModel()
-        return AnyView(EditIndustryView().environmentObject(vm))
+        return AnyView(EditIndustryView().environment(vm))
     }
 
     @MainActor public func makeEditInterestView() -> AnyView {
         let vm = sharedMypageViewModel()
-        return AnyView(EditInterestView().environmentObject(vm))
+        return AnyView(EditInterestView().environment(vm))
     }
 
     @MainActor public func makeRecoveryView() -> AnyView {

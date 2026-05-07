@@ -12,11 +12,11 @@ import DesignSystem
 
 public struct SearchView: View {
     @Environment(\.dismiss) private var dismiss
-    @StateObject private var viewModel: SearchViewModel
-    @EnvironmentObject private var router: AppRouter
+    @State private var viewModel: SearchViewModel
+    @Environment(AppRouter.self) private var router
     
     public init(viewModel: SearchViewModel) {
-        _viewModel = StateObject(wrappedValue: viewModel)
+        self.viewModel = viewModel
     }
 
     public var body: some View {

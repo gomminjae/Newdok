@@ -17,12 +17,12 @@ public struct MypageView: View {
     
     @State private var isCopy: Bool = false
     
-    @EnvironmentObject private var router: AppRouter
+    @Environment(AppRouter.self) private var router
     
-    @StateObject private var viewModel: MypageViewModel
+    @State private var viewModel: MypageViewModel
 
     public init(viewModel: MypageViewModel) {
-        _viewModel = StateObject(wrappedValue: viewModel)
+        self.viewModel = viewModel
     }
 
     public var body: some View {

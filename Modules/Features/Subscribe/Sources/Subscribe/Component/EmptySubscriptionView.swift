@@ -14,7 +14,7 @@ public struct EmptySubscriptionView: View {
     let isSubscribedTab: Bool
     let isGuest: Bool
     
-    @EnvironmentObject private var router: AppRouter
+    @Environment(AppRouter.self) private var router
     
     public init(isSubscribedTab: Bool, isGuest: Bool) {
         self.isSubscribedTab = isSubscribedTab

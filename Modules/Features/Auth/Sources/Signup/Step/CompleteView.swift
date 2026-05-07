@@ -14,9 +14,9 @@ struct CompleteView: View {
     var email: String = "newdok12@newdok.site"
     var onNext: () -> Void = {}
     
-    @ObservedObject private var viewModel: SignupViewModel
+    @Bindable private var viewModel: SignupViewModel
     @State private var showingNotificationAlert = false
-    @EnvironmentObject private var router: AppRouter
+    @Environment(AppRouter.self) private var router
     
     init(viewModel: SignupViewModel) {
         self.viewModel = viewModel

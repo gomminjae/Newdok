@@ -9,7 +9,7 @@
 import SwiftUI
 
 struct NetworkErrorView: View {
-    @ObservedObject private var networkManager = NetworkStatusManager.shared
+    private var networkManager = NetworkStatusManager.shared
     
     var body: some View {
         VStack(spacing: 0) {

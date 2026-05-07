@@ -92,15 +92,15 @@ public struct BookmarkView: View {
     @State private var selectedCategory: String = "전체"
     @State private var showSortSheet = false
     
-    @StateObject private var viewModel: BookmarkViewModel
-    
-    @EnvironmentObject private var router: AppRouter
-    @EnvironmentObject private var appState: AppState
+    @State private var viewModel: BookmarkViewModel
+
+    @Environment(AppRouter.self) private var router
+    @Environment(AppState.self) private var appState
 
     private var isGuest: Bool { appState.authState == .guest }
 
     public init(viewModel: BookmarkViewModel) {
-        _viewModel = StateObject(wrappedValue: viewModel)
+        self.viewModel = viewModel
     }
     
     public var body: some View {
@@ -161,7 +161,9 @@ public struct BookmarkView: View {
             }
         }
         .onChange(of: appState.authState) { _, newValue in
-            if newValue == .authenticated {
+            if newValue == .guest {
+                viewModel.clearData()
+            } else {
                 viewModel.loadInitial()
             }
         }

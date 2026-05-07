@@ -7,55 +7,21 @@
 //
 
 import SwiftUI
-import Combine
 import HomeDomain
 import Shared
 import Foundation
+import Observation
 
-// MARK: - Calendar State Management
-@MainActor
-public final class CalendarState: ObservableObject {
-    @Published public var selectedDate: Date
-    @Published public var displayedMonth: Date
-    @Published public var dataDays: Set<Int> = []
-    @Published public var isLoading: Bool = false
-    
-    private var cancellables = Set<AnyCancellable>()
-    
+// MARK: - Calendar State (Value Type — struct로 배치 업데이트, objectWillChange 1회)
+public struct CalendarState {
+    public var selectedDate: Date
+    public var displayedMonth: Date
+    public var dataDays: Set<Int> = []
+    public var isLoading: Bool = false
+
     public init(initialDate: Date = Date()) {
         self.selectedDate = initialDate
         self.displayedMonth = initialDate
-    }
-    
-    // Combine 기반 반응형 업데이트
-    public func bind(to viewModel: HomeViewModel) {
-        $displayedMonth
-            .removeDuplicates { Calendar.current.isDate($0, equalTo: $1, toGranularity: .month) }
-            .dropFirst()
-            .handleEvents(receiveOutput: { [weak viewModel] newMonth in
-                viewModel?.applyDataDaysForMonth(newMonth)
-            })
-            .map { [weak viewModel] newMonth -> AnyPublisher<Void, Never> in
-                guard let vm = viewModel else {
-                    return Empty<Void, Never>().eraseToAnyPublisher()
-                }
-                return Deferred {
-                    Future<Void, Never> { promise in
-                        Task { @MainActor [weak vm] in
-                            guard let vm else {
-                                promise(.success(()))
-                                return
-                            }
-                            await vm.loadMonthData(for: newMonth)
-                            promise(.success(()))
-                        }
-                    }
-                }
-                .eraseToAnyPublisher()
-            }
-            .switchToLatest()
-            .sink { _ in }
-            .store(in: &cancellables)
     }
 }
 
@@ -68,17 +34,29 @@ public enum HomeState {
     case articles
 }
 
+@Observable
 @MainActor
-public final class HomeViewModel: ObservableObject {
+public final class HomeViewModel {
     private let useCase: HomeBusinessUseCase
     private let appState: AppState
-    @Published public var calendarState: CalendarState
-    private var cancellables = Set<AnyCancellable>()
+    public var calendarState: CalendarState {
+        didSet {
+            let oldMonth = oldValue.displayedMonth
+            let newMonth = calendarState.displayedMonth
+            guard !Calendar.current.isDate(oldMonth, equalTo: newMonth, toGranularity: .month) else { return }
+            applyDataDaysForMonth(newMonth)
+            monthLoadTask?.cancel()
+            monthLoadTask = Task { [weak self] in
+                await self?.loadMonthData(for: newMonth)
+            }
+        }
+    }
+    private var monthLoadTask: Task<Void, Never>?
 
-    @Published public var homeState: HomeState = .idle
-    @Published public var filteredArticles: [HomeArticle] = []
-    @Published public var subscribedNewsletters: [HomeNewsletter] = []
-    @Published public var articlesByMonth: [HomeArticles] = []
+    public var homeState: HomeState = .idle
+    public var filteredArticles: [HomeArticle] = []
+    public var subscribedNewsletters: [HomeNewsletter] = []
+    public var articlesByMonth: [HomeArticles] = []
 
     private var dataDaysCache: [String: Set<Int>] = [:]
     private var latestMonthRequestKey: String?
@@ -89,14 +67,7 @@ public final class HomeViewModel: ObservableObject {
         self.useCase = useCase
         self.appState = appState
         self.calendarState = CalendarState()
-        
-        calendarState.objectWillChange
-            .receive(on: RunLoop.main)
-            .sink { [weak self] _ in self?.objectWillChange.send() }
-            .store(in: &cancellables)
-        
-        calendarState.bind(to: self)
-        
+
         Task { [weak self] in
             guard let self else { return }
             let snapshot = await useCase.snapshot()
@@ -144,10 +115,7 @@ public final class HomeViewModel: ObservableObject {
     }
     
     public var formattedDate: String {
-        let formatter = DateFormatter()
-        formatter.locale = Locale(identifier: "ko_KR")
-        formatter.dateFormat = "M월 d일(E)"
-        return formatter.string(from: selectedDate)
+        formattedDateFormatter.string(from: selectedDate)
     }
     
     // MARK: - Intent Handlers
@@ -228,13 +196,16 @@ public final class HomeViewModel: ObservableObject {
         await useCase.shouldReloadToday(currentDate: currentDate)
     }
     
-    // MARK: - Snapshot Application
+    // MARK: - Snapshot Application (CalendarState를 struct 일괄 대입 → objectWillChange 1회)
     private func applySnapshot(_ snapshot: HomeSnapshot) {
-        calendarState.selectedDate = snapshot.selectedDate
-        calendarState.displayedMonth = snapshot.displayedMonth
-        calendarState.dataDays = snapshot.dataDays
+        var newCal = calendarState
+        newCal.selectedDate = snapshot.selectedDate
+        newCal.displayedMonth = snapshot.displayedMonth
+        newCal.dataDays = snapshot.dataDays
+        newCal.isLoading = snapshot.isCalendarLoading
+        calendarState = newCal
+
         storeDataDays(snapshot.dataDays, for: snapshot.displayedMonth)
-        calendarState.isLoading = snapshot.isCalendarLoading
         withAnimation(.easeInOut(duration: 0.25)) {
             filteredArticles = snapshot.filteredArticles
             subscribedNewsletters = snapshot.subscribedNewsletters
@@ -313,6 +284,13 @@ public final class HomeViewModel: ObservableObject {
         }
     }
     
+    private let formattedDateFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.locale = Locale(identifier: "ko_KR")
+        formatter.dateFormat = "M월 d일(E)"
+        return formatter
+    }()
+
     private let monthKeyFormatter: DateFormatter = {
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy-MM"

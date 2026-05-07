@@ -7,20 +7,19 @@
 
 import DetailDomain
 import Foundation
-import Combine
 import Shared
+import Observation
 
+@Observable
 @MainActor
-public final class ArticleDetailViewModel: ObservableObject, ErrorHandling {
-    // MARK: - Published Properties
-
-    @Published var detail: DetailArticleDetail?
-    @Published var isLoading: Bool = false
-    @Published public var currentError: AppError?
+public final class ArticleDetailViewModel: ErrorHandling {
+    var detail: DetailArticleDetail?
+    var isLoading: Bool = false
+    public var currentError: AppError?
 
     // 하이라이트 관련
-    @Published var selectedText: String = ""
-    @Published private(set) var highlights: [ArticleHighlight] = []
+    var selectedText: String = ""
+    private(set) var highlights: [ArticleHighlight] = []
 
     // MARK: - Dependencies
 

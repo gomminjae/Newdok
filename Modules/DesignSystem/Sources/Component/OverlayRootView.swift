@@ -10,12 +10,13 @@ import SwiftUI
 import Network
 import Shared
 import PopupView
+import Observation
 
 public struct OverlayRootView<Content: View>: View {
-    @EnvironmentObject private var router: AppRouter
-    @EnvironmentObject private var tabSelection: TabSelection
+    @Environment(AppRouter.self) private var router
+    @Environment(TabSelection.self) private var tabSelection
 
-    @ObservedObject private var networkManager = NetworkStatusManager.shared
+    private var networkManager = NetworkStatusManager.shared
     private let content: () -> Content
     
     public init(@ViewBuilder content: @escaping () -> Content) {
@@ -32,8 +33,8 @@ public struct OverlayRootView<Content: View>: View {
     public var body: some View {
         ZStack {
             content()
-                .environmentObject(router)
-                .environmentObject(tabSelection) 
+                .environment(router)
+                .environment(tabSelection) 
         }
         .popup(isPresented: isPopupPresented) {
             NetworkErrorView()
@@ -47,11 +48,12 @@ public struct OverlayRootView<Content: View>: View {
     }
 }
 
+@Observable
 @MainActor
-final class NetworkStatusManager: ObservableObject {
+final class NetworkStatusManager {
     static let shared = NetworkStatusManager()
 
-    @Published var isConnected: Bool = true
+    var isConnected: Bool = true
 
     private let monitor = NWPathMonitor()
     private let queue = DispatchQueue(label: "NetworkMonitor")

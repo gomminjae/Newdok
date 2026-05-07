@@ -13,7 +13,7 @@ public struct OnboardingView: View {
     @State private var currentPage = 0
     let totalPages = 3
     
-    @EnvironmentObject private var router: AppRouter
+    @Environment(AppRouter.self) private var router
 
     public init() {
     }

@@ -13,7 +13,7 @@ import DesignSystem
 import MypageDomain
 
 struct PasswordRecoveryPagerView: View {
-    @ObservedObject var viewModel: RecoveryViewModel
+    @Bindable var viewModel: RecoveryViewModel
     
     var body: some View {
         VStack {
@@ -30,7 +30,7 @@ struct PasswordRecoveryPagerView: View {
 
 // 1단계
 struct PasswordRecoveryIdInputView: View {
-    @ObservedObject var viewModel: RecoveryViewModel
+    @Bindable var viewModel: RecoveryViewModel
     @State private var error: String?
     @State private var showNotRegisteredPopup = false
     @FocusState private var isFieldFocused: Bool
@@ -123,7 +123,7 @@ struct PasswordRecoveryIdInputView: View {
 
 // 2단계 (재전송 4번째/3회 만료 팝업)
 struct PasswordRecoveryPhoneView: View {
-    @ObservedObject var viewModel: RecoveryViewModel
+    @Bindable var viewModel: RecoveryViewModel
     @FocusState private var isNumberPadFocused: Bool
     @State private var error: String?
     
@@ -256,8 +256,8 @@ struct PasswordRecoveryPhoneView: View {
 
 // 3단계
 struct PasswordRecoveryNewPasswordView: View {
-    @ObservedObject var viewModel: RecoveryViewModel
-    @EnvironmentObject private var router: AppRouter
+    @Bindable var viewModel: RecoveryViewModel
+    @Environment(AppRouter.self) private var router
     @State private var error: String?
     @State private var isSecurePassword: Bool = true
     @State private var isSecureConfirmPassword: Bool = true
@@ -385,8 +385,8 @@ struct PasswordRecoveryNewPasswordView: View {
 
 // 4단계
 struct PasswordRecoveryResultView: View {
-    @ObservedObject var viewModel: RecoveryViewModel
-    @EnvironmentObject private var router: AppRouter
+    @Bindable var viewModel: RecoveryViewModel
+    @Environment(AppRouter.self) private var router
     
     var body: some View {
         VStack(spacing: 24) {

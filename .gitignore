@@ -31,3 +31,4 @@ fastlane/test_output
 *.cer
 *.mobileprovision
 *.p12
+fastlane/.env

@@ -20,9 +20,9 @@ public struct EditIndustryView: View {
     @State private var selectedId: Int?
     @State private var isExpanded: Bool = false
 
-    @EnvironmentObject private var viewModel: MypageViewModel
-    @EnvironmentObject private var toast: ToastCenter
-    @EnvironmentObject private var router: AppRouter
+    @Environment(MypageViewModel.self) private var viewModel
+    @Environment(ToastCenter.self) private var toast
+    @Environment(AppRouter.self) private var router
 
     public init() {}
 

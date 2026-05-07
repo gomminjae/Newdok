@@ -13,12 +13,12 @@ import DesignSystem
 public struct RecoveryView: View {
     @State private var selectedTab: Int = 0
   
-    @StateObject private var viewModel: RecoveryViewModel
-    
-    @EnvironmentObject private var router: AppRouter
-    
+    @State private var viewModel: RecoveryViewModel
+
+    @Environment(AppRouter.self) private var router
+
     public init(viewModel: RecoveryViewModel) {
-        _viewModel = StateObject(wrappedValue: viewModel)
+        self.viewModel = viewModel
     }
     
     public var body: some View {

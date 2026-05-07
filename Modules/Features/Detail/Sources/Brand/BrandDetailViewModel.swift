@@ -7,14 +7,15 @@
 
 import DetailDomain
 import Foundation
-import Combine
 import Shared
+import Observation
 
+@Observable
 @MainActor
-public final class BrandDetailViewModel: ObservableObject, ErrorHandling {
-    @Published var detail: DetailBrandDetail?
-    @Published var isLoading: Bool = false
-    @Published public var currentError: AppError?
+public final class BrandDetailViewModel: ErrorHandling {
+    var detail: DetailBrandDetail?
+    var isLoading: Bool = false
+    public var currentError: AppError?
 
     private let id: String
     private let brandRepository: DetailBrandRepository

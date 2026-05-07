@@ -10,7 +10,7 @@ import DesignSystem
 import Shared
 
 public struct VersionView: View {
-    @EnvironmentObject private var router: AppRouter
+    @Environment(AppRouter.self) private var router
     
     public init() {}
     

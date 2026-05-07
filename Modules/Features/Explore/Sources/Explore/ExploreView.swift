@@ -12,15 +12,15 @@ import Shared
 import Combine
 
 public struct ExploreView: View {
-    @StateObject private var viewModel: ExploreViewModel
+    @State private var viewModel: ExploreViewModel
     @State private var currentPage: Int = 0
     @State private var recommendationSpinAngle: Double = 0
     @State private var filterSpinAngle: Double = 0
     @State private var isLoaded: Bool = false
     @State private var userInfo: UserInfo?
-    @EnvironmentObject private var router: AppRouter
-    @EnvironmentObject private var exploreIntent: ExploreIntent
-    @EnvironmentObject private var appState: AppState
+    @Environment(AppRouter.self) private var router
+    @Environment(ExploreIntent.self) private var exploreIntent
+    @Environment(AppState.self) private var appState
 
     private var isGuest: Bool { appState.authState == .guest }
 
@@ -29,7 +29,7 @@ public struct ExploreView: View {
     }
 
     public init(viewModel: ExploreViewModel) {
-        _viewModel = StateObject(wrappedValue: viewModel)
+        self.viewModel = viewModel
     }
 
     public var body: some View {
@@ -71,6 +71,7 @@ public struct ExploreView: View {
             .frame(maxHeight: .infinity, alignment: .top)
             .background(Color.white)
             .onChange(of: appState.authState) {
+                viewModel.clearData()
                 viewModel.day = nil
                 viewModel.industry = nil
                 viewModel.orderOpt = "인기순"
@@ -582,7 +583,7 @@ struct PagingScrollView: View {
     private let items: [ExploreNewsletterDetail]
     @Binding var currentPage: Int
 
-    @EnvironmentObject private var router: AppRouter
+    @Environment(AppRouter.self) private var router
     @State private var scrollID: Int?
     @State private var dynamicItems: [ExploreNewsletterDetail] = []
     

@@ -15,7 +15,7 @@ struct MyIndustryView: View {
         DropdownOption(key: "\($0.id)", value: $0.name)
     }
 
-    @ObservedObject private var viewModel: SignupViewModel
+    @Bindable private var viewModel: SignupViewModel
     
     init(viewModel: SignupViewModel) {
         self.viewModel = viewModel

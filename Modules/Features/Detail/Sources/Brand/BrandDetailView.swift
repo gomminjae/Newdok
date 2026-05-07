@@ -72,14 +72,14 @@ enum SubscriptionStatus: String {
 }
 
 public struct BrandDetailView: View {
-    @StateObject private var viewModel: BrandDetailViewModel
-    @EnvironmentObject private var router: AppRouter
-    @EnvironmentObject private var tabSelection: TabSelection
+    @State private var viewModel: BrandDetailViewModel
+    @Environment(AppRouter.self) private var router
+    @Environment(TabSelection.self) private var tabSelection
     
     @State private var isShowPauseAlert: Bool = false
     @State private var isShowGuestAlert: Bool = false
 
-    @EnvironmentObject private var appState: AppState
+    @Environment(AppState.self) private var appState
 
     private var isGuest: Bool { appState.authState == .guest }
     
@@ -93,7 +93,7 @@ public struct BrandDetailView: View {
     @State private var showPauseToast: Bool = false
 
     public init(viewModel: BrandDetailViewModel) {
-        _viewModel = StateObject(wrappedValue: viewModel)
+        self.viewModel = viewModel
     }
 
     public var body: some View {

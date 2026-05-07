@@ -2,33 +2,35 @@ import Foundation
 import AuthDomain
 import SwiftUI
 import Shared
+import Observation
 
+@Observable
 @MainActor
-public final class SignupViewModel: ObservableObject, ErrorHandling {
+public final class SignupViewModel: ErrorHandling {
     private let authRepository: AuthRepository
     private let signupUseCase: SignupUseCase
 
-    @Published var currentStep: SignupStep = .phoneVerification
+    var currentStep: SignupStep = .phoneVerification
 
     // MARK: - Form
-    @Published public var phoneNumber: String = ""
+    public var phoneNumber: String = ""
 
     var isPhoneNumberValid: Bool {
         SignupFormatStyle.validatePhoneNumber(phoneNumber) == nil
     }
-    @Published public var enteredVerificationCode: String = ""
+    public var enteredVerificationCode: String = ""
     private var verificationCode: String = ""
-    @Published public var resendFailureCount: Int = 0
+    public var resendFailureCount: Int = 0
 
     // MARK: - ID
-    @Published public var loginID: String = "" {
+    public var loginID: String = "" {
         didSet {
             if oldValue != loginID {
                 isIDAvailable = nil
             }
         }
     }
-    @Published public var isIDAvailable: Bool?
+    public var isIDAvailable: Bool?
 
     var idValidationError: IDValidationError? {
         guard !loginID.isEmpty else { return nil }
@@ -56,49 +58,44 @@ public final class SignupViewModel: ObservableObject, ErrorHandling {
     }
 
     // MARK: - State
-    @Published public var isLoading = false
-    @Published public var errorMessage: String?
-    @Published public var userList: [AuthSimpleUser] = []
-    @Published public var isShowUserList = false
-    @Published public var isRequestSent = false
-    @Published public var isTimerActive = false
-    @Published public var timerRemaining = 180
-    @Published public var showAlreadyRegisteredAlert = false
-    @Published public var showError = false
-    @Published public var skipUserCheck = false
-    @Published public var shouldFocusVerificationCode = false
+    public var isLoading = false
+    public var errorMessage: String?
+    public var userList: [AuthSimpleUser] = []
+    public var isShowUserList = false
+    public var isRequestSent = false
+    public var isTimerActive = false
+    public var timerRemaining = 180
+    public var showAlreadyRegisteredAlert = false
+    public var showError = false
+    public var skipUserCheck = false
+    public var shouldFocusVerificationCode = false
 
-    @Published public var emails: [String] = []
-    @Published public var isShowPopup: Bool = false
-    @Published public var currentError: AppError?
+    public var emails: [String] = []
+    public var isShowPopup: Bool = false
+    public var currentError: AppError?
 
     private var timerTask: Task<Void, Never>?
 
     // MARK: password
-    @Published public var password: String = ""
-    @Published public var checkedPassword: String = ""
+    public var password: String = ""
+    public var checkedPassword: String = ""
 
     // MARK: profile
-    @Published public var nickname: String = ""
-    @Published public var birthYear: String = ""
-    @Published public var gender: String = ""
+    public var nickname: String = ""
+    public var birthYear: String = ""
+    public var gender: String = ""
 
-    @Published public var user: AuthUser?
+    public var user: AuthUser?
 
     // MARK: Investigate
-    @Published public var myIndustry: String = ""
-    @Published public var selectedInterests: Set<String> = []
-    @Published public var recommendedPost: [AuthRecommendedBrand] = []
-    @Published public var isCurationLoading = false
+    public var myIndustry: String = ""
+    public var selectedInterests: Set<String> = []
+    public var recommendedPost: [AuthRecommendedBrand] = []
+    public var isCurationLoading = false
 
     public init(authRepository: AuthRepository, signupUseCase: SignupUseCase) {
         self.authRepository = authRepository
         self.signupUseCase = signupUseCase
-    }
-
-    deinit {
-        timerTask?.cancel()
-        timerTask = nil
     }
 
     public func goToNextStep() {
@@ -230,15 +227,16 @@ public final class SignupViewModel: ObservableObject, ErrorHandling {
     private func startTimer() {
         stopTimer()
         isTimerActive = true
-        timerTask = Task {
-            while !Task.isCancelled && timerRemaining > 0 {
+        timerTask = Task { [weak self] in
+            while !Task.isCancelled {
+                guard let vm = self, vm.timerRemaining > 0 else { break }
                 try? await Task.sleep(for: .seconds(1))
-                guard !Task.isCancelled else { break }
-                timerRemaining -= 1
+                if Task.isCancelled { break }
+                vm.timerRemaining -= 1
             }
-            if timerRemaining <= 0 {
-                isTimerActive = false
-                showError = true
+            if let vm = self, vm.timerRemaining <= 0 {
+                vm.isTimerActive = false
+                vm.showError = true
             }
         }
     }

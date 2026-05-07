@@ -15,7 +15,7 @@ public struct EditAlertView: View {
     @State private var isUpdateAlert: Bool = false
     @State private var isRecommendAlert: Bool = false
 
-    @EnvironmentObject private var router: AppRouter
+    @Environment(AppRouter.self) private var router
 
     public init() {}
 

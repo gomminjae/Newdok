@@ -13,11 +13,11 @@ import SearchDomain
 
 public struct SearchResultView: View {
     @Environment(\.dismiss) private var dismiss
-    @EnvironmentObject private var router: AppRouter
-    @StateObject private var viewModel: SearchViewModel
+    @Environment(AppRouter.self) private var router
+    @State private var viewModel: SearchViewModel
 
     public init(viewModel: SearchViewModel) {
-        _viewModel = StateObject(wrappedValue: viewModel)
+        self.viewModel = viewModel
     }
 
     public var body: some View {

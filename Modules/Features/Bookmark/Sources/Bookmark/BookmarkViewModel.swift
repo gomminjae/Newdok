@@ -8,37 +8,27 @@
 import Foundation
 import SwiftUI
 import BookmarkDomain
-import Combine
 import Shared
+import Observation
 
 protocol BookmarkViewModelBindable {
     func fetchUserInterests() async
     func fetchUserBookmarks() async
 }
 
+@Observable
 @MainActor
-public class BookmarkViewModel: ObservableObject, BookmarkViewModelBindable, ErrorHandling {
-    @Published public var interest: String = ""
-    @Published public var interests: [BookmarkInterest] = []
+public final class BookmarkViewModel: BookmarkViewModelBindable, ErrorHandling {
+    public var interest: String = ""
+    public var interests: [BookmarkInterest] = []
 
-    @Published public var bookmarks: BookmarkedArticles?
-    @Published public var sortOrder: String = "추가순"
-    @Published public var currentError: AppError?
+    public var bookmarks: BookmarkedArticles?
+    public var sortOrder: String = "추가순"
+    public var currentError: AppError?
 
     private let useCase: BookmarkUseCase
-    private var cancellables = Set<AnyCancellable>()
-
     public init(useCase: BookmarkUseCase) {
         self.useCase = useCase
-
-        AppState.shared.$authState
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] authState in
-                if authState == .guest {
-                    self?.clearData()
-                }
-            }
-            .store(in: &cancellables)
     }
 
     // MARK: - 정렬된 북마크 데이터 (API에서 정렬된 데이터 사용)
@@ -64,7 +54,7 @@ public class BookmarkViewModel: ObservableObject, BookmarkViewModelBindable, Err
     }
 
     // 최초 로드: 관심사/목록 병렬 + 스켈레톤 표시용 플래그
-    @Published public var isLoading: Bool = false
+    public var isLoading: Bool = false
     func loadInitial() {
         cancelLoads()
         loadTask = Task { @MainActor in
@@ -92,7 +82,7 @@ public class BookmarkViewModel: ObservableObject, BookmarkViewModelBindable, Err
     }
 
     // 로그아웃 시 데이터 초기화
-    private func clearData() {
+    func clearData() {
         interest = ""
         interests = []
         bookmarks = nil

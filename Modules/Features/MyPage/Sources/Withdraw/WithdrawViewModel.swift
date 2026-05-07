@@ -9,16 +9,18 @@
 import Foundation
 import MypageDomain
 import Shared
+import Observation
 
+@Observable
 @MainActor
-public final class WithdrawViewModel: ObservableObject, ErrorHandling {
-    @Published public var nickName: String = ""
-    @Published public var newsletterCount: Int = 0
-    @Published public var articleCount: Int = 0
-    @Published public var isLoading: Bool = false
-    @Published public var errorMessage: String?
-    @Published public var withdrawSuccess: Bool = false
-    @Published public var currentError: AppError?
+public final class WithdrawViewModel: ErrorHandling {
+    public var nickName: String = ""
+    public var newsletterCount: Int = 0
+    public var articleCount: Int = 0
+    public var isLoading: Bool = false
+    public var errorMessage: String?
+    public var withdrawSuccess: Bool = false
+    public var currentError: AppError?
 
     private let userUseCase: MypageUserUseCase
     private let statsUseCase: MypageStatsUseCase

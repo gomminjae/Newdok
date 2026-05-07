@@ -11,7 +11,7 @@ import Combine
 
 public struct IDInputView: View {
     @FocusState private var isIDFocused: Bool
-    @ObservedObject private var viewModel: SignupViewModel
+    @Bindable private var viewModel: SignupViewModel
 
     public init(viewModel: SignupViewModel) {
         self.viewModel = viewModel

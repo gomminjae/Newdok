@@ -23,7 +23,7 @@ public struct InterestSelectionView: View {
         GridItem(.flexible(), spacing: 12)
     ]
 
-    @ObservedObject private var viewModel: SignupViewModel
+    @Bindable private var viewModel: SignupViewModel
 
     public init(viewModel: SignupViewModel) {
         self.viewModel = viewModel
