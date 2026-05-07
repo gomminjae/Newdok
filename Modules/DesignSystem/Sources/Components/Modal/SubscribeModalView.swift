@@ -49,8 +49,8 @@ struct WebViewWrapper: UIViewRepresentable {
         }
 
         func webViewDidClose(_ webView: WKWebView) {
+            webView.removeFromSuperview()
             if webView == popupWebView {
-                popupWebView?.removeFromSuperview()
                 popupWebView = nil
             }
         }
