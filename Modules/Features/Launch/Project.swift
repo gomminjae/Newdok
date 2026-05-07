@@ -1,57 +1,8 @@
 import ProjectDescription
+import ProjectDescriptionHelpers
 
-let project = Project(
+let project = Project.feature(
     name: "Launch",
-    organizationName: "Newdok",
-    targets: [
-        .target(
-            name: "LaunchInterface",
-            destinations: .iOS,
-            product: .staticFramework,
-            bundleId: "com.newdok.launch.interface",
-            deploymentTargets: .iOS("17.0"),
-            infoPlist: .default,
-            sources: ["Interface/Sources/**"],
-            settings: .settings(
-                base: [
-                    "SKIP_INSTALL": "YES",
-                    "SWIFT_STRICT_CONCURRENCY": "complete"
-                ]
-            )
-        ),
-        .target(
-            name: "Launch",
-            destinations: .iOS,
-            product: .staticFramework,
-            bundleId: "com.newdok.launch",
-            deploymentTargets: .iOS("17.0"),
-            infoPlist: .default,
-            sources: ["Sources/**"],
-            resources: ["Resources/**"],
-            dependencies: [
-                .target(name: "LaunchInterface"),
-                .project(target: "DesignSystem", path: "../../DesignSystem")
-            ],
-            settings: .settings(
-                base: [
-                    "SKIP_INSTALL": "YES",
-                    "SWIFT_STRICT_CONCURRENCY": "complete"
-                ]
-            )
-        ),
-        .target(
-            name: "LaunchTests",
-            destinations: .iOS,
-            product: .unitTests,
-            bundleId: "com.newdok.launch.tests",
-            deploymentTargets: .iOS("17.0"),
-            infoPlist: .default,
-            sources: ["Tests/**"],
-            dependencies: [
-                .target(name: "Launch"),
-                .project(target: "DesignSystem", path: "../../DesignSystem"),
-                .project(target: "Shared", path: "../../Shared")
-            ]
-        )
-    ]
+    hasDomain: false,
+    hasData: false
 )
