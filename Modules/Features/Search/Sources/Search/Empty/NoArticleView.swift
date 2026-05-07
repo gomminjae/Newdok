@@ -9,7 +9,7 @@ import SwiftUI
 import DesignSystem
 import Shared
 struct NoArticleView: View {
-    @EnvironmentObject private var router: AppRouter
+    @Environment(AppRouter.self) private var router
     var body: some View {
         VStack {
             Text("검색 결과가 없어요.")

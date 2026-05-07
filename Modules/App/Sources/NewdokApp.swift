@@ -10,9 +10,9 @@ import FirebaseAnalytics
 @main
 struct NewdokApp: App {
     @State private var showUpdateAlert = false
-    @StateObject private var router = AppRouter()
-    @StateObject private var tabSelection = TabSelection()
-    @StateObject private var exploreIntent = ExploreIntent()
+    @State private var router = AppRouter()
+    @State private var tabSelection = TabSelection()
+    @State private var exploreIntent = ExploreIntent()
 
     init() {
         FirebaseApp.configure()
@@ -43,14 +43,14 @@ struct NewdokApp: App {
                 )
             }
             .hideKeyboardOnTap()
-            .environmentObject(router)
-            .environmentObject(tabSelection)
-            .environmentObject(exploreIntent)
-            .environmentObject(AppState.shared)
-            .environmentObject(ToastCenter.shared)
+            .environment(router)
+            .environment(tabSelection)
+            .environment(exploreIntent)
+            .environment(AppState.shared)
+            .environment(ToastCenter.shared)
             .overlay(
                 AppToastHost()
-                    .environmentObject(ToastCenter.shared)
+                    .environment(ToastCenter.shared)
                     .allowsHitTesting(false)
             )
             .task {

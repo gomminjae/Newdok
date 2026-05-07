@@ -6,12 +6,13 @@
 //
 
 import Foundation
-import SwiftUI
+import Observation
 
+@Observable
 @MainActor
-public final class ExploreIntent: ObservableObject {
-    @Published public var day: Int?
-    @Published public var selectedTab: Int?
-    @Published public var trigger = UUID()
+public final class ExploreIntent {
+    public var day: Int?
+    public var selectedTab: Int?
+    public var trigger = UUID()
     public init() {}
 } 

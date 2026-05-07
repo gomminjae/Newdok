@@ -9,11 +9,11 @@ public struct EditProfileView: View {
     @State private var userInfo: UserInfo?
     @State private var showEditInterest = false
 
-    @EnvironmentObject private var router: AppRouter
+    @Environment(AppRouter.self) private var router
 
     @FocusState private var isTextFieldFocused: Bool
 
-    @EnvironmentObject private var viewModel: MypageViewModel
+    @Environment(MypageViewModel.self) private var viewModel
 
     public init() {}
 

@@ -9,19 +9,21 @@
 import Foundation
 import SearchDomain
 import Shared
+import Observation
 
+@Observable
 @MainActor
-public final class SearchViewModel: ObservableObject, ErrorHandling {
+public final class SearchViewModel: ErrorHandling {
     private let useCase: SearchUseCase
 
-    @Published public var searchText: String = ""
-    @Published public var searchResults: [SearchedNewsletter] = []
-    @Published public var isLoading: Bool = false
-    @Published public var errorMessage: String?
-    @Published public private(set) var popularKeywords: PopularKeywordList?
-    @Published public var isPopularLoading: Bool = false
-    @Published public var popularErrorMessage: String?
-    @Published public var currentError: AppError?
+    public var searchText: String = ""
+    public var searchResults: [SearchedNewsletter] = []
+    public var isLoading: Bool = false
+    public var errorMessage: String?
+    public private(set) var popularKeywords: PopularKeywordList?
+    public var isPopularLoading: Bool = false
+    public var popularErrorMessage: String?
+    public var currentError: AppError?
 
     public init(useCase: SearchUseCase) {
         self.useCase = useCase

@@ -5,47 +5,26 @@
 //  Created by 권민재 on 2/15/25.
 //
 import SwiftUI
-import Combine
 import AuthDomain
 import Shared
+import Observation
 
+@Observable
 @MainActor
-public protocol LoginViewModelBindable: ObservableObject {
-    var loginId: String { get set }
-    var password: String { get set }
-
-    var isUserIdValid: Bool { get set }
-    var isUserPwdValid: Bool { get set }
-
-    var errorMessage: String? { get }
-    var isLoading: Bool { get }
-
-    func login(onSuccess: @escaping () -> Void)
-}
-
-@MainActor
-public final class LoginViewModel: LoginViewModelBindable, ErrorHandling {
+public final class LoginViewModel: ErrorHandling {
     private let loginUseCase: LoginUseCase
 
-    @Published public var loginId: String
-
-    @Published public var password: String
-
-    @Published public var isUserIdValid: Bool
-
-    @Published public var isUserPwdValid: Bool
-
-    @Published public var errorMessage: String?
-
-    @Published public var isLoading: Bool
-
-    @Published public var isSecurePassword: Bool = true
-
-    @Published public var user: AuthUser?
-
-    @Published public var isLoginIdError: Bool = false
-    @Published public var isPasswordError: Bool = false
-    @Published public var currentError: AppError?
+    public var loginId: String
+    public var password: String
+    public var isUserIdValid: Bool
+    public var isUserPwdValid: Bool
+    public var errorMessage: String?
+    public var isLoading: Bool
+    public var isSecurePassword: Bool = true
+    public var user: AuthUser?
+    public var isLoginIdError: Bool = false
+    public var isPasswordError: Bool = false
+    public var currentError: AppError?
 
     public init(loginUseCase: LoginUseCase) {
         self.loginUseCase = loginUseCase

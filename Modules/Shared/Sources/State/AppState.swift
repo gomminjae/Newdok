@@ -6,16 +6,17 @@
 //
 
 import Foundation
-import Combine
+import Observation
 
 public enum AuthState {
     case guest
     case authenticated
 }
 
+@Observable
 @MainActor
-public final class AppState: ObservableObject {
-    @Published public var authState: AuthState = .guest
+public final class AppState {
+    public var authState: AuthState = .guest
     
     public static let shared = AppState()
     

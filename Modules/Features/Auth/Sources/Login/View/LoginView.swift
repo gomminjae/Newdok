@@ -12,18 +12,18 @@ import Shared
 import PopupView
 
 public struct LoginView: View {
-    @StateObject private var viewModel: LoginViewModel
+    @State private var viewModel: LoginViewModel
     @FocusState private var isIdFocused: Bool
     @FocusState private var isPwdFocused: Bool
     @State private var showHomeView = false
     @State private var showToast: Bool = false
     @State private var toastMessage: String = ""
     
-    @EnvironmentObject private var router: AppRouter
-    @EnvironmentObject private var tabSelection: TabSelection
+    @Environment(AppRouter.self) private var router
+    @Environment(TabSelection.self) private var tabSelection
 
     public init(viewModel: LoginViewModel) {
-        _viewModel = StateObject(wrappedValue: viewModel)
+        self.viewModel = viewModel
     }
 
     public var body: some View {

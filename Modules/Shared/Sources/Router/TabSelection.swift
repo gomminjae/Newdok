@@ -5,11 +5,12 @@
 //  Created by 권민재 on 5/21/25.
 //
 import SwiftUI
-import Combine
+import Observation
 
+@Observable
 @MainActor
-public final class TabSelection: ObservableObject {
-    @Published public var selectedTab: NewDokTab = .home
+public final class TabSelection {
+    public var selectedTab: NewDokTab = .home
 
     public init() {}
 }

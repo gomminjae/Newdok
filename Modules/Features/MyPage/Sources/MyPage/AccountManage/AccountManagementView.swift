@@ -15,7 +15,7 @@ public struct AccountManagementView: View {
     @Environment(\.dismiss) private var dismiss
     @State private var showLogoutPopup = false
     // 전역 ToastCenter 사용으로 로컬 토스트 상태 제거
-    @EnvironmentObject private var router: AppRouter
+    @Environment(AppRouter.self) private var router
     
     public init() {}
 

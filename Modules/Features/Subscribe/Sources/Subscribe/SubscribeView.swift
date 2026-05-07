@@ -12,22 +12,22 @@ import Shared
 
 public struct SubscribeView: View {
     @State private var selectedTab: Int = 0
-    @StateObject private var viewModel: SubscribeViewModel
+    @State private var viewModel: SubscribeViewModel
 
     @State private var showUnsubscribeAlert: Bool = false
     @State private var selectedNewsletter: SubscribeNewsletter?
 
-    @EnvironmentObject private var router: AppRouter
+    @Environment(AppRouter.self) private var router
 
     @State private var showSubscribeToast: Bool = false
     @State private var showPauseToast: Bool = false
 
-    @EnvironmentObject private var appState: AppState
+    @Environment(AppState.self) private var appState
 
     private var isGuest: Bool { appState.authState == .guest }
 
     public init(viewModel: SubscribeViewModel) {
-        _viewModel = StateObject(wrappedValue: viewModel)
+        self.viewModel = viewModel
     }
 
     public var body: some View {

@@ -6,8 +6,8 @@ import ExploreDomain
 import DesignSystem
 
 struct AppRootView: View {
-    @EnvironmentObject private var tabSelection: TabSelection
-    @ObservedObject var router: AppRouter
+    @Environment(TabSelection.self) private var tabSelection
+    @Bindable var router: AppRouter
     let exploreIntent: ExploreIntent
     let coordinator: AppCoordinator
     let loadOptionsUseCase: LoadOptionsUseCase
@@ -46,8 +46,8 @@ struct AppRootView: View {
                     destinationView(for: route)
                 }
             }
-            .environmentObject(router)
-            .environmentObject(tabSelection)
+            .environment(router)
+            .environment(tabSelection)
             .opacity(launched ? 1 : 0)
             .animation(.easeInOut(duration: 0.3), value: launched)
         }
@@ -149,12 +149,12 @@ struct AppRootView: View {
     private func destinationView(for route: AppRoute) -> some View {
         if case .articleDetail = route {
             makeView(for: route)
-                .environmentObject(router)
+                .environment(router)
                 .enableSwipeBack()
                 .swipeBackFullWidthDisabled(true)
         } else {
             makeView(for: route)
-                .environmentObject(router)
+                .environment(router)
                 .enableSwipeBack()
         }
     }

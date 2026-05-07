@@ -9,6 +9,7 @@ import SwiftUI
 import Foundation
 import SubscribeDomain
 import Shared
+import Observation
 
 public enum SubscribeState {
     case loading
@@ -17,19 +18,20 @@ public enum SubscribeState {
     case data
 }
 
+@Observable
 @MainActor
-public final class SubscribeViewModel: ObservableObject, ErrorHandling {
+public final class SubscribeViewModel: ErrorHandling {
     private let useCase: SubscribeUseCase
 
-    @Published public var activeNewsletters: [SubscribeNewsletter] = []
-    @Published public var pausedNewsletters: [SubscribeNewsletter] = []
+    public var activeNewsletters: [SubscribeNewsletter] = []
+    public var pausedNewsletters: [SubscribeNewsletter] = []
 
-    @Published public var initialLoaded: Bool = false
-    @Published public var isRefreshing: Bool = false
-    @Published public var isLoadingActive: Bool = false
-    @Published public var isLoadingPaused: Bool = false
-    @Published public var lastRefreshTime = Date.distantPast
-    @Published public var currentError: AppError?
+    public var initialLoaded: Bool = false
+    public var isRefreshing: Bool = false
+    public var isLoadingActive: Bool = false
+    public var isLoadingPaused: Bool = false
+    public var lastRefreshTime = Date.distantPast
+    public var currentError: AppError?
 
     public init(useCase: SubscribeUseCase) {
         self.useCase = useCase

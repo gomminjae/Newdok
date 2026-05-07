@@ -9,47 +9,49 @@
 import Foundation
 import MypageDomain
 import Shared
+import Observation
 
+@Observable
 @MainActor
-public class RecoveryViewModel: ObservableObject, ErrorHandling {
+public final class RecoveryViewModel: ErrorHandling {
     private let userUseCase: MypageUserUseCase
 
     // 화면 흐름 그대로 유지 (0: 아이디, 1: 인증, 2: 비번입력, 3: 완료)
-    @Published var passwordRecoveryStep: Int = 0
+    var passwordRecoveryStep: Int = 0
 
-    @Published var currentPage = 0
+    var currentPage = 0
 
     // 아이디/번호
-    @Published public var users: [MypageSimpleUser] = []
-    @Published public var phoneNumber: String = ""
-    @Published public var loginID: String = ""
+    public var users: [MypageSimpleUser] = []
+    public var phoneNumber: String = ""
+    public var loginID: String = ""
 
     // 인증
-    @Published var recoveryId: String = ""
-    @Published var recoveryPhone: String = ""
-    @Published var recoveryCode: String = ""
-    @Published var recoveryCodeSent: Bool = false
-    @Published var recoveryCodeVerified: Bool? // nil 미시도, true 성공, false 실패
-    @Published var recoveryErrorMessage: String?
+    var recoveryId: String = ""
+    var recoveryPhone: String = ""
+    var recoveryCode: String = ""
+    var recoveryCodeSent: Bool = false
+    var recoveryCodeVerified: Bool? // nil 미시도, true 성공, false 실패
+    var recoveryErrorMessage: String?
 
     // 새 비밀번호
-    @Published var newPassword: String = ""
-    @Published var newPasswordCheck: String = ""
-    @Published var passwordResetSuccess: Bool?
+    var newPassword: String = ""
+    var newPasswordCheck: String = ""
+    var passwordResetSuccess: Bool?
 
     // 팝업(제한/타임아웃)
-    @Published public var isShowPopup: Bool = false
+    public var isShowPopup: Bool = false
 
     // 내부 상태
-    @Published public private(set) var resendCount: Int = 0
+    public private(set) var resendCount: Int = 0
     private let maxResends = 3
     private var sentCode: String = ""
-    @Published public var currentError: AppError?
+    public var currentError: AppError?
 
     // 타이머
-    @Published public var isRequestSent: Bool = false
-    @Published public var isTimerActive: Bool = false
-    @Published public var timerRemaining: Int = 180
+    public var isRequestSent: Bool = false
+    public var isTimerActive: Bool = false
+    public var timerRemaining: Int = 180
     private var timerTask: Task<Void, Never>?
 
     public init(useCase: MypageUserUseCase) {

@@ -12,12 +12,12 @@ import PopupView
 import AuthDomain
 
 public struct PhoneVerificationView: View {
-    @EnvironmentObject private var router: AppRouter
+    @Environment(AppRouter.self) private var router
     
     @FocusState private var isPhoneFieldFocused: Bool
     @FocusState private var isVerificationCodeFocused: Bool
 
-    @ObservedObject private var viewModel: SignupViewModel
+    @Bindable private var viewModel: SignupViewModel
     
     public init(viewModel: SignupViewModel) {
             self.viewModel = viewModel

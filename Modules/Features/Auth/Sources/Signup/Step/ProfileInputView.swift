@@ -15,7 +15,7 @@ public struct ProfileInputView: View {
     @State private var dropdownYPosition: CGFloat = 0
     @FocusState private var isNicknameFocused: Bool
 
-    @ObservedObject private var viewModel: SignupViewModel
+    @Bindable private var viewModel: SignupViewModel
 
     let birthYearOptions: [DropdownOption] = {
         let currentYear = Calendar.current.component(.year, from: Date())

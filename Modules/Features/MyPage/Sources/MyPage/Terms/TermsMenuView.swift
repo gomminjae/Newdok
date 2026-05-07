@@ -11,7 +11,7 @@ import DesignSystem
 import Shared
 
 public struct TermsMenuView: View {
-    @EnvironmentObject private var router: AppRouter
+    @Environment(AppRouter.self) private var router
 
     public init() {}
 
@@ -75,7 +75,7 @@ public struct TermsMenuView: View {
 public struct WebLinkView: View {
     public let title: String
     public let urlString: String
-    @EnvironmentObject private var router: AppRouter
+    @Environment(AppRouter.self) private var router
 
     public init(title: String, urlString: String) {
         self.title = title

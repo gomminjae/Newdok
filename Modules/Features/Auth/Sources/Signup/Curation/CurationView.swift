@@ -11,8 +11,8 @@ import Shared
 import AuthDomain
 
 public struct CurationView: View {
-    @ObservedObject private var viewModel: SignupViewModel
-    @EnvironmentObject private var router: AppRouter
+    @Bindable private var viewModel: SignupViewModel
+    @Environment(AppRouter.self) private var router
     
     public init(viewModel: SignupViewModel) {
         self.viewModel = viewModel

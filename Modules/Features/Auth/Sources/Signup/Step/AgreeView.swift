@@ -18,7 +18,7 @@ public struct AgreeView: View {
     @State private var showSheet = false
     @State private var sheetType: SheetType?
 
-    @ObservedObject private var viewModel: SignupViewModel
+    @Bindable private var viewModel: SignupViewModel
 
     public init(viewModel: SignupViewModel) {
         self.viewModel = viewModel

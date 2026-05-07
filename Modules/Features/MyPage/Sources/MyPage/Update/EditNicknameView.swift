@@ -19,9 +19,9 @@ public struct EditNicknameView: View {
     @State private var validationState: ValidationState = .none
     @FocusState private var isFocused: Bool
 
-    @EnvironmentObject private var viewModel: MypageViewModel
-    @EnvironmentObject private var toast: ToastCenter
-    @EnvironmentObject private var router: AppRouter
+    @Environment(MypageViewModel.self) private var viewModel
+    @Environment(ToastCenter.self) private var toast
+    @Environment(AppRouter.self) private var router
 
     public init(initialNickname: String) {
         self.initialNickname = initialNickname

@@ -41,8 +41,11 @@ public final class ArticleHighlight {
 }
 
 // MARK: - Highlight Storage Manager
+import Observation
+
+@Observable
 @MainActor
-public final class HighlightStorage: ObservableObject {
+public final class HighlightStorage {
     public static let shared = HighlightStorage()
 
     private var container: ModelContainer?

@@ -9,7 +9,7 @@ import SwiftUI
 import Shared
 
 struct NewsLetterEmptyView: View {
-    @EnvironmentObject private var router: AppRouter
+    @Environment(AppRouter.self) private var router
     var body: some View {
         VStack {
             Text("검색 결과가 없어요.")

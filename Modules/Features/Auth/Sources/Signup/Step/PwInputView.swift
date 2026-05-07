@@ -16,7 +16,7 @@ public struct PwInputView: View {
     @FocusState private var isPasswordFocused: Bool
     @FocusState private var isConfirmPasswordFocused: Bool
 
-    @ObservedObject private var viewModel: SignupViewModel
+    @Bindable private var viewModel: SignupViewModel
 
     public init(viewModel: SignupViewModel) {
         self.viewModel = viewModel

@@ -5,7 +5,7 @@ import PopupView
 
 // DesignSystem의 ToastView를 PopupView로 표시하는 전역 토스트 호스트
 public struct AppToastHost: View {
-    @EnvironmentObject private var toast: ToastCenter
+    @Environment(ToastCenter.self) private var toast
 
     public init() {}
 

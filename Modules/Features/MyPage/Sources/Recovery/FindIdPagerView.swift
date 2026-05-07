@@ -12,7 +12,7 @@ import Shared
 import PopupView
 
 struct FindIdPagerView: View {
-    @ObservedObject var viewModel: RecoveryViewModel
+    @Bindable var viewModel: RecoveryViewModel
 
     var body: some View {
         ZStack {
@@ -28,13 +28,13 @@ struct FindIdPagerView: View {
     }
 }
 struct FindIdPhoneInputView: View {
-    @ObservedObject var viewModel: RecoveryViewModel
+    @Bindable var viewModel: RecoveryViewModel
     @FocusState private var isPhoneFieldFocused: Bool
     @FocusState private var isNumberPadFocused: Bool
     
     @State private var isShowPhoneNumberError: Bool = false
     
-    @EnvironmentObject private var router: AppRouter
+    @Environment(AppRouter.self) private var router
 
     var body: some View {
         ZStack(alignment: .bottom) {
@@ -128,9 +128,9 @@ struct FindIdPhoneInputView: View {
 }
 
 struct FindIdResultView: View {
-    @ObservedObject var viewModel: RecoveryViewModel
+    @Bindable var viewModel: RecoveryViewModel
     
-    @EnvironmentObject private var router: AppRouter
+    @Environment(AppRouter.self) private var router
 
     var body: some View {
             VStack(alignment: .leading, spacing: 0) {

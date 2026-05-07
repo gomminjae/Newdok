@@ -127,7 +127,7 @@ let sampleFAQs: [FAQItem] = [
 public struct FAQView: View {
     @State private var expandedFAQID: UUID?
     
-    @EnvironmentObject private var router: AppRouter
+    @Environment(AppRouter.self) private var router
     
     public init() {}
 

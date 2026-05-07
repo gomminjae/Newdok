@@ -1,11 +1,13 @@
 import SwiftUI
+import Observation
 
+@Observable
 @MainActor
-public final class ToastCenter: ObservableObject {
+public final class ToastCenter {
     public static let shared = ToastCenter()
 
-    @Published public private(set) var isShown: Bool = false
-    @Published public private(set) var message: String = ""
+    public private(set) var isShown: Bool = false
+    public private(set) var message: String = ""
 
     private var dismissTask: Task<Void, Never>?
 
@@ -29,7 +31,7 @@ public final class ToastCenter: ObservableObject {
 
 // [ADDED] 전역 토스트 렌더러: 루트에서 overlay로 한 번만 붙임
 public struct ToastHost: View {
-    @EnvironmentObject private var toast: ToastCenter
+    @Environment(ToastCenter.self) private var toast
 
     public init() {}
 

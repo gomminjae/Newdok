@@ -5,60 +5,49 @@
 //  Created by 권민재 on 4/24/25.
 //  Copyright © 2025 Newdok. All rights reserved.
 //
-import Combine
 import Shared
 import ExploreDomain
 import SwiftUI
+import Observation
 
+@Observable
 @MainActor
-public class ExploreViewModel: ObservableObject, ErrorHandling {
-    @Published public var myRecommendation: [ExploreNewsletterDetail] = []
-    @Published public var unionRecommendation: [ExploreNewsletterDetail] = []
-    @Published public var fixedMyRecommendation: [ExploreNewsletterDetail] = []
-    @Published public var fixedUnionRecommendation: [ExploreNewsletterDetail] = []
+public final class ExploreViewModel: ErrorHandling {
+    public var myRecommendation: [ExploreNewsletterDetail] = []
+    public var unionRecommendation: [ExploreNewsletterDetail] = []
+    public var fixedMyRecommendation: [ExploreNewsletterDetail] = []
+    public var fixedUnionRecommendation: [ExploreNewsletterDetail] = []
 
     // 캐시된 데이터 (메모리 최적화)
     private var cachedRecommendation: ExploreRecommendedNewsletter?
     private var lastFetchTime: Date?
 
-    @Published public var allNewsletters: [ExploreBrand] = []
+    public var allNewsletters: [ExploreBrand] = []
 
     // 현재 선택된 탭 (0: 추천, 1: 전체)
-    @Published public var selectedTab: Int = 0
+    public var selectedTab: Int = 0
 
-    @Published public var orderOpt: String? = "인기순"
-    @Published public var industry: [Int]?
-    @Published public var day: [Int]?
+    public var orderOpt: String? = "인기순"
+    public var industry: [Int]?
+    public var day: [Int]?
 
-    @Published public var isShowFilterSheet: Bool = false
-    @Published public var isShowSortSheet: Bool = false
-    @Published public var isRecommend: Bool = false
-    @Published public var shouldScrollToTop: Bool = false
+    public var isShowFilterSheet: Bool = false
+    public var isShowSortSheet: Bool = false
+    public var isRecommend: Bool = false
+    public var shouldScrollToTop: Bool = false
 
     // 로딩 상태 관리
-    @Published public var isRefreshingRecommendation: Bool = false
-    @Published public var isRefreshingAllNewsletters: Bool = false
-    @Published public var currentError: AppError?
+    public var isRefreshingRecommendation: Bool = false
+    public var isRefreshingAllNewsletters: Bool = false
+    public var currentError: AppError?
 
     var hasUserProfile: Bool {
         return UserInfoStore.shared.hasProfile
     }
 
     private let useCase: ExploreNewsletterUseCase
-    private var cancellables = Set<AnyCancellable>()
-
     public init(useCase: ExploreNewsletterUseCase) {
         self.useCase = useCase
-
-        // AppState 구독
-        AppState.shared.$authState
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] authState in
-                if authState == .guest {
-                    self?.clearData()
-                }
-            }
-            .store(in: &cancellables)
     }
 
     public func fetchRecommendation(forceRefresh: Bool = false) async {
