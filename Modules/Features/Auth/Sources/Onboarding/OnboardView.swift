@@ -5,7 +5,6 @@
 //  Created by 권민재 on 2/14/25.
 //
 import SwiftUI
-import Auth
 import DesignSystem
 import Shared
 import Combine

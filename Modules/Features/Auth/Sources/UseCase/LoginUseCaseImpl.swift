@@ -17,26 +17,7 @@ public final class LoginUseCaseImpl: LoginUseCase {
     }
 
     public func execute(loginId: String, password: String) async throws -> AuthUser {
-        let (user, token) = try await authRepository.login(loginId: loginId, password: password)
-
-        // 토큰 저장
-        TokenStorage.accessToken = token
-
-        // 사용자 정보 저장
-        let userInfo = UserInfo(
-            id: user.id,
-            loginId: user.loginId,
-            phoneNumber: user.phoneNumber,
-            subscribeEmail: user.subscribeEmail,
-            nickname: user.nickname,
-            birthYear: user.birthYear,
-            gender: user.gender,
-            createdAt: user.createdAt,
-            industryId: user.industryId,
-            interestIds: user.interestIds
-        )
-        UserInfoStore.shared.save(userInfo)
-
+        let (user, _) = try await authRepository.login(loginId: loginId, password: password)
         return user
     }
 }

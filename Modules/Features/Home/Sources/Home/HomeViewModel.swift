@@ -71,21 +71,23 @@ public enum HomeState {
 @MainActor
 public final class HomeViewModel: ObservableObject {
     private let useCase: HomeBusinessUseCase
+    private let appState: AppState
     @Published public var calendarState: CalendarState
     private var cancellables = Set<AnyCancellable>()
-    
+
     @Published public var homeState: HomeState = .idle
     @Published public var filteredArticles: [HomeArticle] = []
     @Published public var subscribedNewsletters: [HomeNewsletter] = []
     @Published public var articlesByMonth: [HomeArticles] = []
-    
+
     private var dataDaysCache: [String: Set<Int>] = [:]
     private var latestMonthRequestKey: String?
-    
-    @AppStorage("isGuest") public var isGuest: Bool = false
-    
-    public init(useCase: HomeBusinessUseCase) {
+
+    private var isGuest: Bool { appState.authState == .guest }
+
+    public init(useCase: HomeBusinessUseCase, appState: AppState) {
         self.useCase = useCase
+        self.appState = appState
         self.calendarState = CalendarState()
         
         calendarState.objectWillChange

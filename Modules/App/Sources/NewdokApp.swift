@@ -37,13 +37,16 @@ struct NewdokApp: App {
                         search: CompositionRoot.makeSearchFactory(),
                         mypage: CompositionRoot.makeMypageFactory(),
                         launch: CompositionRoot.makeLaunchFactory()
-                    )
+                    ),
+                    loadOptionsUseCase: CompositionRoot.makeLoadOptionsUseCase(),
+                    signOut: CompositionRoot.makeSignOut()
                 )
             }
             .hideKeyboardOnTap()
             .environmentObject(router)
             .environmentObject(tabSelection)
             .environmentObject(exploreIntent)
+            .environmentObject(AppState.shared)
             .environmentObject(ToastCenter.shared)
             .overlay(
                 AppToastHost()

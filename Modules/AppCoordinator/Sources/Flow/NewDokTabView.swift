@@ -138,9 +138,11 @@ public struct NewDokTabView: View {
     @State private var selectedTab: NewDokTab = .home
     @State private var previousTab: NewDokTab = .home
 
-    @AppStorage("isGuest") private var isGuest: Bool = false
     @EnvironmentObject private var router: AppRouter
     @EnvironmentObject private var tabSelection: TabSelection
+    @EnvironmentObject private var appState: AppState
+
+    private var isGuest: Bool { appState.authState == .guest }
 
     private let homeFactory: HomeViewFactory
     private let exploreFactory: ExploreViewFactory

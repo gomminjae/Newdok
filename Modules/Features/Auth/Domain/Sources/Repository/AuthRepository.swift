@@ -15,4 +15,5 @@ public protocol AuthRepository: Sendable {
     func checkIDDup(_ loginId: String) async throws -> CheckResult<AuthSimpleUser>
     func authSMS(phoneNumber: String) async throws -> AuthSMSResponse
     func preInvestigate(industryId: String, interestIds: [String]) async throws -> [AuthRecommendedBrand]
+    func signOut() async
 }

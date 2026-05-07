@@ -1,6 +1,7 @@
 import Foundation
 import Swinject
 import Core
+import Shared
 import AppCoordinator
 import Auth
 import AuthInterface
@@ -41,24 +42,24 @@ import LaunchInterface
 enum CompositionRoot {
     private static var container: Container { AppDIContainer.shared.container }
 
-    static func registerGlobalDependencies() {
+    static func registerGlobalDependencies() {}
+
+    static func makeLoadOptionsUseCase() -> LoadOptionsUseCase {
         let exploreRepo = ExploreNewsletterRepositoryImpl(
             network: container.resolve(MoyaNetworkService<NewsletterAPI>.self)!
         )
-        let exploreUseCase = ExploreNewsletterUseCaseImpl(repository: exploreRepo)
-        container.register(LoadOptionsUseCase.self) { _ in
-            LoadOptionsUseCaseImpl(newsletterUseCase: exploreUseCase)
-        }.inObjectScope(.container)
+        return LoadOptionsUseCaseImpl(repository: exploreRepo)
     }
 
+    private static let authRepository: AuthRepository = AuthRepositoryImpl(
+        network: AppDIContainer.shared.container.resolve(MoyaNetworkService<UserAPI>.self)!
+    )
+
     static func makeAuthFactory() -> AuthViewFactory {
-        let authRepo = AuthRepositoryImpl(
-            network: container.resolve(MoyaNetworkService<UserAPI>.self)!
-        )
+        let authRepo = authRepository
         return AuthViewFactoryImpl(
             signupViewModelProvider: {
-                let loginUseCase = LoginUseCaseImpl(authRepository: authRepo)
-                let signupUseCase = SignupUseCaseImpl(authRepository: authRepo, loginUseCase: loginUseCase)
+                let signupUseCase = SignupUseCaseImpl(authRepository: authRepo)
                 return SignupViewModel(authRepository: authRepo, signupUseCase: signupUseCase)
             },
             loginViewModelProvider: {
@@ -66,6 +67,11 @@ enum CompositionRoot {
                 return LoginViewModel(loginUseCase: loginUseCase)
             }
         )
+    }
+
+    static func makeSignOut() -> @MainActor () async -> Void {
+        let repo = authRepository
+        return { await repo.signOut() }
     }
 
     static func makeHomeFactory() -> HomeViewFactory {
@@ -76,9 +82,8 @@ enum CompositionRoot {
             let newsletterRepo = HomeNewsletterRepositoryImpl(
                 network: container.resolve(MoyaNetworkService<NewsletterAPI>.self)!
             )
-            let fetchUseCase = FetchHomeDataUseCaseImpl(newsletterRepo: newsletterRepo, articleRepo: articleRepo)
-            let businessUseCase = DefaultHomeBusinessUseCase(fetchUseCase: fetchUseCase)
-            return HomeViewModel(useCase: businessUseCase)
+            let businessUseCase = DefaultHomeBusinessUseCase(articleRepository: articleRepo, newsletterRepository: newsletterRepo)
+            return HomeViewModel(useCase: businessUseCase, appState: AppState.shared)
         })
     }
 
@@ -151,7 +156,7 @@ enum CompositionRoot {
         return MypageViewFactoryImpl(
             mypageViewModelProvider: {
                 let userUseCase = MypageUserUseCaseImpl(repository: userRepo)
-                let profileUseCase = ProfileUseCaseImpl(userUseCase: userUseCase)
+                let profileUseCase = ProfileUseCaseImpl(repository: userRepo)
                 return MypageViewModel(useCase: userUseCase, profileUseCase: profileUseCase)
             },
             recoveryViewModelProvider: {

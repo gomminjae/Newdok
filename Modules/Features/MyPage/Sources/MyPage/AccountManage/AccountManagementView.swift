@@ -94,12 +94,6 @@ public struct AccountManagementView: View {
                     // 캐시된 뷰모델 초기화
                     NotificationCenter.default.post(name: .init("ResetMypageCache"), object: nil)
 
-                    // 앱 상태 초기화
-                    @AppStorage("isGuest") var isGuest: Bool = true
-                    @AppStorage("isLoggedIn") var isLoggedIn: Bool = false
-                    isGuest = true
-                    isLoggedIn = false
-
                     // AppState를 통한 중앙 집중식 상태 관리
                     AppState.shared.logout()
 

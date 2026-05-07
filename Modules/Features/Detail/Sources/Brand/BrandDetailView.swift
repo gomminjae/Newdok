@@ -78,8 +78,10 @@ public struct BrandDetailView: View {
     
     @State private var isShowPauseAlert: Bool = false
     @State private var isShowGuestAlert: Bool = false
-    
-    @AppStorage("isGuest") private var isGuest = false
+
+    @EnvironmentObject private var appState: AppState
+
+    private var isGuest: Bool { appState.authState == .guest }
     
     @State private var showSubscribeSheet = false
     @State private var showSubscribeStatePopup = false
@@ -444,7 +446,7 @@ public struct BrandDetailView: View {
             .frame(maxWidth: .infinity, alignment: .leading)
             .padding(.bottom, 32)
             .sheet(isPresented: $showSubscribeSheet) {
-                SubscribeModalView(title: viewModel.detail?.brandName ?? "", url: viewModel.detail?.subscribeUrl ?? "")
+                SubscribeModalView(title: viewModel.detail?.brandName ?? "", url: viewModel.detail?.subscribeUrl ?? "", email: UserInfoStore.shared.load()?.subscribeEmail ?? "")
                     .presentationDetents([.large])
                     .presentationDragIndicator(.hidden)
                     .presentationBackground(.clear)

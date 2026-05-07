@@ -17,6 +17,10 @@ public final class AuthRepositoryImpl: AuthRepository {
             )
             let user = response.user.toDomain()
             let token = response.accessToken
+
+            TokenStorage.accessToken = token
+            persistLocalUser(from: user)
+
             return (user, token)
         } catch let error as NetworkError {
             if case .serverError(let statusCode, let message) = error, statusCode == 400 {
@@ -51,7 +55,12 @@ public final class AuthRepositoryImpl: AuthRepository {
                 gender: gender
             )
         )
-        return response.toDomain()
+        let domain = response.toDomain()
+
+        TokenStorage.accessToken = domain.accessToken
+        persistLocalUser(from: domain.user)
+
+        return domain
     }
 
     public func checkPhoneNumber(_ phoneNumber: String) async throws -> [AuthSimpleUser] {
@@ -99,5 +108,26 @@ public final class AuthRepositoryImpl: AuthRepository {
             .preInvestigate(industryId: industryId, interestIds: interestIds)
         )
         return response.toDomain()
+    }
+
+    public func signOut() async {
+        TokenStorage.clear()
+        UserInfoStore.shared.clear()
+    }
+
+    private func persistLocalUser(from user: AuthUser) {
+        let userInfo = UserInfo(
+            id: user.id,
+            loginId: user.loginId,
+            phoneNumber: user.phoneNumber,
+            subscribeEmail: user.subscribeEmail,
+            nickname: user.nickname,
+            birthYear: user.birthYear,
+            gender: user.gender,
+            createdAt: user.createdAt,
+            industryId: user.industryId,
+            interestIds: user.interestIds
+        )
+        UserInfoStore.shared.save(userInfo)
     }
 }

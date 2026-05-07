@@ -47,11 +47,6 @@ public final class LoginViewModel: LoginViewModelBindable, ErrorHandling {
     @Published public var isPasswordError: Bool = false
     @Published public var currentError: AppError?
 
-    @AppStorage("isLoggedIn") public var isLoggedIn: Bool = false
-    @AppStorage("isGuest") public var isGuest: Bool = false
-    @AppStorage("nickname") public var nickname: String = ""
-    @AppStorage("email") public var email: String = ""
-
     public init(loginUseCase: LoginUseCase) {
         self.loginUseCase = loginUseCase
         self.loginId = ""
@@ -73,10 +68,6 @@ public final class LoginViewModel: LoginViewModelBindable, ErrorHandling {
                 errorMessage = nil
                 isLoginIdError = false
                 isPasswordError = false
-                isLoggedIn = true
-                isGuest = false
-                nickname = user.nickname
-                email = user.subscribeEmail ?? ""
 
                 AppState.shared.login()
                 onSuccess()

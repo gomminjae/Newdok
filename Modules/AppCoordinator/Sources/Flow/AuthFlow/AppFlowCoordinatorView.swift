@@ -10,14 +10,24 @@ struct AppRootView: View {
     @ObservedObject var router: AppRouter
     let exploreIntent: ExploreIntent
     let coordinator: AppCoordinator
+    let loadOptionsUseCase: LoadOptionsUseCase
+    let signOut: @MainActor () async -> Void
 
     @State private var launched = false
     @State private var showUnauthorizedAlert = false
 
-    init(router: AppRouter, exploreIntent: ExploreIntent, coordinator: AppCoordinator) {
+    init(
+        router: AppRouter,
+        exploreIntent: ExploreIntent,
+        coordinator: AppCoordinator,
+        loadOptionsUseCase: LoadOptionsUseCase,
+        signOut: @escaping @MainActor () async -> Void
+    ) {
         self.router = router
         self.exploreIntent = exploreIntent
         self.coordinator = coordinator
+        self.loadOptionsUseCase = loadOptionsUseCase
+        self.signOut = signOut
     }
 
     var body: some View {
@@ -43,9 +53,6 @@ struct AppRootView: View {
         }
         .task {
             do {
-                guard let loadOptionsUseCase = AppDIContainer.shared.container.resolve(LoadOptionsUseCase.self) else {
-                    fatalError("LoadOptionsUseCase is not registered in DI container")
-                }
                 try await loadOptionsUseCase.execute()
             } catch {
                 print("Failed to load options: \(error)")
@@ -65,10 +72,8 @@ struct AppRootView: View {
             }
         }
         .onReceive(NotificationCenter.default.publisher(for: .didReceiveUnauthorized)) { _ in
-            UserDefaults.standard.set(false, forKey: "isLoggedIn")
-            UserDefaults.standard.set(false, forKey: "isGuest")
-            UserDefaults.standard.removeObject(forKey: "nickname")
-            UserDefaults.standard.removeObject(forKey: "email")
+            Task { await signOut() }
+            AppState.shared.logout()
             showUnauthorizedAlert = true
         }
         .alert("로그인이 필요합니다", isPresented: $showUnauthorizedAlert) {

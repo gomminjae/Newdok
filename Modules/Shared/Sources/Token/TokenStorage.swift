@@ -8,67 +8,35 @@
 import Foundation
 
 public enum TokenStorage {
-    private enum Key {
-        static let accessToken = "accessToken"
-        static let hasCompletedOnboarding = "hasCompletedOnboarding"
-        static let hideSubscribeStatePopupDate = "hideSubscribeStatePopupDate"
-    }
+    @UserDefault("accessToken", default: nil)
+    public static var accessToken: String?
 
-    public static var accessToken: String? {
-        get {
-            UserDefaults.standard.string(forKey: Key.accessToken)
-        }
-        set {
-            if let newValue = newValue {
-                UserDefaults.standard.set(newValue, forKey: Key.accessToken)
-            } else {
-                UserDefaults.standard.removeObject(forKey: Key.accessToken)
-            }
-        }
-    }
+    @UserDefault("hasCompletedOnboarding", default: false)
+    public static var hasCompletedOnboarding: Bool
+
+    @UserDefault("hideSubscribeStatePopupDate", default: nil)
+    public static var hideSubscribeStatePopupDate: Date?
 
     public static func clear() {
-        UserDefaults.standard.removeObject(forKey: Key.accessToken)
+        accessToken = nil
     }
-    
+
     public static var hasValidToken: Bool {
-        return accessToken != nil && !accessToken!.isEmpty
+        guard let token = accessToken else { return false }
+        return !token.isEmpty
     }
-    
-    public static var hasCompletedOnboarding: Bool {
-        get {
-            UserDefaults.standard.bool(forKey: Key.hasCompletedOnboarding)
-        }
-        set {
-            UserDefaults.standard.set(newValue, forKey: Key.hasCompletedOnboarding)
-        }
-    }
-    
+
     public static func markOnboardingCompleted() {
         hasCompletedOnboarding = true
     }
-    
-    public static var hideSubscribeStatePopupDate: Date? {
-        get {
-            UserDefaults.standard.object(forKey: Key.hideSubscribeStatePopupDate) as? Date
-        }
-        set {
-            UserDefaults.standard.set(newValue, forKey: Key.hideSubscribeStatePopupDate)
-        }
-    }
-    
+
     public static func hideSubscribeStatePopupForToday() {
         hideSubscribeStatePopupDate = Date()
     }
-    
+
     public static var shouldShowSubscribeStatePopup: Bool {
         guard let hideDate = hideSubscribeStatePopupDate else { return true }
-        
-        let calendar = Calendar.current
-        let today = Date()
-        
-        // 오늘 날짜와 저장된 날짜가 같은지 확인
-        return !calendar.isDate(hideDate, inSameDayAs: today)
+        return !Calendar.current.isDate(hideDate, inSameDayAs: Date())
     }
 }
 

@@ -38,14 +38,12 @@
 		B077BEF4EBFB5B47890445A2 /* BookmarkView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A67016F7ECAD609354E68E6 /* BookmarkView.swift */; };
 		B3DDE87514556E0BA6A6257E /* PopupView.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D7097229A5B4D0C77F9A1AA9 /* PopupView.framework */; };
 		BB3583AB8AFF5A8582A7EA5C /* Bookmark.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 76BD577AD93EFB89FF1662CC /* Bookmark.framework */; };
-		C200E53FF641FB80FF25FBBC /* DesignSystem_DesignSystem.bundle in Dependencies */ = {isa = PBXBuildFile; fileRef = BBDE9251A6A0136A7E26B3E5 /* DesignSystem_DesignSystem.bundle */; };
 		C6D2F181D424BE4BA0E205C4 /* BookmarkMain.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8CAFD478C6DDC83E089E3A7 /* BookmarkMain.swift */; };
 		C9713249EFF54B95D5957871 /* Shared.framework in Dependencies */ = {isa = PBXBuildFile; fileRef = 22775B642171631175E5C887 /* Shared.framework */; };
 		E5164B2889523A1E7FCCA93E /* BookmarkTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D833BD260020B2F30A7E7FC8 /* BookmarkTests.swift */; };
 		EFEA28987FB90851599084C2 /* BookmarkInterestDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A8328380BADA8FF551AC269 /* BookmarkInterestDTO.swift */; };
 		F516AF3722B18D4CA17CA6C5 /* BookmarkViewFactoryImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FEA08A7EBF8C3419BC9C524 /* BookmarkViewFactoryImpl.swift */; };
 		FE062AF14025853C2ADB4F4D /* BookmarkViewFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71823B685C2FC002BE0190AC /* BookmarkViewFactory.swift */; };
-		FF071D7F25F1A1CD20AC825D /* DesignSystem_DesignSystem.bundle in Resources */ = {isa = PBXBuildFile; fileRef = BBDE9251A6A0136A7E26B3E5 /* DesignSystem_DesignSystem.bundle */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -150,16 +148,6 @@
 			name = Dependencies;
 			runOnlyForDeploymentPostprocessing = 1;
 		};
-		BF69A515542BB9C5AB004EB7 /* Dependencies */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 8;
-			dstSubfolderSpec = 16;
-			files = (
-				C200E53FF641FB80FF25FBBC /* DesignSystem_DesignSystem.bundle in Dependencies */,
-			);
-			name = Dependencies;
-			runOnlyForDeploymentPostprocessing = 1;
-		};
 		C6A55BA645C11580C9F657C7 /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -212,7 +200,6 @@
 		A47C7D14746696637C609C95 /* BookmarkGuestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkGuestView.swift; sourceTree = "<group>"; };
 		A4AFE93BF8AB6F3624F36113 /* BookmarkInterface-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "BookmarkInterface-Info.plist"; sourceTree = "<group>"; };
 		B5E4D1C21AD8172E2DE26AB5 /* BookmarkRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkRepository.swift; sourceTree = "<group>"; };
-		BBDE9251A6A0136A7E26B3E5 /* DesignSystem_DesignSystem.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DesignSystem_DesignSystem.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
 		D276B3421EA24CE847FEE3A2 /* BookmarkItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkItem.swift; sourceTree = "<group>"; };
 		D7097229A5B4D0C77F9A1AA9 /* PopupView.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = PopupView.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D833BD260020B2F30A7E7FC8 /* BookmarkTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkTests.swift; sourceTree = "<group>"; };
@@ -299,7 +286,6 @@
 				E7655ACA3BC556B119528725 /* BookmarkInterface.framework */,
 				F1105013526F13651EC442F5 /* BookmarkTests.xctest */,
 				04218E44C8D7EEB4DB1FEB17 /* Core.framework */,
-				BBDE9251A6A0136A7E26B3E5 /* DesignSystem_DesignSystem.bundle */,
 				F2A5BEA1A83032F8516C05FC /* DesignSystem.framework */,
 				722BE9794BB696843B2378B9 /* Kingfisher.framework */,
 				D7097229A5B4D0C77F9A1AA9 /* PopupView.framework */,
@@ -565,7 +551,6 @@
 				ACE72C6E428CCBA07334E279 /* Resources */,
 				20B520E08F0B31EDFD381617 /* Frameworks */,
 				9BC99EC1B32ACA3FFCFA4EAA /* Embed Frameworks */,
-				BF69A515542BB9C5AB004EB7 /* Dependencies */,
 			);
 			buildRules = (
 			);
@@ -632,7 +617,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FF071D7F25F1A1CD20AC825D /* DesignSystem_DesignSystem.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -850,10 +834,6 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				OTHER_LDFLAGS = (
-					"$(inherited)",
-					"-L$(DT_TOOLCHAIN_DIR)/usr/lib/swift/$(PLATFORM_NAME)",
-				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.newdok.bookmark.tests;
 				PRODUCT_NAME = BookmarkTests;
 				SDKROOT = iphoneos;
@@ -912,10 +892,6 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
-				);
-				OTHER_LDFLAGS = (
-					"$(inherited)",
-					"-L$(DT_TOOLCHAIN_DIR)/usr/lib/swift/$(PLATFORM_NAME)",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.newdok.bookmark.tests;
 				PRODUCT_NAME = BookmarkTests;

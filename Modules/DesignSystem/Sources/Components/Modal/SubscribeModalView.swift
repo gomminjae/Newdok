@@ -31,13 +31,14 @@ public struct SubscribeModalView: View {
     @Environment(\.dismiss) var dismiss
     public let title: String
     public let url: String
-    
-    @AppStorage("email") private var email: String = ""
+    public let email: String
+
     @State private var showToast: Bool = false
-    
-    public init(title: String, url: String) {
+
+    public init(title: String, url: String, email: String = "") {
         self.title = title
         self.url = url
+        self.email = email
     }
 
     public var body: some View {

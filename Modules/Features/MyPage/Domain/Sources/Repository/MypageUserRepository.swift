@@ -12,6 +12,7 @@ import Shared
 public protocol MypageUserRepository: Sendable {
     func getProfile() async throws -> MypageUser
     func updateNickname(_ nickname: String) async throws -> MypageNicknameResponse
+    func updatePassword(prevPassword: String, newPassword: String) async throws
     func updatePassword(loginId: String, prevPassword: String, newPassword: String) async throws
     func updateInterest(_ interestsId: [Int]) async throws
     func updateIndustry(_ industryId: Int) async throws

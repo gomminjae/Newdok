@@ -12,10 +12,6 @@ private func logHomeError(_ error: Error, operation: String) {
 }
 
 public actor DefaultHomeBusinessUseCase: HomeBusinessUseCase {
-    private enum Constants {
-        static let readArticlesKey = "readArticles"
-    }
-
     private static let yearFormatter: DateFormatter = {
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy"
@@ -28,7 +24,8 @@ public actor DefaultHomeBusinessUseCase: HomeBusinessUseCase {
         return formatter
     }()
 
-    private let fetchUseCase: FetchHomeDataUseCase
+    private let articleRepository: HomeArticleRepository
+    private let newsletterRepository: HomeNewsletterRepository
 
     private var snapshotState: HomeSnapshot
     private var monthlyCache: [String: [HomeArticles]] = [:]
@@ -38,8 +35,12 @@ public actor DefaultHomeBusinessUseCase: HomeBusinessUseCase {
     private var dayArticlesCache: [String: [HomeArticle]] = [:]
     private var isTodayLoading = false
 
-    public init(fetchUseCase: FetchHomeDataUseCase) {
-        self.fetchUseCase = fetchUseCase
+    public init(
+        articleRepository: HomeArticleRepository,
+        newsletterRepository: HomeNewsletterRepository
+    ) {
+        self.articleRepository = articleRepository
+        self.newsletterRepository = newsletterRepository
         let today = Date()
         let month = Calendar.current.date(
             from: Calendar.current.dateComponents([.year, .month], from: today)
@@ -67,17 +68,18 @@ public actor DefaultHomeBusinessUseCase: HomeBusinessUseCase {
         defer { isTodayLoading = false }
 
         do {
-            let data = try await fetchUseCase.fetchTodayData()
+            async let articlesTask = articleRepository.fetchTodayArticles()
+            async let newslettersTask = newsletterRepository.fetchActiveSubscription()
+            let articles = try await articlesTask
+            let newsletters = try await newslettersTask
+
             let today = strippedDate(Date())
             let month = startOfMonth(today)
-            let processedArticles = fetchUseCase.decorateTodayArticles(
-                data.articles,
-                readArticleIds: readArticleIds
-            )
+            let processedArticles = decorateTodayArticles(articles, readArticleIds: readArticleIds)
 
             snapshotState.selectedDate = today
             snapshotState.displayedMonth = month
-            snapshotState.subscribedNewsletters = data.activeNewsletters
+            snapshotState.subscribedNewsletters = newsletters
             storeArticles(processedArticles, for: today)
 
             clearMonthlyCache(for: today)
@@ -95,7 +97,7 @@ public actor DefaultHomeBusinessUseCase: HomeBusinessUseCase {
 
     public func refreshToToday() async -> HomeSnapshot {
         do {
-            try await fetchUseCase.refresh()
+            try await articleRepository.refresh()
         } catch {
             logHomeError(error, operation: "refresh")
         }
@@ -169,7 +171,7 @@ public actor DefaultHomeBusinessUseCase: HomeBusinessUseCase {
 
         let targetDate = snapshotState.selectedDate
         if var cached = cachedArticles(for: targetDate) {
-            cached = fetchUseCase.decorateTodayArticles(cached, readArticleIds: readArticleIds)
+            cached = decorateTodayArticles(cached, readArticleIds: readArticleIds)
             storeArticles(cached, for: targetDate)
             snapshotState.filteredArticles = cached
             applyMonthlyAdjustment(for: targetDate, articles: cached)
@@ -230,10 +232,7 @@ public actor DefaultHomeBusinessUseCase: HomeBusinessUseCase {
 
     // MARK: - Helpers
     private func fetchMonthly(for date: Date) async throws -> [HomeArticles] {
-        try await fetchUseCase.fetchMonthlyData(
-            year: formatYear(date),
-            month: formatMonth(date)
-        )
+        try await articleRepository.fetchArticles(year: formatYear(date), publicationMonth: formatMonth(date))
     }
 
     private func updateDataDays(with monthly: [HomeArticles], forKey key: String, affectsSnapshot: Bool = true) {
@@ -261,12 +260,12 @@ public actor DefaultHomeBusinessUseCase: HomeBusinessUseCase {
         }
 
         do {
-            let fetched = try await fetchUseCase.fetchDayArticles(
+            let fetched = try await articleRepository.fetchDayArticles(
                 year: formatYear(date),
-                month: formatMonth(date),
-                day: formatDay(date)
+                publicationMonth: formatMonth(date),
+                publicationDate: formatDay(date)
             )
-            let decorated = fetchUseCase.decorateTodayArticles(fetched, readArticleIds: readArticleIds)
+            let decorated = decorateTodayArticles(fetched, readArticleIds: readArticleIds)
             storeArticles(decorated, for: date)
             return decorated
         } catch {
@@ -289,7 +288,7 @@ public actor DefaultHomeBusinessUseCase: HomeBusinessUseCase {
             publishDate: day,
             hasArticles: !articles.isEmpty,
             totalCount: articles.count,
-            unreadCount: fetchUseCase.unreadCount(in: articles)
+            unreadCount: unreadCount(in: articles)
         )
 
         replaceEntry(entry, in: &snapshotState.articlesByMonth)
@@ -312,6 +311,46 @@ public actor DefaultHomeBusinessUseCase: HomeBusinessUseCase {
             list.sort { $0.publishDate < $1.publishDate }
         }
     }
+
+    // MARK: - Read state decoration
+
+    private func decorateTodayArticles(_ articles: [HomeArticle], readArticleIds: Set<Int>) -> [HomeArticle] {
+        let mapped = articles.map { applyReadStatus(to: $0, readArticleIds: readArticleIds) }
+        return prioritize(mapped)
+    }
+
+    private func unreadCount(in articles: [HomeArticle]) -> Int {
+        articles.reduce(into: 0) { count, article in
+            if !isRead(article) { count += 1 }
+        }
+    }
+
+    private func applyReadStatus(to article: HomeArticle, readArticleIds: Set<Int>) -> HomeArticle {
+        guard readArticleIds.contains(article.articleId) else { return article }
+        return HomeArticle(
+            brandName: article.brandName,
+            imageUrl: article.imageUrl,
+            articleTitle: article.articleTitle,
+            articleId: article.articleId,
+            status: "Read",
+            publishDate: article.publishDate
+        )
+    }
+
+    private func prioritize(_ articles: [HomeArticle]) -> [HomeArticle] {
+        articles.sorted { lhs, rhs in
+            let lhsRead = isRead(lhs)
+            let rhsRead = isRead(rhs)
+            if lhsRead != rhsRead { return !lhsRead }
+            return lhs.articleId > rhs.articleId
+        }
+    }
+
+    private func isRead(_ article: HomeArticle) -> Bool {
+        article.status.caseInsensitiveCompare("Read") == .orderedSame
+    }
+
+    // MARK: - Date helpers
 
     private func formatYear(_ date: Date) -> String {
         Self.yearFormatter.string(from: date)
@@ -353,17 +392,11 @@ public actor DefaultHomeBusinessUseCase: HomeBusinessUseCase {
     }
 
     private func loadReadArticleIds() {
-        if
-            let data = UserDefaults.standard.data(forKey: Constants.readArticlesKey),
-            let ids = try? JSONDecoder().decode(Set<Int>.self, from: data) {
-            readArticleIds = ids
-        }
+        readArticleIds = articleRepository.loadReadArticleIds()
     }
 
     private func saveReadArticleIds() {
-        if let data = try? JSONEncoder().encode(readArticleIds) {
-            UserDefaults.standard.set(data, forKey: Constants.readArticlesKey)
-        }
+        articleRepository.saveReadArticleIds(readArticleIds)
     }
 
     private func prefetchAdjacentMonths(from date: Date) {

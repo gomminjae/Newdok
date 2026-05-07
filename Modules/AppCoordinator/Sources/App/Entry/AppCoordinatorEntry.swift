@@ -3,6 +3,7 @@ import Shared
 import AuthInterface
 import HomeInterface
 import ExploreInterface
+import ExploreDomain
 import SubscribeInterface
 import BookmarkInterface
 import DetailInterface
@@ -49,7 +50,9 @@ public enum AppCoordinatorEntry {
     public static func makeAFlow(
         router: AppRouter,
         exploreIntent: ExploreIntent,
-        factories: FeatureFactories
+        factories: FeatureFactories,
+        loadOptionsUseCase: LoadOptionsUseCase,
+        signOut: @escaping @MainActor () async -> Void
     ) -> some View {
         let coordinator = AppCoordinator(
             router: router,
@@ -64,6 +67,12 @@ public enum AppCoordinatorEntry {
             mypageFactory: factories.mypage,
             launchFactory: factories.launch
         )
-        return AppRootView(router: router, exploreIntent: exploreIntent, coordinator: coordinator)
+        return AppRootView(
+            router: router,
+            exploreIntent: exploreIntent,
+            coordinator: coordinator,
+            loadOptionsUseCase: loadOptionsUseCase,
+            signOut: signOut
+        )
     }
 }

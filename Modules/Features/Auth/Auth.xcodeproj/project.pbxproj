@@ -13,6 +13,7 @@
 		0C8A59F69E82B238BBACE038 /* PwInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C904E1C986F43E7E3173A68 /* PwInputView.swift */; };
 		0DD4957EB4B1CA41581F98F0 /* AuthLoginResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 252C2F86266EE72217090DE5 /* AuthLoginResponseDTO.swift */; };
 		0F56C20E1DA7712315D9E806 /* AuthUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D19C06CB9237BDD75BDE6D0 /* AuthUser.swift */; };
+		11398BE7E7D82516E37D424D /* SignupFormatStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F2A7B152CF8BFC2A33B5864 /* SignupFormatStyle.swift */; };
 		122C53001252A72B60454C84 /* Kingfisher.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2FDB1F539F81A1BE90F87D4C /* Kingfisher.framework */; };
 		15945F0A7DFC670E3A6F579E /* AuthDomain.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7C94165A812E44E5FD3BFC7F /* AuthDomain.framework */; };
 		1637E15B361BE0077BB2E4A4 /* AuthSignupResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7AF374FFD2C1DCB9C67C232 /* AuthSignupResponse.swift */; };
@@ -46,12 +47,10 @@
 		964D510D0BE1F9581162960E /* Core.framework in Dependencies */ = {isa = PBXBuildFile; fileRef = E0452B120F35B0BAE8B6916C /* Core.framework */; };
 		9D083976CECA423E68F0F099 /* AuthRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DFBFB5E537C38ADF3FC6F51 /* AuthRepository.swift */; };
 		9D88DB33AC00BF061BEFF003 /* AuthRepositoryImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED7D603A82E085B8AD32B04F /* AuthRepositoryImpl.swift */; };
-		A0136FA014429C88E340055B /* DesignSystem_DesignSystem.bundle in Dependencies */ = {isa = PBXBuildFile; fileRef = 053F11E926A414E7E0C9D2C3 /* DesignSystem_DesignSystem.bundle */; };
 		A47F3F9CC80909D5A826ED2E /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6061C08937A7986D4F7D042 /* LoginView.swift */; };
 		A873D6E66ACC7A15AE540405 /* BirthYearDropdown.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59EBC0CC5D916C5A4CB83108 /* BirthYearDropdown.swift */; };
 		ADD5AC589E22E51E680E9367 /* DesignSystem.framework in Dependencies */ = {isa = PBXBuildFile; fileRef = 45A8BB59B621EFC832DCFE0F /* DesignSystem.framework */; };
 		AE4E796AB6754D3972831029 /* AuthSimpleUserDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79D73FBD79BD1D75BD7F6D35 /* AuthSimpleUserDTO.swift */; };
-		B1B883AD5FA839D4A8A34813 /* DesignSystem_DesignSystem.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 053F11E926A414E7E0C9D2C3 /* DesignSystem_DesignSystem.bundle */; };
 		B1B8CA1ED66CA91DBA0C6606 /* AuthDomain.framework in Dependencies */ = {isa = PBXBuildFile; fileRef = 7C94165A812E44E5FD3BFC7F /* AuthDomain.framework */; };
 		B3BCEF7C74425A532B13BCA1 /* AuthSignupResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = E65656E0C636D6AF23FD06E9 /* AuthSignupResponseDTO.swift */; };
 		BB5132E0726E9AD5CDE5A167 /* AuthSMSResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D9606FB084D1C548133A03A /* AuthSMSResponse.swift */; };
@@ -110,16 +109,6 @@
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
-		};
-		684EC3987431A3767320D468 /* Dependencies */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 8;
-			dstSubfolderSpec = 16;
-			files = (
-				A0136FA014429C88E340055B /* DesignSystem_DesignSystem.bundle in Dependencies */,
-			);
-			name = Dependencies;
-			runOnlyForDeploymentPostprocessing = 1;
 		};
 		6B0F51A6942BBFE323B15EA1 /* Dependencies */ = {
 			isa = PBXCopyFilesBuildPhase;
@@ -199,7 +188,6 @@
 
 /* Begin PBXFileReference section */
 		04C2AB3BB015D81CB4377741 /* AuthViewFactoryImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewFactoryImpl.swift; sourceTree = "<group>"; };
-		053F11E926A414E7E0C9D2C3 /* DesignSystem_DesignSystem.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DesignSystem_DesignSystem.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
 		05A17C657D4A51BEE81CB99C /* OnboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardView.swift; sourceTree = "<group>"; };
 		07848F750646D4321324EFC6 /* CurationRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurationRow.swift; sourceTree = "<group>"; };
 		083CBFE74C9E7F71EDD0C703 /* AuthMain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthMain.swift; sourceTree = "<group>"; };
@@ -233,6 +221,7 @@
 		95E8500002BC4B6ABD877A90 /* LoginUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginUseCase.swift; sourceTree = "<group>"; };
 		9A168642EA52AD1A834F65CA /* AuthSimpleUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthSimpleUser.swift; sourceTree = "<group>"; };
 		9D9606FB084D1C548133A03A /* AuthSMSResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthSMSResponse.swift; sourceTree = "<group>"; };
+		9F2A7B152CF8BFC2A33B5864 /* SignupFormatStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupFormatStyle.swift; sourceTree = "<group>"; };
 		A03B7D8DBF8FA6DF9A7FAB5E /* PopupView.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = PopupView.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A6061C08937A7986D4F7D042 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		ADA7DDBBA02C09D5678982D1 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
@@ -363,6 +352,7 @@
 		41E43DA6ABC1246664B8996F /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				CA67E9589C79D55919B4AC98 /* Format */,
 				1F7FCF002E9EA49C9154B97A /* Models */,
 				2E50C36B10E667A8B5B249DB /* Repository */,
 				E7ADF26634B3AEC468A96EFB /* UseCase */,
@@ -379,7 +369,6 @@
 				BE8C09C4CE36E3D06B61DAB5 /* AuthInterface.framework */,
 				CF8FCFE4AC3B608B5042F210 /* AuthTests.xctest */,
 				E0452B120F35B0BAE8B6916C /* Core.framework */,
-				053F11E926A414E7E0C9D2C3 /* DesignSystem_DesignSystem.bundle */,
 				45A8BB59B621EFC832DCFE0F /* DesignSystem.framework */,
 				2FDB1F539F81A1BE90F87D4C /* Kingfisher.framework */,
 				A03B7D8DBF8FA6DF9A7FAB5E /* PopupView.framework */,
@@ -535,6 +524,14 @@
 			path = Domain;
 			sourceTree = "<group>";
 		};
+		CA67E9589C79D55919B4AC98 /* Format */ = {
+			isa = PBXGroup;
+			children = (
+				9F2A7B152CF8BFC2A33B5864 /* SignupFormatStyle.swift */,
+			);
+			path = Format;
+			sourceTree = "<group>";
+		};
 		D889D2D65A9E44A4C8933E7A /* Derived */ = {
 			isa = PBXGroup;
 			children = (
@@ -604,7 +601,6 @@
 				E9C7F24A38551DB28EEA9184 /* Resources */,
 				B6A5B1067558D5212CD51DA8 /* Frameworks */,
 				DFA2E33A5B95A9DDC48D1C33 /* Embed Frameworks */,
-				684EC3987431A3767320D468 /* Dependencies */,
 			);
 			buildRules = (
 			);
@@ -742,7 +738,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B1B883AD5FA839D4A8A34813 /* DesignSystem_DesignSystem.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -760,6 +755,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				11398BE7E7D82516E37D424D /* SignupFormatStyle.swift in Sources */,
 				54098FD0A269D65E21141F44 /* AuthRecommendedBrand.swift in Sources */,
 				BB5132E0726E9AD5CDE5A167 /* AuthSMSResponse.swift in Sources */,
 				1637E15B361BE0077BB2E4A4 /* AuthSignupResponse.swift in Sources */,
@@ -1284,10 +1280,6 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				OTHER_LDFLAGS = (
-					"$(inherited)",
-					"-L$(DT_TOOLCHAIN_DIR)/usr/lib/swift/$(PLATFORM_NAME)",
-				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.newdok.auth.tests;
 				PRODUCT_NAME = AuthTests;
 				SDKROOT = iphoneos;
@@ -1315,10 +1307,6 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
-				);
-				OTHER_LDFLAGS = (
-					"$(inherited)",
-					"-L$(DT_TOOLCHAIN_DIR)/usr/lib/swift/$(PLATFORM_NAME)",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.newdok.auth.tests;
 				PRODUCT_NAME = AuthTests;

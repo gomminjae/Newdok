@@ -22,7 +22,9 @@ public struct SubscribeView: View {
     @State private var showSubscribeToast: Bool = false
     @State private var showPauseToast: Bool = false
 
-    @AppStorage("isGuest") private var isGuest: Bool = false
+    @EnvironmentObject private var appState: AppState
+
+    private var isGuest: Bool { appState.authState == .guest }
 
     public init(viewModel: SubscribeViewModel) {
         _viewModel = StateObject(wrappedValue: viewModel)

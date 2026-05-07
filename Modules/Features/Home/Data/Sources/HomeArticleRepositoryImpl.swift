@@ -2,11 +2,13 @@ import HomeDomain
 import Core
 import Shared
 
-public class HomeArticleRepositoryImpl: HomeArticleRepository {
+public final class HomeArticleRepositoryImpl: HomeArticleRepository {
     private let network: any NetworkService<ArticleAPI>
+    private let readArticleStore: ReadArticleStore
 
-    public init(network: any NetworkService<ArticleAPI>) {
+    public init(network: any NetworkService<ArticleAPI>, readArticleStore: ReadArticleStore = ReadArticleStore()) {
         self.network = network
+        self.readArticleStore = readArticleStore
     }
 
     public func fetchArticles(year: String, publicationMonth: String) async throws -> [HomeArticles] {
@@ -32,5 +34,13 @@ public class HomeArticleRepositoryImpl: HomeArticleRepository {
 
     public func refresh() async throws {
         try await network.requestVoid(.refresh)
+    }
+
+    public func loadReadArticleIds() -> Set<Int> {
+        readArticleStore.load()
+    }
+
+    public func saveReadArticleIds(_ ids: Set<Int>) {
+        readArticleStore.save(ids)
     }
 }

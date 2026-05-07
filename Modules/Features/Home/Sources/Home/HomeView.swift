@@ -20,7 +20,9 @@ public struct HomeView: View {
     @EnvironmentObject private var router: AppRouter
     @EnvironmentObject private var tabSelection: TabSelection
     @EnvironmentObject private var exploreIntent: ExploreIntent
-    @AppStorage("isGuest") private var isGuest: Bool = false
+    @EnvironmentObject private var appState: AppState
+
+    private var isGuest: Bool { appState.authState == .guest }
 
     public init(viewModel: HomeViewModel) {
         _viewModel = StateObject(wrappedValue: viewModel)
@@ -96,10 +98,10 @@ public struct HomeView: View {
                     Task { await viewModel.refreshCurrentData() }
                 }
             }
-            .onChange(of: isGuest) { _, newValue in
+            .onChange(of: appState.authState) { _, newValue in
                 Task {
                     await viewModel.resetForAuthChange()
-                    if newValue == false {
+                    if newValue == .authenticated {
                         await viewModel.loadToday()
                     }
                 }

@@ -20,9 +20,10 @@ public struct ExploreView: View {
     @State private var userInfo: UserInfo?
     @EnvironmentObject private var router: AppRouter
     @EnvironmentObject private var exploreIntent: ExploreIntent
-    
-    @AppStorage("isGuest") private var isGuest: Bool = false
-    
+    @EnvironmentObject private var appState: AppState
+
+    private var isGuest: Bool { appState.authState == .guest }
+
     private var nickname: String {
         return userInfo?.nickname ?? ""
     }
@@ -69,11 +70,10 @@ public struct ExploreView: View {
             }
             .frame(maxHeight: .infinity, alignment: .top)
             .background(Color.white)
-            .onChange(of: isGuest) {
+            .onChange(of: appState.authState) {
                 viewModel.day = nil
                 viewModel.industry = nil
                 viewModel.orderOpt = "인기순"
-                // 게스트 상태 변경 시 UserInfo 업데이트
                 userInfo = UserInfoStore.shared.load()
             }
             .onChange(of: exploreIntent.trigger) {

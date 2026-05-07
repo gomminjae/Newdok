@@ -95,9 +95,10 @@ public struct BookmarkView: View {
     @StateObject private var viewModel: BookmarkViewModel
     
     @EnvironmentObject private var router: AppRouter
-    
-    @AppStorage("isGuest") private var isGuest = false
-    
+    @EnvironmentObject private var appState: AppState
+
+    private var isGuest: Bool { appState.authState == .guest }
+
     public init(viewModel: BookmarkViewModel) {
         _viewModel = StateObject(wrappedValue: viewModel)
     }
@@ -159,8 +160,8 @@ public struct BookmarkView: View {
                 viewModel.loadInitial()
             }
         }
-        .onChange(of: isGuest) { _, newValue in
-            if newValue == false {
+        .onChange(of: appState.authState) { _, newValue in
+            if newValue == .authenticated {
                 viewModel.loadInitial()
             }
         }

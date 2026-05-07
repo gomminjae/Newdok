@@ -5,4 +5,7 @@ public protocol HomeArticleRepository: Sendable {
     func fetchDayArticles(year: String, publicationMonth: String, publicationDate: String) async throws -> [HomeArticle]
     func fetchTodayArticles() async throws -> [HomeArticle]
     func refresh() async throws
+
+    func loadReadArticleIds() -> Set<Int>
+    func saveReadArticleIds(_ ids: Set<Int>)
 }

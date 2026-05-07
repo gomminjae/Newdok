@@ -24,6 +24,10 @@ public final class MypageUserUseCaseImpl: MypageUserUseCase {
         try await repository.updateNickname(nickname)
     }
 
+    public func updatePassword(prevPassword: String, newPassword: String) async throws {
+        try await repository.updatePassword(prevPassword: prevPassword, newPassword: newPassword)
+    }
+
     public func updatePassword(loginId: String, prevPassword: String, newPassword: String) async throws {
         try await repository.updatePassword(loginId: loginId, prevPassword: prevPassword, newPassword: newPassword)
     }

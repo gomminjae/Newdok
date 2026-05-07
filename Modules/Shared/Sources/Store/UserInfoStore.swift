@@ -6,28 +6,30 @@
 //
 import Foundation
 
-public final class UserInfoStore {
+public final class UserInfoStore: @unchecked Sendable {
     public static let shared = UserInfoStore()
-    private let key = "local_user_info"
+
+    @CodableUserDefault("local_user_info", default: nil)
+    private var stored: UserInfo?
+
+    private init() {}
 
     public func save(_ user: UserInfo) {
-        let data = try? JSONEncoder().encode(user)
-        UserDefaults.standard.set(data, forKey: key)
+        stored = user
     }
 
     public func load() -> UserInfo? {
-        guard let data = UserDefaults.standard.data(forKey: key) else { return nil }
-        return try? JSONDecoder().decode(UserInfo.self, from: data)
+        stored
     }
 
     public func clear() {
-        UserDefaults.standard.removeObject(forKey: key)
+        stored = nil
     }
-    
+
     public var hasProfile: Bool {
-        guard let user = load() else { return false }
+        guard let user = stored else { return false }
         return !user.nickname.isEmpty &&
-        user.industryId != nil &&
-        !(user.interestIds.isEmpty)
+            user.industryId != nil &&
+            !user.interestIds.isEmpty
     }
 }

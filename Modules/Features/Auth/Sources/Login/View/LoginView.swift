@@ -21,10 +21,7 @@ public struct LoginView: View {
     
     @EnvironmentObject private var router: AppRouter
     @EnvironmentObject private var tabSelection: TabSelection
-    
-    @AppStorage("isGuest") public var isGuest: Bool = false
-    @AppStorage("isLoggedIn") public var isLoggedIn: Bool = false
-    
+
     public init(viewModel: LoginViewModel) {
         _viewModel = StateObject(wrappedValue: viewModel)
     }
@@ -96,8 +93,6 @@ public struct LoginView: View {
 
                 Button {
                     viewModel.login {
-                        isLoggedIn = true
-                        isGuest = false
                         router.resetTo(.tabbar(selectedTab: .home))
                     }
                 } label: {
@@ -114,8 +109,8 @@ public struct LoginView: View {
               
                 HStack {
                     Button("비회원으로 이용하기") {
-                        isGuest = true
                         TokenStorage.clear()
+                        AppState.shared.logout()
                         router.resetTo(.tabbar(selectedTab: .home))
                     }
                     .font(.hanSansNeo(14, .medium))
