@@ -446,7 +446,7 @@ public struct BrandDetailView: View {
             .frame(maxWidth: .infinity, alignment: .leading)
             .padding(.bottom, 32)
             .fullScreenCover(isPresented: $showSubscribeSheet) {
-                SubscribeModalView(title: viewModel.detail?.brandName ?? "", url: viewModel.detail?.subscribeUrl ?? "", email: UserInfoStore.shared.load()?.subscribeEmail ?? "")
+                SubscribeModalView(title: viewModel.detail?.brandName ?? "", url: viewModel.detail?.subscribeUrl ?? "", email: UserInfoStore.shared.load()?.subscribeEmail ?? "", name: UserInfoStore.shared.load()?.nickname ?? "")
             }
             .onChange(of: showSubscribeSheet) { _, newValue in
                 // 구독 시트가 닫힐 때 팝업 띄우기

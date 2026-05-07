@@ -12,6 +12,8 @@ import UIKit
 // MARK: - WebView Wrapper
 struct WebViewWrapper: UIViewRepresentable {
     let urlString: String
+    let email: String
+    let name: String
 
     func makeUIView(context: Context) -> WKWebView {
         let config = WKWebViewConfiguration()
@@ -30,11 +32,18 @@ struct WebViewWrapper: UIViewRepresentable {
     func updateUIView(_ uiView: WKWebView, context: Context) {}
 
     func makeCoordinator() -> Coordinator {
-        Coordinator()
+        Coordinator(email: email, name: name)
     }
 
     class Coordinator: NSObject, WKUIDelegate, WKNavigationDelegate {
         private var popupWebView: WKWebView?
+        let email: String
+        let name: String
+
+        init(email: String, name: String) {
+            self.email = email
+            self.name = name
+        }
 
         // MARK: - WKUIDelegate (팝업 창 처리)
         func webView(_ webView: WKWebView, createWebViewWith configuration: WKWebViewConfiguration,
@@ -53,6 +62,90 @@ struct WebViewWrapper: UIViewRepresentable {
             if webView == popupWebView {
                 popupWebView = nil
             }
+        }
+
+        // MARK: - 페이지 로드 완료 후 자동 입력
+        func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
+            let js = autoFillScript()
+            // 즉시 1회 + SPA 렌더링 대비 지연 재시도
+            webView.evaluateJavaScript(js, completionHandler: nil)
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+                webView.evaluateJavaScript(js, completionHandler: nil)
+            }
+            DispatchQueue.main.asyncAfter(deadline: .now() + 2.5) {
+                webView.evaluateJavaScript(js, completionHandler: nil)
+            }
+        }
+
+        private func autoFillScript() -> String {
+            let safeEmail = email.replacingOccurrences(of: "\\", with: "\\\\").replacingOccurrences(of: "'", with: "\\'")
+            let safeName = name.replacingOccurrences(of: "\\", with: "\\\\").replacingOccurrences(of: "'", with: "\\'")
+            return """
+            (function() {
+                function setVal(el, val) {
+                    if (!el || !val) return;
+                    try {
+                        var nativeSetter = Object.getOwnPropertyDescriptor(window.HTMLInputElement.prototype, 'value').set;
+                        nativeSetter.call(el, val);
+                    } catch(e) {
+                        el.value = val;
+                    }
+                    el.dispatchEvent(new Event('input', { bubbles: true }));
+                    el.dispatchEvent(new Event('change', { bubbles: true }));
+                    el.dispatchEvent(new Event('blur', { bubbles: true }));
+                }
+
+                function findInput(selectors) {
+                    for (var i = 0; i < selectors.length; i++) {
+                        var el = document.querySelector(selectors[i]);
+                        if (el) return el;
+                    }
+                    return null;
+                }
+
+                var emailSelectors = [
+                    'input[type="email"]',
+                    'input[name="email"]', 'input[name="Email"]', 'input[name="EMAIL"]',
+                    'input[name="e-mail"]', 'input[name="E-mail"]',
+                    'input[name="emailAddress"]', 'input[name="email-address"]', 'input[name="email_address"]',
+                    'input[name="user_email"]', 'input[name="user-email"]', 'input[name="userEmail"]',
+                    'input[name="subscribe-email"]', 'input[name="subscribe_email"]',
+                    'input[name="이메일"]',
+                    'input[id="email"]', 'input[id="Email"]', 'input[id="EMAIL"]',
+                    'input[id="e-mail"]', 'input[id="email-address"]', 'input[id="emailAddress"]',
+                    'input[id="user-email"]', 'input[id="userEmail"]',
+                    'input[id="이메일"]',
+                    'input[placeholder*="이메일"]', 'input[placeholder*="메일"]',
+                    'input[placeholder*="email" i]', 'input[placeholder*="e-mail" i]',
+                    'input[aria-label*="이메일"]', 'input[aria-label*="email" i]'
+                ];
+
+                var nameSelectors = [
+                    'input[name="name"]', 'input[name="Name"]', 'input[name="NAME"]',
+                    'input[name="user_name"]', 'input[name="user-name"]', 'input[name="userName"]',
+                    'input[name="username"]', 'input[name="Username"]',
+                    'input[name="full_name"]', 'input[name="full-name"]', 'input[name="fullName"]',
+                    'input[name="first_name"]', 'input[name="first-name"]', 'input[name="firstName"]',
+                    'input[name="last_name"]', 'input[name="last-name"]', 'input[name="lastName"]',
+                    'input[name="nickname"]', 'input[name="Nickname"]', 'input[name="nick_name"]',
+                    'input[name="이름"]', 'input[name="성명"]', 'input[name="닉네임"]',
+                    'input[id="name"]', 'input[id="Name"]', 'input[id="NAME"]',
+                    'input[id="user-name"]', 'input[id="userName"]',
+                    'input[id="first-name"]', 'input[id="firstName"]',
+                    'input[id="nickname"]', 'input[id="nick-name"]',
+                    'input[id="이름"]', 'input[id="닉네임"]',
+                    'input[placeholder*="이름"]', 'input[placeholder*="성명"]', 'input[placeholder*="닉네임"]',
+                    'input[placeholder*="name" i]', 'input[placeholder*="nickname" i]',
+                    'input[aria-label*="이름"]', 'input[aria-label*="닉네임"]', 'input[aria-label*="name" i]'
+                ];
+
+                var emailEl = findInput(emailSelectors);
+                if (emailEl && !emailEl.value) setVal(emailEl, '\(safeEmail)');
+
+                var nameEl = findInput(nameSelectors);
+                if (nameEl && !nameEl.value) setVal(nameEl, '\(safeName)');
+            })();
+            """
         }
 
         // MARK: - WKNavigationDelegate (외부 앱 URL scheme 처리)
@@ -82,13 +175,15 @@ public struct SubscribeModalView: View {
     public let title: String
     public let url: String
     public let email: String
+    public let name: String
 
     @State private var showToast: Bool = false
 
-    public init(title: String, url: String, email: String = "") {
+    public init(title: String, url: String, email: String = "", name: String = "") {
         self.title = title
         self.url = url
         self.email = email
+        self.name = name
     }
 
     public var body: some View {
@@ -119,7 +214,7 @@ public struct SubscribeModalView: View {
             .background(Color.white)
 
             // 웹뷰 영역
-            WebViewWrapper(urlString: url)
+            WebViewWrapper(urlString: url, email: email, name: name)
                 .ignoresSafeArea(edges: .bottom)
         }
         .onAppear {
