@@ -14,7 +14,11 @@ struct WebViewWrapper: UIViewRepresentable {
     let urlString: String
 
     func makeUIView(context: Context) -> WKWebView {
-        let webView = WKWebView()
+        let config = WKWebViewConfiguration()
+        config.preferences.javaScriptCanOpenWindowsAutomatically = true
+        let webView = WKWebView(frame: .zero, configuration: config)
+        webView.uiDelegate = context.coordinator
+        webView.navigationDelegate = context.coordinator
         webView.scrollView.isScrollEnabled = true
         webView.scrollView.bounces = true
         if let url = URL(string: urlString) {
@@ -24,6 +28,52 @@ struct WebViewWrapper: UIViewRepresentable {
     }
 
     func updateUIView(_ uiView: WKWebView, context: Context) {}
+
+    func makeCoordinator() -> Coordinator {
+        Coordinator()
+    }
+
+    class Coordinator: NSObject, WKUIDelegate, WKNavigationDelegate {
+        private var popupWebView: WKWebView?
+
+        // MARK: - WKUIDelegate (팝업 창 처리)
+        func webView(_ webView: WKWebView, createWebViewWith configuration: WKWebViewConfiguration,
+                     for navigationAction: WKNavigationAction, windowFeatures: WKWindowFeatures) -> WKWebView? {
+            let popup = WKWebView(frame: webView.bounds, configuration: configuration)
+            popup.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+            popup.uiDelegate = self
+            popup.navigationDelegate = self
+            webView.addSubview(popup)
+            popupWebView = popup
+            return popup
+        }
+
+        func webViewDidClose(_ webView: WKWebView) {
+            webView.removeFromSuperview()
+            if webView == popupWebView {
+                popupWebView = nil
+            }
+        }
+
+        // MARK: - WKNavigationDelegate (외부 앱 URL scheme 처리)
+        func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction,
+                     decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
+            guard let url = navigationAction.request.url else {
+                decisionHandler(.allow)
+                return
+            }
+
+            let scheme = url.scheme ?? ""
+            if ["http", "https", "about", "data", "blob"].contains(scheme) {
+                decisionHandler(.allow)
+                return
+            }
+
+            // 외부 앱 URL scheme (PASS, 통신사 인증 등)
+            decisionHandler(.cancel)
+            UIApplication.shared.open(url, options: [:], completionHandler: nil)
+        }
+    }
 }
 
 // MARK: - 모달 뷰
@@ -64,7 +114,6 @@ public struct SubscribeModalView: View {
                     .padding(.trailing, 16)
                 }
             }
-            // .frame(height: 56)
             .padding(.top, 32)
             .padding(.bottom, 28)
             .background(Color.white)

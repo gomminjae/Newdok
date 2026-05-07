@@ -97,12 +97,8 @@ struct CurationRow: View {
             RoundedRectangle(cornerRadius: 12)
                 .stroke(Color.lineNeutral, lineWidth: 1)
         )
-        .sheet(isPresented: $showSubscribeSheet) {
+        .fullScreenCover(isPresented: $showSubscribeSheet) {
             SubscribeModalView(title: brand?.name ?? "", url: brand?.subscribeUrl ?? "", email: UserInfoStore.shared.load()?.subscribeEmail ?? "")
-                .presentationDetents([.large])
-                .presentationDragIndicator(.hidden)
-                .presentationBackground(.clear)
-                .interactiveDismissDisabled(false)
         }
     }
 }
