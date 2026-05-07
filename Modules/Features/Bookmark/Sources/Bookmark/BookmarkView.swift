@@ -161,7 +161,9 @@ public struct BookmarkView: View {
             }
         }
         .onChange(of: appState.authState) { _, newValue in
-            if newValue == .authenticated {
+            if newValue == .guest {
+                viewModel.clearData()
+            } else {
                 viewModel.loadInitial()
             }
         }

@@ -71,6 +71,7 @@ public struct ExploreView: View {
             .frame(maxHeight: .infinity, alignment: .top)
             .background(Color.white)
             .onChange(of: appState.authState) {
+                viewModel.clearData()
                 viewModel.day = nil
                 viewModel.industry = nil
                 viewModel.orderOpt = "인기순"
