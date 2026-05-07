@@ -7,6 +7,7 @@
 
 import SwiftUI
 import DesignSystem
+import AuthDomain
 
 public struct PwInputView: View {
     @State private var isSecurePassword: Bool = true
@@ -130,17 +131,9 @@ public struct PwInputView: View {
     }
 }
 
-enum PasswordValidationError: String {
-    case tooShort
-    case invalidCombination
-}
-
 extension SignupViewModel {
     var isPasswordValid: Bool {
-        let hasLetter = password.range(of: "[a-zA-Z]", options: .regularExpression) != nil
-        let hasDigit = password.range(of: "[0-9]", options: .regularExpression) != nil
-        let isValidLength = password.count >= 8 && password.count <= 20
-        return isValidLength && hasLetter && hasDigit
+        SignupFormatStyle.validatePassword(password) == nil
     }
 
     var isPasswordConfirmed: Bool {
@@ -161,28 +154,10 @@ extension SignupViewModel {
 
     var passwordValidationError: PasswordValidationError? {
         guard !password.isEmpty else { return nil }
-
-        let hasLetter = password.range(of: "[a-zA-Z]", options: .regularExpression) != nil
-        let hasDigit = password.range(of: "[0-9]", options: .regularExpression) != nil
-        let isValidLength = password.count >= 8 && password.count <= 20
-
-        if !isValidLength {
-            return .tooShort
-        }
-        if !(hasLetter && hasDigit) {
-            return .invalidCombination
-        }
-        return nil
+        return SignupFormatStyle.validatePassword(password)
     }
 
     var passwordValidationMessage: String? {
-        switch passwordValidationError {
-        case .tooShort:
-            return "8자 이상의 비밀번호를 입력해주세요."
-        case .invalidCombination:
-            return "영문/숫자 조합으로 구성해주세요."
-        case .none:
-            return nil
-        }
+        passwordValidationError?.message
     }
 }

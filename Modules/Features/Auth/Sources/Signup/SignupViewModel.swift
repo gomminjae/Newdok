@@ -3,50 +3,6 @@ import AuthDomain
 import SwiftUI
 import Shared
 
-public enum IDValidationError: Error {
-    case invalidLengthAndCombination
-    case invalidLength
-    case invalidCombination
-
-    var message: String {
-        switch self {
-        case .invalidLengthAndCombination:
-            return "6~12자, 영문/숫자 조합으로 입력해주세요."
-        case .invalidLength:
-            return "6~12자 이내로 입력해주세요."
-        case .invalidCombination:
-            return "영문/숫자 조합으로 구성해주세요."
-        }
-    }
-}
-public enum NickNameValidationError: Error {
-    case tooLong
-    case containsSpecialCharacters
-
-    var message: String {
-        switch self {
-        case .tooLong:
-            return "닉네임은 최대 12자까지 입력할 수 있습니다."
-        case .containsSpecialCharacters:
-            return "특수문자는 사용할 수 없습니다."
-        }
-    }
-}
-
-public enum NicknameValidationError: Error {
-    case invalidLength
-    case containsInvalidCharacters
-
-    var message: String {
-        switch self {
-        case .invalidLength:
-            return "1자 이상 12자 이하로 입력해주세요."
-        case .containsInvalidCharacters:
-            return "특수문자와 공백은 사용할 수 없습니다."
-        }
-    }
-}
-
 @MainActor
 public final class SignupViewModel: ObservableObject, ErrorHandling {
     private let authRepository: AuthRepository
@@ -56,6 +12,10 @@ public final class SignupViewModel: ObservableObject, ErrorHandling {
 
     // MARK: - Form
     @Published public var phoneNumber: String = ""
+
+    var isPhoneNumberValid: Bool {
+        SignupFormatStyle.validatePhoneNumber(phoneNumber) == nil
+    }
     @Published public var enteredVerificationCode: String = ""
     private var verificationCode: String = ""
     @Published public var resendFailureCount: Int = 0
@@ -72,15 +32,15 @@ public final class SignupViewModel: ObservableObject, ErrorHandling {
 
     var idValidationError: IDValidationError? {
         guard !loginID.isEmpty else { return nil }
-        return validateID()
+        return SignupFormatStyle.validateID(loginID)
     }
 
-    var isIDCheckEnabled: Bool { validateID() == nil }
+    var isIDCheckEnabled: Bool { SignupFormatStyle.validateID(loginID) == nil }
 
     var isIDErrorState: Bool {
         guard !loginID.isEmpty else { return false }
         if isIDAvailable == false { return true }
-        if isIDAvailable == nil, validateID() != nil { return true }
+        if isIDAvailable == nil, SignupFormatStyle.validateID(loginID) != nil { return true }
         return false
     }
 
@@ -289,27 +249,9 @@ public final class SignupViewModel: ObservableObject, ErrorHandling {
         timerTask = nil
     }
 
-    // MARK: - ID Validation / Dup Check
-    public func validateID() -> IDValidationError? {
-        let id = loginID
-        let isValidLength = (6...12).contains(id.count)
-        let hasLetter = id.rangeOfCharacter(from: .letters) != nil
-        let hasNumber = id.rangeOfCharacter(from: .decimalDigits) != nil
-        let isAlphanumeric = hasLetter && hasNumber
-
-        let allowedCharset = CharacterSet.alphanumerics
-        let containsOnlyAllowed = id.rangeOfCharacter(from: allowedCharset.inverted) == nil
-
-        if !isValidLength && (!isAlphanumeric || !containsOnlyAllowed) {
-            return .invalidLengthAndCombination
-        }
-        if !isValidLength { return .invalidLength }
-        if !isAlphanumeric || !containsOnlyAllowed { return .invalidCombination }
-        return nil
-    }
-
+    // MARK: - ID Dup Check
     public func checkIDDup() {
-        guard validateID() == nil else {
+        guard SignupFormatStyle.validateID(loginID) == nil else {
             isIDAvailable = nil
             return
         }
@@ -398,11 +340,6 @@ public final class SignupViewModel: ObservableObject, ErrorHandling {
 
                 let resultUser = try await signupUseCase.execute(request: request)
                 user = resultUser
-
-                UserDefaults.standard.set(true, forKey: "isLoggedIn")
-                UserDefaults.standard.set(false, forKey: "isGuest")
-                UserDefaults.standard.set(resultUser.nickname, forKey: "nickname")
-                UserDefaults.standard.set(resultUser.subscribeEmail ?? "", forKey: "email")
 
                 AppState.shared.login()
                 isLoading = false

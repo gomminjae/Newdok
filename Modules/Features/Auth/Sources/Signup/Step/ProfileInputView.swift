@@ -7,8 +7,9 @@
 
 import SwiftUI
 import DesignSystem
+import AuthDomain
 public struct ProfileInputView: View {
-    @State private var nicknameError: NickNameValidationError?
+    @State private var nicknameError: NicknameValidationError?
     @State private var selectedBirthYear: String?
     @State private var isExpanded: Bool = false
     @State private var dropdownYPosition: CGFloat = 0
@@ -255,20 +256,7 @@ extension SignupViewModel {
            !gender.isEmpty
        }
     var nicknameValidationError: NicknameValidationError? {
-        let trimmed = nickname.trimmingCharacters(in: .whitespacesAndNewlines)
-
-        // 1자 이상 12자 이하
-        if trimmed.isEmpty || trimmed.count > 12 {
-            return .invalidLength
-        }
-
-        // 정규식으로 허용 문자만 검사 (한글, 영문, 숫자)
-        let regex = "^[a-zA-Z0-9가-힣]+$"
-        if !NSPredicate(format: "SELF MATCHES %@", regex).evaluate(with: trimmed) {
-            return .containsInvalidCharacters
-        }
-
-        return nil
+        SignupFormatStyle.validateNickname(nickname)
     }
 
     var isNicknameValid: Bool {

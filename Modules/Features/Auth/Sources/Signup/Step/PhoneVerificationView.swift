@@ -9,6 +9,7 @@ import Combine
 import DesignSystem
 import Shared
 import PopupView
+import AuthDomain
 
 public struct PhoneVerificationView: View {
     @EnvironmentObject private var router: AppRouter
@@ -71,12 +72,12 @@ public struct PhoneVerificationView: View {
                             }
                         }
                         .font(.hanSansNeo(14, .bold))
-                        .foregroundStyle(viewModel.phoneNumber.count < 11 ? Color.grayLight : Color.primaryNormal)
-                        .disabled(viewModel.phoneNumber.count < 11)
+                        .foregroundStyle(!viewModel.isPhoneNumberValid ? Color.grayLight : Color.primaryNormal)
+                        .disabled(!viewModel.isPhoneNumberValid)
                         .frame(width: 94, height: 48)
                         .overlay(
                             RoundedRectangle(cornerRadius: 4)
-                                .stroke(viewModel.phoneNumber.count < 11 ? Color.captionDisabled : Color.primaryNormal, lineWidth: 1)
+                                .stroke(!viewModel.isPhoneNumberValid ? Color.captionDisabled : Color.primaryNormal, lineWidth: 1)
                         )
                     }
                     .padding(.horizontal, 24)
