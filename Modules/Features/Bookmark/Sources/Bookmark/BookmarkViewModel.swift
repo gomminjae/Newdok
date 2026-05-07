@@ -82,7 +82,7 @@ public final class BookmarkViewModel: BookmarkViewModelBindable, ErrorHandling {
     }
 
     // 로그아웃 시 데이터 초기화
-    private func clearData() {
+    func clearData() {
         interest = ""
         interests = []
         bookmarks = nil

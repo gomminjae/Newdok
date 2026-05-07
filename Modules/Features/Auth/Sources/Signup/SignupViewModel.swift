@@ -229,15 +229,14 @@ public final class SignupViewModel: ErrorHandling {
         isTimerActive = true
         timerTask = Task { [weak self] in
             while !Task.isCancelled {
-                guard let self else { break }
-                guard self.timerRemaining > 0 else { break }
+                guard let vm = self, vm.timerRemaining > 0 else { break }
                 try? await Task.sleep(for: .seconds(1))
-                guard !Task.isCancelled else { break }
-                self.timerRemaining -= 1
+                if Task.isCancelled { break }
+                vm.timerRemaining -= 1
             }
-            if let self, self.timerRemaining <= 0 {
-                self.isTimerActive = false
-                self.showError = true
+            if let vm = self, vm.timerRemaining <= 0 {
+                vm.isTimerActive = false
+                vm.showError = true
             }
         }
     }

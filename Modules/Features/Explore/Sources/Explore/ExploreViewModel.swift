@@ -177,7 +177,7 @@ public final class ExploreViewModel: ErrorHandling {
     }
 
     // 로그아웃 시 데이터 초기화
-    private func clearData() {
+    func clearData() {
         myRecommendation = []
         unionRecommendation = []
         fixedMyRecommendation = []
