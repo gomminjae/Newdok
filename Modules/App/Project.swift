@@ -1,8 +1,9 @@
 import ProjectDescription
+import ProjectDescriptionHelpers
 
 let project = Project(
     name: "App",
-    organizationName: "Your Organization Name",
+    organizationName: ProjectConfig.organizationName,
     settings: .settings(
         base: [
             "DEVELOPMENT_TEAM": "AU24ZRJ649",
@@ -30,10 +31,10 @@ let project = Project(
     targets: [
         .target(
             name: "App",
-            destinations: [.iPhone],
+            destinations: ProjectConfig.destinations,
             product: .app,
             bundleId: "$(PRODUCT_BUNDLE_IDENTIFIER)",
-            deploymentTargets: .iOS("17.0"),
+            deploymentTargets: ProjectConfig.deploymentTarget,
             infoPlist: .extendingDefault(
                 with: [
                     "API_BASE_URL": "$(API_BASE_URL)",
@@ -59,11 +60,9 @@ let project = Project(
                     "UISupportedInterfaceOrientations": [
                         "UIInterfaceOrientationPortrait"
                     ],
-
                     "NSCameraUsageDescription": "프로필 사진 촬영을 위해 카메라 접근이 필요합니다.",
                     "NSPhotoLibraryUsageDescription": "프로필 사진 선택을 위해 사진 라이브러리 접근이 필요합니다.",
                     "NSUserNotificationsUsageDescription": "새로운 뉴스레터 알림을 받기 위해 알림 권한이 필요합니다.",
-
                     "LSApplicationCategoryType": "public.app-category.news",
                     "CFBundleURLTypes": [
                         [
@@ -75,53 +74,43 @@ let project = Project(
                 ]
             ),
             sources: ["Sources/**"],
-            resources: [
-                "Resources/**"
-            ],
+            resources: ["Resources/**"],
             dependencies: [
-                // Coordinator (Interface-based)
-                .project(target: "AppCoordinator", path: "../AppCoordinator"),
+                // Coordinator
+                .project(target: "AppCoordinator", path: .relativeToRoot("Modules/AppCoordinator")),
                 // Infrastructure
-                .project(target: "Core", path: "../Core"),
-                .project(target: "DesignSystem", path: "../DesignSystem"),
-                .project(target: "Shared", path: "../Shared"),
+                .core,
+                .designSystem,
+                .shared,
                 // Feature Domain + Data
-                .project(target: "AuthDomain", path: "../Features/Auth"),
-                .project(target: "AuthData", path: "../Features/Auth"),
-                .project(target: "HomeDomain", path: "../Features/Home"),
-                .project(target: "HomeData", path: "../Features/Home"),
-                .project(target: "MypageDomain", path: "../Features/MyPage"),
-                .project(target: "MypageData", path: "../Features/MyPage"),
-                .project(target: "ExploreDomain", path: "../Features/Explore"),
-                .project(target: "ExploreData", path: "../Features/Explore"),
-                .project(target: "SubscribeDomain", path: "../Features/Subscribe"),
-                .project(target: "SubscribeData", path: "../Features/Subscribe"),
-                .project(target: "BookmarkDomain", path: "../Features/Bookmark"),
-                .project(target: "BookmarkData", path: "../Features/Bookmark"),
-                .project(target: "DetailDomain", path: "../Features/Detail"),
-                .project(target: "DetailData", path: "../Features/Detail"),
-                .project(target: "SearchDomain", path: "../Features/Search"),
-                .project(target: "SearchData", path: "../Features/Search"),
+                .featureDomain("Auth"), .featureData("Auth"),
+                .featureDomain("Home"), .featureData("Home"),
+                .featureDomain("Mypage"), .featureData("Mypage"),
+                .featureDomain("Explore"), .featureData("Explore"),
+                .featureDomain("Subscribe"), .featureData("Subscribe"),
+                .featureDomain("Bookmark"), .featureData("Bookmark"),
+                .featureDomain("Detail"), .featureData("Detail"),
+                .featureDomain("Search"), .featureData("Search"),
                 // Feature Interfaces
-                .project(target: "AuthInterface", path: "../Features/Auth"),
-                .project(target: "HomeInterface", path: "../Features/Home"),
-                .project(target: "ExploreInterface", path: "../Features/Explore"),
-                .project(target: "SubscribeInterface", path: "../Features/Subscribe"),
-                .project(target: "BookmarkInterface", path: "../Features/Bookmark"),
-                .project(target: "DetailInterface", path: "../Features/Detail"),
-                .project(target: "SearchInterface", path: "../Features/Search"),
-                .project(target: "MypageInterface", path: "../Features/MyPage"),
-                .project(target: "LaunchInterface", path: "../Features/Launch"),
-                // Feature Implementations (for CompositionRoot)
-                .project(target: "Auth", path: "../Features/Auth"),
-                .project(target: "Home", path: "../Features/Home"),
-                .project(target: "Explore", path: "../Features/Explore"),
-                .project(target: "Subscribe", path: "../Features/Subscribe"),
-                .project(target: "Bookmark", path: "../Features/Bookmark"),
-                .project(target: "Detail", path: "../Features/Detail"),
-                .project(target: "Search", path: "../Features/Search"),
-                .project(target: "Mypage", path: "../Features/MyPage"),
-                .project(target: "Launch", path: "../Features/Launch"),
+                .featureInterface("Auth"),
+                .featureInterface("Home"),
+                .featureInterface("Explore"),
+                .featureInterface("Subscribe"),
+                .featureInterface("Bookmark"),
+                .featureInterface("Detail"),
+                .featureInterface("Search"),
+                .featureInterface("Mypage"),
+                .featureInterface("Launch"),
+                // Feature Implementations
+                .feature("Auth"),
+                .feature("Home"),
+                .feature("Explore"),
+                .feature("Subscribe"),
+                .feature("Bookmark"),
+                .feature("Detail"),
+                .feature("Search"),
+                .feature("Mypage"),
+                .feature("Launch"),
                 // External
                 .external(name: "PopupView"),
                 .external(name: "Swinject"),
