@@ -75,6 +75,10 @@ public final class SignupViewModel: ErrorHandling {
     public var currentError: AppError?
 
     private var timerTask: Task<Void, Never>?
+    private var verificationTask: Task<Void, Never>?
+    private var idCheckTask: Task<Void, Never>?
+    private var interestsTask: Task<Void, Never>?
+    private var signupTask: Task<Void, Never>?
 
     // MARK: password
     public var password: String = ""
@@ -158,7 +162,8 @@ public final class SignupViewModel: ErrorHandling {
         if isRequestSent {
             resendFailureCount += 1
         }
-        Task {
+        verificationTask?.cancel()
+        verificationTask = Task {
             do {
                 isLoading = true
                 userList = []
@@ -255,7 +260,8 @@ public final class SignupViewModel: ErrorHandling {
         }
 
         isIDAvailable = nil
-        Task { @MainActor in
+        idCheckTask?.cancel()
+        idCheckTask = Task { @MainActor in
             do {
                 let result = try await authRepository.checkIDDup(loginID)
                 switch result {
@@ -265,6 +271,7 @@ public final class SignupViewModel: ErrorHandling {
                     isIDAvailable = true
                 }
             } catch {
+                guard !Task.isCancelled else { return }
                 isIDAvailable = nil
                 handleError(error, feature: "signup", operation: "checkIDDup")
             }
@@ -285,7 +292,8 @@ public final class SignupViewModel: ErrorHandling {
         recommendedPost = []
         goToNextStep()
 
-        Task {
+        interestsTask?.cancel()
+        interestsTask = Task {
             do {
                 let result = try await authRepository.preInvestigate(
                     industryId: myIndustry,
@@ -313,6 +321,7 @@ public final class SignupViewModel: ErrorHandling {
                     isCurationLoading = false
                 }
             } catch {
+                guard !Task.isCancelled else { return }
                 await MainActor.run {
                     isCurationLoading = false
                     handleError(error, feature: "signup", operation: "submitInterests")
@@ -325,7 +334,8 @@ public final class SignupViewModel: ErrorHandling {
     func signup() {
         guard !isLoading else { return }
         isLoading = true
-        Task {
+        signupTask?.cancel()
+        signupTask = Task {
             do {
                 let request = AuthSignupRequest(
                     loginId: loginID,
@@ -343,6 +353,7 @@ public final class SignupViewModel: ErrorHandling {
                 isLoading = false
                 goToNextStep()
             } catch {
+                guard !Task.isCancelled else { return }
                 isLoading = false
                 handleError(error, feature: "signup", operation: "signup")
                 errorMessage = "회원가입에 실패했습니다"
@@ -379,6 +390,10 @@ public final class SignupViewModel: ErrorHandling {
         isShowPopup = false
 
         stopTimer()
+        verificationTask?.cancel()
+        idCheckTask?.cancel()
+        interestsTask?.cancel()
+        signupTask?.cancel()
         isCurationLoading = false
     }
 }
