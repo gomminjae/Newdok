@@ -41,21 +41,21 @@ jobs:
       - name: Setup mise
         uses: jdx/mise-action@v2
 
-      - name: Cache SPM dependencies
+      - name: Cache Tuist & SPM dependencies
         uses: actions/cache@v4
         with:
-          path: Tuist/.build
-          key: spm-${{ runner.os }}-${{ hashFiles('Tuist/Package.resolved') }}
-          restore-keys: spm-${{ runner.os }}-
+          path: |
+            Tuist/.build
+            ~/.tuist/Cache
+          key: tuist-${{ runner.os }}-${{ hashFiles('Tuist/Package.resolved') }}
+          restore-keys: tuist-${{ runner.os }}-
 
       - name: Cache DerivedData
         uses: actions/cache@v4
         with:
           path: ~/Library/Developer/Xcode/DerivedData
-          key: deriveddata-${{ runner.os }}-${{ hashFiles('Tuist/Package.resolved') }}-${{ github.sha }}
-          restore-keys: |
-            deriveddata-${{ runner.os }}-${{ hashFiles('Tuist/Package.resolved') }}-
-            deriveddata-${{ runner.os }}-
+          key: deriveddata-${{ runner.os }}-${{ hashFiles('Tuist/Package.resolved') }}
+          restore-keys: deriveddata-${{ runner.os }}-
 
       - name: Generate CI xcconfig files
         run: |
