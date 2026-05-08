@@ -93,11 +93,6 @@ public struct HomeView: View {
                     }
                 }
             }
-            .onReceive(NotificationCenter.default.publisher(for: .init("RefreshHome"))) { _ in
-                if !isGuest {
-                    Task { await viewModel.refreshCurrentData() }
-                }
-            }
             .onChange(of: appState.authState) { _, newValue in
                 Task {
                     await viewModel.resetForAuthChange()
