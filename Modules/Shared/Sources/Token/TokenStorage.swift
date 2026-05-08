@@ -8,7 +8,7 @@
 import Foundation
 
 public enum TokenStorage {
-    @UserDefault("accessToken", default: nil)
+    @KeychainItem("accessToken")
     public static var accessToken: String?
 
     @UserDefault("hasCompletedOnboarding", default: false)
@@ -16,6 +16,15 @@ public enum TokenStorage {
 
     @UserDefault("hideSubscribeStatePopupDate", default: nil)
     public static var hideSubscribeStatePopupDate: Date?
+
+    /// 기존 UserDefaults 토큰을 Keychain으로 마이그레이션
+    public static func migrateTokenIfNeeded() {
+        let key = "accessToken"
+        guard let legacyToken = UserDefaults.standard.string(forKey: key) else { return }
+        accessToken = legacyToken
+        guard accessToken == legacyToken else { return }
+        UserDefaults.standard.removeObject(forKey: key)
+    }
 
     public static func clear() {
         accessToken = nil

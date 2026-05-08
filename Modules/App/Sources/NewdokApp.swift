@@ -19,6 +19,7 @@ struct NewdokApp: App {
         DesignSystemFontFamily.registerAllCustomFonts()
         ErrorLoggerRegistry.register(CoreErrorLogger())
         CompositionRoot.registerGlobalDependencies()
+        TokenStorage.migrateTokenIfNeeded()
     }
 
     var body: some Scene {

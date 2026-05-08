@@ -105,13 +105,7 @@ public struct ExploreView: View {
                         await viewModel.fetchGuestAllNewsletters()
                     } else {
                         await viewModel.fetchRecommendation()
-                        if viewModel.selectedTab == 1 {
-                            await viewModel.fetchAllNewsletters()
-                        } else {
-                            Task {
-                                await viewModel.fetchAllNewsletters()
-                            }
-                        }
+                        await viewModel.fetchAllNewsletters()
                     }
                 }
             }
@@ -126,9 +120,7 @@ public struct ExploreView: View {
                     } else {
                         await viewModel.fetchRecommendation()
                         isLoaded = true
-                        Task {
-                            await viewModel.fetchAllNewsletters()
-                        }
+                        await viewModel.fetchAllNewsletters()
                     }
                 }
             }
