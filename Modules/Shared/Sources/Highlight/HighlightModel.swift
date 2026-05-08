@@ -106,6 +106,7 @@ public final class HighlightStorage {
         do {
             try context.save()
         } catch {
+            context.delete(highlight)
             throw .saveFailed(underlying: error)
         }
     }
@@ -135,10 +136,12 @@ public final class HighlightStorage {
     }
 
     public func updateHighlightType(_ highlight: ArticleHighlight, newType: String) throws(HighlightStorageError) {
+        let oldType = highlight.highlightType
         highlight.highlightType = newType
         do {
             try context.save()
         } catch {
+            highlight.highlightType = oldType
             throw .saveFailed(underlying: error)
         }
     }
@@ -152,6 +155,7 @@ public final class HighlightStorage {
 
     public func deleteAll(for articleId: String) throws(HighlightStorageError) {
         let highlights = fetchHighlights(for: articleId)
+        guard !highlights.isEmpty else { return }
         for highlight in highlights {
             context.delete(highlight)
         }
