@@ -45,16 +45,16 @@ public struct FeatureFactories {
     }
 }
 
-public enum AppCoordinatorEntry {
+public enum AppEntry {
     @MainActor
-    public static func makeAFlow(
+    public static func makeRootView(
         router: AppRouter,
         exploreIntent: ExploreIntent,
         factories: FeatureFactories,
         loadOptionsUseCase: LoadOptionsUseCase,
         signOut: @escaping @MainActor () async -> Void
     ) -> some View {
-        let coordinator = AppCoordinator(
+        let container = AppContainer(
             router: router,
             exploreIntent: exploreIntent,
             authFactory: factories.auth,
@@ -70,7 +70,7 @@ public enum AppCoordinatorEntry {
         return AppRootView(
             router: router,
             exploreIntent: exploreIntent,
-            coordinator: coordinator,
+            container: container,
             loadOptionsUseCase: loadOptionsUseCase,
             signOut: signOut
         )

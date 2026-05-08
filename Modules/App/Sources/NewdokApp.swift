@@ -24,7 +24,7 @@ struct NewdokApp: App {
     var body: some Scene {
         WindowGroup {
             OverlayRootView {
-                AppCoordinatorEntry.makeAFlow(
+                AppEntry.makeRootView(
                     router: router,
                     exploreIntent: exploreIntent,
                     factories: FeatureFactories(
