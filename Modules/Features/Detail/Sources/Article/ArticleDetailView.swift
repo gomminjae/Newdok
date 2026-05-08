@@ -50,7 +50,6 @@ public struct ArticleDetailView: View {
             HStack(spacing: 0) {
                 // 뒤로가기
                 Button {
-                    NotificationCenter.default.post(name: .init("RefreshHome"), object: nil)
                     router.pop()
                 } label: {
                     Image(asset: DesignSystemAsset.back)

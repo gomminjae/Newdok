@@ -5,6 +5,7 @@
 //  Created by 권민재 on 2/23/25.
 //
 import SwiftUI
+import SwiftData
 import DesignSystem
 import HomeDomain
 import Shared
@@ -12,7 +13,15 @@ import Kingfisher
 
 struct ArticleRow: View {
     let article: HomeArticle
-    @State private var highlightCount: Int = 0
+    @Query private var highlights: [ArticleHighlight]
+
+    init(article: HomeArticle) {
+        self.article = article
+        let articleId = String(article.articleId)
+        _highlights = Query(filter: #Predicate<ArticleHighlight> { $0.articleId == articleId })
+    }
+
+    private var highlightCount: Int { highlights.count }
 
     var body: some View {
         HStack(spacing: 12) {
@@ -63,11 +72,6 @@ struct ArticleRow: View {
             RoundedRectangle(cornerRadius: 12)
                 .stroke(Color.lineNeutral, lineWidth: 1)
         )
-
-        .task {
-            let count = await HighlightStorage.shared.fetchHighlights(for: String(article.articleId)).count
-            highlightCount = count
-        }
     }
 
     private var highlightBadge: some View {

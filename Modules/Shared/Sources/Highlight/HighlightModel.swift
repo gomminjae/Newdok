@@ -43,98 +43,126 @@ public final class ArticleHighlight {
 // MARK: - Highlight Storage Manager
 import Observation
 
+public enum HighlightStorageError: Error {
+    /// SwiftData schema 자체가 invalid — programmer error
+    case schemaInvalid(underlying: Error)
+
+    /// insert + save 실패 (디스크 풀, 권한, 동시성 충돌 등)
+    case saveFailed(underlying: Error)
+
+    /// delete + save 실패
+    case deleteFailed(underlying: Error)
+}
+
 @Observable
 @MainActor
 public final class HighlightStorage {
-    public static let shared = HighlightStorage()
-
-    private var container: ModelContainer?
-    private var context: ModelContext?
-
-    private init() {
-        setupContainer()
-    }
-
-    private func setupContainer() {
+    public static let shared: HighlightStorage = {
         do {
-            let schema = Schema([ArticleHighlight.self])
-            let config = ModelConfiguration(isStoredInMemoryOnly: false)
-            container = try ModelContainer(for: schema, configurations: config)
-            if let container = container {
-                context = ModelContext(container)
-                print("[HighlightStorage] ✅ SwiftData container initialized successfully")
-            }
+            return try HighlightStorage()
         } catch {
-            print("[HighlightStorage] ❌ Failed to setup SwiftData container: \(error)")
+            preconditionFailure("[HighlightStorage] init failed: \(error)")
         }
-    }
+    }()
 
-    public func save(_ highlight: ArticleHighlight) {
-        guard let context = context else {
-            print("[HighlightStorage] ❌ Context is nil, cannot save")
+    public let container: ModelContainer
+    private let context: ModelContext
+
+    /// 디스크 영속화 가능 여부. false면 인메모리 fallback 중 (세션 종료 시 데이터 손실).
+    public private(set) var isPersistent: Bool
+
+    public init() throws(HighlightStorageError) {
+        let schema = Schema([ArticleHighlight.self])
+
+        // 1차: 디스크 저장 시도
+        if let disk = try? ModelContainer(
+            for: schema,
+            configurations: ModelConfiguration(isStoredInMemoryOnly: false)
+        ) {
+            self.container = disk
+            self.context = ModelContext(disk)
+            self.isPersistent = true
             return
         }
+
+        // 2차: 인메모리 fallback (세션 동안만 유효, 데이터 비-영속)
+        do {
+            let memory = try ModelContainer(
+                for: schema,
+                configurations: ModelConfiguration(isStoredInMemoryOnly: true)
+            )
+            self.container = memory
+            self.context = ModelContext(memory)
+            self.isPersistent = false
+            print("[HighlightStorage] ⚠️ Disk container failed, using in-memory fallback")
+        } catch {
+            // schema 자체가 깨진 경우 = programmer error (빌드 단계에서 잡혀야 함)
+            throw HighlightStorageError.schemaInvalid(underlying: error)
+        }
+    }
+
+    public func save(_ highlight: ArticleHighlight) throws(HighlightStorageError) {
         context.insert(highlight)
         do {
             try context.save()
-            print("[HighlightStorage] ✅ Saved highlight: \(highlight.selectedText.prefix(30))... for articleId: \(highlight.articleId)")
         } catch {
-            print("[HighlightStorage] ❌ Failed to save: \(error)")
+            context.delete(highlight)
+            throw .saveFailed(underlying: error)
         }
     }
 
     public func fetchHighlights(for articleId: String) -> [ArticleHighlight] {
-        guard let context = context else {
-            print("[HighlightStorage] ❌ Context is nil, cannot fetch")
-            return []
-        }
-
         let descriptor = FetchDescriptor<ArticleHighlight>(
             predicate: #Predicate { $0.articleId == articleId },
             sortBy: [SortDescriptor(\.createdAt, order: .reverse)]
         )
-
-        let results = (try? context.fetch(descriptor)) ?? []
-        print("[HighlightStorage] 📖 Fetched \(results.count) highlights for articleId: \(articleId)")
-        return results
-    }
-
-    public func fetchAllHighlights() -> [ArticleHighlight] {
-        guard let context = context else { return [] }
-
-        let descriptor = FetchDescriptor<ArticleHighlight>(
-            sortBy: [SortDescriptor(\.createdAt, order: .reverse)]
-        )
-
         return (try? context.fetch(descriptor)) ?? []
     }
 
-    public func delete(_ highlight: ArticleHighlight) {
-        guard let context = context else { return }
-        context.delete(highlight)
-        try? context.save()
+    public func fetchAllHighlights() -> [ArticleHighlight] {
+        let descriptor = FetchDescriptor<ArticleHighlight>(
+            sortBy: [SortDescriptor(\.createdAt, order: .reverse)]
+        )
+        return (try? context.fetch(descriptor)) ?? []
     }
 
-    public func updateHighlightType(_ highlight: ArticleHighlight, newType: String) {
+    public func delete(_ highlight: ArticleHighlight) throws(HighlightStorageError) {
+        context.delete(highlight)
+        do {
+            try context.save()
+        } catch {
+            throw .deleteFailed(underlying: error)
+        }
+    }
+
+    public func updateHighlightType(_ highlight: ArticleHighlight, newType: String) throws(HighlightStorageError) {
+        let oldType = highlight.highlightType
         highlight.highlightType = newType
-        try? context?.save()
+        do {
+            try context.save()
+        } catch {
+            highlight.highlightType = oldType
+            throw .saveFailed(underlying: error)
+        }
     }
 
     public func fetchHighlight(for articleId: String, text: String) -> ArticleHighlight? {
-        guard let context = context else { return nil }
         let descriptor = FetchDescriptor<ArticleHighlight>(
             predicate: #Predicate { $0.articleId == articleId && $0.selectedText == text }
         )
         return try? context.fetch(descriptor).first
     }
 
-    public func deleteAll(for articleId: String) {
-        guard let context = context else { return }
-
+    public func deleteAll(for articleId: String) throws(HighlightStorageError) {
         let highlights = fetchHighlights(for: articleId)
+        guard !highlights.isEmpty else { return }
         for highlight in highlights {
             context.delete(highlight)
         }
-        try? context.save()
+        do {
+            try context.save()
+        } catch {
+            throw .deleteFailed(underlying: error)
+        }
     }
 }

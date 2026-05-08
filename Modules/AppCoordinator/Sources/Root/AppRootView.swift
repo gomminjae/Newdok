@@ -9,7 +9,7 @@ struct AppRootView: View {
     @Environment(TabSelection.self) private var tabSelection
     @Bindable var router: AppRouter
     let exploreIntent: ExploreIntent
-    let coordinator: AppCoordinator
+    let container: AppContainer
     let loadOptionsUseCase: LoadOptionsUseCase
     let signOut: @MainActor () async -> Void
 
@@ -19,13 +19,13 @@ struct AppRootView: View {
     init(
         router: AppRouter,
         exploreIntent: ExploreIntent,
-        coordinator: AppCoordinator,
+        container: AppContainer,
         loadOptionsUseCase: LoadOptionsUseCase,
         signOut: @escaping @MainActor () async -> Void
     ) {
         self.router = router
         self.exploreIntent = exploreIntent
-        self.coordinator = coordinator
+        self.container = container
         self.loadOptionsUseCase = loadOptionsUseCase
         self.signOut = signOut
     }
@@ -33,7 +33,7 @@ struct AppRootView: View {
     var body: some View {
         ZStack {
             if !launched {
-                coordinator.launchFactory.makeSplashView()
+                container.launchFactory.makeSplashView()
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
                     .ignoresSafeArea()
                     .transition(.opacity)
@@ -90,53 +90,53 @@ struct AppRootView: View {
     private func makeView(for route: AppRoute) -> some View {
         switch route {
         case .onboarding:
-            coordinator.makeOnboardingView()
+            container.authFactory.makeOnboardingView()
         case .signup:
-            coordinator.makeSignupView()
+            container.authFactory.makeSignupView()
         case .login:
-            coordinator.makeLoginView()
+            container.authFactory.makeLoginView()
         case .home:
-            coordinator.makeHomeView()
+            container.homeFactory.makeHomeView()
         case let .tabbar(selectedTab, exploreDay, exploreSelectedTab):
-            coordinator.makeTabView(selectedTab: selectedTab, exploreDay: exploreDay, exploreSelectedTab: exploreSelectedTab)
+            container.makeTabView(selectedTab: selectedTab, exploreDay: exploreDay, exploreSelectedTab: exploreSelectedTab)
         case .profile:
-            coordinator.makeProfileView()
+            container.mypageFactory.makeMypageView()
         case .explore:
-            coordinator.makeExploreView()
+            container.exploreFactory.makeExploreView()
         case .brandDetail(let id):
-            coordinator.makeBrandDetail(id: id)
+            container.detailFactory.makeBrandDetailView(id: id)
         case .articleDetail(let id, let isPastArticle):
-            coordinator.makeArticleDetail(id: id, isPastArticle: isPastArticle)
+            container.detailFactory.makeArticleDetailView(id: id, isPastArticle: isPastArticle)
         case .editProfile:
-            coordinator.makeEditProfileView()
+            container.mypageFactory.makeEditProfileView()
         case .recovery:
-            coordinator.makeRecoveryView()
+            container.mypageFactory.makeRecoveryView()
         case .editNickname:
-            coordinator.makeEditNicknameView()
+            container.mypageFactory.makeEditNicknameView()
         case .editIndustry:
-            coordinator.makeEditIndustryView()
+            container.mypageFactory.makeEditIndustryView()
         case .editInterest:
-            coordinator.makeEditInterestView()
+            container.mypageFactory.makeEditInterestView()
         case .accountManage:
-            coordinator.makeAccountManageView()
+            container.mypageFactory.makeAccountManageView()
         case .updatePassword:
-            coordinator.makeChangePasswordView()
+            container.mypageFactory.makeChangePasswordView()
         case .updatePhoneNumber:
-            coordinator.makeChangePhoneNumberView()
+            container.mypageFactory.makeChangePhoneNumberView()
         case .search:
-            coordinator.makeSearchView()
+            container.searchFactory.makeSearchView()
         case .serviceFeedback:
-            coordinator.makeServiceFeedbackView()
+            container.mypageFactory.makeFeedbackView()
         case .withdraw:
-            coordinator.makeWithdrawView()
+            container.mypageFactory.makeWithdrawView()
         case .faq:
-            coordinator.makeFAQView()
+            container.mypageFactory.makeFAQView()
         case .feedback:
-            coordinator.makeFeedbackView()
+            container.mypageFactory.makeFeedbackView()
         case .termsMenu:
-            coordinator.makeTermsMenuView()
+            container.mypageFactory.makeTermsMenuView()
         case .editAlert:
-            coordinator.makeEditAlert()
+            container.mypageFactory.makeEditAlertView()
         }
     }
 

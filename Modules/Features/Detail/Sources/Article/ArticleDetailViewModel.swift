@@ -84,14 +84,22 @@ public final class ArticleDetailViewModel: ErrorHandling {
             textOffset: 0
         )
 
-        highlightStorage.save(highlight)
-        loadHighlights()
+        do {
+            try highlightStorage.save(highlight)
+            loadHighlights()
+        } catch {
+            handleError(error, feature: "articleDetail", operation: "saveHighlight")
+        }
     }
 
     /// 하이라이트 삭제
     func deleteHighlight(_ highlight: ArticleHighlight) {
-        highlightStorage.delete(highlight)
-        loadHighlights()
+        do {
+            try highlightStorage.delete(highlight)
+            loadHighlights()
+        } catch {
+            handleError(error, feature: "articleDetail", operation: "deleteHighlight")
+        }
     }
 
     /// 하이라이트 목록 로드
@@ -108,9 +116,12 @@ public final class ArticleDetailViewModel: ErrorHandling {
     func changeHighlightType(text: String, newType: String) {
         guard let detail = detail else { return }
         let articleId = String(detail.articleId)
-        if let highlight = highlightStorage.fetchHighlight(for: articleId, text: text) {
-            highlightStorage.updateHighlightType(highlight, newType: newType)
+        guard let highlight = highlightStorage.fetchHighlight(for: articleId, text: text) else { return }
+        do {
+            try highlightStorage.updateHighlightType(highlight, newType: newType)
             loadHighlights()
+        } catch {
+            handleError(error, feature: "articleDetail", operation: "changeHighlightType")
         }
     }
 
@@ -118,9 +129,12 @@ public final class ArticleDetailViewModel: ErrorHandling {
     func deleteHighlightByText(text: String) {
         guard let detail = detail else { return }
         let articleId = String(detail.articleId)
-        if let highlight = highlightStorage.fetchHighlight(for: articleId, text: text) {
-            highlightStorage.delete(highlight)
+        guard let highlight = highlightStorage.fetchHighlight(for: articleId, text: text) else { return }
+        do {
+            try highlightStorage.delete(highlight)
             loadHighlights()
+        } catch {
+            handleError(error, feature: "articleDetail", operation: "deleteHighlightByText")
         }
     }
 

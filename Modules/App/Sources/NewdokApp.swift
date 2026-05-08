@@ -24,7 +24,7 @@ struct NewdokApp: App {
     var body: some Scene {
         WindowGroup {
             OverlayRootView {
-                AppCoordinatorEntry.makeAFlow(
+                AppEntry.makeRootView(
                     router: router,
                     exploreIntent: exploreIntent,
                     factories: FeatureFactories(
@@ -48,6 +48,7 @@ struct NewdokApp: App {
             .environment(exploreIntent)
             .environment(AppState.shared)
             .environment(ToastCenter.shared)
+            .modelContainer(HighlightStorage.shared.container)
             .overlay(
                 AppToastHost()
                     .environment(ToastCenter.shared)
