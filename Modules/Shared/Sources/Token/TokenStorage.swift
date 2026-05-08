@@ -22,6 +22,7 @@ public enum TokenStorage {
         let key = "accessToken"
         guard let legacyToken = UserDefaults.standard.string(forKey: key) else { return }
         accessToken = legacyToken
+        guard accessToken == legacyToken else { return }
         UserDefaults.standard.removeObject(forKey: key)
     }
 
