@@ -9,7 +9,7 @@
 import Foundation
 
 /// 로그 카테고리 - Newdok 프로젝트 구조 기반
-public enum LogCategory: String {
+public enum LogCategory: String, Sendable {
     // MARK: - Network & API
     case network = "🌐 Network"
     case api = "📡 API"

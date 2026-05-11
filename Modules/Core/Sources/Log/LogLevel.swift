@@ -7,7 +7,7 @@
 //
 import Foundation
 
-public enum LogLevel: Int, Comparable {
+public enum LogLevel: Int, Comparable, Sendable {
     case verbose = 0  // 상세 로그 (개발용)
     case debug = 1    // 디버그 로그
     case info = 2     // 정보성 로그

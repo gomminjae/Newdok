@@ -9,7 +9,7 @@ import Foundation
 import OSLog
 
 /// 로그 출력 프로토콜
-public protocol LogOutput {
+public protocol LogOutput: Sendable {
     func write(_ message: String, level: LogLevel, category: LogCategory)
 }
 
