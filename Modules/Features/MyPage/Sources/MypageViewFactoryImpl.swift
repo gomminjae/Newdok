@@ -4,12 +4,13 @@ import MypageDomain
 import DesignSystem
 import Shared
 
+@MainActor
 public final class MypageViewFactoryImpl: MypageViewFactory {
-    private let mypageViewModelProvider: @MainActor () -> MypageViewModel
-    private let recoveryViewModelProvider: @MainActor () -> RecoveryViewModel
-    private let withdrawViewModelProvider: @MainActor () -> WithdrawViewModel
+    private let mypageViewModelProvider: () -> MypageViewModel
+    private let recoveryViewModelProvider: () -> RecoveryViewModel
+    private let withdrawViewModelProvider: () -> WithdrawViewModel
 
-    @MainActor private var cachedMypageViewModel: MypageViewModel?
+    private var cachedMypageViewModel: MypageViewModel?
 
     public init(
         mypageViewModelProvider: @MainActor @escaping () -> MypageViewModel,

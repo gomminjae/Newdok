@@ -1,6 +1,6 @@
 import AuthDomain
 
-struct AuthLoginResponseDTO: Decodable {
+struct AuthLoginResponseDTO: Decodable, Sendable {
     let user: AuthUserDTO
     let accessToken: String
 }

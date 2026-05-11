@@ -9,7 +9,7 @@
 import Foundation
 import MypageDomain
 
-public struct MypageInterestDTO: Decodable {
+public struct MypageInterestDTO: Decodable, Sendable {
     let id: Int
     let name: String
 
@@ -18,7 +18,7 @@ public struct MypageInterestDTO: Decodable {
     }
 }
 
-public struct MypageLoginInterestDTO: Decodable {
+public struct MypageLoginInterestDTO: Decodable, Sendable {
     let userId: Int
     let interestId: Int
     let createdAt: String
@@ -31,7 +31,7 @@ public struct MypageLoginInterestDTO: Decodable {
     }
 }
 
-public struct MypageUserDTO: Decodable {
+public struct MypageUserDTO: Decodable, Sendable {
     let id: Int
     let loginId: String
     let phoneNumber: String

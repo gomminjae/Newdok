@@ -1,6 +1,6 @@
 import ExploreDomain
 
-struct ExploreBrandDetailDTO: Decodable {
+struct ExploreBrandDetailDTO: Decodable, Sendable {
     let brandId: Int
     let brandName: String
     let detailDescription: String?

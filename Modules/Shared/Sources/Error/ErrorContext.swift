@@ -52,7 +52,8 @@ public protocol ErrorLogging: Sendable {
 
 public enum ErrorLoggerRegistry {
     private static let lock = NSLock()
-    private static var _logger: ErrorLogging?
+    // lock으로 직렬화 보장. ErrorLogging은 Sendable이라 reference 자체는 안전.
+    nonisolated(unsafe) private static var _logger: ErrorLogging?
 
     public static func register(_ logger: ErrorLogging) {
         lock.lock()

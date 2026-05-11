@@ -9,7 +9,7 @@
 import Foundation
 import MypageDomain
 
-public struct MypageNicknameResponseDTO: Decodable {
+public struct MypageNicknameResponseDTO: Decodable, Sendable {
     let id: Int
     let loginId: String
     let nickname: String

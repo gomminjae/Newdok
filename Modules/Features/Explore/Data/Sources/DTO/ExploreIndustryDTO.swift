@@ -1,6 +1,6 @@
 import ExploreDomain
 
-struct ExploreIndustryDTO: Decodable {
+struct ExploreIndustryDTO: Decodable, Sendable {
     let id: Int
     let name: String
 

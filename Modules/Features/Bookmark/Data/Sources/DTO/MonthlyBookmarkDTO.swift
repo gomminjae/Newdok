@@ -7,7 +7,7 @@
 
 import BookmarkDomain
 
-struct MonthlyBookmarkDTO: Decodable {
+struct MonthlyBookmarkDTO: Decodable, Sendable {
     let month: String
     let bookmark: [BookmarkDTO]
 

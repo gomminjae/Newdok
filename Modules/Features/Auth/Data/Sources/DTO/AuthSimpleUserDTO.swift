@@ -1,7 +1,7 @@
 import Foundation
 import AuthDomain
 
-struct AuthSimpleUserDTO: Decodable {
+struct AuthSimpleUserDTO: Decodable, Sendable {
     let id: Int
     let loginId: String
     let phoneNumber: String

@@ -8,6 +8,6 @@
 
 import Foundation
 
-struct MypageArticlesCountDTO: Decodable {
+struct MypageArticlesCountDTO: Decodable, Sendable {
     let count: Int
 }

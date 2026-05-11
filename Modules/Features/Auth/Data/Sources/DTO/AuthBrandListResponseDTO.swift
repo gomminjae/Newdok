@@ -1,7 +1,7 @@
 import Foundation
 import AuthDomain
 
-struct AuthRecommendedBrandListResponseDTO: Decodable {
+struct AuthRecommendedBrandListResponseDTO: Decodable, Sendable {
     let data: [AuthRecommendedBrandDTO]
 
     func toDomain() -> [AuthRecommendedBrand] {
@@ -9,7 +9,7 @@ struct AuthRecommendedBrandListResponseDTO: Decodable {
     }
 }
 
-struct AuthRecommendedBrandDTO: Decodable {
+struct AuthRecommendedBrandDTO: Decodable, Sendable {
     let id: Int
     let brandName: String
     let firstDescription: String

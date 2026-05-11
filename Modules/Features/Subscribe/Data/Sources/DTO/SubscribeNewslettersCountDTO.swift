@@ -1,3 +1,3 @@
-struct SubscribeNewslettersCountDTO: Decodable {
+struct SubscribeNewslettersCountDTO: Decodable, Sendable {
     let count: Int
 }

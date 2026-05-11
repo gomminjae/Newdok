@@ -11,7 +11,7 @@ public final class MoyaNetworkService<API: TargetType>: NetworkService, Sendable
         self.provider = provider
     }
 
-    public func request<T: Decodable>(_ target: API, decodeTo type: T.Type) async throws -> T {
+    public func request<T: Decodable & Sendable>(_ target: API, decodeTo type: T.Type) async throws -> T {
         try await provider.asyncRequest(target, decodeTo: type)
     }
 
@@ -19,7 +19,7 @@ public final class MoyaNetworkService<API: TargetType>: NetworkService, Sendable
         try await provider.asyncVoidRequest(target)
     }
 
-    public func checkRequest<T: Decodable>(_ target: API, decodeTo type: T.Type) async throws -> CheckResult<T> {
+    public func checkRequest<T: Decodable & Sendable>(_ target: API, decodeTo type: T.Type) async throws -> CheckResult<T> {
         try await provider.safeCheckRequest(target, decodeTo: type)
     }
 }

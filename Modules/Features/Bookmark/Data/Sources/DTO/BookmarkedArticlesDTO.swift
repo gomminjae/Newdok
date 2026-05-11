@@ -7,7 +7,7 @@
 
 import BookmarkDomain
 
-struct BookmarkedArticlesDTO: Decodable {
+struct BookmarkedArticlesDTO: Decodable, Sendable {
     let totalAmount: Int
     let bookmarkForMonth: [MonthlyBookmarkDTO]
 
@@ -19,6 +19,6 @@ struct BookmarkedArticlesDTO: Decodable {
     }
 }
 
-struct BookmarkArticlesResponse: Decodable {
+struct BookmarkArticlesResponse: Decodable, Sendable {
     let data: BookmarkedArticlesDTO
 }

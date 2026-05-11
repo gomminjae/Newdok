@@ -1,6 +1,6 @@
 import SubscribeDomain
 
-struct SubscribeNewsletterDTO: Decodable {
+struct SubscribeNewsletterDTO: Decodable, Sendable {
     let id: Int?
     let brandName: String
     let imageUrl: String?

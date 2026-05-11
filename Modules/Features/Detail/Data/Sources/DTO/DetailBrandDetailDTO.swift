@@ -5,7 +5,7 @@
 
 import DetailDomain
 
-public struct DetailBrandDetailDTO: Decodable {
+public struct DetailBrandDetailDTO: Decodable, Sendable {
     public let brandId: Int
     public let brandName: String
     public let detailDescription: String?

@@ -7,7 +7,7 @@
 
 import BookmarkDomain
 
-struct BookmarkInterestDTO: Decodable {
+struct BookmarkInterestDTO: Decodable, Sendable {
     let id: Int
     let name: String
 
@@ -16,6 +16,6 @@ struct BookmarkInterestDTO: Decodable {
     }
 }
 
-struct InterestListResponse: Decodable {
+struct InterestListResponse: Decodable, Sendable {
     let data: [BookmarkInterestDTO]
 }

@@ -7,7 +7,7 @@
 
 import BookmarkDomain
 
-struct BookmarkDTO: Decodable {
+struct BookmarkDTO: Decodable, Sendable {
     let brandName: String
     let brandId: Int
     let articleTitle: String
