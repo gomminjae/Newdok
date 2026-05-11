@@ -5,7 +5,7 @@ import ProjectDescription
 public enum ProjectConfig {
     public static let organizationName = "Newdok"
     public static let bundlePrefix = "com.newdok"
-    public static let deploymentTarget: DeploymentTargets = .iOS("17.0")
+    public static let deploymentTarget: DeploymentTargets = .iOS("18.0")
     public static let destinations: Destinations = .iOS
 
     public static let baseSettings: SettingsDictionary = [

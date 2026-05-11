@@ -12,6 +12,7 @@
 		2440871C3D29D9C5EBE970A2 /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7E2402EF9A73970D230C689 /* AppState.swift */; };
 		2543C610AB3A48B4D249A302 /* TabSelection.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDF80E5080EED4A4B010B1F2 /* TabSelection.swift */; };
 		3943A30AA7C2116A86287D44 /* UserDefault.swift in Sources */ = {isa = PBXBuildFile; fileRef = E18D363A3EC3579FD532BEAB /* UserDefault.swift */; };
+		4DE7CDCD6EFA166208D29E3B /* KeychainItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC12BB49A1DB8E04FAFD16B7 /* KeychainItem.swift */; };
 		56E86C3A63173151BE4B29EC /* TokenStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = EABBA1D82B5FD64F3A9B1FE3 /* TokenStorage.swift */; };
 		5A3D4395DDCD980070A0BE03 /* SelectableCategoryType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 962B163644F815D1BF4ECB11 /* SelectableCategoryType.swift */; };
 		72104A94ACE064372DD74143 /* UserInfoStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABD09C1E8E179695F3A17A71 /* UserInfoStore.swift */; };
@@ -62,6 +63,7 @@
 		EABBA1D82B5FD64F3A9B1FE3 /* TokenStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenStorage.swift; sourceTree = "<group>"; };
 		F0DE4CC8E8325473FA349E3F /* ToastCenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastCenter.swift; sourceTree = "<group>"; };
 		F2BEA0C3B8E576918DE74F38 /* AppConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppConstants.swift; sourceTree = "<group>"; };
+		FC12BB49A1DB8E04FAFD16B7 /* KeychainItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainItem.swift; sourceTree = "<group>"; };
 		FDF80E5080EED4A4B010B1F2 /* TabSelection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabSelection.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -96,6 +98,7 @@
 		31479BA18B0C8D9AB6D1D0C2 /* Storage */ = {
 			isa = PBXGroup;
 			children = (
+				FC12BB49A1DB8E04FAFD16B7 /* KeychainItem.swift */,
 				E18D363A3EC3579FD532BEAB /* UserDefault.swift */,
 			);
 			path = Storage;
@@ -253,6 +256,7 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = YES;
+				ORGANIZATIONNAME = Newdok;
 				TargetAttributes = {
 				};
 			};
@@ -300,6 +304,7 @@
 				2543C610AB3A48B4D249A302 /* TabSelection.swift in Sources */,
 				2440871C3D29D9C5EBE970A2 /* AppState.swift in Sources */,
 				817D96211910CBF827E43430 /* ExploreIntent.swift in Sources */,
+				4DE7CDCD6EFA166208D29E3B /* KeychainItem.swift in Sources */,
 				3943A30AA7C2116A86287D44 /* UserDefault.swift in Sources */,
 				73A91ABEF61282418D59684A /* UserInfo.swift in Sources */,
 				72104A94ACE064372DD74143 /* UserInfoStore.swift in Sources */,
@@ -325,7 +330,7 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = "Derived/InfoPlists/Shared-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -360,7 +365,7 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = "Derived/InfoPlists/Shared-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

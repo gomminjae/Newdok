@@ -9,7 +9,7 @@ let project = Project(
             destinations: .iOS,
             product: .staticFramework,
             bundleId: "com.newdok.mypage.interface",
-            deploymentTargets: .iOS("17.0"),
+            deploymentTargets: .iOS("18.0"),
             infoPlist: .default,
             sources: ["Interface/Sources/**"],
             settings: .settings(
@@ -24,7 +24,7 @@ let project = Project(
             destinations: .iOS,
             product: .staticFramework,
             bundleId: "com.newdok.mypage.domain",
-            deploymentTargets: .iOS("17.0"),
+            deploymentTargets: .iOS("18.0"),
             infoPlist: .default,
             sources: ["Domain/Sources/**"],
             dependencies: [
@@ -42,7 +42,7 @@ let project = Project(
             destinations: .iOS,
             product: .staticFramework,
             bundleId: "com.newdok.mypage.data",
-            deploymentTargets: .iOS("17.0"),
+            deploymentTargets: .iOS("18.0"),
             infoPlist: .default,
             sources: ["Data/Sources/**"],
             dependencies: [
@@ -61,7 +61,7 @@ let project = Project(
             destinations: .iOS,
             product: .staticFramework,
             bundleId: "com.newdok.mypage",
-            deploymentTargets: .iOS("17.0"),
+            deploymentTargets: .iOS("18.0"),
             infoPlist: .default,
             sources: ["Sources/**"],
             resources: ["Resources/**"],
