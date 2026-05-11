@@ -3,7 +3,7 @@ import SearchDomain
 import Core
 import Shared
 
-public class SearchRepositoryImpl: SearchRepository {
+public final class SearchRepositoryImpl: SearchRepository {
     private let network: any NetworkService<SearchAPI>
 
     public init(network: any NetworkService<SearchAPI>) {

@@ -2,7 +2,7 @@ import BookmarkDomain
 import Core
 import Shared
 
-public class BookmarkRepositoryImpl: BookmarkRepository {
+public final class BookmarkRepositoryImpl: BookmarkRepository {
     private let network: any NetworkService<ArticleAPI>
 
     public init(network: any NetworkService<ArticleAPI>) {

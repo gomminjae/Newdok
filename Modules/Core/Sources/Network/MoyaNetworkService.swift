@@ -1,8 +1,8 @@
 import Foundation
-import Moya
+@preconcurrency import Moya
 import Shared
 
-public final class MoyaNetworkService<API: TargetType>: @unchecked Sendable, NetworkService {
+public final class MoyaNetworkService<API: TargetType>: NetworkService, Sendable {
     public typealias Target = API
 
     private let provider: MoyaProvider<API>

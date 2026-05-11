@@ -2,7 +2,7 @@ import DetailDomain
 import Core
 import Shared
 
-public class DetailBrandRepositoryImpl: DetailBrandRepository {
+public final class DetailBrandRepositoryImpl: DetailBrandRepository {
     private let network: any NetworkService<NewsletterAPI>
 
     public init(network: any NetworkService<NewsletterAPI>) {

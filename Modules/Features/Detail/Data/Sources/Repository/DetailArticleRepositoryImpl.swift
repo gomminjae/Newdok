@@ -2,7 +2,7 @@ import DetailDomain
 import Core
 import Shared
 
-public class DetailArticleRepositoryImpl: DetailArticleRepository {
+public final class DetailArticleRepositoryImpl: DetailArticleRepository {
     private let network: any NetworkService<ArticleAPI>
 
     public init(network: any NetworkService<ArticleAPI>) {

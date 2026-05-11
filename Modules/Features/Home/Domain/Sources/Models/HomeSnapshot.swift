@@ -1,6 +1,6 @@
 import Foundation
 
-public struct HomeSnapshot: @unchecked Sendable {
+public struct HomeSnapshot: Sendable {
     public var selectedDate: Date
     public var displayedMonth: Date
     public var filteredArticles: [HomeArticle]
