@@ -609,6 +609,7 @@ private struct BorderedThumbSlider: UIViewRepresentable {
         }
     }
 
+    @MainActor
     class Coordinator: NSObject {
         let parent: BorderedThumbSlider
         init(_ parent: BorderedThumbSlider) { self.parent = parent }

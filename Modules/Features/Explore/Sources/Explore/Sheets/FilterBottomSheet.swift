@@ -229,9 +229,7 @@ struct FlowRowsLayout: Layout {
         subviews: SwiftUI.LayoutSubviews,
         cache: inout Cache
     ) -> CGSize {
-        // 제안된 너비가 없으면 안전한 기본값(좌우 패딩 고려)
-        let fallbackW = UIScreen.main.bounds.width - L.horizontal * 2
-        let maxW = proposal.width ?? fallbackW
+        let maxW = proposal.width ?? proposal.replacingUnspecifiedDimensions().width
 
         var x: CGFloat = 0, y: CGFloat = 0, rowH: CGFloat = 0
         var frames: [CGRect] = []
