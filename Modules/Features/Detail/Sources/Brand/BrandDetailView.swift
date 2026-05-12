@@ -446,13 +446,13 @@ public struct BrandDetailView: View {
             .frame(maxWidth: .infinity, alignment: .leading)
             .padding(.bottom, 32)
             .fullScreenCover(isPresented: $showSubscribeSheet) {
-                SubscribeModalView(title: viewModel.detail?.brandName ?? "", url: viewModel.detail?.subscribeUrl ?? "", email: UserInfoStore.shared.load()?.subscribeEmail ?? "", name: UserInfoStore.shared.load()?.nickname ?? "")
+                SubscribeModalView(title: viewModel.detail?.brandName ?? "", url: viewModel.detail?.subscribeUrl ?? "", email: viewModel.subscribeEmail, name: viewModel.userNickname)
             }
             .onChange(of: showSubscribeSheet) { _, newValue in
                 // 구독 시트가 닫힐 때 팝업 띄우기
                 if !newValue {
                     // 오늘 하루 보지 않기 설정 확인
-                    if TokenStorage.shouldShowSubscribeStatePopup {
+                    if viewModel.shouldShowSubscribeStatePopup {
                         showSubscribeStatePopup = true
                     }
                 }
@@ -460,7 +460,7 @@ public struct BrandDetailView: View {
             .popup(isPresented: $showSubscribeStatePopup) {
                 SubscribeStatePopupView(
                     onCancel: {
-                        TokenStorage.hideSubscribeStatePopupForToday()
+                        viewModel.hideSubscribeStatePopupForToday()
                         showSubscribeStatePopup = false
                     },
                     onConfirm: {

@@ -11,12 +11,11 @@
 		5DB9D1ECE7941826FD6E377F /* Core.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FD12E525B40E5B3171F7E530 /* Core.framework */; };
 		5F1608186749089C760FC0C9 /* Moya.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2225B51F29CB2FA5A72B9D33 /* Moya.framework */; };
 		5F3D03F26D9A581F37632380 /* Shared.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8E6E7B87B988E328C1EE62A /* Shared.framework */; };
-		9833FA7C028A586DED7F9E1F /* Kingfisher.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C0AF2E88D48C7E38E1B898A9 /* Kingfisher.framework */; };
 		ADAB00D90C745D1B520C70BD /* SurveyMain.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1957E61D0F92B13C9D06D9C /* SurveyMain.swift */; };
 		B173CF7EDFA0725851501A4D /* SurveyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23A050A6322FE1A422FE3045 /* SurveyTests.swift */; };
-		D87034D43CB8E170E06B5B99 /* PopupView.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EB4280D393BFDC1132DD38D9 /* PopupView.framework */; };
+		D91145D7137B7232F21DCD8E /* Alamofire_Alamofire.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 2E18116300A883065B14493E /* Alamofire_Alamofire.bundle */; };
+		E5CEE469D4C8E522AC118F7A /* Alamofire_Alamofire.bundle in Dependencies */ = {isa = PBXBuildFile; fileRef = 2E18116300A883065B14493E /* Alamofire_Alamofire.bundle */; };
 		F28C9E3265EBCF43415D36C3 /* Survey.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8978804A1885621F914F866A /* Survey.framework */; };
-		F5642A981CA4588655D1FC79 /* DesignSystem.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CF891DF34D4455956C2DCD87 /* DesignSystem.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -30,6 +29,16 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
+		B93CC2FCA058120891C13450 /* Dependencies */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 8;
+			dstSubfolderSpec = 16;
+			files = (
+				E5CEE469D4C8E522AC118F7A /* Alamofire_Alamofire.bundle in Dependencies */,
+			);
+			name = Dependencies;
+			runOnlyForDeploymentPostprocessing = 1;
+		};
 		BA721A36EEB5EC3AB3D1C7AA /* Dependencies */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 8;
@@ -66,14 +75,12 @@
 		06A01EDB6FD9DB0E8A4F7809 /* Survey-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "Survey-Info.plist"; sourceTree = "<group>"; };
 		2225B51F29CB2FA5A72B9D33 /* Moya.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Moya.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		23A050A6322FE1A422FE3045 /* SurveyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SurveyTests.swift; sourceTree = "<group>"; };
+		2E18116300A883065B14493E /* Alamofire_Alamofire.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Alamofire_Alamofire.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
 		4FF035E9E7D35EB77233BFDE /* SurveyTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "SurveyTests-Info.plist"; sourceTree = "<group>"; };
 		727F7D83813FA7F64C222B0F /* SurveyTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SurveyTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		8978804A1885621F914F866A /* Survey.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Survey.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		C0AF2E88D48C7E38E1B898A9 /* Kingfisher.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Kingfisher.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		CF891DF34D4455956C2DCD87 /* DesignSystem.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = DesignSystem.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D1957E61D0F92B13C9D06D9C /* SurveyMain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SurveyMain.swift; sourceTree = "<group>"; };
 		D8E6E7B87B988E328C1EE62A /* Shared.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Shared.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		EB4280D393BFDC1132DD38D9 /* PopupView.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = PopupView.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FD12E525B40E5B3171F7E530 /* Core.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Core.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -83,10 +90,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5DB9D1ECE7941826FD6E377F /* Core.framework in Frameworks */,
-				F5642A981CA4588655D1FC79 /* DesignSystem.framework in Frameworks */,
-				9833FA7C028A586DED7F9E1F /* Kingfisher.framework in Frameworks */,
 				5F1608186749089C760FC0C9 /* Moya.framework in Frameworks */,
-				D87034D43CB8E170E06B5B99 /* PopupView.framework in Frameworks */,
 				5F3D03F26D9A581F37632380 /* Shared.framework in Frameworks */,
 				F28C9E3265EBCF43415D36C3 /* Survey.framework in Frameworks */,
 			);
@@ -131,11 +135,9 @@
 		586803EF3EEDDB6484551736 /* Products */ = {
 			isa = PBXGroup;
 			children = (
+				2E18116300A883065B14493E /* Alamofire_Alamofire.bundle */,
 				FD12E525B40E5B3171F7E530 /* Core.framework */,
-				CF891DF34D4455956C2DCD87 /* DesignSystem.framework */,
-				C0AF2E88D48C7E38E1B898A9 /* Kingfisher.framework */,
 				2225B51F29CB2FA5A72B9D33 /* Moya.framework */,
-				EB4280D393BFDC1132DD38D9 /* PopupView.framework */,
 				D8E6E7B87B988E328C1EE62A /* Shared.framework */,
 				8978804A1885621F914F866A /* Survey.framework */,
 				727F7D83813FA7F64C222B0F /* SurveyTests.xctest */,
@@ -179,6 +181,7 @@
 				2751CDD4E0F83EB33F8E0E63 /* Resources */,
 				827414FFCE0AB4A1BD5754FE /* Frameworks */,
 				ED5D7924B0EF482201D78315 /* Embed Frameworks */,
+				B93CC2FCA058120891C13450 /* Dependencies */,
 			);
 			buildRules = (
 			);
@@ -248,6 +251,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D91145D7137B7232F21DCD8E /* Alamofire_Alamofire.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -359,6 +363,10 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-L$(DT_TOOLCHAIN_DIR)/usr/lib/swift/$(PLATFORM_NAME)",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.newdok.survey.tests;
 				PRODUCT_NAME = SurveyTests;
 				SDKROOT = iphoneos;
@@ -402,6 +410,7 @@
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
 				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_ENABLE_EXPLICIT_MODULES = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				SWIFT_STRICT_CONCURRENCY = complete;
 				SWIFT_VERSION = 5.0;
@@ -441,6 +450,7 @@
 					DEBUG,
 				);
 				SWIFT_COMPILATION_MODE = singlefile;
+				SWIFT_ENABLE_EXPLICIT_MODULES = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_STRICT_CONCURRENCY = complete;
 				SWIFT_VERSION = 5.0;
@@ -513,6 +523,10 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
+				);
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-L$(DT_TOOLCHAIN_DIR)/usr/lib/swift/$(PLATFORM_NAME)",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.newdok.survey.tests;
 				PRODUCT_NAME = SurveyTests;

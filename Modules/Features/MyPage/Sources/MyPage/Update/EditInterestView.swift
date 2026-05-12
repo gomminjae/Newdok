@@ -17,7 +17,7 @@ public struct EditInterestView: View {
 
     @State private var selectedIds: Set<Int> = []
 
-    private let interests = SelectableItemStore.shared.interests
+    private var interests: [SelectableItem] { viewModel.interests }
     private let columns = [
         GridItem(.flexible(), spacing: 12),
         GridItem(.flexible(), spacing: 12)

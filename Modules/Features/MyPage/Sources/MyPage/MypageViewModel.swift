@@ -54,10 +54,23 @@ public final class MypageViewModel: ErrorHandling {
 
     private let useCase: MypageUserUseCase
     private let profileUseCase: MypageProfileUseCase
+    private let selectableItemStore: SelectableItemStoreProtocol
+    private let userInfoStore: UserInfoStoreProtocol
 
-    public init(useCase: MypageUserUseCase, profileUseCase: MypageProfileUseCase) {
+    public init(
+        useCase: MypageUserUseCase,
+        profileUseCase: MypageProfileUseCase,
+        selectableItemStore: SelectableItemStoreProtocol = SelectableItemStore.shared,
+        userInfoStore: UserInfoStoreProtocol = UserInfoStore.shared
+    ) {
+        self.selectableItemStore = selectableItemStore
+        self.userInfoStore = userInfoStore
         self.useCase = useCase
         self.profileUseCase = profileUseCase
+    }
+
+    func loadUserInfo() -> UserInfo? {
+        userInfoStore.load()
     }
 
     public func fetchuserInfo() async {
@@ -121,7 +134,7 @@ public final class MypageViewModel: ErrorHandling {
 
             // UI 상태 업데이트
             if let currentUser = user {
-                let updatedInterests = ids.map { MypageInterest(id: $0, name: SelectableItemStore.shared.name(for: $0, in: .interest) ?? "") }
+                let updatedInterests = ids.map { MypageInterest(id: $0, name: selectableItemStore.name(for: $0, in: .interest) ?? "") }
                 user = MypageUser(
                     id: currentUser.id,
                     loginId: currentUser.loginId,
@@ -244,6 +257,22 @@ public final class MypageViewModel: ErrorHandling {
 
     public var isPasswordValid: Bool {
         return isOldPasswordValid && isNewPasswordValid && isNewPasswordConfirmed
+    }
+
+    func industryName(for id: Int) -> String {
+        selectableItemStore.name(for: id, in: .industry) ?? ""
+    }
+
+    func interestName(for id: Int) -> String {
+        selectableItemStore.name(for: id, in: .interest) ?? ""
+    }
+
+    var industries: [SelectableItem] {
+        selectableItemStore.list(for: .industry)
+    }
+
+    var interests: [SelectableItem] {
+        selectableItemStore.list(for: .interest)
     }
 
     public var oldPasswordError: String? {

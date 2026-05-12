@@ -19,10 +19,35 @@ public final class BrandDetailViewModel: ErrorHandling {
 
     private let id: String
     private let brandRepository: DetailBrandRepository
+    private let tokenStorage: TokenStorageProtocol
+    private let userInfoStore: UserInfoStoreProtocol
 
-    public init(id: String, brandRepository: DetailBrandRepository) {
+    public init(
+        id: String,
+        brandRepository: DetailBrandRepository,
+        tokenStorage: TokenStorageProtocol = TokenStorageWrapper.shared,
+        userInfoStore: UserInfoStoreProtocol = UserInfoStore.shared
+    ) {
         self.id = id
         self.brandRepository = brandRepository
+        self.tokenStorage = tokenStorage
+        self.userInfoStore = userInfoStore
+    }
+
+    var subscribeEmail: String {
+        userInfoStore.load()?.subscribeEmail ?? ""
+    }
+
+    var userNickname: String {
+        userInfoStore.load()?.nickname ?? ""
+    }
+
+    var shouldShowSubscribeStatePopup: Bool {
+        tokenStorage.shouldShowSubscribeStatePopup
+    }
+
+    func hideSubscribeStatePopupForToday() {
+        tokenStorage.hideSubscribeStatePopupForToday()
     }
 
     public func fetch() async {

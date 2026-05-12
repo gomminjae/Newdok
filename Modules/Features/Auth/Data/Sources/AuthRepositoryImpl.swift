@@ -5,9 +5,17 @@ import Shared
 
 public final class AuthRepositoryImpl: AuthRepository {
     private let network: any NetworkService<UserAPI>
+    private var tokenStorage: TokenStorageProtocol
+    private let userInfoStore: UserInfoStoreProtocol
 
-    public init(network: any NetworkService<UserAPI>) {
+    public init(
+        network: any NetworkService<UserAPI>,
+        tokenStorage: TokenStorageProtocol = TokenStorageWrapper.shared,
+        userInfoStore: UserInfoStoreProtocol = UserInfoStore.shared
+    ) {
         self.network = network
+        self.tokenStorage = tokenStorage
+        self.userInfoStore = userInfoStore
     }
 
     public func login(loginId: String, password: String) async throws -> (AuthUser, String) {
@@ -18,7 +26,7 @@ public final class AuthRepositoryImpl: AuthRepository {
             let user = response.user.toDomain()
             let token = response.accessToken
 
-            TokenStorage.accessToken = token
+            tokenStorage.accessToken = token
             persistLocalUser(from: user)
 
             return (user, token)
@@ -57,7 +65,7 @@ public final class AuthRepositoryImpl: AuthRepository {
         )
         let domain = response.toDomain()
 
-        TokenStorage.accessToken = domain.accessToken
+        tokenStorage.accessToken = domain.accessToken
         persistLocalUser(from: domain.user)
 
         return domain
@@ -111,8 +119,8 @@ public final class AuthRepositoryImpl: AuthRepository {
     }
 
     public func signOut() async {
-        TokenStorage.clear()
-        UserInfoStore.shared.clear()
+        tokenStorage.clear()
+        userInfoStore.clear()
     }
 
     private func persistLocalUser(from user: AuthUser) {
@@ -128,6 +136,6 @@ public final class AuthRepositoryImpl: AuthRepository {
             industryId: user.industryId,
             interestIds: user.interestIds
         )
-        UserInfoStore.shared.save(userInfo)
+        userInfoStore.save(userInfo)
     }
 }

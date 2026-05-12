@@ -6,18 +6,29 @@
 //
 
 public struct UserInfo: Codable {
-    public let id: Int
-    public let loginId: String
-    public let phoneNumber: String
-    public let subscribeEmail: String?
-    public let nickname: String
-    public let birthYear: String
-    public let gender: String
-    public let createdAt: String
-    public let industryId: Int?
-    public let interestIds: [Int]
-    
-    public init(id: Int, loginId: String, phoneNumber: String, subscribeEmail: String?, nickname: String, birthYear: String, gender: String, createdAt: String, industryId: Int?, interestIds: [Int]) {
+    public var id: Int
+    public var loginId: String
+    public var phoneNumber: String
+    public var subscribeEmail: String?
+    public var nickname: String
+    public var birthYear: String
+    public var gender: String
+    public var createdAt: String
+    public var industryId: Int?
+    public var interestIds: [Int]
+
+    public init(
+        id: Int,
+        loginId: String,
+        phoneNumber: String,
+        subscribeEmail: String? = nil,
+        nickname: String,
+        birthYear: String,
+        gender: String,
+        createdAt: String,
+        industryId: Int? = nil,
+        interestIds: [Int]
+    ) {
         self.id = id
         self.loginId = loginId
         self.phoneNumber = phoneNumber
@@ -28,19 +39,5 @@ public struct UserInfo: Codable {
         self.createdAt = createdAt
         self.industryId = industryId
         self.interestIds = interestIds
-    }
-
-    // MARK: - Immutable Update Helpers
-
-    public func withNickname(_ nickname: String) -> UserInfo {
-        UserInfo(id: id, loginId: loginId, phoneNumber: phoneNumber, subscribeEmail: subscribeEmail, nickname: nickname, birthYear: birthYear, gender: gender, createdAt: createdAt, industryId: industryId, interestIds: interestIds)
-    }
-
-    public func withIndustryId(_ industryId: Int) -> UserInfo {
-        UserInfo(id: id, loginId: loginId, phoneNumber: phoneNumber, subscribeEmail: subscribeEmail, nickname: nickname, birthYear: birthYear, gender: gender, createdAt: createdAt, industryId: industryId, interestIds: interestIds)
-    }
-
-    public func withInterestIds(_ interestIds: [Int]) -> UserInfo {
-        UserInfo(id: id, loginId: loginId, phoneNumber: phoneNumber, subscribeEmail: subscribeEmail, nickname: nickname, birthYear: birthYear, gender: gender, createdAt: createdAt, industryId: industryId, interestIds: interestIds)
     }
 }

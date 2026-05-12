@@ -12,10 +12,13 @@ import Shared
 public struct OnboardingView: View {
     @State private var currentPage = 0
     let totalPages = 3
-    
+
     @Environment(AppRouter.self) private var router
 
-    public init() {
+    private let tokenStorage: TokenStorageProtocol
+
+    public init(tokenStorage: TokenStorageProtocol = TokenStorageWrapper.shared) {
+        self.tokenStorage = tokenStorage
     }
 
     public var body: some View {
@@ -48,7 +51,7 @@ public struct OnboardingView: View {
 
                 VStack(spacing: 0) {
                     Button(action: {
-                        TokenStorage.markOnboardingCompleted()
+                        tokenStorage.markOnboardingCompleted()
                         router.push(.signup)
                     }) {
                         Text("회원가입")
@@ -68,7 +71,7 @@ public struct OnboardingView: View {
                             .foregroundColor(Color.captionAssistive)
 
                         Button(action: {
-                            TokenStorage.markOnboardingCompleted()
+                            tokenStorage.markOnboardingCompleted()
                             router.push(.login)
                         }) {
                             Text("로그인")

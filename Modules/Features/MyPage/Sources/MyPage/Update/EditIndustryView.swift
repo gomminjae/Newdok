@@ -38,7 +38,7 @@ public struct EditIndustryView: View {
             }) {
                 HStack {
                     Text(
-                        SelectableItemStore.shared.name(for: selectedId ?? -1, in: .industry)
+                        viewModel.industryName(for: selectedId ?? -1)
                             .ifEmpty("선택해주세요")
                     )
                     .font(.hanSansNeo(14, .medium))
@@ -61,7 +61,7 @@ public struct EditIndustryView: View {
             if isExpanded {
                 ScrollView {
                     VStack(spacing: 0) {
-                        ForEach(SelectableItemStore.shared.industries, id: \.id) { item in
+                        ForEach(viewModel.industries, id: \.id) { item in
                             Button {
                                 selectedId = item.id
                                 isExpanded = false

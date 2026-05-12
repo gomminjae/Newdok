@@ -6,7 +6,7 @@
 //
 import Foundation
 
-public final class UserInfoStore: @unchecked Sendable {
+public final class UserInfoStore: UserInfoStoreProtocol, @unchecked Sendable {
     public static let shared = UserInfoStore()
 
     @CodableUserDefault("local_user_info", default: nil)

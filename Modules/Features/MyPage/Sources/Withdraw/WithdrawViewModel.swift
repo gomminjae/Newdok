@@ -24,13 +24,19 @@ public final class WithdrawViewModel: ErrorHandling {
 
     private let userUseCase: MypageUserUseCase
     private let statsUseCase: MypageStatsUseCase
+    private let tokenStorage: TokenStorageProtocol
+    private let userInfoStore: UserInfoStoreProtocol
 
     public init(
         userUseCase: MypageUserUseCase,
-        statsUseCase: MypageStatsUseCase
+        statsUseCase: MypageStatsUseCase,
+        tokenStorage: TokenStorageProtocol = TokenStorageWrapper.shared,
+        userInfoStore: UserInfoStoreProtocol = UserInfoStore.shared
     ) {
         self.userUseCase = userUseCase
         self.statsUseCase = statsUseCase
+        self.tokenStorage = tokenStorage
+        self.userInfoStore = userInfoStore
     }
 
     public func fetchUserInfo() async {
@@ -59,10 +65,10 @@ public final class WithdrawViewModel: ErrorHandling {
 
     private func clearAllLocalData() {
         // 액세스 토큰 삭제
-        TokenStorage.clear()
+        tokenStorage.clear()
 
         // UserInfo 삭제
-        UserInfoStore.shared.clear()
+        userInfoStore.clear()
 
         // UserDefaults의 모든 사용자 관련 데이터 삭제
         let userDefaults = UserDefaults.standard

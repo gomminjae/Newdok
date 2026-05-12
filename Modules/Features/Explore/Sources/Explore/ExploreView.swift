@@ -17,16 +17,11 @@ public struct ExploreView: View {
     @State private var recommendationSpinAngle: Double = 0
     @State private var filterSpinAngle: Double = 0
     @State private var isLoaded: Bool = false
-    @State private var userInfo: UserInfo?
     @Environment(AppRouter.self) private var router
     @Environment(ExploreIntent.self) private var exploreIntent
     @Environment(AppState.self) private var appState
 
     private var isGuest: Bool { appState.authState == .guest }
-
-    private var nickname: String {
-        return userInfo?.nickname ?? ""
-    }
 
     public init(viewModel: ExploreViewModel) {
         self.viewModel = viewModel
@@ -72,10 +67,6 @@ public struct ExploreView: View {
             .background(Color.white)
             .onChange(of: appState.authState) {
                 viewModel.clearData()
-                viewModel.day = nil
-                viewModel.industry = nil
-                viewModel.orderOpt = "인기순"
-                userInfo = UserInfoStore.shared.load()
             }
             .onChange(of: exploreIntent.trigger) {
                 // 모든 설정을 한 번에 처리
@@ -110,9 +101,6 @@ public struct ExploreView: View {
                 }
             }
             .onAppear {
-                // UserInfo 로드
-                userInfo = UserInfoStore.shared.load()
-                
                 Task {
                     if isGuest {
                         await viewModel.fetchGuestAllNewsletters()
@@ -125,8 +113,7 @@ public struct ExploreView: View {
                 }
             }
             .onReceive(NotificationCenter.default.publisher(for: UIApplication.willEnterForegroundNotification)) { _ in
-                // 앱이 포그라운드로 올 때 UserInfo 업데이트
-                userInfo = UserInfoStore.shared.load()
+                viewModel.reloadUserInfo()
             }
             .serverErrorPopup(
                 error: $viewModel.currentError,
@@ -207,7 +194,7 @@ public struct ExploreView: View {
                     .foregroundStyle(Color.captionHeavy)
                     .padding(.bottom, 4)
 
-                Text("\(nickname)님만을 위한 뉴스레터를 찾아드릴게요!")
+                Text("\(viewModel.nickname)님만을 위한 뉴스레터를 찾아드릴게요!")
                     .font(.hanSansNeo(14, .medium))
                     .foregroundStyle(Color.captionBody)
                     .padding(.bottom, 24)
@@ -278,7 +265,7 @@ public struct ExploreView: View {
 
     private var recommendationSection: some View {
         VStack(alignment: .leading) {
-            Text("\(nickname)님을 위한\n맞춤형 뉴스레터가 도착했어요.")
+            Text("\(viewModel.nickname)님을 위한\n맞춤형 뉴스레터가 도착했어요.")
                 .font(.hanSansNeo(20, .bold))
                 .padding(.top, 20)
                 .padding(.horizontal, 24)
@@ -315,7 +302,7 @@ public struct ExploreView: View {
             .padding(.horizontal, 24)
             .padding(.bottom, 16)
 
-            VStack(spacing: 12) {
+            LazyVStack(spacing: 12) {
                 ForEach(viewModel.fixedUnionRecommendation, id: \.id) { newsletter in
                     NewsletterRow(
                         newsletter: newsletter,
@@ -368,7 +355,7 @@ public struct ExploreView: View {
                         viewModel.isShowFilterSheet.toggle()
                     }) {
                         HStack(spacing: 4) {
-                            Text(industryText)
+                            Text(viewModel.industryText)
                                 .font(.hanSansNeo(14, .medium))
                                 .foregroundStyle(viewModel.industry != nil ? Color.primaryNormal : Color.captionAssistive)
                             Image(asset: DesignSystemAsset.lineDown)
@@ -395,7 +382,7 @@ public struct ExploreView: View {
                         viewModel.isShowFilterSheet.toggle()
                     }) {
                         HStack(spacing: 4) {
-                            Text(dayText)
+                            Text(viewModel.dayText)
                                 .font(.hanSansNeo(14, .medium))
                                 .foregroundStyle(viewModel.day != nil ? Color.primaryNormal : Color.captionAssistive)
                             Image(asset: DesignSystemAsset.lineDown)
@@ -424,10 +411,7 @@ public struct ExploreView: View {
             Button(action: {
                 filterSpinAngle += 360
                 Task {
-                    viewModel.day = nil
-                    viewModel.industry = nil
-                    viewModel.orderOpt = "인기순"
-                    viewModel.shouldScrollToTop = true
+                    await viewModel.resetFilters()
                     if isGuest {
                         await viewModel.fetchGuestAllNewsletters()
                     } else {
@@ -456,7 +440,7 @@ public struct ExploreView: View {
             .presentationDragIndicator(.hidden)
         }
         .sheet(isPresented: $viewModel.isShowFilterSheet) {
-            FilterBottomSheet(industry: $viewModel.industry, day: $viewModel.day) {
+            FilterBottomSheet(industries: viewModel.industries, weekdays: viewModel.days, industry: $viewModel.industry, day: $viewModel.day) {
                 viewModel.shouldScrollToTop = true
                 if isGuest {
                     await viewModel.fetchGuestAllNewsletters()
@@ -500,15 +484,6 @@ public struct ExploreView: View {
                     }
                     .padding(.bottom, 80)
                 }
-                .onChange(of: viewModel.orderOpt) {
-                    // 필터 변경 시 자동 호출 제거 - 적용하기 버튼에서만 호출
-                }
-                .onChange(of: viewModel.industry) {
-                    // 필터 변경 시 자동 호출 제거 - 적용하기 버튼에서만 호출
-                }
-                .onChange(of: viewModel.day) {
-                    // 필터 변경 시 자동 호출 제거 - 적용하기 버튼에서만 호출
-                }
                 .onChange(of: viewModel.shouldScrollToTop) { _, shouldScroll in
                     if shouldScroll {
                         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
@@ -539,30 +514,6 @@ public struct ExploreView: View {
         }
     }
     
-    private var industryText: String {
-        guard let selected = viewModel.industry else { return "산업" }
-        
-        if selected.count == 1 {
-            let industryName = SelectableItemStore.shared.name(for: selected.first!, in: .industry)
-            return industryName.isEmpty ? "산업" : industryName
-        } else {
-            return "산업 \(selected.count)"
-        }
-    }
-
-    private var dayText: String {
-        guard let selected = viewModel.day else { return "발행요일" }
-        
-        let labels = ["월요일", "화요일", "수요일", "목요일", "금요일", "토요일", "일요일", "기타"]
-        
-        if selected.count == 1 {
-            let index = selected.first! - 1
-            return index >= 0 && index < labels.count ? labels[index] : "발행요일"
-        } else {
-            return "발행요일 \(selected.count)"
-        }
-    }
-
     // 배열 안전 서브스크립트
 }
 extension Array {

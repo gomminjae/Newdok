@@ -41,13 +41,63 @@ public final class ExploreViewModel: ErrorHandling {
     public var isRefreshingAllNewsletters: Bool = false
     public var currentError: AppError?
 
+    public var nickname: String {
+        userInfoStore.load()?.nickname ?? ""
+    }
+
     var hasUserProfile: Bool {
-        return UserInfoStore.shared.hasProfile
+        return userInfoStore.hasProfile
+    }
+
+    public func reloadUserInfo() {
+        // @Observable이므로 nickname computed property가 자동 갱신됨
+    }
+
+    public var industryText: String {
+        guard let selected = industry else { return "산업" }
+        if selected.count == 1 {
+            let name = selectableItemStore.name(for: selected.first!, in: .industry)
+            return name.isEmpty ? "산업" : name
+        }
+        return "산업 \(selected.count)"
+    }
+
+    public var dayText: String {
+        guard let selected = day else { return "발행요일" }
+        if selected.count == 1 {
+            let name = selectableItemStore.name(for: selected.first!, in: .day)
+            return name.isEmpty ? "발행요일" : name
+        }
+        return "발행요일 \(selected.count)"
+    }
+
+    public func resetFilters() async {
+        day = nil
+        industry = nil
+        orderOpt = "인기순"
+        shouldScrollToTop = true
     }
 
     private let useCase: ExploreNewsletterUseCase
-    public init(useCase: ExploreNewsletterUseCase) {
+    private let userInfoStore: UserInfoStoreProtocol
+    private let selectableItemStore: SelectableItemStoreProtocol
+
+    public init(
+        useCase: ExploreNewsletterUseCase,
+        userInfoStore: UserInfoStoreProtocol = UserInfoStore.shared,
+        selectableItemStore: SelectableItemStoreProtocol = SelectableItemStore.shared
+    ) {
         self.useCase = useCase
+        self.userInfoStore = userInfoStore
+        self.selectableItemStore = selectableItemStore
+    }
+
+    var industries: [SelectableItem] {
+        selectableItemStore.list(for: .industry)
+    }
+
+    var days: [SelectableItem] {
+        selectableItemStore.list(for: .day)
     }
 
     public func fetchRecommendation(forceRefresh: Bool = false) async {
@@ -90,7 +140,7 @@ public final class ExploreViewModel: ErrorHandling {
 
     // 사용자 관심사 우선순위로 뉴스레터 정렬
     private func prioritizeInterests(for newsletters: [ExploreNewsletterDetail]) -> [ExploreNewsletterDetail] {
-        guard let userInterests = UserInfoStore.shared.load()?.interestIds else {
+        guard let userInterests = userInfoStore.load()?.interestIds else {
             // 사용자 관심사가 없으면 랜덤하게 섞어서 반환
             return newsletters.shuffled()
         }
@@ -111,7 +161,7 @@ public final class ExploreViewModel: ErrorHandling {
 
     // 뉴스레터의 관심사를 사용자 관심사 우선순위로 정렬
     public func prioritizeInterestsForNewsletter(_ newsletter: ExploreNewsletterDetail) -> [ExploreInterest] {
-        guard let userInterests = UserInfoStore.shared.load()?.interestIds else {
+        guard let userInterests = userInfoStore.load()?.interestIds else {
             // 사용자 관심사가 없으면 랜덤하게 섞어서 반환
             return newsletter.interests.shuffled()
         }

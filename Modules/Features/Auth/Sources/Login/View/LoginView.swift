@@ -46,16 +46,14 @@ public struct LoginView: View {
                     .frame(height: 56)
                     .customTextFieldStyle(isError: viewModel.isLoginIdError, isFocused: $isIdFocused)
                     .focused($isIdFocused)
-                if viewModel.isLoginIdError {
-                    Text(viewModel.errorMessage ?? "")
-                        .font(.hanSansNeo(12, .medium))
-                        .foregroundStyle(Color.errorNormal)
-                }
+                Text(viewModel.isLoginIdError ? (viewModel.errorMessage ?? "") : " ")
+                    .font(.hanSansNeo(12, .medium))
+                    .foregroundStyle(Color.errorNormal)
 
                 Text("비밀번호")
                     .font(.hanSansNeo(14, .medium))
-                    .padding(.top, 28)
-                
+                    .padding(.top, 16)
+
                 Group {
                     if viewModel.isSecurePassword {
                         SecureField("비밀번호를 입력해주세요", text: $viewModel.password)
@@ -73,12 +71,10 @@ public struct LoginView: View {
                         isError: viewModel.isPasswordError
                     )
                 )
-                if viewModel.isPasswordError {
-                    Text(viewModel.errorMessage ?? "")
-                        .font(.hanSansNeo(12, .medium))
-                        .foregroundStyle(Color.errorNormal)
-                }
-                
+                Text(viewModel.isPasswordError ? (viewModel.errorMessage ?? "") : " ")
+                    .font(.hanSansNeo(12, .medium))
+                    .foregroundStyle(Color.errorNormal)
+
                 HStack {
                     Spacer()
                     Button("아이디/비밀번호 찾기") {
@@ -106,11 +102,10 @@ public struct LoginView: View {
                         .cornerRadius(4)
                         .contentShape(Rectangle())
                 }
-              
+
                 HStack {
                     Button("비회원으로 이용하기") {
-                        TokenStorage.clear()
-                        AppState.shared.logout()
+                        viewModel.loginAsGuest()
                         router.resetTo(.tabbar(selectedTab: .home))
                     }
                     .font(.hanSansNeo(14, .medium))
@@ -126,7 +121,6 @@ public struct LoginView: View {
                     .font(.hanSansNeo(14, .medium))
                     .foregroundStyle(Color.primaryNormal)
                 }
-                // .frame(maxWidth: .infinity)
                 .padding(.bottom, 56)
             }
             .padding(.horizontal, 24)
@@ -135,7 +129,6 @@ public struct LoginView: View {
         .safeAreaInset(edge: .top, spacing: 0) {
             Color.clear.frame(height: 20)
         }
-
         .ignoresSafeArea(.keyboard)
         .navigationBarTitleDisplayMode(.inline)
         .navigationBarBackButtonHidden(true)
@@ -169,17 +162,6 @@ public struct LoginView: View {
                 Text("로그인")
                     .font(.hanSansNeo(16, .bold))
                     .foregroundStyle(Color.captionHeavy)
-            }
-        }
-        .toolbar {
-            ToolbarItemGroup(placement: .keyboard) {
-                Spacer()
-                Button("Done") {
-                    isIdFocused = false
-                    isPwdFocused = false
-                }
-                .foregroundStyle(Color.primaryNormal)
-                .font(.hanSansNeo(17, .medium))
             }
         }
         .serverErrorPopup(
