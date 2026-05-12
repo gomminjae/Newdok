@@ -260,11 +260,11 @@ public final class MypageViewModel: ErrorHandling {
     }
 
     func industryName(for id: Int) -> String {
-        selectableItemStore.name(for: id, in: .industry) ?? ""
+        selectableItemStore.name(for: id, in: .industry)
     }
 
     func interestName(for id: Int) -> String {
-        selectableItemStore.name(for: id, in: .interest) ?? ""
+        selectableItemStore.name(for: id, in: .interest)
     }
 
     var industries: [SelectableItem] {
