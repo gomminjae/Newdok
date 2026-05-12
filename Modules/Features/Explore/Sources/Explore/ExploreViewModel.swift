@@ -41,16 +41,14 @@ public final class ExploreViewModel: ErrorHandling {
     public var isRefreshingAllNewsletters: Bool = false
     public var currentError: AppError?
 
-    public var nickname: String {
-        userInfoStore.load()?.nickname ?? ""
-    }
+    public var nickname: String = ""
 
     var hasUserProfile: Bool {
         return userInfoStore.hasProfile
     }
 
     public func reloadUserInfo() {
-        // @Observable이므로 nickname computed property가 자동 갱신됨
+        nickname = userInfoStore.load()?.nickname ?? ""
     }
 
     public var industryText: String {
@@ -90,6 +88,7 @@ public final class ExploreViewModel: ErrorHandling {
         self.useCase = useCase
         self.userInfoStore = userInfoStore
         self.selectableItemStore = selectableItemStore
+        self.nickname = userInfoStore.load()?.nickname ?? ""
     }
 
     var industries: [SelectableItem] {
