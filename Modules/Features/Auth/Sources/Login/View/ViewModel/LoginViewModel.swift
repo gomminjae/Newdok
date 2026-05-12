@@ -42,7 +42,7 @@ public final class LoginViewModel: ErrorHandling {
             defer { isLoading = false }
 
             do {
-                let user = try await loginUseCase.execute(loginId: loginId, password: password)
+                _ = try await loginUseCase.execute(loginId: loginId, password: password)
 
                 errorMessage = nil
                 isLoginIdError = false

@@ -121,7 +121,7 @@ public final class MypageViewModel: ErrorHandling {
 
             // UI 상태 업데이트
             if let currentUser = user {
-                let updatedInterests = ids.map { MypageInterest(id: $0, name: SelectableItemStore.shared.name(for: $0, in: .interest) ?? "") }
+                let updatedInterests = ids.map { MypageInterest(id: $0, name: SelectableItemStore.shared.name(for: $0, in: .interest)) }
                 user = MypageUser(
                     id: currentUser.id,
                     loginId: currentUser.loginId,

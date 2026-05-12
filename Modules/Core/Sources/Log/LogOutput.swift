@@ -88,7 +88,7 @@ public final class FileLogOutput: LogOutput {
             }
             
             if #available(iOS 13.4, *) {
-                try? fileHandle.seekToEnd()
+                _ = try? fileHandle.seekToEnd()
                 try? fileHandle.write(contentsOf: data)
             } else {
                 fileHandle.seekToEndOfFile()

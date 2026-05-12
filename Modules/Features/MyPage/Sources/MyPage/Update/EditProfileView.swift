@@ -110,10 +110,10 @@ public struct EditProfileView: View {
     // MARK: - Helper
     private func getIndustryName() -> String {
         if let id = viewModel.user?.industryId {
-            return SelectableItemStore.shared.name(for: id, in: .industry) ?? ""
+            return SelectableItemStore.shared.name(for: id, in: .industry)
         }
         if let id = userInfo?.industryId {
-            return SelectableItemStore.shared.name(for: id, in: .industry) ?? ""
+            return SelectableItemStore.shared.name(for: id, in: .industry)
         }
         return ""
     }

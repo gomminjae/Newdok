@@ -92,9 +92,8 @@ struct ArticleRow: View {
     }
 }
 
-#Preview {
+#Preview(traits: .sizeThatFitsLayout) {
     ArticleRow(article: HomeArticle(brandName: "네오", imageUrl: "", articleTitle: "헬로", articleId: 3, status: "Read"
     ))
-    .previewLayout(.sizeThatFits)
     .padding()
 }
