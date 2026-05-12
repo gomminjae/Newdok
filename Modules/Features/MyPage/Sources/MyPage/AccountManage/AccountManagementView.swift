@@ -14,10 +14,21 @@ import Shared
 public struct AccountManagementView: View {
     @Environment(\.dismiss) private var dismiss
     @State private var showLogoutPopup = false
-    // 전역 ToastCenter 사용으로 로컬 토스트 상태 제거
     @Environment(AppRouter.self) private var router
-    
-    public init() {}
+
+    private let tokenStorage: TokenStorageProtocol
+    private let userInfoStore: UserInfoStoreProtocol
+    private let appState: AppState
+
+    public init(
+        tokenStorage: TokenStorageProtocol = TokenStorageWrapper.shared,
+        userInfoStore: UserInfoStoreProtocol = UserInfoStore.shared,
+        appState: AppState = .shared
+    ) {
+        self.tokenStorage = tokenStorage
+        self.userInfoStore = userInfoStore
+        self.appState = appState
+    }
 
     public var body: some View {
         VStack(alignment: .leading, spacing: 0) {
@@ -87,15 +98,12 @@ public struct AccountManagementView: View {
                 onCancel: { showLogoutPopup = false },
                 onConfirm: {
                     showLogoutPopup = false
-                    // 로그아웃 시 모든 사용자 데이터 초기화
-                    TokenStorage.clear()
-                    UserInfoStore.shared.clear()
+                    tokenStorage.clear()
+                    userInfoStore.clear()
 
-                    // 캐시된 뷰모델 초기화
                     NotificationCenter.default.post(name: .init("ResetMypageCache"), object: nil)
 
-                    // AppState를 통한 중앙 집중식 상태 관리
-                    AppState.shared.logout()
+                    appState.logout()
 
                     router.resetTo(.login)
                 }

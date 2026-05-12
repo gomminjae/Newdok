@@ -3,9 +3,14 @@ import ExploreDomain
 
 public final class LoadOptionsUseCaseImpl: LoadOptionsUseCase {
     private let repository: ExploreNewsletterRepository
+    private let selectableItemStore: SelectableItemStoreProtocol
 
-    public init(repository: ExploreNewsletterRepository) {
+    public init(
+        repository: ExploreNewsletterRepository,
+        selectableItemStore: SelectableItemStoreProtocol
+    ) {
         self.repository = repository
+        self.selectableItemStore = selectableItemStore
     }
 
     public func execute() async throws {
@@ -16,7 +21,7 @@ public final class LoadOptionsUseCaseImpl: LoadOptionsUseCase {
         let days = optionList.days.map { SelectableItem(id: $0.id, name: $0.name) }
 
         await MainActor.run {
-            SelectableItemStore.shared.loadOptions(
+            selectableItemStore.loadOptions(
                 interests: interests,
                 industries: industries,
                 days: days

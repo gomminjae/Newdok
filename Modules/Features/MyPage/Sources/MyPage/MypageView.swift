@@ -235,7 +235,7 @@ public struct MypageView: View {
             .toolbar(.hidden, for: .navigationBar)
             .onAppear {
                 DispatchQueue.main.async {
-                    userInfo = UserInfoStore.shared.load()
+                    userInfo = viewModel.loadUserInfo()
                 }
                 Task {
                     await viewModel.fetchuserInfo()

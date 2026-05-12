@@ -10,13 +10,15 @@ public enum ProjectConfig {
 
     public static let baseSettings: SettingsDictionary = [
         "SKIP_INSTALL": "YES",
-        "SWIFT_STRICT_CONCURRENCY": "complete"
+        "SWIFT_STRICT_CONCURRENCY": "complete",
+        "SWIFT_ENABLE_EXPLICIT_MODULES": "YES"
     ]
 
     public static let featureSettings: SettingsDictionary = [
         "SWIFT_INSTALL_OBJC_HEADER": "NO",
         "SKIP_INSTALL": "YES",
-        "SWIFT_STRICT_CONCURRENCY": "complete"
+        "SWIFT_STRICT_CONCURRENCY": "complete",
+        "SWIFT_ENABLE_EXPLICIT_MODULES": "YES"
     ]
 }
 

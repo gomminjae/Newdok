@@ -11,12 +11,14 @@ import DesignSystem
 import Shared
 
 struct MyIndustryView: View {
-    let industryOptions: [DropdownOption] = SelectableItemStore.shared.industries.map {
-        DropdownOption(key: "\($0.id)", value: $0.name)
+    @Bindable private var viewModel: SignupViewModel
+
+    private var industryOptions: [DropdownOption] {
+        viewModel.industries.map {
+            DropdownOption(key: "\($0.id)", value: $0.name)
+        }
     }
 
-    @Bindable private var viewModel: SignupViewModel
-    
     init(viewModel: SignupViewModel) {
         self.viewModel = viewModel
     }

@@ -14,6 +14,7 @@ import SearchDomain
 public struct SearchResultView: View {
     @Environment(\.dismiss) private var dismiss
     @Environment(AppRouter.self) private var router
+    @Environment(AppState.self) private var appState
     @State private var viewModel: SearchViewModel
 
     public init(viewModel: SearchViewModel) {
@@ -90,12 +91,7 @@ public struct SearchResultView: View {
         .navigationBarBackButtonHidden(true)
         .navigationBarHidden(true)
         .background(Color.gray.opacity(0.05).ignoresSafeArea())
-        .onReceive(NotificationCenter.default.publisher(for: .didReceiveUnauthorized)) { _ in
-            // 로그아웃 시 검색 결과 초기화
-            viewModel.clearSearchResults()
-        }
-        .onReceive(NotificationCenter.default.publisher(for: .didLoginSuccess)) { _ in
-            // 로그인 성공 시 검색 결과 초기화
+        .onChange(of: appState.authState) { _, _ in
             viewModel.clearSearchResults()
         }
     }

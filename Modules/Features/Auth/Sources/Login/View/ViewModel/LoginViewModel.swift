@@ -13,6 +13,8 @@ import Observation
 @MainActor
 public final class LoginViewModel: ErrorHandling {
     private let loginUseCase: LoginUseCase
+    private let tokenStorage: TokenStorageProtocol
+    private let appState: AppState
 
     public var loginId: String
     public var password: String
@@ -26,8 +28,14 @@ public final class LoginViewModel: ErrorHandling {
     public var isPasswordError: Bool = false
     public var currentError: AppError?
 
-    public init(loginUseCase: LoginUseCase) {
+    public init(
+        loginUseCase: LoginUseCase,
+        tokenStorage: TokenStorageProtocol = TokenStorageWrapper.shared,
+        appState: AppState = .shared
+    ) {
         self.loginUseCase = loginUseCase
+        self.tokenStorage = tokenStorage
+        self.appState = appState
         self.loginId = ""
         self.password = ""
         self.isUserIdValid = false
@@ -48,7 +56,7 @@ public final class LoginViewModel: ErrorHandling {
                 isLoginIdError = false
                 isPasswordError = false
 
-                AppState.shared.login()
+                appState.login()
                 onSuccess()
             } catch let error as LoginError {
                 handleLoginError(error)
@@ -80,5 +88,10 @@ public final class LoginViewModel: ErrorHandling {
 
     public var isLoginEnabled: Bool {
         !loginId.isEmpty && !password.isEmpty
+    }
+
+    public func loginAsGuest() {
+        tokenStorage.clear()
+        appState.logout()
     }
 }

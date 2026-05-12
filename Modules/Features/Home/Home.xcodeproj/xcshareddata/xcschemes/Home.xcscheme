@@ -34,6 +34,20 @@
                ReferencedContainer = "container:Home.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "E3DD6237C3219FB2C5630130"
+               BuildableName = "HomeTesting.framework"
+               BlueprintName = "HomeTesting"
+               ReferencedContainer = "container:Home.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
       </BuildActionEntries>
    </BuildAction>
    <TestAction

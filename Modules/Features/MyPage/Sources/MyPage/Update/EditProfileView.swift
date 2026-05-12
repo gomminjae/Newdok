@@ -66,18 +66,18 @@ public struct EditProfileView: View {
             Spacer()
         }
         .onAppear {
-            userInfo = UserInfoStore.shared.load()
+            userInfo = viewModel.loadUserInfo()
             if viewModel.user == nil {
                 Task {
                     await viewModel.fetchuserInfo()
-                    userInfo = UserInfoStore.shared.load()
+                    userInfo = viewModel.loadUserInfo()
                 }
             }
         }
         .onReceive(NotificationCenter.default.publisher(for: .init("RefreshProfile"))) { _ in
             Task {
                 await viewModel.fetchuserInfo()
-                userInfo = UserInfoStore.shared.load()
+                userInfo = viewModel.loadUserInfo()
             }
         }
         .padding(.horizontal, 20)
@@ -110,10 +110,10 @@ public struct EditProfileView: View {
     // MARK: - Helper
     private func getIndustryName() -> String {
         if let id = viewModel.user?.industryId {
-            return SelectableItemStore.shared.name(for: id, in: .industry) ?? ""
+            return viewModel.industryName(for: id)
         }
         if let id = userInfo?.industryId {
-            return SelectableItemStore.shared.name(for: id, in: .industry) ?? ""
+            return viewModel.industryName(for: id)
         }
         return ""
     }
@@ -130,8 +130,8 @@ public struct EditProfileView: View {
         }
 
         let interestNames = interestIds.compactMap {
-            SelectableItemStore.shared.name(for: $0, in: .interest)
-        }
+            viewModel.interestName(for: $0)
+        }.filter { !$0.isEmpty }
         guard !interestNames.isEmpty else { return nil }
 
         let section = VStack(alignment: .leading, spacing: 8) {

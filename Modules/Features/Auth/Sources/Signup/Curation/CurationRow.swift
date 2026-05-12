@@ -98,7 +98,7 @@ struct CurationRow: View {
                 .stroke(Color.lineNeutral, lineWidth: 1)
         )
         .fullScreenCover(isPresented: $showSubscribeSheet) {
-            SubscribeModalView(title: brand?.name ?? "", url: brand?.subscribeUrl ?? "", email: UserInfoStore.shared.load()?.subscribeEmail ?? "", name: UserInfoStore.shared.load()?.nickname ?? "")
+            SubscribeModalView(title: brand?.name ?? "", url: brand?.subscribeUrl ?? "", email: viewModel.user?.subscribeEmail ?? "", name: viewModel.user?.nickname ?? "")
         }
     }
 }

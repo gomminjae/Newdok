@@ -9,6 +9,7 @@ import SwiftUI
 import SearchDomain
 import Shared
 import DesignSystem
+import Kingfisher
 
 public struct SearchView: View {
     @Environment(\.dismiss) private var dismiss
@@ -238,20 +239,19 @@ struct SearchNewsletterRow: View {
     let result: SearchedNewsletter
     var body: some View {
         HStack(spacing: 12) {
-            if let url = URL(string: result.imageUrl) {
-                AsyncImage(url: url) { image in
-                    image.resizable()
-                        .aspectRatio(contentMode: .fill)
-                } placeholder: {
+            KFImage(URL(string: result.imageUrl))
+                .setProcessor(DownsamplingImageProcessor(size: CGSize(width: 56 * UIScreen.main.scale, height: 56 * UIScreen.main.scale)))
+                .placeholder {
                     Color.gray.opacity(0.2)
                 }
+                .resizable()
+                .aspectRatio(contentMode: .fill)
                 .frame(width: 56, height: 56)
                 .clipShape(RoundedRectangle(cornerRadius: 10))
                 .overlay {
                     RoundedRectangle(cornerRadius: 10)
                         .stroke(Color.lineNeutral, lineWidth: 1)
                 }
-            }
             VStack(alignment: .leading, spacing: 4) {
                 Text(result.brandName)
                     .font(.hanSansNeo(14, .bold))

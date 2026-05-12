@@ -10,7 +10,7 @@ import Observation
 
 @Observable
 @MainActor
-public final class SelectableItemStore {
+public final class SelectableItemStore: SelectableItemStoreProtocol {
     public static let shared = SelectableItemStore()
 
     public private(set) var interests: [SelectableItem] = []
@@ -36,6 +36,7 @@ public final class SelectableItemStore {
         switch category {
         case .interest: return interests
         case .industry: return industries
+        case .day: return days
         }
     }
 

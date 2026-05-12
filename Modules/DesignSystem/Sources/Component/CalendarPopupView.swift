@@ -182,26 +182,26 @@ public struct CalendarPopupView: View {
                                 .aspectRatio(1, contentMode: .fit)
                                 .foregroundColor(
                                     isFuture ? Color.captionDisabled :
-                                    (isToday ? .white :
-                                     (isSelected ? Color.captionMuted : Color.captionMuted))
+                                    (isSelected ? .white :
+                                     Color.captionMuted)
                                 )
                                 .background(
                                     RoundedRectangle(cornerRadius: 12)
                                         .fill(
-                                            isToday ? Color.primaryNormal : .clear
+                                            isSelected ? Color(hex: "#161616") : .clear
                                         )
                                 )
                                 .overlay(
                                     RoundedRectangle(cornerRadius: 12)
                                         .stroke(
-                                            isSelected && !isToday ? Color.primaryDark : Color.clear,
+                                            isToday && !isSelected ? Color(hex: "#161616") : Color.clear,
                                             lineWidth: 1
                                         )
                                 )
-                            
+
                             Circle()
                                 .frame(width: 6, height: 6)
-                                .foregroundColor(Color.blue)
+                                .foregroundColor(Color(hex: "#363636"))
                                 .opacity(hasData && !isBlank ? 1 : 0)
                         }
                         .frame(maxWidth: .infinity)

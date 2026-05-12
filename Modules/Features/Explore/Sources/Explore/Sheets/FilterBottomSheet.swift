@@ -42,8 +42,8 @@ private extension View {
 struct FilterBottomSheet: View {
     @Environment(\.dismiss) private var dismiss
 
-    let industries = SelectableItemStore.shared.industries
-    let weekdays = ["월요일", "화요일", "수요일", "목요일", "금요일", "토요일", "일요일", "기타"]
+    let industries: [SelectableItem]
+    let weekdays: [SelectableItem]
 
     @Binding var industry: [Int]?
     @Binding var day: [Int]?
@@ -105,12 +105,11 @@ struct FilterBottomSheet: View {
                     .padding(.bottom, L.titleToChips)
 
                 FlowRowsLayout(spacing: L.chipRowSpacing).callAsFunction {
-                    ForEach(Array(weekdays.enumerated()), id: \.offset) { idx, name in
-                        let id = idx + 1
+                    ForEach(weekdays) { item in
                         SelectableChip(
-                            text: name,
-                            isSelected: tempDay?.contains(id) ?? false
-                        ) { toggleSelection(&tempDay, value: id) }
+                            text: item.name,
+                            isSelected: tempDay?.contains(item.id) ?? false
+                        ) { toggleSelection(&tempDay, value: item.id) }
                         .frame(height: 36)
                     }
                 }
