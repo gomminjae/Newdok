@@ -18,7 +18,7 @@ public struct ExploreView: View {
     @State private var filterSpinAngle: Double = 0
     @State private var isLoaded: Bool = false
     @Environment(AppRouter.self) private var router
-    @Environment(ExploreIntent.self) private var exploreIntent
+    @Environment(TabSelection.self) private var tabSelection
     @Environment(AppState.self) private var appState
 
     private var isGuest: Bool { appState.authState == .guest }
@@ -68,39 +68,12 @@ public struct ExploreView: View {
             .onChange(of: appState.authState) {
                 viewModel.clearData()
             }
-            .onChange(of: exploreIntent.trigger) {
-                // 모든 설정을 한 번에 처리
-                var newDay: Int?
-                var newTab: Int?
-                
-                if let day = exploreIntent.day, viewModel.day != [day] {
-                    newDay = day
-                    exploreIntent.day = nil
-                }
-                
-                if let tab = exploreIntent.selectedTab, viewModel.selectedTab != tab {
-                    newTab = tab
-                    exploreIntent.selectedTab = nil
-                }
-                
-                // 데이터 로딩 후 UI 업데이트
-                Task {
-                    if let day = newDay {
-                        viewModel.day = [day]
-                    }
-                    if let tab = newTab {
-                        viewModel.selectedTab = tab
-                    }
-                    
-                    if isGuest {
-                        await viewModel.fetchGuestAllNewsletters()
-                    } else {
-                        await viewModel.fetchRecommendation()
-                        await viewModel.fetchAllNewsletters()
-                    }
-                }
+            .onChange(of: tabSelection.exploreTrigger) {
+                applyExploreParams()
             }
             .onAppear {
+                applyExploreParams()
+
                 Task {
                     if isGuest {
                         await viewModel.fetchGuestAllNewsletters()
@@ -514,7 +487,16 @@ public struct ExploreView: View {
         }
     }
     
-    // 배열 안전 서브스크립트
+    private func applyExploreParams() {
+        guard tabSelection.hasPendingExplore else { return }
+        let params = tabSelection.consumeExploreParams()
+        if let day = params.day, viewModel.day != [day] {
+            viewModel.day = [day]
+        }
+        if viewModel.selectedTab != params.tab {
+            viewModel.selectedTab = params.tab
+        }
+    }
 }
 extension Array {
     subscript(safe index: Int) -> Element? {

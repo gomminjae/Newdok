@@ -49,14 +49,12 @@ public enum AppEntry {
     @MainActor
     public static func makeRootView(
         router: AppRouter,
-        exploreIntent: ExploreIntent,
         factories: FeatureFactories,
         loadOptionsUseCase: LoadOptionsUseCase,
         signOut: @escaping @MainActor () async -> Void
     ) -> some View {
         let container = AppContainer(
             router: router,
-            exploreIntent: exploreIntent,
             authFactory: factories.auth,
             homeFactory: factories.home,
             exploreFactory: factories.explore,
@@ -69,7 +67,6 @@ public enum AppEntry {
         )
         return AppRootView(
             router: router,
-            exploreIntent: exploreIntent,
             container: container,
             loadOptionsUseCase: loadOptionsUseCase,
             signOut: signOut

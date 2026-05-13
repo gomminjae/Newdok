@@ -8,7 +8,6 @@ import DesignSystem
 struct AppRootView: View {
     @Environment(TabSelection.self) private var tabSelection
     @Bindable var router: AppRouter
-    let exploreIntent: ExploreIntent
     let container: AppContainer
     let loadOptionsUseCase: LoadOptionsUseCase
     let signOut: @MainActor () async -> Void
@@ -18,13 +17,11 @@ struct AppRootView: View {
 
     init(
         router: AppRouter,
-        exploreIntent: ExploreIntent,
         container: AppContainer,
         loadOptionsUseCase: LoadOptionsUseCase,
         signOut: @escaping @MainActor () async -> Void
     ) {
         self.router = router
-        self.exploreIntent = exploreIntent
         self.container = container
         self.loadOptionsUseCase = loadOptionsUseCase
         self.signOut = signOut
@@ -97,8 +94,8 @@ struct AppRootView: View {
             container.authFactory.makeLoginView()
         case .home:
             container.homeFactory.makeHomeView()
-        case let .tabbar(selectedTab, exploreDay, exploreSelectedTab):
-            container.makeTabView(selectedTab: selectedTab, exploreDay: exploreDay, exploreSelectedTab: exploreSelectedTab)
+        case let .tabbar(selectedTab):
+            container.makeTabView(selectedTab: selectedTab)
         case .profile:
             container.mypageFactory.makeMypageView()
         case .explore:

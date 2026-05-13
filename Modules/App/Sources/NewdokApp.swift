@@ -12,8 +12,6 @@ struct NewdokApp: App {
     @State private var showUpdateAlert = false
     @State private var router = AppRouter()
     @State private var tabSelection = TabSelection()
-    @State private var exploreIntent = ExploreIntent()
-
     init() {
         FirebaseApp.configure()
         DesignSystemFontFamily.registerAllCustomFonts()
@@ -27,7 +25,6 @@ struct NewdokApp: App {
             OverlayRootView {
                 AppEntry.makeRootView(
                     router: router,
-                    exploreIntent: exploreIntent,
                     factories: FeatureFactories(
                         auth: CompositionRoot.makeAuthFactory(),
                         home: CompositionRoot.makeHomeFactory(),
@@ -46,7 +43,6 @@ struct NewdokApp: App {
             .hideKeyboardOnTap()
             .environment(router)
             .environment(tabSelection)
-            .environment(exploreIntent)
             .environment(AppState.shared)
             .environment(ToastCenter.shared)
             .modelContainer(HighlightStorage.shared.container)
