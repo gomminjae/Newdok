@@ -92,15 +92,13 @@ public struct EditIndustryView: View {
             Spacer()
 
             Button(action: {
-                Task {
+                Task { @MainActor in
                     guard let selectedId else { return }
                     await viewModel.updateIndustry(id: selectedId)
                     await viewModel.fetchuserInfo()
-                    await MainActor.run { router.pop() }
-                    Task.detached { @MainActor in
-                        try? await Task.sleep(nanoseconds: 150_000_000)
-                        ToastCenter.shared.show("종사산업이 변경되었습니다.")
-                    }
+                    router.pop()
+                    try? await Task.sleep(nanoseconds: 150_000_000)
+                    ToastCenter.shared.show("종사산업이 변경되었습니다.")
                 }
             }) {
                 Text("변경하기")
