@@ -6,16 +6,16 @@
 //
 
 public struct UserInfo: Sendable {
-    public let id: Int
-    public let loginId: String
-    public let phoneNumber: String
-    public let subscribeEmail: String?
-    public let nickname: String
-    public let birthYear: String
-    public let gender: String
-    public let createdAt: String
-    public let industryId: Int?
-    public let interestIds: [Int]
+    public var id: Int
+    public var loginId: String
+    public var phoneNumber: String
+    public var subscribeEmail: String?
+    public var nickname: String
+    public var birthYear: String
+    public var gender: String
+    public var createdAt: String
+    public var industryId: Int?
+    public var interestIds: [Int]
 
     public init(
         id: Int,
