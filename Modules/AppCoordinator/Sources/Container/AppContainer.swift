@@ -12,7 +12,6 @@ import LaunchInterface
 
 public final class AppContainer {
     let router: AppRouter
-    let exploreIntent: ExploreIntent
 
     let authFactory: AuthViewFactory
     let homeFactory: HomeViewFactory
@@ -26,7 +25,6 @@ public final class AppContainer {
 
     public init(
         router: AppRouter,
-        exploreIntent: ExploreIntent,
         authFactory: AuthViewFactory,
         homeFactory: HomeViewFactory,
         exploreFactory: ExploreViewFactory,
@@ -38,7 +36,6 @@ public final class AppContainer {
         launchFactory: LaunchViewFactory
     ) {
         self.router = router
-        self.exploreIntent = exploreIntent
         self.authFactory = authFactory
         self.homeFactory = homeFactory
         self.exploreFactory = exploreFactory
@@ -51,9 +48,7 @@ public final class AppContainer {
     }
 
     @MainActor func makeTabView(
-        selectedTab: NewDokTab? = nil,
-        exploreDay: Int? = nil,
-        exploreSelectedTab: Int? = nil
+        selectedTab: NewDokTab? = nil
     ) -> some View {
         NewDokTabView(
             homeFactory: homeFactory,
@@ -61,10 +56,7 @@ public final class AppContainer {
             subscribeFactory: subscribeFactory,
             bookmarkFactory: bookmarkFactory,
             mypageFactory: mypageFactory,
-            exploreIntent: exploreIntent,
-            selectedTab: selectedTab,
-            exploreDay: exploreDay,
-            exploreSelectedTab: exploreSelectedTab
+            selectedTab: selectedTab
         ).environment(router)
     }
 }

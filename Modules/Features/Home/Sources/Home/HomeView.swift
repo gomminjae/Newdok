@@ -19,7 +19,6 @@ public struct HomeView: View {
     @State private var calendarDataDays: Set<Int> = []
     @Environment(AppRouter.self) private var router
     @Environment(TabSelection.self) private var tabSelection
-    @Environment(ExploreIntent.self) private var exploreIntent
     @Environment(AppState.self) private var appState
 
     private var isGuest: Bool { appState.authState == .guest }
@@ -190,10 +189,8 @@ public struct HomeView: View {
             NoDataView(
                 type: .noSubscriptions,
                 buttonAction: {
-                    exploreIntent.selectedTab = 0
-                    exploreIntent.trigger = UUID()
+                    tabSelection.moveToExplore(tab: 0)
                     router.resetTo(.tabbar(selectedTab: .explore))
-                    tabSelection.selectedTab = .explore
                 },
                 refreshAction: { Task { await viewModel.loadToday() } }
             )
@@ -203,13 +200,8 @@ public struct HomeView: View {
                 buttonAction: {
                     let weekday = Calendar.current.component(.weekday, from: viewModel.selectedDate)
                     let dayIndex = convertWeekdayToExploreIndex(weekday)
-                    tabSelection.selectedTab = .explore
+                    tabSelection.moveToExplore(day: dayIndex, tab: 1)
                     router.resetTo(.tabbar(selectedTab: .explore))
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-                        exploreIntent.day = dayIndex
-                        exploreIntent.selectedTab = 1
-                        exploreIntent.trigger = UUID()
-                    }
                 },
                 refreshAction: { Task { await viewModel.loadToday() } },
                 selectedDate: viewModel.selectedDate

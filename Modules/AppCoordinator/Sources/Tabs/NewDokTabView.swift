@@ -150,11 +150,8 @@ public struct NewDokTabView: View {
     private let subscribeFactory: SubscribeViewFactory
     private let bookmarkFactory: BookmarkViewFactory
     private let mypageFactory: MypageViewFactory
-    private let exploreIntent: ExploreIntent
 
     private let initialSelectedTab: NewDokTab?
-    private let exploreDay: Int?
-    private let exploreSelectedTab: Int?
 
     public init(
         homeFactory: HomeViewFactory,
@@ -162,20 +159,14 @@ public struct NewDokTabView: View {
         subscribeFactory: SubscribeViewFactory,
         bookmarkFactory: BookmarkViewFactory,
         mypageFactory: MypageViewFactory,
-        exploreIntent: ExploreIntent,
-        selectedTab: NewDokTab? = nil,
-        exploreDay: Int? = nil,
-        exploreSelectedTab: Int? = nil
+        selectedTab: NewDokTab? = nil
     ) {
         self.homeFactory = homeFactory
         self.exploreFactory = exploreFactory
         self.subscribeFactory = subscribeFactory
         self.bookmarkFactory = bookmarkFactory
         self.mypageFactory = mypageFactory
-        self.exploreIntent = exploreIntent
         self.initialSelectedTab = selectedTab
-        self.exploreDay = exploreDay
-        self.exploreSelectedTab = exploreSelectedTab
     }
 
     @AppStorage("userId") private var userId: Int = 0
@@ -186,7 +177,6 @@ public struct NewDokTabView: View {
         TabView(selection: $tabSelection.selectedTab) {
             TabContentView {
                 exploreFactory.makeExploreView()
-                    .environment(exploreIntent)
             }
             .tabItem {
                 Image(asset: DesignSystemAsset.lineNewsletter)
@@ -207,7 +197,6 @@ public struct NewDokTabView: View {
 
             TabContentView {
                 homeFactory.makeHomeView()
-                    .environment(exploreIntent)
             }
             .tabItem {
                 Image(asset: DesignSystemAsset.lineHome)
