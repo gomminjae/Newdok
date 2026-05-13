@@ -5,7 +5,7 @@ import Shared
 
 public final class AuthRepositoryImpl: AuthRepository {
     private let network: any NetworkService<UserAPI>
-    private var tokenStorage: TokenStorageProtocol
+    private let tokenStorage: TokenStorageProtocol
     private let userInfoStore: UserInfoStoreProtocol
 
     public init(
@@ -26,7 +26,7 @@ public final class AuthRepositoryImpl: AuthRepository {
             let user = response.user.toDomain()
             let token = response.accessToken
 
-            tokenStorage.accessToken = token
+            tokenStorage.saveAccessToken(token)
             persistLocalUser(from: user)
 
             return (user, token)
@@ -65,7 +65,7 @@ public final class AuthRepositoryImpl: AuthRepository {
         )
         let domain = response.toDomain()
 
-        tokenStorage.accessToken = domain.accessToken
+        tokenStorage.saveAccessToken(domain.accessToken)
         persistLocalUser(from: domain.user)
 
         return domain
