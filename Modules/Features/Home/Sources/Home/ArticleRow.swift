@@ -5,7 +5,7 @@
 //  Created by 권민재 on 2/23/25.
 //
 import SwiftUI
-import SwiftData
+@preconcurrency import SwiftData
 import DesignSystem
 import HomeDomain
 import Shared

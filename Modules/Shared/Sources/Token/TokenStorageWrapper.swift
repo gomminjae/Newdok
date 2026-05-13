@@ -7,7 +7,7 @@
 
 import Foundation
 
-public final class TokenStorageWrapper: TokenStorageProtocol, @unchecked Sendable {
+public final class TokenStorageWrapper: TokenStorageProtocol, Sendable {
     public static let shared = TokenStorageWrapper()
 
     private init() {}

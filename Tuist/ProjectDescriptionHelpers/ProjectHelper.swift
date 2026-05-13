@@ -11,14 +11,16 @@ public enum ProjectConfig {
     public static let baseSettings: SettingsDictionary = [
         "SKIP_INSTALL": "YES",
         "SWIFT_STRICT_CONCURRENCY": "complete",
-        "SWIFT_ENABLE_EXPLICIT_MODULES": "YES"
+        "SWIFT_ENABLE_EXPLICIT_MODULES": "YES",
+        "SWIFT_VERSION": "6.0"
     ]
 
     public static let featureSettings: SettingsDictionary = [
         "SWIFT_INSTALL_OBJC_HEADER": "NO",
         "SKIP_INSTALL": "YES",
         "SWIFT_STRICT_CONCURRENCY": "complete",
-        "SWIFT_ENABLE_EXPLICIT_MODULES": "YES"
+        "SWIFT_ENABLE_EXPLICIT_MODULES": "YES",
+        "SWIFT_VERSION": "6.0"
     ]
 }
 
@@ -189,7 +191,8 @@ public extension Project {
                 deploymentTargets: ProjectConfig.deploymentTarget,
                 infoPlist: .default,
                 sources: ["Tests/**"],
-                dependencies: testDeps
+                dependencies: testDeps,
+                settings: .settings(base: ProjectConfig.baseSettings)
             ))
         }
 
@@ -233,7 +236,8 @@ public extension Project {
                 deploymentTargets: ProjectConfig.deploymentTarget,
                 infoPlist: .default,
                 sources: ["Tests/**"],
-                dependencies: [.target(name: name)]
+                dependencies: [.target(name: name)],
+                settings: .settings(base: ProjectConfig.baseSettings)
             ))
         }
 
