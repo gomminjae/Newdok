@@ -9,7 +9,7 @@
 import Foundation
 
 /// 로그 메시지 포맷터
-public protocol LogFormatter {
+public protocol LogFormatter: Sendable {
     func format(
         level: LogLevel,
         category: LogCategory,

@@ -1,7 +1,7 @@
 import SubscribeDomain
 import Core
 
-public class SubscribeNewsletterRepositoryImpl: SubscribeNewsletterRepository {
+public final class SubscribeNewsletterRepositoryImpl: SubscribeNewsletterRepository {
     private let network: any NetworkService<NewsletterAPI>
 
     public init(network: any NetworkService<NewsletterAPI>) {

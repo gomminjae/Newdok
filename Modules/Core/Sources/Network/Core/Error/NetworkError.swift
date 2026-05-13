@@ -47,7 +47,7 @@ extension NetworkError: AppErrorConvertible {
             return .timeout
         case .cancelled:
             return .silent
-        case .serverError(let statusCode, let message):
+        case .serverError(let statusCode, _):
             if statusCode == 401 {
                 return .unauthorized
             }

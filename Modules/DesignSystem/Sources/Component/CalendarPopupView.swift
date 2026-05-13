@@ -86,7 +86,7 @@ public struct CalendarPopupView: View {
         .onChange(of: displayedMonthDate) { _, newValue in
             localDisplayedMonthDate = newValue
         }
-        .onChange(of: dataDays) { _ in }
+        .onChange(of: dataDays) { _, _ in }
         .onChange(of: selectedDate) { _, newValue in
             localSelectedDate = newValue
         }

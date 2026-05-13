@@ -55,7 +55,9 @@ public actor DefaultHomeBusinessUseCase: HomeBusinessUseCase {
             isLoaded: false,
             isCalendarLoading: false
         )
-        loadReadArticleIds()
+        // actor의 nonisolated init에서는 isolated 메서드 호출 불가 → inline 처리.
+        // 초기화 시점이라 self는 아직 공유되지 않으므로 직접 대입 안전.
+        readArticleIds = articleRepository.loadReadArticleIds()
     }
 
     public func snapshot() async -> HomeSnapshot {
@@ -155,7 +157,7 @@ public actor DefaultHomeBusinessUseCase: HomeBusinessUseCase {
             return snapshotState
         }
 
-        await loadMonthData(for: date)
+        _ = await loadMonthData(for: date)
         await updateFilteredArticles(for: date)
         return snapshotState
     }

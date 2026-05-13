@@ -8,7 +8,7 @@
 
 import SearchDomain
 
-public struct PopularKeywordDTO: Decodable {
+public struct PopularKeywordDTO: Decodable, Sendable {
     public let rank: Int
     public let keyword: String
 
@@ -17,7 +17,7 @@ public struct PopularKeywordDTO: Decodable {
     }
 }
 
-public struct PopularKeywordResponseDTO: Decodable {
+public struct PopularKeywordResponseDTO: Decodable, Sendable {
     public let updatedDate: String
     public let keywords: [PopularKeywordDTO]
 

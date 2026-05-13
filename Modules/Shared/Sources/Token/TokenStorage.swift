@@ -8,22 +8,45 @@
 import Foundation
 
 public enum TokenStorage {
-    @KeychainItem("accessToken")
-    public static var accessToken: String?
+    private enum Key {
+        static let accessToken = "accessToken"
+        static let hasCompletedOnboarding = "hasCompletedOnboarding"
+        static let hideSubscribeStatePopupDate = "hideSubscribeStatePopupDate"
+    }
 
-    @UserDefault("hasCompletedOnboarding", default: false)
-    public static var hasCompletedOnboarding: Bool
+    public static var accessToken: String? {
+        get { KeychainStorage.read(key: Key.accessToken) }
+        set {
+            if let value = newValue {
+                KeychainStorage.save(value, key: Key.accessToken)
+            } else {
+                KeychainStorage.delete(key: Key.accessToken)
+            }
+        }
+    }
 
-    @UserDefault("hideSubscribeStatePopupDate", default: nil)
-    public static var hideSubscribeStatePopupDate: Date?
+    public static var hasCompletedOnboarding: Bool {
+        get { UserDefaults.standard.bool(forKey: Key.hasCompletedOnboarding) }
+        set { UserDefaults.standard.set(newValue, forKey: Key.hasCompletedOnboarding) }
+    }
+
+    public static var hideSubscribeStatePopupDate: Date? {
+        get { UserDefaults.standard.object(forKey: Key.hideSubscribeStatePopupDate) as? Date }
+        set {
+            if let date = newValue {
+                UserDefaults.standard.set(date, forKey: Key.hideSubscribeStatePopupDate)
+            } else {
+                UserDefaults.standard.removeObject(forKey: Key.hideSubscribeStatePopupDate)
+            }
+        }
+    }
 
     /// 기존 UserDefaults 토큰을 Keychain으로 마이그레이션
     public static func migrateTokenIfNeeded() {
-        let key = "accessToken"
-        guard let legacyToken = UserDefaults.standard.string(forKey: key) else { return }
+        guard let legacyToken = UserDefaults.standard.string(forKey: Key.accessToken) else { return }
         accessToken = legacyToken
         guard accessToken == legacyToken else { return }
-        UserDefaults.standard.removeObject(forKey: key)
+        UserDefaults.standard.removeObject(forKey: Key.accessToken)
     }
 
     public static func clear() {

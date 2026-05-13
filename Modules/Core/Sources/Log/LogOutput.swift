@@ -9,7 +9,7 @@ import Foundation
 import OSLog
 
 /// 로그 출력 프로토콜
-public protocol LogOutput {
+public protocol LogOutput: Sendable {
     func write(_ message: String, level: LogLevel, category: LogCategory)
 }
 
@@ -88,7 +88,7 @@ public final class FileLogOutput: LogOutput {
             }
             
             if #available(iOS 13.4, *) {
-                try? fileHandle.seekToEnd()
+                _ = try? fileHandle.seekToEnd()
                 try? fileHandle.write(contentsOf: data)
             } else {
                 fileHandle.seekToEndOfFile()

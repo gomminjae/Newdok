@@ -231,9 +231,7 @@ private struct ChipFlowLayout: Layout {
         subviews: Subviews,
         cache: inout Cache
     ) -> CGSize {
-        let horizontalPadding: CGFloat = 40
-        let fallbackWidth = UIScreen.main.bounds.width - horizontalPadding
-        let maxWidth = proposal.width ?? fallbackWidth
+        let maxWidth = proposal.width ?? proposal.replacingUnspecifiedDimensions().width
 
         var x: CGFloat = 0
         var y: CGFloat = 0

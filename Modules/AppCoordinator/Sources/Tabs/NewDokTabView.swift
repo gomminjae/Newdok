@@ -9,6 +9,7 @@ import BookmarkInterface
 import Shared
 
 // MARK: - TabBar Appearance Setup
+@MainActor
 private func setupTabBarAppearance() {
     let selectedColor = UIColor(red: 40 / 255, green: 102 / 255, blue: 211 / 255, alpha: 1.0)
     let unselectedColor = UIColor(red: 150 / 255, green: 150 / 255, blue: 150 / 255, alpha: 1.0)

@@ -8,6 +8,6 @@
 
 import Foundation
 
-struct MypageNewslettersCountDTO: Decodable {
+struct MypageNewslettersCountDTO: Decodable, Sendable {
     let count: Int
 }

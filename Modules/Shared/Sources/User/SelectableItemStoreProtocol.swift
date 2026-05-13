@@ -7,7 +7,8 @@
 
 import Foundation
 
-public protocol SelectableItemStoreProtocol {
+@MainActor
+public protocol SelectableItemStoreProtocol: Sendable {
     var interests: [SelectableItem] { get }
     var industries: [SelectableItem] { get }
     var days: [SelectableItem] { get }

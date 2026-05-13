@@ -5,7 +5,7 @@
 //  Created by 권민재 on 5/9/25.
 //
 
-public struct UserInfo: Codable {
+public struct UserInfo: Sendable {
     public var id: Int
     public var loginId: String
     public var phoneNumber: String

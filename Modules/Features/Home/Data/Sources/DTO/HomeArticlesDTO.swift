@@ -1,6 +1,6 @@
 import HomeDomain
 
-public struct HomeArticlesDTO: Decodable {
+public struct HomeArticlesDTO: Decodable, Sendable {
     let publishDate: Int
     let hasArticles: Bool
     let totalCount: Int

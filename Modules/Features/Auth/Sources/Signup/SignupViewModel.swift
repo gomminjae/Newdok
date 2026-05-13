@@ -167,9 +167,7 @@ public final class SignupViewModel: ErrorHandling {
         startTimer()
         shouldFocusVerificationCode = true
         verificationCode = "121212"
-        return
-        #endif
-
+        #else
         guard resendFailureCount < 3 else {
             isShowPopup = true
             return
@@ -214,6 +212,7 @@ public final class SignupViewModel: ErrorHandling {
             }
             isLoading = false
         }
+        #endif
     }
 
     // MARK: - 인증번호 검증

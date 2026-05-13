@@ -1,17 +1,19 @@
 import Foundation
 import Shared
 
-public final class ReadArticleStore: @unchecked Sendable {
-    @CodableUserDefault("readArticles", default: Set<Int>())
-    private var ids: Set<Int>
+public final class ReadArticleStore: Sendable {
+    private static let key = "readArticles"
 
     public init() {}
 
     public func load() -> Set<Int> {
-        ids
+        guard let array = UserDefaults.standard.array(forKey: Self.key) as? [Int] else {
+            return []
+        }
+        return Set(array)
     }
 
     public func save(_ ids: Set<Int>) {
-        self.ids = ids
+        UserDefaults.standard.set(Array(ids), forKey: Self.key)
     }
 }

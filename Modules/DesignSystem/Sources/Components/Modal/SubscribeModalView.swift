@@ -150,7 +150,7 @@ struct WebViewWrapper: UIViewRepresentable {
 
         // MARK: - WKNavigationDelegate (외부 앱 URL scheme 처리)
         func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction,
-                     decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
+                     decisionHandler: @escaping @MainActor @Sendable (WKNavigationActionPolicy) -> Void) {
             guard let url = navigationAction.request.url else {
                 decisionHandler(.allow)
                 return

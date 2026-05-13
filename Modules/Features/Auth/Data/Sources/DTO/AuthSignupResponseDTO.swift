@@ -1,7 +1,7 @@
 import Foundation
 import AuthDomain
 
-struct AuthSignupResponseDTO: Decodable {
+struct AuthSignupResponseDTO: Decodable, Sendable {
     let user: AuthUserDTO
     let accessToken: String
 

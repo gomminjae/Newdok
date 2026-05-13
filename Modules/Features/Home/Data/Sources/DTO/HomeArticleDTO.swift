@@ -1,6 +1,6 @@
 import HomeDomain
 
-public struct HomeArticleDTO: Decodable, Identifiable {
+public struct HomeArticleDTO: Decodable, Identifiable, Sendable {
     public let id: Int
     public let brandName: String
     public let imageUrl: String?

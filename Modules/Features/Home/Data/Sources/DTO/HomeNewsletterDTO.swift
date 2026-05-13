@@ -1,7 +1,7 @@
 import Foundation
 import HomeDomain
 
-public struct HomeNewsletterDTO: Decodable {
+public struct HomeNewsletterDTO: Decodable, Sendable {
     let id: Int?
     let brandName: String
     let imageUrl: String?

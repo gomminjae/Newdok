@@ -8,7 +8,7 @@
 
 import SearchDomain
 
-public struct SearchedNewsletterDTO: Decodable {
+public struct SearchedNewsletterDTO: Decodable, Sendable {
     let id: Int
     let brandName: String
     let firstDescription: String

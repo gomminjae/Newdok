@@ -59,21 +59,23 @@ final class NetworkStatusManager {
     private let queue = DispatchQueue(label: "NetworkMonitor")
 
     private init() {
-        monitor.pathUpdateHandler = { [weak self] path in
-            DispatchQueue.main.async {
-                self?.isConnected = (path.status == .satisfied)
+        monitor.pathUpdateHandler = { path in
+            let connected = (path.status == .satisfied)
+            Task { @MainActor in
+                NetworkStatusManager.shared.isConnected = connected
             }
         }
         monitor.start(queue: queue)
     }
-    
+
     func checkNetworkStatus() {
         // 일회용 모니터로 최신 네트워크 상태를 확인
         let probe = NWPathMonitor()
-        probe.pathUpdateHandler = { [weak self] path in
+        probe.pathUpdateHandler = { path in
             probe.cancel()
-            DispatchQueue.main.async {
-                self?.isConnected = (path.status == .satisfied)
+            let connected = (path.status == .satisfied)
+            Task { @MainActor in
+                NetworkStatusManager.shared.isConnected = connected
             }
         }
         probe.start(queue: queue)

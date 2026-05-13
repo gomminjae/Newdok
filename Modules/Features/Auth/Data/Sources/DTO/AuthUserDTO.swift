@@ -1,13 +1,13 @@
 import Foundation
 import AuthDomain
 
-struct AuthLoginInterestDTO: Decodable {
+struct AuthLoginInterestDTO: Decodable, Sendable {
     let userId: Int
     let interestId: Int
     let createdAt: String
 }
 
-struct AuthInterestDTO: Decodable {
+struct AuthInterestDTO: Decodable, Sendable {
     let id: Int
     let name: String
 
@@ -16,7 +16,7 @@ struct AuthInterestDTO: Decodable {
     }
 }
 
-struct AuthUserDTO: Decodable {
+struct AuthUserDTO: Decodable, Sendable {
     let id: Int
     let loginId: String
     let phoneNumber: String

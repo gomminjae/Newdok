@@ -11,7 +11,7 @@ import Moya
 import Shared
 
 public extension MoyaProvider {
-    func asyncRequest<T: Decodable>(
+    func asyncRequest<T: Decodable & Sendable>(
         _ target: Target,
         decodeTo type: T.Type = T.self
     ) async throws -> T {
@@ -59,7 +59,7 @@ public extension MoyaProvider {
             }
         }
     
-    func safeCheckRequest<T: Decodable>(
+    func safeCheckRequest<T: Decodable & Sendable>(
         _ target: Target,
         decodeTo type: T.Type = T.self
     ) async throws -> CheckResult<T> {

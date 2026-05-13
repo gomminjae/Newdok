@@ -1,6 +1,6 @@
 import ExploreDomain
 
-struct ExploreRecommendedNewsletterDTO: Decodable {
+struct ExploreRecommendedNewsletterDTO: Decodable, Sendable {
     let union: [ExploreNewsletterDetailDTO]
     let intersection: [ExploreNewsletterDetailDTO]
 

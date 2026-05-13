@@ -2,7 +2,7 @@ import ExploreDomain
 import Core
 import Shared
 
-public class ExploreNewsletterRepositoryImpl: ExploreNewsletterRepository {
+public final class ExploreNewsletterRepositoryImpl: ExploreNewsletterRepository {
     private let network: any NetworkService<NewsletterAPI>
 
     public init(network: any NetworkService<NewsletterAPI>) {

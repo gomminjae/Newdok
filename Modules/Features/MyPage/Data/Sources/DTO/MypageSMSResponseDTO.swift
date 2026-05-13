@@ -9,7 +9,7 @@
 import Foundation
 import MypageDomain
 
-public struct MypageSMSResponseDTO: Decodable {
+public struct MypageSMSResponseDTO: Decodable, Sendable {
     let code: Int
 
     public func toDomain() -> MypageSMSResponse {

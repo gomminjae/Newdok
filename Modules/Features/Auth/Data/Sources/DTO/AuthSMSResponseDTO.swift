@@ -1,6 +1,6 @@
 import AuthDomain
 
-struct AuthSMSResponseDTO: Decodable {
+struct AuthSMSResponseDTO: Decodable, Sendable {
     let code: Int
 
     func toDomain() -> AuthSMSResponse {

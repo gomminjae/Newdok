@@ -66,16 +66,12 @@ public struct EditNicknameView: View {
             }
 
             Button(action: {
-                Task {
+                Task { @MainActor in
                     await viewModel.updateNickname(nickname: draftNickname)
                     await viewModel.fetchuserInfo()
-                    // 먼저 화면을 닫고, 다음 프레임에서 토스트 노출(팝된 뷰에서 보이도록)
-                    await MainActor.run { router.pop() }
-                    // pop 이후에도 살아있는 전역 싱글톤을 통해 토스트 표시 (뷰 생명주기와 분리)
-                    Task.detached { @MainActor in
-                        try? await Task.sleep(nanoseconds: 150_000_000)
-                        ToastCenter.shared.show("닉네임이 변경되었습니다.")
-                    }
+                    router.pop()
+                    try? await Task.sleep(nanoseconds: 150_000_000)
+                    ToastCenter.shared.show("닉네임이 변경되었습니다.")
                 }
             }) {
                 Text("변경하기")

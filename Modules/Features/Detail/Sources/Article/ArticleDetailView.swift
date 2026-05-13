@@ -117,10 +117,10 @@ public struct ArticleDetailView: View {
             ZStack {
                 if let detail = viewModel.detail {
                     FullWebView(
-                        htmlContent: detail.articleHTML ?? "",
-                        headerImageUrl: detail.brandImageUrl ?? "",
+                        htmlContent: detail.articleHTML,
+                        headerImageUrl: detail.brandImageUrl,
                         articleTitle: detail.articleTitle,
-                        articleDate: formatDate(detail.date ?? ""),
+                        articleDate: formatDate(detail.date),
                         articleId: viewModel.articleId,
                         savedHighlights: isPastArticle ? [] : viewModel.highlights,
                         fontSize: $fontSize,
@@ -172,7 +172,7 @@ public struct ArticleDetailView: View {
         .background(Color.white.ignoresSafeArea(edges: .top))
         .navigationBarTitleDisplayMode(.inline)
         .toolbar(.hidden, for: .navigationBar)
-        .onChange(of: viewModel.detail) { detail in
+        .onChange(of: viewModel.detail) { _, detail in
             if detail != nil { isViewReady = true }
         }
         .task {
@@ -289,7 +289,7 @@ struct FullWebView: UIViewRepresentable {
 
     func makeUIView(context: Context) -> HighlightableWebView {
         let config = WKWebViewConfiguration()
-        config.preferences.javaScriptEnabled = true
+        config.defaultWebpagePreferences.allowsContentJavaScript = true
         config.userContentController.add(context.coordinator, name: "textSelected")
         config.userContentController.add(context.coordinator, name: "getSelectedText")
         config.userContentController.add(context.coordinator, name: "consoleLog")
@@ -609,6 +609,7 @@ private struct BorderedThumbSlider: UIViewRepresentable {
         }
     }
 
+    @MainActor
     class Coordinator: NSObject {
         let parent: BorderedThumbSlider
         init(_ parent: BorderedThumbSlider) { self.parent = parent }

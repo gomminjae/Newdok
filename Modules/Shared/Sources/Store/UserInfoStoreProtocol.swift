@@ -7,7 +7,7 @@
 
 import Foundation
 
-public protocol UserInfoStoreProtocol {
+public protocol UserInfoStoreProtocol: Sendable {
     func save(_ user: UserInfo)
     func load() -> UserInfo?
     func clear()

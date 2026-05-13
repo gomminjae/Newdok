@@ -1,28 +1,12 @@
 import Foundation
 import Security
 
-@propertyWrapper
-public struct KeychainItem {
-    private let key: String
-    private let service: String
+/// Keychain Generic Password 항목 접근 헬퍼.
+/// 서비스 단위로 key-value 저장/조회/삭제를 제공한다.
+public enum KeychainStorage {
+    public static let defaultService = Bundle.main.bundleIdentifier ?? "com.newdok"
 
-    public init(_ key: String, service: String = Bundle.main.bundleIdentifier ?? "com.newdok") {
-        self.key = key
-        self.service = service
-    }
-
-    public var wrappedValue: String? {
-        get { read() }
-        set {
-            if let value = newValue {
-                save(value)
-            } else {
-                delete()
-            }
-        }
-    }
-
-    private func read() -> String? {
+    public static func read(key: String, service: String = defaultService) -> String? {
         let query: [String: Any] = [
             kSecClass as String: kSecClassGenericPassword,
             kSecAttrService as String: service,
@@ -42,11 +26,11 @@ public struct KeychainItem {
         return string
     }
 
-    private func save(_ value: String) {
+    public static func save(_ value: String, key: String, service: String = defaultService) {
         guard let data = value.data(using: .utf8) else { return }
 
-        // 기존 항목 삭제 후 추가
-        delete()
+        // 기존 항목 삭제 후 추가 (멱등성 보장)
+        delete(key: key, service: service)
 
         let query: [String: Any] = [
             kSecClass as String: kSecClassGenericPassword,
@@ -59,7 +43,7 @@ public struct KeychainItem {
         SecItemAdd(query as CFDictionary, nil)
     }
 
-    private func delete() {
+    public static func delete(key: String, service: String = defaultService) {
         let query: [String: Any] = [
             kSecClass as String: kSecClassGenericPassword,
             kSecAttrService as String: service,
