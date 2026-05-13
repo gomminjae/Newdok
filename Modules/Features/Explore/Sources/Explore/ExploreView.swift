@@ -69,7 +69,16 @@ public struct ExploreView: View {
                 viewModel.clearData()
             }
             .onChange(of: tabSelection.exploreTrigger) {
+                guard tabSelection.hasPendingExplore else { return }
                 applyExploreParams()
+                Task {
+                    if isGuest {
+                        await viewModel.fetchGuestAllNewsletters()
+                    } else {
+                        await viewModel.fetchRecommendation()
+                        await viewModel.fetchAllNewsletters()
+                    }
+                }
             }
             .onAppear {
                 applyExploreParams()
