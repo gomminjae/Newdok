@@ -5,9 +5,14 @@ import Shared
 
 public final class MypageUserRepositoryImpl: MypageUserRepository {
     private let network: any NetworkService<UserAPI>
+    private let userInfoStore: UserInfoStoreProtocol
 
-    public init(network: any NetworkService<UserAPI>) {
+    public init(
+        network: any NetworkService<UserAPI>,
+        userInfoStore: UserInfoStoreProtocol = UserInfoStore.shared
+    ) {
         self.network = network
+        self.userInfoStore = userInfoStore
     }
 
     public func getProfile() async throws -> MypageUser {
@@ -20,12 +25,12 @@ public final class MypageUserRepositoryImpl: MypageUserRepository {
     public func updateNickname(_ nickname: String) async throws -> MypageNicknameResponse {
         let response: MypageNicknameResponseDTO = try await network.request(.updateNickname(nickname: nickname))
         let result = response.toDomain()
-        updateLocalUser { $0.withNickname(nickname) }
+        updateLocalUser { $0.nickname = nickname }
         return result
     }
 
     public func updatePassword(prevPassword: String, newPassword: String) async throws {
-        guard let userInfo = UserInfoStore.shared.load() else {
+        guard let userInfo = userInfoStore.load() else {
             throw MypageProfileError.userNotFound
         }
         try await network.requestVoid(.updatePassword(loginId: userInfo.loginId, prevPassword: prevPassword, password: newPassword))
@@ -37,12 +42,12 @@ public final class MypageUserRepositoryImpl: MypageUserRepository {
 
     public func updateInterest(_ interestsId: [Int]) async throws {
         try await network.requestVoid(.updateInterest(interestsId: interestsId))
-        updateLocalUser { $0.withInterestIds(interestsId) }
+        updateLocalUser { $0.interestIds = interestsId }
     }
 
     public func updateIndustry(_ industryId: Int) async throws {
         try await network.requestVoid(.updateIndustry(industryId: industryId))
-        updateLocalUser { $0.withIndustryId(industryId) }
+        updateLocalUser { $0.industryId = industryId }
     }
 
     public func updatePhoneNumber(_ phoneNumber: String) async throws {
@@ -96,11 +101,12 @@ public final class MypageUserRepositoryImpl: MypageUserRepository {
             industryId: user.industryId,
             interestIds: user.interests.map { $0.id }
         )
-        UserInfoStore.shared.save(userInfo)
+        userInfoStore.save(userInfo)
     }
 
-    private func updateLocalUser(_ transform: (UserInfo) -> UserInfo) {
-        guard let userInfo = UserInfoStore.shared.load() else { return }
-        UserInfoStore.shared.save(transform(userInfo))
+    private func updateLocalUser(_ transform: (inout UserInfo) -> Void) {
+        guard var userInfo = userInfoStore.load() else { return }
+        transform(&userInfo)
+        userInfoStore.save(userInfo)
     }
 }

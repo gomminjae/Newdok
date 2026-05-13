@@ -34,6 +34,20 @@
                ReferencedContainer = "container:Launch.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "39AF6E6A51C2B2CDF5C3D6F0"
+               BuildableName = "LaunchTesting.framework"
+               BlueprintName = "LaunchTesting"
+               ReferencedContainer = "container:Launch.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
       </BuildActionEntries>
    </BuildAction>
    <TestAction

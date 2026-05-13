@@ -9,6 +9,9 @@ import Observation
 public final class SignupViewModel: ErrorHandling {
     private let authRepository: AuthRepository
     private let signupUseCase: SignupUseCase
+    private let userInfoStore: UserInfoStoreProtocol
+    private let selectableItemStore: SelectableItemStoreProtocol
+    private let appState: AppState
 
     var currentStep: SignupStep = .phoneVerification
 
@@ -97,9 +100,22 @@ public final class SignupViewModel: ErrorHandling {
     public var recommendedPost: [AuthRecommendedBrand] = []
     public var isCurationLoading = false
 
-    public init(authRepository: AuthRepository, signupUseCase: SignupUseCase) {
+    public init(
+        authRepository: AuthRepository,
+        signupUseCase: SignupUseCase,
+        userInfoStore: UserInfoStoreProtocol = UserInfoStore.shared,
+        selectableItemStore: SelectableItemStoreProtocol = SelectableItemStore.shared,
+        appState: AppState = .shared
+    ) {
         self.authRepository = authRepository
         self.signupUseCase = signupUseCase
+        self.userInfoStore = userInfoStore
+        self.selectableItemStore = selectableItemStore
+        self.appState = appState
+    }
+
+    var industries: [SelectableItem] {
+        selectableItemStore.list(for: .industry)
     }
 
     public func goToNextStep() {
@@ -299,7 +315,7 @@ public final class SignupViewModel: ErrorHandling {
                     interestIds: Array(selectedInterests)
                 )
 
-                if let currentUserInfo = UserInfoStore.shared.load() {
+                if let currentUserInfo = userInfoStore.load() {
                     let updatedUserInfo = UserInfo(
                         id: currentUserInfo.id,
                         loginId: currentUserInfo.loginId,
@@ -312,7 +328,7 @@ public final class SignupViewModel: ErrorHandling {
                         industryId: Int(myIndustry),
                         interestIds: selectedInterests.compactMap { Int($0) }
                     )
-                    UserInfoStore.shared.save(updatedUserInfo)
+                    userInfoStore.save(updatedUserInfo)
                 }
 
                 await MainActor.run {
@@ -348,7 +364,7 @@ public final class SignupViewModel: ErrorHandling {
                 let resultUser = try await signupUseCase.execute(request: request)
                 user = resultUser
 
-                AppState.shared.login()
+                appState.login()
                 isLoading = false
                 goToNextStep()
             } catch {

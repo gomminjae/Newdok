@@ -58,7 +58,7 @@ public final class MypageViewFactoryImpl: MypageViewFactory {
     @MainActor public func makeEditNicknameView() -> AnyView {
         let vm = sharedMypageViewModel()
         let currentNickname = vm.user?.nickname
-            ?? UserInfoStore.shared.load()?.nickname
+            ?? vm.loadUserInfo()?.nickname
             ?? ""
         return AnyView(
             EditNicknameView(initialNickname: currentNickname)

@@ -48,7 +48,7 @@ enum CompositionRoot {
         let exploreRepo = ExploreNewsletterRepositoryImpl(
             network: container.resolve(MoyaNetworkService<NewsletterAPI>.self)!
         )
-        return LoadOptionsUseCaseImpl(repository: exploreRepo)
+        return LoadOptionsUseCaseImpl(repository: exploreRepo, selectableItemStore: SelectableItemStore.shared)
     }
 
     private static let authRepository: AuthRepository = AuthRepositoryImpl(

@@ -10,10 +10,12 @@
 		0B55C607E32BA0CA157B3BDA /* DesignSystem.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9229787BA766DFA18583ABFA /* DesignSystem.framework */; };
 		113F0CBB242B95E70E2B695B /* PopupView.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA5E611CA9D5AA49AF6715E1 /* PopupView.framework */; };
 		1AEFE7FA6BB5863FD0BA5386 /* LaunchMain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A44DF136146F6B9A83C6AB1 /* LaunchMain.swift */; };
+		20F3FEBE364914EB1EF8A480 /* DesignSystem_DesignSystem.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 33C3A825E35B81636156DB43 /* DesignSystem_DesignSystem.bundle */; };
 		43DAFA287C241F9A81F3F9A6 /* Shared.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAD73AE618B7002C6F84BF4C /* Shared.framework */; };
 		45B48283F14B7CAE2E5F4216 /* Kingfisher.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C483202D74E2B6F40348B08 /* Kingfisher.framework */; };
 		48DF5B5E4414F2022C1BE80C /* LaunchInterface.framework in Dependencies */ = {isa = PBXBuildFile; fileRef = 305BE5FAD756EB0981AE448A /* LaunchInterface.framework */; };
 		4A5EC27A4FD3253280EBFD1D /* Shared.framework in Dependencies */ = {isa = PBXBuildFile; fileRef = FAD73AE618B7002C6F84BF4C /* Shared.framework */; };
+		91E7FC6828BFD26C633D7876 /* DesignSystem_DesignSystem.bundle in Dependencies */ = {isa = PBXBuildFile; fileRef = 33C3A825E35B81636156DB43 /* DesignSystem_DesignSystem.bundle */; };
 		988A639C908D85348FA3C893 /* SplashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AB4BC8E5564382493B0CEDB /* SplashView.swift */; };
 		9A4DBE0E24EAAFFBEB54354C /* LaunchInterface.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 305BE5FAD756EB0981AE448A /* LaunchInterface.framework */; };
 		9B8DE9786A8471253B1F77E3 /* DesignSystem.framework in Dependencies */ = {isa = PBXBuildFile; fileRef = 9229787BA766DFA18583ABFA /* DesignSystem.framework */; };
@@ -58,6 +60,16 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
+		10A449D84915DD62332B904F /* Dependencies */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 8;
+			dstSubfolderSpec = 16;
+			files = (
+				91E7FC6828BFD26C633D7876 /* DesignSystem_DesignSystem.bundle in Dependencies */,
+			);
+			name = Dependencies;
+			runOnlyForDeploymentPostprocessing = 1;
+		};
 		31E08F68DC5A80FAE63BA5AD /* Dependencies */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 8;
@@ -126,6 +138,7 @@
 		0AB4BC8E5564382493B0CEDB /* SplashView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashView.swift; sourceTree = "<group>"; };
 		0C397ED87CA36DDB17BA0A60 /* LaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchTests.swift; sourceTree = "<group>"; };
 		305BE5FAD756EB0981AE448A /* LaunchInterface.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = LaunchInterface.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		33C3A825E35B81636156DB43 /* DesignSystem_DesignSystem.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DesignSystem_DesignSystem.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
 		45D9FF020D2DC8F6DABC4415 /* LaunchTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "LaunchTests-Info.plist"; sourceTree = "<group>"; };
 		4C483202D74E2B6F40348B08 /* Kingfisher.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Kingfisher.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		57C6632004CFCD89734E3716 /* LaunchViewFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchViewFactory.swift; sourceTree = "<group>"; };
@@ -263,6 +276,7 @@
 		DAD3AD821D47FA47C1C68E93 /* Products */ = {
 			isa = PBXGroup;
 			children = (
+				33C3A825E35B81636156DB43 /* DesignSystem_DesignSystem.bundle */,
 				9229787BA766DFA18583ABFA /* DesignSystem.framework */,
 				4C483202D74E2B6F40348B08 /* Kingfisher.framework */,
 				CAE9D80105EE847E612B7E64 /* Launch.framework */,
@@ -369,6 +383,7 @@
 				312535B7C3FB5E1BFCFEABA3 /* Resources */,
 				95086E17C1046738BE921DC9 /* Frameworks */,
 				5080B47EE8ECE75CBC8C2A75 /* Embed Frameworks */,
+				10A449D84915DD62332B904F /* Dependencies */,
 			);
 			buildRules = (
 			);
@@ -420,6 +435,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				20F3FEBE364914EB1EF8A480 /* DesignSystem_DesignSystem.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -516,11 +532,15 @@
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = "Derived/InfoPlists/LaunchTests-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
+				);
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-L$(DT_TOOLCHAIN_DIR)/usr/lib/swift/$(PLATFORM_NAME)",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.newdok.launch.tests;
 				PRODUCT_NAME = LaunchTests;
@@ -546,7 +566,7 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = "Derived/InfoPlists/LaunchInterface-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -565,6 +585,7 @@
 					DEBUG,
 				);
 				SWIFT_COMPILATION_MODE = singlefile;
+				SWIFT_ENABLE_EXPLICIT_MODULES = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_STRICT_CONCURRENCY = complete;
 				SWIFT_VERSION = 5.0;
@@ -644,7 +665,7 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = "Derived/InfoPlists/Launch-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -663,6 +684,7 @@
 					DEBUG,
 				);
 				SWIFT_COMPILATION_MODE = singlefile;
+				SWIFT_ENABLE_EXPLICIT_MODULES = YES;
 				SWIFT_INSTALL_OBJC_HEADER = NO;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_STRICT_CONCURRENCY = complete;
@@ -684,7 +706,7 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = "Derived/InfoPlists/Launch-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -699,6 +721,7 @@
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
 				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_ENABLE_EXPLICIT_MODULES = YES;
 				SWIFT_INSTALL_OBJC_HEADER = NO;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				SWIFT_STRICT_CONCURRENCY = complete;
@@ -720,7 +743,7 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = "Derived/InfoPlists/LaunchInterface-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -735,6 +758,7 @@
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
 				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_ENABLE_EXPLICIT_MODULES = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				SWIFT_STRICT_CONCURRENCY = complete;
 				SWIFT_VERSION = 5.0;
@@ -749,11 +773,15 @@
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = "Derived/InfoPlists/LaunchTests-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
+				);
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-L$(DT_TOOLCHAIN_DIR)/usr/lib/swift/$(PLATFORM_NAME)",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.newdok.launch.tests;
 				PRODUCT_NAME = LaunchTests;
@@ -783,7 +811,7 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = "Derived/InfoPlists/LaunchTesting-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -802,6 +830,7 @@
 					DEBUG,
 				);
 				SWIFT_COMPILATION_MODE = singlefile;
+				SWIFT_ENABLE_EXPLICIT_MODULES = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_STRICT_CONCURRENCY = complete;
 				SWIFT_VERSION = 5.0;
@@ -822,7 +851,7 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = "Derived/InfoPlists/LaunchTesting-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -837,6 +866,7 @@
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
 				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_ENABLE_EXPLICIT_MODULES = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				SWIFT_STRICT_CONCURRENCY = complete;
 				SWIFT_VERSION = 5.0;

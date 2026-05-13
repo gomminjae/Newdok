@@ -6,7 +6,7 @@
 //
 import Foundation
 
-public final class UserInfoStore: Sendable {
+public final class UserInfoStore: UserInfoStoreProtocol, Sendable {
     public static let shared = UserInfoStore()
     private static let key = "local_user_info"
 
