@@ -32,6 +32,7 @@ public final class SubscribeViewModel: ErrorHandling {
     public var isLoadingPaused: Bool = false
     public var lastRefreshTime = Date.distantPast
     public var currentError: AppError?
+    public private(set) var pendingSubscriptionIds: Set<String> = []
 
     public init(useCase: SubscribeUseCase) {
         self.useCase = useCase
@@ -39,6 +40,7 @@ public final class SubscribeViewModel: ErrorHandling {
 
     public func loadInitial() async {
         guard !initialLoaded else { return }
+        guard !isLoadingActive && !isLoadingPaused else { return }
         isLoadingActive = true
         isLoadingPaused = true
 
@@ -58,6 +60,7 @@ public final class SubscribeViewModel: ErrorHandling {
     }
 
     public func refresh(tab: Int) async {
+        guard !isRefreshing else { return }
         await performAsync(feature: "subscribe", operation: "refresh", loadingBinding: \.isRefreshing) {
             if tab == 0 {
                 activeNewsletters = try await useCase.fetchActiveSubscription()
@@ -67,15 +70,37 @@ public final class SubscribeViewModel: ErrorHandling {
         }
     }
 
-    public func pause(newsletterId: String) async {
-        await performAsync(feature: "subscribe", operation: "pause") {
+    public func pause(newsletterId: String) async -> Bool {
+        guard beginSubscriptionMutation(newsletterId) else { return false }
+        defer { endSubscriptionMutation(newsletterId) }
+
+        let result: Void? = await performAsync(feature: "subscribe", operation: "pause") {
             _ = try await useCase.pauseSubscription(newsletterId: newsletterId)
         }
+        return result != nil
     }
 
-    public func resume(newsletterId: String) async {
-        await performAsync(feature: "subscribe", operation: "resume") {
+    public func resume(newsletterId: String) async -> Bool {
+        guard beginSubscriptionMutation(newsletterId) else { return false }
+        defer { endSubscriptionMutation(newsletterId) }
+
+        let result: Void? = await performAsync(feature: "subscribe", operation: "resume") {
             _ = try await useCase.resumeSubscription(newsletterId: newsletterId)
         }
+        return result != nil
+    }
+
+    public func isSubscriptionPending(_ newsletterId: String) -> Bool {
+        pendingSubscriptionIds.contains(newsletterId)
+    }
+
+    private func beginSubscriptionMutation(_ newsletterId: String) -> Bool {
+        guard !pendingSubscriptionIds.contains(newsletterId) else { return false }
+        pendingSubscriptionIds.insert(newsletterId)
+        return true
+    }
+
+    private func endSubscriptionMutation(_ newsletterId: String) {
+        pendingSubscriptionIds.remove(newsletterId)
     }
 }

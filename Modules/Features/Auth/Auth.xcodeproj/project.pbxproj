@@ -49,12 +49,10 @@
 		9D083976CECA423E68F0F099 /* AuthRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DFBFB5E537C38ADF3FC6F51 /* AuthRepository.swift */; };
 		9D88DB33AC00BF061BEFF003 /* AuthRepositoryImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED7D603A82E085B8AD32B04F /* AuthRepositoryImpl.swift */; };
 		9FD0E0B05397F67F37A1530A /* AuthTesting.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5642BA06A94EBFDDB6B192CB /* AuthTesting.framework */; };
-		A0136FA014429C88E340055B /* DesignSystem_DesignSystem.bundle in Dependencies */ = {isa = PBXBuildFile; fileRef = 053F11E926A414E7E0C9D2C3 /* DesignSystem_DesignSystem.bundle */; };
 		A47F3F9CC80909D5A826ED2E /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6061C08937A7986D4F7D042 /* LoginView.swift */; };
 		A873D6E66ACC7A15AE540405 /* BirthYearDropdown.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59EBC0CC5D916C5A4CB83108 /* BirthYearDropdown.swift */; };
 		ADD5AC589E22E51E680E9367 /* DesignSystem.framework in Dependencies */ = {isa = PBXBuildFile; fileRef = 45A8BB59B621EFC832DCFE0F /* DesignSystem.framework */; };
 		AE4E796AB6754D3972831029 /* AuthSimpleUserDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79D73FBD79BD1D75BD7F6D35 /* AuthSimpleUserDTO.swift */; };
-		B1B883AD5FA839D4A8A34813 /* DesignSystem_DesignSystem.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 053F11E926A414E7E0C9D2C3 /* DesignSystem_DesignSystem.bundle */; };
 		B1B8CA1ED66CA91DBA0C6606 /* AuthDomain.framework in Dependencies */ = {isa = PBXBuildFile; fileRef = 7C94165A812E44E5FD3BFC7F /* AuthDomain.framework */; };
 		B3BCEF7C74425A532B13BCA1 /* AuthSignupResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = E65656E0C636D6AF23FD06E9 /* AuthSignupResponseDTO.swift */; };
 		BB5132E0726E9AD5CDE5A167 /* AuthSMSResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D9606FB084D1C548133A03A /* AuthSMSResponse.swift */; };
@@ -136,16 +134,6 @@
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
-		};
-		684EC3987431A3767320D468 /* Dependencies */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 8;
-			dstSubfolderSpec = 16;
-			files = (
-				A0136FA014429C88E340055B /* DesignSystem_DesignSystem.bundle in Dependencies */,
-			);
-			name = Dependencies;
-			runOnlyForDeploymentPostprocessing = 1;
 		};
 		6B0F51A6942BBFE323B15EA1 /* Dependencies */ = {
 			isa = PBXCopyFilesBuildPhase;
@@ -246,7 +234,6 @@
 
 /* Begin PBXFileReference section */
 		04C2AB3BB015D81CB4377741 /* AuthViewFactoryImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewFactoryImpl.swift; sourceTree = "<group>"; };
-		053F11E926A414E7E0C9D2C3 /* DesignSystem_DesignSystem.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DesignSystem_DesignSystem.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
 		05A17C657D4A51BEE81CB99C /* OnboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardView.swift; sourceTree = "<group>"; };
 		07848F750646D4321324EFC6 /* CurationRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurationRow.swift; sourceTree = "<group>"; };
 		083CBFE74C9E7F71EDD0C703 /* AuthMain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthMain.swift; sourceTree = "<group>"; };
@@ -440,7 +427,6 @@
 				5642BA06A94EBFDDB6B192CB /* AuthTesting.framework */,
 				CF8FCFE4AC3B608B5042F210 /* AuthTests.xctest */,
 				E0452B120F35B0BAE8B6916C /* Core.framework */,
-				053F11E926A414E7E0C9D2C3 /* DesignSystem_DesignSystem.bundle */,
 				45A8BB59B621EFC832DCFE0F /* DesignSystem.framework */,
 				2FDB1F539F81A1BE90F87D4C /* Kingfisher.framework */,
 				A03B7D8DBF8FA6DF9A7FAB5E /* PopupView.framework */,
@@ -691,7 +677,6 @@
 				E9C7F24A38551DB28EEA9184 /* Resources */,
 				B6A5B1067558D5212CD51DA8 /* Frameworks */,
 				DFA2E33A5B95A9DDC48D1C33 /* Embed Frameworks */,
-				684EC3987431A3767320D468 /* Dependencies */,
 			);
 			buildRules = (
 			);
@@ -861,7 +846,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B1B883AD5FA839D4A8A34813 /* DesignSystem_DesignSystem.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1081,7 +1065,7 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = "Derived/InfoPlists/AuthTesting-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1121,7 +1105,7 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = "Derived/InfoPlists/AuthInterface-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1161,7 +1145,7 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = "Derived/InfoPlists/AuthTesting-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1197,7 +1181,7 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = "Derived/InfoPlists/Auth-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1238,7 +1222,7 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = "Derived/InfoPlists/AuthData-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1327,7 +1311,7 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = "Derived/InfoPlists/AuthInterface-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1363,7 +1347,7 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = "Derived/InfoPlists/AuthData-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1403,7 +1387,7 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = "Derived/InfoPlists/AuthDomain-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1443,7 +1427,7 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = "Derived/InfoPlists/AuthDomain-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1479,7 +1463,7 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = "Derived/InfoPlists/Auth-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1510,15 +1494,11 @@
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = "Derived/InfoPlists/AuthTests-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
-				);
-				OTHER_LDFLAGS = (
-					"$(inherited)",
-					"-L$(DT_TOOLCHAIN_DIR)/usr/lib/swift/$(PLATFORM_NAME)",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.newdok.auth.tests;
 				PRODUCT_NAME = AuthTests;
@@ -1542,15 +1522,11 @@
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = "Derived/InfoPlists/AuthTests-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
-				);
-				OTHER_LDFLAGS = (
-					"$(inherited)",
-					"-L$(DT_TOOLCHAIN_DIR)/usr/lib/swift/$(PLATFORM_NAME)",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.newdok.auth.tests;
 				PRODUCT_NAME = AuthTests;

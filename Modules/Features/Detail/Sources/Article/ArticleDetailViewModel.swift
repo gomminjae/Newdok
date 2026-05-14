@@ -15,6 +15,7 @@ import Observation
 public final class ArticleDetailViewModel: ErrorHandling {
     var detail: DetailArticleDetail?
     var isLoading: Bool = false
+    var isBookmarking: Bool = false
     public var currentError: AppError?
 
     // 하이라이트 관련
@@ -61,6 +62,10 @@ public final class ArticleDetailViewModel: ErrorHandling {
     }
 
     public func bookmark() async {
+        guard !isBookmarking else { return }
+        isBookmarking = true
+        defer { isBookmarking = false }
+
         await performAsync(feature: "articleDetail", operation: "bookmark") {
             guard let articleId = detail?.articleId else { return }
             try await articleDetailUseCase.toggleBookmark(articleId: "\(articleId)")

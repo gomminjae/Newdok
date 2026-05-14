@@ -70,7 +70,8 @@ public struct EditInterestView: View {
 
             Button(action: {
                 Task { @MainActor in
-                    await viewModel.updateInterests(ids: Array(selectedIds))
+                    let didUpdate = await viewModel.updateInterests(ids: Array(selectedIds))
+                    guard didUpdate else { return }
                     await viewModel.fetchuserInfo()
                     router.pop()
                     try? await Task.sleep(nanoseconds: 150_000_000)

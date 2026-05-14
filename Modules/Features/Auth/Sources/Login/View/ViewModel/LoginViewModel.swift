@@ -45,8 +45,10 @@ public final class LoginViewModel: ErrorHandling {
     }
 
     public func login(onSuccess: @escaping () -> Void) {
+        guard !isLoading else { return }
+        isLoading = true
+
         Task {
-            isLoading = true
             defer { isLoading = false }
 
             do {

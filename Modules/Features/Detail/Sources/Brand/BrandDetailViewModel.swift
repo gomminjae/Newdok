@@ -15,6 +15,7 @@ import Observation
 public final class BrandDetailViewModel: ErrorHandling {
     var detail: DetailBrandDetail?
     var isLoading: Bool = false
+    var isSubscriptionMutating: Bool = false
     public var currentError: AppError?
 
     private let id: String
@@ -62,15 +63,25 @@ public final class BrandDetailViewModel: ErrorHandling {
         }
     }
 
-    public func resume() async {
-        await performAsync(feature: "brandDetail", operation: "resume") {
+    public func resume() async -> Bool {
+        guard !isSubscriptionMutating else { return false }
+        isSubscriptionMutating = true
+        defer { isSubscriptionMutating = false }
+
+        let result: Void? = await performAsync(feature: "brandDetail", operation: "resume") {
             try await brandRepository.resumeSubscription(newsletterId: id)
         }
+        return result != nil
     }
 
-    public func pause() async {
-        await performAsync(feature: "brandDetail", operation: "pause") {
+    public func pause() async -> Bool {
+        guard !isSubscriptionMutating else { return false }
+        isSubscriptionMutating = true
+        defer { isSubscriptionMutating = false }
+
+        let result: Void? = await performAsync(feature: "brandDetail", operation: "pause") {
             try await brandRepository.pauseSubscription(newsletterId: id)
         }
+        return result != nil
     }
 }

@@ -69,7 +69,8 @@ public struct SubscribeView: View {
                         showUnsubscribeAlert = false
                         selectedNewsletter = nil
                         Task {
-                            await viewModel.pause(newsletterId: String(selected.id ?? 0))
+                            let didPause = await viewModel.pause(newsletterId: String(selected.id ?? 0))
+                            guard didPause else { return }
                             await viewModel.refresh(tab: selectedTab)
                             showPauseToast = true
                             DispatchQueue.main.asyncAfter(deadline: .now() + 2) { showPauseToast = false }
@@ -153,14 +154,13 @@ public struct SubscribeView: View {
                         selectedNewsletter = newsletter
                         showUnsubscribeAlert = true
                     } else {
-                        Task {
-                            await viewModel.resume(newsletterId: String(newsletter.id ?? 0))
-                            await viewModel.refresh(tab: 0)
-                            await viewModel.refresh(tab: 1)
-                            showSubscribeToast = true
-                            DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-                                showSubscribeToast = false
-                            }
+                        let didResume = await viewModel.resume(newsletterId: String(newsletter.id ?? 0))
+                        guard didResume else { return }
+                        await viewModel.refresh(tab: 0)
+                        await viewModel.refresh(tab: 1)
+                        showSubscribeToast = true
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                            showSubscribeToast = false
                         }
                     }
                 }

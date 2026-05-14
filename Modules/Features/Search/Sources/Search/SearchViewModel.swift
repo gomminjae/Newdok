@@ -52,11 +52,13 @@ public final class SearchViewModel: ErrorHandling {
 
     public func searchNewsletters() async {
         guard !searchText.isEmpty else { return }
+        guard !isLoading else { return }
 
         isLoading = true
+        let query = searchText
         errorMessage = nil
         do {
-            let results = try await useCase.searchNewsletters(brandName: searchText)
+            let results = try await useCase.searchNewsletters(brandName: query)
             self.searchResults = results
         } catch {
             handleError(error, feature: "search", operation: "searchNewsletters")

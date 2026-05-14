@@ -127,10 +127,6 @@ struct PasswordRecoveryPhoneView: View {
     @FocusState private var isNumberPadFocused: Bool
     @State private var error: String?
     
-    private func mmss(_ sec: Int) -> String {
-        String(format: "%02d:%02d", sec / 60, sec % 60)
-    }
-    
     var body: some View {
         VStack {
             VStack(alignment: .leading, spacing: 0) {
@@ -147,7 +143,10 @@ struct PasswordRecoveryPhoneView: View {
                         .keyboardType(.numberPad)
                         .font(.hanSansNeo(14, .medium))
                         .focused($isNumberPadFocused)
-                    Text(mmss(viewModel.timerRemaining))
+                        .onChange(of: viewModel.recoveryCode) { _, newValue in
+                            viewModel.recoveryCode = newValue.newdokDigitsOnly(limit: 6)
+                        }
+                    Text(NewdokVerificationTimerFormatStyle().format(viewModel.timerRemaining))
                         .foregroundStyle(Color.captionStrong)
                         .font(.hanSansNeo(12, .medium))
                         .padding(.trailing, 10)
@@ -219,10 +218,10 @@ struct PasswordRecoveryPhoneView: View {
                     .font(.hanSansNeo(16, .bold))
                     .foregroundColor(.white)
                     .frame(maxWidth: .infinity, minHeight: 48)
-                    .background(viewModel.recoveryCode.isEmpty ? Color.lineNeutral : Color.primaryNormal)
+                    .background(viewModel.recoveryCode.count < 6 ? Color.lineNeutral : Color.primaryNormal)
                     .cornerRadius(4)
             }
-            .disabled(viewModel.recoveryCode.isEmpty)
+            .disabled(viewModel.recoveryCode.count < 6)
             .padding(.horizontal, 24)
             .padding(.bottom, 32)
             .toolbar {
@@ -265,8 +264,7 @@ struct PasswordRecoveryNewPasswordView: View {
     @FocusState private var isPasswordCheckFocused: Bool
     
     private var isPasswordValid: Bool {
-        let regex = "^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{8,}$"
-        return NSPredicate(format: "SELF MATCHES %@", regex).evaluate(with: viewModel.newPassword)
+        NewdokInputValidator.validatePassword(viewModel.newPassword) == nil
     }
     private var isPasswordMatch: Bool {
         !viewModel.newPasswordCheck.isEmpty && viewModel.newPassword == viewModel.newPasswordCheck
@@ -304,7 +302,7 @@ struct PasswordRecoveryNewPasswordView: View {
                 .focused($isPasswordFocused)
                 
                 if isPasswordInputError {
-                    Text("영문 숫자 조합으로 입력해주세요.")
+                    Text(NewdokInputValidator.validatePassword(viewModel.newPassword)?.message ?? "")
                         .font(.hanSansNeo(12, .medium))
                         .foregroundColor(.red)
                         .padding(.top, 4)

@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		18C097FEE30E087906590A11 /* SubscribeDomain.framework in Dependencies */ = {isa = PBXBuildFile; fileRef = C4490CBDF56FA86E240C6B38 /* SubscribeDomain.framework */; };
-		28955AE1A98B7A1F05BABCB6 /* DesignSystem_DesignSystem.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 88725C861E43B9844D9D4D87 /* DesignSystem_DesignSystem.bundle */; };
 		2C9F2B1D40235C64AF4842E2 /* Subscribe.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5595DBABF800B949A8877D83 /* Subscribe.framework */; };
 		36E1397C9EE4F8F460BE5E43 /* SubscribeNewsletter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2CE49290E0FD0B806E2DF98 /* SubscribeNewsletter.swift */; };
 		4A38A0AC6ACD1BD2DBDD257C /* SubscribeNewslettersCountDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01376EF9123D0D467E8F814A /* SubscribeNewslettersCountDTO.swift */; };
@@ -38,7 +37,6 @@
 		EA6088EE736EA710C61A29C6 /* SubscribeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 210E740423E2557577E07549 /* SubscribeViewModel.swift */; };
 		EA6395FFFF6759BD38A8252A /* SubscribeNewsletterRepositoryImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5478AD7CFD21E8DFD1DAAB8A /* SubscribeNewsletterRepositoryImpl.swift */; };
 		ECB3A6D8A5EE4F0D5BDA3B5A /* SubscribeMain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 601DDD48F11BCA082BCDC946 /* SubscribeMain.swift */; };
-		ED87ACF2C48CBCD9FA816100 /* DesignSystem_DesignSystem.bundle in Dependencies */ = {isa = PBXBuildFile; fileRef = 88725C861E43B9844D9D4D87 /* DesignSystem_DesignSystem.bundle */; };
 		F34D9DBEC1E48FCAFAEF3336 /* SubscribeNewsletterRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80AC022782541B311A1C6B99 /* SubscribeNewsletterRepository.swift */; };
 		F3CB6A79FD601706C034F708 /* SegmentPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27BE4372D9C9BB0DAF5A3985 /* SegmentPickerView.swift */; };
 		FDB9C9A8EA11ED7D892A2B48 /* DesignSystem.framework in Dependencies */ = {isa = PBXBuildFile; fileRef = AC1A311498193AE6DF677F49 /* DesignSystem.framework */; };
@@ -107,16 +105,6 @@
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
-		};
-		17724452884607EE74BED1FD /* Dependencies */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 8;
-			dstSubfolderSpec = 16;
-			files = (
-				ED87ACF2C48CBCD9FA816100 /* DesignSystem_DesignSystem.bundle in Dependencies */,
-			);
-			name = Dependencies;
-			runOnlyForDeploymentPostprocessing = 1;
 		};
 		4447817A2B1A77A7CDC82D26 /* Dependencies */ = {
 			isa = PBXCopyFilesBuildPhase;
@@ -237,7 +225,6 @@
 		80AC022782541B311A1C6B99 /* SubscribeNewsletterRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscribeNewsletterRepository.swift; sourceTree = "<group>"; };
 		80C0B3B0D19108DC3253B219 /* SubscribeInterface-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "SubscribeInterface-Info.plist"; sourceTree = "<group>"; };
 		818348BBF6B997119C6F5E6A /* Shared.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Shared.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		88725C861E43B9844D9D4D87 /* DesignSystem_DesignSystem.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DesignSystem_DesignSystem.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
 		902DD38A5009735AFD6ABECD /* SubscribeNewsletterDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscribeNewsletterDTO.swift; sourceTree = "<group>"; };
 		93D0F566C834B8DF3373BBE4 /* SubscribeTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SubscribeTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		955E54A3E3875FDFA4224AD5 /* SubscribeUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscribeUseCase.swift; sourceTree = "<group>"; };
@@ -350,7 +337,6 @@
 			isa = PBXGroup;
 			children = (
 				0946787ED777F4BD36CFCB17 /* Core.framework */,
-				88725C861E43B9844D9D4D87 /* DesignSystem_DesignSystem.bundle */,
 				AC1A311498193AE6DF677F49 /* DesignSystem.framework */,
 				77C44007B0D39A42AB4ACE21 /* Kingfisher.framework */,
 				D136C898F3BF8204EB2A6782 /* PopupView.framework */,
@@ -644,7 +630,6 @@
 				ED60597D7D1B55395C12B6D7 /* Resources */,
 				A1D89E331889E56366446D38 /* Frameworks */,
 				AFD814EEF955823CAF55FD20 /* Embed Frameworks */,
-				17724452884607EE74BED1FD /* Dependencies */,
 			);
 			buildRules = (
 			);
@@ -733,7 +718,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				28955AE1A98B7A1F05BABCB6 /* DesignSystem_DesignSystem.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -858,7 +842,7 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = "Derived/InfoPlists/SubscribeInterface-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -898,7 +882,7 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = "Derived/InfoPlists/SubscribeInterface-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -934,7 +918,7 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = "Derived/InfoPlists/SubscribeTesting-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -970,7 +954,7 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = "Derived/InfoPlists/SubscribeTesting-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1010,7 +994,7 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = "Derived/InfoPlists/SubscribeData-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1046,7 +1030,7 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = "Derived/InfoPlists/SubscribeDomain-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1076,15 +1060,11 @@
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = "Derived/InfoPlists/SubscribeTests-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
-				);
-				OTHER_LDFLAGS = (
-					"$(inherited)",
-					"-L$(DT_TOOLCHAIN_DIR)/usr/lib/swift/$(PLATFORM_NAME)",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.newdok.subscribe.tests;
 				PRODUCT_NAME = SubscribeTests;
@@ -1110,7 +1090,7 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = "Derived/InfoPlists/Subscribe-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1198,15 +1178,11 @@
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = "Derived/InfoPlists/SubscribeTests-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
-				);
-				OTHER_LDFLAGS = (
-					"$(inherited)",
-					"-L$(DT_TOOLCHAIN_DIR)/usr/lib/swift/$(PLATFORM_NAME)",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.newdok.subscribe.tests;
 				PRODUCT_NAME = SubscribeTests;
@@ -1236,7 +1212,7 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = "Derived/InfoPlists/Subscribe-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1332,7 +1308,7 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = "Derived/InfoPlists/SubscribeDomain-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1372,7 +1348,7 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = "Derived/InfoPlists/SubscribeData-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

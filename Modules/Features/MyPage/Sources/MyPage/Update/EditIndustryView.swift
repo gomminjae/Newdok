@@ -94,7 +94,8 @@ public struct EditIndustryView: View {
             Button(action: {
                 Task { @MainActor in
                     guard let selectedId else { return }
-                    await viewModel.updateIndustry(id: selectedId)
+                    let didUpdate = await viewModel.updateIndustry(id: selectedId)
+                    guard didUpdate else { return }
                     await viewModel.fetchuserInfo()
                     router.pop()
                     try? await Task.sleep(nanoseconds: 150_000_000)
@@ -117,7 +118,7 @@ public struct EditIndustryView: View {
                     )
                     .cornerRadius(4)
             }
-            .disabled(selectedId == viewModel.user?.industryId)
+            .disabled(selectedId == viewModel.user?.industryId || viewModel.isIndustryUpdating)
         }
         .onAppear {
             // 싱글톤 VM에 이미 user 데이터가 있으면 바로 사용

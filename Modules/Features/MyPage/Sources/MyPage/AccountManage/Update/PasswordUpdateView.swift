@@ -112,7 +112,8 @@ public struct PwdUpdateView: View {
                 viewModel.passwordError = nil
                 
                 Task {
-                    await viewModel.updatePassword()
+                    let didUpdate = await viewModel.updatePassword()
+                    guard didUpdate else { return }
                 }
             }) {
                 Text("변경하기")
@@ -127,7 +128,7 @@ public struct PwdUpdateView: View {
             .padding(.top, 10)
             .padding(.horizontal, 24)
             .padding(.bottom, 20)
-            .disabled(!viewModel.isPasswordValid)
+            .disabled(!viewModel.isPasswordValid || viewModel.isPasswordUpdating)
 
         .navigationBarBackButtonHidden(true)
         .toolbar {

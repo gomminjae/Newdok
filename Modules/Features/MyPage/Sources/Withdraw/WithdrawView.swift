@@ -106,7 +106,7 @@ public struct WithdrawView: View {
                         : Color.gray
                 )
                 .cornerRadius(4)
-                .disabled(!withdrawReasons.contains(true))
+                .disabled(!withdrawReasons.contains(true) || viewModel.isWithdrawing)
             }
         }
         .padding(.horizontal, 24)  // 좌우 24

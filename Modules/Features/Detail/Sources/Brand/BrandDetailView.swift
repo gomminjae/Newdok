@@ -149,7 +149,8 @@ public struct BrandDetailView: View {
             },
                                  onConfirm: {
                 Task {
-                    await viewModel.pause()
+                    let didPause = await viewModel.pause()
+                    guard didPause else { return }
                     viewModel.detail?.isSubscribed = SubscriptionStatus.paused.rawValue
                     showPauseToast = true
                 }
@@ -500,7 +501,7 @@ public struct BrandDetailView: View {
                         .stroke(style.border, lineWidth: 1)
                 )
         }
-        .disabled(!status.isActionable)
+        .disabled(!status.isActionable || viewModel.isSubscriptionMutating)
     }
     
     private func handleSubscriptionAction(status: SubscriptionStatus) {
@@ -519,7 +520,8 @@ public struct BrandDetailView: View {
             
         case .paused:
             Task {
-                await viewModel.resume() // 구독 재개 처리
+                let didResume = await viewModel.resume()
+                guard didResume else { return }
                 viewModel.detail?.isSubscribed = SubscriptionStatus.confirmed.rawValue
                 showSubscribeToast = true
             }

@@ -41,7 +41,6 @@
 		7019BB754A571C304FE31EB5 /* PopupView.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AC9681D4DFFD4DDB3C3849F8 /* PopupView.framework */; };
 		71AF1CC50A97B7FACF346BBA /* Core.framework in Dependencies */ = {isa = PBXBuildFile; fileRef = 1D46F9F7259B8E355BE592C3 /* Core.framework */; };
 		7390DD8F969606B6A77B2C13 /* Shared.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A19D7843FEFE29BD0819145C /* Shared.framework */; };
-		73C1C3881BEB27ACA8A98BAD /* DesignSystem_DesignSystem.bundle in Dependencies */ = {isa = PBXBuildFile; fileRef = 457F5AE227F7EE7039B169C3 /* DesignSystem_DesignSystem.bundle */; };
 		773AA4470A9CDC5CC8CC6725 /* EditAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A009F18AE1816F468D79E100 /* EditAlertView.swift */; };
 		79D5AED477F6DCE847EFCE8C /* MypageSimpleUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56F78B81808015CE00B0059E /* MypageSimpleUser.swift */; };
 		818C6B59EB69212BB49E6598 /* MypageDomain.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EBD899A674C4500DB831BB6A /* MypageDomain.framework */; };
@@ -74,7 +73,6 @@
 		ED2944B1EE07AD35BC8D9B0A /* AccountManagementView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 435A5C982C020CECF6823250 /* AccountManagementView.swift */; };
 		F09691BFAB22A01F310F8230 /* MypageInterface.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F3F1D4AE93F33C120F2D700D /* MypageInterface.framework */; };
 		F44A35FE3666BB64FED573AF /* EditNicknameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE20CEB3997ED5CB0105D8D5 /* EditNicknameView.swift */; };
-		FBCFDAB59D1034A0E1336366 /* DesignSystem_DesignSystem.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 457F5AE227F7EE7039B169C3 /* DesignSystem_DesignSystem.bundle */; };
 		FD2C381A3E05CF2B36FB61EE /* MypageNicknameResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61FA720977B70D1021A11DD2 /* MypageNicknameResponse.swift */; };
 		FE5425117241183C96A40601 /* MypageProfileError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49A64BCEE1B1F6EA6016D3ED /* MypageProfileError.swift */; };
 /* End PBXBuildFile section */
@@ -183,16 +181,6 @@
 			name = Dependencies;
 			runOnlyForDeploymentPostprocessing = 1;
 		};
-		7E085CBD1B1AF405AAF08F4B /* Dependencies */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 8;
-			dstSubfolderSpec = 16;
-			files = (
-				73C1C3881BEB27ACA8A98BAD /* DesignSystem_DesignSystem.bundle in Dependencies */,
-			);
-			name = Dependencies;
-			runOnlyForDeploymentPostprocessing = 1;
-		};
 		B0E02DDD8BAAA436E95D843A /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -266,7 +254,6 @@
 		345AA859EAF6ED32E797A34D /* MypageSMSResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MypageSMSResponseDTO.swift; sourceTree = "<group>"; };
 		4087D8AA34FB12797F2AEA90 /* MypageUserDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MypageUserDTO.swift; sourceTree = "<group>"; };
 		435A5C982C020CECF6823250 /* AccountManagementView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountManagementView.swift; sourceTree = "<group>"; };
-		457F5AE227F7EE7039B169C3 /* DesignSystem_DesignSystem.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DesignSystem_DesignSystem.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
 		49A64BCEE1B1F6EA6016D3ED /* MypageProfileError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MypageProfileError.swift; sourceTree = "<group>"; };
 		56275665843BFB8579E657A1 /* MypageTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MypageTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		56F78B81808015CE00B0059E /* MypageSimpleUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MypageSimpleUser.swift; sourceTree = "<group>"; };
@@ -495,7 +482,6 @@
 			isa = PBXGroup;
 			children = (
 				1D46F9F7259B8E355BE592C3 /* Core.framework */,
-				457F5AE227F7EE7039B169C3 /* DesignSystem_DesignSystem.bundle */,
 				F22BB87ADE60B2913D547027 /* DesignSystem.framework */,
 				09180759E35FAC99B7E89CD5 /* Kingfisher.framework */,
 				D3F36549D503F5AD0A679EEC /* Mypage.framework */,
@@ -809,7 +795,6 @@
 				6B2333B20EFC57C8B21D464C /* Resources */,
 				2EC9A9CD77126097DD5F8F1B /* Frameworks */,
 				E74125313A6BC39A42EE4641 /* Embed Frameworks */,
-				7E085CBD1B1AF405AAF08F4B /* Dependencies */,
 			);
 			buildRules = (
 			);
@@ -884,7 +869,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FBCFDAB59D1034A0E1336366 /* DesignSystem_DesignSystem.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1050,15 +1034,11 @@
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = "Derived/InfoPlists/MypageTests-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
-				);
-				OTHER_LDFLAGS = (
-					"$(inherited)",
-					"-L$(DT_TOOLCHAIN_DIR)/usr/lib/swift/$(PLATFORM_NAME)",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.newdok.mypage.tests;
 				PRODUCT_NAME = MypageTests;
@@ -1173,15 +1153,11 @@
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = "Derived/InfoPlists/MypageTests-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
-				);
-				OTHER_LDFLAGS = (
-					"$(inherited)",
-					"-L$(DT_TOOLCHAIN_DIR)/usr/lib/swift/$(PLATFORM_NAME)",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.newdok.mypage.tests;
 				PRODUCT_NAME = MypageTests;
@@ -1211,7 +1187,7 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = "Derived/InfoPlists/MypageTesting-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1292,7 +1268,7 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = "Derived/InfoPlists/MypageTesting-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

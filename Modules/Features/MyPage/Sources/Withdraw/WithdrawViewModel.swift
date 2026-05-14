@@ -18,6 +18,7 @@ public final class WithdrawViewModel: ErrorHandling {
     public var newsletterCount: Int = 0
     public var articleCount: Int = 0
     public var isLoading: Bool = false
+    public var isWithdrawing: Bool = false
     public var errorMessage: String?
     public var withdrawSuccess: Bool = false
     public var currentError: AppError?
@@ -50,6 +51,10 @@ public final class WithdrawViewModel: ErrorHandling {
     }
 
     public func withdraw() async {
+        guard !isWithdrawing else { return }
+        isWithdrawing = true
+        defer { isWithdrawing = false }
+
         await performAsync(feature: "withdraw", operation: "withdraw", loadingBinding: \.isLoading) {
             try await userUseCase.withdraw()
 

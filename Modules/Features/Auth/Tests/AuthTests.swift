@@ -1,4 +1,5 @@
 import Testing
+import Shared
 @testable import AuthDomain
 
 @Suite("SignupFormatStyle Tests")
@@ -172,5 +173,89 @@ struct SignupFormatStyleTests {
     @Test("11자리 숫자 정상")
     func validatePhone_valid() {
         #expect(SignupFormatStyle.validatePhoneNumber("01012345678") == nil)
+    }
+}
+
+@Suite("NewdokInputValidator Tests")
+struct NewdokInputValidatorTests {
+
+    // MARK: - ID
+
+    @Test("아이디는 6~12자 영문/숫자 조합만 허용")
+    func validateID() {
+        #expect(NewdokInputValidator.validateID("") == .invalidLengthAndCombination)
+        #expect(NewdokInputValidator.validateID("abc12") == .invalidLength)
+        #expect(NewdokInputValidator.validateID("abcdef1234567") == .invalidLength)
+        #expect(NewdokInputValidator.validateID("123456") == .invalidCombination)
+        #expect(NewdokInputValidator.validateID("abcdef") == .invalidCombination)
+        #expect(NewdokInputValidator.validateID("abc!@#") == .invalidCombination)
+        #expect(NewdokInputValidator.validateID("test12") == nil)
+    }
+
+    // MARK: - Nickname
+
+    @Test("닉네임은 1~12자 한글/영문/숫자만 허용")
+    func validateNickname() {
+        #expect(NewdokInputValidator.validateNickname("") == .invalidLength)
+        #expect(NewdokInputValidator.validateNickname("   ") == .invalidLength)
+        #expect(NewdokInputValidator.validateNickname("abcdefghijklm") == .invalidLength)
+        #expect(NewdokInputValidator.validateNickname("hello!") == .containsInvalidCharacters)
+        #expect(NewdokInputValidator.validateNickname("hello world") == .containsInvalidCharacters)
+        #expect(NewdokInputValidator.validateNickname("뉴독user1") == nil)
+        #expect(NewdokInputValidator.containsOnlyNicknameCharacters("뉴독user1"))
+        #expect(!NewdokInputValidator.containsOnlyNicknameCharacters("뉴독 user!"))
+    }
+
+    // MARK: - Password
+
+    @Test("비밀번호는 8~20자 영문/숫자 조합")
+    func validatePassword() {
+        #expect(NewdokInputValidator.validatePassword("") == .tooShort)
+        #expect(NewdokInputValidator.validatePassword("abc1234") == .tooShort)
+        #expect(NewdokInputValidator.validatePassword("abcdefghij12345678901") == .tooShort)
+        #expect(NewdokInputValidator.validatePassword("12345678") == .invalidCombination)
+        #expect(NewdokInputValidator.validatePassword("abcdefgh") == .invalidCombination)
+        #expect(NewdokInputValidator.validatePassword("abcd1234") == nil)
+        #expect(NewdokInputValidator.validatePassword("abcdefghij1234567890") == nil)
+    }
+
+    // MARK: - Phone Number
+
+    @Test("휴대폰 번호는 숫자 11자리만 허용")
+    func validatePhoneNumber() {
+        #expect(NewdokInputValidator.validatePhoneNumber("") == .invalidLength)
+        #expect(NewdokInputValidator.validatePhoneNumber("0101234567") == .invalidLength)
+        #expect(NewdokInputValidator.validatePhoneNumber("010123456789") == .invalidLength)
+        #expect(NewdokInputValidator.validatePhoneNumber("010-1234-567") == .containsNonDigits)
+        #expect(NewdokInputValidator.validatePhoneNumber("0101234abcd") == .containsNonDigits)
+        #expect(NewdokInputValidator.validatePhoneNumber("01012345678") == nil)
+    }
+
+    // MARK: - Digits
+
+    @Test("문자열에서 숫자만 추출하고 제한 길이를 적용")
+    func digitsOnly() {
+        #expect("010-1234-abcd5678".newdokDigitsOnly() == "01012345678")
+        #expect("010-1234-abcd5678".newdokDigitsOnly(limit: 6) == "010123")
+        #expect("abcdef".newdokDigitsOnly() == "")
+    }
+}
+
+@Suite("NewdokVerificationTimerFormatStyle Tests")
+struct NewdokVerificationTimerFormatStyleTests {
+    private let style = NewdokVerificationTimerFormatStyle()
+
+    @Test("초를 MM:ss 형식으로 포맷")
+    func formatSeconds() {
+        #expect(style.format(0) == "00:00")
+        #expect(style.format(1) == "00:01")
+        #expect(style.format(59) == "00:59")
+        #expect(style.format(60) == "01:00")
+        #expect(style.format(180) == "03:00")
+    }
+
+    @Test("음수는 0초로 보정")
+    func formatNegativeSeconds() {
+        #expect(style.format(-1) == "00:00")
     }
 }

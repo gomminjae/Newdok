@@ -12,18 +12,6 @@ private func logHomeError(_ error: Error, operation: String) {
 }
 
 public actor DefaultHomeBusinessUseCase: HomeBusinessUseCase {
-    private static let yearFormatter: DateFormatter = {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy"
-        return formatter
-    }()
-
-    private static let monthFormatter: DateFormatter = {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "MM"
-        return formatter
-    }()
-
     private let articleRepository: HomeArticleRepository
     private let newsletterRepository: HomeNewsletterRepository
 
@@ -355,16 +343,15 @@ public actor DefaultHomeBusinessUseCase: HomeBusinessUseCase {
     // MARK: - Date helpers
 
     private func formatYear(_ date: Date) -> String {
-        Self.yearFormatter.string(from: date)
+        date.newdokYearString
     }
 
     private func formatMonth(_ date: Date) -> String {
-        Self.monthFormatter.string(from: date)
+        date.newdokMonthString
     }
 
     private func formatDay(_ date: Date) -> String {
-        let day = Calendar.current.component(.day, from: date)
-        return String(format: "%02d", day)
+        date.newdokDayString
     }
 
     private func strippedDate(_ date: Date) -> Date {
@@ -378,11 +365,11 @@ public actor DefaultHomeBusinessUseCase: HomeBusinessUseCase {
     }
 
     private func monthKey(for date: Date) -> String {
-        "\(formatYear(date))-\(formatMonth(date))"
+        date.newdokMonthKey
     }
 
     private func dayKey(for date: Date) -> String {
-        "\(monthKey(for: date))-\(formatDay(date))"
+        date.newdokDayKey
     }
 
     private func clearMonthlyCache(for date: Date) {

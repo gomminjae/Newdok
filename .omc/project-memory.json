@@ -1,7 +1,7 @@
 {
   "version": "1.0.0",
-  "lastScanned": 1778148622398,
-  "projectRoot": "/Users/minjae/Desktop/Newdok",
+  "lastScanned": 1778652574961,
+  "projectRoot": "/Users/minjae/Minjae/Newdok",
   "techStack": {
     "languages": [
       {
@@ -44,42 +44,34 @@
     "Configurations": {
       "path": "Configurations",
       "purpose": null,
-      "fileCount": 3,
-      "lastAccessed": 1778148622345,
+      "fileCount": 2,
+      "lastAccessed": 1778652574940,
       "keyFiles": [
         "Debug.xcconfig",
-        "Release.xcconfig",
-        "env.xcconfig"
+        "Release.xcconfig"
       ]
     },
     "Modules": {
       "path": "Modules",
       "purpose": null,
-      "fileCount": 1,
-      "lastAccessed": 1778148622347,
+      "fileCount": 0,
+      "lastAccessed": 1778652574950,
       "keyFiles": []
     },
     "Newdok.xcworkspace": {
       "path": "Newdok.xcworkspace",
       "purpose": null,
       "fileCount": 2,
-      "lastAccessed": 1778148622347,
+      "lastAccessed": 1778652574951,
       "keyFiles": [
         "contents.xcworkspacedata"
       ]
     },
-    "Sources": {
-      "path": "Sources",
-      "purpose": null,
-      "fileCount": 1,
-      "lastAccessed": 1778148622349,
-      "keyFiles": []
-    },
     "Tuist": {
       "path": "Tuist",
       "purpose": null,
-      "fileCount": 4,
-      "lastAccessed": 1778148622352,
+      "fileCount": 3,
+      "lastAccessed": 1778652574951,
       "keyFiles": [
         "Config.swift",
         "Package.resolved",
@@ -89,21 +81,19 @@
     "fastlane": {
       "path": "fastlane",
       "purpose": null,
-      "fileCount": 6,
-      "lastAccessed": 1778148622352,
+      "fileCount": 3,
+      "lastAccessed": 1778652574951,
       "keyFiles": [
         "Appfile",
         "Fastfile",
-        "Matchfile",
-        "README.md",
-        "report.xml"
+        "Matchfile"
       ]
     },
     "Modules/App": {
       "path": "Modules/App",
       "purpose": "Application code",
-      "fileCount": 2,
-      "lastAccessed": 1778148622353,
+      "fileCount": 1,
+      "lastAccessed": 1778652574952,
       "keyFiles": [
         "Project.swift"
       ]
@@ -111,141 +101,63 @@
   },
   "hotPaths": [
     {
-      "path": "Modules",
-      "accessCount": 12,
-      "lastAccessed": 1778148843203,
-      "type": "directory"
+      "path": "Tuist/ProjectDescriptionHelpers/ProjectHelper.swift",
+      "accessCount": 3,
+      "lastAccessed": 1778653258123,
+      "type": "file"
     },
     {
-      "path": "Modules/Features/Explore/Sources/Explore/ExploreView.swift",
-      "accessCount": 4,
-      "lastAccessed": 1778148896959,
+      "path": "Modules/Shared/Sources/Error/ErrorContext.swift",
+      "accessCount": 3,
+      "lastAccessed": 1778654865807,
+      "type": "file"
+    },
+    {
+      "path": "Modules/Shared/Sources/Token/TokenStorageWrapper.swift",
+      "accessCount": 2,
+      "lastAccessed": 1778654844234,
+      "type": "file"
+    },
+    {
+      "path": "Modules/DesignSystem/Sources/Component/LoadingView.swift",
+      "accessCount": 2,
+      "lastAccessed": 1778654854647,
+      "type": "file"
+    },
+    {
+      "path": "Modules/App/Project.swift",
+      "accessCount": 1,
+      "lastAccessed": 1778652901694,
+      "type": "file"
+    },
+    {
+      "path": "Modules/Shared/Sources/Token/TokenStorage.swift",
+      "accessCount": 1,
+      "lastAccessed": 1778654816403,
+      "type": "file"
+    },
+    {
+      "path": "Modules/DesignSystem/Sources/Component/OverlayRootView.swift",
+      "accessCount": 1,
+      "lastAccessed": 1778654921006,
+      "type": "file"
+    },
+    {
+      "path": "Modules/DesignSystem/Sources/Component/LoadingDotsView.swift",
+      "accessCount": 1,
+      "lastAccessed": 1778654937192,
+      "type": "file"
+    },
+    {
+      "path": "Modules/App/Sources/Services/VersionCheckService.swift",
+      "accessCount": 1,
+      "lastAccessed": 1778654947920,
       "type": "file"
     },
     {
       "path": "Modules/Features/Home/Sources/Home/HomeView.swift",
-      "accessCount": 3,
-      "lastAccessed": 1778148897421,
-      "type": "file"
-    },
-    {
-      "path": "Modules/Features",
-      "accessCount": 2,
-      "lastAccessed": 1778148754578,
-      "type": "directory"
-    },
-    {
-      "path": "Modules/Features/Home/Sources",
-      "accessCount": 2,
-      "lastAccessed": 1778148766170,
-      "type": "directory"
-    },
-    {
-      "path": "Modules/Features/Explore/Sources/Explore/ExploreViewModel.swift",
-      "accessCount": 2,
-      "lastAccessed": 1778148895999,
-      "type": "file"
-    },
-    {
-      "path": "Modules/Features/Home/Sources/Home/HomeViewModel.swift",
-      "accessCount": 2,
-      "lastAccessed": 1778148896895,
-      "type": "file"
-    },
-    {
-      "path": "Modules/Features/MyPage/Sources/MyPage/MypageViewModel.swift",
-      "accessCount": 2,
-      "lastAccessed": 1778148897667,
-      "type": "file"
-    },
-    {
-      "path": "Modules/Features/Bookmark/Sources/Bookmark/BookmarkView.swift",
-      "accessCount": 2,
-      "lastAccessed": 1778148903981,
-      "type": "file"
-    },
-    {
-      "path": "Modules/Features/Bookmark/Sources/Bookmark/BookmarkViewModel.swift",
-      "accessCount": 2,
-      "lastAccessed": 1778148905057,
-      "type": "file"
-    },
-    {
-      "path": "Modules/Features/Subscribe/Sources/Subscribe/SubscribeView.swift",
-      "accessCount": 2,
-      "lastAccessed": 1778148905498,
-      "type": "file"
-    },
-    {
-      "path": "Modules/Features/Detail/Sources/Article/ArticleDetailView.swift",
       "accessCount": 1,
-      "lastAccessed": 1778148741073,
-      "type": "file"
-    },
-    {
-      "path": "Modules/Features/MyPage/Sources/MyPage/MypageView.swift",
-      "accessCount": 1,
-      "lastAccessed": 1778148741278,
-      "type": "file"
-    },
-    {
-      "path": "Modules/Features/Auth/Sources/Signup/SignupViewModel.swift",
-      "accessCount": 1,
-      "lastAccessed": 1778148744431,
-      "type": "file"
-    },
-    {
-      "path": "Modules/Features/Search/Sources/Search/SearchViewModel.swift",
-      "accessCount": 1,
-      "lastAccessed": 1778148744707,
-      "type": "file"
-    },
-    {
-      "path": "Modules/Features/Search/Sources/Search/SearchView.swift",
-      "accessCount": 1,
-      "lastAccessed": 1778148755488,
-      "type": "file"
-    },
-    {
-      "path": "Modules/Features/MyPage/Sources/MyPage/Update/EditProfileView.swift",
-      "accessCount": 1,
-      "lastAccessed": 1778148758076,
-      "type": "file"
-    },
-    {
-      "path": "Modules/Features/Explore/Sources/Explore",
-      "accessCount": 1,
-      "lastAccessed": 1778148759116,
-      "type": "directory"
-    },
-    {
-      "path": "Modules/Shared/Sources/Router/AppRouter.swift",
-      "accessCount": 1,
-      "lastAccessed": 1778148759148,
-      "type": "file"
-    },
-    {
-      "path": "Modules/Features/Auth/Sources/Signup/SignupView.swift",
-      "accessCount": 1,
-      "lastAccessed": 1778148762533,
-      "type": "file"
-    },
-    {
-      "path": "Modules/Features/Detail/Sources/Brand/BrandDetailView.swift",
-      "accessCount": 1,
-      "lastAccessed": 1778148765147,
-      "type": "file"
-    },
-    {
-      "path": "Modules/AppCoordinator/Sources/Container/AppCoordinator.swift",
-      "accessCount": 1,
-      "lastAccessed": 1778148906110,
-      "type": "file"
-    },
-    {
-      "path": "Modules/Shared/Sources/State/AppState.swift",
-      "accessCount": 1,
-      "lastAccessed": 1778148906373,
+      "lastAccessed": 1778654961982,
       "type": "file"
     }
   ],

@@ -102,6 +102,7 @@ public struct LoginView: View {
                         .cornerRadius(4)
                         .contentShape(Rectangle())
                 }
+                .disabled(!viewModel.isLoginEnabled || viewModel.isLoading)
 
                 HStack {
                     Button("비회원으로 이용하기") {

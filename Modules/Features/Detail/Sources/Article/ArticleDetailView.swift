@@ -106,6 +106,7 @@ public struct ArticleDetailView: View {
                             )
                             .frame(width: 28, height: 28)
                         }
+                        .disabled(viewModel.isBookmarking)
                     }
                 }
             }

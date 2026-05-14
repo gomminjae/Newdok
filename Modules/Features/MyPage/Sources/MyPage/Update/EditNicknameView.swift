@@ -67,7 +67,8 @@ public struct EditNicknameView: View {
 
             Button(action: {
                 Task { @MainActor in
-                    await viewModel.updateNickname(nickname: draftNickname)
+                    let didUpdate = await viewModel.updateNickname(nickname: draftNickname)
+                    guard didUpdate else { return }
                     await viewModel.fetchuserInfo()
                     router.pop()
                     try? await Task.sleep(nanoseconds: 150_000_000)
@@ -84,7 +85,7 @@ public struct EditNicknameView: View {
                     .padding(.horizontal, 20)
                     .padding(.bottom, 20)
             }
-            .disabled(!isButtonEnabled)
+            .disabled(!isButtonEnabled || viewModel.isNicknameUpdating)
         }
         .navigationBarTitleDisplayMode(.inline)
         .navigationBarBackButtonHidden(true)
@@ -135,7 +136,7 @@ public struct EditNicknameView: View {
             validationState = .tooLong
         } else if text.count < 2 {
             validationState = .tooShort
-        } else if text.contains(where: { "!@#$%^&*()[]{}:;<>,.?/~`+=|\\\"".contains($0) }) {
+        } else if !NewdokInputValidator.containsOnlyNicknameCharacters(text) {
             validationState = .invalidChar
         } else {
             validationState = .valid

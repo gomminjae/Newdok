@@ -57,6 +57,9 @@ struct FindIdPhoneInputView: View {
                         .font(.hanSansNeo(14, .medium))
                         .keyboardType(.numberPad)
                         .focused($isPhoneFieldFocused)
+                        .onChange(of: viewModel.phoneNumber) { _, newValue in
+                            viewModel.phoneNumber = newValue.newdokDigitsOnly(limit: 11)
+                        }
                 }
                 .padding(.horizontal, 16)
                 .frame(height: 50)
@@ -85,12 +88,12 @@ struct FindIdPhoneInputView: View {
                     .foregroundColor(.white)
                     .frame(maxWidth: .infinity)
                     .frame(height: 48)
-                    .background(viewModel.phoneNumber.count < 11 ? Color.lineNeutral : Color.primaryNormal)
+                    .background(NewdokInputValidator.validatePhoneNumber(viewModel.phoneNumber) == nil ? Color.primaryNormal : Color.lineNeutral)
                     .cornerRadius(4)
                     .padding(.horizontal, 24)
                     .padding(.bottom, 32)
             }
-            .disabled(viewModel.phoneNumber.count < 11)
+            .disabled(NewdokInputValidator.validatePhoneNumber(viewModel.phoneNumber) != nil)
             .background(Color.white)
         }
         .ignoresSafeArea(.keyboard)

@@ -50,7 +50,12 @@ public final class MypageViewModel: ErrorHandling {
     public var showPasswordSuccess: Bool = false
     public var showPhoneNumberSuccess: Bool = false
     public var currentError: AppError?
+    public var isNicknameUpdating: Bool = false
+    public var isIndustryUpdating: Bool = false
     public var isInterestUpdating: Bool = false
+    public var isPhoneUpdating: Bool = false
+    public var isPasswordUpdating: Bool = false
+    public var isVerificationSending: Bool = false
 
     private let useCase: MypageUserUseCase
     private let profileUseCase: MypageProfileUseCase
@@ -79,8 +84,12 @@ public final class MypageViewModel: ErrorHandling {
         }
     }
 
-    public func updateNickname(nickname: String) async {
-        await performAsync(feature: "mypage", operation: "updateNickname") {
+    public func updateNickname(nickname: String) async -> Bool {
+        guard !isNicknameUpdating else { return false }
+        isNicknameUpdating = true
+        defer { isNicknameUpdating = false }
+
+        let result: Void? = await performAsync(feature: "mypage", operation: "updateNickname") {
             try await profileUseCase.updateNickname(nickname)
 
             // UI 상태 업데이트
@@ -101,10 +110,15 @@ public final class MypageViewModel: ErrorHandling {
 
             showNicknameSuccess = true
         }
+        return result != nil
     }
 
-    public func updateIndustry(id: Int) async {
-        await performAsync(feature: "mypage", operation: "updateIndustry") {
+    public func updateIndustry(id: Int) async -> Bool {
+        guard !isIndustryUpdating else { return false }
+        isIndustryUpdating = true
+        defer { isIndustryUpdating = false }
+
+        let result: Void? = await performAsync(feature: "mypage", operation: "updateIndustry") {
             try await profileUseCase.updateIndustry(id)
 
             // UI 상태 업데이트
@@ -125,11 +139,15 @@ public final class MypageViewModel: ErrorHandling {
 
             showIndustrySuccess = true
         }
+        return result != nil
     }
 
-    public func updateInterests(ids: [Int]) async {
+    public func updateInterests(ids: [Int]) async -> Bool {
+        guard !isInterestUpdating else { return false }
         isInterestUpdating = true
-        await performAsync(feature: "mypage", operation: "updateInterests") {
+        defer { isInterestUpdating = false }
+
+        let result: Void? = await performAsync(feature: "mypage", operation: "updateInterests") {
             try await profileUseCase.updateInterests(ids)
 
             // UI 상태 업데이트
@@ -151,28 +169,38 @@ public final class MypageViewModel: ErrorHandling {
 
             showInterestSuccess = true
         }
-        isInterestUpdating = false
+        return result != nil
     }
 
-    public func updatePhoneNumber() async {
+    public func updatePhoneNumber() async -> Bool {
+        guard !isPhoneUpdating else { return false }
         // 인증번호 검증
         guard verifyCode() else {
             showError = true
             isPhoneUpdateSuccess = false
-            return
+            return false
         }
+
+        isPhoneUpdating = true
+        defer { isPhoneUpdating = false }
 
         do {
             try await useCase.updatePhoneNumber(phoneNumber)
             isPhoneUpdateSuccess = true
             showPhoneNumberSuccess = true
+            return true
         } catch {
             isPhoneUpdateSuccess = false
             handleError(error, feature: "mypage", operation: "updatePhoneNumber")
+            return false
         }
     }
 
-    public func updatePassword() async {
+    public func updatePassword() async -> Bool {
+        guard !isPasswordUpdating else { return false }
+        isPasswordUpdating = true
+        defer { isPasswordUpdating = false }
+
         do {
             try await profileUseCase.updatePassword(prevPassword: oldPassword, newPassword: newPassword)
 
@@ -181,19 +209,24 @@ public final class MypageViewModel: ErrorHandling {
             newPassword = ""
             checkedPassword = ""
             showPasswordSuccess = true
+            return true
         } catch {
             isPasswordUpdateSuccess = false
             passwordError = "현재 비밀번호가 일치하지 않습니다"
             handleError(error, feature: "mypage", operation: "updatePassword")
+            return false
         }
     }
 
     public func sendVerificationCode() async {
+        guard !isVerificationSending else { return }
         guard resendFailureCount < 3 else {
             isShowPopup = true
             return
         }
 
+        isVerificationSending = true
+        defer { isVerificationSending = false }
         defer { resendFailureCount += 1 }
 
         await performAsync(feature: "mypage", operation: "sendVerificationCode") {
@@ -248,7 +281,7 @@ public final class MypageViewModel: ErrorHandling {
     }
 
     public var isNewPasswordValid: Bool {
-        return newPassword.count >= 8
+        return NewdokInputValidator.validatePassword(newPassword) == nil
     }
 
     public var isNewPasswordConfirmed: Bool {
@@ -282,7 +315,7 @@ public final class MypageViewModel: ErrorHandling {
 
     public var newPasswordError: String? {
         if newPassword.isEmpty || isNewPasswordValid { return nil }
-        return "8자 이상의 비밀번호를 입력해주세요."
+        return NewdokInputValidator.validatePassword(newPassword)?.message
     }
 
     public var confirmPasswordError: String? {

@@ -18,6 +18,7 @@ public struct SubscribeRow: View {
     public let onTap: () async -> Void
 
     @State private var imageLoadFailed = false
+    @State private var isPerformingAction = false
 
     public init(newsletter: SubscribeNewsletter, isSubscribed: Bool, onNavigate: (() -> Void)? = nil, onTap: @escaping () async -> Void) {
         self.newsletter = newsletter
@@ -89,7 +90,10 @@ public struct SubscribeRow: View {
             Spacer()
 
             Button(action: {
+                guard !isPerformingAction else { return }
                 Task {
+                    isPerformingAction = true
+                    defer { isPerformingAction = false }
                     await onTap()
                 }
             }) {
@@ -105,6 +109,7 @@ public struct SubscribeRow: View {
                             .stroke(isSubscribed ? Color.lineNeutral : Color.primaryNormal, lineWidth: 1)
                     )
             }
+            .disabled(isPerformingAction)
         }
         .padding(.horizontal, 16)
         .padding(.vertical, 12)

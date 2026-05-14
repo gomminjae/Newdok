@@ -39,8 +39,10 @@ public enum HomeState {
 public final class HomeViewModel {
     private let useCase: HomeBusinessUseCase
     private let appState: AppState
+    private var isApplyingSnapshot = false
     public var calendarState: CalendarState {
         didSet {
+            guard !isApplyingSnapshot else { return }
             let oldMonth = oldValue.displayedMonth
             let newMonth = calendarState.displayedMonth
             guard !Calendar.current.isDate(oldMonth, equalTo: newMonth, toGranularity: .month) else { return }
@@ -60,6 +62,7 @@ public final class HomeViewModel {
 
     private var dataDaysCache: [String: Set<Int>] = [:]
     private var latestMonthRequestKey: String?
+    private var latestDateSelectionKey: String?
 
     private var isGuest: Bool { appState.authState == .guest }
 
@@ -115,11 +118,16 @@ public final class HomeViewModel {
     }
     
     public var formattedDate: String {
-        formattedDateFormatter.string(from: selectedDate)
+        selectedDate.newdokHomeDisplayText
     }
     
     // MARK: - Intent Handlers
     public func loadToday() async {
+        guard !isGuest else {
+            homeState = .guest
+            return
+        }
+        latestDateSelectionKey = nil
         if homeState == .idle { homeState = .loading }
         let snapshot = await useCase.loadToday()
         applySnapshot(snapshot)
@@ -139,10 +147,19 @@ public final class HomeViewModel {
     
     public func selectDateWithMonthGuarantee(_ date: Date) {
         calendarState.selectedDate = date
+        let selectionKey = dayKey(for: date)
+        latestDateSelectionKey = selectionKey
+        guard !isGuest else {
+            homeState = .guest
+            return
+        }
         Task { [weak self] in
             guard let self else { return }
             let snapshot = await useCase.selectDateWithMonthGuarantee(date)
-            await MainActor.run { self.applySnapshot(snapshot) }
+            await MainActor.run {
+                guard self.latestDateSelectionKey == selectionKey else { return }
+                self.applySnapshot(snapshot)
+            }
         }
     }
     
@@ -152,6 +169,11 @@ public final class HomeViewModel {
     }
     
     public func refreshToToday() async {
+        guard !isGuest else {
+            homeState = .guest
+            return
+        }
+        latestDateSelectionKey = nil
         let snapshot = await useCase.refreshToToday()
         applySnapshot(snapshot)
     }
@@ -188,8 +210,13 @@ public final class HomeViewModel {
     public func resetForAuthChange() async {
         homeState = .loading
         dataDaysCache.removeAll()
+        latestMonthRequestKey = nil
+        latestDateSelectionKey = nil
         let snapshot = await useCase.resetForAuthChange()
         applySnapshot(snapshot)
+        if isGuest {
+            homeState = .guest
+        }
     }
     
     public func shouldReloadToday(currentDate: Date = Date()) async -> Bool {
@@ -198,6 +225,9 @@ public final class HomeViewModel {
     
     // MARK: - Snapshot Application (CalendarState를 struct 일괄 대입 → objectWillChange 1회)
     private func applySnapshot(_ snapshot: HomeSnapshot) {
+        isApplyingSnapshot = true
+        defer { isApplyingSnapshot = false }
+
         var newCal = calendarState
         newCal.selectedDate = snapshot.selectedDate
         newCal.displayedMonth = snapshot.displayedMonth
@@ -234,6 +264,8 @@ public final class HomeViewModel {
     }
     
     public func calendarDataDays(for date: Date) async -> Set<Int> {
+        guard !isGuest else { return [] }
+
         let key = monthKey(for: date)
         if let cached = dataDaysCache[key] {
             return cached
@@ -251,10 +283,19 @@ public final class HomeViewModel {
     }
     
     private func monthKey(for date: Date) -> String {
-        monthKeyFormatter.string(from: date)
+        date.newdokMonthKey
+    }
+
+    private func dayKey(for date: Date) -> String {
+        date.newdokDayKey
     }
     
     private func performMonthRequest(for date: Date, loader: @escaping () async -> HomeSnapshot) async {
+        guard !isGuest else {
+            calendarState.isLoading = false
+            homeState = .guest
+            return
+        }
         let requestKey = monthKey(for: date)
         latestMonthRequestKey = requestKey
         calendarState.isLoading = true
@@ -284,17 +325,4 @@ public final class HomeViewModel {
         }
     }
     
-    private let formattedDateFormatter: DateFormatter = {
-        let formatter = DateFormatter()
-        formatter.locale = Locale(identifier: "ko_KR")
-        formatter.dateFormat = "M월 d일(E)"
-        return formatter
-    }()
-
-    private let monthKeyFormatter: DateFormatter = {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy-MM"
-        formatter.locale = Locale(identifier: "ko_KR")
-        return formatter
-    }()
 }

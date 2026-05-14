@@ -52,6 +52,9 @@ public struct PhoneVerificationView: View {
                                 .focused($isPhoneFieldFocused)
                                 .padding(.vertical, 12)
                                 .padding(.horizontal, 8)
+                                .onChange(of: viewModel.phoneNumber) { _, newValue in
+                                    viewModel.phoneNumber = newValue.newdokDigitsOnly(limit: 11)
+                                }
                         }
                         .frame(height: 48)
                         .background(Color.white)
@@ -99,16 +102,13 @@ public struct PhoneVerificationView: View {
                                         .font(.hanSansNeo(14, .medium))
                                         .focused($isVerificationCodeFocused)
                                         .onChange(of: viewModel.enteredVerificationCode) { _, newValue in
-                                            // 6자리까지만 입력 허용
-                                            if newValue.count > 6 {
-                                                viewModel.enteredVerificationCode = String(newValue.prefix(6))
-                                            }
+                                            viewModel.enteredVerificationCode = newValue.newdokDigitsOnly(limit: 6)
                                         }
                                 }
                                 .padding(.horizontal, 16)
                                 .frame(height: 50)
 
-                                Text(viewModel.timerRemaining > 0 ? formatTime(viewModel.timerRemaining) : "만료됨")
+                                Text(viewModel.timerRemaining > 0 ? NewdokVerificationTimerFormatStyle().format(viewModel.timerRemaining) : "만료됨")
                                     .foregroundStyle(Color.captionStrong)
                                     .font(.hanSansNeo(12, .medium))
                                     .padding(.trailing, 10)
@@ -226,9 +226,6 @@ public struct PhoneVerificationView: View {
         }
     }
 
-    private func formatTime(_ seconds: Int) -> String {
-        String(format: "%02d:%02d", seconds / 60, seconds % 60)
-    }
 }
 
 struct PrimaryButtonStyle: ButtonStyle {

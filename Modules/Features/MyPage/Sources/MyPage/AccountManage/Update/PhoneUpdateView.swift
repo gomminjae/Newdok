@@ -5,7 +5,6 @@
 //  Created by 권민재 on 2/18/25.
 //
 import SwiftUI
-import Combine
 import DesignSystem
 import Shared
 import PopupView
@@ -48,12 +47,8 @@ public struct PhoneUpdateView: View {
                                 .focused($isNumberPadFocused)
                                 .padding(.vertical, 12)
                                 .padding(.horizontal, 8)
-                                .onReceive(Just(viewModel.phoneNumber)) { new in
-                                    // 숫자만 필터링
-                                    let filtered = new.filter { $0.isNumber }
-                                    if filtered != viewModel.phoneNumber {
-                                        viewModel.phoneNumber = filtered
-                                    }
+                                .onChange(of: viewModel.phoneNumber) { _, newValue in
+                                    viewModel.phoneNumber = newValue.newdokDigitsOnly(limit: 11)
                                 }
                         }
                         .frame(height: 48)
@@ -76,12 +71,12 @@ public struct PhoneUpdateView: View {
                             }
                         }
                         .font(.hanSansNeo(14, .bold))
-                        .foregroundStyle(viewModel.phoneNumber.count < 11 ? Color.grayLight : Color.primaryNormal)
-                        .disabled(viewModel.phoneNumber.count < 11)
+                        .foregroundStyle(NewdokInputValidator.validatePhoneNumber(viewModel.phoneNumber) == nil ? Color.primaryNormal : Color.grayLight)
+                        .disabled(NewdokInputValidator.validatePhoneNumber(viewModel.phoneNumber) != nil || viewModel.isVerificationSending)
                         .frame(width: 94, height: 48)
                         .overlay(
                             RoundedRectangle(cornerRadius: 4)
-                                .stroke(viewModel.phoneNumber.count < 11 ? Color.captionDisabled : Color.primaryNormal, lineWidth: 1)
+                                .stroke(NewdokInputValidator.validatePhoneNumber(viewModel.phoneNumber) == nil ? Color.primaryNormal : Color.captionDisabled, lineWidth: 1)
                         )
                     }
                     .padding(.horizontal, 24)
@@ -100,8 +95,11 @@ public struct PhoneUpdateView: View {
                                     .frame(height: 50)
                                     .font(.hanSansNeo(14, .medium))
                                     .focused($isNumberPadFocused)
+                                    .onChange(of: viewModel.enteredVerificationCode) { _, newValue in
+                                        viewModel.enteredVerificationCode = newValue.newdokDigitsOnly(limit: 6)
+                                    }
 
-                                Text(viewModel.timerRemaining > 0 ? formatTime(viewModel.timerRemaining) : "만료됨")
+                                Text(viewModel.timerRemaining > 0 ? NewdokVerificationTimerFormatStyle().format(viewModel.timerRemaining) : "만료됨")
                                     .foregroundStyle(Color.captionStrong)
                                     .font(.hanSansNeo(12, .medium))
                                     .padding(.trailing, 10)
@@ -156,7 +154,8 @@ public struct PhoneUpdateView: View {
             if viewModel.isRequestSent {
                 Button(action: {
                     Task {
-                        await viewModel.updatePhoneNumber()
+                        let didUpdate = await viewModel.updatePhoneNumber()
+                        guard didUpdate else { return }
                     }
                 }) {
                     Text("변경하기")
@@ -167,7 +166,7 @@ public struct PhoneUpdateView: View {
                         .foregroundColor(.white)
                         .cornerRadius(4)
                 }
-                .disabled(viewModel.enteredVerificationCode.count < 6 || viewModel.timerRemaining <= 0)
+                .disabled(viewModel.enteredVerificationCode.count < 6 || viewModel.timerRemaining <= 0 || viewModel.isPhoneUpdating)
                 .padding(.horizontal, 24)
                 .padding(.bottom, 20)
                 .contentShape(Rectangle())
@@ -202,9 +201,6 @@ public struct PhoneUpdateView: View {
         }
     }
 
-    private func formatTime(_ seconds: Int) -> String {
-        String(format: "%02d:%02d", seconds / 60, seconds % 60)
-    }
 }
 
 struct PrimaryButtonStyle: ButtonStyle {

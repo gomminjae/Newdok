@@ -8,49 +8,59 @@ public import Foundation
 #else
 import Foundation
 #endif
-// MARK: - Swift Bundle Accessor - for SPM
-private class BundleFinder {}
+// MARK: - Swift Bundle Accessor for Static Frameworks
 extension Foundation.Bundle {
-/// Since DesignSystem is a static framework, the bundle containing the resources is copied into the final product.
+/// Since DesignSystem is a static framework, a cut down framework is embedded, with all the resources but only a stub Mach-O image.
     static let module: Bundle = {
-        let bundleName = "DesignSystem_DesignSystem"
-        let bundleFinderResourceURL = Bundle(for: BundleFinder.self).resourceURL
-        var candidates = [
-            Bundle.main.resourceURL,
-            bundleFinderResourceURL,
+        class BundleFinder {}
+        let hostBundle = Bundle(for: BundleFinder.self)
+        var candidates: [URL?] = [
+            hostBundle.privateFrameworksURL,
+            hostBundle.bundleURL.appendingPathComponent("Frameworks"),
+            hostBundle.bundleURL,
+            hostBundle.bundleURL.deletingLastPathComponent(),
+            hostBundle.resourceURL,
+            Bundle.main.privateFrameworksURL,
+            Bundle.main.bundleURL.appendingPathComponent("Frameworks"),
             Bundle.main.bundleURL,
-        ]
-        // This is a fix to make Previews work with bundled resources.
-        // Logic here is taken from SPM's generated `resource_bundle_accessors.swift` file,
-        // which is located under the derived data directory after building the project.
-        if let override = ProcessInfo.processInfo.environment["PACKAGE_RESOURCE_BUNDLE_PATH"] {
-            candidates.append(URL(fileURLWithPath: override))
-            // Deleting derived data and not rebuilding the frameworks containing resources may result in a state
-            // where the bundles are only available in the framework's directory that is actively being previewed.
-            // Since we don't know which framework this is, we also need to look in all the framework subpaths.
-            if let subpaths = try? Foundation.FileManager.default.contentsOfDirectory(atPath: override) {
-                for subpath in subpaths {
-                    if subpath.hasSuffix(".framework") {
-                        candidates.append(URL(fileURLWithPath: override + "/" + subpath))
-                    }
-                }
+            Bundle.main.resourceURL,
+            // App extensions are placed under PlugIns/ in the host app bundle.
+            // Navigate up from the extension to the containing app's Frameworks directory.
+            hostBundle.bundleURL.deletingLastPathComponent().deletingLastPathComponent().appendingPathComponent("Frameworks"),
+        ].map({ $0?.appendingPathComponent("DesignSystem.framework") })
+
+        for candidate in candidates {
+            if let bundle = candidate.flatMap(Bundle.init(url:)) {
+                return bundle
             }
         }
 
-        // This is a fix to make unit tests work with bundled resources.
-        // Making this change allows unit tests to search one directory up for a bundle.
-        // More context can be found in this PR: https://github.com/tuist/tuist/pull/6895
-        #if canImport(XCTest)
-        candidates.append(bundleFinderResourceURL?.appendingPathComponent(".."))
-        #endif
+        var bundleCandidates: [URL?] = [
+            hostBundle.resourceURL,
+            hostBundle.bundleURL,
+            hostBundle.privateFrameworksURL,
+            hostBundle.bundleURL.appendingPathComponent("Frameworks"),
+            hostBundle.bundleURL.deletingLastPathComponent(),
+            Bundle.main.resourceURL,
+            Bundle.main.bundleURL,
+            Bundle.main.privateFrameworksURL,
+            Bundle.main.bundleURL.appendingPathComponent("Frameworks"),
+            hostBundle.bundleURL.deletingLastPathComponent().deletingLastPathComponent().appendingPathComponent("Frameworks"),
+        ]
+        if ProcessInfo.processInfo.processName == "xctest"
+            || ProcessInfo.processInfo.processName == "swift-testing"
+        {
+            bundleCandidates.append(hostBundle.bundleURL.appendingPathComponent(".."))
+        }
 
-        for candidate in candidates {
-            let bundlePath = candidate?.appendingPathComponent(bundleName + ".bundle")
+        for candidate in bundleCandidates {
+            let bundlePath = candidate?.appendingPathComponent("DesignSystem_DesignSystem.bundle")
             if let bundle = bundlePath.flatMap(Bundle.init(url:)) {
                 return bundle
             }
         }
-        fatalError("unable to find bundle named DesignSystem_DesignSystem")
+
+        return Bundle.main
     }()
 }
 // MARK: - Objective-C Bundle Accessor
