@@ -32,6 +32,7 @@
 		C1F55CCE5F47EFD7E182822F /* SelectableItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8A1EBAD9AC767B12A003540 /* SelectableItem.swift */; };
 		D75A8FD022EEBC29AF185D36 /* AppConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2BEA0C3B8E576918DE74F38 /* AppConstants.swift */; };
 		DECBAACDAECC2379F5B517CA /* AppRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B003F7CC7D7753A3F19A643 /* AppRouter.swift */; };
+		E71368A613AD1244159A8A51 /* TodayArrivalCountStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49E0567429783D653296460A /* TodayArrivalCountStorage.swift */; };
 		ED0E9EE5BC7433559B195E34 /* HighlightModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C72DD01721AD8E71C9AB3C7 /* HighlightModel.swift */; };
 /* End PBXBuildFile section */
 
@@ -55,6 +56,7 @@
 		1C72DD01721AD8E71C9AB3C7 /* HighlightModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HighlightModel.swift; sourceTree = "<group>"; };
 		2125DE09B958AC81707B7938 /* ErrorHandling.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorHandling.swift; sourceTree = "<group>"; };
 		29990D7ECCAB141CE7667864 /* TokenStorageWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenStorageWrapper.swift; sourceTree = "<group>"; };
+		49E0567429783D653296460A /* TodayArrivalCountStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayArrivalCountStorage.swift; sourceTree = "<group>"; };
 		65238954FE2DB40FAE58AB93 /* UserInfoStoreProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoStoreProtocol.swift; sourceTree = "<group>"; };
 		675DC976D9F58E8233DABE05 /* UserInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfo.swift; sourceTree = "<group>"; };
 		7B003F7CC7D7753A3F19A643 /* AppRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppRouter.swift; sourceTree = "<group>"; };
@@ -121,6 +123,7 @@
 			isa = PBXGroup;
 			children = (
 				FC12BB49A1DB8E04FAFD16B7 /* KeychainItem.swift */,
+				49E0567429783D653296460A /* TodayArrivalCountStorage.swift */,
 				E18D363A3EC3579FD532BEAB /* UserDefault.swift */,
 			);
 			path = Storage;
@@ -341,6 +344,7 @@
 				2543C610AB3A48B4D249A302 /* TabSelection.swift in Sources */,
 				2440871C3D29D9C5EBE970A2 /* AppState.swift in Sources */,
 				4DE7CDCD6EFA166208D29E3B /* KeychainItem.swift in Sources */,
+				E71368A613AD1244159A8A51 /* TodayArrivalCountStorage.swift in Sources */,
 				3943A30AA7C2116A86287D44 /* UserDefault.swift in Sources */,
 				73A91ABEF61282418D59684A /* UserInfo.swift in Sources */,
 				72104A94ACE064372DD74143 /* UserInfoStore.swift in Sources */,

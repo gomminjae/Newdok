@@ -17,6 +17,9 @@
          location = "group:DesignSystem/DesignSystem.xcodeproj">
       </FileRef>
       <FileRef
+         location = "group:NewdokWidget/NewdokWidget.xcodeproj">
+      </FileRef>
+      <FileRef
          location = "group:Shared/Shared.xcodeproj">
       </FileRef>
       <Group

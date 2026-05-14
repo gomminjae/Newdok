@@ -82,9 +82,21 @@ enum CompositionRoot {
             let newsletterRepo = HomeNewsletterRepositoryImpl(
                 network: container.resolve(MoyaNetworkService<NewsletterAPI>.self)!
             )
-            let businessUseCase = DefaultHomeBusinessUseCase(articleRepository: articleRepo, newsletterRepository: newsletterRepo)
+            let businessUseCase = DefaultHomeBusinessUseCase(
+                articleRepository: articleRepo,
+                newsletterRepository: newsletterRepo,
+                todayArrivalCountPublisher: makeTodayArrivalCountPublisher()
+            )
             return HomeViewModel(useCase: businessUseCase, appState: AppState.shared)
         })
+    }
+
+    private static func makeTodayArrivalCountPublisher() -> TodayArrivalCountPublishing? {
+        let appGroupID = Bundle.main.object(forInfoDictionaryKey: "APP_GROUP_ID") as? String ?? ""
+        guard let storage = AppGroupTodayArrivalCountStorage(appGroupID: appGroupID) else {
+            return nil
+        }
+        return WidgetTodayArrivalCountPublisher(storage: storage)
     }
 
     static func makeExploreFactory() -> ExploreViewFactory {

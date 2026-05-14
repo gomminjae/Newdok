@@ -980,6 +980,20 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
+               BlueprintIdentifier = "1CAA7EE1FCF6D42677D99B9F"
+               BuildableName = "NewdokWidget.appex"
+               BlueprintName = "NewdokWidget"
+               ReferencedContainer = "container:Modules/NewdokWidget/NewdokWidget.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
                BlueprintIdentifier = "824937338F8C5DC9D6F4B702"
                BuildableName = "PopupView.framework"
                BlueprintName = "PopupView"

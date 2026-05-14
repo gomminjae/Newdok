@@ -14,6 +14,7 @@ private func logHomeError(_ error: Error, operation: String) {
 public actor DefaultHomeBusinessUseCase: HomeBusinessUseCase {
     private let articleRepository: HomeArticleRepository
     private let newsletterRepository: HomeNewsletterRepository
+    private let todayArrivalCountPublisher: TodayArrivalCountPublishing?
 
     private var snapshotState: HomeSnapshot
     private var monthlyCache: [String: [HomeArticles]] = [:]
@@ -25,10 +26,12 @@ public actor DefaultHomeBusinessUseCase: HomeBusinessUseCase {
 
     public init(
         articleRepository: HomeArticleRepository,
-        newsletterRepository: HomeNewsletterRepository
+        newsletterRepository: HomeNewsletterRepository,
+        todayArrivalCountPublisher: TodayArrivalCountPublishing? = nil
     ) {
         self.articleRepository = articleRepository
         self.newsletterRepository = newsletterRepository
+        self.todayArrivalCountPublisher = todayArrivalCountPublisher
         let today = Date()
         let month = Calendar.current.date(
             from: Calendar.current.dateComponents([.year, .month], from: today)
@@ -62,6 +65,8 @@ public actor DefaultHomeBusinessUseCase: HomeBusinessUseCase {
             async let newslettersTask = newsletterRepository.fetchActiveSubscription()
             let articles = try await articlesTask
             let newsletters = try await newslettersTask
+
+            todayArrivalCountPublisher?.publishTodayArrivalCount(articles.count)
 
             let today = strippedDate(Date())
             let month = startOfMonth(today)

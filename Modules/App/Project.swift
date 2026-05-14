@@ -38,6 +38,7 @@ let project = Project(
             infoPlist: .extendingDefault(
                 with: [
                     "API_BASE_URL": "$(API_BASE_URL)",
+                    "APP_GROUP_ID": "$(APP_GROUP_ID)",
                     "CFBundleDisplayName": "$(APP_DISPLAY_NAME)",
                     "CFBundleShortVersionString": "$(MARKETING_VERSION)",
                     "CFBundleVersion": "$(CURRENT_PROJECT_VERSION)",
@@ -75,7 +76,10 @@ let project = Project(
             ),
             sources: ["Sources/**"],
             resources: ["Resources/**"],
+            entitlements: "Support/App.entitlements",
             dependencies: [
+                // Widget Extension
+                .project(target: "NewdokWidget", path: .relativeToRoot("Modules/NewdokWidget")),
                 // Coordinator
                 .project(target: "AppCoordinator", path: .relativeToRoot("Modules/AppCoordinator")),
                 // Infrastructure
