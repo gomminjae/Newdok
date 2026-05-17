@@ -167,6 +167,8 @@ public struct EditProfileView: View {
                             Circle()
                                 .stroke(Color.primaryNormal, lineWidth: 1)
                         )
+                        .frame(width: 44, height: 44)
+                        .contentShape(Circle())
                 }
             }
             .frame(maxWidth: .infinity, alignment: .leading)
@@ -199,6 +201,7 @@ struct EditableRow: View {
                         .resizable()
                         .frame(width: 24, height: 24)
                         .foregroundColor(Color.captionStrong)
+                        .frame(width: 44, height: 44)
                         .contentShape(Rectangle())
                 }
                 .buttonStyle(.plain)

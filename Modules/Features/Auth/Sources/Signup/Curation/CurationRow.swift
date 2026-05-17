@@ -97,7 +97,18 @@ struct CurationRow: View {
             RoundedRectangle(cornerRadius: 12)
                 .stroke(Color.lineNeutral, lineWidth: 1)
         )
-        .fullScreenCover(isPresented: $showSubscribeSheet) {
+        .sheet(isPresented: Binding(
+            get: { showSubscribeSheet && brand?.id != 321 },
+            set: { showSubscribeSheet = $0 }
+        )) {
+            SubscribeModalView(title: brand?.name ?? "", url: brand?.subscribeUrl ?? "", email: viewModel.user?.subscribeEmail ?? "", name: viewModel.user?.nickname ?? "")
+                .presentationDetents([.large])
+                .presentationDragIndicator(.hidden)
+        }
+        .fullScreenCover(isPresented: Binding(
+            get: { showSubscribeSheet && brand?.id == 321 },
+            set: { showSubscribeSheet = $0 }
+        )) {
             SubscribeModalView(title: brand?.name ?? "", url: brand?.subscribeUrl ?? "", email: viewModel.user?.subscribeEmail ?? "", name: viewModel.user?.nickname ?? "")
         }
     }

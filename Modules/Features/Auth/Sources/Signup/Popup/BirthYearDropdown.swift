@@ -78,57 +78,57 @@ struct DropdownSelector: View {
     private let buttonHeight: CGFloat = 48
 
     var body: some View {
-        Button(action: {
-            self.shouldShowDropdown.toggle()
-        }) {
-            HStack {
-                Text({
-                    if let selectedKey = selectedKey, let selectedOption = options.first(where: { $0.key == selectedKey }) {
-                        return selectedOption.value
-                    } else if let selectedOption = selectedOption {
-                        return selectedOption.value
-                    } else {
-                        return placeholder
-                    }
-                }())
-                .font(.hanSansNeo(14, .medium))
-                .foregroundColor({
-                    if let selectedKey = selectedKey, let _ = options.first(where: { $0.key == selectedKey }) {
-                        return .black
-                    } else if selectedOption != nil {
-                        return .black
-                    } else {
-                        return .gray
-                    }
-                }())
+        ZStack(alignment: .topLeading) {
+            Button(action: {
+                self.shouldShowDropdown.toggle()
+            }) {
+                HStack {
+                    Text({
+                        if let selectedKey = selectedKey, let selectedOption = options.first(where: { $0.key == selectedKey }) {
+                            return selectedOption.value
+                        } else if let selectedOption = selectedOption {
+                            return selectedOption.value
+                        } else {
+                            return placeholder
+                        }
+                    }())
+                    .font(.hanSansNeo(14, .medium))
+                    .foregroundColor({
+                        if let selectedKey = selectedKey, let _ = options.first(where: { $0.key == selectedKey }) {
+                            return .black
+                        } else if selectedOption != nil {
+                            return .black
+                        } else {
+                            return .gray
+                        }
+                    }())
 
-                Spacer()
+                    Spacer()
 
-                Image(asset: self.shouldShowDropdown ? DesignSystemAsset.lineUp : DesignSystemAsset.lineDown)
-                    .foregroundColor(Color.captionStrong)
+                    Image(asset: self.shouldShowDropdown ? DesignSystemAsset.lineUp : DesignSystemAsset.lineDown)
+                        .foregroundColor(Color.captionStrong)
+                }
+            }
+            .frame(height: 48)
+            .padding(.horizontal)
+            .background(
+                RoundedRectangle(cornerRadius: 4).fill(Color.white)
+            )
+            .overlay(
+                RoundedRectangle(cornerRadius: 4)
+                    .stroke(shouldShowDropdown ? Color.primaryNormal : Color.lineAlternative, lineWidth: 1)
+            )
+
+            if shouldShowDropdown {
+                Dropdown(options: self.options, selectedKey: selectedKey, onOptionSelected: { option in
+                    shouldShowDropdown = false
+                    selectedOption = option
+                    self.onOptionSelected?(option)
+                })
+                .offset(y: buttonHeight + 8)
             }
         }
-        .frame(height: 48)
-        .padding(.horizontal)
-        .overlay(
-            RoundedRectangle(cornerRadius: 4)
-                .stroke(shouldShowDropdown ? Color.primaryNormal : Color.lineAlternative, lineWidth: 1)
-        )
-        .overlay(
-            VStack {
-                if self.shouldShowDropdown {
-                    Spacer(minLength: buttonHeight + 10)
-                    Dropdown(options: self.options, selectedKey: selectedKey, onOptionSelected: { option in
-                        shouldShowDropdown = false
-                        selectedOption = option
-                        self.onOptionSelected?(option)
-                    })
-                }
-            }, alignment: .topLeading
-        )
-        .background(
-            RoundedRectangle(cornerRadius: 5).fill(Color.white)
-        )
+        .frame(height: buttonHeight)
         .zIndex(1)
     }
 }

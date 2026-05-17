@@ -446,7 +446,18 @@ public struct BrandDetailView: View {
             }
             .frame(maxWidth: .infinity, alignment: .leading)
             .padding(.bottom, 32)
-            .fullScreenCover(isPresented: $showSubscribeSheet) {
+            .sheet(isPresented: Binding(
+                get: { showSubscribeSheet && viewModel.detail?.brandId != 321 },
+                set: { showSubscribeSheet = $0 }
+            )) {
+                SubscribeModalView(title: viewModel.detail?.brandName ?? "", url: viewModel.detail?.subscribeUrl ?? "", email: viewModel.subscribeEmail, name: viewModel.userNickname)
+                    .presentationDetents([.large])
+                    .presentationDragIndicator(.hidden)
+            }
+            .fullScreenCover(isPresented: Binding(
+                get: { showSubscribeSheet && viewModel.detail?.brandId == 321 },
+                set: { showSubscribeSheet = $0 }
+            )) {
                 SubscribeModalView(title: viewModel.detail?.brandName ?? "", url: viewModel.detail?.subscribeUrl ?? "", email: viewModel.subscribeEmail, name: viewModel.userNickname)
             }
             .onChange(of: showSubscribeSheet) { _, newValue in

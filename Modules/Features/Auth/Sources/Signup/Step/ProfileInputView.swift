@@ -116,7 +116,12 @@ public struct ProfileInputView: View {
                                 Color.clear
                                     .onAppear {
                                         DispatchQueue.main.async {
-                                            dropdownYPosition = geo.frame(in: .global).maxY
+                                            dropdownYPosition = geo.frame(in: .named("profileContainer")).maxY
+                                        }
+                                    }
+                                    .onChange(of: viewModel.showNicknameError) { _, _ in
+                                        DispatchQueue.main.async {
+                                            dropdownYPosition = geo.frame(in: .named("profileContainer")).maxY
                                         }
                                     }
                             }
@@ -221,10 +226,11 @@ public struct ProfileInputView: View {
                     .padding(.horizontal, 24)
                     .background(Color.white)
                     .frame(maxWidth: .infinity)
-                    .position(x: geometry.size.width / 2, y: dropdownYPosition + 24)
+                    .position(x: geometry.size.width / 2, y: dropdownYPosition + 128)
                     .zIndex(1)
                 }
             }
+            .coordinateSpace(name: "profileContainer")
         }
     }
 }

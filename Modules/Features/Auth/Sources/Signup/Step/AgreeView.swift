@@ -78,6 +78,8 @@ public struct AgreeView: View {
                     marketingAgreement = toggle
                 } label: {
                     Image(asset: isAllAgreed ? DesignSystemAsset.allcheck : DesignSystemAsset.uncheck)
+                        .frame(width: 44, height: 44)
+                        .contentShape(Rectangle())
                 }
             }
             .padding(.horizontal, 24)
@@ -160,25 +162,27 @@ struct SimpleAgreementRow: View {
     let title: String
     let required: Bool
     @Binding var isChecked: Bool
-    
+
     var body: some View {
         HStack {
             HStack(spacing: 0) {
                 Text(title)
                     .font(.hanSansNeo(14, .medium))
                     .foregroundColor(Color.captionStrong)
-                
+
                 Text(required ? " (필수)" : " (선택)")
                     .font(.hanSansNeo(14, .medium))
                     .foregroundColor(Color.captionAssistive)
             }
-            
+
             Spacer()
-            
+
             Button(action: {
                 isChecked.toggle()
             }) {
                 Image(asset: isChecked ? DesignSystemAsset.check : DesignSystemAsset.uncheck)
+                    .frame(width: 44, height: 44)
+                    .contentShape(Rectangle())
             }
         }
     }
@@ -190,7 +194,7 @@ struct TappableAgreementRow: View {
     let required: Bool
     @Binding var isChecked: Bool
     let onTextTap: () -> Void
-    
+
     var body: some View {
         HStack {
             Button(action: onTextTap) {
@@ -199,24 +203,28 @@ struct TappableAgreementRow: View {
                         .font(.hanSansNeo(14, .medium))
                         .foregroundColor(Color.captionStrong)
                         .underline(true, color: Color.captionStrong)
-                    
+
                     Text(" 동의")
                         .font(.hanSansNeo(14, .medium))
                         .foregroundColor(Color.captionStrong)
-                    
+
                     Text(required ? " (필수)" : " (선택)")
                         .font(.hanSansNeo(14, .medium))
                         .foregroundColor(Color.captionAssistive)
                 }
+                .frame(height: 44)
+                .contentShape(Rectangle())
             }
             .buttonStyle(PlainButtonStyle())
-            
+
             Spacer()
-            
+
             Button(action: {
                 isChecked.toggle()
             }) {
                 Image(asset: isChecked ? DesignSystemAsset.check : DesignSystemAsset.uncheck)
+                    .frame(width: 44, height: 44)
+                    .contentShape(Rectangle())
             }
         }
     }

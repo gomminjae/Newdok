@@ -67,9 +67,11 @@ public struct AccountManagementView: View {
                     .font(.hanSansNeo(13, .regular))
                     .foregroundColor(Color.captionNeutral)
                     .underline()
+                    .frame(height: 44)
+                    .contentShape(Rectangle())
             }
             .buttonStyle(.plain)
-            .padding(.vertical, 13)
+            .padding(.vertical, 2)
 
             Spacer()
         }

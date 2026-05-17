@@ -130,10 +130,12 @@ public struct SignupView: View {
                         previousStepOrExit()
                     }) {
                         Image(asset: DesignSystemAsset.back)
-                            .padding(.leading, 20)
+                            .frame(width: 44, height: 44)
+                            .contentShape(Rectangle())
                     }
+                    .padding(.leading, 8)
                 } else {
-                    Spacer().frame(width: 40)
+                    Spacer().frame(width: 44)
                 }
 
                 Spacer()
@@ -155,14 +157,15 @@ public struct SignupView: View {
                         Text("건너뛰기")
                             .font(.hanSansNeo(12, .medium))
                             .foregroundColor(.primaryNormal)
-                            .padding(.trailing, 20)
                             .underline()
+                            .frame(width: 60, height: 44)
+                            .contentShape(Rectangle())
                     }
+                    .padding(.trailing, 8)
                     .transition(.opacity)
                 } else {
-                    // 위치 유지를 위한 빈 공간
-                    Spacer().frame(width: 40)
-                            }
+                    Spacer().frame(width: 44)
+                }
             }
             
             .contentShape(Rectangle())
