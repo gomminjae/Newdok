@@ -28,13 +28,13 @@ platform :ios do
   end
 
   desc "인증서/프로비저닝 프로파일 동기화"
-  lane :sync_certs do
+  lane :certs do
     key = setup_api_key
     match(type: "appstore", app_identifier: ["com.newdok.app", "com.newdok.test"], api_key: key)
   end
 
   desc "상용 TestFlight 배포"
-  lane :beta_prod do
+  lane :release do
     key = setup_api_key
     match(type: "appstore", app_identifier: ["com.newdok.app"], api_key: key)
 
@@ -57,7 +57,7 @@ platform :ios do
   end
 
   desc "테섭 TestFlight 배포"
-  lane :beta_dev do
+  lane :dev do
     key = setup_api_key
     match(type: "appstore", app_identifier: ["com.newdok.test"], api_key: key)
 
@@ -80,13 +80,13 @@ platform :ios do
   end
 
   desc "상용 + 테섭 동시 TestFlight 배포"
-  lane :beta_all do
-    beta_prod
-    beta_dev
+  lane :all do
+    release
+    dev
   end
 
   desc "빌드만 (CI용)"
-  lane :build_only do
+  lane :build do
     build_app(
       workspace: "Newdok.xcworkspace",
       scheme: "Newdok",
