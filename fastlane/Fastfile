@@ -10,10 +10,20 @@ platform :ios do
 
   desc "App Store Connect API Key 설정"
   private_lane :setup_api_key do
+    key_path = ENV["ASC_KEY_FILEPATH"]
+
+    unless File.exist?(key_path.to_s)
+      UI.message("ASC key not found locally, fetching from certificates repo...")
+      sh("rm", "-rf", "/tmp/asc-key")
+      sh("git", "clone", "--branch", "newdok", "--depth", "1",
+         "https://github.com/gomminjae/certificates.git", "/tmp/asc-key")
+      key_path = "/tmp/asc-key/AuthKey_#{ENV['ASC_KEY_ID']}.p8"
+    end
+
     app_store_connect_api_key(
       key_id: ENV["ASC_KEY_ID"],
       issuer_id: ENV["ASC_ISSUER_ID"],
-      key_filepath: ENV["ASC_KEY_FILEPATH"],
+      key_filepath: key_path,
     )
   end
 
