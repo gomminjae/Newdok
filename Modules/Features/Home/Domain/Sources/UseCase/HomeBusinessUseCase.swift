@@ -9,6 +9,7 @@ public protocol HomeBusinessUseCase: AnyObject, Sendable {
     func refreshCurrentData() async -> HomeSnapshot
     func refreshToToday() async -> HomeSnapshot
     func markArticleAsRead(articleId: Int) async -> HomeSnapshot
+    func refreshHighlightCounts() async -> HomeSnapshot
     func resetForAuthChange() async -> HomeSnapshot
     func shouldReloadToday(currentDate: Date) async -> Bool
     func cachedDataDays(for date: Date) async -> Set<Int>

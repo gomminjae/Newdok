@@ -5,23 +5,18 @@
 //  Created by 권민재 on 2/23/25.
 //
 import SwiftUI
-import SwiftData
 import DesignSystem
 import HomeDomain
-import Shared
 import Kingfisher
 
 struct ArticleRow: View {
     let article: HomeArticle
-    @Query private var highlights: [ArticleHighlight]
+    let highlightCount: Int
 
-    init(article: HomeArticle) {
+    init(article: HomeArticle, highlightCount: Int = 0) {
         self.article = article
-        let articleId = String(article.articleId)
-        _highlights = Query(filter: #Predicate<ArticleHighlight> { $0.articleId == articleId })
+        self.highlightCount = highlightCount
     }
-
-    private var highlightCount: Int { highlights.count }
 
     var body: some View {
         HStack(spacing: 12) {

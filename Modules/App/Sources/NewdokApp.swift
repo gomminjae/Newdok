@@ -45,7 +45,6 @@ struct NewdokApp: App {
             .environment(tabSelection)
             .environment(AppState.shared)
             .environment(ToastCenter.shared)
-            .modelContainer(HighlightStorage.shared.container)
             .overlay(
                 AppToastHost()
                     .environment(ToastCenter.shared)

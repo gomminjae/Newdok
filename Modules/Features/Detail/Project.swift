@@ -1,4 +1,4 @@
 import ProjectDescription
 import ProjectDescriptionHelpers
 
-let project = Project.feature(name: "Detail", hasTests: false, hasTesting: false)
+let project = Project.feature(name: "Detail", dataDependencies: [.databaseKit], hasTests: false, hasTesting: false)

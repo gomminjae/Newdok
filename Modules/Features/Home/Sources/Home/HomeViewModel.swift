@@ -224,6 +224,11 @@ public final class HomeViewModel {
     }
     
     // MARK: - Snapshot Application (CalendarState를 struct 일괄 대입 → objectWillChange 1회)
+    public func refreshHighlights() async {
+        let snapshot = await useCase.refreshHighlightCounts()
+        applySnapshot(snapshot)
+    }
+
     private func applySnapshot(_ snapshot: HomeSnapshot) {
         isApplyingSnapshot = true
         defer { isApplyingSnapshot = false }

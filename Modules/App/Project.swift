@@ -82,6 +82,7 @@ let project = Project(
                 .core,
                 .designSystem,
                 .shared,
+                .databaseKit,
                 // Feature Domain + Data
                 .featureDomain("Auth"), .featureData("Auth"),
                 .featureDomain("Home"), .featureData("Home"),

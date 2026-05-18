@@ -8,6 +8,7 @@
 import SwiftUI
 import WebKit
 import Shared
+import DetailDomain
 import DesignSystem
 import Kingfisher
 
@@ -274,7 +275,7 @@ struct FullWebView: UIViewRepresentable {
     let articleTitle: String
     let articleDate: String
     let articleId: String
-    let savedHighlights: [ArticleHighlight]
+    let savedHighlights: [DetailHighlight]
     @Binding var fontSize: CGFloat
     @Binding var webViewRef: WKWebView?
     @Binding var selectedText: String

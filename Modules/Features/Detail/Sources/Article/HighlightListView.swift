@@ -7,16 +7,16 @@
 
 import SwiftUI
 import DesignSystem
-import Shared
+import DetailDomain
 
 // MARK: - Highlight List View
 struct HighlightListView: View {
     @Environment(\.dismiss)
     private var dismiss
 
-    let highlights: [ArticleHighlight]
-    let onSelectHighlight: (ArticleHighlight) -> Void
-    var onDeleteHighlight: ((ArticleHighlight) -> Void)?
+    let highlights: [DetailHighlight]
+    let onSelectHighlight: (DetailHighlight) -> Void
+    var onDeleteHighlight: ((DetailHighlight) -> Void)?
 
     var body: some View {
         VStack(spacing: 0) {
@@ -91,7 +91,7 @@ struct HighlightListView: View {
 
 // MARK: - Highlight Row View
 struct HighlightRowView: View {
-    let highlight: ArticleHighlight
+    let highlight: DetailHighlight
     let onDelete: () -> Void
 
     private var highlightColor: Color {
