@@ -32,7 +32,6 @@
 		C1F55CCE5F47EFD7E182822F /* SelectableItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8A1EBAD9AC767B12A003540 /* SelectableItem.swift */; };
 		D75A8FD022EEBC29AF185D36 /* AppConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2BEA0C3B8E576918DE74F38 /* AppConstants.swift */; };
 		DECBAACDAECC2379F5B517CA /* AppRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B003F7CC7D7753A3F19A643 /* AppRouter.swift */; };
-		ED0E9EE5BC7433559B195E34 /* HighlightModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C72DD01721AD8E71C9AB3C7 /* HighlightModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -52,7 +51,6 @@
 		014639417F98AB3569DF5034 /* SelectableItemStoreProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectableItemStoreProtocol.swift; sourceTree = "<group>"; };
 		0616F85852A726E9E6A1E31B /* CheckResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckResult.swift; sourceTree = "<group>"; };
 		080C58231FCEDC083F899294 /* Shared.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Shared.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		1C72DD01721AD8E71C9AB3C7 /* HighlightModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HighlightModel.swift; sourceTree = "<group>"; };
 		2125DE09B958AC81707B7938 /* ErrorHandling.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorHandling.swift; sourceTree = "<group>"; };
 		29990D7ECCAB141CE7667864 /* TokenStorageWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenStorageWrapper.swift; sourceTree = "<group>"; };
 		65238954FE2DB40FAE58AB93 /* UserInfoStoreProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoStoreProtocol.swift; sourceTree = "<group>"; };
@@ -194,7 +192,6 @@
 				D426A755F86E7FFF931CCEBB /* Date */,
 				4C0EA287ACE99588C39C62FD /* Error */,
 				047174106FA3A8B9EBFFB5F0 /* Format */,
-				B15DA0BB34DE10673C169D3B /* Highlight */,
 				B009AEDC1F84E55C19868CE1 /* Router */,
 				45C65DDCE81E59F709DCE1CA /* State */,
 				31479BA18B0C8D9AB6D1D0C2 /* Storage */,
@@ -226,14 +223,6 @@
 				FDF80E5080EED4A4B010B1F2 /* TabSelection.swift */,
 			);
 			path = Router;
-			sourceTree = "<group>";
-		};
-		B15DA0BB34DE10673C169D3B /* Highlight */ = {
-			isa = PBXGroup;
-			children = (
-				1C72DD01721AD8E71C9AB3C7 /* HighlightModel.swift */,
-			);
-			path = Highlight;
 			sourceTree = "<group>";
 		};
 		CFF3308B9DD8563D12ABFC25 /* InfoPlists */ = {
@@ -335,7 +324,6 @@
 				A12C94D0A0401696BB9F6E1B /* ErrorHandling.swift in Sources */,
 				22C4680B0ED6EF778C00BCF8 /* NewdokInputValidation.swift in Sources */,
 				065239A22A1681DB686095D2 /* NewdokVerificationTimerFormatStyle.swift in Sources */,
-				ED0E9EE5BC7433559B195E34 /* HighlightModel.swift in Sources */,
 				7D04C850BB0BAE64479467A3 /* AppRoute.swift in Sources */,
 				DECBAACDAECC2379F5B517CA /* AppRouter.swift in Sources */,
 				2543C610AB3A48B4D249A302 /* TabSelection.swift in Sources */,

@@ -16,6 +16,7 @@
 		19AA6DB30A90955617F9B7FD /* BookmarkInterface.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E72FF74C328526DB94E50010 /* BookmarkInterface.framework */; };
 		1ADFB6F0C0F33AE51F6793BD /* FirebaseInstallations.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1EDD3D57F65917DB1A07B052 /* FirebaseInstallations.framework */; };
 		1BC5B98AD386E5E8F84A45D6 /* Shared.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB40F3B3D8E2DCB2AC3C9605 /* Shared.framework */; };
+		1C97140162D8A52649A79034 /* DatabaseKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 20472DE96208EAF694E16719 /* DatabaseKit.framework */; };
 		1DAF338EC3091F9B6BB61A11 /* Detail.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6FB9E693CAE8686756749690 /* Detail.framework */; };
 		21DA9715EFAC9AF9ABF7E3B1 /* CompositionRoot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61F5D036D59E757A40E04AE1 /* CompositionRoot.swift */; };
 		232800970AFA0DEF4018B1FB /* GoogleUtilities_Environment.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 49A8F44173AE773538037143 /* GoogleUtilities_Environment.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -170,6 +171,7 @@
 		1398C2480450D84DC3712CB1 /* SearchInterface.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SearchInterface.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		1EDD3D57F65917DB1A07B052 /* FirebaseInstallations.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = FirebaseInstallations.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		1F171699E8077C4150AFB994 /* AuthDomain.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = AuthDomain.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		20472DE96208EAF694E16719 /* DatabaseKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = DatabaseKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		233D852B07E4FC2B2B1F1179 /* Explore.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Explore.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		235BA3CECEDCE6AB843915C7 /* FirebaseSessions.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = FirebaseSessions.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		255DFB5369032FF8E4C1007C /* third_party_IsAppEncrypted.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = third_party_IsAppEncrypted.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -282,6 +284,7 @@
 				6F40F0302996AC8E9B709719 /* BookmarkDomain.framework in Frameworks */,
 				19AA6DB30A90955617F9B7FD /* BookmarkInterface.framework in Frameworks */,
 				0124B5187DA64DDD60250AD7 /* Core.framework in Frameworks */,
+				1C97140162D8A52649A79034 /* DatabaseKit.framework in Frameworks */,
 				8F3691F7301E714387485350 /* DesignSystem.framework in Frameworks */,
 				1DAF338EC3091F9B6BB61A11 /* Detail.framework in Frameworks */,
 				3E218B454583303272ECB968 /* DetailData.framework in Frameworks */,
@@ -525,6 +528,7 @@
 				F8F861BEFA693139AC601928 /* BookmarkDomain.framework */,
 				E72FF74C328526DB94E50010 /* BookmarkInterface.framework */,
 				514C6A786251DDEC6B3DFF77 /* Core.framework */,
+				20472DE96208EAF694E16719 /* DatabaseKit.framework */,
 				E9369BFA2C65412102538303 /* DesignSystem.framework */,
 				6FB9E693CAE8686756749690 /* Detail.framework */,
 				56CEFEBE90EBB1FAFCA079B3 /* DetailData.framework */,
