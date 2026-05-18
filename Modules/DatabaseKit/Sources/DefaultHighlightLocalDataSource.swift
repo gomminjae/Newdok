@@ -46,7 +46,7 @@ public final class DefaultHighlightLocalDataSource: HighlightLocalDataSource {
     private let context: ModelContext
     public private(set) var isPersistent: Bool
 
-    public init() {
+    private init() {
         let schema = Schema([ArticleHighlight.self])
 
         if let disk = try? ModelContainer(
@@ -90,12 +90,16 @@ public final class DefaultHighlightLocalDataSource: HighlightLocalDataSource {
     }
 
     public func counts(forArticleIds ids: [Int]) async -> [Int: Int] {
-        let wanted = Set(ids)
-        let all = (try? context.fetch(FetchDescriptor<ArticleHighlight>())) ?? []
+        let stringIds = ids.map(String.init)
+        let descriptor = FetchDescriptor<ArticleHighlight>(
+            predicate: #Predicate { stringIds.contains($0.articleId) }
+        )
+        let highlights = (try? context.fetch(descriptor)) ?? []
         var result: [Int: Int] = [:]
-        for entity in all {
-            guard let articleId = Int(entity.articleId), wanted.contains(articleId) else { continue }
-            result[articleId, default: 0] += 1
+        for entity in highlights {
+            if let articleId = Int(entity.articleId) {
+                result[articleId, default: 0] += 1
+            }
         }
         return result
     }
