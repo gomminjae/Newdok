@@ -14,6 +14,9 @@
          location = "group:Core/Core.xcodeproj">
       </FileRef>
       <FileRef
+         location = "group:DatabaseKit/DatabaseKit.xcodeproj">
+      </FileRef>
+      <FileRef
          location = "group:DesignSystem/DesignSystem.xcodeproj">
       </FileRef>
       <FileRef

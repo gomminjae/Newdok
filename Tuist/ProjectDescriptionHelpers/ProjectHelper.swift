@@ -28,6 +28,7 @@ public extension TargetDependency {
     static let shared: TargetDependency = .project(target: "Shared", path: .relativeToRoot("Modules/Shared"))
     static let core: TargetDependency = .project(target: "Core", path: .relativeToRoot("Modules/Core"))
     static let designSystem: TargetDependency = .project(target: "DesignSystem", path: .relativeToRoot("Modules/DesignSystem"))
+    static let databaseKit: TargetDependency = .project(target: "DatabaseKit", path: .relativeToRoot("Modules/DatabaseKit"))
 
     static func feature(_ name: String) -> TargetDependency {
         .project(target: name, path: .relativeToRoot("Modules/Features/\(name)"))

@@ -14,6 +14,7 @@ private func logHomeError(_ error: Error, operation: String) {
 public actor DefaultHomeBusinessUseCase: HomeBusinessUseCase {
     private let articleRepository: HomeArticleRepository
     private let newsletterRepository: HomeNewsletterRepository
+    private let highlightCountRepository: HighlightCountRepository
 
     private var snapshotState: HomeSnapshot
     private var monthlyCache: [String: [HomeArticles]] = [:]
@@ -25,10 +26,12 @@ public actor DefaultHomeBusinessUseCase: HomeBusinessUseCase {
 
     public init(
         articleRepository: HomeArticleRepository,
-        newsletterRepository: HomeNewsletterRepository
+        newsletterRepository: HomeNewsletterRepository,
+        highlightCountRepository: HighlightCountRepository
     ) {
         self.articleRepository = articleRepository
         self.newsletterRepository = newsletterRepository
+        self.highlightCountRepository = highlightCountRepository
         let today = Date()
         let month = Calendar.current.date(
             from: Calendar.current.dateComponents([.year, .month], from: today)
@@ -65,7 +68,7 @@ public actor DefaultHomeBusinessUseCase: HomeBusinessUseCase {
 
             let today = strippedDate(Date())
             let month = startOfMonth(today)
-            let processedArticles = decorateTodayArticles(articles, readArticleIds: readArticleIds)
+            let processedArticles = await decorateTodayArticles(articles, readArticleIds: readArticleIds)
 
             snapshotState.selectedDate = today
             snapshotState.displayedMonth = month
@@ -161,7 +164,7 @@ public actor DefaultHomeBusinessUseCase: HomeBusinessUseCase {
 
         let targetDate = snapshotState.selectedDate
         if var cached = cachedArticles(for: targetDate) {
-            cached = decorateTodayArticles(cached, readArticleIds: readArticleIds)
+            cached = await decorateTodayArticles(cached, readArticleIds: readArticleIds)
             storeArticles(cached, for: targetDate)
             snapshotState.filteredArticles = cached
             applyMonthlyAdjustment(for: targetDate, articles: cached)
@@ -255,7 +258,7 @@ public actor DefaultHomeBusinessUseCase: HomeBusinessUseCase {
                 publicationMonth: formatMonth(date),
                 publicationDate: formatDay(date)
             )
-            let decorated = decorateTodayArticles(fetched, readArticleIds: readArticleIds)
+            let decorated = await decorateTodayArticles(fetched, readArticleIds: readArticleIds)
             storeArticles(decorated, for: date)
             return decorated
         } catch {
@@ -304,9 +307,27 @@ public actor DefaultHomeBusinessUseCase: HomeBusinessUseCase {
 
     // MARK: - Read state decoration
 
-    private func decorateTodayArticles(_ articles: [HomeArticle], readArticleIds: Set<Int>) -> [HomeArticle] {
+    private func decorateTodayArticles(_ articles: [HomeArticle], readArticleIds: Set<Int>) async -> [HomeArticle] {
         let mapped = articles.map { applyReadStatus(to: $0, readArticleIds: readArticleIds) }
-        return prioritize(mapped)
+        let prioritized = prioritize(mapped)
+        return await applyHighlightCounts(prioritized)
+    }
+
+    private func applyHighlightCounts(_ articles: [HomeArticle]) async -> [HomeArticle] {
+        guard !articles.isEmpty else { return articles }
+        let counts = await highlightCountRepository.highlightCounts(forArticleIds: articles.map(\.articleId))
+        return articles.map { article in
+            let count = counts[article.articleId] ?? 0
+            return count == article.highlightCount ? article : article.withHighlightCount(count)
+        }
+    }
+
+    public func refreshHighlightCounts() async -> HomeSnapshot {
+        let targetDate = snapshotState.selectedDate
+        let updated = await applyHighlightCounts(snapshotState.filteredArticles)
+        snapshotState.filteredArticles = updated
+        storeArticles(updated, for: targetDate)
+        return snapshotState
     }
 
     private func unreadCount(in articles: [HomeArticle]) -> Int {

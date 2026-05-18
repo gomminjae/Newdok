@@ -90,6 +90,7 @@ public struct HomeView: View {
                     if await viewModel.shouldReloadToday() {
                         await viewModel.loadToday()
                     }
+                    await viewModel.refreshHighlights()
                 }
             }
             .onChange(of: appState.authState) { _, newValue in
@@ -245,7 +246,7 @@ public struct HomeView: View {
 
             LazyVStack(spacing: 8) {
                 ForEach(viewModel.filteredArticles) { article in
-                    ArticleRow(article: article)
+                    ArticleRow(article: article, highlightCount: article.highlightCount)
                         .frame(height: 88)
                         .contentShape(Rectangle())
                         .onTapGesture {

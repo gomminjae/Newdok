@@ -27,6 +27,7 @@ import Detail
 import DetailInterface
 import DetailDomain
 import DetailData
+import DatabaseKit
 import Search
 import SearchInterface
 import SearchDomain
@@ -82,7 +83,8 @@ enum CompositionRoot {
             let newsletterRepo = HomeNewsletterRepositoryImpl(
                 network: container.resolve(MoyaNetworkService<NewsletterAPI>.self)!
             )
-            let businessUseCase = DefaultHomeBusinessUseCase(articleRepository: articleRepo, newsletterRepository: newsletterRepo)
+            let highlightRepo = HighlightCountRepositoryImpl(dataSource: DefaultHighlightLocalDataSource.shared)
+            let businessUseCase = DefaultHomeBusinessUseCase(articleRepository: articleRepo, newsletterRepository: newsletterRepo, highlightCountRepository: highlightRepo)
             return HomeViewModel(useCase: businessUseCase, appState: AppState.shared)
         })
     }
@@ -130,7 +132,8 @@ enum CompositionRoot {
                     network: container.resolve(MoyaNetworkService<ArticleAPI>.self)!
                 )
                 let detailUseCase = ArticleDetailUseCaseImpl(articleRepository: articleRepo)
-                return ArticleDetailViewModel(id: id, articleDetailUseCase: detailUseCase)
+                let highlightRepo = DetailHighlightRepositoryImpl(dataSource: DefaultHighlightLocalDataSource.shared)
+                return ArticleDetailViewModel(id: id, articleDetailUseCase: detailUseCase, highlightRepository: highlightRepo)
             }
         )
     }

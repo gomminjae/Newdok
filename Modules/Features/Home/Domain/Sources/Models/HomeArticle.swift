@@ -7,6 +7,7 @@ public struct HomeArticle: Sendable {
     public let articleId: Int
     public let status: String
     public let publishDate: Int?
+    public let highlightCount: Int
 
     public init(
         brandName: String,
@@ -14,7 +15,8 @@ public struct HomeArticle: Sendable {
         articleTitle: String,
         articleId: Int,
         status: String,
-        publishDate: Int? = nil
+        publishDate: Int? = nil,
+        highlightCount: Int = 0
     ) {
         self.brandName = brandName
         self.imageUrl = imageUrl
@@ -22,6 +24,19 @@ public struct HomeArticle: Sendable {
         self.articleId = articleId
         self.status = status
         self.publishDate = publishDate
+        self.highlightCount = highlightCount
+    }
+
+    public func withHighlightCount(_ count: Int) -> HomeArticle {
+        HomeArticle(
+            brandName: brandName,
+            imageUrl: imageUrl,
+            articleTitle: articleTitle,
+            articleId: articleId,
+            status: status,
+            publishDate: publishDate,
+            highlightCount: count
+        )
     }
 }
 

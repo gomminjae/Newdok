@@ -20,13 +20,13 @@ public final class ArticleDetailViewModel: ErrorHandling {
 
     // 하이라이트 관련
     var selectedText: String = ""
-    private(set) var highlights: [ArticleHighlight] = []
+    private(set) var highlights: [DetailHighlight] = []
 
     // MARK: - Dependencies
 
     private let id: String
     private let articleDetailUseCase: ArticleDetailUseCase
-    private let highlightStorage: HighlightStorage
+    private let highlightRepository: DetailHighlightRepository
 
     // MARK: - Computed Properties
 
@@ -40,11 +40,11 @@ public final class ArticleDetailViewModel: ErrorHandling {
     public init(
         id: String,
         articleDetailUseCase: ArticleDetailUseCase,
-        highlightStorage: HighlightStorage = .shared
+        highlightRepository: DetailHighlightRepository
     ) {
         self.id = id
         self.articleDetailUseCase = articleDetailUseCase
-        self.highlightStorage = highlightStorage
+        self.highlightRepository = highlightRepository
     }
 
     // MARK: - Article Actions
@@ -54,7 +54,7 @@ public final class ArticleDetailViewModel: ErrorHandling {
             let result = try await articleDetailUseCase.fetchDetail(articleId: id)
 
             // 하이라이트 로드
-            highlights = highlightStorage.fetchHighlights(for: result.articleId)
+            highlights = await highlightRepository.highlights(articleId: result.articleId)
 
             // detail 설정
             detail = result.detail
@@ -79,54 +79,56 @@ public final class ArticleDetailViewModel: ErrorHandling {
     func saveHighlight(type: String) {
         guard !selectedText.isEmpty,
               let detail = detail else { return }
-
-        let highlight = ArticleHighlight(
-            articleId: String(detail.articleId),
-            articleTitle: detail.articleTitle,
-            brandName: detail.brandName,
-            selectedText: selectedText,
-            highlightType: type,
-            textOffset: 0
-        )
-
-        do {
-            try highlightStorage.save(highlight)
-            loadHighlights()
-        } catch {
-            handleError(error, feature: "articleDetail", operation: "saveHighlight")
+        let articleId = String(detail.articleId)
+        let title = detail.articleTitle
+        let brand = detail.brandName
+        let text = selectedText
+        Task {
+            do {
+                try await highlightRepository.addHighlight(
+                    articleId: articleId,
+                    articleTitle: title,
+                    brandName: brand,
+                    selectedText: text,
+                    type: type
+                )
+                await loadHighlights()
+            } catch {
+                handleError(error, feature: "articleDetail", operation: "saveHighlight")
+            }
         }
     }
 
     /// 하이라이트 삭제
-    func deleteHighlight(_ highlight: ArticleHighlight) {
-        do {
-            try highlightStorage.delete(highlight)
-            loadHighlights()
-        } catch {
-            handleError(error, feature: "articleDetail", operation: "deleteHighlight")
+    func deleteHighlight(_ highlight: DetailHighlight) {
+        Task {
+            do {
+                try await highlightRepository.removeHighlight(id: highlight.id)
+                await loadHighlights()
+            } catch {
+                handleError(error, feature: "articleDetail", operation: "deleteHighlight")
+            }
         }
     }
 
     /// 하이라이트 목록 로드
-    func loadHighlights() {
-        guard let detail = detail else {
-            highlights = highlightStorage.fetchHighlights(for: id)
-            return
-        }
-        let actualArticleId = String(detail.articleId)
-        highlights = highlightStorage.fetchHighlights(for: actualArticleId)
+    func loadHighlights() async {
+        let actualArticleId = detail.map { String($0.articleId) } ?? id
+        highlights = await highlightRepository.highlights(articleId: actualArticleId)
     }
 
     /// 하이라이트 타입 변경 (JS 에디트 메뉴에서 호출)
     func changeHighlightType(text: String, newType: String) {
         guard let detail = detail else { return }
         let articleId = String(detail.articleId)
-        guard let highlight = highlightStorage.fetchHighlight(for: articleId, text: text) else { return }
-        do {
-            try highlightStorage.updateHighlightType(highlight, newType: newType)
-            loadHighlights()
-        } catch {
-            handleError(error, feature: "articleDetail", operation: "changeHighlightType")
+        Task {
+            guard let highlight = await highlightRepository.highlight(articleId: articleId, matching: text) else { return }
+            do {
+                try await highlightRepository.changeHighlightType(id: highlight.id, to: newType)
+                await loadHighlights()
+            } catch {
+                handleError(error, feature: "articleDetail", operation: "changeHighlightType")
+            }
         }
     }
 
@@ -134,12 +136,14 @@ public final class ArticleDetailViewModel: ErrorHandling {
     func deleteHighlightByText(text: String) {
         guard let detail = detail else { return }
         let articleId = String(detail.articleId)
-        guard let highlight = highlightStorage.fetchHighlight(for: articleId, text: text) else { return }
-        do {
-            try highlightStorage.delete(highlight)
-            loadHighlights()
-        } catch {
-            handleError(error, feature: "articleDetail", operation: "deleteHighlightByText")
+        Task {
+            guard let highlight = await highlightRepository.highlight(articleId: articleId, matching: text) else { return }
+            do {
+                try await highlightRepository.removeHighlight(id: highlight.id)
+                await loadHighlights()
+            } catch {
+                handleError(error, feature: "articleDetail", operation: "deleteHighlightByText")
+            }
         }
     }
 
