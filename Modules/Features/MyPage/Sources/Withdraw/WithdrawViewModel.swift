@@ -23,30 +23,36 @@ public final class WithdrawViewModel: ErrorHandling {
     public var withdrawSuccess: Bool = false
     public var currentError: AppError?
 
-    private let userUseCase: MypageUserUseCase
-    private let statsUseCase: MypageStatsUseCase
+    private let fetchProfileUseCase: FetchMypageProfileUseCase
+    private let fetchSubscriptionCountUseCase: FetchMypageSubscriptionCountUseCase
+    private let fetchArticleCountUseCase: FetchReceivedArticleCountUseCase
+    private let withdrawUseCase: MypageWithdrawUseCase
     private let tokenStorage: TokenStorageProtocol
     private let userInfoStore: UserInfoStoreProtocol
 
     public init(
-        userUseCase: MypageUserUseCase,
-        statsUseCase: MypageStatsUseCase,
+        fetchProfileUseCase: FetchMypageProfileUseCase,
+        fetchSubscriptionCountUseCase: FetchMypageSubscriptionCountUseCase,
+        fetchArticleCountUseCase: FetchReceivedArticleCountUseCase,
+        withdrawUseCase: MypageWithdrawUseCase,
         tokenStorage: TokenStorageProtocol = TokenStorageWrapper.shared,
         userInfoStore: UserInfoStoreProtocol = UserInfoStore.shared
     ) {
-        self.userUseCase = userUseCase
-        self.statsUseCase = statsUseCase
+        self.fetchProfileUseCase = fetchProfileUseCase
+        self.fetchSubscriptionCountUseCase = fetchSubscriptionCountUseCase
+        self.fetchArticleCountUseCase = fetchArticleCountUseCase
+        self.withdrawUseCase = withdrawUseCase
         self.tokenStorage = tokenStorage
         self.userInfoStore = userInfoStore
     }
 
     public func fetchUserInfo() async {
         await performAsync(feature: "withdraw", operation: "fetchUserInfo", loadingBinding: \.isLoading) {
-            let user = try await userUseCase.getProfile()
+            let user = try await fetchProfileUseCase.execute()
             self.nickName = user.nickname
 
-            self.newsletterCount = try await statsUseCase.fetchSubscriptionCount()
-            self.articleCount = try await statsUseCase.fetchReceivedArticleCount()
+            self.newsletterCount = try await fetchSubscriptionCountUseCase.execute()
+            self.articleCount = try await fetchArticleCountUseCase.execute()
         }
     }
 
@@ -56,7 +62,7 @@ public final class WithdrawViewModel: ErrorHandling {
         defer { isWithdrawing = false }
 
         await performAsync(feature: "withdraw", operation: "withdraw", loadingBinding: \.isLoading) {
-            try await userUseCase.withdraw()
+            try await withdrawUseCase.execute()
 
             // 탈퇴 성공 시 모든 로컬 데이터 정리
             clearAllLocalData()

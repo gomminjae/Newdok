@@ -1,2 +1,0 @@
-// BookmarkTesting placeholder
-import Foundation

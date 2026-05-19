@@ -94,8 +94,12 @@ enum CompositionRoot {
             let repo = ExploreNewsletterRepositoryImpl(
                 network: container.resolve(MoyaNetworkService<NewsletterAPI>.self)!
             )
-            let useCase = ExploreNewsletterUseCaseImpl(repository: repo)
-            return ExploreViewModel(useCase: useCase)
+            return ExploreViewModel(
+                fetchNewslettersUseCase: FetchExploreNewslettersUseCaseImpl(repository: repo),
+                fetchBrandDetailUseCase: FetchExploreBrandDetailUseCaseImpl(repository: repo),
+                fetchGuestNewslettersUseCase: FetchGuestExploreNewslettersUseCaseImpl(repository: repo),
+                fetchRecommendationUseCase: FetchExploreRecommendationUseCaseImpl(repository: repo)
+            )
         })
     }
 
@@ -104,8 +108,12 @@ enum CompositionRoot {
             let repo = SubscribeNewsletterRepositoryImpl(
                 network: container.resolve(MoyaNetworkService<NewsletterAPI>.self)!
             )
-            let useCase = SubscribeUseCaseImpl(repository: repo)
-            return SubscribeViewModel(useCase: useCase)
+            return SubscribeViewModel(
+                fetchActiveUseCase: FetchActiveSubscriptionUseCaseImpl(repository: repo),
+                fetchPausedUseCase: FetchPausedSubscriptionUseCaseImpl(repository: repo),
+                pauseUseCase: PauseSubscriptionUseCaseImpl(repository: repo),
+                resumeUseCase: ResumeSubscriptionUseCaseImpl(repository: repo)
+            )
         })
     }
 
@@ -114,8 +122,11 @@ enum CompositionRoot {
             let repo = BookmarkRepositoryImpl(
                 network: container.resolve(MoyaNetworkService<ArticleAPI>.self)!
             )
-            let useCase = BookmarkUseCaseImpl(repository: repo)
-            return BookmarkViewModel(useCase: useCase)
+            return BookmarkViewModel(
+                fetchArticlesUseCase: FetchBookmarkedArticlesUseCaseImpl(repository: repo),
+                toggleBookmarkUseCase: ToggleBookmarkStatusUseCaseImpl(repository: repo),
+                fetchInterestsUseCase: FetchBookmarkedInterestsUseCaseImpl(repository: repo)
+            )
         })
     }
 
@@ -131,9 +142,13 @@ enum CompositionRoot {
                 let articleRepo = DetailArticleRepositoryImpl(
                     network: container.resolve(MoyaNetworkService<ArticleAPI>.self)!
                 )
-                let detailUseCase = ArticleDetailUseCaseImpl(articleRepository: articleRepo)
                 let highlightRepo = DetailHighlightRepositoryImpl(dataSource: DefaultHighlightLocalDataSource.shared)
-                return ArticleDetailViewModel(id: id, articleDetailUseCase: detailUseCase, highlightRepository: highlightRepo)
+                return ArticleDetailViewModel(
+                    id: id,
+                    fetchDetailUseCase: FetchArticleDetailUseCaseImpl(articleRepository: articleRepo),
+                    toggleBookmarkUseCase: ToggleArticleBookmarkUseCaseImpl(articleRepository: articleRepo),
+                    highlightRepository: highlightRepo
+                )
             }
         )
     }
@@ -143,8 +158,10 @@ enum CompositionRoot {
             let repo = SearchRepositoryImpl(
                 network: container.resolve(MoyaNetworkService<SearchAPI>.self)!
             )
-            let useCase = SearchUseCaseImpl(searchRepository: repo)
-            return SearchViewModel(useCase: useCase)
+            return SearchViewModel(
+                searchNewslettersUseCase: SearchNewslettersUseCaseImpl(repository: repo),
+                fetchPopularKeywordsUseCase: FetchPopularKeywordsUseCaseImpl(repository: repo)
+            )
         })
     }
 
@@ -158,20 +175,30 @@ enum CompositionRoot {
         )
         return MypageViewFactoryImpl(
             mypageViewModelProvider: {
-                let userUseCase = MypageUserUseCaseImpl(repository: userRepo)
-                let profileUseCase = ProfileUseCaseImpl(repository: userRepo)
-                return MypageViewModel(useCase: userUseCase, profileUseCase: profileUseCase)
+                return MypageViewModel(
+                    fetchProfileUseCase: FetchMypageProfileUseCaseImpl(repository: userRepo),
+                    updateNicknameUseCase: UpdateMypageNicknameUseCaseImpl(repository: userRepo),
+                    updatePasswordUseCase: UpdateMypagePasswordUseCaseImpl(repository: userRepo),
+                    updateInterestsUseCase: UpdateMypageInterestsUseCaseImpl(repository: userRepo),
+                    updateIndustryUseCase: UpdateMypageIndustryUseCaseImpl(repository: userRepo),
+                    updatePhoneNumberUseCase: UpdateMypagePhoneNumberUseCaseImpl(repository: userRepo),
+                    authSMSUseCase: MypageAuthSMSUseCaseImpl(repository: userRepo)
+                )
             },
             recoveryViewModelProvider: {
-                let userUseCase = MypageUserUseCaseImpl(repository: userRepo)
-                return RecoveryViewModel(useCase: userUseCase)
+                return RecoveryViewModel(
+                    checkPhoneNumberUseCase: CheckMypagePhoneNumberUseCaseImpl(repository: userRepo),
+                    checkIDDupUseCase: CheckMypageIDDupUseCaseImpl(repository: userRepo),
+                    authSMSUseCase: MypageAuthSMSUseCaseImpl(repository: userRepo),
+                    resetPasswordUseCase: ResetMypagePasswordUseCaseImpl(repository: userRepo)
+                )
             },
             withdrawViewModelProvider: {
-                let userUseCase = MypageUserUseCaseImpl(repository: userRepo)
-                let statsUseCase = MypageStatsUseCaseImpl(repository: statsRepo)
                 return WithdrawViewModel(
-                    userUseCase: userUseCase,
-                    statsUseCase: statsUseCase
+                    fetchProfileUseCase: FetchMypageProfileUseCaseImpl(repository: userRepo),
+                    fetchSubscriptionCountUseCase: FetchMypageSubscriptionCountUseCaseImpl(repository: statsRepo),
+                    fetchArticleCountUseCase: FetchReceivedArticleCountUseCaseImpl(repository: statsRepo),
+                    withdrawUseCase: MypageWithdrawUseCaseImpl(repository: userRepo)
                 )
             }
         )

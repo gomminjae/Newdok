@@ -14,7 +14,10 @@ import Observation
 @Observable
 @MainActor
 public final class RecoveryViewModel: ErrorHandling {
-    private let userUseCase: MypageUserUseCase
+    private let checkPhoneNumberUseCase: CheckMypagePhoneNumberUseCase
+    private let checkIDDupUseCase: CheckMypageIDDupUseCase
+    private let authSMSUseCase: MypageAuthSMSUseCase
+    private let resetPasswordUseCase: ResetMypagePasswordUseCase
 
     // 화면 흐름 그대로 유지 (0: 아이디, 1: 인증, 2: 비번입력, 3: 완료)
     var passwordRecoveryStep: Int = 0
@@ -54,14 +57,22 @@ public final class RecoveryViewModel: ErrorHandling {
     public var timerRemaining: Int = 180
     private var timerTask: Task<Void, Never>?
 
-    public init(useCase: MypageUserUseCase) {
-        self.userUseCase = useCase
+    public init(
+        checkPhoneNumberUseCase: CheckMypagePhoneNumberUseCase,
+        checkIDDupUseCase: CheckMypageIDDupUseCase,
+        authSMSUseCase: MypageAuthSMSUseCase,
+        resetPasswordUseCase: ResetMypagePasswordUseCase
+    ) {
+        self.checkPhoneNumberUseCase = checkPhoneNumberUseCase
+        self.checkIDDupUseCase = checkIDDupUseCase
+        self.authSMSUseCase = authSMSUseCase
+        self.resetPasswordUseCase = resetPasswordUseCase
     }
 
     // MARK: - 아이디 찾기
     func findMyIds() async {
         await performAsync(feature: "recovery", operation: "findMyIds") {
-            let response = try await userUseCase.checkPhoneNumber(phoneNumber)
+            let response = try await checkPhoneNumberUseCase.execute(phoneNumber)
             users = response
         }
     }
@@ -69,7 +80,7 @@ public final class RecoveryViewModel: ErrorHandling {
     // MARK: - 아이디 존재 확인 (기존 시그니처 유지)
     public func checkIdExists() async -> MypageSimpleUser? {
         do {
-            let result = try await userUseCase.checkIDDup(recoveryId)
+            let result = try await checkIDDupUseCase.execute(recoveryId)
             switch result {
             case .exists(let user): return user
             case .notFound:        return nil
@@ -88,7 +99,7 @@ public final class RecoveryViewModel: ErrorHandling {
             return
         }
         do {
-            let response = try await userUseCase.authSMS(phoneNumber: recoveryPhone)
+            let response = try await authSMSUseCase.execute(phoneNumber: recoveryPhone)
             sentCode = String(response.code)
             recoveryCode = ""
             recoveryCodeSent = true
@@ -126,7 +137,7 @@ public final class RecoveryViewModel: ErrorHandling {
     // MARK: - 비밀번호 재설정
     func resetPassword() async {
         do {
-            try await userUseCase.updatePassword(loginId: recoveryId, prevPassword: "", newPassword: newPassword)
+            try await resetPasswordUseCase.execute(loginId: recoveryId, newPassword: newPassword)
             passwordResetSuccess = true
         } catch {
             passwordResetSuccess = false

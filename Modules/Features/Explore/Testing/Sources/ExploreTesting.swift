@@ -1,2 +1,0 @@
-// ExploreTesting placeholder
-import Foundation

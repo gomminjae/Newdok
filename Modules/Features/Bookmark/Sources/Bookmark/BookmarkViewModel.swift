@@ -26,9 +26,18 @@ public final class BookmarkViewModel: BookmarkViewModelBindable, ErrorHandling {
     public var sortOrder: String = "추가순"
     public var currentError: AppError?
 
-    private let useCase: BookmarkUseCase
-    public init(useCase: BookmarkUseCase) {
-        self.useCase = useCase
+    private let fetchArticlesUseCase: FetchBookmarkedArticlesUseCase
+    private let toggleBookmarkUseCase: ToggleBookmarkStatusUseCase
+    private let fetchInterestsUseCase: FetchBookmarkedInterestsUseCase
+
+    public init(
+        fetchArticlesUseCase: FetchBookmarkedArticlesUseCase,
+        toggleBookmarkUseCase: ToggleBookmarkStatusUseCase,
+        fetchInterestsUseCase: FetchBookmarkedInterestsUseCase
+    ) {
+        self.fetchArticlesUseCase = fetchArticlesUseCase
+        self.toggleBookmarkUseCase = toggleBookmarkUseCase
+        self.fetchInterestsUseCase = fetchInterestsUseCase
     }
 
     // MARK: - 정렬된 북마크 데이터 (API에서 정렬된 데이터 사용)
@@ -42,14 +51,14 @@ public final class BookmarkViewModel: BookmarkViewModelBindable, ErrorHandling {
 
     func fetchUserInterests() async {
         await performAsync(feature: "bookmark", operation: "fetchUserInterests") {
-            interests = try await useCase.fetchBookmarkedInterests()
+            interests = try await fetchInterestsUseCase.execute()
         }
     }
 
     func fetchUserBookmarks() async {
         await performAsync(feature: "bookmark", operation: "fetchUserBookmarks") {
             let sortBy = convertSortOrderToOption(sortOrder)
-            bookmarks = try await useCase.fetchBookmarkedArticles(interest: interest, sortBy: sortBy)
+            bookmarks = try await fetchArticlesUseCase.execute(interest: interest, sortBy: sortBy)
         }
     }
 
@@ -59,8 +68,8 @@ public final class BookmarkViewModel: BookmarkViewModelBindable, ErrorHandling {
         cancelLoads()
         loadTask = Task { @MainActor in
             await performAsync(feature: "bookmark", operation: "loadInitial", loadingBinding: \.isLoading) {
-                async let fetchedInterests = useCase.fetchBookmarkedInterests()
-                async let fetchedArticles = useCase.fetchBookmarkedArticles(interest: interest, sortBy: convertSortOrderToOption(sortOrder))
+                async let fetchedInterests = fetchInterestsUseCase.execute()
+                async let fetchedArticles = fetchArticlesUseCase.execute(interest: interest, sortBy: convertSortOrderToOption(sortOrder))
                 self.interests = try await fetchedInterests
                 self.bookmarks = try await fetchedArticles
             }

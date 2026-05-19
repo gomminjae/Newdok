@@ -1,2 +1,0 @@
-// SearchTesting placeholder
-import Foundation

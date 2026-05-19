@@ -25,7 +25,8 @@ public final class ArticleDetailViewModel: ErrorHandling {
     // MARK: - Dependencies
 
     private let id: String
-    private let articleDetailUseCase: ArticleDetailUseCase
+    private let fetchDetailUseCase: FetchArticleDetailUseCase
+    private let toggleBookmarkUseCase: ToggleArticleBookmarkUseCase
     private let highlightRepository: DetailHighlightRepository
 
     // MARK: - Computed Properties
@@ -39,11 +40,13 @@ public final class ArticleDetailViewModel: ErrorHandling {
 
     public init(
         id: String,
-        articleDetailUseCase: ArticleDetailUseCase,
+        fetchDetailUseCase: FetchArticleDetailUseCase,
+        toggleBookmarkUseCase: ToggleArticleBookmarkUseCase,
         highlightRepository: DetailHighlightRepository
     ) {
         self.id = id
-        self.articleDetailUseCase = articleDetailUseCase
+        self.fetchDetailUseCase = fetchDetailUseCase
+        self.toggleBookmarkUseCase = toggleBookmarkUseCase
         self.highlightRepository = highlightRepository
     }
 
@@ -51,7 +54,7 @@ public final class ArticleDetailViewModel: ErrorHandling {
 
     public func fetch() async {
         await performAsync(feature: "articleDetail", operation: "fetch", loadingBinding: \.isLoading) {
-            let result = try await articleDetailUseCase.fetchDetail(articleId: id)
+            let result = try await fetchDetailUseCase.execute(articleId: id)
 
             // 하이라이트 로드
             highlights = await highlightRepository.highlights(articleId: result.articleId)
@@ -68,7 +71,7 @@ public final class ArticleDetailViewModel: ErrorHandling {
 
         await performAsync(feature: "articleDetail", operation: "bookmark") {
             guard let articleId = detail?.articleId else { return }
-            try await articleDetailUseCase.toggleBookmark(articleId: "\(articleId)")
+            try await toggleBookmarkUseCase.execute(articleId: "\(articleId)")
             detail?.isBookmarked.toggle()
         }
     }
