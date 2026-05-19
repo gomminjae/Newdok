@@ -114,8 +114,11 @@ enum CompositionRoot {
             let repo = BookmarkRepositoryImpl(
                 network: container.resolve(MoyaNetworkService<ArticleAPI>.self)!
             )
-            let useCase = BookmarkUseCaseImpl(repository: repo)
-            return BookmarkViewModel(useCase: useCase)
+            return BookmarkViewModel(
+                fetchArticlesUseCase: FetchBookmarkedArticlesUseCaseImpl(repository: repo),
+                toggleBookmarkUseCase: ToggleBookmarkStatusUseCaseImpl(repository: repo),
+                fetchInterestsUseCase: FetchBookmarkedInterestsUseCaseImpl(repository: repo)
+            )
         })
     }
 
