@@ -84,8 +84,17 @@ enum CompositionRoot {
                 network: container.resolve(MoyaNetworkService<NewsletterAPI>.self)!
             )
             let highlightRepo = HighlightCountRepositoryImpl(dataSource: DefaultHighlightLocalDataSource.shared)
-            let businessUseCase = DefaultHomeBusinessUseCase(articleRepository: articleRepo, newsletterRepository: newsletterRepo, highlightCountRepository: highlightRepo)
-            return HomeViewModel(useCase: businessUseCase, appState: AppState.shared)
+            return HomeViewModel(
+                fetchTodayArticles: FetchTodayArticlesUseCaseImpl(repository: articleRepo),
+                fetchMonthArticles: FetchMonthArticlesUseCaseImpl(repository: articleRepo),
+                fetchDayArticles: FetchDayArticlesUseCaseImpl(repository: articleRepo),
+                fetchNewsletters: FetchHomeNewslettersUseCaseImpl(repository: newsletterRepo),
+                fetchHighlightCounts: FetchHomeHighlightCountsUseCaseImpl(repository: highlightRepo),
+                refreshArticles: RefreshHomeArticlesUseCaseImpl(repository: articleRepo),
+                loadReadIds: LoadReadArticleIdsUseCaseImpl(repository: articleRepo),
+                saveReadIds: SaveReadArticleIdsUseCaseImpl(repository: articleRepo),
+                appState: AppState.shared
+            )
         })
     }
 
