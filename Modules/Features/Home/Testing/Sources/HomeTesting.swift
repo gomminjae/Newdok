@@ -1,2 +1,0 @@
-// HomeTesting placeholder
-import Foundation
