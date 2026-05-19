@@ -94,8 +94,12 @@ enum CompositionRoot {
             let repo = ExploreNewsletterRepositoryImpl(
                 network: container.resolve(MoyaNetworkService<NewsletterAPI>.self)!
             )
-            let useCase = ExploreNewsletterUseCaseImpl(repository: repo)
-            return ExploreViewModel(useCase: useCase)
+            return ExploreViewModel(
+                fetchNewslettersUseCase: FetchExploreNewslettersUseCaseImpl(repository: repo),
+                fetchBrandDetailUseCase: FetchExploreBrandDetailUseCaseImpl(repository: repo),
+                fetchGuestNewslettersUseCase: FetchGuestExploreNewslettersUseCaseImpl(repository: repo),
+                fetchRecommendationUseCase: FetchExploreRecommendationUseCaseImpl(repository: repo)
+            )
         })
     }
 

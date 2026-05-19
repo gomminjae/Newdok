@@ -76,16 +76,25 @@ public final class ExploreViewModel: ErrorHandling {
         shouldScrollToTop = true
     }
 
-    private let useCase: ExploreNewsletterUseCase
+    private let fetchNewslettersUseCase: FetchExploreNewslettersUseCase
+    private let fetchBrandDetailUseCase: FetchExploreBrandDetailUseCase
+    private let fetchGuestNewslettersUseCase: FetchGuestExploreNewslettersUseCase
+    private let fetchRecommendationUseCase: FetchExploreRecommendationUseCase
     private let userInfoStore: UserInfoStoreProtocol
     private let selectableItemStore: SelectableItemStoreProtocol
 
     public init(
-        useCase: ExploreNewsletterUseCase,
+        fetchNewslettersUseCase: FetchExploreNewslettersUseCase,
+        fetchBrandDetailUseCase: FetchExploreBrandDetailUseCase,
+        fetchGuestNewslettersUseCase: FetchGuestExploreNewslettersUseCase,
+        fetchRecommendationUseCase: FetchExploreRecommendationUseCase,
         userInfoStore: UserInfoStoreProtocol = UserInfoStore.shared,
         selectableItemStore: SelectableItemStoreProtocol = SelectableItemStore.shared
     ) {
-        self.useCase = useCase
+        self.fetchNewslettersUseCase = fetchNewslettersUseCase
+        self.fetchBrandDetailUseCase = fetchBrandDetailUseCase
+        self.fetchGuestNewslettersUseCase = fetchGuestNewslettersUseCase
+        self.fetchRecommendationUseCase = fetchRecommendationUseCase
         self.userInfoStore = userInfoStore
         self.selectableItemStore = selectableItemStore
         self.nickname = userInfoStore.load()?.nickname ?? ""
@@ -110,7 +119,7 @@ public final class ExploreViewModel: ErrorHandling {
         }
 
         await performAsync(feature: "explore", operation: "fetchRecommendation", loadingBinding: \.isRefreshingRecommendation) {
-            let response = try await useCase.fetchRecommendation()
+            let response = try await fetchRecommendationUseCase.execute()
 
             // 캐시 업데이트
             cachedRecommendation = response
@@ -207,20 +216,20 @@ public final class ExploreViewModel: ErrorHandling {
 
     public func fetchAllNewsletters() async {
         await performAsync(feature: "explore", operation: "fetchAllNewsletters", loadingBinding: \.isRefreshingAllNewsletters) {
-            let response = try await useCase.fetchNewsletters(orderOpt: orderOpt, industry: industry, day: day)
+            let response = try await fetchNewslettersUseCase.execute(orderOpt: orderOpt, industry: industry, day: day)
             allNewsletters = response
         }
     }
 
     public func fetchBrandDetail(id: String) async {
         await performAsync(feature: "explore", operation: "fetchBrandDetail") {
-            _ = try await useCase.fetchNewsletterBrand(id: id)
+            _ = try await fetchBrandDetailUseCase.execute(id: id)
         }
     }
 
     public func fetchGuestAllNewsletters() async {
         await performAsync(feature: "explore", operation: "fetchGuestAllNewsletters") {
-            let response = try await useCase.fetchGuestNewsletters(orderOpt: orderOpt, industry: industry, day: day)
+            let response = try await fetchGuestNewslettersUseCase.execute(orderOpt: orderOpt, industry: industry, day: day)
             allNewsletters = response
         }
     }
