@@ -104,8 +104,12 @@ enum CompositionRoot {
             let repo = SubscribeNewsletterRepositoryImpl(
                 network: container.resolve(MoyaNetworkService<NewsletterAPI>.self)!
             )
-            let useCase = SubscribeUseCaseImpl(repository: repo)
-            return SubscribeViewModel(useCase: useCase)
+            return SubscribeViewModel(
+                fetchActiveUseCase: FetchActiveSubscriptionUseCaseImpl(repository: repo),
+                fetchPausedUseCase: FetchPausedSubscriptionUseCaseImpl(repository: repo),
+                pauseUseCase: PauseSubscriptionUseCaseImpl(repository: repo),
+                resumeUseCase: ResumeSubscriptionUseCaseImpl(repository: repo)
+            )
         })
     }
 

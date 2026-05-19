@@ -21,7 +21,10 @@ public enum SubscribeState {
 @Observable
 @MainActor
 public final class SubscribeViewModel: ErrorHandling {
-    private let useCase: SubscribeUseCase
+    private let fetchActiveUseCase: FetchActiveSubscriptionUseCase
+    private let fetchPausedUseCase: FetchPausedSubscriptionUseCase
+    private let pauseUseCase: PauseSubscriptionUseCase
+    private let resumeUseCase: ResumeSubscriptionUseCase
 
     public var activeNewsletters: [SubscribeNewsletter] = []
     public var pausedNewsletters: [SubscribeNewsletter] = []
@@ -34,8 +37,16 @@ public final class SubscribeViewModel: ErrorHandling {
     public var currentError: AppError?
     public private(set) var pendingSubscriptionIds: Set<String> = []
 
-    public init(useCase: SubscribeUseCase) {
-        self.useCase = useCase
+    public init(
+        fetchActiveUseCase: FetchActiveSubscriptionUseCase,
+        fetchPausedUseCase: FetchPausedSubscriptionUseCase,
+        pauseUseCase: PauseSubscriptionUseCase,
+        resumeUseCase: ResumeSubscriptionUseCase
+    ) {
+        self.fetchActiveUseCase = fetchActiveUseCase
+        self.fetchPausedUseCase = fetchPausedUseCase
+        self.pauseUseCase = pauseUseCase
+        self.resumeUseCase = resumeUseCase
     }
 
     public func loadInitial() async {
@@ -45,8 +56,8 @@ public final class SubscribeViewModel: ErrorHandling {
         isLoadingPaused = true
 
         do {
-            async let active = useCase.fetchActiveSubscription()
-            async let paused = useCase.fetchPausedSubscription()
+            async let active = fetchActiveUseCase.execute()
+            async let paused = fetchPausedUseCase.execute()
 
             activeNewsletters = try await active
             pausedNewsletters = try await paused
@@ -63,9 +74,9 @@ public final class SubscribeViewModel: ErrorHandling {
         guard !isRefreshing else { return }
         await performAsync(feature: "subscribe", operation: "refresh", loadingBinding: \.isRefreshing) {
             if tab == 0 {
-                activeNewsletters = try await useCase.fetchActiveSubscription()
+                activeNewsletters = try await fetchActiveUseCase.execute()
             } else {
-                pausedNewsletters = try await useCase.fetchPausedSubscription()
+                pausedNewsletters = try await fetchPausedUseCase.execute()
             }
         }
     }
@@ -75,7 +86,7 @@ public final class SubscribeViewModel: ErrorHandling {
         defer { endSubscriptionMutation(newsletterId) }
 
         let result: Void? = await performAsync(feature: "subscribe", operation: "pause") {
-            _ = try await useCase.pauseSubscription(newsletterId: newsletterId)
+            try await pauseUseCase.execute(newsletterId: newsletterId)
         }
         return result != nil
     }
@@ -85,7 +96,7 @@ public final class SubscribeViewModel: ErrorHandling {
         defer { endSubscriptionMutation(newsletterId) }
 
         let result: Void? = await performAsync(feature: "subscribe", operation: "resume") {
-            _ = try await useCase.resumeSubscription(newsletterId: newsletterId)
+            try await resumeUseCase.execute(newsletterId: newsletterId)
         }
         return result != nil
     }
