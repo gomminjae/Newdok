@@ -14,7 +14,8 @@ import Observation
 @Observable
 @MainActor
 public final class SearchViewModel: ErrorHandling {
-    private let useCase: SearchUseCase
+    private let searchNewslettersUseCase: SearchNewslettersUseCase
+    private let fetchPopularKeywordsUseCase: FetchPopularKeywordsUseCase
 
     public var searchText: String = ""
     public var searchResults: [SearchedNewsletter] = []
@@ -25,8 +26,12 @@ public final class SearchViewModel: ErrorHandling {
     public var popularErrorMessage: String?
     public var currentError: AppError?
 
-    public init(useCase: SearchUseCase) {
-        self.useCase = useCase
+    public init(
+        searchNewslettersUseCase: SearchNewslettersUseCase,
+        fetchPopularKeywordsUseCase: FetchPopularKeywordsUseCase
+    ) {
+        self.searchNewslettersUseCase = searchNewslettersUseCase
+        self.fetchPopularKeywordsUseCase = fetchPopularKeywordsUseCase
     }
 
     public func clearSearchResults() {
@@ -41,7 +46,7 @@ public final class SearchViewModel: ErrorHandling {
         isPopularLoading = true
         popularErrorMessage = nil
         do {
-            let response = try await useCase.fetchPopularKeywords()
+            let response = try await fetchPopularKeywordsUseCase.execute()
             self.popularKeywords = response
         } catch {
             handleError(error, feature: "search", operation: "loadPopularKeywords")
@@ -58,7 +63,7 @@ public final class SearchViewModel: ErrorHandling {
         let query = searchText
         errorMessage = nil
         do {
-            let results = try await useCase.searchNewsletters(brandName: query)
+            let results = try await searchNewslettersUseCase.execute(brandName: query)
             self.searchResults = results
         } catch {
             handleError(error, feature: "search", operation: "searchNewsletters")

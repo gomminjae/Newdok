@@ -143,8 +143,10 @@ enum CompositionRoot {
             let repo = SearchRepositoryImpl(
                 network: container.resolve(MoyaNetworkService<SearchAPI>.self)!
             )
-            let useCase = SearchUseCaseImpl(searchRepository: repo)
-            return SearchViewModel(useCase: useCase)
+            return SearchViewModel(
+                searchNewslettersUseCase: SearchNewslettersUseCaseImpl(repository: repo),
+                fetchPopularKeywordsUseCase: FetchPopularKeywordsUseCaseImpl(repository: repo)
+            )
         })
     }
 
