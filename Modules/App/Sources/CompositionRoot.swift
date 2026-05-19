@@ -131,9 +131,13 @@ enum CompositionRoot {
                 let articleRepo = DetailArticleRepositoryImpl(
                     network: container.resolve(MoyaNetworkService<ArticleAPI>.self)!
                 )
-                let detailUseCase = ArticleDetailUseCaseImpl(articleRepository: articleRepo)
                 let highlightRepo = DetailHighlightRepositoryImpl(dataSource: DefaultHighlightLocalDataSource.shared)
-                return ArticleDetailViewModel(id: id, articleDetailUseCase: detailUseCase, highlightRepository: highlightRepo)
+                return ArticleDetailViewModel(
+                    id: id,
+                    fetchDetailUseCase: FetchArticleDetailUseCaseImpl(articleRepository: articleRepo),
+                    toggleBookmarkUseCase: ToggleArticleBookmarkUseCaseImpl(articleRepository: articleRepo),
+                    highlightRepository: highlightRepo
+                )
             }
         )
     }
