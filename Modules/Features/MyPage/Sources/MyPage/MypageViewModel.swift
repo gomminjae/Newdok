@@ -57,21 +57,36 @@ public final class MypageViewModel: ErrorHandling {
     public var isPasswordUpdating: Bool = false
     public var isVerificationSending: Bool = false
 
-    private let useCase: MypageUserUseCase
-    private let profileUseCase: MypageProfileUseCase
+    private let fetchProfileUseCase: FetchMypageProfileUseCase
+    private let updateNicknameUseCase: UpdateMypageNicknameUseCase
+    private let updatePasswordUseCase: UpdateMypagePasswordUseCase
+    private let updateInterestsUseCase: UpdateMypageInterestsUseCase
+    private let updateIndustryUseCase: UpdateMypageIndustryUseCase
+    private let updatePhoneNumberUseCase: UpdateMypagePhoneNumberUseCase
+    private let authSMSUseCase: MypageAuthSMSUseCase
     private let selectableItemStore: SelectableItemStoreProtocol
     private let userInfoStore: UserInfoStoreProtocol
 
     public init(
-        useCase: MypageUserUseCase,
-        profileUseCase: MypageProfileUseCase,
+        fetchProfileUseCase: FetchMypageProfileUseCase,
+        updateNicknameUseCase: UpdateMypageNicknameUseCase,
+        updatePasswordUseCase: UpdateMypagePasswordUseCase,
+        updateInterestsUseCase: UpdateMypageInterestsUseCase,
+        updateIndustryUseCase: UpdateMypageIndustryUseCase,
+        updatePhoneNumberUseCase: UpdateMypagePhoneNumberUseCase,
+        authSMSUseCase: MypageAuthSMSUseCase,
         selectableItemStore: SelectableItemStoreProtocol = SelectableItemStore.shared,
         userInfoStore: UserInfoStoreProtocol = UserInfoStore.shared
     ) {
+        self.fetchProfileUseCase = fetchProfileUseCase
+        self.updateNicknameUseCase = updateNicknameUseCase
+        self.updatePasswordUseCase = updatePasswordUseCase
+        self.updateInterestsUseCase = updateInterestsUseCase
+        self.updateIndustryUseCase = updateIndustryUseCase
+        self.updatePhoneNumberUseCase = updatePhoneNumberUseCase
+        self.authSMSUseCase = authSMSUseCase
         self.selectableItemStore = selectableItemStore
         self.userInfoStore = userInfoStore
-        self.useCase = useCase
-        self.profileUseCase = profileUseCase
     }
 
     func loadUserInfo() -> UserInfo? {
@@ -80,7 +95,7 @@ public final class MypageViewModel: ErrorHandling {
 
     public func fetchuserInfo() async {
         await performAsync(feature: "mypage", operation: "fetchUserInfo") {
-            user = try await profileUseCase.fetchProfile()
+            user = try await fetchProfileUseCase.execute()
         }
     }
 
@@ -90,7 +105,7 @@ public final class MypageViewModel: ErrorHandling {
         defer { isNicknameUpdating = false }
 
         let result: Void? = await performAsync(feature: "mypage", operation: "updateNickname") {
-            try await profileUseCase.updateNickname(nickname)
+            try await updateNicknameUseCase.execute(nickname)
 
             // UI 상태 업데이트
             if let currentUser = user {
@@ -119,7 +134,7 @@ public final class MypageViewModel: ErrorHandling {
         defer { isIndustryUpdating = false }
 
         let result: Void? = await performAsync(feature: "mypage", operation: "updateIndustry") {
-            try await profileUseCase.updateIndustry(id)
+            try await updateIndustryUseCase.execute(id)
 
             // UI 상태 업데이트
             if let currentUser = user {
@@ -148,7 +163,7 @@ public final class MypageViewModel: ErrorHandling {
         defer { isInterestUpdating = false }
 
         let result: Void? = await performAsync(feature: "mypage", operation: "updateInterests") {
-            try await profileUseCase.updateInterests(ids)
+            try await updateInterestsUseCase.execute(ids)
 
             // UI 상태 업데이트
             if let currentUser = user {
@@ -185,7 +200,7 @@ public final class MypageViewModel: ErrorHandling {
         defer { isPhoneUpdating = false }
 
         do {
-            try await useCase.updatePhoneNumber(phoneNumber)
+            try await updatePhoneNumberUseCase.execute(phoneNumber)
             isPhoneUpdateSuccess = true
             showPhoneNumberSuccess = true
             return true
@@ -202,7 +217,7 @@ public final class MypageViewModel: ErrorHandling {
         defer { isPasswordUpdating = false }
 
         do {
-            try await profileUseCase.updatePassword(prevPassword: oldPassword, newPassword: newPassword)
+            try await updatePasswordUseCase.execute(prevPassword: oldPassword, newPassword: newPassword)
 
             isPasswordUpdateSuccess = true
             oldPassword = ""
@@ -230,7 +245,7 @@ public final class MypageViewModel: ErrorHandling {
         defer { resendFailureCount += 1 }
 
         await performAsync(feature: "mypage", operation: "sendVerificationCode") {
-            let response = try await useCase.authSMS(phoneNumber: phoneNumber)
+            let response = try await authSMSUseCase.execute(phoneNumber: phoneNumber)
             verificationCode = String(response.code)
             isRequestSent = true
 
