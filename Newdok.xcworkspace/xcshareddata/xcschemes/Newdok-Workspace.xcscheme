@@ -1190,34 +1190,6 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "3AC192947DB2FAD63AFCCAEB"
-               BuildableName = "Survey.framework"
-               BlueprintName = "Survey"
-               ReferencedContainer = "container:Modules/Features/Survey/Survey.xcodeproj">
-            </BuildableReference>
-         </BuildActionEntry>
-         <BuildActionEntry
-            buildForTesting = "YES"
-            buildForRunning = "YES"
-            buildForProfiling = "YES"
-            buildForArchiving = "YES"
-            buildForAnalyzing = "YES">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "0DC8F1540991EF674B7401A8"
-               BuildableName = "SurveyTests.xctest"
-               BlueprintName = "SurveyTests"
-               ReferencedContainer = "container:Modules/Features/Survey/Survey.xcodeproj">
-            </BuildableReference>
-         </BuildActionEntry>
-         <BuildActionEntry
-            buildForTesting = "YES"
-            buildForRunning = "YES"
-            buildForProfiling = "YES"
-            buildForArchiving = "YES"
-            buildForAnalyzing = "YES">
-            <BuildableReference
-               BuildableIdentifier = "primary"
                BlueprintIdentifier = "C0B66C9F607B0D0E419B8581"
                BuildableName = "SwiftUIIntrospect.framework"
                BlueprintName = "SwiftUIIntrospect"
@@ -1357,17 +1329,6 @@
                BuildableName = "SubscribeTests.xctest"
                BlueprintName = "SubscribeTests"
                ReferencedContainer = "container:Modules/Features/Subscribe/Subscribe.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
-         <TestableReference
-            skipped = "NO"
-            parallelizable = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "0DC8F1540991EF674B7401A8"
-               BuildableName = "SurveyTests.xctest"
-               BlueprintName = "SurveyTests"
-               ReferencedContainer = "container:Modules/Features/Survey/Survey.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
