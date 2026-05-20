@@ -248,15 +248,10 @@ public final class HomeViewModel {
         calendarState.dataDays = []
         Task { [weak self] in
             guard let self else { return }
-            if let monthly = monthlyCache[key] {
-                let days = Self.extractDataDays(from: monthly)
-                storeDataDays(days, for: date)
-                if Calendar.current.isDate(date, equalTo: calendarState.displayedMonth, toGranularity: .month) {
-                    calendarState.dataDays = days
-                }
-                return
+            let days = await calendarDataDays(for: date)
+            if Calendar.current.isDate(date, equalTo: calendarState.displayedMonth, toGranularity: .month) {
+                calendarState.dataDays = days
             }
-            await fetchAndStoreDataDays(for: date)
         }
     }
 
@@ -335,7 +330,7 @@ public final class HomeViewModel {
             return days
         }
 
-        return await fetchAndReturnDataDays(for: date)
+        return await fetchDataDays(for: date)
     }
 
     // MARK: - Private: Month Loading
@@ -351,7 +346,7 @@ public final class HomeViewModel {
         calendarState.isLoading = true
 
         await loadMonthInternal(for: date, forceReload: forceReload)
-        prefetchAdjacentDataDays(from: date)
+        prefetchAdjacent(from: date)
         guard latestMonthRequestKey == requestKey else { return }
 
         calendarState.isLoading = false
@@ -390,7 +385,7 @@ public final class HomeViewModel {
             storeDataDays(days, for: date)
             calendarState.dataDays = days
             calendarState.isLoading = false
-            prefetchAdjacentMonths(from: month)
+            prefetchAdjacent(from: month)
         } catch {
             if Task.isCancelled { return }
             logHomeError(error, operation: "loadMonthData")
@@ -520,9 +515,7 @@ public final class HomeViewModel {
     }
 
     private func unreadCount(in articles: [HomeArticle]) -> Int {
-        articles.reduce(into: 0) { count, article in
-            if !isRead(article) { count += 1 }
-        }
+        articles.count { !isRead($0) }
     }
 
     private static func extractDataDays(from monthly: [HomeArticles]) -> Set<Int> {
@@ -539,66 +532,20 @@ public final class HomeViewModel {
 
     // MARK: - Private: Prefetching
 
-    private func prefetchAdjacentDataDays(from date: Date) {
-        let calendar = Calendar.current
-        for offset in [-1, 1] {
-            guard let target = calendar.date(byAdding: .month, value: offset, to: date) else { continue }
-            let key = monthKey(for: target)
-            if dataDaysCache[key] != nil { continue }
-            Task { [weak self] in
-                guard let self else { return }
-                if let monthly = monthlyCache[key] {
-                    let days = Self.extractDataDays(from: monthly)
-                    storeDataDays(days, for: target)
-                    return
-                }
-                await fetchAndStoreDataDays(for: target)
-            }
-        }
-    }
-
-    private func prefetchAdjacentMonths(from date: Date) {
+    private func prefetchAdjacent(from date: Date) {
         let calendar = Calendar.current
         for offset in [-1, 1] {
             guard let target = calendar.date(byAdding: .month, value: offset, to: date) else { continue }
             let key = monthKey(for: target)
             if monthlyCache[key] != nil { continue }
             Task { [weak self] in
-                guard let self else { return }
-                do {
-                    let monthly = try await fetchMonthArticlesUseCase.execute(
-                        year: formatYear(target),
-                        publicationMonth: formatMonth(target)
-                    )
-                    monthlyCache[key] = monthly
-                    let days = Self.extractDataDays(from: monthly)
-                    storeDataDays(days, for: target)
-                } catch {
-                    logHomeError(error, operation: "prefetchMonth")
-                }
+                await self?.fetchDataDays(for: target)
             }
         }
     }
 
-    private func fetchAndStoreDataDays(for date: Date) async {
-        let key = monthKey(for: date)
-        do {
-            let monthly = try await fetchMonthArticlesUseCase.execute(
-                year: formatYear(date),
-                publicationMonth: formatMonth(date)
-            )
-            monthlyCache[key] = monthly
-            let days = Self.extractDataDays(from: monthly)
-            storeDataDays(days, for: date)
-            if Calendar.current.isDate(date, equalTo: calendarState.displayedMonth, toGranularity: .month) {
-                calendarState.dataDays = days
-            }
-        } catch {
-            logHomeError(error, operation: "fetchDataDays")
-        }
-    }
-
-    private func fetchAndReturnDataDays(for date: Date) async -> Set<Int> {
+    @discardableResult
+    private func fetchDataDays(for date: Date) async -> Set<Int> {
         let key = monthKey(for: date)
         do {
             let monthly = try await fetchMonthArticlesUseCase.execute(
