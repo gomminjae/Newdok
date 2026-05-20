@@ -15,8 +15,6 @@ public struct HomeView: View {
     @State private var viewModel: HomeViewModel
     @State private var showCalendar = false
     @State private var refreshSpinAngle: Double = 0
-    @State private var calendarDisplayedMonth = Date()
-    @State private var calendarDataDays: Set<Int> = []
     @Environment(AppRouter.self) private var router
     @Environment(TabSelection.self) private var tabSelection
     @Environment(AppState.self) private var appState
@@ -28,7 +26,8 @@ public struct HomeView: View {
     }
 
     public var body: some View {
-        VStack(spacing: 0) {
+        @Bindable var viewModel = viewModel
+        return VStack(spacing: 0) {
             headerView
 
             if viewModel.homeState == .idle || viewModel.homeState == .loading {
@@ -57,12 +56,9 @@ public struct HomeView: View {
         .popup(isPresented: $showCalendar) {
                 CalendarPopupView(
                     isPresented: $showCalendar,
-                    selectedDate: Binding(
-                        get: { viewModel.calendarState.selectedDate },
-                        set: { viewModel.calendarState.selectedDate = $0 }
-                    ),
-                    displayedMonthDate: $calendarDisplayedMonth,
-                    dataDays: $calendarDataDays,
+                    selectedDate: $viewModel.calendarState.selectedDate,
+                    displayedMonthDate: $viewModel.calendarState.displayedMonth,
+                    dataDays: $viewModel.calendarState.dataDays,
                     onDateSelected: { date in
                         viewModel.selectDateWithMonthGuarantee(date)
                     }
@@ -80,8 +76,6 @@ public struct HomeView: View {
             }
             .navigationBarHidden(true)
             .onAppear {
-                calendarDisplayedMonth = viewModel.calendarState.displayedMonth
-                calendarDataDays = viewModel.calendarState.dataDays
                 if isGuest {
                     viewModel.homeState = .guest
                     return
@@ -99,22 +93,6 @@ public struct HomeView: View {
                     if newValue == .authenticated {
                         await viewModel.loadToday()
                     }
-                }
-            }
-            .onChange(of: viewModel.calendarState.displayedMonth) { _, newValue in
-                if !showCalendar {
-                    calendarDisplayedMonth = newValue
-                }
-            }
-            .onChange(of: viewModel.calendarState.dataDays) { _, newValue in
-                if !showCalendar {
-                    calendarDataDays = newValue
-                }
-            }
-            .onChange(of: calendarDisplayedMonth) { _, newValue in
-                guard showCalendar else { return }
-                Task {
-                    await updateCalendarDataDays(for: newValue)
                 }
             }
         }
@@ -149,19 +127,8 @@ public struct HomeView: View {
             Spacer()
 
             Button(action: {
-                let calendar = Calendar.current
-                let currentDisplayMonth = viewModel.calendarState.displayedMonth
-                let monthDate = calendar.date(from: calendar.dateComponents([.year, .month], from: currentDisplayMonth)) ?? currentDisplayMonth
-                
-                Task { @MainActor in
-                    calendarDisplayedMonth = monthDate
-                    calendarDataDays = viewModel.calendarState.dataDays
-                    showCalendar = true
-                }
-                
-                Task {
-                    await updateCalendarDataDays(for: monthDate)
-                }
+                viewModel.applyDataDaysForMonth(viewModel.calendarState.displayedMonth)
+                showCalendar = true
             }) {
                 Image(asset: DesignSystemAsset.lineCalendar)
                     .padding(.trailing, 24)
@@ -262,13 +229,6 @@ public struct HomeView: View {
         .background(Color.white.clipShape(RoundedRectangle(cornerRadius: 12)))
         .padding(.horizontal, 8)
         .padding(.bottom, 8)
-    }
-
-    private func updateCalendarDataDays(for month: Date) async {
-        let days = await viewModel.calendarDataDays(for: month)
-        await MainActor.run {
-            calendarDataDays = days
-        }
     }
 
     private func convertWeekdayToExploreIndex(_ weekday: Int) -> Int {

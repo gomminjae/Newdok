@@ -1,12 +1,5 @@
-//
-//  CalendarPopupView.swift
-//  Newdok
-//
-//  Created by 권민재 on 2/24/25.
-//
 import SwiftUI
 import UIKit
-
 
 struct RoundedCorners: Shape {
     var radius: CGFloat = 16
@@ -21,19 +14,50 @@ struct RoundedCorners: Shape {
     }
 }
 
+public enum CalendarCell: Hashable {
+    case blank
+    case day(date: Date, value: Int)
+
+    var date: Date {
+        if case let .day(d, _) = self { return d }
+        return .distantPast
+    }
+
+    var value: Int {
+        if case let .day(_, v) = self { return v }
+        return 0
+    }
+
+    var label: String {
+        value == 0 ? "" : "\(value)"
+    }
+
+    var isBlank: Bool {
+        if case .blank = self { return true }
+        return false
+    }
+}
+
 public struct CalendarPopupView: View {
     @Binding var isPresented: Bool
     @Binding var selectedDate: Date
     @Binding var displayedMonthDate: Date
     @Binding var isLoading: Bool
     @Binding var dataDays: Set<Int>
-    @State private var localSelectedDate: Date
-    @State private var localDisplayedMonthDate: Date
 
     public var onDateSelected: ((Date) -> Void)?
-    
+
+    @State private var cells: [CalendarCell] = []
+
     private let calendar = Calendar.current
-    private let weekdays = ["일", "월", "화", "수", "목", "금", "토"]
+    private var weekdaySymbols: [String] {
+        var symbols = calendar.veryShortStandaloneWeekdaySymbols
+        let firstIndex = calendar.firstWeekday - 1
+        if firstIndex > 0 {
+            symbols = Array(symbols[firstIndex...]) + Array(symbols[..<firstIndex])
+        }
+        return symbols
+    }
     private var today: Date { calendar.startOfDay(for: Date()) }
 
     public init(
@@ -42,15 +66,13 @@ public struct CalendarPopupView: View {
         displayedMonthDate: Binding<Date>,
         dataDays: Binding<Set<Int>>,
         isLoading: Binding<Bool> = .constant(false),
-        onDateSelected: ((Date) -> Void)? = nil,
+        onDateSelected: ((Date) -> Void)? = nil
     ) {
         self._isPresented = isPresented
         self._selectedDate = selectedDate
         self._displayedMonthDate = displayedMonthDate
         self._dataDays = dataDays
         self._isLoading = isLoading
-        self._localSelectedDate = State(initialValue: selectedDate.wrappedValue)
-        self._localDisplayedMonthDate = State(initialValue: displayedMonthDate.wrappedValue)
         self.onDateSelected = onDateSelected
     }
 
@@ -62,8 +84,7 @@ public struct CalendarPopupView: View {
                 dateGrid
             }
             .background(RoundedRectangle(cornerRadius: 16).fill(Color.white))
-            
-            // 오늘 버튼
+
             Button(action: selectToday) {
                 HStack(spacing: 4) {
                     Image(systemName: "arrow.clockwise")
@@ -83,16 +104,8 @@ public struct CalendarPopupView: View {
         }
         .background(Color.clear)
         .contentShape(Rectangle())
-        .onChange(of: displayedMonthDate) { _, newValue in
-            localDisplayedMonthDate = newValue
-        }
-        .onChange(of: dataDays) { _, _ in }
-        .onChange(of: selectedDate) { _, newValue in
-            localSelectedDate = newValue
-        }
-        .onAppear {
-            // 초기 설정만 수행
-        }
+        .onAppear { regenerateCells() }
+        .onChange(of: displayedMonthDate) { _, _ in regenerateCells() }
     }
 
     private var headerView: some View {
@@ -100,35 +113,30 @@ public struct CalendarPopupView: View {
             ZStack {
                 HStack {
                     Spacer()
-                    Button(action: {
-                        previousMonth()
-                    }) {
+                    Button(action: previousMonth) {
                         Image(systemName: "chevron.left")
                             .foregroundStyle(Color.captionTitle)
                             .frame(width: 44, height: 44)
                             .contentShape(Rectangle())
                     }
                     .buttonStyle(PlainButtonStyle())
-                    
+
                     Text(yearMonthTitle)
                         .frame(width: 120, height: 20)
                         .font(.hanSansNeo(14, .medium))
                         .foregroundStyle(Color.captionDeep)
-                        .id("month-title-\(localDisplayedMonthDate)")
-                    
-                    Button(action: {
-                        nextMonth()
-                    }) {
+
+                    Button(action: nextMonth) {
                         Image(systemName: "chevron.right")
                             .foregroundStyle(Color.captionTitle)
                             .frame(width: 44, height: 44)
                             .contentShape(Rectangle())
                     }
                     .buttonStyle(PlainButtonStyle())
-                    
+
                     Spacer()
                 }
-                
+
                 HStack {
                     Spacer()
                     Button(action: { isPresented = false }) {
@@ -148,7 +156,7 @@ public struct CalendarPopupView: View {
 
     private var weekdayHeader: some View {
         HStack(spacing: 0) {
-            ForEach(Array(weekdays.enumerated()), id: \.0) { idx, day in
+            ForEach(Array(weekdaySymbols.enumerated()), id: \.0) { idx, day in
                 Text(day)
                     .font(.hanSansNeo(16, .regular))
                     .frame(maxWidth: .infinity)
@@ -163,114 +171,112 @@ public struct CalendarPopupView: View {
     }
 
     private var dateGrid: some View {
-        let days = generateDays()
-        return VStack(spacing: 10) {
-            ForEach(0..<(days.count / 7), id: \.self) { weekIndex in
+        VStack(spacing: 10) {
+            ForEach(0..<weekCount, id: \.self) { weekIndex in
                 HStack(spacing: 0) {
                     ForEach(0..<7, id: \.self) { dayIndex in
-                        let day = days[weekIndex * 7 + dayIndex]
-                        let isFuture = calendar.startOfDay(for: day.date) > today
-                        let isToday = calendar.isDate(day.date, inSameDayAs: today)
-                        let isSelected = calendar.isDate(day.date, inSameDayAs: localSelectedDate)
-                        let hasData = dataDays.contains(day.dayInt)
-                        let isBlank = day.dayInt == 0
-                        
-                        VStack(spacing: 4) {
-                            Text(day.dayString)
-                                .font(.hanSansNeo(16, .regular))
-                                .frame(maxWidth: .infinity, maxHeight: 40)
-                                .aspectRatio(1, contentMode: .fit)
-                                .foregroundColor(
-                                    isFuture ? Color.captionDisabled :
-                                    (isSelected ? .white :
-                                     Color.captionMuted)
-                                )
-                                .background(
-                                    RoundedRectangle(cornerRadius: 12)
-                                        .fill(
-                                            isSelected ? Color(hex: "#161616") : .clear
-                                        )
-                                )
-                                .overlay(
-                                    RoundedRectangle(cornerRadius: 12)
-                                        .stroke(
-                                            isToday && !isSelected ? Color(hex: "#161616") : Color.clear,
-                                            lineWidth: 1
-                                        )
-                                )
-
-                            Circle()
-                                .frame(width: 6, height: 6)
-                                .foregroundColor(Color(hex: "#363636"))
-                                .opacity(hasData && !isBlank ? 1 : 0)
-                        }
-                        .frame(maxWidth: .infinity)
-                       
-                        .opacity(isBlank ? 0.3 : 1)
-                        .contentShape(Rectangle())
-                        .onTapGesture {
-                            guard !isBlank else { return }
-                            localSelectedDate = day.date
-                            selectedDate = day.date
-                            onDateSelected?(day.date)
-                            isPresented = false
-                        }
+                        cellView(for: cells[weekIndex * 7 + dayIndex])
                     }
                 }
             }
         }
         .padding(.horizontal, 8)
         .padding(.vertical, 20)
-        .id("calendar-grid-\(localDisplayedMonthDate.timeIntervalSince1970)-\(dataDays.hashValue)")
+    }
+
+    @ViewBuilder
+    private func cellView(for cell: CalendarCell) -> some View {
+        let isFuture = calendar.startOfDay(for: cell.date) > today
+        let isToday = calendar.isDate(cell.date, inSameDayAs: today)
+        let isSelected = !cell.isBlank && calendar.isDate(cell.date, inSameDayAs: selectedDate)
+        let hasData = dataDays.contains(cell.value)
+
+        VStack(spacing: 4) {
+            Text(cell.label)
+                .font(.hanSansNeo(16, .regular))
+                .frame(maxWidth: .infinity, maxHeight: 40)
+                .aspectRatio(1, contentMode: .fit)
+                .foregroundColor(
+                    isFuture ? Color.captionDisabled :
+                        (isSelected ? .white : Color.captionMuted)
+                )
+                .background(
+                    RoundedRectangle(cornerRadius: 12)
+                        .fill(isSelected ? Color(hex: "#161616") : .clear)
+                )
+                .overlay(
+                    RoundedRectangle(cornerRadius: 12)
+                        .stroke(
+                            isToday && !isSelected ? Color(hex: "#161616") : Color.clear,
+                            lineWidth: 1
+                        )
+                )
+
+            Circle()
+                .frame(width: 6, height: 6)
+                .foregroundColor(Color(hex: "#363636"))
+                .opacity(hasData && !cell.isBlank ? 1 : 0)
+        }
+        .frame(maxWidth: .infinity)
+        .opacity(cell.isBlank ? 0.3 : 1)
+        .contentShape(Rectangle())
+        .onTapGesture {
+            guard !cell.isBlank else { return }
+            selectedDate = cell.date
+            onDateSelected?(cell.date)
+            isPresented = false
+        }
+    }
+
+    private var weekCount: Int {
+        cells.count / 7
     }
 
     private var yearMonthTitle: String {
-        let fmt = DateFormatter()
-        fmt.dateFormat = "yyyy년 M월"
-        return fmt.string(from: localDisplayedMonthDate)
+        displayedMonthDate.formatted(
+            .dateTime.year().month(.defaultDigits).locale(Locale(identifier: "ko_KR"))
+        )
     }
 
-    private func generateDays() -> [CalendarDay] {
-        var days = [CalendarDay]()
-        let startOfMonth = calendar.date(from:
-            calendar.dateComponents([.year, .month], from: localDisplayedMonthDate))!
-        let firstWeekday = calendar.component(.weekday, from: startOfMonth)
-        let range = calendar.range(of: .day, in: .month, for: localDisplayedMonthDate)!
+    private func regenerateCells() {
+        cells = Self.makeCells(for: displayedMonthDate, calendar: calendar)
+    }
 
-        for _ in 1..<firstWeekday {
-            days.append(CalendarDay(date: .distantPast, dayString: "", dayInt: 0))
+    private static func makeCells(for monthDate: Date, calendar: Calendar) -> [CalendarCell] {
+        guard
+            let startOfMonth = calendar.date(
+                from: calendar.dateComponents([.year, .month], from: monthDate)
+            ),
+            let range = calendar.range(of: .day, in: .month, for: monthDate)
+        else {
+            return []
         }
-        for d in range {
-            let date = calendar.date(bySetting: .day, value: d, of: localDisplayedMonthDate)!
-            days.append(CalendarDay(date: date, dayString: "\(d)", dayInt: d))
+
+        let firstWeekday = calendar.component(.weekday, from: startOfMonth)
+        let leading = Array(repeating: CalendarCell.blank, count: firstWeekday - 1)
+        let days = range.compactMap { day -> CalendarCell? in
+            calendar.date(bySetting: .day, value: day, of: monthDate)
+                .map { CalendarCell.day(date: $0, value: day) }
         }
-        while days.count % 7 != 0 {
-            days.append(CalendarDay(date: .distantPast, dayString: "", dayInt: 0))
-        }
-        return days
+        let total = leading.count + days.count
+        let trailingCount = (7 - total % 7) % 7
+        let trailing = Array(repeating: CalendarCell.blank, count: trailingCount)
+        return leading + days + trailing
     }
 
     private func previousMonth() {
-        let newDate = calendar.date(byAdding: .month, value: -1, to: localDisplayedMonthDate)!
-        localDisplayedMonthDate = newDate
-        displayedMonthDate = newDate
+        guard let prev = calendar.date(byAdding: .month, value: -1, to: displayedMonthDate) else { return }
+        displayedMonthDate = prev
     }
-    
+
     private func nextMonth() {
-        let newDate = calendar.date(byAdding: .month, value: 1, to: localDisplayedMonthDate)!
-        localDisplayedMonthDate = newDate
-        displayedMonthDate = newDate
+        guard let next = calendar.date(byAdding: .month, value: 1, to: displayedMonthDate) else { return }
+        displayedMonthDate = next
     }
-    
+
     private func selectToday() {
         selectedDate = today
         onDateSelected?(today)
         isPresented = false
     }
-}
-
-struct CalendarDay: Hashable {
-    let date: Date
-    let dayString: String
-    let dayInt: Int
 }
