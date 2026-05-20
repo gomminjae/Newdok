@@ -28,20 +28,6 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "B6E08EB0C955E3A126652189"
-               BuildableName = "BookmarkInterface.framework"
-               BlueprintName = "BookmarkInterface"
-               ReferencedContainer = "container:Bookmark.xcodeproj">
-            </BuildableReference>
-         </BuildActionEntry>
-         <BuildActionEntry
-            buildForTesting = "YES"
-            buildForRunning = "YES"
-            buildForProfiling = "YES"
-            buildForArchiving = "YES"
-            buildForAnalyzing = "YES">
-            <BuildableReference
-               BuildableIdentifier = "primary"
                BlueprintIdentifier = "BCF52F412D064E28B13EA5D1"
                BuildableName = "BookmarkTesting.framework"
                BlueprintName = "BookmarkTesting"

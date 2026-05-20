@@ -28,20 +28,6 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "9210C9D863AE640CB72D85DF"
-               BuildableName = "SubscribeInterface.framework"
-               BlueprintName = "SubscribeInterface"
-               ReferencedContainer = "container:Subscribe.xcodeproj">
-            </BuildableReference>
-         </BuildActionEntry>
-         <BuildActionEntry
-            buildForTesting = "YES"
-            buildForRunning = "YES"
-            buildForProfiling = "YES"
-            buildForArchiving = "YES"
-            buildForAnalyzing = "YES">
-            <BuildableReference
-               BuildableIdentifier = "primary"
                BlueprintIdentifier = "C4EED6233BE2B4419D5CFAEC"
                BuildableName = "SubscribeTesting.framework"
                BlueprintName = "SubscribeTesting"

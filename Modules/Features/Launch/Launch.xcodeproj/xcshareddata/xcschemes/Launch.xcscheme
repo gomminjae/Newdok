@@ -28,20 +28,6 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "97FCB05A057ADEF3610B54C2"
-               BuildableName = "LaunchInterface.framework"
-               BlueprintName = "LaunchInterface"
-               ReferencedContainer = "container:Launch.xcodeproj">
-            </BuildableReference>
-         </BuildActionEntry>
-         <BuildActionEntry
-            buildForTesting = "YES"
-            buildForRunning = "YES"
-            buildForProfiling = "YES"
-            buildForArchiving = "YES"
-            buildForAnalyzing = "YES">
-            <BuildableReference
-               BuildableIdentifier = "primary"
                BlueprintIdentifier = "39AF6E6A51C2B2CDF5C3D6F0"
                BuildableName = "LaunchTesting.framework"
                BlueprintName = "LaunchTesting"

@@ -71,6 +71,7 @@ public extension Project {
         featureDependencies: [TargetDependency] = [],
         testingDependencies: [TargetDependency] = [],
         testDependencies: [TargetDependency] = [],
+        hasInterface: Bool = false,
         hasDomain: Bool = true,
         hasData: Bool = true,
         hasTests: Bool = true,
@@ -81,17 +82,19 @@ public extension Project {
         var targets: [Target] = []
 
         // MARK: Interface
-        targets.append(.target(
-            name: "\(name)Interface",
-            destinations: ProjectConfig.destinations,
-            product: .staticFramework,
-            bundleId: "\(bundleId).interface",
-            deploymentTargets: ProjectConfig.deploymentTarget,
-            infoPlist: .default,
-            sources: ["Interface/Sources/**"],
-            dependencies: interfaceDependencies,
-            settings: .settings(base: ProjectConfig.baseSettings)
-        ))
+        if hasInterface {
+            targets.append(.target(
+                name: "\(name)Interface",
+                destinations: ProjectConfig.destinations,
+                product: .staticFramework,
+                bundleId: "\(bundleId).interface",
+                deploymentTargets: ProjectConfig.deploymentTarget,
+                infoPlist: .default,
+                sources: ["Interface/Sources/**"],
+                dependencies: interfaceDependencies,
+                settings: .settings(base: ProjectConfig.baseSettings)
+            ))
+        }
 
         // MARK: Domain
         if hasDomain {
@@ -125,12 +128,14 @@ public extension Project {
 
         // MARK: Feature (Sources)
         var featureDeps: [TargetDependency] = [
-            .target(name: "\(name)Interface"),
             .designSystem,
             .shared
         ]
+        if hasInterface {
+            featureDeps.insert(.target(name: "\(name)Interface"), at: 0)
+        }
         if hasDomain {
-            featureDeps.insert(.target(name: "\(name)Domain"), at: 1)
+            featureDeps.append(.target(name: "\(name)Domain"))
         }
         featureDeps += featureDependencies
 
@@ -149,9 +154,10 @@ public extension Project {
 
         // MARK: Testing (Mocks)
         if hasTesting {
-            var testingDeps: [TargetDependency] = [
-                .target(name: "\(name)Interface")
-            ]
+            var testingDeps: [TargetDependency] = []
+            if hasInterface {
+                testingDeps.append(.target(name: "\(name)Interface"))
+            }
             if hasDomain {
                 testingDeps.append(.target(name: "\(name)Domain"))
             }

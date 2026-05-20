@@ -20,7 +20,7 @@ public final class MypageViewModel: ErrorHandling {
     var activeNavigation: String?
 
     var nickname: String = ""
-    var user: MypageUser?
+    public var user: MypageUser?
 
     var shownicknameToast: Bool = false
     var showIndustryToast: Bool = false
@@ -89,7 +89,7 @@ public final class MypageViewModel: ErrorHandling {
         self.userInfoStore = userInfoStore
     }
 
-    func loadUserInfo() -> UserInfo? {
+    public func loadUserInfo() -> UserInfo? {
         userInfoStore.load()
     }
 

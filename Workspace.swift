@@ -18,6 +18,5 @@ let workspace = Workspace(
         "Modules/Features/Search",
         "Modules/Features/Subscribe",
         "Modules/Features/Detail",
-        "Modules/AppCoordinator",
     ],
 )

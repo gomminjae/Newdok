@@ -8,9 +8,6 @@
          location = "group:App/App.xcodeproj">
       </FileRef>
       <FileRef
-         location = "group:AppCoordinator/AppCoordinator.xcodeproj">
-      </FileRef>
-      <FileRef
          location = "group:Core/Core.xcodeproj">
       </FileRef>
       <FileRef
@@ -89,9 +86,6 @@
       </FileRef>
       <FileRef
          location = "group:Tuist/.build/tuist-derived/Promises/Promises.xcodeproj">
-      </FileRef>
-      <FileRef
-         location = "group:Tuist/.build/tuist-derived/Swinject/Swinject.xcodeproj">
       </FileRef>
       <FileRef
          location = "group:Tuist/.build/tuist-derived/nanopb/nanopb.xcodeproj">
