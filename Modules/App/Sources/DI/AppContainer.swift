@@ -92,16 +92,10 @@ final class AppContainer {
     init(router: AppRouter, deps: AppDependencies) {
         self.router = router
         self.deps = deps
+    }
 
-        NotificationCenter.default.addObserver(
-            forName: .init("ResetMypageCache"),
-            object: nil,
-            queue: .main
-        ) { [weak self] _ in
-            Task { @MainActor in
-                self?.cachedMypageViewModel = nil
-            }
-        }
+    func clearMypageCache() {
+        cachedMypageViewModel = nil
     }
 
     func makeLoadOptionsUseCase() -> LoadOptionsUseCase {
@@ -258,7 +252,9 @@ final class AppContainer {
     }
 
     func makeAccountManageView() -> some View {
-        AccountManagementView()
+        AccountManagementView(onLogoutCleanup: { [weak self] in
+            self?.clearMypageCache()
+        })
     }
 
     func makeChangePasswordView() -> some View {
@@ -276,7 +272,10 @@ final class AppContainer {
             fetchProfileUseCase: FetchMypageProfileUseCaseImpl(repository: mypageUserRepository),
             fetchSubscriptionCountUseCase: FetchMypageSubscriptionCountUseCaseImpl(repository: mypageStatsRepository),
             fetchArticleCountUseCase: FetchReceivedArticleCountUseCaseImpl(repository: mypageStatsRepository),
-            withdrawUseCase: MypageWithdrawUseCaseImpl(repository: mypageUserRepository)
+            withdrawUseCase: MypageWithdrawUseCaseImpl(repository: mypageUserRepository),
+            onCleanup: { [weak self] in
+                self?.clearMypageCache()
+            }
         )
         return WithdrawView(viewModel: vm)
     }

@@ -110,7 +110,7 @@ public struct SubscribeView: View {
                 contentView
             },
             animationView: {
-                AnyView(LoadingView())
+                LoadingView()
             },
             onRefresh: {
                 let timeSinceLastRefresh = Date().timeIntervalSince(viewModel.lastRefreshTime)

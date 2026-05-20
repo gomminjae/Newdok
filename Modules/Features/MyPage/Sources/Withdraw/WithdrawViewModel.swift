@@ -29,6 +29,7 @@ public final class WithdrawViewModel: ErrorHandling {
     private let withdrawUseCase: MypageWithdrawUseCase
     private let tokenStorage: TokenStorageProtocol
     private let userInfoStore: UserInfoStoreProtocol
+    private let onCleanup: @MainActor () -> Void
 
     public init(
         fetchProfileUseCase: FetchMypageProfileUseCase,
@@ -36,7 +37,8 @@ public final class WithdrawViewModel: ErrorHandling {
         fetchArticleCountUseCase: FetchReceivedArticleCountUseCase,
         withdrawUseCase: MypageWithdrawUseCase,
         tokenStorage: TokenStorageProtocol = TokenStorageWrapper.shared,
-        userInfoStore: UserInfoStoreProtocol = UserInfoStore.shared
+        userInfoStore: UserInfoStoreProtocol = UserInfoStore.shared,
+        onCleanup: @escaping @MainActor () -> Void = {}
     ) {
         self.fetchProfileUseCase = fetchProfileUseCase
         self.fetchSubscriptionCountUseCase = fetchSubscriptionCountUseCase
@@ -44,6 +46,7 @@ public final class WithdrawViewModel: ErrorHandling {
         self.withdrawUseCase = withdrawUseCase
         self.tokenStorage = tokenStorage
         self.userInfoStore = userInfoStore
+        self.onCleanup = onCleanup
     }
 
     public func fetchUserInfo() async {
@@ -64,11 +67,8 @@ public final class WithdrawViewModel: ErrorHandling {
         await performAsync(feature: "withdraw", operation: "withdraw", loadingBinding: \.isLoading) {
             try await withdrawUseCase.execute()
 
-            // 탈퇴 성공 시 모든 로컬 데이터 정리
             clearAllLocalData()
-
-            // 캐시된 뷰모델 초기화
-            NotificationCenter.default.post(name: .init("ResetMypageCache"), object: nil)
+            onCleanup()
 
             self.withdrawSuccess = true
         }
