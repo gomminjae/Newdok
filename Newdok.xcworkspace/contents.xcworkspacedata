@@ -49,9 +49,6 @@
          <FileRef
             location = "group:Subscribe/Subscribe.xcodeproj">
          </FileRef>
-         <FileRef
-            location = "group:Survey/Survey.xcodeproj">
-         </FileRef>
       </Group>
    </Group>
    <Group
