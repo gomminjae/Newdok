@@ -45,7 +45,7 @@ public struct HomeView: View {
                         contentView
                     },
                     animationView: {
-                        AnyView(LoadingView())
+                        LoadingView()
                     },
                     onRefresh: {
                         await viewModel.refreshToToday()

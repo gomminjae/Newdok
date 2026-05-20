@@ -46,22 +46,8 @@ public struct EditProfileView: View {
             )
             .padding(.top, 24)
 
-            // MARK: 관심사
-            if let interestSection = interestSectionView() {
-                interestSection
-                    .padding(.top, 24)
-            } else {
-                Button {
-                    router.push(.editInterest)
-                } label: {
-                    EditableRow(
-                        title: "관심사",
-                        text: "",
-                        placeholder: "관심사를 선택해주세요."
-                    )
-                }
+            interestSection
                 .padding(.top, 24)
-            }
 
             Spacer()
         }
@@ -118,8 +104,7 @@ public struct EditProfileView: View {
         return ""
     }
 
-    private func interestSectionView() -> AnyView? {
-        // VM 데이터 우선, 없으면 UserInfoStore fallback
+    private var resolvedInterestNames: [String]? {
         let interestIds: [Int]
         if let interests = viewModel.user?.interests, !interests.isEmpty {
             interestIds = interests.map { $0.id }
@@ -129,52 +114,65 @@ public struct EditProfileView: View {
             return nil
         }
 
-        let interestNames = interestIds.compactMap {
+        let names = interestIds.compactMap {
             viewModel.interestName(for: $0)
         }.filter { !$0.isEmpty }
-        guard !interestNames.isEmpty else { return nil }
+        return names.isEmpty ? nil : names
+    }
 
-        let section = VStack(alignment: .leading, spacing: 8) {
-            Text("관심사")
-                .font(.hanSansNeo(14, .medium))
-                .foregroundStyle(Color.captionNeutral)
-                .allowsHitTesting(false)
+    @ViewBuilder
+    private var interestSection: some View {
+        if let names = resolvedInterestNames {
+            VStack(alignment: .leading, spacing: 8) {
+                Text("관심사")
+                    .font(.hanSansNeo(14, .medium))
+                    .foregroundStyle(Color.captionNeutral)
+                    .allowsHitTesting(false)
 
-            ChipFlowLayout(spacing: 8).callAsFunction {
-                ForEach(interestNames, id: \.self) { item in
-                    Text(item)
-                        .font(.hanSansNeo(13, .regular))
-                        .padding(.vertical, 6)
-                        .padding(.horizontal, 12)
-                        .background(Color.white)
-                        .overlay(
-                            RoundedRectangle(cornerRadius: 16)
-                                .stroke(Color.lineAlternative, lineWidth: 1)
-                        )
-                        .allowsHitTesting(false)
+                ChipFlowLayout(spacing: 8).callAsFunction {
+                    ForEach(names, id: \.self) { item in
+                        Text(item)
+                            .font(.hanSansNeo(13, .regular))
+                            .padding(.vertical, 6)
+                            .padding(.horizontal, 12)
+                            .background(Color.white)
+                            .overlay(
+                                RoundedRectangle(cornerRadius: 16)
+                                    .stroke(Color.lineAlternative, lineWidth: 1)
+                            )
+                            .allowsHitTesting(false)
+                    }
+
+                    Button {
+                        router.push(.editInterest)
+                    } label: {
+                        Image(asset: DesignSystemAsset.linePlus)
+                            .renderingMode(.template)
+                            .foregroundColor(.primaryNormal)
+                            .frame(width: 32, height: 32)
+                            .background(Color.white)
+                            .clipShape(Circle())
+                            .overlay(
+                                Circle()
+                                    .stroke(Color.primaryNormal, lineWidth: 1)
+                            )
+                            .frame(width: 44, height: 44)
+                            .contentShape(Circle())
+                    }
                 }
-
-                Button {
-                    router.push(.editInterest)
-                } label: {
-                    Image(asset: DesignSystemAsset.linePlus)
-                        .renderingMode(.template)
-                        .foregroundColor(.primaryNormal)
-                        .frame(width: 32, height: 32)
-                        .background(Color.white)
-                        .clipShape(Circle())
-                        .overlay(
-                            Circle()
-                                .stroke(Color.primaryNormal, lineWidth: 1)
-                        )
-                        .frame(width: 44, height: 44)
-                        .contentShape(Circle())
-                }
+                .frame(maxWidth: .infinity, alignment: .leading)
             }
-            .frame(maxWidth: .infinity, alignment: .leading)
+        } else {
+            Button {
+                router.push(.editInterest)
+            } label: {
+                EditableRow(
+                    title: "관심사",
+                    text: "",
+                    placeholder: "관심사를 선택해주세요."
+                )
+            }
         }
-
-        return AnyView(section)
     }
 }
 

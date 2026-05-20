@@ -134,7 +134,7 @@ public struct BookmarkView: View {
                         }
                     },
                 animationView: {
-                    AnyView(LoadingView())
+                    LoadingView()
                 },
                 onRefresh: {
                     if !isGuest {

@@ -7,11 +7,11 @@
 
 import SwiftUI
 
-public struct PullToRefreshView<Content: View>: View {
+public struct PullToRefreshView<Content: View, Animation: View>: View {
     let content: Content
     let threshold: CGFloat
     let onRefresh: () async -> Void
-    let animationView: () -> AnyView
+    let animationView: () -> Animation
     let cooldownInterval: TimeInterval
 
     @State private var startOffset: CGFloat = 0
@@ -23,7 +23,7 @@ public struct PullToRefreshView<Content: View>: View {
         threshold: CGFloat = 80,
         cooldownInterval: TimeInterval = 1.5,
         @ViewBuilder content: () -> Content,
-        @ViewBuilder animationView: @escaping () -> AnyView,
+        @ViewBuilder animationView: @escaping () -> Animation,
         onRefresh: @escaping () async -> Void
     ) {
         self.content = content()

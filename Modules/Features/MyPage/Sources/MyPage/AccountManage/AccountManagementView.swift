@@ -19,15 +19,18 @@ public struct AccountManagementView: View {
     private let tokenStorage: TokenStorageProtocol
     private let userInfoStore: UserInfoStoreProtocol
     private let appState: AppState
+    private let onLogoutCleanup: () -> Void
 
     public init(
         tokenStorage: TokenStorageProtocol = TokenStorageWrapper.shared,
         userInfoStore: UserInfoStoreProtocol = UserInfoStore.shared,
-        appState: AppState = .shared
+        appState: AppState = .shared,
+        onLogoutCleanup: @escaping () -> Void = {}
     ) {
         self.tokenStorage = tokenStorage
         self.userInfoStore = userInfoStore
         self.appState = appState
+        self.onLogoutCleanup = onLogoutCleanup
     }
 
     public var body: some View {
@@ -102,11 +105,8 @@ public struct AccountManagementView: View {
                     showLogoutPopup = false
                     tokenStorage.clear()
                     userInfoStore.clear()
-
-                    NotificationCenter.default.post(name: .init("ResetMypageCache"), object: nil)
-
+                    onLogoutCleanup()
                     appState.logout()
-
                     router.resetTo(.login)
                 }
             )
