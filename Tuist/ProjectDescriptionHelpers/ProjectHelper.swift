@@ -71,12 +71,14 @@ public extension Project {
         featureDependencies: [TargetDependency] = [],
         testingDependencies: [TargetDependency] = [],
         testDependencies: [TargetDependency] = [],
+        exampleDependencies: [TargetDependency] = [],
         hasInterface: Bool = false,
         hasDomain: Bool = true,
         hasData: Bool = true,
         hasTests: Bool = true,
         hasTesting: Bool = true,
-        hasResources: Bool = true
+        hasResources: Bool = true,
+        hasExample: Bool = false
     ) -> Project {
         let bundleId = "\(ProjectConfig.bundlePrefix).\(name.lowercased())"
         var targets: [Target] = []
@@ -176,6 +178,45 @@ public extension Project {
             ))
         }
 
+        // MARK: Example App
+        if hasExample {
+            var exampleDeps: [TargetDependency] = [
+                .target(name: name),
+                .designSystem,
+                .shared
+            ]
+            if hasDomain {
+                exampleDeps.append(.target(name: "\(name)Domain"))
+            }
+            if hasTesting {
+                exampleDeps.append(.target(name: "\(name)Testing"))
+            }
+            exampleDeps += exampleDependencies
+
+            targets.append(.target(
+                name: "\(name)Example",
+                destinations: ProjectConfig.destinations,
+                product: .app,
+                bundleId: "\(bundleId).example",
+                deploymentTargets: ProjectConfig.deploymentTarget,
+                infoPlist: .extendingDefault(with: [
+                    "CFBundleDisplayName": "\(name) Example",
+                    "UILaunchScreen": [:],
+                    "UIUserInterfaceStyle": "Light",
+                    "UISupportedInterfaceOrientations": [
+                        "UIInterfaceOrientationPortrait"
+                    ]
+                ]),
+                sources: ["Example/Sources/**"],
+                dependencies: exampleDeps,
+                settings: .settings(base: [
+                    "CODE_SIGNING_ALLOWED": "NO",
+                    "CODE_SIGNING_REQUIRED": "NO",
+                    "CODE_SIGN_IDENTITY": ""
+                ])
+            ))
+        }
+
         // MARK: Tests
         if hasTests {
             var testDeps: [TargetDependency] = [
@@ -200,10 +241,21 @@ public extension Project {
             ))
         }
 
+        var schemes: [Scheme] = []
+        if hasExample {
+            schemes.append(.scheme(
+                name: "\(name)Example",
+                shared: true,
+                buildAction: .buildAction(targets: ["\(name)Example"]),
+                runAction: .runAction(configuration: "Debug")
+            ))
+        }
+
         return Project(
             name: name,
             organizationName: ProjectConfig.organizationName,
-            targets: targets
+            targets: targets,
+            schemes: schemes
         )
     }
 

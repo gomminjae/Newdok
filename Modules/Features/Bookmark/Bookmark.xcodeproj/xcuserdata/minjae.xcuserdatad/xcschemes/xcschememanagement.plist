@@ -25,6 +25,13 @@
 			<key>orderHint</key>
 			<integer>6</integer>
 		</dict>
+		<key>BookmarkExample.xcscheme_^#shared#^_</key>
+		<dict>
+			<key>isShown</key>
+			<true/>
+			<key>orderHint</key>
+			<integer>7</integer>
+		</dict>
 	</dict>
 </dict>
 </plist>

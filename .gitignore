@@ -1,5 +1,9 @@
 Tuist/.build/
 
+# Xcode build output
+build/
+**/build/
+
 # Configuration files with sensitive data
 Modules/App/Configs/*.xcconfig
 Configurations/*.xcconfig

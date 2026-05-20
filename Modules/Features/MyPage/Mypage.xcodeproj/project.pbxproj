@@ -16,12 +16,14 @@
 		0EC20547237BAEF4D00CFBA6 /* MockUpdateMypageInterestsUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0B6240E9E5B5F251C2C8C5E /* MockUpdateMypageInterestsUseCase.swift */; };
 		11CDCD1D420BEF12BFA2A269 /* PhoneUpdateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17886E6B7AEAB04E72C50AF7 /* PhoneUpdateView.swift */; };
 		1337F511CBE5A8A5BE781D4E /* TermsOfUseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22F52F2DC522EC78A80E317C /* TermsOfUseView.swift */; };
+		13CBDF680F8CBCDDED8AAA29 /* Mypage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D3F36549D503F5AD0A679EEC /* Mypage.framework */; };
 		1434A438185797074252F2BB /* ResetMypagePasswordUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = B559156E2BB6A6BC7046BC9B /* ResetMypagePasswordUseCase.swift */; };
 		145B2C0C79493D9E7FC2B0F7 /* MypageTesting.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA911E17154E6AFF841F66D8 /* MypageTesting.swift */; };
 		16F7211666E6B23350E231FE /* UpdateMypageNicknameUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C31F0B2AB6B632B2902A546 /* UpdateMypageNicknameUseCase.swift */; };
 		1882D0ADB503EC09C86A6155 /* PopupView.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AC9681D4DFFD4DDB3C3849F8 /* PopupView.framework */; };
 		1B2616837CF776230638671F /* UpdateMypageIndustryUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B7BEC13FBA38B3C41C987C /* UpdateMypageIndustryUseCase.swift */; };
 		1ED582B601FFE9A15EBDFEAB /* CheckPhoneErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C67CA1301A9D268781520C44 /* CheckPhoneErrorView.swift */; };
+		2028E1C4001175401C38828D /* PopupView.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AC9681D4DFFD4DDB3C3849F8 /* PopupView.framework */; };
 		21A188D0711A098C96B00BA1 /* MockFetchMypageSubscriptionCountUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68E20EDF12F7BB2BCCD3A6E0 /* MockFetchMypageSubscriptionCountUseCase.swift */; };
 		239769415CD1F59CF82D9BE1 /* UpdateMypagePhoneNumberUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78D3B8B6EE19F0EB5305F954 /* UpdateMypagePhoneNumberUseCase.swift */; };
 		26310133009BC5878EE98201 /* DesignSystem.framework in Dependencies */ = {isa = PBXBuildFile; fileRef = F22BB87ADE60B2913D547027 /* DesignSystem.framework */; };
@@ -35,6 +37,7 @@
 		39D9D28DC4EC862509143AAC /* MockMypageWithdrawUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49BDC64B5E330B1D9882B8FB /* MockMypageWithdrawUseCase.swift */; };
 		3A025376E4304A76B7CCA90A /* PasswordUpdateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E18F97BA5D7F3001664FF1F3 /* PasswordUpdateView.swift */; };
 		4090826A340B36C8006D4798 /* EditInterestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9EE8D720105BC83D1182EC4 /* EditInterestView.swift */; };
+		4309992BBB532C2C4975F91A /* PopupView.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = AC9681D4DFFD4DDB3C3849F8 /* PopupView.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		43F2C2669D11CDDDFEEE8526 /* WithdrawViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8377E12CA235048F1ADA109 /* WithdrawViewModel.swift */; };
 		45B0C198530E0D39619FC7BE /* MockUpdateMypageNicknameUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CF17808A49514A2EAFDAC31 /* MockUpdateMypageNicknameUseCase.swift */; };
 		463EFE736E5179473F855EF1 /* MypageSimpleUserDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = A706BC74BF163D2A4F5BA500 /* MypageSimpleUserDTO.swift */; };
@@ -44,6 +47,7 @@
 		56E877CF4D70242607EDE666 /* MypageAuthSMSUseCaseImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FCEFD92A1B7C753EFD92E41 /* MypageAuthSMSUseCaseImpl.swift */; };
 		58405908CD514289FE39B80C /* MypageInterest.swift in Sources */ = {isa = PBXBuildFile; fileRef = A09EAA3AB424BC849BD1EB65 /* MypageInterest.swift */; };
 		5D02205B28C6F24CC4301D82 /* EditProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 734D04D066005B7F09E817DE /* EditProfileView.swift */; };
+		5D0D6946FB611199F16037C1 /* MypageTesting.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EE5C77BF7D74BC2D6FA8CFC7 /* MypageTesting.framework */; };
 		5D5171DADC7330D3A18F6FBD /* Kingfisher.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 09180759E35FAC99B7E89CD5 /* Kingfisher.framework */; };
 		5E759DD653DFED57C170067E /* MockResetMypagePasswordUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAD8206ADA25522EED65556A /* MockResetMypagePasswordUseCase.swift */; };
 		6178F003557F2E25EE71F449 /* MypageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F90F5BE05980B64F460A361 /* MypageView.swift */; };
@@ -52,6 +56,8 @@
 		65FD8FA9561F446C685D5869 /* UpdateMypageIndustryUseCaseImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277AE28C44A8605B9F62E650 /* UpdateMypageIndustryUseCaseImpl.swift */; };
 		6676B749B932DA5CEC2E4FC7 /* MypageWithdrawUseCaseImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58EC02453D9378A9E882667F /* MypageWithdrawUseCaseImpl.swift */; };
 		66FED88CC9623B40E9018056 /* MypageStatsRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96C71387C911BEF715D45ED4 /* MypageStatsRepository.swift */; };
+		673279633359C697B138609A /* Shared.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A19D7843FEFE29BD0819145C /* Shared.framework */; };
+		6F952B605A3F6F9FAD334A18 /* Kingfisher.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 09180759E35FAC99B7E89CD5 /* Kingfisher.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		7019BB754A571C304FE31EB5 /* PopupView.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AC9681D4DFFD4DDB3C3849F8 /* PopupView.framework */; };
 		71AF1CC50A97B7FACF346BBA /* Core.framework in Dependencies */ = {isa = PBXBuildFile; fileRef = 1D46F9F7259B8E355BE592C3 /* Core.framework */; };
 		730123643E382D9C907B7F67 /* MockFetchReceivedArticleCountUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = F96604BD68CE1F8AD27036CD /* MockFetchReceivedArticleCountUseCase.swift */; };
@@ -61,6 +67,7 @@
 		79D5AED477F6DCE847EFCE8C /* MypageSimpleUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56F78B81808015CE00B0059E /* MypageSimpleUser.swift */; };
 		818C6B59EB69212BB49E6598 /* MypageDomain.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EBD899A674C4500DB831BB6A /* MypageDomain.framework */; };
 		81CC52A8F9CFD8D9BB44EE76 /* CheckMypagePhoneNumberUseCaseImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46D5FE2366E88552B9AF5EF5 /* CheckMypagePhoneNumberUseCaseImpl.swift */; };
+		827B0809D2BD7998EF9DD23E /* MypageUser+Sample.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA7B4CB3365168F5CD9CDA84 /* MypageUser+Sample.swift */; };
 		83051FF4AED23A16AE2CD34E /* MypageDomain.framework in Dependencies */ = {isa = PBXBuildFile; fileRef = EBD899A674C4500DB831BB6A /* MypageDomain.framework */; };
 		8453CDD1A39F75F81DE0F68E /* Mypage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D3F36549D503F5AD0A679EEC /* Mypage.framework */; };
 		86B9A40213DA4FD202C72D0B /* ResetMypagePasswordUseCaseImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05E42E9F8C3622168A7668BD /* ResetMypagePasswordUseCaseImpl.swift */; };
@@ -69,11 +76,15 @@
 		8C9C58889504CB51356DA28B /* MypageStatsRepositoryImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8581F407C3AC7F7D60441524 /* MypageStatsRepositoryImpl.swift */; };
 		8F3B143AD6917994A075E6B7 /* MypageNicknameResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8840B5DAF16D6AF5B7F04D28 /* MypageNicknameResponseDTO.swift */; };
 		909BDA5A20E277F793B4BE0B /* FetchMypageSubscriptionCountUseCaseImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76267DA5A11489013D8DD30E /* FetchMypageSubscriptionCountUseCaseImpl.swift */; };
+		923CC0B23FC8C3A3E38E8DDA /* MypageDomain.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EBD899A674C4500DB831BB6A /* MypageDomain.framework */; };
 		942B41CFE2C2221F3CD41DC7 /* CheckMypageIDDupUseCaseImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D0A03142C1620014E65140B /* CheckMypageIDDupUseCaseImpl.swift */; };
+		978D6C03E1A8CF391A0066AB /* DesignSystem.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F22BB87ADE60B2913D547027 /* DesignSystem.framework */; };
 		993840F009007BA0EB442178 /* MypageUserRepositoryImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317CC9319B83500699AA3E94 /* MypageUserRepositoryImpl.swift */; };
 		9A9AF81574DF909A02268540 /* MockUpdateMypagePasswordUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7A6D2397660CAD9939F6C49 /* MockUpdateMypagePasswordUseCase.swift */; };
 		9B0379722DDDED9FB8879AAB /* Wrap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FDABEA7B4064B889E6E40F2 /* Wrap.swift */; };
+		9E22CABCDB73D10FFB7CF7CB /* DesignSystem.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = F22BB87ADE60B2913D547027 /* DesignSystem.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		A4217A60C159A12FE76ABFE8 /* PasswordRecoveryPagerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D19AA7B747A81D71CA1EAB3 /* PasswordRecoveryPagerView.swift */; };
+		A4242A1D182943C95A652B09 /* Kingfisher.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 09180759E35FAC99B7E89CD5 /* Kingfisher.framework */; };
 		AA7440FF2D87122AC0C57C5C /* MockCheckMypagePhoneNumberUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B948AE7636FC23F71C71E6E /* MockCheckMypagePhoneNumberUseCase.swift */; };
 		ACEFDA1D477291E9B8603C9B /* MypageArticlesCountDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9793B42A6B978BBF835B69A3 /* MypageArticlesCountDTO.swift */; };
 		AEBDF2B4E51B3AF98B6138D6 /* MypageUserDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4087D8AA34FB12797F2AEA90 /* MypageUserDTO.swift */; };
@@ -83,6 +94,7 @@
 		BF2AE740E3A427A571DC4062 /* RecoveryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF11E470578D33ABA7047737 /* RecoveryViewModel.swift */; };
 		C06F5EC21D529D37540FF9CC /* MypageTesting.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EE5C77BF7D74BC2D6FA8CFC7 /* MypageTesting.framework */; };
 		C96DE8049E3D958DCE9AB7C4 /* FindIdPagerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6B4AFE1CED393D16552571B /* FindIdPagerView.swift */; };
+		C9FF796F2AA621AE1D66A5DE /* MypageExampleApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7D59C19C10FE12F704316D3 /* MypageExampleApp.swift */; };
 		CBF69718AE8A11C81D6866A8 /* TermsMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D25F3B57C7648C6733218FC /* TermsMenuView.swift */; };
 		CD7E809296F44C26D74B67C9 /* UpdateMypagePasswordUseCaseImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8141DAE139954A316A7F3FA9 /* UpdateMypagePasswordUseCaseImpl.swift */; };
 		CF3B0F9474A2914390133AE3 /* CheckMypageIDDupUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9579743F19B23813D08AF75 /* CheckMypageIDDupUseCase.swift */; };
@@ -114,7 +126,21 @@
 			remoteGlobalIDString = 6E0A9F73E4402BC7C5EC60FF;
 			remoteInfo = MypageTesting;
 		};
+		3CF4DB394A5DDCC67D7C79AF /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 41FA6B59FF2E29B01F11623B /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 417BA61376E98ECD6ED70C2A;
+			remoteInfo = Mypage;
+		};
 		5AB865CDF831CC4E9DA989A7 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 41FA6B59FF2E29B01F11623B /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 516C1B329C5A67B8EE142488;
+			remoteInfo = MypageDomain;
+		};
+		93E3A58EF00FBE6FA9726658 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 41FA6B59FF2E29B01F11623B /* Project object */;
 			proxyType = 1;
@@ -127,6 +153,13 @@
 			proxyType = 1;
 			remoteGlobalIDString = 516C1B329C5A67B8EE142488;
 			remoteInfo = MypageDomain;
+		};
+		CB126DE51FE7D7ABDB48F6CC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 41FA6B59FF2E29B01F11623B /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 6E0A9F73E4402BC7C5EC60FF;
+			remoteInfo = MypageTesting;
 		};
 		DAC245EF0F7EF8A51CF1F44D /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -151,6 +184,19 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1747DA9151D1AC8CC5FCCC94 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				9E22CABCDB73D10FFB7CF7CB /* DesignSystem.framework in Embed Frameworks */,
+				6F952B605A3F6F9FAD334A18 /* Kingfisher.framework in Embed Frameworks */,
+				4309992BBB532C2C4975F91A /* PopupView.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -256,6 +302,7 @@
 		1FCEFD92A1B7C753EFD92E41 /* MypageAuthSMSUseCaseImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MypageAuthSMSUseCaseImpl.swift; sourceTree = "<group>"; };
 		22F52F2DC522EC78A80E317C /* TermsOfUseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsOfUseView.swift; sourceTree = "<group>"; };
 		277AE28C44A8605B9F62E650 /* UpdateMypageIndustryUseCaseImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateMypageIndustryUseCaseImpl.swift; sourceTree = "<group>"; };
+		280D541B4F625FE4C73E3844 /* MypageExample-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "MypageExample-Info.plist"; sourceTree = "<group>"; };
 		2A6D8030C2A81F9A91F8FC9F /* MypageTesting-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "MypageTesting-Info.plist"; sourceTree = "<group>"; };
 		2BC6F734D19F24C06A9D0A06 /* MypageAuthSMSUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MypageAuthSMSUseCase.swift; sourceTree = "<group>"; };
 		2C31F0B2AB6B632B2902A546 /* UpdateMypageNicknameUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateMypageNicknameUseCase.swift; sourceTree = "<group>"; };
@@ -319,8 +366,10 @@
 		C4E8E9C3F42B8E4E38C8F0BE /* FAQView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FAQView.swift; sourceTree = "<group>"; };
 		C50B3E0DC34C9BF7FF43A1E9 /* MockCheckMypageIDDupUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockCheckMypageIDDupUseCase.swift; sourceTree = "<group>"; };
 		C67CA1301A9D268781520C44 /* CheckPhoneErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckPhoneErrorView.swift; sourceTree = "<group>"; };
+		CA7B4CB3365168F5CD9CDA84 /* MypageUser+Sample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MypageUser+Sample.swift"; sourceTree = "<group>"; };
 		CE0C15C8756DF3245A681E96 /* MypageTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MypageTests.swift; sourceTree = "<group>"; };
 		D1A1A3380F7E1997F6692FB3 /* UpdateMypageInterestsUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateMypageInterestsUseCase.swift; sourceTree = "<group>"; };
+		D39057747E42359F8A206CAC /* MypageExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MypageExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D3F36549D503F5AD0A679EEC /* Mypage.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Mypage.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D6B4AFE1CED393D16552571B /* FindIdPagerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindIdPagerView.swift; sourceTree = "<group>"; };
 		D6F26CCFE679A08F925F2DED /* MypageSMSResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MypageSMSResponse.swift; sourceTree = "<group>"; };
@@ -328,6 +377,7 @@
 		E0B6240E9E5B5F251C2C8C5E /* MockUpdateMypageInterestsUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockUpdateMypageInterestsUseCase.swift; sourceTree = "<group>"; };
 		E18F97BA5D7F3001664FF1F3 /* PasswordUpdateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordUpdateView.swift; sourceTree = "<group>"; };
 		E19C49B9723AC6D72A76460D /* FetchMypageSubscriptionCountUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchMypageSubscriptionCountUseCase.swift; sourceTree = "<group>"; };
+		E7D59C19C10FE12F704316D3 /* MypageExampleApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MypageExampleApp.swift; sourceTree = "<group>"; };
 		E9EE8D720105BC83D1182EC4 /* EditInterestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditInterestView.swift; sourceTree = "<group>"; };
 		EBD899A674C4500DB831BB6A /* MypageDomain.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MypageDomain.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		EE20CEB3997ED5CB0105D8D5 /* EditNicknameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditNicknameView.swift; sourceTree = "<group>"; };
@@ -384,15 +434,45 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		FF152E317F8015C395A95F74 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				978D6C03E1A8CF391A0066AB /* DesignSystem.framework in Frameworks */,
+				A4242A1D182943C95A652B09 /* Kingfisher.framework in Frameworks */,
+				13CBDF680F8CBCDDED8AAA29 /* Mypage.framework in Frameworks */,
+				923CC0B23FC8C3A3E38E8DDA /* MypageDomain.framework in Frameworks */,
+				5D0D6946FB611199F16037C1 /* MypageTesting.framework in Frameworks */,
+				2028E1C4001175401C38828D /* PopupView.framework in Frameworks */,
+				673279633359C697B138609A /* Shared.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		036F896D9CCEC9AE11316786 /* Example */ = {
+			isa = PBXGroup;
+			children = (
+				69163C36351DDD739D0D825F /* Sources */,
+			);
+			path = Example;
+			sourceTree = "<group>";
+		};
 		12A5B25594A96D6DC26628F8 /* Testing */ = {
 			isa = PBXGroup;
 			children = (
 				6EE8FD195D431ECBA7DC1117 /* Sources */,
 			);
 			path = Testing;
+			sourceTree = "<group>";
+		};
+		195B6026B098453E987054A9 /* Samples */ = {
+			isa = PBXGroup;
+			children = (
+				CA7B4CB3365168F5CD9CDA84 /* MypageUser+Sample.swift */,
+			);
+			path = Samples;
 			sourceTree = "<group>";
 		};
 		240E8891926BD2EC96385980 /* AccountManage */ = {
@@ -418,6 +498,7 @@
 				1319F664323C85E6471B77BF /* Mypage-Info.plist */,
 				00B196FB966DFE35C9E08FDC /* MypageData-Info.plist */,
 				AC68960E0BA1FC8B5500F703 /* MypageDomain-Info.plist */,
+				280D541B4F625FE4C73E3844 /* MypageExample-Info.plist */,
 				2A6D8030C2A81F9A91F8FC9F /* MypageTesting-Info.plist */,
 				A144CC888B9AF3FC0D4627FB /* MypageTests-Info.plist */,
 			);
@@ -503,12 +584,21 @@
 				D3F36549D503F5AD0A679EEC /* Mypage.framework */,
 				6ABBA906E340EC2BED3094C2 /* MypageData.framework */,
 				EBD899A674C4500DB831BB6A /* MypageDomain.framework */,
+				D39057747E42359F8A206CAC /* MypageExample.app */,
 				EE5C77BF7D74BC2D6FA8CFC7 /* MypageTesting.framework */,
 				56275665843BFB8579E657A1 /* MypageTests.xctest */,
 				AC9681D4DFFD4DDB3C3849F8 /* PopupView.framework */,
 				A19D7843FEFE29BD0819145C /* Shared.framework */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		69163C36351DDD739D0D825F /* Sources */ = {
+			isa = PBXGroup;
+			children = (
+				E7D59C19C10FE12F704316D3 /* MypageExampleApp.swift */,
+			);
+			path = Sources;
 			sourceTree = "<group>";
 		};
 		69A64B86D68FA9AA11E468E4 /* UseCase */ = {
@@ -545,6 +635,7 @@
 		6EE8FD195D431ECBA7DC1117 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				195B6026B098453E987054A9 /* Samples */,
 				C50B3E0DC34C9BF7FF43A1E9 /* MockCheckMypageIDDupUseCase.swift */,
 				5B948AE7636FC23F71C71E6E /* MockCheckMypagePhoneNumberUseCase.swift */,
 				DAAD47F935B16B390CB7174B /* MockFetchMypageProfileUseCase.swift */,
@@ -699,6 +790,7 @@
 				888CC0FFA267708E6DC0F8A2 /* Data */,
 				C3F82CF4B71369E063F6F40B /* Derived */,
 				E23182143EFE0F1D1D9EE490 /* Domain */,
+				036F896D9CCEC9AE11316786 /* Example */,
 				B84D89D8E83D642469306E45 /* Sources */,
 				12A5B25594A96D6DC26628F8 /* Testing */,
 				FDCA3A65DE20C0BCA199E029 /* Tests */,
@@ -725,6 +817,29 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		3C3AD701EE6F712C23B75731 /* MypageExample */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 690771BB7F46AD04BF7FE6A5 /* Build configuration list for PBXNativeTarget "MypageExample" */;
+			buildPhases = (
+				5C716F4C821512D7EBD3E5AD /* Sources */,
+				3635D559ED43F856B224D518 /* Resources */,
+				FF152E317F8015C395A95F74 /* Frameworks */,
+				1747DA9151D1AC8CC5FCCC94 /* Embed Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				01D92D3D01D3BD5C33F996A1 /* PBXTargetDependency */,
+				951D7FE26454A2F10DF0B750 /* PBXTargetDependency */,
+				D48ADE847B9C204CC919E9AA /* PBXTargetDependency */,
+			);
+			name = MypageExample;
+			packageProductDependencies = (
+			);
+			productName = MypageExample;
+			productReference = D39057747E42359F8A206CAC /* MypageExample.app */;
+			productType = "com.apple.product-type.application";
+		};
 		417BA61376E98ECD6ED70C2A /* Mypage */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 10A7834B5BEA65AE3CAD717F /* Build configuration list for PBXNativeTarget "Mypage" */;
@@ -861,6 +976,7 @@
 				417BA61376E98ECD6ED70C2A /* Mypage */,
 				B13502E98A1A8660241ACD2A /* MypageData */,
 				516C1B329C5A67B8EE142488 /* MypageDomain */,
+				3C3AD701EE6F712C23B75731 /* MypageExample */,
 				6E0A9F73E4402BC7C5EC60FF /* MypageTesting */,
 				B63D9AF0B22F8E2079E9FFDA /* MypageTests */,
 			);
@@ -869,6 +985,13 @@
 
 /* Begin PBXResourcesBuildPhase section */
 		1C57CDD66B43A22E8B2C65CF /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3635D559ED43F856B224D518 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -1020,12 +1143,27 @@
 				9A9AF81574DF909A02268540 /* MockUpdateMypagePasswordUseCase.swift in Sources */,
 				E188134682D063F74DF5EB54 /* MockUpdateMypagePhoneNumberUseCase.swift in Sources */,
 				145B2C0C79493D9E7FC2B0F7 /* MypageTesting.swift in Sources */,
+				827B0809D2BD7998EF9DD23E /* MypageUser+Sample.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5C716F4C821512D7EBD3E5AD /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C9FF796F2AA621AE1D66A5DE /* MypageExampleApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		01D92D3D01D3BD5C33F996A1 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = Mypage;
+			target = 417BA61376E98ECD6ED70C2A /* Mypage */;
+			targetProxy = 3CF4DB394A5DDCC67D7C79AF /* PBXContainerItemProxy */;
+		};
 		2133EFC080EC19D53F81C527 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = MypageDomain;
@@ -1050,11 +1188,23 @@
 			target = 6E0A9F73E4402BC7C5EC60FF /* MypageTesting */;
 			targetProxy = 0678417E26A70764329D4ECA /* PBXContainerItemProxy */;
 		};
+		951D7FE26454A2F10DF0B750 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = MypageDomain;
+			target = 516C1B329C5A67B8EE142488 /* MypageDomain */;
+			targetProxy = 93E3A58EF00FBE6FA9726658 /* PBXContainerItemProxy */;
+		};
 		C35F0F62450F1F893541CC28 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = MypageDomain;
 			target = 516C1B329C5A67B8EE142488 /* MypageDomain */;
 			targetProxy = 94A65CDCD9A51A4036BF6EC8 /* PBXContainerItemProxy */;
+		};
+		D48ADE847B9C204CC919E9AA /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = MypageTesting;
+			target = 6E0A9F73E4402BC7C5EC60FF /* MypageTesting */;
+			targetProxy = CB126DE51FE7D7ABDB48F6CC /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -1139,6 +1289,38 @@
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		5688515E12055337D2A5C260 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGNING_ALLOWED = NO;
+				CODE_SIGNING_REQUIRED = NO;
+				CODE_SIGN_IDENTITY = "";
+				ENABLE_PREVIEWS = YES;
+				INFOPLIST_FILE = "Derived/InfoPlists/MypageExample-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.newdok.mypage.example;
+				PRODUCT_NAME = MypageExample;
+				SDKROOT = iphoneos;
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = (
+					"$(inherited)",
+					DEBUG,
+				);
+				SWIFT_COMPILATION_MODE = singlefile;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
@@ -1400,6 +1582,34 @@
 			};
 			name = Release;
 		};
+		A6F332A07F571C0793DA3720 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGNING_ALLOWED = NO;
+				CODE_SIGNING_REQUIRED = NO;
+				CODE_SIGN_IDENTITY = "";
+				ENABLE_PREVIEWS = YES;
+				INFOPLIST_FILE = "Derived/InfoPlists/MypageExample-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.newdok.mypage.example;
+				PRODUCT_NAME = MypageExample;
+				SDKROOT = iphoneos;
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 		A849AE312B51646F7A464321 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -1564,6 +1774,15 @@
 			buildConfigurations = (
 				71240FA8141E7E88654E345E /* Debug */,
 				3E6FE0A640B798805D54254F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		690771BB7F46AD04BF7FE6A5 /* Build configuration list for PBXNativeTarget "MypageExample" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5688515E12055337D2A5C260 /* Debug */,
+				A6F332A07F571C0793DA3720 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

@@ -34,6 +34,20 @@
                ReferencedContainer = "container:Explore.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "F50356DC5F526F6DD7E7049E"
+               BuildableName = "ExploreExample.app"
+               BlueprintName = "ExploreExample"
+               ReferencedContainer = "container:Explore.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
       </BuildActionEntries>
    </BuildAction>
    <TestAction
@@ -65,15 +79,16 @@
       debugDocumentVersioning = "YES"
       debugServiceExtension = "internal"
       allowLocationSimulation = "YES">
-      <MacroExpansion>
+      <BuildableProductRunnable
+         runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "9943AD2B429C898B2E18E15D"
-            BuildableName = "Explore.framework"
-            BlueprintName = "Explore"
+            BlueprintIdentifier = "F50356DC5F526F6DD7E7049E"
+            BuildableName = "ExploreExample.app"
+            BlueprintName = "ExploreExample"
             ReferencedContainer = "container:Explore.xcodeproj">
          </BuildableReference>
-      </MacroExpansion>
+      </BuildableProductRunnable>
    </LaunchAction>
    <ProfileAction
       buildConfiguration = "Release"
@@ -81,15 +96,16 @@
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
       debugDocumentVersioning = "YES">
-      <MacroExpansion>
+      <BuildableProductRunnable
+         runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "9943AD2B429C898B2E18E15D"
-            BuildableName = "Explore.framework"
-            BlueprintName = "Explore"
+            BlueprintIdentifier = "F50356DC5F526F6DD7E7049E"
+            BuildableName = "ExploreExample.app"
+            BlueprintName = "ExploreExample"
             ReferencedContainer = "container:Explore.xcodeproj">
          </BuildableReference>
-      </MacroExpansion>
+      </BuildableProductRunnable>
    </ProfileAction>
    <AnalyzeAction
       buildConfiguration = "Debug">
