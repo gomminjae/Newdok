@@ -34,6 +34,20 @@
                ReferencedContainer = "container:Detail.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "EA7032688AE487B5F9D91F6E"
+               BuildableName = "DetailExample.app"
+               BlueprintName = "DetailExample"
+               ReferencedContainer = "container:Detail.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
       </BuildActionEntries>
    </BuildAction>
    <TestAction
@@ -65,15 +79,16 @@
       debugDocumentVersioning = "YES"
       debugServiceExtension = "internal"
       allowLocationSimulation = "YES">
-      <MacroExpansion>
+      <BuildableProductRunnable
+         runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "8B7F7C5C5BC308F0FECD514E"
-            BuildableName = "Detail.framework"
-            BlueprintName = "Detail"
+            BlueprintIdentifier = "EA7032688AE487B5F9D91F6E"
+            BuildableName = "DetailExample.app"
+            BlueprintName = "DetailExample"
             ReferencedContainer = "container:Detail.xcodeproj">
          </BuildableReference>
-      </MacroExpansion>
+      </BuildableProductRunnable>
    </LaunchAction>
    <ProfileAction
       buildConfiguration = "Release"
@@ -81,15 +96,16 @@
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
       debugDocumentVersioning = "YES">
-      <MacroExpansion>
+      <BuildableProductRunnable
+         runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "8B7F7C5C5BC308F0FECD514E"
-            BuildableName = "Detail.framework"
-            BlueprintName = "Detail"
+            BlueprintIdentifier = "EA7032688AE487B5F9D91F6E"
+            BuildableName = "DetailExample.app"
+            BlueprintName = "DetailExample"
             ReferencedContainer = "container:Detail.xcodeproj">
          </BuildableReference>
-      </MacroExpansion>
+      </BuildableProductRunnable>
    </ProfileAction>
    <AnalyzeAction
       buildConfiguration = "Debug">

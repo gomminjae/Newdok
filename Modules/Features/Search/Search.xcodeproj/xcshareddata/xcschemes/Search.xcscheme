@@ -34,6 +34,20 @@
                ReferencedContainer = "container:Search.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "2AE6EEDCD0021B9D77B33CE5"
+               BuildableName = "SearchExample.app"
+               BlueprintName = "SearchExample"
+               ReferencedContainer = "container:Search.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
       </BuildActionEntries>
    </BuildAction>
    <TestAction
@@ -65,15 +79,16 @@
       debugDocumentVersioning = "YES"
       debugServiceExtension = "internal"
       allowLocationSimulation = "YES">
-      <MacroExpansion>
+      <BuildableProductRunnable
+         runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "C8340F58B0B1AD7EA1B1F833"
-            BuildableName = "Search.framework"
-            BlueprintName = "Search"
+            BlueprintIdentifier = "2AE6EEDCD0021B9D77B33CE5"
+            BuildableName = "SearchExample.app"
+            BlueprintName = "SearchExample"
             ReferencedContainer = "container:Search.xcodeproj">
          </BuildableReference>
-      </MacroExpansion>
+      </BuildableProductRunnable>
    </LaunchAction>
    <ProfileAction
       buildConfiguration = "Release"
@@ -81,15 +96,16 @@
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
       debugDocumentVersioning = "YES">
-      <MacroExpansion>
+      <BuildableProductRunnable
+         runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "C8340F58B0B1AD7EA1B1F833"
-            BuildableName = "Search.framework"
-            BlueprintName = "Search"
+            BlueprintIdentifier = "2AE6EEDCD0021B9D77B33CE5"
+            BuildableName = "SearchExample.app"
+            BlueprintName = "SearchExample"
             ReferencedContainer = "container:Search.xcodeproj">
          </BuildableReference>
-      </MacroExpansion>
+      </BuildableProductRunnable>
    </ProfileAction>
    <AnalyzeAction
       buildConfiguration = "Debug">
