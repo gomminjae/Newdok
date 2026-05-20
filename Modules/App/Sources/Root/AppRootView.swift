@@ -1,36 +1,24 @@
 import SwiftUI
-import LaunchInterface
-import AuthInterface
 import Shared
-import ExploreDomain
 import DesignSystem
 
 struct AppRootView: View {
     @Environment(TabSelection.self) private var tabSelection
     @Bindable var router: AppRouter
     let container: AppContainer
-    let loadOptionsUseCase: LoadOptionsUseCase
-    let signOut: @MainActor () async -> Void
 
     @State private var launched = false
     @State private var showUnauthorizedAlert = false
 
-    init(
-        router: AppRouter,
-        container: AppContainer,
-        loadOptionsUseCase: LoadOptionsUseCase,
-        signOut: @escaping @MainActor () async -> Void
-    ) {
+    init(router: AppRouter, container: AppContainer) {
         self.router = router
         self.container = container
-        self.loadOptionsUseCase = loadOptionsUseCase
-        self.signOut = signOut
     }
 
     var body: some View {
         ZStack {
             if !launched {
-                container.launchFactory.makeSplashView()
+                container.makeSplashView()
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
                     .ignoresSafeArea()
                     .transition(.opacity)
@@ -50,7 +38,7 @@ struct AppRootView: View {
         }
         .task {
             do {
-                try await loadOptionsUseCase.execute()
+                try await container.makeLoadOptionsUseCase().execute()
             } catch {
                 print("Failed to load options: \(error)")
             }
@@ -69,7 +57,7 @@ struct AppRootView: View {
             }
         }
         .onReceive(NotificationCenter.default.publisher(for: .didReceiveUnauthorized)) { _ in
-            Task { await signOut() }
+            Task { await container.signOut() }
             AppState.shared.logout()
             showUnauthorizedAlert = true
         }
@@ -87,53 +75,53 @@ struct AppRootView: View {
     private func makeView(for route: AppRoute) -> some View {
         switch route {
         case .onboarding:
-            container.authFactory.makeOnboardingView()
+            container.makeOnboardingView()
         case .signup:
-            container.authFactory.makeSignupView()
+            container.makeSignupView()
         case .login:
-            container.authFactory.makeLoginView()
+            container.makeLoginView()
         case .home:
-            container.homeFactory.makeHomeView()
+            container.makeHomeView()
         case let .tabbar(selectedTab):
             container.makeTabView(selectedTab: selectedTab)
         case .profile:
-            container.mypageFactory.makeMypageView()
+            container.makeMypageView()
         case .explore:
-            container.exploreFactory.makeExploreView()
+            container.makeExploreView()
         case .brandDetail(let id):
-            container.detailFactory.makeBrandDetailView(id: id)
+            container.makeBrandDetailView(id: id)
         case .articleDetail(let id, let isPastArticle):
-            container.detailFactory.makeArticleDetailView(id: id, isPastArticle: isPastArticle)
+            container.makeArticleDetailView(id: id, isPastArticle: isPastArticle)
         case .editProfile:
-            container.mypageFactory.makeEditProfileView()
+            container.makeEditProfileView()
         case .recovery:
-            container.mypageFactory.makeRecoveryView()
+            container.makeRecoveryView()
         case .editNickname:
-            container.mypageFactory.makeEditNicknameView()
+            container.makeEditNicknameView()
         case .editIndustry:
-            container.mypageFactory.makeEditIndustryView()
+            container.makeEditIndustryView()
         case .editInterest:
-            container.mypageFactory.makeEditInterestView()
+            container.makeEditInterestView()
         case .accountManage:
-            container.mypageFactory.makeAccountManageView()
+            container.makeAccountManageView()
         case .updatePassword:
-            container.mypageFactory.makeChangePasswordView()
+            container.makeChangePasswordView()
         case .updatePhoneNumber:
-            container.mypageFactory.makeChangePhoneNumberView()
+            container.makeChangePhoneNumberView()
         case .search:
-            container.searchFactory.makeSearchView()
+            container.makeSearchView()
         case .serviceFeedback:
-            container.mypageFactory.makeFeedbackView()
+            container.makeFeedbackView()
         case .withdraw:
-            container.mypageFactory.makeWithdrawView()
+            container.makeWithdrawView()
         case .faq:
-            container.mypageFactory.makeFAQView()
+            container.makeFAQView()
         case .feedback:
-            container.mypageFactory.makeFeedbackView()
+            container.makeFeedbackView()
         case .termsMenu:
-            container.mypageFactory.makeTermsMenuView()
+            container.makeTermsMenuView()
         case .editAlert:
-            container.mypageFactory.makeEditAlertView()
+            container.makeEditAlertView()
         }
     }
 

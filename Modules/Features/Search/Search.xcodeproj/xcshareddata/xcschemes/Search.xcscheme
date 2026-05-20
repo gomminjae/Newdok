@@ -28,20 +28,6 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "D41DC0BE09F22AC4DBD3A7A5"
-               BuildableName = "SearchInterface.framework"
-               BlueprintName = "SearchInterface"
-               ReferencedContainer = "container:Search.xcodeproj">
-            </BuildableReference>
-         </BuildActionEntry>
-         <BuildActionEntry
-            buildForTesting = "YES"
-            buildForRunning = "YES"
-            buildForProfiling = "YES"
-            buildForArchiving = "YES"
-            buildForAnalyzing = "YES">
-            <BuildableReference
-               BuildableIdentifier = "primary"
                BlueprintIdentifier = "31ED15E7542DF88C68D74C23"
                BuildableName = "SearchTesting.framework"
                BlueprintName = "SearchTesting"

@@ -76,8 +76,6 @@ let project = Project(
             sources: ["Sources/**"],
             resources: ["Resources/**"],
             dependencies: [
-                // Coordinator
-                .project(target: "AppCoordinator", path: .relativeToRoot("Modules/AppCoordinator")),
                 // Infrastructure
                 .core,
                 .designSystem,
@@ -92,16 +90,6 @@ let project = Project(
                 .featureDomain("Bookmark"), .featureData("Bookmark"),
                 .featureDomain("Detail"), .featureData("Detail"),
                 .featureDomain("Search"), .featureData("Search"),
-                // Feature Interfaces
-                .featureInterface("Auth"),
-                .featureInterface("Home"),
-                .featureInterface("Explore"),
-                .featureInterface("Subscribe"),
-                .featureInterface("Bookmark"),
-                .featureInterface("Detail"),
-                .featureInterface("Search"),
-                .featureInterface("Mypage"),
-                .featureInterface("Launch"),
                 // Feature Implementations
                 .feature("Auth"),
                 .feature("Home"),
@@ -114,7 +102,6 @@ let project = Project(
                 .feature("Launch"),
                 // External
                 .external(name: "PopupView"),
-                .external(name: "Swinject"),
                 .external(name: "FirebaseAnalytics"),
                 .external(name: "FirebaseCrashlytics")
             ]

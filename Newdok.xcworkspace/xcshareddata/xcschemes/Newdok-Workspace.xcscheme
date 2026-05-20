@@ -42,20 +42,6 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "0B29F91734153538F8461789"
-               BuildableName = "AppCoordinator.framework"
-               BlueprintName = "AppCoordinator"
-               ReferencedContainer = "container:Modules/AppCoordinator/AppCoordinator.xcodeproj">
-            </BuildableReference>
-         </BuildActionEntry>
-         <BuildActionEntry
-            buildForTesting = "YES"
-            buildForRunning = "YES"
-            buildForProfiling = "YES"
-            buildForArchiving = "YES"
-            buildForAnalyzing = "YES">
-            <BuildableReference
-               BuildableIdentifier = "primary"
                BlueprintIdentifier = "CD1FF535BD66CAFC10C0E412"
                BuildableName = "Auth.framework"
                BlueprintName = "Auth"
@@ -87,20 +73,6 @@
                BlueprintIdentifier = "5E1D1068FB58DFF90944B9EF"
                BuildableName = "AuthDomain.framework"
                BlueprintName = "AuthDomain"
-               ReferencedContainer = "container:Modules/Features/Auth/Auth.xcodeproj">
-            </BuildableReference>
-         </BuildActionEntry>
-         <BuildActionEntry
-            buildForTesting = "YES"
-            buildForRunning = "YES"
-            buildForProfiling = "YES"
-            buildForArchiving = "YES"
-            buildForAnalyzing = "YES">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "E17CF2E4E8681E8A1401C484"
-               BuildableName = "AuthInterface.framework"
-               BlueprintName = "AuthInterface"
                ReferencedContainer = "container:Modules/Features/Auth/Auth.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -182,20 +154,6 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "B6E08EB0C955E3A126652189"
-               BuildableName = "BookmarkInterface.framework"
-               BlueprintName = "BookmarkInterface"
-               ReferencedContainer = "container:Modules/Features/Bookmark/Bookmark.xcodeproj">
-            </BuildableReference>
-         </BuildActionEntry>
-         <BuildActionEntry
-            buildForTesting = "YES"
-            buildForRunning = "YES"
-            buildForProfiling = "YES"
-            buildForArchiving = "YES"
-            buildForAnalyzing = "YES">
-            <BuildableReference
-               BuildableIdentifier = "primary"
                BlueprintIdentifier = "BCF52F412D064E28B13EA5D1"
                BuildableName = "BookmarkTesting.framework"
                BlueprintName = "BookmarkTesting"
@@ -228,6 +186,20 @@
                BuildableName = "Core.framework"
                BlueprintName = "Core"
                ReferencedContainer = "container:Modules/Core/Core.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "A9198DADA1C94D4688C417C6"
+               BuildableName = "DatabaseKit.framework"
+               BlueprintName = "DatabaseKit"
+               ReferencedContainer = "container:Modules/DatabaseKit/DatabaseKit.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
          <BuildActionEntry
@@ -294,9 +266,23 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "9A293940913ED0FF4D0EF915"
-               BuildableName = "DetailInterface.framework"
-               BlueprintName = "DetailInterface"
+               BlueprintIdentifier = "BB2FF893B90ACF9CC724F176"
+               BuildableName = "DetailTesting.framework"
+               BlueprintName = "DetailTesting"
+               ReferencedContainer = "container:Modules/Features/Detail/Detail.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "378027671B59764DC5831691"
+               BuildableName = "DetailTests.xctest"
+               BlueprintName = "DetailTests"
                ReferencedContainer = "container:Modules/Features/Detail/Detail.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -339,20 +325,6 @@
                BlueprintIdentifier = "1A94CF1664C493A99BED748A"
                BuildableName = "ExploreDomain.framework"
                BlueprintName = "ExploreDomain"
-               ReferencedContainer = "container:Modules/Features/Explore/Explore.xcodeproj">
-            </BuildableReference>
-         </BuildActionEntry>
-         <BuildActionEntry
-            buildForTesting = "YES"
-            buildForRunning = "YES"
-            buildForProfiling = "YES"
-            buildForArchiving = "YES"
-            buildForAnalyzing = "YES">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "E52BBDBB17B2D125427A2803"
-               BuildableName = "ExploreInterface.framework"
-               BlueprintName = "ExploreInterface"
                ReferencedContainer = "container:Modules/Features/Explore/Explore.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -770,20 +742,6 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "A9EED54876D44D485F1EEB8D"
-               BuildableName = "HomeInterface.framework"
-               BlueprintName = "HomeInterface"
-               ReferencedContainer = "container:Modules/Features/Home/Home.xcodeproj">
-            </BuildableReference>
-         </BuildActionEntry>
-         <BuildActionEntry
-            buildForTesting = "YES"
-            buildForRunning = "YES"
-            buildForProfiling = "YES"
-            buildForArchiving = "YES"
-            buildForAnalyzing = "YES">
-            <BuildableReference
-               BuildableIdentifier = "primary"
                BlueprintIdentifier = "E3DD6237C3219FB2C5630130"
                BuildableName = "HomeTesting.framework"
                BlueprintName = "HomeTesting"
@@ -829,20 +787,6 @@
                BlueprintIdentifier = "74131FA0A8CF20351DC20C20"
                BuildableName = "Launch.framework"
                BlueprintName = "Launch"
-               ReferencedContainer = "container:Modules/Features/Launch/Launch.xcodeproj">
-            </BuildableReference>
-         </BuildActionEntry>
-         <BuildActionEntry
-            buildForTesting = "YES"
-            buildForRunning = "YES"
-            buildForProfiling = "YES"
-            buildForArchiving = "YES"
-            buildForAnalyzing = "YES">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "97FCB05A057ADEF3610B54C2"
-               BuildableName = "LaunchInterface.framework"
-               BlueprintName = "LaunchInterface"
                ReferencedContainer = "container:Modules/Features/Launch/Launch.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -927,20 +871,6 @@
                BlueprintIdentifier = "516C1B329C5A67B8EE142488"
                BuildableName = "MypageDomain.framework"
                BlueprintName = "MypageDomain"
-               ReferencedContainer = "container:Modules/Features/Mypage/Mypage.xcodeproj">
-            </BuildableReference>
-         </BuildActionEntry>
-         <BuildActionEntry
-            buildForTesting = "YES"
-            buildForRunning = "YES"
-            buildForProfiling = "YES"
-            buildForArchiving = "YES"
-            buildForAnalyzing = "YES">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "8AF4554538C6F28E16CDD379"
-               BuildableName = "MypageInterface.framework"
-               BlueprintName = "MypageInterface"
                ReferencedContainer = "container:Modules/Features/Mypage/Mypage.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -1050,20 +980,6 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "D41DC0BE09F22AC4DBD3A7A5"
-               BuildableName = "SearchInterface.framework"
-               BlueprintName = "SearchInterface"
-               ReferencedContainer = "container:Modules/Features/Search/Search.xcodeproj">
-            </BuildableReference>
-         </BuildActionEntry>
-         <BuildActionEntry
-            buildForTesting = "YES"
-            buildForRunning = "YES"
-            buildForProfiling = "YES"
-            buildForArchiving = "YES"
-            buildForAnalyzing = "YES">
-            <BuildableReference
-               BuildableIdentifier = "primary"
                BlueprintIdentifier = "31ED15E7542DF88C68D74C23"
                BuildableName = "SearchTesting.framework"
                BlueprintName = "SearchTesting"
@@ -1148,20 +1064,6 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "9210C9D863AE640CB72D85DF"
-               BuildableName = "SubscribeInterface.framework"
-               BlueprintName = "SubscribeInterface"
-               ReferencedContainer = "container:Modules/Features/Subscribe/Subscribe.xcodeproj">
-            </BuildableReference>
-         </BuildActionEntry>
-         <BuildActionEntry
-            buildForTesting = "YES"
-            buildForRunning = "YES"
-            buildForProfiling = "YES"
-            buildForArchiving = "YES"
-            buildForAnalyzing = "YES">
-            <BuildableReference
-               BuildableIdentifier = "primary"
                BlueprintIdentifier = "C4EED6233BE2B4419D5CFAEC"
                BuildableName = "SubscribeTesting.framework"
                BlueprintName = "SubscribeTesting"
@@ -1232,20 +1134,6 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "589345361EDD5EBC786D0C14"
-               BuildableName = "Swinject.framework"
-               BlueprintName = "Swinject"
-               ReferencedContainer = "container:Tuist/.build/tuist-derived/Swinject/Swinject.xcodeproj">
-            </BuildableReference>
-         </BuildActionEntry>
-         <BuildActionEntry
-            buildForTesting = "YES"
-            buildForRunning = "YES"
-            buildForProfiling = "YES"
-            buildForArchiving = "YES"
-            buildForAnalyzing = "YES">
-            <BuildableReference
-               BuildableIdentifier = "primary"
                BlueprintIdentifier = "00CCAE173147AFA99AA51F0E"
                BuildableName = "nanopb.framework"
                BlueprintName = "nanopb"
@@ -1294,6 +1182,17 @@
                BuildableName = "BookmarkTests.xctest"
                BlueprintName = "BookmarkTests"
                ReferencedContainer = "container:Modules/Features/Bookmark/Bookmark.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO"
+            parallelizable = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "378027671B59764DC5831691"
+               BuildableName = "DetailTests.xctest"
+               BlueprintName = "DetailTests"
+               ReferencedContainer = "container:Modules/Features/Detail/Detail.xcodeproj">
             </BuildableReference>
          </TestableReference>
          <TestableReference

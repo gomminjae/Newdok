@@ -1,7 +1,6 @@
 import SwiftUI
 import Core
 import Shared
-import AppCoordinator
 import DesignSystem
 import PopupView
 import FirebaseCore
@@ -12,33 +11,23 @@ struct NewdokApp: App {
     @State private var showUpdateAlert = false
     @State private var router = AppRouter()
     @State private var tabSelection = TabSelection()
+    private let container: AppContainer
+
     init() {
         FirebaseApp.configure()
         DesignSystemFontFamily.registerAllCustomFonts()
         ErrorLoggerRegistry.register(CoreErrorLogger())
-        CompositionRoot.registerGlobalDependencies()
         TokenStorage.migrateTokenIfNeeded()
+
+        let router = AppRouter()
+        self._router = State(initialValue: router)
+        self.container = AppContainer(router: router, deps: AppDependencies())
     }
 
     var body: some Scene {
         WindowGroup {
             OverlayRootView {
-                AppEntry.makeRootView(
-                    router: router,
-                    factories: FeatureFactories(
-                        auth: CompositionRoot.makeAuthFactory(),
-                        home: CompositionRoot.makeHomeFactory(),
-                        explore: CompositionRoot.makeExploreFactory(),
-                        subscribe: CompositionRoot.makeSubscribeFactory(),
-                        bookmark: CompositionRoot.makeBookmarkFactory(),
-                        detail: CompositionRoot.makeDetailFactory(),
-                        search: CompositionRoot.makeSearchFactory(),
-                        mypage: CompositionRoot.makeMypageFactory(),
-                        launch: CompositionRoot.makeLaunchFactory()
-                    ),
-                    loadOptionsUseCase: CompositionRoot.makeLoadOptionsUseCase(),
-                    signOut: CompositionRoot.makeSignOut()
-                )
+                AppRootView(router: router, container: container)
             }
             .hideKeyboardOnTap()
             .environment(router)

@@ -17,7 +17,6 @@
 		296D09CA97E57EA8B19B8BF7 /* MonthlyBookmarkDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 027337791E8D813CBD0E42DF /* MonthlyBookmarkDTO.swift */; };
 		2A3F7D0D2367581384BA404E /* BookmarkedArticlesDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4973C60A67E2564B5FCF1ADA /* BookmarkedArticlesDTO.swift */; };
 		2F1DD18028A61176D3DD02E7 /* Core.framework in Dependencies */ = {isa = PBXBuildFile; fileRef = 04218E44C8D7EEB4DB1FEB17 /* Core.framework */; };
-		45925DF8DE7496C4348BD0F9 /* BookmarkInterface.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E7655ACA3BC556B119528725 /* BookmarkInterface.framework */; };
 		46544D3CC066630ECA9B0AFE /* BookmarkDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 177C50DB84A2207F875A86A6 /* BookmarkDTO.swift */; };
 		46BF92809D94416E9C8E1E76 /* BookmarkInterest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 928A9853C70554E2166EA819 /* BookmarkInterest.swift */; };
 		493EA6D98B8BDA489FE3ED8E /* FetchBookmarkedInterestsUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = F65929928B4BF73E6E935DEF /* FetchBookmarkedInterestsUseCase.swift */; };
@@ -30,29 +29,25 @@
 		6144DD3831CAE3E3A2D7FB45 /* Kingfisher.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 722BE9794BB696843B2378B9 /* Kingfisher.framework */; };
 		61AF57048C6B4DDBC8302B65 /* Shared.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22775B642171631175E5C887 /* Shared.framework */; };
 		67B77DD174942AC92B42F299 /* ToggleBookmarkStatusUseCaseImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D79073B3DFB35FD7DE769EB /* ToggleBookmarkStatusUseCaseImpl.swift */; };
-		6E2E23C7B71C7263BB660EE8 /* BookmarkInterface.framework in Dependencies */ = {isa = PBXBuildFile; fileRef = E7655ACA3BC556B119528725 /* BookmarkInterface.framework */; };
 		70433C64209F81F7C99A64F3 /* BookmarkTesting.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 455970BB067D86A1E0357180 /* BookmarkTesting.framework */; };
 		727DB75A275B58E8FF3A1957 /* BookmarkedArticles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3454092925EB42A81D366B6F /* BookmarkedArticles.swift */; };
 		76E1ED4328CB90535A43BE9E /* Shared.framework in Dependencies */ = {isa = PBXBuildFile; fileRef = 22775B642171631175E5C887 /* Shared.framework */; };
 		8B9E4218261392B76342AFC1 /* BookmarkDomain.framework in Dependencies */ = {isa = PBXBuildFile; fileRef = 7D71C9FA16EA7F7B8C065C3F /* BookmarkDomain.framework */; };
 		8BB89F4C1BD28E14E1D2144E /* FetchBookmarkedArticlesUseCaseImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BAB58DB9899AEE95F92115A /* FetchBookmarkedArticlesUseCaseImpl.swift */; };
-		8F0C6B4BC531BA9A2AB6D0D0 /* BookmarkInterface.framework in Dependencies */ = {isa = PBXBuildFile; fileRef = E7655ACA3BC556B119528725 /* BookmarkInterface.framework */; };
+		8FEE905D5215D72F335C01F4 /* MockToggleBookmarkStatusUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BB770F786C65953FA072D47 /* MockToggleBookmarkStatusUseCase.swift */; };
 		9CDFF7E5C35845724D00EEF8 /* BookmarkItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = D276B3421EA24CE847FEE3A2 /* BookmarkItem.swift */; };
 		9D7C75A36F3F477772BD7FBE /* BookmarkEmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 962531354FC80D68BEDB100B /* BookmarkEmptyView.swift */; };
 		B077BEF4EBFB5B47890445A2 /* BookmarkView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A67016F7ECAD609354E68E6 /* BookmarkView.swift */; };
 		B3DDE87514556E0BA6A6257E /* PopupView.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D7097229A5B4D0C77F9A1AA9 /* PopupView.framework */; };
 		BB3583AB8AFF5A8582A7EA5C /* Bookmark.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 76BD577AD93EFB89FF1662CC /* Bookmark.framework */; };
 		BCB178B26120DAE57F765D76 /* FetchBookmarkedInterestsUseCaseImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDB8DFAD64525DD3CF1E7EDF /* FetchBookmarkedInterestsUseCaseImpl.swift */; };
-		C200E53FF641FB80FF25FBBC /* DesignSystem_DesignSystem.bundle in Dependencies */ = {isa = PBXBuildFile; fileRef = BBDE9251A6A0136A7E26B3E5 /* DesignSystem_DesignSystem.bundle */; };
+		C1101C88BE3BC60EDA35F222 /* MockFetchBookmarkedArticlesUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBEAB6D95837215A0E40807C /* MockFetchBookmarkedArticlesUseCase.swift */; };
 		C6D2F181D424BE4BA0E205C4 /* BookmarkMain.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8CAFD478C6DDC83E089E3A7 /* BookmarkMain.swift */; };
 		C9713249EFF54B95D5957871 /* Shared.framework in Dependencies */ = {isa = PBXBuildFile; fileRef = 22775B642171631175E5C887 /* Shared.framework */; };
-		D0674AFE101ACF5224274A14 /* BookmarkTesting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06739B86D24C28318BFC6782 /* BookmarkTesting.swift */; };
 		E5164B2889523A1E7FCCA93E /* BookmarkTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D833BD260020B2F30A7E7FC8 /* BookmarkTests.swift */; };
+		E8D17997A650266731C11F30 /* MockFetchBookmarkedInterestsUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D72B487917F46352154A5D /* MockFetchBookmarkedInterestsUseCase.swift */; };
 		EFEA28987FB90851599084C2 /* BookmarkInterestDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A8328380BADA8FF551AC269 /* BookmarkInterestDTO.swift */; };
-		F516AF3722B18D4CA17CA6C5 /* BookmarkViewFactoryImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FEA08A7EBF8C3419BC9C524 /* BookmarkViewFactoryImpl.swift */; };
 		FC2692497EEEBDB1B6509CA1 /* ToggleBookmarkStatusUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D3BBDC46E228A25D0BFF881 /* ToggleBookmarkStatusUseCase.swift */; };
-		FE062AF14025853C2ADB4F4D /* BookmarkViewFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71823B685C2FC002BE0190AC /* BookmarkViewFactory.swift */; };
-		FF071D7F25F1A1CD20AC825D /* DesignSystem_DesignSystem.bundle in Resources */ = {isa = PBXBuildFile; fileRef = BBDE9251A6A0136A7E26B3E5 /* DesignSystem_DesignSystem.bundle */; };
 		FF662E892BCA85526915A148 /* FetchBookmarkedArticlesUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = D31CA5BDB3B22749605469DE /* FetchBookmarkedArticlesUseCase.swift */; };
 /* End PBXBuildFile section */
 
@@ -84,20 +79,6 @@
 			proxyType = 1;
 			remoteGlobalIDString = BECDD6FD2C45E0F8205FBF52;
 			remoteInfo = BookmarkDomain;
-		};
-		B372F59676D0D8BCCD8F8A98 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = BA9CA0EB5A140F1EAC9980AE /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = B6E08EB0C955E3A126652189;
-			remoteInfo = BookmarkInterface;
-		};
-		D42B62BFCEE4B8E332192EB1 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = BA9CA0EB5A140F1EAC9980AE /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = B6E08EB0C955E3A126652189;
-			remoteInfo = BookmarkInterface;
 		};
 		FCC1FEA62888B8516E07B705 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -135,7 +116,6 @@
 			dstSubfolderSpec = 16;
 			files = (
 				8B9E4218261392B76342AFC1 /* BookmarkDomain.framework in Dependencies */,
-				6E2E23C7B71C7263BB660EE8 /* BookmarkInterface.framework in Dependencies */,
 			);
 			name = Dependencies;
 			runOnlyForDeploymentPostprocessing = 1;
@@ -170,35 +150,14 @@
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		A102AD6437CDCBF240AA5CBE /* Embed Frameworks */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-			);
-			name = "Embed Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		B58E5D26D72EC6411D28175B /* Dependencies */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 8;
 			dstSubfolderSpec = 16;
 			files = (
 				1A9388B3195E7434819F3A90 /* BookmarkDomain.framework in Dependencies */,
-				8F0C6B4BC531BA9A2AB6D0D0 /* BookmarkInterface.framework in Dependencies */,
 				5DA795FD8AE82AF3E6657BB5 /* DesignSystem.framework in Dependencies */,
 				C9713249EFF54B95D5957871 /* Shared.framework in Dependencies */,
-			);
-			name = Dependencies;
-			runOnlyForDeploymentPostprocessing = 1;
-		};
-		BF69A515542BB9C5AB004EB7 /* Dependencies */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 8;
-			dstSubfolderSpec = 16;
-			files = (
-				C200E53FF641FB80FF25FBBC /* DesignSystem_DesignSystem.bundle in Dependencies */,
 			);
 			name = Dependencies;
 			runOnlyForDeploymentPostprocessing = 1;
@@ -230,8 +189,8 @@
 		0206BD8483F955BBBE9319B6 /* MonthlyBookmark.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthlyBookmark.swift; sourceTree = "<group>"; };
 		027337791E8D813CBD0E42DF /* MonthlyBookmarkDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthlyBookmarkDTO.swift; sourceTree = "<group>"; };
 		04218E44C8D7EEB4DB1FEB17 /* Core.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Core.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		06739B86D24C28318BFC6782 /* BookmarkTesting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkTesting.swift; sourceTree = "<group>"; };
 		0899174EB9AB87E665590C43 /* StopSubscribeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StopSubscribeView.swift; sourceTree = "<group>"; };
+		0BB770F786C65953FA072D47 /* MockToggleBookmarkStatusUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockToggleBookmarkStatusUseCase.swift; sourceTree = "<group>"; };
 		0D3BBDC46E228A25D0BFF881 /* ToggleBookmarkStatusUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToggleBookmarkStatusUseCase.swift; sourceTree = "<group>"; };
 		0DEC7FF30725688E6BE8DE19 /* BookmarkRepositoryImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkRepositoryImpl.swift; sourceTree = "<group>"; };
 		16BF1ECB8E46A46B46E4DEC0 /* BookmarkTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "BookmarkTests-Info.plist"; sourceTree = "<group>"; };
@@ -239,7 +198,6 @@
 		1D79073B3DFB35FD7DE769EB /* ToggleBookmarkStatusUseCaseImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToggleBookmarkStatusUseCaseImpl.swift; sourceTree = "<group>"; };
 		22775B642171631175E5C887 /* Shared.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Shared.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2FE6A4BBB210E743868DD0D5 /* BookmarkTesting-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "BookmarkTesting-Info.plist"; sourceTree = "<group>"; };
-		2FEA08A7EBF8C3419BC9C524 /* BookmarkViewFactoryImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkViewFactoryImpl.swift; sourceTree = "<group>"; };
 		3454092925EB42A81D366B6F /* BookmarkedArticles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkedArticles.swift; sourceTree = "<group>"; };
 		3A8328380BADA8FF551AC269 /* BookmarkInterestDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkInterestDTO.swift; sourceTree = "<group>"; };
 		455970BB067D86A1E0357180 /* BookmarkTesting.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = BookmarkTesting.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -248,7 +206,6 @@
 		4BCB52165A0F79B4C0B198B0 /* BookmarkDomain-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "BookmarkDomain-Info.plist"; sourceTree = "<group>"; };
 		518BAAA65BF35C6106E2FA43 /* NewsLetterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsLetterView.swift; sourceTree = "<group>"; };
 		6BAB58DB9899AEE95F92115A /* FetchBookmarkedArticlesUseCaseImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchBookmarkedArticlesUseCaseImpl.swift; sourceTree = "<group>"; };
-		71823B685C2FC002BE0190AC /* BookmarkViewFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkViewFactory.swift; sourceTree = "<group>"; };
 		722BE9794BB696843B2378B9 /* Kingfisher.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Kingfisher.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		76BD577AD93EFB89FF1662CC /* Bookmark.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Bookmark.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7A67016F7ECAD609354E68E6 /* BookmarkView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkView.swift; sourceTree = "<group>"; };
@@ -257,14 +214,13 @@
 		928A9853C70554E2166EA819 /* BookmarkInterest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkInterest.swift; sourceTree = "<group>"; };
 		962531354FC80D68BEDB100B /* BookmarkEmptyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkEmptyView.swift; sourceTree = "<group>"; };
 		A47C7D14746696637C609C95 /* BookmarkGuestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkGuestView.swift; sourceTree = "<group>"; };
-		A4AFE93BF8AB6F3624F36113 /* BookmarkInterface-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "BookmarkInterface-Info.plist"; sourceTree = "<group>"; };
+		B5D72B487917F46352154A5D /* MockFetchBookmarkedInterestsUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockFetchBookmarkedInterestsUseCase.swift; sourceTree = "<group>"; };
 		B5E4D1C21AD8172E2DE26AB5 /* BookmarkRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkRepository.swift; sourceTree = "<group>"; };
-		BBDE9251A6A0136A7E26B3E5 /* DesignSystem_DesignSystem.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DesignSystem_DesignSystem.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
 		D276B3421EA24CE847FEE3A2 /* BookmarkItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkItem.swift; sourceTree = "<group>"; };
 		D31CA5BDB3B22749605469DE /* FetchBookmarkedArticlesUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchBookmarkedArticlesUseCase.swift; sourceTree = "<group>"; };
 		D7097229A5B4D0C77F9A1AA9 /* PopupView.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = PopupView.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D833BD260020B2F30A7E7FC8 /* BookmarkTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkTests.swift; sourceTree = "<group>"; };
-		E7655ACA3BC556B119528725 /* BookmarkInterface.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = BookmarkInterface.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		EBEAB6D95837215A0E40807C /* MockFetchBookmarkedArticlesUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockFetchBookmarkedArticlesUseCase.swift; sourceTree = "<group>"; };
 		F1105013526F13651EC442F5 /* BookmarkTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BookmarkTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		F2A5BEA1A83032F8516C05FC /* DesignSystem.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = DesignSystem.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F5CC4B625E176A882F77C5A9 /* BookmarkData-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "BookmarkData-Info.plist"; sourceTree = "<group>"; };
@@ -289,7 +245,6 @@
 			files = (
 				BB3583AB8AFF5A8582A7EA5C /* Bookmark.framework in Frameworks */,
 				55B78CD6D6C94876F593D4D4 /* BookmarkDomain.framework in Frameworks */,
-				45925DF8DE7496C4348BD0F9 /* BookmarkInterface.framework in Frameworks */,
 				70433C64209F81F7C99A64F3 /* BookmarkTesting.framework in Frameworks */,
 				52645DC713DA5763373B841A /* DesignSystem.framework in Frameworks */,
 				6144DD3831CAE3E3A2D7FB45 /* Kingfisher.framework in Frameworks */,
@@ -306,13 +261,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		94DF660E2CB09CB8FA620707 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		9553C5BE784D0959C7CBD180 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -343,7 +291,9 @@
 		165ED5284B288EE729070D7B /* Sources */ = {
 			isa = PBXGroup;
 			children = (
-				06739B86D24C28318BFC6782 /* BookmarkTesting.swift */,
+				EBEAB6D95837215A0E40807C /* MockFetchBookmarkedArticlesUseCase.swift */,
+				B5D72B487917F46352154A5D /* MockFetchBookmarkedInterestsUseCase.swift */,
+				0BB770F786C65953FA072D47 /* MockToggleBookmarkStatusUseCase.swift */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -362,25 +312,15 @@
 				76BD577AD93EFB89FF1662CC /* Bookmark.framework */,
 				82057388BFC0F3F42C3F8205 /* BookmarkData.framework */,
 				7D71C9FA16EA7F7B8C065C3F /* BookmarkDomain.framework */,
-				E7655ACA3BC556B119528725 /* BookmarkInterface.framework */,
 				455970BB067D86A1E0357180 /* BookmarkTesting.framework */,
 				F1105013526F13651EC442F5 /* BookmarkTests.xctest */,
 				04218E44C8D7EEB4DB1FEB17 /* Core.framework */,
-				BBDE9251A6A0136A7E26B3E5 /* DesignSystem_DesignSystem.bundle */,
 				F2A5BEA1A83032F8516C05FC /* DesignSystem.framework */,
 				722BE9794BB696843B2378B9 /* Kingfisher.framework */,
 				D7097229A5B4D0C77F9A1AA9 /* PopupView.framework */,
 				22775B642171631175E5C887 /* Shared.framework */,
 			);
 			name = Products;
-			sourceTree = "<group>";
-		};
-		46931856C599831F6AD03E57 /* Sources */ = {
-			isa = PBXGroup;
-			children = (
-				71823B685C2FC002BE0190AC /* BookmarkViewFactory.swift */,
-			);
-			path = Sources;
 			sourceTree = "<group>";
 		};
 		4D4AF63CE9F3CAA238AEF2F2 /* Testing */ = {
@@ -407,7 +347,6 @@
 				541ABE504C207D11DED88267 /* NewsLetter */,
 				75C94C65C12BB9DD8E9644CA /* UseCase */,
 				F8CAFD478C6DDC83E089E3A7 /* BookmarkMain.swift */,
-				2FEA08A7EBF8C3419BC9C524 /* BookmarkViewFactoryImpl.swift */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -430,21 +369,12 @@
 			path = Bookmark;
 			sourceTree = "<group>";
 		};
-		64BDE56CBF022EC39CB2A5F9 /* Interface */ = {
-			isa = PBXGroup;
-			children = (
-				46931856C599831F6AD03E57 /* Sources */,
-			);
-			path = Interface;
-			sourceTree = "<group>";
-		};
 		678358C5981DF54869E125F4 /* InfoPlists */ = {
 			isa = PBXGroup;
 			children = (
 				FA7E6E621EE96CAB99C31F5D /* Bookmark-Info.plist */,
 				F5CC4B625E176A882F77C5A9 /* BookmarkData-Info.plist */,
 				4BCB52165A0F79B4C0B198B0 /* BookmarkDomain-Info.plist */,
-				A4AFE93BF8AB6F3624F36113 /* BookmarkInterface-Info.plist */,
 				2FE6A4BBB210E743868DD0D5 /* BookmarkTesting-Info.plist */,
 				16BF1ECB8E46A46B46E4DEC0 /* BookmarkTests-Info.plist */,
 			);
@@ -549,7 +479,6 @@
 				CE65D08C36089461970B52C9 /* Data */,
 				56B796AD55F4230C2FB1CFD2 /* Derived */,
 				81DAD0B0D6E2F8753D69CE1B /* Domain */,
-				64BDE56CBF022EC39CB2A5F9 /* Interface */,
 				548D75079954AD79DF67E9EF /* Sources */,
 				4D4AF63CE9F3CAA238AEF2F2 /* Testing */,
 				E3E4583B02DE03FED25E9F88 /* Tests */,
@@ -582,26 +511,6 @@
 			productReference = 82057388BFC0F3F42C3F8205 /* BookmarkData.framework */;
 			productType = "com.apple.product-type.framework";
 		};
-		B6E08EB0C955E3A126652189 /* BookmarkInterface */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = E71CA5F0B3ED7E6E5EA71597 /* Build configuration list for PBXNativeTarget "BookmarkInterface" */;
-			buildPhases = (
-				6B65421559D4795A017B7453 /* Sources */,
-				CE7C6EDB2564062928B0B192 /* Resources */,
-				9553C5BE784D0959C7CBD180 /* Frameworks */,
-				A102AD6437CDCBF240AA5CBE /* Embed Frameworks */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = BookmarkInterface;
-			packageProductDependencies = (
-			);
-			productName = BookmarkInterface;
-			productReference = E7655ACA3BC556B119528725 /* BookmarkInterface.framework */;
-			productType = "com.apple.product-type.framework";
-		};
 		BCF52F412D064E28B13EA5D1 /* BookmarkTesting */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 2F293A7731109F2C3037B436 /* Build configuration list for PBXNativeTarget "BookmarkTesting" */;
@@ -616,7 +525,6 @@
 			);
 			dependencies = (
 				7FEFF7E2422AB861E56660C4 /* PBXTargetDependency */,
-				1E22EBA9EA0463C99D74C94D /* PBXTargetDependency */,
 			);
 			name = BookmarkTesting;
 			packageProductDependencies = (
@@ -660,7 +568,6 @@
 			);
 			dependencies = (
 				DDF160BAC18219353FAB43BA /* PBXTargetDependency */,
-				53D5C356FD409B7EB9286A80 /* PBXTargetDependency */,
 			);
 			name = Bookmark;
 			packageProductDependencies = (
@@ -677,7 +584,6 @@
 				ACE72C6E428CCBA07334E279 /* Resources */,
 				20B520E08F0B31EDFD381617 /* Frameworks */,
 				9BC99EC1B32ACA3FFCFA4EAA /* Embed Frameworks */,
-				BF69A515542BB9C5AB004EB7 /* Dependencies */,
 			);
 			buildRules = (
 			);
@@ -719,7 +625,6 @@
 				CA3BDA5CCBC32BFCAFE328FB /* Bookmark */,
 				ACFDF727B839066FA06A13DA /* BookmarkData */,
 				BECDD6FD2C45E0F8205FBF52 /* BookmarkDomain */,
-				B6E08EB0C955E3A126652189 /* BookmarkInterface */,
 				BCF52F412D064E28B13EA5D1 /* BookmarkTesting */,
 				F69E4FDDBAA3D5291A5F3DE4 /* BookmarkTests */,
 			);
@@ -742,14 +647,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		ACE72C6E428CCBA07334E279 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				FF071D7F25F1A1CD20AC825D /* DesignSystem_DesignSystem.bundle in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		CE7C6EDB2564062928B0B192 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -783,7 +680,6 @@
 				9D7C75A36F3F477772BD7FBE /* BookmarkEmptyView.swift in Sources */,
 				17D27226B3ACEBBA22B67FA4 /* BookmarkGuestView.swift in Sources */,
 				C6D2F181D424BE4BA0E205C4 /* BookmarkMain.swift in Sources */,
-				F516AF3722B18D4CA17CA6C5 /* BookmarkViewFactoryImpl.swift in Sources */,
 				292A125709A1026D71045F7A /* NewsLetterView.swift in Sources */,
 				2892A5E3959641B7EB88CFB9 /* StopSubscribeView.swift in Sources */,
 				8BB89F4C1BD28E14E1D2144E /* FetchBookmarkedArticlesUseCaseImpl.swift in Sources */,
@@ -812,19 +708,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		6B65421559D4795A017B7453 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				FE062AF14025853C2ADB4F4D /* BookmarkViewFactory.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		F22EAED0BEEF9418FA01E721 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D0674AFE101ACF5224274A14 /* BookmarkTesting.swift in Sources */,
+				C1101C88BE3BC60EDA35F222 /* MockFetchBookmarkedArticlesUseCase.swift in Sources */,
+				E8D17997A650266731C11F30 /* MockFetchBookmarkedInterestsUseCase.swift in Sources */,
+				8FEE905D5215D72F335C01F4 /* MockToggleBookmarkStatusUseCase.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -851,18 +741,6 @@
 			name = BookmarkDomain;
 			target = BECDD6FD2C45E0F8205FBF52 /* BookmarkDomain */;
 			targetProxy = 0BA2D57CDC64F1151E2235E6 /* PBXContainerItemProxy */;
-		};
-		1E22EBA9EA0463C99D74C94D /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = BookmarkInterface;
-			target = B6E08EB0C955E3A126652189 /* BookmarkInterface */;
-			targetProxy = B372F59676D0D8BCCD8F8A98 /* PBXContainerItemProxy */;
-		};
-		53D5C356FD409B7EB9286A80 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = BookmarkInterface;
-			target = B6E08EB0C955E3A126652189 /* BookmarkInterface */;
-			targetProxy = D42B62BFCEE4B8E332192EB1 /* PBXContainerItemProxy */;
 		};
 		5D924657591B78500784B860 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -1035,10 +913,6 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				OTHER_LDFLAGS = (
-					"$(inherited)",
-					"-L$(DT_TOOLCHAIN_DIR)/usr/lib/swift/$(PLATFORM_NAME)",
-				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.newdok.bookmark.tests;
 				PRODUCT_NAME = BookmarkTests;
 				SDKROOT = iphoneos;
@@ -1098,10 +972,6 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
-				);
-				OTHER_LDFLAGS = (
-					"$(inherited)",
-					"-L$(DT_TOOLCHAIN_DIR)/usr/lib/swift/$(PLATFORM_NAME)",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.newdok.bookmark.tests;
 				PRODUCT_NAME = BookmarkTests;
@@ -1196,42 +1066,6 @@
 			};
 			name = Debug;
 		};
-		6DA5A09AF53114CE7232C3DA /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_IDENTITY = "";
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = "Derived/InfoPlists/BookmarkInterface-Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				MACH_O_TYPE = staticlib;
-				PRODUCT_BUNDLE_IDENTIFIER = com.newdok.bookmark.interface;
-				PRODUCT_NAME = BookmarkInterface;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SUPPORTS_MACCATALYST = NO;
-				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
-				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
-				SWIFT_COMPILATION_MODE = wholemodule;
-				SWIFT_ENABLE_EXPLICIT_MODULES = YES;
-				SWIFT_OPTIMIZATION_LEVEL = "-O";
-				SWIFT_STRICT_CONCURRENCY = complete;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Release;
-		};
 		A0760B07562EAC4931522D53 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -1308,46 +1142,6 @@
 				VERSION_INFO_PREFIX = "";
 			};
 			name = Release;
-		};
-		C1849E67C4E15664F91D8BD4 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_IDENTITY = "";
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = "Derived/InfoPlists/BookmarkInterface-Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				MACH_O_TYPE = staticlib;
-				PRODUCT_BUNDLE_IDENTIFIER = com.newdok.bookmark.interface;
-				PRODUCT_NAME = BookmarkInterface;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SUPPORTS_MACCATALYST = NO;
-				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
-				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = (
-					"$(inherited)",
-					DEBUG,
-				);
-				SWIFT_COMPILATION_MODE = singlefile;
-				SWIFT_ENABLE_EXPLICIT_MODULES = YES;
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_STRICT_CONCURRENCY = complete;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Debug;
 		};
 		F050F65ACD76992B52742202 /* Release */ = {
 			isa = XCBuildConfiguration;
@@ -1498,15 +1292,6 @@
 			buildConfigurations = (
 				FB8A9724FD8939D2B6A113A6 /* Debug */,
 				2CDAC3FEE005812D05D20DE7 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		E71CA5F0B3ED7E6E5EA71597 /* Build configuration list for PBXNativeTarget "BookmarkInterface" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				C1849E67C4E15664F91D8BD4 /* Debug */,
-				6DA5A09AF53114CE7232C3DA /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

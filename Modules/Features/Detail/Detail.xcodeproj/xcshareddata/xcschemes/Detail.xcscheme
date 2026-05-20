@@ -28,9 +28,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "9A293940913ED0FF4D0EF915"
-               BuildableName = "DetailInterface.framework"
-               BlueprintName = "DetailInterface"
+               BlueprintIdentifier = "BB2FF893B90ACF9CC724F176"
+               BuildableName = "DetailTesting.framework"
+               BlueprintName = "DetailTesting"
                ReferencedContainer = "container:Detail.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -40,9 +40,19 @@
       buildConfiguration = "Debug"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
-      shouldUseLaunchSchemeArgsEnv = "YES"
-      disableMainThreadChecker = "YES">
+      shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
+         <TestableReference
+            skipped = "NO"
+            parallelizable = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "378027671B59764DC5831691"
+               BuildableName = "DetailTests.xctest"
+               BlueprintName = "DetailTests"
+               ReferencedContainer = "container:Detail.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
    </TestAction>
    <LaunchAction

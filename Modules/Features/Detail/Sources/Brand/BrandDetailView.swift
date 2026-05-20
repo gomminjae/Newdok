@@ -355,7 +355,9 @@ public struct BrandDetailView: View {
                         }
 
                         Spacer()
-                        if let status = SubscriptionStatus(rawValue: viewModel.detail?.isSubscribed ?? "") {
+                        if isGuest {
+                            subscribeButton(status: .initial)
+                        } else if let status = SubscriptionStatus(rawValue: viewModel.detail?.isSubscribed ?? "") {
                             subscribeButton(status: status)
                         }
                     }
