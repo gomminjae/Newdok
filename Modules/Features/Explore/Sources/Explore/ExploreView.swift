@@ -67,6 +67,16 @@ public struct ExploreView: View {
             .background(Color.white)
             .onChange(of: appState.authState) {
                 viewModel.clearData()
+                viewModel.reloadUserInfo()
+                Task {
+                    if isGuest {
+                        await viewModel.fetchGuestAllNewsletters()
+                    } else {
+                        await viewModel.fetchRecommendation()
+                        await viewModel.fetchAllNewsletters()
+                    }
+                    isLoaded = true
+                }
             }
             .onChange(of: tabSelection.exploreTrigger) {
                 guard tabSelection.hasPendingExplore else { return }
