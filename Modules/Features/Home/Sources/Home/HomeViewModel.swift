@@ -240,19 +240,15 @@ public final class HomeViewModel {
     }
 
     public func applyDataDaysForMonth(_ date: Date) {
-        let key = monthKey(for: date)
-        if let cached = dataDaysCache[key] {
-            calendarState.dataDays = cached
-            return
-        }
-        calendarState.dataDays = []
-        Task { [weak self] in
-            guard let self else { return }
-            let days = await calendarDataDays(for: date)
-            if Calendar.current.isDate(date, equalTo: calendarState.displayedMonth, toGranularity: .month) {
-                calendarState.dataDays = days
-            }
-        }
+        calendarState.dataDays = dataDaysCache[monthKey(for: date)] ?? []
+        Task { [weak self] in await self?.refreshDataDays(for: date) }
+        prefetchAdjacent(from: date)
+    }
+
+    private func refreshDataDays(for date: Date) async {
+        let days = await calendarDataDays(for: date)
+        guard monthKey(for: date) == monthKey(for: calendarState.displayedMonth) else { return }
+        calendarState.dataDays = days
     }
 
     public func markArticleAsRead(articleId: Int) async {
