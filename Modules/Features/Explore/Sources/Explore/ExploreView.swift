@@ -82,6 +82,7 @@ public struct ExploreView: View {
             }
             .onAppear {
                 applyExploreParams()
+                viewModel.reloadUserInfo()
 
                 Task {
                     if isGuest {

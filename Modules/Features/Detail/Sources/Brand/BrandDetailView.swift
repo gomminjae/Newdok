@@ -87,6 +87,7 @@ public struct BrandDetailView: View {
     @State private var showSubscribeStatePopup = false
     @State private var showCheckSubscribePopup = false
     @State private var hasPresentedSubscribeCheckPopup = false
+    @State private var showSignupRequiredPopup = false
     
     // Toast
     @State private var showSubscribeToast: Bool = false
@@ -216,6 +217,26 @@ public struct BrandDetailView: View {
                 subscribe: {
                     showCheckSubscribePopup = false
                     showSubscribeSheet = true
+                }
+            )
+        } customize: {
+            $0
+                .type(.default)
+                .position(.center)
+                .animation(.easeInOut)
+                .backgroundColor(Color.black.opacity(0.3))
+                .closeOnTapOutside(true)
+                .closeOnTap(false)
+                .allowTapThroughBG(false)
+        }
+        .popup(isPresented: $showSignupRequiredPopup) {
+            SignupRequiredPopupView(
+                onSignup: {
+                    showSignupRequiredPopup = false
+                    showSubscribeSheet = true
+                },
+                onDismiss: {
+                    showSignupRequiredPopup = false
                 }
             )
         } customize: {
@@ -525,7 +546,11 @@ public struct BrandDetailView: View {
         
         switch status {
         case .initial:
-            showSubscribeSheet = true
+            if viewModel.detail?.brandId == 321 {
+                showSignupRequiredPopup = true
+            } else {
+                showSubscribeSheet = true
+            }
         case .check:
             showCheckSubscribePopup = true
         case .confirmed:
