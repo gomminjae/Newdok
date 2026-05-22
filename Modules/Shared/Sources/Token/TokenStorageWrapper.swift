@@ -16,16 +16,8 @@ public final class TokenStorageWrapper: TokenStorageProtocol, @unchecked Sendabl
         TokenStorage.accessToken
     }
 
-    public var hasCompletedOnboarding: Bool {
-        TokenStorage.hasCompletedOnboarding
-    }
-
     public var hasValidToken: Bool {
         TokenStorage.hasValidToken
-    }
-
-    public var shouldShowSubscribeStatePopup: Bool {
-        TokenStorage.shouldShowSubscribeStatePopup
     }
 
     public func saveAccessToken(_ token: String?) {
@@ -34,14 +26,6 @@ public final class TokenStorageWrapper: TokenStorageProtocol, @unchecked Sendabl
 
     public func clear() {
         TokenStorage.clear()
-    }
-
-    public func markOnboardingCompleted() {
-        TokenStorage.markOnboardingCompleted()
-    }
-
-    public func hideSubscribeStatePopupForToday() {
-        TokenStorage.hideSubscribeStatePopupForToday()
     }
 
     public func migrateTokenIfNeeded() {

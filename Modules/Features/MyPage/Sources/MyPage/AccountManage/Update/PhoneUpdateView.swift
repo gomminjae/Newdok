@@ -16,9 +16,9 @@ public struct PhoneUpdateView: View {
     @FocusState private var isPhoneFieldFocused: Bool
     @FocusState private var isNumberPadFocused: Bool
 
-    @Bindable private var viewModel: MypageViewModel
+    @Bindable private var viewModel: PhoneUpdateViewModel
 
-    public init(viewModel: MypageViewModel) {
+    public init(viewModel: PhoneUpdateViewModel) {
         self.viewModel = viewModel
     }
 

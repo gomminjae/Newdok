@@ -22,9 +22,9 @@ public struct PwdUpdateView: View {
     @FocusState private var isNewPasswordFocused: Bool
     @FocusState private var isConfirmPasswordFocused: Bool
 
-    @Bindable private var viewModel: MypageViewModel
+    @Bindable private var viewModel: PasswordUpdateViewModel
 
-    public init(viewModel: MypageViewModel) {
+    public init(viewModel: PasswordUpdateViewModel) {
         self.viewModel = viewModel
     }
 

@@ -64,6 +64,7 @@
 		7390DD8F969606B6A77B2C13 /* Shared.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A19D7843FEFE29BD0819145C /* Shared.framework */; };
 		773AA4470A9CDC5CC8CC6725 /* EditAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A009F18AE1816F468D79E100 /* EditAlertView.swift */; };
 		77FEFFBC6B10590447194F86 /* CheckMypagePhoneNumberUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AF371A295252C79E14F27F3 /* CheckMypagePhoneNumberUseCase.swift */; };
+		796D479ECF58F63D1D06DCA2 /* PasswordUpdateViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C192D2736D8CD6720A80CC7B /* PasswordUpdateViewModel.swift */; };
 		79D5AED477F6DCE847EFCE8C /* MypageSimpleUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56F78B81808015CE00B0059E /* MypageSimpleUser.swift */; };
 		818C6B59EB69212BB49E6598 /* MypageDomain.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EBD899A674C4500DB831BB6A /* MypageDomain.framework */; };
 		81CC52A8F9CFD8D9BB44EE76 /* CheckMypagePhoneNumberUseCaseImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46D5FE2366E88552B9AF5EF5 /* CheckMypagePhoneNumberUseCaseImpl.swift */; };
@@ -111,6 +112,7 @@
 		E7E4E6781091400A8673B6D0 /* DesignSystem.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F22BB87ADE60B2913D547027 /* DesignSystem.framework */; };
 		E954F6CCCF253E1A3D7A7BC2 /* MypageAuthSMSUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BC6F734D19F24C06A9D0A06 /* MypageAuthSMSUseCase.swift */; };
 		ED2944B1EE07AD35BC8D9B0A /* AccountManagementView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 435A5C982C020CECF6823250 /* AccountManagementView.swift */; };
+		F25593CFC189588E8D17EDDF /* PhoneUpdateViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C708787CC018D57EDF0E433 /* PhoneUpdateViewModel.swift */; };
 		F44A35FE3666BB64FED573AF /* EditNicknameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE20CEB3997ED5CB0105D8D5 /* EditNicknameView.swift */; };
 		F92448F94E2E371EE28ED903 /* FetchReceivedArticleCountUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = C15DB3E0D5901EEC8177079D /* FetchReceivedArticleCountUseCase.swift */; };
 		F9BB0F13EC85B6040261A1EE /* UpdateMypageInterestsUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1A1A3380F7E1997F6692FB3 /* UpdateMypageInterestsUseCase.swift */; };
@@ -338,6 +340,7 @@
 		8581F407C3AC7F7D60441524 /* MypageStatsRepositoryImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MypageStatsRepositoryImpl.swift; sourceTree = "<group>"; };
 		8596DB5B78443B0D49B09ED2 /* MypageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MypageViewModel.swift; sourceTree = "<group>"; };
 		8840B5DAF16D6AF5B7F04D28 /* MypageNicknameResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MypageNicknameResponseDTO.swift; sourceTree = "<group>"; };
+		8C708787CC018D57EDF0E433 /* PhoneUpdateViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneUpdateViewModel.swift; sourceTree = "<group>"; };
 		8FDABEA7B4064B889E6E40F2 /* Wrap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Wrap.swift; sourceTree = "<group>"; };
 		95FC5124811C98A13DC4817D /* MypageBase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MypageBase.swift; sourceTree = "<group>"; };
 		96C71387C911BEF715D45ED4 /* MypageStatsRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MypageStatsRepository.swift; sourceTree = "<group>"; };
@@ -363,6 +366,7 @@
 		BAD8206ADA25522EED65556A /* MockResetMypagePasswordUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockResetMypagePasswordUseCase.swift; sourceTree = "<group>"; };
 		BBD42CE889E9BC75B886E86E /* MypageUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MypageUser.swift; sourceTree = "<group>"; };
 		C15DB3E0D5901EEC8177079D /* FetchReceivedArticleCountUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchReceivedArticleCountUseCase.swift; sourceTree = "<group>"; };
+		C192D2736D8CD6720A80CC7B /* PasswordUpdateViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordUpdateViewModel.swift; sourceTree = "<group>"; };
 		C4E8E9C3F42B8E4E38C8F0BE /* FAQView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FAQView.swift; sourceTree = "<group>"; };
 		C50B3E0DC34C9BF7FF43A1E9 /* MockCheckMypageIDDupUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockCheckMypageIDDupUseCase.swift; sourceTree = "<group>"; };
 		C67CA1301A9D268781520C44 /* CheckPhoneErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckPhoneErrorView.swift; sourceTree = "<group>"; };
@@ -509,7 +513,9 @@
 			isa = PBXGroup;
 			children = (
 				E18F97BA5D7F3001664FF1F3 /* PasswordUpdateView.swift */,
+				C192D2736D8CD6720A80CC7B /* PasswordUpdateViewModel.swift */,
 				17886E6B7AEAB04E72C50AF7 /* PhoneUpdateView.swift */,
+				8C708787CC018D57EDF0E433 /* PhoneUpdateViewModel.swift */,
 			);
 			path = Update;
 			sourceTree = "<group>";
@@ -1071,7 +1077,9 @@
 			files = (
 				ED2944B1EE07AD35BC8D9B0A /* AccountManagementView.swift in Sources */,
 				3A025376E4304A76B7CCA90A /* PasswordUpdateView.swift in Sources */,
+				796D479ECF58F63D1D06DCA2 /* PasswordUpdateViewModel.swift in Sources */,
 				11CDCD1D420BEF12BFA2A269 /* PhoneUpdateView.swift in Sources */,
+				F25593CFC189588E8D17EDDF /* PhoneUpdateViewModel.swift in Sources */,
 				773AA4470A9CDC5CC8CC6725 /* EditAlertView.swift in Sources */,
 				2FE8ED828978580159CC6D26 /* FAQView.swift in Sources */,
 				019D7707E96677BDE05B7DD4 /* FeedbackView.swift in Sources */,

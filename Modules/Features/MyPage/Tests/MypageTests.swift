@@ -11,33 +11,24 @@ struct MypageViewModelTests {
         vm: MypageViewModel,
         fetchProfile: MockFetchMypageProfileUseCase,
         updateNickname: MockUpdateMypageNicknameUseCase,
-        updatePassword: MockUpdateMypagePasswordUseCase,
         updateInterests: MockUpdateMypageInterestsUseCase,
-        updateIndustry: MockUpdateMypageIndustryUseCase,
-        updatePhoneNumber: MockUpdateMypagePhoneNumberUseCase,
-        authSMS: MockMypageAuthSMSUseCase
+        updateIndustry: MockUpdateMypageIndustryUseCase
     ) {
         let fetchProfile = MockFetchMypageProfileUseCase()
         let updateNickname = MockUpdateMypageNicknameUseCase()
-        let updatePassword = MockUpdateMypagePasswordUseCase()
         let updateInterests = MockUpdateMypageInterestsUseCase()
         let updateIndustry = MockUpdateMypageIndustryUseCase()
-        let updatePhoneNumber = MockUpdateMypagePhoneNumberUseCase()
-        let authSMS = MockMypageAuthSMSUseCase()
         let vm = MypageViewModel(
             fetchProfileUseCase: fetchProfile,
             updateNicknameUseCase: updateNickname,
-            updatePasswordUseCase: updatePassword,
             updateInterestsUseCase: updateInterests,
-            updateIndustryUseCase: updateIndustry,
-            updatePhoneNumberUseCase: updatePhoneNumber,
-            authSMSUseCase: authSMS
+            updateIndustryUseCase: updateIndustry
         )
-        return (vm, fetchProfile, updateNickname, updatePassword, updateInterests, updateIndustry, updatePhoneNumber, authSMS)
+        return (vm, fetchProfile, updateNickname, updateInterests, updateIndustry)
     }
 
     @Test func fetchUserInfo_success() async {
-        let (vm, fetchProfile, _, _, _, _, _, _) = makeSUT()
+        let (vm, fetchProfile, _, _, _) = makeSUT()
         let user = MypageUser(id: 1, loginId: "test", phoneNumber: "010", subscribeEmail: nil, nickname: "닉네임", birthYear: "2000", gender: "M", createdAt: "2025-01-01", industryId: 1, interests: [])
         fetchProfile.result = .success(user)
 
@@ -48,7 +39,7 @@ struct MypageViewModelTests {
     }
 
     @Test func updateNickname_success() async {
-        let (vm, _, updateNickname, _, _, _, _, _) = makeSUT()
+        let (vm, _, updateNickname, _, _) = makeSUT()
         vm.user = MypageUser(id: 1, loginId: "test", phoneNumber: "010", subscribeEmail: nil, nickname: "이전", birthYear: "2000", gender: "M", createdAt: "2025-01-01", industryId: 1, interests: [])
 
         let success = await vm.updateNickname(nickname: "새닉네임")
@@ -59,7 +50,7 @@ struct MypageViewModelTests {
     }
 
     @Test func updateNickname_failure() async {
-        let (vm, _, updateNickname, _, _, _, _, _) = makeSUT()
+        let (vm, _, updateNickname, _, _) = makeSUT()
         updateNickname.result = .failure(NSError(domain: "test", code: -1))
 
         let success = await vm.updateNickname(nickname: "새닉네임")
@@ -68,7 +59,7 @@ struct MypageViewModelTests {
     }
 
     @Test func updateIndustry_success() async {
-        let (vm, _, _, _, _, updateIndustry, _, _) = makeSUT()
+        let (vm, _, _, _, updateIndustry) = makeSUT()
         vm.user = MypageUser(id: 1, loginId: "test", phoneNumber: "010", subscribeEmail: nil, nickname: "테스트", birthYear: "2000", gender: "M", createdAt: "2025-01-01", industryId: 1, interests: [])
 
         let success = await vm.updateIndustry(id: 5)
@@ -79,7 +70,7 @@ struct MypageViewModelTests {
     }
 
     @Test func updateInterests_success() async {
-        let (vm, _, _, _, updateInterests, _, _, _) = makeSUT()
+        let (vm, _, _, updateInterests, _) = makeSUT()
         vm.user = MypageUser(id: 1, loginId: "test", phoneNumber: "010", subscribeEmail: nil, nickname: "테스트", birthYear: "2000", gender: "M", createdAt: "2025-01-01", industryId: 1, interests: [])
 
         let success = await vm.updateInterests(ids: [1, 2, 3])
@@ -89,8 +80,27 @@ struct MypageViewModelTests {
         #expect(vm.showInterestSuccess == true)
     }
 
+}
+
+@Suite("PhoneUpdateViewModel Tests")
+@MainActor
+struct PhoneUpdateViewModelTests {
+    private func makeSUT() -> (
+        vm: PhoneUpdateViewModel,
+        authSMS: MockMypageAuthSMSUseCase,
+        updatePhoneNumber: MockUpdateMypagePhoneNumberUseCase
+    ) {
+        let authSMS = MockMypageAuthSMSUseCase()
+        let updatePhoneNumber = MockUpdateMypagePhoneNumberUseCase()
+        let vm = PhoneUpdateViewModel(
+            authSMSUseCase: authSMS,
+            updatePhoneNumberUseCase: updatePhoneNumber
+        )
+        return (vm, authSMS, updatePhoneNumber)
+    }
+
     @Test func sendVerificationCode_success() async {
-        let (vm, _, _, _, _, _, _, authSMS) = makeSUT()
+        let (vm, authSMS, _) = makeSUT()
         vm.phoneNumber = "01012345678"
 
         await vm.sendVerificationCode()

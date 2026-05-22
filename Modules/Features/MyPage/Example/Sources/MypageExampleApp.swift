@@ -35,11 +35,8 @@ struct MypageExampleApp: App {
         return MypageViewModel(
             fetchProfileUseCase: profile,
             updateNicknameUseCase: MockUpdateMypageNicknameUseCase(),
-            updatePasswordUseCase: MockUpdateMypagePasswordUseCase(),
             updateInterestsUseCase: MockUpdateMypageInterestsUseCase(),
-            updateIndustryUseCase: MockUpdateMypageIndustryUseCase(),
-            updatePhoneNumberUseCase: MockUpdateMypagePhoneNumberUseCase(),
-            authSMSUseCase: MockMypageAuthSMSUseCase()
+            updateIndustryUseCase: MockUpdateMypageIndustryUseCase()
         )
     }
 }

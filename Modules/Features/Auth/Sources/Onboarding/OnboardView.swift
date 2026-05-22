@@ -15,10 +15,10 @@ public struct OnboardingView: View {
 
     @Environment(AppRouter.self) private var router
 
-    private let tokenStorage: TokenStorageProtocol
+    private let onboardingStorage: OnboardingStorable
 
-    public init(tokenStorage: TokenStorageProtocol = TokenStorageWrapper.shared) {
-        self.tokenStorage = tokenStorage
+    public init(onboardingStorage: OnboardingStorable = OnboardingStorage.shared) {
+        self.onboardingStorage = onboardingStorage
     }
 
     public var body: some View {
@@ -51,7 +51,7 @@ public struct OnboardingView: View {
 
                 VStack(spacing: 0) {
                     Button(action: {
-                        tokenStorage.markOnboardingCompleted()
+                        onboardingStorage.markCompleted()
                         router.push(.signup)
                     }) {
                         Text("회원가입")
@@ -71,7 +71,7 @@ public struct OnboardingView: View {
                             .foregroundColor(Color.captionAssistive)
 
                         Button(action: {
-                            tokenStorage.markOnboardingCompleted()
+                            onboardingStorage.markCompleted()
                             router.push(.login)
                         }) {
                             Text("로그인")
