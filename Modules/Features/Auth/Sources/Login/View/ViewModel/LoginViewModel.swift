@@ -62,7 +62,6 @@ public final class LoginViewModel: ErrorHandling {
                 onSuccess()
             } catch let error as LoginError {
                 handleLoginError(error)
-                handleError(error, feature: "login", operation: "login")
             } catch {
                 errorMessage = "로그인에 실패했습니다"
                 isPasswordError = false
@@ -78,13 +77,20 @@ public final class LoginViewModel: ErrorHandling {
             errorMessage = "비밀번호가 일치하지 않습니다"
             isPasswordError = true
             isLoginIdError = false
+            currentError = .userMessage("비밀번호가 일치하지 않습니다")
         case .accountNotFound:
             errorMessage = "등록되지 않은 계정이거나, 아이디를 다시 확인해주세요"
             isLoginIdError = true
             isPasswordError = false
-        case .networkError:
+            currentError = .userMessage("등록되지 않은 계정이거나, 아이디를 다시 확인해주세요")
+        case .networkError(let underlying):
             isPasswordError = false
             isLoginIdError = false
+            if let convertible = underlying as? AppErrorConvertible {
+                currentError = convertible.toAppError()
+            } else {
+                currentError = .userMessage("네트워크 오류가 발생했습니다")
+            }
         }
     }
 

@@ -11,6 +11,7 @@ import DesignSystem
 import Foundation
 
 import Shared
+import FoundationKit
 import MypageDomain
 
 public struct EditNicknameView: View {

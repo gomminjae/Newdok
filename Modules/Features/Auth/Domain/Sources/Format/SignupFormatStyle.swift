@@ -1,5 +1,4 @@
-import Foundation
-import Shared
+import FoundationKit
 
 public typealias IDValidationError = NewdokIDValidationError
 public typealias NicknameValidationError = NewdokNicknameValidationError

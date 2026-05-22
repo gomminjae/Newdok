@@ -14,12 +14,15 @@
 		0B6B6B6ADF3036111E0A8DBE /* MypageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8596DB5B78443B0D49B09ED2 /* MypageViewModel.swift */; };
 		0B946DC27B1869DC14283DDE /* UpdateMypageInterestsUseCaseImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78F4F3C0A925493E9A1BFFAC /* UpdateMypageInterestsUseCaseImpl.swift */; };
 		0EC20547237BAEF4D00CFBA6 /* MockUpdateMypageInterestsUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0B6240E9E5B5F251C2C8C5E /* MockUpdateMypageInterestsUseCase.swift */; };
+		10F52C5CD1F56BDD23C40095 /* MypageInterface.framework in Dependencies */ = {isa = PBXBuildFile; fileRef = F3F1D4AE93F33C120F2D700D /* MypageInterface.framework */; };
 		11CDCD1D420BEF12BFA2A269 /* PhoneUpdateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17886E6B7AEAB04E72C50AF7 /* PhoneUpdateView.swift */; };
 		1337F511CBE5A8A5BE781D4E /* TermsOfUseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22F52F2DC522EC78A80E317C /* TermsOfUseView.swift */; };
 		13CBDF680F8CBCDDED8AAA29 /* Mypage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D3F36549D503F5AD0A679EEC /* Mypage.framework */; };
 		1434A438185797074252F2BB /* ResetMypagePasswordUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = B559156E2BB6A6BC7046BC9B /* ResetMypagePasswordUseCase.swift */; };
 		145B2C0C79493D9E7FC2B0F7 /* MypageTesting.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA911E17154E6AFF841F66D8 /* MypageTesting.swift */; };
+		14D38EA1EFAB941386DA0456 /* Moya.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F500BF3682B9254532E46F27 /* Moya.framework */; };
 		16F7211666E6B23350E231FE /* UpdateMypageNicknameUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C31F0B2AB6B632B2902A546 /* UpdateMypageNicknameUseCase.swift */; };
+		173507B404A2246EDE9820C4 /* Moya.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = F500BF3682B9254532E46F27 /* Moya.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		1882D0ADB503EC09C86A6155 /* PopupView.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AC9681D4DFFD4DDB3C3849F8 /* PopupView.framework */; };
 		1B2616837CF776230638671F /* UpdateMypageIndustryUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B7BEC13FBA38B3C41C987C /* UpdateMypageIndustryUseCase.swift */; };
 		1ED582B601FFE9A15EBDFEAB /* CheckPhoneErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C67CA1301A9D268781520C44 /* CheckPhoneErrorView.swift */; };
@@ -27,22 +30,29 @@
 		21A188D0711A098C96B00BA1 /* MockFetchMypageSubscriptionCountUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68E20EDF12F7BB2BCCD3A6E0 /* MockFetchMypageSubscriptionCountUseCase.swift */; };
 		239769415CD1F59CF82D9BE1 /* UpdateMypagePhoneNumberUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78D3B8B6EE19F0EB5305F954 /* UpdateMypagePhoneNumberUseCase.swift */; };
 		26310133009BC5878EE98201 /* DesignSystem.framework in Dependencies */ = {isa = PBXBuildFile; fileRef = F22BB87ADE60B2913D547027 /* DesignSystem.framework */; };
+		27371EC9C6211F1A18ED0D32 /* Core.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D46F9F7259B8E355BE592C3 /* Core.framework */; };
+		28438088E730C49EA0EB4C5C /* FoundationKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E5560256FA7A1E81BD9D273D /* FoundationKit.framework */; };
 		2888735C5BAF70C0D6B0109D /* FetchMypageProfileUseCaseImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72AA4E9FF7DDC66639D13020 /* FetchMypageProfileUseCaseImpl.swift */; };
+		29755FFF0D1C0E7337AE7750 /* Alamofire.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 0C68A206BF4ED627C6FD6913 /* Alamofire.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		2C7FAE614E80018B9A6C7093 /* MypageSMSResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6F26CCFE679A08F925F2DED /* MypageSMSResponse.swift */; };
+		2E09A3943D712C889AB620F2 /* MypageInterface.framework in Dependencies */ = {isa = PBXBuildFile; fileRef = F3F1D4AE93F33C120F2D700D /* MypageInterface.framework */; };
 		2E6CC4F56C5F74921B0725FA /* MockCheckMypageIDDupUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = C50B3E0DC34C9BF7FF43A1E9 /* MockCheckMypageIDDupUseCase.swift */; };
 		2FE8ED828978580159CC6D26 /* FAQView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E8E9C3F42B8E4E38C8F0BE /* FAQView.swift */; };
+		307B8B0E5BAF045665C647F5 /* MypageInterface.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F3F1D4AE93F33C120F2D700D /* MypageInterface.framework */; };
 		338EEEEF0713E8D89ED250EF /* MypageTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE0C15C8756DF3245A681E96 /* MypageTests.swift */; };
 		35219223CA1EB2ADB63F3083 /* MypageNewslettersCountDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70930A3EACB2DBAA1C7734DF /* MypageNewslettersCountDTO.swift */; };
 		3650E688A7702536AC734313 /* EditIndustryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A95343D83336ECF7924F93 /* EditIndustryView.swift */; };
 		39D9D28DC4EC862509143AAC /* MockMypageWithdrawUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49BDC64B5E330B1D9882B8FB /* MockMypageWithdrawUseCase.swift */; };
 		3A025376E4304A76B7CCA90A /* PasswordUpdateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E18F97BA5D7F3001664FF1F3 /* PasswordUpdateView.swift */; };
+		3A116B762ADEECB028491290 /* Core.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D46F9F7259B8E355BE592C3 /* Core.framework */; };
 		4090826A340B36C8006D4798 /* EditInterestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9EE8D720105BC83D1182EC4 /* EditInterestView.swift */; };
 		4309992BBB532C2C4975F91A /* PopupView.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = AC9681D4DFFD4DDB3C3849F8 /* PopupView.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		43F2C2669D11CDDDFEEE8526 /* WithdrawViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8377E12CA235048F1ADA109 /* WithdrawViewModel.swift */; };
 		45B0C198530E0D39619FC7BE /* MockUpdateMypageNicknameUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CF17808A49514A2EAFDAC31 /* MockUpdateMypageNicknameUseCase.swift */; };
 		463EFE736E5179473F855EF1 /* MypageSimpleUserDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = A706BC74BF163D2A4F5BA500 /* MypageSimpleUserDTO.swift */; };
-		4A1465831729601937C16102 /* Shared.framework in Dependencies */ = {isa = PBXBuildFile; fileRef = A19D7843FEFE29BD0819145C /* Shared.framework */; };
 		4DAA542956FCB27188ACB180 /* MockFetchMypageProfileUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAAD47F935B16B390CB7174B /* MockFetchMypageProfileUseCase.swift */; };
+		4F4A7C58471FD3E476DC51A9 /* MypageInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = A191B750E183477ADF4BAD45 /* MypageInterface.swift */; };
+		4FA68318217F4E9F32CB2B4E /* Core.framework in Dependencies */ = {isa = PBXBuildFile; fileRef = 1D46F9F7259B8E355BE592C3 /* Core.framework */; };
 		564B61C6A1F0847B1DAFF2E2 /* WithdrawView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A8CA8BD41F6C960FE921370 /* WithdrawView.swift */; };
 		56E877CF4D70242607EDE666 /* MypageAuthSMSUseCaseImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FCEFD92A1B7C753EFD92E41 /* MypageAuthSMSUseCaseImpl.swift */; };
 		58405908CD514289FE39B80C /* MypageInterest.swift in Sources */ = {isa = PBXBuildFile; fileRef = A09EAA3AB424BC849BD1EB65 /* MypageInterest.swift */; };
@@ -53,6 +63,7 @@
 		6178F003557F2E25EE71F449 /* MypageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F90F5BE05980B64F460A361 /* MypageView.swift */; };
 		61A99A787139724DC5113271 /* MypageWithdrawUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = B669A3864F90EBB9C3D4E6BA /* MypageWithdrawUseCase.swift */; };
 		61E40C93CDBEC0CAB13E652C /* FetchMypageSubscriptionCountUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = E19C49B9723AC6D72A76460D /* FetchMypageSubscriptionCountUseCase.swift */; };
+		62A23C3C44FBA3E5FAF01A2D /* MypageData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6ABBA906E340EC2BED3094C2 /* MypageData.framework */; };
 		65FD8FA9561F446C685D5869 /* UpdateMypageIndustryUseCaseImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277AE28C44A8605B9F62E650 /* UpdateMypageIndustryUseCaseImpl.swift */; };
 		6676B749B932DA5CEC2E4FC7 /* MypageWithdrawUseCaseImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58EC02453D9378A9E882667F /* MypageWithdrawUseCaseImpl.swift */; };
 		66FED88CC9623B40E9018056 /* MypageStatsRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96C71387C911BEF715D45ED4 /* MypageStatsRepository.swift */; };
@@ -83,9 +94,11 @@
 		993840F009007BA0EB442178 /* MypageUserRepositoryImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317CC9319B83500699AA3E94 /* MypageUserRepositoryImpl.swift */; };
 		9A9AF81574DF909A02268540 /* MockUpdateMypagePasswordUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7A6D2397660CAD9939F6C49 /* MockUpdateMypagePasswordUseCase.swift */; };
 		9B0379722DDDED9FB8879AAB /* Wrap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FDABEA7B4064B889E6E40F2 /* Wrap.swift */; };
+		9D3AB07A6C6B100950358F7A /* MypageData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6ABBA906E340EC2BED3094C2 /* MypageData.framework */; };
 		9E22CABCDB73D10FFB7CF7CB /* DesignSystem.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = F22BB87ADE60B2913D547027 /* DesignSystem.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		A4217A60C159A12FE76ABFE8 /* PasswordRecoveryPagerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D19AA7B747A81D71CA1EAB3 /* PasswordRecoveryPagerView.swift */; };
 		A4242A1D182943C95A652B09 /* Kingfisher.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 09180759E35FAC99B7E89CD5 /* Kingfisher.framework */; };
+		A4A87FF738D7D3FACD49C84C /* MypageData.framework in Dependencies */ = {isa = PBXBuildFile; fileRef = 6ABBA906E340EC2BED3094C2 /* MypageData.framework */; };
 		AA7440FF2D87122AC0C57C5C /* MockCheckMypagePhoneNumberUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B948AE7636FC23F71C71E6E /* MockCheckMypagePhoneNumberUseCase.swift */; };
 		ACEFDA1D477291E9B8603C9B /* MypageArticlesCountDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9793B42A6B978BBF835B69A3 /* MypageArticlesCountDTO.swift */; };
 		AEBDF2B4E51B3AF98B6138D6 /* MypageUserDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4087D8AA34FB12797F2AEA90 /* MypageUserDTO.swift */; };
@@ -94,17 +107,21 @@
 		BD5499769F4EBE9706C2BF1E /* RecoveryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8C4A9B55BFB0E1A40566064 /* RecoveryView.swift */; };
 		BF2AE740E3A427A571DC4062 /* RecoveryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF11E470578D33ABA7047737 /* RecoveryViewModel.swift */; };
 		C06F5EC21D529D37540FF9CC /* MypageTesting.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EE5C77BF7D74BC2D6FA8CFC7 /* MypageTesting.framework */; };
+		C3630ED16D5074B6F2233758 /* FoundationKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E5560256FA7A1E81BD9D273D /* FoundationKit.framework */; };
 		C96DE8049E3D958DCE9AB7C4 /* FindIdPagerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6B4AFE1CED393D16552571B /* FindIdPagerView.swift */; };
 		C9FF796F2AA621AE1D66A5DE /* MypageExampleApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7D59C19C10FE12F704316D3 /* MypageExampleApp.swift */; };
 		CBF69718AE8A11C81D6866A8 /* TermsMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D25F3B57C7648C6733218FC /* TermsMenuView.swift */; };
 		CD7E809296F44C26D74B67C9 /* UpdateMypagePasswordUseCaseImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8141DAE139954A316A7F3FA9 /* UpdateMypagePasswordUseCaseImpl.swift */; };
 		CF3B0F9474A2914390133AE3 /* CheckMypageIDDupUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9579743F19B23813D08AF75 /* CheckMypageIDDupUseCase.swift */; };
 		D0B756AEBB82F7C45F1783A6 /* UpdateMypagePhoneNumberUseCaseImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C00F0658E4F123B52DD6F08 /* UpdateMypagePhoneNumberUseCaseImpl.swift */; };
+		D2CF32695673CCAA661E91C9 /* MypageBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = A05FAFF91AE82EB18F7D5C8F /* MypageBuilder.swift */; };
 		D3512C91296B4597FC511B94 /* FlexibleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6316494CF79FD65F674FEC66 /* FlexibleView.swift */; };
+		D456356F4328E75F7857B8F4 /* Moya.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F500BF3682B9254532E46F27 /* Moya.framework */; };
 		D68C19E95FB20F2C9F6BCCC0 /* VersionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64E4CC89F3E7DEA5339C7C78 /* VersionView.swift */; };
 		DCDA4EC8E450604DB38DB620 /* MypageUserRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBD15FDEF7B8A92286F51503 /* MypageUserRepository.swift */; };
 		DD9EF6BAA2270D3053E33B11 /* MypageUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBD42CE889E9BC75B886E86E /* MypageUser.swift */; };
 		DE2907CC038740F514584682 /* UpdateMypageNicknameUseCaseImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85782AEA929D3B572A5F8279 /* UpdateMypageNicknameUseCaseImpl.swift */; };
+		DE8477AA64B051D9D9854A29 /* MypageIDCheckResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49E47954940F46CC8BA8F040 /* MypageIDCheckResult.swift */; };
 		E188134682D063F74DF5EB54 /* MockUpdateMypagePhoneNumberUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = A77F8A6B50AC6C050A480095 /* MockUpdateMypagePhoneNumberUseCase.swift */; };
 		E4F47FB555BA6B9198FB92A1 /* MockMypageAuthSMSUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6051FFE4A638921ACD8B7306 /* MockMypageAuthSMSUseCase.swift */; };
 		E53CFA17DB251E18A51C8B33 /* Shared.framework in Dependencies */ = {isa = PBXBuildFile; fileRef = A19D7843FEFE29BD0819145C /* Shared.framework */; };
@@ -112,12 +129,14 @@
 		E7E4E6781091400A8673B6D0 /* DesignSystem.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F22BB87ADE60B2913D547027 /* DesignSystem.framework */; };
 		E954F6CCCF253E1A3D7A7BC2 /* MypageAuthSMSUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BC6F734D19F24C06A9D0A06 /* MypageAuthSMSUseCase.swift */; };
 		ED2944B1EE07AD35BC8D9B0A /* AccountManagementView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 435A5C982C020CECF6823250 /* AccountManagementView.swift */; };
+		F09691BFAB22A01F310F8230 /* MypageInterface.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F3F1D4AE93F33C120F2D700D /* MypageInterface.framework */; };
 		F25593CFC189588E8D17EDDF /* PhoneUpdateViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C708787CC018D57EDF0E433 /* PhoneUpdateViewModel.swift */; };
 		F44A35FE3666BB64FED573AF /* EditNicknameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE20CEB3997ED5CB0105D8D5 /* EditNicknameView.swift */; };
 		F92448F94E2E371EE28ED903 /* FetchReceivedArticleCountUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = C15DB3E0D5901EEC8177079D /* FetchReceivedArticleCountUseCase.swift */; };
 		F9BB0F13EC85B6040261A1EE /* UpdateMypageInterestsUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1A1A3380F7E1997F6692FB3 /* UpdateMypageInterestsUseCase.swift */; };
 		FD2C381A3E05CF2B36FB61EE /* MypageNicknameResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61FA720977B70D1021A11DD2 /* MypageNicknameResponse.swift */; };
 		FE5425117241183C96A40601 /* MypageProfileError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49A64BCEE1B1F6EA6016D3ED /* MypageProfileError.swift */; };
+		FF9DE05FB3879F6756D356F3 /* FoundationKit.framework in Dependencies */ = {isa = PBXBuildFile; fileRef = E5560256FA7A1E81BD9D273D /* FoundationKit.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -135,12 +154,26 @@
 			remoteGlobalIDString = 417BA61376E98ECD6ED70C2A;
 			remoteInfo = Mypage;
 		};
+		494BF28D166C875EADFF7BC5 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 41FA6B59FF2E29B01F11623B /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 8AF4554538C6F28E16CDD379;
+			remoteInfo = MypageInterface;
+		};
 		5AB865CDF831CC4E9DA989A7 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 41FA6B59FF2E29B01F11623B /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = 516C1B329C5A67B8EE142488;
 			remoteInfo = MypageDomain;
+		};
+		834C55D431EE596014446549 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 41FA6B59FF2E29B01F11623B /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 8AF4554538C6F28E16CDD379;
+			remoteInfo = MypageInterface;
 		};
 		93E3A58EF00FBE6FA9726658 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -155,6 +188,13 @@
 			proxyType = 1;
 			remoteGlobalIDString = 516C1B329C5A67B8EE142488;
 			remoteInfo = MypageDomain;
+		};
+		A4C811425776EDEC7FC5F452 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 41FA6B59FF2E29B01F11623B /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = B13502E98A1A8660241ACD2A;
+			remoteInfo = MypageData;
 		};
 		CB126DE51FE7D7ABDB48F6CC /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -196,8 +236,10 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				29755FFF0D1C0E7337AE7750 /* Alamofire.framework in Embed Frameworks */,
 				9E22CABCDB73D10FFB7CF7CB /* DesignSystem.framework in Embed Frameworks */,
 				6F952B605A3F6F9FAD334A18 /* Kingfisher.framework in Embed Frameworks */,
+				173507B404A2246EDE9820C4 /* Moya.framework in Embed Frameworks */,
 				4309992BBB532C2C4975F91A /* PopupView.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
@@ -213,15 +255,15 @@
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		5EFC55313A91778069162191 /* Dependencies */ = {
+		3E9DCC64FF4D9D14BA340985 /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 8;
-			dstSubfolderSpec = 16;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
 			files = (
-				4A1465831729601937C16102 /* Shared.framework in Dependencies */,
 			);
-			name = Dependencies;
-			runOnlyForDeploymentPostprocessing = 1;
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
 		};
 		738D1A7E8E42B0AF48466AC9 /* Dependencies */ = {
 			isa = PBXCopyFilesBuildPhase;
@@ -249,8 +291,12 @@
 			buildActionMask = 8;
 			dstSubfolderSpec = 16;
 			files = (
+				4FA68318217F4E9F32CB2B4E /* Core.framework in Dependencies */,
 				26310133009BC5878EE98201 /* DesignSystem.framework in Dependencies */,
+				FF9DE05FB3879F6756D356F3 /* FoundationKit.framework in Dependencies */,
+				A4A87FF738D7D3FACD49C84C /* MypageData.framework in Dependencies */,
 				E6D1E60D6FC1D14380165736 /* MypageDomain.framework in Dependencies */,
+				2E09A3943D712C889AB620F2 /* MypageInterface.framework in Dependencies */,
 				E53CFA17DB251E18A51C8B33 /* Shared.framework in Dependencies */,
 			);
 			name = Dependencies;
@@ -272,6 +318,7 @@
 			dstSubfolderSpec = 16;
 			files = (
 				0A3699F877328C471254A373 /* MypageDomain.framework in Dependencies */,
+				10F52C5CD1F56BDD23C40095 /* MypageInterface.framework in Dependencies */,
 			);
 			name = Dependencies;
 			runOnlyForDeploymentPostprocessing = 1;
@@ -294,6 +341,7 @@
 		07B7BEC13FBA38B3C41C987C /* UpdateMypageIndustryUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateMypageIndustryUseCase.swift; sourceTree = "<group>"; };
 		09180759E35FAC99B7E89CD5 /* Kingfisher.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Kingfisher.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		0C00F0658E4F123B52DD6F08 /* UpdateMypagePhoneNumberUseCaseImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateMypagePhoneNumberUseCaseImpl.swift; sourceTree = "<group>"; };
+		0C68A206BF4ED627C6FD6913 /* Alamofire.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Alamofire.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		0CC1AC7077C6B1C0A295174A /* UpdateMypagePasswordUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateMypagePasswordUseCase.swift; sourceTree = "<group>"; };
 		1319F664323C85E6471B77BF /* Mypage-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "Mypage-Info.plist"; sourceTree = "<group>"; };
 		17886E6B7AEAB04E72C50AF7 /* PhoneUpdateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneUpdateView.swift; sourceTree = "<group>"; };
@@ -316,6 +364,7 @@
 		46D5FE2366E88552B9AF5EF5 /* CheckMypagePhoneNumberUseCaseImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckMypagePhoneNumberUseCaseImpl.swift; sourceTree = "<group>"; };
 		49A64BCEE1B1F6EA6016D3ED /* MypageProfileError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MypageProfileError.swift; sourceTree = "<group>"; };
 		49BDC64B5E330B1D9882B8FB /* MockMypageWithdrawUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockMypageWithdrawUseCase.swift; sourceTree = "<group>"; };
+		49E47954940F46CC8BA8F040 /* MypageIDCheckResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MypageIDCheckResult.swift; sourceTree = "<group>"; };
 		4CF17808A49514A2EAFDAC31 /* MockUpdateMypageNicknameUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockUpdateMypageNicknameUseCase.swift; sourceTree = "<group>"; };
 		56275665843BFB8579E657A1 /* MypageTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MypageTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		56F78B81808015CE00B0059E /* MypageSimpleUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MypageSimpleUser.swift; sourceTree = "<group>"; };
@@ -326,6 +375,7 @@
 		6316494CF79FD65F674FEC66 /* FlexibleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlexibleView.swift; sourceTree = "<group>"; };
 		64E4CC89F3E7DEA5339C7C78 /* VersionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VersionView.swift; sourceTree = "<group>"; };
 		68E20EDF12F7BB2BCCD3A6E0 /* MockFetchMypageSubscriptionCountUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockFetchMypageSubscriptionCountUseCase.swift; sourceTree = "<group>"; };
+		68F1D1AD095CCAD563011686 /* MypageInterface-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "MypageInterface-Info.plist"; sourceTree = "<group>"; };
 		6ABBA906E340EC2BED3094C2 /* MypageData.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MypageData.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6AF371A295252C79E14F27F3 /* CheckMypagePhoneNumberUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckMypagePhoneNumberUseCase.swift; sourceTree = "<group>"; };
 		70930A3EACB2DBAA1C7734DF /* MypageNewslettersCountDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MypageNewslettersCountDTO.swift; sourceTree = "<group>"; };
@@ -349,8 +399,10 @@
 		9D19AA7B747A81D71CA1EAB3 /* PasswordRecoveryPagerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordRecoveryPagerView.swift; sourceTree = "<group>"; };
 		9F90F5BE05980B64F460A361 /* MypageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MypageView.swift; sourceTree = "<group>"; };
 		A009F18AE1816F468D79E100 /* EditAlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditAlertView.swift; sourceTree = "<group>"; };
+		A05FAFF91AE82EB18F7D5C8F /* MypageBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MypageBuilder.swift; sourceTree = "<group>"; };
 		A09EAA3AB424BC849BD1EB65 /* MypageInterest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MypageInterest.swift; sourceTree = "<group>"; };
 		A144CC888B9AF3FC0D4627FB /* MypageTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "MypageTests-Info.plist"; sourceTree = "<group>"; };
+		A191B750E183477ADF4BAD45 /* MypageInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MypageInterface.swift; sourceTree = "<group>"; };
 		A19D7843FEFE29BD0819145C /* Shared.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Shared.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A706BC74BF163D2A4F5BA500 /* MypageSimpleUserDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MypageSimpleUserDTO.swift; sourceTree = "<group>"; };
 		A77F8A6B50AC6C050A480095 /* MockUpdateMypagePhoneNumberUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockUpdateMypagePhoneNumberUseCase.swift; sourceTree = "<group>"; };
@@ -381,6 +433,7 @@
 		E0B6240E9E5B5F251C2C8C5E /* MockUpdateMypageInterestsUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockUpdateMypageInterestsUseCase.swift; sourceTree = "<group>"; };
 		E18F97BA5D7F3001664FF1F3 /* PasswordUpdateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordUpdateView.swift; sourceTree = "<group>"; };
 		E19C49B9723AC6D72A76460D /* FetchMypageSubscriptionCountUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchMypageSubscriptionCountUseCase.swift; sourceTree = "<group>"; };
+		E5560256FA7A1E81BD9D273D /* FoundationKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = FoundationKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E7D59C19C10FE12F704316D3 /* MypageExampleApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MypageExampleApp.swift; sourceTree = "<group>"; };
 		E9EE8D720105BC83D1182EC4 /* EditInterestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditInterestView.swift; sourceTree = "<group>"; };
 		EBD899A674C4500DB831BB6A /* MypageDomain.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MypageDomain.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -388,6 +441,8 @@
 		EE5C77BF7D74BC2D6FA8CFC7 /* MypageTesting.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MypageTesting.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		EF11E470578D33ABA7047737 /* RecoveryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecoveryViewModel.swift; sourceTree = "<group>"; };
 		F22BB87ADE60B2913D547027 /* DesignSystem.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = DesignSystem.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		F3F1D4AE93F33C120F2D700D /* MypageInterface.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MypageInterface.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		F500BF3682B9254532E46F27 /* Moya.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Moya.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F8C4A9B55BFB0E1A40566064 /* RecoveryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecoveryView.swift; sourceTree = "<group>"; };
 		F96604BD68CE1F8AD27036CD /* MockFetchReceivedArticleCountUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockFetchReceivedArticleCountUseCase.swift; sourceTree = "<group>"; };
 		FA911E17154E6AFF841F66D8 /* MypageTesting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MypageTesting.swift; sourceTree = "<group>"; };
@@ -395,14 +450,26 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		1B514F28C624A8B9933CAC26 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		2EC9A9CD77126097DD5F8F1B /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3A116B762ADEECB028491290 /* Core.framework in Frameworks */,
 				E7E4E6781091400A8673B6D0 /* DesignSystem.framework in Frameworks */,
+				28438088E730C49EA0EB4C5C /* FoundationKit.framework in Frameworks */,
 				5D5171DADC7330D3A18F6FBD /* Kingfisher.framework in Frameworks */,
+				D456356F4328E75F7857B8F4 /* Moya.framework in Frameworks */,
 				8453CDD1A39F75F81DE0F68E /* Mypage.framework in Frameworks */,
+				9D3AB07A6C6B100950358F7A /* MypageData.framework in Frameworks */,
 				818C6B59EB69212BB49E6598 /* MypageDomain.framework in Frameworks */,
+				F09691BFAB22A01F310F8230 /* MypageInterface.framework in Frameworks */,
 				C06F5EC21D529D37540FF9CC /* MypageTesting.framework in Frameworks */,
 				7019BB754A571C304FE31EB5 /* PopupView.framework in Frameworks */,
 				7390DD8F969606B6A77B2C13 /* Shared.framework in Frameworks */,
@@ -442,10 +509,15 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				27371EC9C6211F1A18ED0D32 /* Core.framework in Frameworks */,
 				978D6C03E1A8CF391A0066AB /* DesignSystem.framework in Frameworks */,
+				C3630ED16D5074B6F2233758 /* FoundationKit.framework in Frameworks */,
 				A4242A1D182943C95A652B09 /* Kingfisher.framework in Frameworks */,
+				14D38EA1EFAB941386DA0456 /* Moya.framework in Frameworks */,
 				13CBDF680F8CBCDDED8AAA29 /* Mypage.framework in Frameworks */,
+				62A23C3C44FBA3E5FAF01A2D /* MypageData.framework in Frameworks */,
 				923CC0B23FC8C3A3E38E8DDA /* MypageDomain.framework in Frameworks */,
+				307B8B0E5BAF045665C647F5 /* MypageInterface.framework in Frameworks */,
 				5D0D6946FB611199F16037C1 /* MypageTesting.framework in Frameworks */,
 				2028E1C4001175401C38828D /* PopupView.framework in Frameworks */,
 				673279633359C697B138609A /* Shared.framework in Frameworks */,
@@ -479,6 +551,14 @@
 			path = Samples;
 			sourceTree = "<group>";
 		};
+		2408004DC2F7EF571F111EC0 /* Sources */ = {
+			isa = PBXGroup;
+			children = (
+				A191B750E183477ADF4BAD45 /* MypageInterface.swift */,
+			);
+			path = Sources;
+			sourceTree = "<group>";
+		};
 		240E8891926BD2EC96385980 /* AccountManage */ = {
 			isa = PBXGroup;
 			children = (
@@ -503,6 +583,7 @@
 				00B196FB966DFE35C9E08FDC /* MypageData-Info.plist */,
 				AC68960E0BA1FC8B5500F703 /* MypageDomain-Info.plist */,
 				280D541B4F625FE4C73E3844 /* MypageExample-Info.plist */,
+				68F1D1AD095CCAD563011686 /* MypageInterface-Info.plist */,
 				2A6D8030C2A81F9A91F8FC9F /* MypageTesting-Info.plist */,
 				A144CC888B9AF3FC0D4627FB /* MypageTests-Info.plist */,
 			);
@@ -553,6 +634,7 @@
 		4C6650E7942A0CBF885C0812 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				49E47954940F46CC8BA8F040 /* MypageIDCheckResult.swift */,
 				A09EAA3AB424BC849BD1EB65 /* MypageInterest.swift */,
 				61FA720977B70D1021A11DD2 /* MypageNicknameResponse.swift */,
 				49A64BCEE1B1F6EA6016D3ED /* MypageProfileError.swift */,
@@ -584,13 +666,17 @@
 		66C40A27705DCBB89FAF70F8 /* Products */ = {
 			isa = PBXGroup;
 			children = (
+				0C68A206BF4ED627C6FD6913 /* Alamofire.framework */,
 				1D46F9F7259B8E355BE592C3 /* Core.framework */,
 				F22BB87ADE60B2913D547027 /* DesignSystem.framework */,
+				E5560256FA7A1E81BD9D273D /* FoundationKit.framework */,
 				09180759E35FAC99B7E89CD5 /* Kingfisher.framework */,
+				F500BF3682B9254532E46F27 /* Moya.framework */,
 				D3F36549D503F5AD0A679EEC /* Mypage.framework */,
 				6ABBA906E340EC2BED3094C2 /* MypageData.framework */,
 				EBD899A674C4500DB831BB6A /* MypageDomain.framework */,
 				D39057747E42359F8A206CAC /* MypageExample.app */,
+				F3F1D4AE93F33C120F2D700D /* MypageInterface.framework */,
 				EE5C77BF7D74BC2D6FA8CFC7 /* MypageTesting.framework */,
 				56275665843BFB8579E657A1 /* MypageTests.xctest */,
 				AC9681D4DFFD4DDB3C3849F8 /* PopupView.framework */,
@@ -729,6 +815,7 @@
 				69A64B86D68FA9AA11E468E4 /* UseCase */,
 				91EC25EB315D65B5BCCC9C50 /* Withdraw */,
 				95FC5124811C98A13DC4817D /* MypageBase.swift */,
+				A05FAFF91AE82EB18F7D5C8F /* MypageBuilder.swift */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -797,6 +884,7 @@
 				C3F82CF4B71369E063F6F40B /* Derived */,
 				E23182143EFE0F1D1D9EE490 /* Domain */,
 				036F896D9CCEC9AE11316786 /* Example */,
+				FC62D4486D02C3DB6B127451 /* Interface */,
 				B84D89D8E83D642469306E45 /* Sources */,
 				12A5B25594A96D6DC26628F8 /* Testing */,
 				FDCA3A65DE20C0BCA199E029 /* Tests */,
@@ -810,6 +898,14 @@
 				65C8EF894A5312122257AA92 /* Sources */,
 			);
 			path = Domain;
+			sourceTree = "<group>";
+		};
+		FC62D4486D02C3DB6B127451 /* Interface */ = {
+			isa = PBXGroup;
+			children = (
+				2408004DC2F7EF571F111EC0 /* Sources */,
+			);
+			path = Interface;
 			sourceTree = "<group>";
 		};
 		FDCA3A65DE20C0BCA199E029 /* Tests */ = {
@@ -859,7 +955,9 @@
 			buildRules = (
 			);
 			dependencies = (
+				641492B2B4416FE0471CD2F3 /* PBXTargetDependency */,
 				551E9FB960F3C35B92E2FF18 /* PBXTargetDependency */,
+				5CE961841DF60E399B2E6168 /* PBXTargetDependency */,
 			);
 			name = Mypage;
 			packageProductDependencies = (
@@ -876,7 +974,6 @@
 				A16F52C42608DBA367930A3B /* Resources */,
 				BFD55650004535EFA721C72A /* Frameworks */,
 				3AD1BFD295795E998277972F /* Embed Frameworks */,
-				5EFC55313A91778069162191 /* Dependencies */,
 			);
 			buildRules = (
 			);
@@ -903,12 +1000,33 @@
 			);
 			dependencies = (
 				C35F0F62450F1F893541CC28 /* PBXTargetDependency */,
+				61EE80FA0A1FDEEDF659316A /* PBXTargetDependency */,
 			);
 			name = MypageTesting;
 			packageProductDependencies = (
 			);
 			productName = MypageTesting;
 			productReference = EE5C77BF7D74BC2D6FA8CFC7 /* MypageTesting.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		8AF4554538C6F28E16CDD379 /* MypageInterface */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E52A85DBA27CB93A831D4C6B /* Build configuration list for PBXNativeTarget "MypageInterface" */;
+			buildPhases = (
+				25508F58515CB25A2BB2B9DE /* Sources */,
+				1C565308B7C46226F7CFF636 /* Resources */,
+				1B514F28C624A8B9933CAC26 /* Frameworks */,
+				3E9DCC64FF4D9D14BA340985 /* Embed Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = MypageInterface;
+			packageProductDependencies = (
+			);
+			productName = MypageInterface;
+			productReference = F3F1D4AE93F33C120F2D700D /* MypageInterface.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 		B13502E98A1A8660241ACD2A /* MypageData */ = {
@@ -983,6 +1101,7 @@
 				B13502E98A1A8660241ACD2A /* MypageData */,
 				516C1B329C5A67B8EE142488 /* MypageDomain */,
 				3C3AD701EE6F712C23B75731 /* MypageExample */,
+				8AF4554538C6F28E16CDD379 /* MypageInterface */,
 				6E0A9F73E4402BC7C5EC60FF /* MypageTesting */,
 				B63D9AF0B22F8E2079E9FFDA /* MypageTests */,
 			);
@@ -990,6 +1109,13 @@
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		1C565308B7C46226F7CFF636 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		1C57CDD66B43A22E8B2C65CF /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1039,6 +1165,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DE8477AA64B051D9D9854A29 /* MypageIDCheckResult.swift in Sources */,
 				58405908CD514289FE39B80C /* MypageInterest.swift in Sources */,
 				FD2C381A3E05CF2B36FB61EE /* MypageNicknameResponse.swift in Sources */,
 				FE5425117241183C96A40601 /* MypageProfileError.swift in Sources */,
@@ -1071,6 +1198,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		25508F58515CB25A2BB2B9DE /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4F4A7C58471FD3E476DC51A9 /* MypageInterface.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		3BA55F5129846E3D684D1EAF /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1095,6 +1230,7 @@
 				D68C19E95FB20F2C9F6BCCC0 /* VersionView.swift in Sources */,
 				9B0379722DDDED9FB8879AAB /* Wrap.swift in Sources */,
 				B656958EBB2857C9E41E63CD /* MypageBase.swift in Sources */,
+				D2CF32695673CCAA661E91C9 /* MypageBuilder.swift in Sources */,
 				1ED582B601FFE9A15EBDFEAB /* CheckPhoneErrorView.swift in Sources */,
 				C96DE8049E3D958DCE9AB7C4 /* FindIdPagerView.swift in Sources */,
 				A4217A60C159A12FE76ABFE8 /* PasswordRecoveryPagerView.swift in Sources */,
@@ -1189,6 +1325,24 @@
 			name = MypageDomain;
 			target = 516C1B329C5A67B8EE142488 /* MypageDomain */;
 			targetProxy = 5AB865CDF831CC4E9DA989A7 /* PBXContainerItemProxy */;
+		};
+		5CE961841DF60E399B2E6168 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = MypageInterface;
+			target = 8AF4554538C6F28E16CDD379 /* MypageInterface */;
+			targetProxy = 834C55D431EE596014446549 /* PBXContainerItemProxy */;
+		};
+		61EE80FA0A1FDEEDF659316A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = MypageInterface;
+			target = 8AF4554538C6F28E16CDD379 /* MypageInterface */;
+			targetProxy = 494BF28D166C875EADFF7BC5 /* PBXContainerItemProxy */;
+		};
+		641492B2B4416FE0471CD2F3 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = MypageData;
+			target = B13502E98A1A8660241ACD2A /* MypageData */;
+			targetProxy = A4C811425776EDEC7FC5F452 /* PBXContainerItemProxy */;
 		};
 		652E87A6AF5AB7E794EF7CBA /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -1553,6 +1707,46 @@
 			};
 			name = Debug;
 		};
+		88D2D7DF12A612E8771D9988 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = "Derived/InfoPlists/MypageInterface-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MACH_O_TYPE = staticlib;
+				PRODUCT_BUNDLE_IDENTIFIER = com.newdok.mypage.interface;
+				PRODUCT_NAME = MypageInterface;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = (
+					"$(inherited)",
+					DEBUG,
+				);
+				SWIFT_COMPILATION_MODE = singlefile;
+				SWIFT_ENABLE_EXPLICIT_MODULES = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_STRICT_CONCURRENCY = complete;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
 		A6544373E4A1A1E0C61D2C18 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -1668,6 +1862,42 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		C5FDB3CBC5B2EE5D796EC25C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = "Derived/InfoPlists/MypageInterface-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MACH_O_TYPE = staticlib;
+				PRODUCT_BUNDLE_IDENTIFIER = com.newdok.mypage.interface;
+				PRODUCT_NAME = MypageInterface;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_ENABLE_EXPLICIT_MODULES = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_STRICT_CONCURRENCY = complete;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
 			};
 			name = Release;
 		};
@@ -1800,6 +2030,15 @@
 			buildConfigurations = (
 				41B4FF427AD0DAC497BE1A62 /* Debug */,
 				A849AE312B51646F7A464321 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		E52A85DBA27CB93A831D4C6B /* Build configuration list for PBXNativeTarget "MypageInterface" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				88D2D7DF12A612E8771D9988 /* Debug */,
+				C5FDB3CBC5B2EE5D796EC25C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

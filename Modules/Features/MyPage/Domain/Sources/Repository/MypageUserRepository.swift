@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import Shared
 
 public protocol MypageUserRepository: Sendable {
     func getProfile() async throws -> MypageUser
@@ -19,6 +18,6 @@ public protocol MypageUserRepository: Sendable {
     func updatePhoneNumber(_ phoneNumber: String) async throws
     func authSMS(phoneNumber: String) async throws -> MypageSMSResponse
     func checkPhoneNumber(_ phoneNumber: String) async throws -> [MypageSimpleUser]
-    func checkIDDup(_ loginId: String) async throws -> CheckResult<MypageSimpleUser>
+    func checkIDDup(_ loginId: String) async throws -> MypageIDCheckResult
     func withdraw() async throws
 }

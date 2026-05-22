@@ -1,4 +1,9 @@
 import ProjectDescription
 import ProjectDescriptionHelpers
 
-let project = Project.feature(name: "Bookmark", hasExample: true)
+let project = Project.feature(
+    name: "Bookmark",
+    featureDependencies: [.featureData("Bookmark"), .core],
+    hasInterface: true,
+    hasExample: true
+)

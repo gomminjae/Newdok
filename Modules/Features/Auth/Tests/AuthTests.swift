@@ -1,5 +1,6 @@
 import Testing
 import Shared
+import FoundationKit
 @testable import AuthDomain
 
 @Suite("SignupFormatStyle Tests")

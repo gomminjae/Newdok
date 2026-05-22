@@ -40,3 +40,18 @@ struct MypageExampleApp: App {
         )
     }
 }
+
+private extension UserInfo {
+    static let sample = UserInfo(
+        id: 1,
+        loginId: "newdok_user",
+        phoneNumber: "010-1234-5678",
+        subscribeEmail: "newdok@example.com",
+        nickname: "뉴독러",
+        birthYear: "1995",
+        gender: "F",
+        createdAt: "2025-01-01",
+        industryId: 1,
+        interestIds: [1, 2, 3]
+    )
+}

@@ -1,6 +1,5 @@
 import Foundation
 import MypageDomain
-import Shared
 
 public final class MockMypageAuthSMSUseCase: MypageAuthSMSUseCase {
     public var result: Result<MypageSMSResponse, Error> = .success(MypageSMSResponse(code: 123456))
