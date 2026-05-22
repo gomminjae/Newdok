@@ -203,11 +203,8 @@ final class AppContainer {
         let vm = MypageViewModel(
             fetchProfileUseCase: FetchMypageProfileUseCaseImpl(repository: mypageUserRepository),
             updateNicknameUseCase: UpdateMypageNicknameUseCaseImpl(repository: mypageUserRepository),
-            updatePasswordUseCase: UpdateMypagePasswordUseCaseImpl(repository: mypageUserRepository),
             updateInterestsUseCase: UpdateMypageInterestsUseCaseImpl(repository: mypageUserRepository),
-            updateIndustryUseCase: UpdateMypageIndustryUseCaseImpl(repository: mypageUserRepository),
-            updatePhoneNumberUseCase: UpdateMypagePhoneNumberUseCaseImpl(repository: mypageUserRepository),
-            authSMSUseCase: MypageAuthSMSUseCaseImpl(repository: mypageUserRepository)
+            updateIndustryUseCase: UpdateMypageIndustryUseCaseImpl(repository: mypageUserRepository)
         )
         cachedMypageViewModel = vm
         return vm
@@ -258,12 +255,17 @@ final class AppContainer {
     }
 
     func makeChangePasswordView() -> some View {
-        let vm = sharedMypageViewModel()
+        let vm = PasswordUpdateViewModel(
+            updatePasswordUseCase: UpdateMypagePasswordUseCaseImpl(repository: mypageUserRepository)
+        )
         return PwdUpdateView(viewModel: vm)
     }
 
     func makeChangePhoneNumberView() -> some View {
-        let vm = sharedMypageViewModel()
+        let vm = PhoneUpdateViewModel(
+            authSMSUseCase: MypageAuthSMSUseCaseImpl(repository: mypageUserRepository),
+            updatePhoneNumberUseCase: UpdateMypagePhoneNumberUseCaseImpl(repository: mypageUserRepository)
+        )
         return PhoneUpdateView(viewModel: vm)
     }
 
