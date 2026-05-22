@@ -1,6 +1,5 @@
 import Foundation
 import MypageDomain
-import Shared
 
 public extension MypageInterest {
     static let tech = MypageInterest(id: 1, name: "테크")
@@ -34,21 +33,6 @@ public extension MypageUser {
         createdAt: "2025-05-01",
         industryId: nil,
         interests: []
-    )
-}
-
-public extension UserInfo {
-    static let sample = UserInfo(
-        id: 1,
-        loginId: "newdok_user",
-        phoneNumber: "010-1234-5678",
-        subscribeEmail: "newdok@example.com",
-        nickname: "뉴독러",
-        birthYear: "1995",
-        gender: "F",
-        createdAt: "2025-01-01",
-        industryId: 1,
-        interestIds: [1, 2, 3]
     )
 }
 

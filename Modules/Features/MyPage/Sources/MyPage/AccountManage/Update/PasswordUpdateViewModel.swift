@@ -9,6 +9,7 @@
 import Foundation
 import MypageDomain
 import Shared
+import FoundationKit
 import Observation
 
 @Observable
@@ -43,6 +44,11 @@ public final class PasswordUpdateViewModel: ErrorHandling {
             checkedPassword = ""
             showPasswordSuccess = true
             return true
+        } catch MypageProfileError.userNotFound {
+            isPasswordUpdateSuccess = false
+            passwordError = nil
+            currentError = .userMessage("사용자 정보를 찾을 수 없습니다")
+            return false
         } catch {
             isPasswordUpdateSuccess = false
             passwordError = "현재 비밀번호가 일치하지 않습니다"

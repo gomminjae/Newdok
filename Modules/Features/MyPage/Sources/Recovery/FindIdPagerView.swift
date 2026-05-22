@@ -9,6 +9,7 @@ import SwiftUI
 import DesignSystem
 import MypageDomain
 import Shared
+import FoundationKit
 import PopupView
 
 struct FindIdPagerView: View {

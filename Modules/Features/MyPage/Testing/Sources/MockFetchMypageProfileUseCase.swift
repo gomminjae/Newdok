@@ -1,6 +1,5 @@
 import Foundation
 import MypageDomain
-import Shared
 
 public final class MockFetchMypageProfileUseCase: FetchMypageProfileUseCase {
     public var result: Result<MypageUser, Error> = .success(

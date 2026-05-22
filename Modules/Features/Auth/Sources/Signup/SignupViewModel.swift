@@ -2,6 +2,7 @@ import Foundation
 import AuthDomain
 import SwiftUI
 import Shared
+import FoundationKit
 import Observation
 
 @Observable

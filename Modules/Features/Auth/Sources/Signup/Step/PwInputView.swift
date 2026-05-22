@@ -8,6 +8,7 @@
 import SwiftUI
 import DesignSystem
 import AuthDomain
+import FoundationKit
 
 public struct PwInputView: View {
     @State private var isSecurePassword: Bool = true

@@ -7,17 +7,7 @@
 //
 
 import Foundation
-import Shared
 
 public enum MypageProfileError: Error {
     case userNotFound
-}
-
-extension MypageProfileError: AppErrorConvertible {
-    public func toAppError() -> AppError {
-        switch self {
-        case .userNotFound:
-            return .userMessage("사용자 정보를 찾을 수 없습니다")
-        }
-    }
 }

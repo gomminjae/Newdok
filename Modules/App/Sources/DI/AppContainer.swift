@@ -4,29 +4,21 @@ import Core
 import Shared
 import DatabaseKit
 import Auth
-import AuthDomain
-import AuthData
+import AuthInterface
 import Home
-import HomeDomain
-import HomeData
+import HomeInterface
 import Explore
-import ExploreDomain
-import ExploreData
+import ExploreInterface
 import Subscribe
-import SubscribeDomain
-import SubscribeData
+import SubscribeInterface
 import Bookmark
-import BookmarkDomain
-import BookmarkData
+import BookmarkInterface
 import Detail
-import DetailDomain
-import DetailData
+import DetailInterface
 import Search
-import SearchDomain
-import SearchData
+import SearchInterface
 import Mypage
-import MypageDomain
-import MypageData
+import MypageInterface
 import Launch
 
 @MainActor
@@ -34,57 +26,30 @@ final class AppContainer {
     let router: AppRouter
     private let deps: AppDependencies
 
-    private var cachedMypageViewModel: MypageViewModel?
+    private lazy var authBuilder: AuthBuildable = AuthBuilder(network: deps.userNetwork)
 
-    private lazy var authRepository: AuthRepository = AuthRepositoryImpl(
-        network: deps.userNetwork
+    private lazy var homeBuilder: HomeBuildable = HomeBuilder(
+        articleNetwork: deps.articleNetwork,
+        newsletterNetwork: deps.newsletterNetwork,
+        highlightDataSource: deps.highlightDataSource
     )
 
-    private lazy var homeArticleRepository: HomeArticleRepository = HomeArticleRepositoryImpl(
-        network: deps.articleNetwork
+    private lazy var exploreBuilder: ExploreBuildable = ExploreBuilder(network: deps.newsletterNetwork)
+
+    private lazy var subscribeBuilder: SubscribeBuildable = SubscribeBuilder(network: deps.newsletterNetwork)
+
+    private lazy var bookmarkBuilder: BookmarkBuildable = BookmarkBuilder(network: deps.articleNetwork)
+
+    private lazy var detailBuilder: DetailBuildable = DetailBuilder(
+        articleNetwork: deps.articleNetwork,
+        newsletterNetwork: deps.newsletterNetwork,
+        highlightDataSource: deps.highlightDataSource
     )
 
-    private lazy var homeNewsletterRepository: HomeNewsletterRepository = HomeNewsletterRepositoryImpl(
-        network: deps.newsletterNetwork
-    )
+    private lazy var searchBuilder: SearchBuildable = SearchBuilder(network: deps.searchNetwork)
 
-    private lazy var homeHighlightRepository: HighlightCountRepository = HighlightCountRepositoryImpl(
-        dataSource: deps.highlightDataSource
-    )
-
-    private lazy var exploreNewsletterRepository: ExploreNewsletterRepository = ExploreNewsletterRepositoryImpl(
-        network: deps.newsletterNetwork
-    )
-
-    private lazy var subscribeNewsletterRepository: SubscribeNewsletterRepository = SubscribeNewsletterRepositoryImpl(
-        network: deps.newsletterNetwork
-    )
-
-    private lazy var bookmarkRepository: BookmarkRepository = BookmarkRepositoryImpl(
-        network: deps.articleNetwork
-    )
-
-    private lazy var detailBrandRepository: DetailBrandRepository = DetailBrandRepositoryImpl(
-        network: deps.newsletterNetwork
-    )
-
-    private lazy var detailArticleRepository: DetailArticleRepository = DetailArticleRepositoryImpl(
-        network: deps.articleNetwork
-    )
-
-    private lazy var detailHighlightRepository: DetailHighlightRepository = DetailHighlightRepositoryImpl(
-        dataSource: deps.highlightDataSource
-    )
-
-    private lazy var searchRepository: SearchRepository = SearchRepositoryImpl(
-        network: deps.searchNetwork
-    )
-
-    private lazy var mypageUserRepository: MypageUserRepository = MypageUserRepositoryImpl(
-        network: deps.userNetwork
-    )
-
-    private lazy var mypageStatsRepository: MypageStatsRepository = MypageStatsRepositoryImpl(
+    private lazy var mypageBuilder: MypageBuildable = MypageBuilder(
+        userNetwork: deps.userNetwork,
         articleNetwork: deps.articleNetwork,
         newsletterNetwork: deps.newsletterNetwork
     )
@@ -94,208 +59,112 @@ final class AppContainer {
         self.deps = deps
     }
 
-    func clearMypageCache() {
-        cachedMypageViewModel = nil
-    }
-
-    func makeLoadOptionsUseCase() -> LoadOptionsUseCase {
-        LoadOptionsUseCaseImpl(
-            repository: exploreNewsletterRepository,
-            selectableItemStore: SelectableItemStore.shared
-        )
-    }
-
     func signOut() async {
-        await authRepository.signOut()
+        await authBuilder.signOut()
+    }
+
+    func loadExploreOptions() async throws {
+        try await exploreBuilder.loadOptions()
     }
 
     func makeOnboardingView() -> some View {
-        OnboardingView()
+        authBuilder.makeOnboardingView()
     }
 
     func makeLoginView() -> some View {
-        let loginUseCase = LoginUseCaseImpl(authRepository: authRepository)
-        let vm = LoginViewModel(loginUseCase: loginUseCase)
-        return LoginView(viewModel: vm)
+        authBuilder.makeLoginView()
     }
 
     func makeSignupView() -> some View {
-        let signupUseCase = SignupUseCaseImpl(authRepository: authRepository)
-        let vm = SignupViewModel(authRepository: authRepository, signupUseCase: signupUseCase)
-        return SignupView(viewModel: vm)
+        authBuilder.makeSignupView()
     }
 
     func makeHomeView() -> some View {
-        let vm = HomeViewModel(
-            fetchTodayArticles: FetchTodayArticlesUseCaseImpl(repository: homeArticleRepository),
-            fetchMonthArticles: FetchMonthArticlesUseCaseImpl(repository: homeArticleRepository),
-            fetchDayArticles: FetchDayArticlesUseCaseImpl(repository: homeArticleRepository),
-            fetchNewsletters: FetchHomeNewslettersUseCaseImpl(repository: homeNewsletterRepository),
-            fetchHighlightCounts: FetchHomeHighlightCountsUseCaseImpl(repository: homeHighlightRepository),
-            refreshArticles: RefreshHomeArticlesUseCaseImpl(repository: homeArticleRepository),
-            loadReadIds: LoadReadArticleIdsUseCaseImpl(repository: homeArticleRepository),
-            saveReadIds: SaveReadArticleIdsUseCaseImpl(repository: homeArticleRepository),
-            appState: AppState.shared
-        )
-        return HomeView(viewModel: vm)
+        homeBuilder.makeHomeView()
     }
 
     func makeExploreView() -> some View {
-        let vm = ExploreViewModel(
-            fetchNewslettersUseCase: FetchExploreNewslettersUseCaseImpl(repository: exploreNewsletterRepository),
-            fetchBrandDetailUseCase: FetchExploreBrandDetailUseCaseImpl(repository: exploreNewsletterRepository),
-            fetchGuestNewslettersUseCase: FetchGuestExploreNewslettersUseCaseImpl(repository: exploreNewsletterRepository),
-            fetchRecommendationUseCase: FetchExploreRecommendationUseCaseImpl(repository: exploreNewsletterRepository)
-        )
-        return ExploreView(viewModel: vm)
+        exploreBuilder.makeExploreView()
     }
 
     func makeSubscribeView() -> some View {
-        let vm = SubscribeViewModel(
-            fetchActiveUseCase: FetchActiveSubscriptionUseCaseImpl(repository: subscribeNewsletterRepository),
-            fetchPausedUseCase: FetchPausedSubscriptionUseCaseImpl(repository: subscribeNewsletterRepository),
-            pauseUseCase: PauseSubscriptionUseCaseImpl(repository: subscribeNewsletterRepository),
-            resumeUseCase: ResumeSubscriptionUseCaseImpl(repository: subscribeNewsletterRepository)
-        )
-        return SubscribeView(viewModel: vm)
+        subscribeBuilder.makeSubscribeView()
     }
 
     func makeBookmarkView() -> some View {
-        let vm = BookmarkViewModel(
-            fetchArticlesUseCase: FetchBookmarkedArticlesUseCaseImpl(repository: bookmarkRepository),
-            toggleBookmarkUseCase: ToggleBookmarkStatusUseCaseImpl(repository: bookmarkRepository),
-            fetchInterestsUseCase: FetchBookmarkedInterestsUseCaseImpl(repository: bookmarkRepository)
-        )
-        return BookmarkView(viewModel: vm)
+        bookmarkBuilder.makeBookmarkView()
     }
 
     func makeBrandDetailView(id: String) -> some View {
-        let vm = BrandDetailViewModel(id: id, brandRepository: detailBrandRepository)
-        return BrandDetailView(viewModel: vm)
+        detailBuilder.makeBrandDetailView(id: id)
     }
 
     func makeArticleDetailView(id: String, isPastArticle: Bool) -> some View {
-        let vm = ArticleDetailViewModel(
-            id: id,
-            fetchDetailUseCase: FetchArticleDetailUseCaseImpl(articleRepository: detailArticleRepository),
-            toggleBookmarkUseCase: ToggleArticleBookmarkUseCaseImpl(articleRepository: detailArticleRepository),
-            highlightRepository: detailHighlightRepository
-        )
-        return ArticleDetailView(viewModel: vm, isPastArticle: isPastArticle)
+        detailBuilder.makeArticleDetailView(id: id, isPastArticle: isPastArticle)
     }
 
     func makeSearchView() -> some View {
-        let vm = SearchViewModel(
-            searchNewslettersUseCase: SearchNewslettersUseCaseImpl(repository: searchRepository),
-            fetchPopularKeywordsUseCase: FetchPopularKeywordsUseCaseImpl(repository: searchRepository)
-        )
-        return SearchView(viewModel: vm)
+        searchBuilder.makeSearchView()
     }
 
     func makeSplashView() -> some View {
         SplashView()
     }
 
-    private func sharedMypageViewModel() -> MypageViewModel {
-        if let cached = cachedMypageViewModel {
-            return cached
-        }
-        let vm = MypageViewModel(
-            fetchProfileUseCase: FetchMypageProfileUseCaseImpl(repository: mypageUserRepository),
-            updateNicknameUseCase: UpdateMypageNicknameUseCaseImpl(repository: mypageUserRepository),
-            updateInterestsUseCase: UpdateMypageInterestsUseCaseImpl(repository: mypageUserRepository),
-            updateIndustryUseCase: UpdateMypageIndustryUseCaseImpl(repository: mypageUserRepository)
-        )
-        cachedMypageViewModel = vm
-        return vm
-    }
-
     func makeMypageView() -> some View {
-        let vm = sharedMypageViewModel()
-        return MypageView(viewModel: vm)
+        mypageBuilder.makeMypageView()
     }
 
     func makeEditProfileView() -> some View {
-        let vm = sharedMypageViewModel()
-        return EditProfileView().environment(vm)
+        mypageBuilder.makeEditProfileView()
     }
 
     func makeEditNicknameView() -> some View {
-        let vm = sharedMypageViewModel()
-        let currentNickname = vm.user?.nickname
-            ?? vm.loadUserInfo()?.nickname
-            ?? ""
-        return EditNicknameView(initialNickname: currentNickname).environment(vm)
+        mypageBuilder.makeEditNicknameView()
     }
 
     func makeEditIndustryView() -> some View {
-        let vm = sharedMypageViewModel()
-        return EditIndustryView().environment(vm)
+        mypageBuilder.makeEditIndustryView()
     }
 
     func makeEditInterestView() -> some View {
-        let vm = sharedMypageViewModel()
-        return EditInterestView().environment(vm)
+        mypageBuilder.makeEditInterestView()
     }
 
     func makeRecoveryView() -> some View {
-        let vm = RecoveryViewModel(
-            checkPhoneNumberUseCase: CheckMypagePhoneNumberUseCaseImpl(repository: mypageUserRepository),
-            checkIDDupUseCase: CheckMypageIDDupUseCaseImpl(repository: mypageUserRepository),
-            authSMSUseCase: MypageAuthSMSUseCaseImpl(repository: mypageUserRepository),
-            resetPasswordUseCase: ResetMypagePasswordUseCaseImpl(repository: mypageUserRepository)
-        )
-        return RecoveryView(viewModel: vm)
+        mypageBuilder.makeRecoveryView()
     }
 
     func makeAccountManageView() -> some View {
-        AccountManagementView(onLogoutCleanup: { [weak self] in
-            self?.clearMypageCache()
-        })
+        mypageBuilder.makeAccountManageView()
     }
 
     func makeChangePasswordView() -> some View {
-        let vm = PasswordUpdateViewModel(
-            updatePasswordUseCase: UpdateMypagePasswordUseCaseImpl(repository: mypageUserRepository)
-        )
-        return PwdUpdateView(viewModel: vm)
+        mypageBuilder.makeChangePasswordView()
     }
 
     func makeChangePhoneNumberView() -> some View {
-        let vm = PhoneUpdateViewModel(
-            authSMSUseCase: MypageAuthSMSUseCaseImpl(repository: mypageUserRepository),
-            updatePhoneNumberUseCase: UpdateMypagePhoneNumberUseCaseImpl(repository: mypageUserRepository)
-        )
-        return PhoneUpdateView(viewModel: vm)
+        mypageBuilder.makeChangePhoneNumberView()
     }
 
     func makeWithdrawView() -> some View {
-        let vm = WithdrawViewModel(
-            fetchProfileUseCase: FetchMypageProfileUseCaseImpl(repository: mypageUserRepository),
-            fetchSubscriptionCountUseCase: FetchMypageSubscriptionCountUseCaseImpl(repository: mypageStatsRepository),
-            fetchArticleCountUseCase: FetchReceivedArticleCountUseCaseImpl(repository: mypageStatsRepository),
-            withdrawUseCase: MypageWithdrawUseCaseImpl(repository: mypageUserRepository),
-            onCleanup: { [weak self] in
-                self?.clearMypageCache()
-            }
-        )
-        return WithdrawView(viewModel: vm)
+        mypageBuilder.makeWithdrawView()
     }
 
     func makeFAQView() -> some View {
-        FAQView()
+        mypageBuilder.makeFAQView()
     }
 
     func makeFeedbackView() -> some View {
-        FeedbackView()
+        mypageBuilder.makeFeedbackView()
     }
 
     func makeTermsMenuView() -> some View {
-        TermsMenuView()
+        mypageBuilder.makeTermsMenuView()
     }
 
     func makeEditAlertView() -> some View {
-        EditAlertView()
+        mypageBuilder.makeEditAlertView()
     }
 
     func makeTabView(selectedTab: NewDokTab? = nil) -> some View {

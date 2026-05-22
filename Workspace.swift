@@ -7,6 +7,7 @@ let workspace = Workspace(
         "Modules/Core",
         "Modules/DesignSystem",
         "Modules/Shared",
+        "Modules/FoundationKit",
         "Modules/DatabaseKit",
         "Modules/Features/Auth",
         "Modules/Features/Home",

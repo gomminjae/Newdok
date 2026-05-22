@@ -1,5 +1,4 @@
 import MypageDomain
-import Shared
 
 public final class CheckMypageIDDupUseCaseImpl: CheckMypageIDDupUseCase {
     private let repository: MypageUserRepository
@@ -8,7 +7,7 @@ public final class CheckMypageIDDupUseCaseImpl: CheckMypageIDDupUseCase {
         self.repository = repository
     }
 
-    public func execute(_ loginId: String) async throws -> CheckResult<MypageSimpleUser> {
+    public func execute(_ loginId: String) async throws -> MypageIDCheckResult {
         try await repository.checkIDDup(loginId)
     }
 }

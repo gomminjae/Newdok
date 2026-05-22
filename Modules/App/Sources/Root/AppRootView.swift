@@ -38,7 +38,7 @@ struct AppRootView: View {
         }
         .task {
             do {
-                try await container.makeLoadOptionsUseCase().execute()
+                try await container.loadExploreOptions()
             } catch {
                 print("Failed to load options: \(error)")
             }

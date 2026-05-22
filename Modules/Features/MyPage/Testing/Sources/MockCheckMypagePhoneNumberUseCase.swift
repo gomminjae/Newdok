@@ -1,6 +1,5 @@
 import Foundation
 import MypageDomain
-import Shared
 
 public final class MockCheckMypagePhoneNumberUseCase: CheckMypagePhoneNumberUseCase {
     public var result: Result<[MypageSimpleUser], Error> = .success([])

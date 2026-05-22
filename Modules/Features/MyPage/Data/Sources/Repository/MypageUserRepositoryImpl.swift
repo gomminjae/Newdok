@@ -74,7 +74,7 @@ public final class MypageUserRepositoryImpl: MypageUserRepository {
         }
     }
 
-    public func checkIDDup(_ loginId: String) async throws -> CheckResult<MypageSimpleUser> {
+    public func checkIDDup(_ loginId: String) async throws -> MypageIDCheckResult {
         let result = try await network.checkRequest(.checkIDDup(loginId: loginId), decodeTo: MypageSimpleUserDTO.self)
         switch result {
         case .exists(let dto):

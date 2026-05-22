@@ -29,6 +29,7 @@ public extension TargetDependency {
     static let core: TargetDependency = .project(target: "Core", path: .relativeToRoot("Modules/Core"))
     static let designSystem: TargetDependency = .project(target: "DesignSystem", path: .relativeToRoot("Modules/DesignSystem"))
     static let databaseKit: TargetDependency = .project(target: "DatabaseKit", path: .relativeToRoot("Modules/DatabaseKit"))
+    static let foundationKit: TargetDependency = .project(target: "FoundationKit", path: .relativeToRoot("Modules/FoundationKit"))
 
     static func feature(_ name: String) -> TargetDependency {
         .project(target: name, path: .relativeToRoot("Modules/Features/\(name)"))
@@ -108,7 +109,7 @@ public extension Project {
                 deploymentTargets: ProjectConfig.deploymentTarget,
                 infoPlist: .default,
                 sources: ["Domain/Sources/**"],
-                dependencies: [.shared] + domainDependencies,
+                dependencies: domainDependencies,
                 settings: .settings(base: ProjectConfig.baseSettings)
             ))
         }

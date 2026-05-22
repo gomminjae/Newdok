@@ -88,7 +88,7 @@ public final class AuthRepositoryImpl: AuthRepository {
         }
     }
 
-    public func checkIDDup(_ loginId: String) async throws -> CheckResult<AuthSimpleUser> {
+    public func checkIDDup(_ loginId: String) async throws -> AuthIDCheckResult {
         let result = try await network.checkRequest(
             .checkIDDup(loginId: loginId),
             decodeTo: AuthSimpleUserDTO.self

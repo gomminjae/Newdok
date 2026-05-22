@@ -28,6 +28,20 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
+               BlueprintIdentifier = "9A293940913ED0FF4D0EF915"
+               BuildableName = "DetailInterface.framework"
+               BlueprintName = "DetailInterface"
+               ReferencedContainer = "container:Detail.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
                BlueprintIdentifier = "BB2FF893B90ACF9CC724F176"
                BuildableName = "DetailTesting.framework"
                BlueprintName = "DetailTesting"

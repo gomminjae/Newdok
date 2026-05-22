@@ -8,6 +8,7 @@
 import SwiftUI
 import DesignSystem
 import AuthDomain
+import FoundationKit
 public struct ProfileInputView: View {
     @State private var nicknameError: NicknameValidationError?
     @State private var selectedBirthYear: String?
