@@ -15,6 +15,9 @@ public struct LoadingView: View {
     public var body: some View {
         GIFImageView(gifName: "load")
             .frame(width: 50, height: 50)
+            .accessibilityLabel("로딩 중")
+            .accessibilityIdentifier("loading_view")
+            .accessibilityAddTraits(.updatesFrequently)
     }
 }
 

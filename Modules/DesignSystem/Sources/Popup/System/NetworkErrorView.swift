@@ -39,6 +39,8 @@ struct NetworkErrorView: View {
                     .padding(.bottom, 28)
                     .padding(.horizontal, 24)
             }
+            .accessibilityLabel("재시도")
+            .accessibilityIdentifier("network_error_retry_button")
         }
         .background(Color.white)
         .cornerRadius(12)

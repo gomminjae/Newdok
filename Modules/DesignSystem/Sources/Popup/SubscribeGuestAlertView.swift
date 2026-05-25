@@ -56,6 +56,8 @@ public struct SubscribeGuestAlertView: View {
                             .background(Color.primaryNormal)
                             .cornerRadius(4)
                     }
+                    .accessibilityLabel("회원가입")
+                    .accessibilityIdentifier("subscribe_guest_signup_button")
                     .padding(.bottom, 28)
                 }
                 .padding(.horizontal, 20)
@@ -73,6 +75,8 @@ public struct SubscribeGuestAlertView: View {
                             .frame(width: 24, height: 24)
                             .padding(16)
                     }
+                    .accessibilityLabel("닫기")
+                    .accessibilityIdentifier("subscribe_guest_close_button")
                 }
             }
             .background(

@@ -109,6 +109,8 @@ public struct SubscribeRow: View {
                             .stroke(isSubscribed ? Color.lineNeutral : Color.primaryNormal, lineWidth: 1)
                     )
             }
+            .accessibilityLabel(isSubscribed ? "구독 중지" : "구독 재개")
+            .accessibilityIdentifier("subscribe_toggle_\(newsletter.id ?? 0)")
             .disabled(isPerformingAction)
         }
         .padding(.horizontal, 16)
@@ -120,5 +122,7 @@ public struct SubscribeRow: View {
                 .stroke(Color.lineNeutral, lineWidth: 1)
         )
         .shadow(color: Color.black.opacity(0.02), radius: 1, y: 1)
+        .accessibilityElement(children: .contain)
+        .accessibilityIdentifier("subscribe_row_\(newsletter.id ?? 0)")
     }
 }

@@ -44,6 +44,8 @@ public struct NotRegisteredIdPopupView: View {
                     .background(Color.primaryNormal)
                     .cornerRadius(4)
             }
+            .accessibilityLabel("확인")
+            .accessibilityIdentifier("not_registered_confirm_button")
             .padding(.horizontal, 24)
             .padding(.bottom, 24)
         }

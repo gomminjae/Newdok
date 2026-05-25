@@ -33,5 +33,9 @@ public struct ToastView: View {
         .background(Color.primaryNormal)
         .cornerRadius(8)
         .padding(.horizontal, 24)
+        .accessibilityElement(children: .combine)
+        .accessibilityLabel(message)
+        .accessibilityIdentifier("toast_notification")
+        .accessibilityAddTraits(.updatesFrequently)
     }
 }

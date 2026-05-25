@@ -77,5 +77,8 @@ public struct NewsletterRow: View {
             RoundedRectangle(cornerRadius: 8)
                 .stroke(Color.lineNeutral, lineWidth: 1)
         }
+        .accessibilityElement(children: .combine)
+        .accessibilityLabel("\(newsletter.brandName), \(newsletter.firstDescription)")
+        .accessibilityIdentifier("explore_newsletter_\(newsletter.id)")
     }
 }

@@ -34,6 +34,8 @@ public struct AuthFailView: View {
                 .foregroundStyle(Color.white)
                 .background(Color.primaryNormal)
                 .cornerRadius(4)
+                .accessibilityLabel("처음으로")
+                .accessibilityIdentifier("auth_fail_confirm_button")
                 .padding(.horizontal, 20)
                 .padding(.bottom, 28)
                 .padding(.top, 24)

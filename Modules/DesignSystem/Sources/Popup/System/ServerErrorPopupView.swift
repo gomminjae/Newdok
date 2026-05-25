@@ -44,6 +44,8 @@ public struct ServerErrorPopupView: View {
                             .background(Color.white)
                             .overlay(RoundedRectangle(cornerRadius: 4).stroke(Color.lineNeutral))
                     }
+                    .accessibilityLabel("이전으로")
+                    .accessibilityIdentifier("server_error_back_button")
 
                     Button(action: onRetry) {
                         Text("새로고침")
@@ -53,6 +55,8 @@ public struct ServerErrorPopupView: View {
                             .background(Color.primaryNormal)
                             .cornerRadius(4)
                     }
+                    .accessibilityLabel("새로고침")
+                    .accessibilityIdentifier("server_error_refresh_button")
                 }
                 .padding(.top, 24)
                 .padding(.bottom, 28)
@@ -67,6 +71,8 @@ public struct ServerErrorPopupView: View {
                         .background(Color.primaryNormal)
                         .cornerRadius(4)
                 }
+                .accessibilityLabel("새로고침")
+                .accessibilityIdentifier("server_error_refresh_button")
                 .padding(.top, 24)
                 .padding(.bottom, 28)
                 .padding(.horizontal, 24)

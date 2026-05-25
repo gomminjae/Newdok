@@ -58,5 +58,8 @@ struct BookmarkCard: View {
             RoundedRectangle(cornerRadius: 8)
                 .stroke(Color.lineNeutral, lineWidth: 1)
         )
+        .accessibilityElement(children: .combine)
+        .accessibilityLabel("\(article.articleTitle), \(article.brandName), \(String(article.date.prefix(10)))")
+        .accessibilityIdentifier("bookmark_article_\(article.id)")
     }
 }

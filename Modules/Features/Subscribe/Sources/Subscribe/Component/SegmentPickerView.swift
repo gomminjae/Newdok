@@ -52,6 +52,9 @@ public struct CustomSegmentedSlider: View {
                                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                                 .padding(.horizontal, 2)
                         }
+                        .accessibilityLabel(titles[index])
+                        .accessibilityIdentifier("subscribe_picker_\(index)")
+                        .accessibilityAddTraits(selectedIndex == index ? .isSelected : [])
                     }
                 }
             }

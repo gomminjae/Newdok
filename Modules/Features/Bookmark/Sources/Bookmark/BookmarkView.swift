@@ -40,6 +40,8 @@ struct BookmarkSortBottomSheet: View {
                 }) {
                     Image(asset: DesignSystemAsset.lineClose)
                 }
+                .accessibilityLabel("닫기")
+                .accessibilityIdentifier("bookmark_sort_close_button")
             }
             .padding(.top, 32)
             .padding(.horizontal, 24)
@@ -68,8 +70,10 @@ struct BookmarkSortBottomSheet: View {
                         .frame(height: 56)
                         .contentShape(Rectangle())
                     }
+                    .accessibilityLabel("\(option.text)\(sortOrder == option.value ? ", 선택됨" : "")")
+                    .accessibilityIdentifier("bookmark_sort_option_\(option.value)")
                     .buttonStyle(.plain)
-                    
+
                     if option.value != sortOptions.last?.value {
                         Divider()
                             .padding(.leading, 24)
@@ -186,6 +190,8 @@ public struct BookmarkView: View {
                 Image(asset: DesignSystemAsset.lineSearch)
                     .padding(.trailing, 12)
             }
+            .accessibilityLabel("검색")
+            .accessibilityIdentifier("bookmark_search_button")
         }
         .padding(.horizontal, 20)
         .padding(.vertical, 17)
@@ -221,6 +227,9 @@ public struct BookmarkView: View {
                             )
                             .foregroundColor(selectedCategory == name ? Color.primaryNormal : Color.captionStrong)
                     }
+                    .accessibilityLabel(name)
+                    .accessibilityIdentifier("bookmark_category_\(id ?? -1)")
+                    .accessibilityAddTraits(selectedCategory == name ? .isSelected : [])
                 }
             }
             .padding(.horizontal, 16)
@@ -246,6 +255,8 @@ public struct BookmarkView: View {
                         .foregroundColor(Color.captionStrong)
                 }
             }
+            .accessibilityLabel("정렬: \(viewModel.sortOrder)")
+            .accessibilityIdentifier("bookmark_sort_button")
         }
         .padding(.horizontal, 24)
         .padding(.top, 20)

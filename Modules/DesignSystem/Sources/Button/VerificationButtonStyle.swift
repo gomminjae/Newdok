@@ -27,6 +27,8 @@ public struct VerificationButtonStyle: ButtonStyle {
             .cornerRadius(4)
             .opacity(configuration.isPressed ? 0.7 : 1.0)
             .animation(.easeInOut(duration: 0.2), value: configuration.isPressed)
+            .accessibilityAddTraits(isDisabled ? .isStaticText : [])
+            .accessibilityRemoveTraits(isDisabled ? .isButton : [])
     }
     
     private var borderColor: Color {

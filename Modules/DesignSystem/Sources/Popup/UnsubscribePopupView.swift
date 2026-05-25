@@ -56,6 +56,8 @@ public struct UnsubscribePopupView: View {
                         .background(Color.white)
                         .overlay(RoundedRectangle(cornerRadius: 4).stroke(Color.lineNeutral))
                 }
+                .accessibilityLabel("취소")
+                .accessibilityIdentifier("unsubscribe_cancel_button")
 
                 Button(action: onConfirm) {
                     Text("구독 중지")
@@ -65,6 +67,8 @@ public struct UnsubscribePopupView: View {
                         .background(Color.primaryNormal)
                         .cornerRadius(4)
                 }
+                .accessibilityLabel("구독 중지")
+                .accessibilityIdentifier("unsubscribe_confirm_button")
             }
         }
         .padding(24)

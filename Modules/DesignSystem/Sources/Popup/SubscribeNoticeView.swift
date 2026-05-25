@@ -46,6 +46,8 @@ struct SubscribeNoticeView: View {
                 .frame(height: 48)
                 .background(Color.primaryNormal)
                 .cornerRadius(12)
+                .accessibilityLabel("확인")
+                .accessibilityIdentifier("subscribe_notice_confirm_button")
                 .padding(.top, 18)
             }
             .padding(.horizontal, 24)

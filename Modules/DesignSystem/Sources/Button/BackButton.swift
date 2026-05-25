@@ -26,5 +26,7 @@ public struct BackButton: View {
             }
             .padding(.horizontal, 4)
         }
+        .accessibilityLabel("뒤로가기")
+        .accessibilityIdentifier("back_button")
     }
 }

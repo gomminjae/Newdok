@@ -35,6 +35,7 @@ public struct PullToRefreshView<Content: View, Animation: View>: View {
 
     public var body: some View {
         ScrollView(showsIndicators: false) {
+
             GeometryReader { geo -> Color in
                 let offset = geo.frame(in: .global).minY
 
@@ -77,5 +78,6 @@ public struct PullToRefreshView<Content: View, Animation: View>: View {
 
             content
         }
+        .accessibilityHint("당겨서 새로고침")
     }
 }

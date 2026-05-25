@@ -132,5 +132,8 @@ struct NewsletterDetailRow: View {
             RoundedRectangle(cornerRadius: 8)
                 .stroke(Color.lineNeutral, lineWidth: 1)
         }
+        .accessibilityElement(children: .combine)
+        .accessibilityLabel("\(brand.brandName), \(brand.shortDescription)\(SubscriptionStatus(rawValue: brand.isSubscribed ?? "").label.map { ", \($0)" } ?? "")")
+        .accessibilityIdentifier("explore_all_newsletter_\(brand.id)")
     }
 }

@@ -37,6 +37,9 @@ struct BookmarkGuestView: View {
                     .onTapGesture {
                         onLogin()
                     }
+                    .accessibilityLabel("로그인")
+                    .accessibilityIdentifier("bookmark_guest_login")
+                    .accessibilityAddTraits(.isButton)
                 Text(" 후 다시 보고 싶은 아티클을 저장해보세요.")
                     .font(.hanSansNeo(14, .medium))
                     .foregroundColor(Color.captionNeutral)

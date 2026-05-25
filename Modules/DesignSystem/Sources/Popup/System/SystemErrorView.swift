@@ -31,6 +31,8 @@ struct SystemErrorView: View {
                     .background(Color.primaryNormal)
                     .padding(.bottom, 28)
             }
+            .accessibilityLabel("재시도")
+            .accessibilityIdentifier("system_error_retry_button")
         }
         .padding()
         .padding(.horizontal, 24)

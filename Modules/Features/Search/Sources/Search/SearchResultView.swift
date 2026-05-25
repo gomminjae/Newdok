@@ -40,6 +40,7 @@ public struct SearchResultView: View {
                         .font(.hanSansNeo(14, .regular))
                         .disableAutocorrection(true)
                         .frame(height: 40)
+                        .accessibilityIdentifier("searchresult_textfield")
 
                     if !viewModel.searchText.isEmpty {
                         Button(action: {
@@ -50,12 +51,14 @@ public struct SearchResultView: View {
                                 .frame(width: 14, height: 14)
                                 .foregroundColor(.gray.opacity(0.6))
                         }
+                        .accessibilityLabel("검색어 지우기")
+                        .accessibilityIdentifier("searchresult_clear_button")
                         .padding(.trailing, 4)
                     }
                 }
                 .padding(.horizontal, 12)
                 .padding(.vertical, 6)
-                
+
                 .cornerRadius(10)
                 Button(action: {
                     Task { await viewModel.searchNewsletters() }
@@ -65,6 +68,8 @@ public struct SearchResultView: View {
                         .frame(width: 24, height: 24)
                         .foregroundColor(.primary)
                 }
+                .accessibilityLabel("검색")
+                .accessibilityIdentifier("searchresult_submit_button")
                 .padding(.leading, 4)
             }
             .padding(.horizontal, 16)
@@ -141,6 +146,7 @@ extension SearchResultView {
                         SearchNewsletterRow(result: result)
                     }
                     .buttonStyle(PlainButtonStyle())
+                    .accessibilityIdentifier("searchresult_newsletter_\(result.id)")
                 }
             }
             .padding(.horizontal, 20)

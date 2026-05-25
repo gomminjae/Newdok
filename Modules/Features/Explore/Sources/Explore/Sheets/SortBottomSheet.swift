@@ -34,6 +34,8 @@ struct SortBottomSheet: View {
                 }) {
                     Image(asset: DesignSystemAsset.lineClose)
                 }
+                .accessibilityLabel("닫기")
+                .accessibilityIdentifier("sort_close_button")
             }
             .padding(.top, 32)
             .padding(.horizontal, 24)
@@ -61,7 +63,9 @@ struct SortBottomSheet: View {
                         .padding(.horizontal, 24)
                         .frame(height: 56)
                     }
-                    
+                    .accessibilityLabel("\(option.text)\(orderOpt == option.value ? ", 선택됨" : "")")
+                    .accessibilityIdentifier("sort_option_\(option.value)")
+
                     if option.value != sortOptions.last?.value {
                         Divider()
                             .padding(.leading, 24)

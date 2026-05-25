@@ -36,6 +36,9 @@ public struct LoadingDotsView: View {
                     .frame(width: dotSize, height: dotSize)
             }
         }
+        .accessibilityElement(children: .ignore)
+        .accessibilityLabel("로딩 중")
+        .accessibilityIdentifier("loading_dots_view")
         .animation(.easeInOut(duration: 0.3), value: activeDot)
         .onAppear {
             startAnimation()

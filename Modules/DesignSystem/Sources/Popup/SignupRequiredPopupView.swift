@@ -49,6 +49,8 @@ public struct SignupRequiredPopupView: View {
                         .background(Color.primaryNormal)
                         .cornerRadius(4)
                 }
+                .accessibilityLabel("회원가입")
+                .accessibilityIdentifier("signup_required_signup_button")
 
                 Spacer().frame(height: 12)
 
@@ -57,6 +59,8 @@ public struct SignupRequiredPopupView: View {
                         .font(.hanSansNeo(14, .medium))
                         .foregroundColor(Color.primaryNormal)
                 }
+                .accessibilityLabel("나중에 하기")
+                .accessibilityIdentifier("signup_required_later_button")
 
                 Spacer().frame(height: 28)
             }
@@ -68,6 +72,7 @@ public struct SignupRequiredPopupView: View {
                     .foregroundColor(Color.captionAssistive)
                     .accessibilityLabel("닫기")
             }
+            .accessibilityIdentifier("signup_required_close_button")
             .padding(.top, 20)
             .padding(.trailing, 20)
         }

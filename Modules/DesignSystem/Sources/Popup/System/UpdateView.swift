@@ -33,6 +33,8 @@ struct UpdateView: View {
                     .background(Color.primaryNormal)
                     .padding(.bottom, 28)
             }
+            .accessibilityLabel("업데이트")
+            .accessibilityIdentifier("update_confirm_button")
         }
         .padding()
         .padding(.horizontal, 24)

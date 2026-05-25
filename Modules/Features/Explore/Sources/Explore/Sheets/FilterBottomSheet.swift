@@ -70,6 +70,8 @@ struct FilterBottomSheet: View {
                 Button(action: { dismiss() }) {
                     Image(asset: DesignSystemAsset.lineClose)
                 }
+                .accessibilityLabel("닫기")
+                .accessibilityIdentifier("filter_close_button")
             }
             .padding(.top, 16)
             .padding(.horizontal, L.horizontal)
@@ -132,6 +134,8 @@ struct FilterBottomSheet: View {
                     }
                     .frame(width: 88, height: 40)
                 }
+                .accessibilityLabel("재설정")
+                .accessibilityIdentifier("filter_reset_button")
 
                 Button(action: {
                     industry = tempIndustry
@@ -149,6 +153,8 @@ struct FilterBottomSheet: View {
                         .foregroundColor(.white)
                         .cornerRadius(4)
                 }
+                .accessibilityLabel("적용하기")
+                .accessibilityIdentifier("filter_apply_button")
             }
             .padding(.horizontal, L.horizontal)
             .padding(.bottom, L.bottom)
@@ -212,6 +218,9 @@ struct SelectableChip: View {
             .cornerRadius(16)
             .contentShape(Rectangle())
             .onTapGesture { action() }
+            .accessibilityLabel(text)
+            .accessibilityIdentifier("filter_chip_\(text)")
+            .accessibilityAddTraits(isSelected ? .isSelected : [])
     }
 }
 

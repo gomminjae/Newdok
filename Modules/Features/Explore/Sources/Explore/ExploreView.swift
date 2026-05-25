@@ -137,6 +137,8 @@ public struct ExploreView: View {
                 Image(asset: DesignSystemAsset.lineSearch)
                     .padding(.trailing, 12)
             }
+            .accessibilityLabel("검색")
+            .accessibilityIdentifier("explore_search_button")
         }
         .padding(.horizontal, 20)
         .padding(.vertical, 17)
@@ -289,6 +291,8 @@ public struct ExploreView: View {
                             .foregroundStyle(Color.primaryNormal)
                     }
                 }
+                .accessibilityLabel("추천 새로고침")
+                .accessibilityIdentifier("explore_recommendation_refresh_button")
                 .disabled(viewModel.isRefreshingRecommendation)
             }
             .padding(.top, 20)
@@ -338,6 +342,8 @@ public struct ExploreView: View {
                                 .strokeBorder(Color.lineNeutral, lineWidth: 1)
                         )
                     }
+                    .accessibilityLabel("정렬: \(viewModel.orderOpt ?? "인기순")")
+                    .accessibilityIdentifier("explore_sort_button")
                     .buttonStyle(PlainButtonStyle())
                     Rectangle()
                         .frame(width: 1, height: 20)
@@ -505,6 +511,9 @@ public struct ExploreView: View {
                 .frame(maxWidth: .infinity)
                 .padding(.vertical, 12)
         }
+        .accessibilityLabel(title)
+        .accessibilityIdentifier("explore_tab_\(index)")
+        .accessibilityAddTraits(viewModel.selectedTab == index ? .isSelected : [])
     }
     
     private func applyExploreParams() {

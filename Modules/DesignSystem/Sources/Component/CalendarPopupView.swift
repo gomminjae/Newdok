@@ -100,6 +100,8 @@ public struct CalendarPopupView: View {
                 .clipShape(RoundedRectangle(cornerRadius: 4))
                 .overlay(RoundedRectangle(cornerRadius: 4).stroke(Color.primaryNormal, lineWidth: 1))
             }
+            .accessibilityLabel("오늘 날짜로 이동")
+            .accessibilityIdentifier("calendar_today_button")
             .padding(.top, 20)
         }
         .background(Color.clear)
@@ -120,11 +122,14 @@ public struct CalendarPopupView: View {
                             .contentShape(Rectangle())
                     }
                     .buttonStyle(PlainButtonStyle())
+                    .accessibilityLabel("이전 달")
+                    .accessibilityIdentifier("calendar_previous_month")
 
                     Text(yearMonthTitle)
                         .frame(width: 120, height: 20)
                         .font(.hanSansNeo(14, .medium))
                         .foregroundStyle(Color.captionDeep)
+                        .accessibilityIdentifier("calendar_month_title")
 
                     Button(action: nextMonth) {
                         Image(systemName: "chevron.right")
@@ -133,6 +138,8 @@ public struct CalendarPopupView: View {
                             .contentShape(Rectangle())
                     }
                     .buttonStyle(PlainButtonStyle())
+                    .accessibilityLabel("다음 달")
+                    .accessibilityIdentifier("calendar_next_month")
 
                     Spacer()
                 }
@@ -142,6 +149,8 @@ public struct CalendarPopupView: View {
                     Button(action: { isPresented = false }) {
                         Image(asset: DesignSystemAsset.lineClose)
                     }
+                    .accessibilityLabel("닫기")
+                    .accessibilityIdentifier("calendar_close_button")
                 }
                 .frame(maxWidth: .infinity)
                 .padding(.trailing, 18)
@@ -220,6 +229,11 @@ public struct CalendarPopupView: View {
         .frame(maxWidth: .infinity)
         .opacity(cell.isBlank ? 0.3 : 1)
         .contentShape(Rectangle())
+        .accessibilityElement(children: .ignore)
+        .accessibilityLabel(cell.isBlank ? "" : "\(cell.value)일\(isSelected ? ", 선택됨" : "")\(isToday ? ", 오늘" : "")\(hasData ? ", 아티클 있음" : "")")
+        .accessibilityIdentifier("calendar_day_\(cell.value)")
+        .accessibilityAddTraits(isSelected ? .isSelected : [])
+        .accessibilityAddTraits(isFuture ? .isStaticText : .isButton)
         .onTapGesture {
             guard !cell.isBlank else { return }
             selectedDate = cell.date

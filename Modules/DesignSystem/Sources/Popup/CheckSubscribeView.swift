@@ -28,6 +28,8 @@ public struct CheckSubscribeView: View {
                         .renderingMode(.template)
                         .foregroundColor(Color.captionAssistive)
                 }
+                .accessibilityLabel("닫기")
+                .accessibilityIdentifier("check_subscribe_close_button")
             }
             
             Image(asset: DesignSystemAsset.warning)
@@ -69,6 +71,8 @@ public struct CheckSubscribeView: View {
                         .background(Color.primaryNormal)
                         .overlay(RoundedRectangle(cornerRadius: 4).stroke(Color.lineNeutral))
                 }
+                .accessibilityLabel("메일 확인하기")
+                .accessibilityIdentifier("check_subscribe_confirm_button")
             }
         }
         .padding(20)

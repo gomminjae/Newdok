@@ -204,6 +204,8 @@ public struct SubscribeView: View {
                 Image(asset: DesignSystemAsset.lineSearch)
                     .padding(.trailing, 12)
             }
+            .accessibilityLabel("검색")
+            .accessibilityIdentifier("subscribe_search_button")
         }
         .padding(.horizontal, 20)
         .padding(.vertical, 17)

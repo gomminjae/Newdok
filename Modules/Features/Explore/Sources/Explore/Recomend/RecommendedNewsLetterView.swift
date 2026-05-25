@@ -61,6 +61,9 @@ struct RecommendedNewsLetterView: View {
             RoundedRectangle(cornerRadius: 12)
                 .stroke(Color.lineNeutral, lineWidth: 1)
         )
+        .accessibilityElement(children: .combine)
+        .accessibilityLabel("\(recommendation.brandName), \(recommendation.firstDescription)")
+        .accessibilityIdentifier("explore_carousel_\(recommendation.id)")
     }
 }
 

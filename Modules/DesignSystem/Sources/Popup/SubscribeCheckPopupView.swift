@@ -52,6 +52,8 @@ public struct SubscribeCheckPopupView: View {
                     .background(Color.primaryNormal)
                     .cornerRadius(4)
             }
+            .accessibilityLabel("메일 확인하기")
+            .accessibilityIdentifier("subscribe_check_confirm_button")
         }
         .padding(24)
         .background(Color.white)

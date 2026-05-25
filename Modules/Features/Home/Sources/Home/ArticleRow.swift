@@ -67,6 +67,9 @@ struct ArticleRow: View {
             RoundedRectangle(cornerRadius: 12)
                 .stroke(Color.lineNeutral, lineWidth: 1)
         )
+        .accessibilityElement(children: .combine)
+        .accessibilityLabel("\(article.brandName), \(article.articleTitle), \(article.status == "Read" ? "읽음" : "안읽음")\(highlightCount > 0 ? ", 하이라이트 \(highlightCount)개" : "")")
+        .accessibilityIdentifier("home_article_\(article.articleId)")
     }
 
     private var highlightBadge: some View {

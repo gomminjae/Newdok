@@ -41,6 +41,7 @@ public struct SearchView: View {
                         .font(.hanSansNeo(14, .regular))
                         .disableAutocorrection(true)
                         .frame(height: 40)
+                        .accessibilityIdentifier("search_textfield")
 
                     if !viewModel.searchText.isEmpty {
                         Button(action: {
@@ -51,12 +52,14 @@ public struct SearchView: View {
                                 .frame(width: 20, height: 20)
                                 .foregroundColor(Color.lineAlternative)
                         }
+                        .accessibilityLabel("검색어 지우기")
+                        .accessibilityIdentifier("search_clear_button")
                         .padding(.trailing, 4)
                     }
                 }
                 .padding(.horizontal, 12)
                 .padding(.vertical, 6)
-                
+
                 .cornerRadius(10)
                 Button(action: {
                     Task { await viewModel.searchNewsletters() }
@@ -66,6 +69,8 @@ public struct SearchView: View {
                         .frame(width: 24, height: 24)
                         .foregroundColor(.primary)
                 }
+                .accessibilityLabel("검색")
+                .accessibilityIdentifier("search_submit_button")
                 .padding(.leading, 4)
             }
             .padding(.horizontal, 16)
@@ -180,6 +185,9 @@ public struct SearchView: View {
         .onTapGesture {
             Task { await viewModel.selectPopularKeyword(keyword.keyword) }
         }
+        .accessibilityElement(children: .combine)
+        .accessibilityLabel("\(keyword.rank)위, \(keyword.keyword)")
+        .accessibilityIdentifier("search_keyword_\(keyword.rank)")
     }
     
     // MARK: - 검색 결과 섹션들
@@ -198,6 +206,7 @@ public struct SearchView: View {
                         SearchNewsletterRow(result: result)
                     }
                     .buttonStyle(PlainButtonStyle())
+                    .accessibilityIdentifier("search_result_\(result.id)")
                 }
             }
             .padding(.horizontal, 20)
@@ -265,5 +274,7 @@ struct SearchNewsletterRow: View {
         .padding()
         .background(.white)
         .cornerRadius(12)
+        .accessibilityElement(children: .combine)
+        .accessibilityLabel("\(result.brandName), \(result.firstDescription)")
     }
 }

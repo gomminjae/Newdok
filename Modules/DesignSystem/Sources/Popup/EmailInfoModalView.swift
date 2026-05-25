@@ -57,6 +57,8 @@ public struct EmailInfoModalView: View {
                         .background(Color.primaryNormal)
                         .cornerRadius(4)
                 }
+                .accessibilityLabel("확인")
+                .accessibilityIdentifier("email_info_confirm_button")
                 .padding(.leading, 20)
                 .padding(.trailing, 24)
                 .padding(.top, 24)

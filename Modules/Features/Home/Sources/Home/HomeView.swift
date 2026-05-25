@@ -110,6 +110,8 @@ public struct HomeView: View {
                 Image(asset: DesignSystemAsset.lineSearch)
                     .padding(.trailing, 12)
             }
+            .accessibilityLabel("검색")
+            .accessibilityIdentifier("home_search_button")
         }
         .padding(.horizontal, 20)
         .padding(.vertical, 17)
@@ -133,6 +135,8 @@ public struct HomeView: View {
                 Image(asset: DesignSystemAsset.lineCalendar)
                     .padding(.trailing, 24)
             }
+            .accessibilityLabel("캘린더")
+            .accessibilityIdentifier("home_calendar_button")
         }
         .frame(height: 52)
         .background(Color.white.clipShape(RoundedRectangle(cornerRadius: 12)))
@@ -207,6 +211,8 @@ public struct HomeView: View {
                             .foregroundStyle(Color.primaryNormal)
                     }
                 }
+                .accessibilityLabel("새로고침")
+                .accessibilityIdentifier("home_refresh_button")
                 .padding(.top, 23)
                 .padding(.trailing, 24)
             }

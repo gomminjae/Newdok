@@ -87,6 +87,8 @@ public struct PasswordFieldModifier: ViewModifier {
                     .renderingMode(.template)
                     .foregroundStyle(isFocused ? Color.captionStrong : Color.captionAssistive)
             }
+            .accessibilityLabel(isSecure ? "비밀번호 표시" : "비밀번호 숨기기")
+            .accessibilityIdentifier("password_visibility_toggle")
         }
         .padding(.horizontal)
         .frame(height: 48)

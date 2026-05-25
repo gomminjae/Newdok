@@ -45,6 +45,9 @@ public struct EmptySubscriptionView: View {
                         .onTapGesture {
                             router.push(.login)
                         }
+                        .accessibilityLabel("로그인")
+                        .accessibilityIdentifier("subscribe_empty_login")
+                        .accessibilityAddTraits(.isButton)
                         .padding(.trailing, 4)
                     Text("후 뉴스레터를 구독해 보세요.")
                         .font(.hanSansNeo(14, .medium))

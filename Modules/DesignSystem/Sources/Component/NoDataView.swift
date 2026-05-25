@@ -110,6 +110,8 @@ public struct NoDataView: View {
                             .padding(.leading, 4)
                     }
                 }
+                .accessibilityLabel("새로고침")
+                .accessibilityIdentifier("nodata_refresh_button")
                 .padding(.top, 14)
                 .padding(.trailing, 16)
             }
@@ -142,6 +144,8 @@ public struct NoDataView: View {
                     .background(Color.primaryNormal)
                     .cornerRadius(4)
             }
+            .accessibilityLabel(type.buttonTitle(for: selectedDate))
+            .accessibilityIdentifier("nodata_cta_button")
             .padding(.top, 24)
             .padding(.horizontal, 24)
 
@@ -158,6 +162,8 @@ public struct NoDataView: View {
                             .foregroundColor(Color.primaryNormal)
                             .underline()
                     }
+                    .accessibilityLabel("로그인")
+                    .accessibilityIdentifier("nodata_login_button")
                 }
                 .padding(.top, 12)
             }

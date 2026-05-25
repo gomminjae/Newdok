@@ -206,6 +206,8 @@ public struct SubscribeModalView: View {
                             .frame(width: 24, height: 24)
                             .foregroundStyle(Color.captionNeutral)
                     }
+                    .accessibilityLabel("닫기")
+                    .accessibilityIdentifier("subscribe_modal_close_button")
                     .padding(.trailing, 16)
                 }
             }

@@ -32,6 +32,8 @@ struct LoginErrorView: View {
                     .background(Color.primaryNormal)
                     .padding(.bottom, 28)
             }
+            .accessibilityLabel("로그인")
+            .accessibilityIdentifier("login_error_confirm_button")
         }
         .padding()
         .padding(.horizontal, 24)
