@@ -64,7 +64,7 @@ struct RecommendedNewsLetterView: View {
         )
         .accessibilityElement(children: .combine)
         .accessibilityLabel("\(recommendation.brandName), \(recommendation.firstDescription)")
-        .accessibilityIdentifier("explore_carousel_\(recommendation.id)")
+        .accessibilityIdentifier(AccessibilityID.Explore.carousel(recommendation.id))
     }
 }
 

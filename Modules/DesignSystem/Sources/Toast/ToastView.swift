@@ -6,6 +6,7 @@
 //  Copyright © 2025 Your Organization Name. All rights reserved.
 //
 import SwiftUI
+import Shared
 
 public struct ToastView: View {
     public let message: String
@@ -35,7 +36,7 @@ public struct ToastView: View {
         .padding(.horizontal, 24)
         .accessibilityElement(children: .combine)
         .accessibilityLabel(message)
-        .accessibilityIdentifier("toast_notification")
+        .accessibilityIdentifier(AccessibilityID.DesignSystem.toastNotification)
         .accessibilityAddTraits(.updatesFrequently)
     }
 }

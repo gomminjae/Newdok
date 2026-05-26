@@ -7,6 +7,7 @@
 //
 
 import SwiftUI
+import Shared
 
 public struct SubscribeGuestAlertView: View {
     @Binding var isPresented: Bool
@@ -57,7 +58,7 @@ public struct SubscribeGuestAlertView: View {
                             .cornerRadius(4)
                     }
                     .accessibilityLabel("회원가입")
-                    .accessibilityIdentifier("subscribe_guest_signup_button")
+                    .accessibilityIdentifier(AccessibilityID.DesignSystem.Popup.subscribeGuestSignup)
                     .padding(.bottom, 28)
                 }
                 .padding(.horizontal, 20)
@@ -76,7 +77,7 @@ public struct SubscribeGuestAlertView: View {
                             .padding(16)
                     }
                     .accessibilityLabel("닫기")
-                    .accessibilityIdentifier("subscribe_guest_close_button")
+                    .accessibilityIdentifier(AccessibilityID.DesignSystem.Popup.subscribeGuestClose)
                 }
             }
             .background(

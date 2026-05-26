@@ -7,6 +7,7 @@
 //
 
 import SwiftUI
+import Shared
 
 public struct NotRegisteredIdPopupView: View {
     public var onConfirm: () -> Void
@@ -45,7 +46,7 @@ public struct NotRegisteredIdPopupView: View {
                     .cornerRadius(4)
             }
             .accessibilityLabel("확인")
-            .accessibilityIdentifier("not_registered_confirm_button")
+            .accessibilityIdentifier(AccessibilityID.DesignSystem.Popup.notRegisteredConfirm)
             .padding(.horizontal, 24)
             .padding(.bottom, 24)
         }

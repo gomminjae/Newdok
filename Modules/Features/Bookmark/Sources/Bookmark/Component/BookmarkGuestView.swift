@@ -7,6 +7,7 @@
 //
 
 import SwiftUI
+import Shared
 import DesignSystem
 
 struct BookmarkGuestView: View {
@@ -38,7 +39,7 @@ struct BookmarkGuestView: View {
                         onLogin()
                     }
                     .accessibilityLabel("로그인")
-                    .accessibilityIdentifier("bookmark_guest_login")
+                    .accessibilityIdentifier(AccessibilityID.Bookmark.guestLogin)
                     .accessibilityAddTraits(.isButton)
                 Text(" 후 다시 보고 싶은 아티클을 저장해보세요.")
                     .font(.hanSansNeo(14, .medium))

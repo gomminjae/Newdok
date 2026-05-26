@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Shared
 
 public enum NoDataType {
     case noArticles        // 도착한 아티클 없음
@@ -111,7 +112,7 @@ public struct NoDataView: View {
                     }
                 }
                 .accessibilityLabel("새로고침")
-                .accessibilityIdentifier("nodata_refresh_button")
+                .accessibilityIdentifier(AccessibilityID.DesignSystem.NoData.refreshButton)
                 .padding(.top, 14)
                 .padding(.trailing, 16)
             }
@@ -145,7 +146,7 @@ public struct NoDataView: View {
                     .cornerRadius(4)
             }
             .accessibilityLabel(type.buttonTitle(for: selectedDate))
-            .accessibilityIdentifier("nodata_cta_button")
+            .accessibilityIdentifier(AccessibilityID.DesignSystem.NoData.ctaButton)
             .padding(.top, 24)
             .padding(.horizontal, 24)
 
@@ -163,7 +164,7 @@ public struct NoDataView: View {
                             .underline()
                     }
                     .accessibilityLabel("로그인")
-                    .accessibilityIdentifier("nodata_login_button")
+                    .accessibilityIdentifier(AccessibilityID.DesignSystem.NoData.loginButton)
                 }
                 .padding(.top, 12)
             }

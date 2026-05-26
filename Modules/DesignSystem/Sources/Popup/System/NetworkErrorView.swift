@@ -7,6 +7,7 @@
 //
 
 import SwiftUI
+import Shared
 
 struct NetworkErrorView: View {
     private var networkManager = NetworkStatusManager.shared
@@ -40,7 +41,7 @@ struct NetworkErrorView: View {
                     .padding(.horizontal, 24)
             }
             .accessibilityLabel("재시도")
-            .accessibilityIdentifier("network_error_retry_button")
+            .accessibilityIdentifier(AccessibilityID.DesignSystem.Popup.networkErrorRetry)
         }
         .background(Color.white)
         .cornerRadius(12)

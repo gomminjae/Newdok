@@ -41,7 +41,7 @@ public struct SearchView: View {
                         .font(.hanSansNeo(14, .regular))
                         .disableAutocorrection(true)
                         .frame(height: 40)
-                        .accessibilityIdentifier("search_textfield")
+                        .accessibilityIdentifier(AccessibilityID.Search.textField)
 
                     if !viewModel.searchText.isEmpty {
                         Button(action: {
@@ -53,7 +53,7 @@ public struct SearchView: View {
                                 .foregroundColor(Color.lineAlternative)
                         }
                         .accessibilityLabel("검색어 지우기")
-                        .accessibilityIdentifier("search_clear_button")
+                        .accessibilityIdentifier(AccessibilityID.Search.clearButton)
                         .padding(.trailing, 4)
                     }
                 }
@@ -70,7 +70,7 @@ public struct SearchView: View {
                         .foregroundColor(.primary)
                 }
                 .accessibilityLabel("검색")
-                .accessibilityIdentifier("search_submit_button")
+                .accessibilityIdentifier(AccessibilityID.Search.submitButton)
                 .padding(.leading, 4)
             }
             .padding(.horizontal, 16)
@@ -187,7 +187,7 @@ public struct SearchView: View {
         }
         .accessibilityElement(children: .combine)
         .accessibilityLabel("\(keyword.rank)위, \(keyword.keyword)")
-        .accessibilityIdentifier("search_keyword_\(keyword.rank)")
+        .accessibilityIdentifier(AccessibilityID.Search.keyword(keyword.rank))
     }
     
     // MARK: - 검색 결과 섹션들
@@ -206,7 +206,7 @@ public struct SearchView: View {
                         SearchNewsletterRow(result: result)
                     }
                     .buttonStyle(PlainButtonStyle())
-                    .accessibilityIdentifier("search_result_\(result.id)")
+                    .accessibilityIdentifier(AccessibilityID.Search.result(result.id))
                 }
             }
             .padding(.horizontal, 20)

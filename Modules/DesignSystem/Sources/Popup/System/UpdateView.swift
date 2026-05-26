@@ -7,6 +7,7 @@
 //
 
 import SwiftUI
+import Shared
 
 struct UpdateView: View {
     var body: some View {
@@ -34,7 +35,7 @@ struct UpdateView: View {
                     .padding(.bottom, 28)
             }
             .accessibilityLabel("업데이트")
-            .accessibilityIdentifier("update_confirm_button")
+            .accessibilityIdentifier(AccessibilityID.DesignSystem.Popup.updateConfirm)
         }
         .padding()
         .padding(.horizontal, 24)

@@ -138,7 +138,7 @@ public struct ExploreView: View {
                     .padding(.trailing, 12)
             }
             .accessibilityLabel("검색")
-            .accessibilityIdentifier("explore_search_button")
+            .accessibilityIdentifier(AccessibilityID.Explore.searchButton)
         }
         .padding(.horizontal, 20)
         .padding(.vertical, 17)
@@ -292,7 +292,7 @@ public struct ExploreView: View {
                     }
                 }
                 .accessibilityLabel("추천 새로고침")
-                .accessibilityIdentifier("explore_recommendation_refresh_button")
+                .accessibilityIdentifier(AccessibilityID.Explore.recommendationRefreshButton)
                 .disabled(viewModel.isRefreshingRecommendation)
             }
             .padding(.top, 20)
@@ -343,7 +343,7 @@ public struct ExploreView: View {
                         )
                     }
                     .accessibilityLabel("정렬: \(viewModel.orderOpt ?? "인기순")")
-                    .accessibilityIdentifier("explore_sort_button")
+                    .accessibilityIdentifier(AccessibilityID.Explore.sortButton)
                     .buttonStyle(PlainButtonStyle())
                     Rectangle()
                         .frame(width: 1, height: 20)
@@ -512,7 +512,7 @@ public struct ExploreView: View {
                 .padding(.vertical, 12)
         }
         .accessibilityLabel(title)
-        .accessibilityIdentifier("explore_tab_\(index)")
+        .accessibilityIdentifier(AccessibilityID.Explore.tab(index))
         .accessibilityAddTraits(viewModel.selectedTab == index ? .isSelected : [])
     }
     

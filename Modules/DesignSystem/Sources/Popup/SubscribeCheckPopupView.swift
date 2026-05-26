@@ -7,6 +7,7 @@
 //
 
 import SwiftUI
+import Shared
 
 public struct SubscribeCheckPopupView: View {
     public let checkMail: () -> Void
@@ -53,7 +54,7 @@ public struct SubscribeCheckPopupView: View {
                     .cornerRadius(4)
             }
             .accessibilityLabel("메일 확인하기")
-            .accessibilityIdentifier("subscribe_check_confirm_button")
+            .accessibilityIdentifier(AccessibilityID.DesignSystem.Popup.subscribeCheckConfirm)
         }
         .padding(24)
         .background(Color.white)

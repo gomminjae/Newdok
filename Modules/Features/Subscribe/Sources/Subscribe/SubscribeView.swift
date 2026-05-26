@@ -207,7 +207,7 @@ public struct SubscribeView: View {
                     .padding(.trailing, 12)
             }
             .accessibilityLabel("검색")
-            .accessibilityIdentifier("subscribe_search_button")
+            .accessibilityIdentifier(AccessibilityID.Subscribe.searchButton)
         }
         .padding(.horizontal, 20)
         .padding(.vertical, 17)

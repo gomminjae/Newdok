@@ -6,6 +6,7 @@
 //  Copyright © 2025 Your Organization Name. All rights reserved.
 //
 import SwiftUI
+import Shared
 
 public struct EmailInfoModalView: View {
     @Binding var isPresented: Bool
@@ -58,7 +59,7 @@ public struct EmailInfoModalView: View {
                         .cornerRadius(4)
                 }
                 .accessibilityLabel("확인")
-                .accessibilityIdentifier("email_info_confirm_button")
+                .accessibilityIdentifier(AccessibilityID.DesignSystem.Popup.emailInfoConfirm)
                 .padding(.leading, 20)
                 .padding(.trailing, 24)
                 .padding(.top, 24)

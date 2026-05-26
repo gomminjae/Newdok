@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Shared
 import WebKit
 import UIKit
 
@@ -207,7 +208,7 @@ public struct SubscribeModalView: View {
                             .foregroundStyle(Color.captionNeutral)
                     }
                     .accessibilityLabel("닫기")
-                    .accessibilityIdentifier("subscribe_modal_close_button")
+                    .accessibilityIdentifier(AccessibilityID.DesignSystem.subscribeModalCloseButton)
                     .padding(.trailing, 16)
                 }
             }

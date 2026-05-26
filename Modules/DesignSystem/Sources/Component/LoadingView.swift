@@ -7,6 +7,7 @@
 //
 
 import SwiftUI
+import Shared
 import ImageIO
 
 public struct LoadingView: View {
@@ -16,7 +17,7 @@ public struct LoadingView: View {
         GIFImageView(gifName: "load")
             .frame(width: 50, height: 50)
             .accessibilityLabel("로딩 중")
-            .accessibilityIdentifier("loading_view")
+            .accessibilityIdentifier(AccessibilityID.DesignSystem.loadingView)
             .accessibilityAddTraits(.updatesFrequently)
     }
 }

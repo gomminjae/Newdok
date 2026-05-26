@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Shared
 
 public struct AuthFailView: View {
     public var onClose: () -> Void
@@ -35,7 +36,7 @@ public struct AuthFailView: View {
                 .background(Color.primaryNormal)
                 .cornerRadius(4)
                 .accessibilityLabel("처음으로")
-                .accessibilityIdentifier("auth_fail_confirm_button")
+                .accessibilityIdentifier(AccessibilityID.DesignSystem.Popup.authFailConfirm)
                 .padding(.horizontal, 20)
                 .padding(.bottom, 28)
                 .padding(.top, 24)

@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Shared
 
 public struct ServerErrorPopupView: View {
     public let onGoBack: (() -> Void)?
@@ -45,7 +46,7 @@ public struct ServerErrorPopupView: View {
                             .overlay(RoundedRectangle(cornerRadius: 4).stroke(Color.lineNeutral))
                     }
                     .accessibilityLabel("이전으로")
-                    .accessibilityIdentifier("server_error_back_button")
+                    .accessibilityIdentifier(AccessibilityID.DesignSystem.Popup.serverErrorBack)
 
                     Button(action: onRetry) {
                         Text("새로고침")
@@ -56,7 +57,7 @@ public struct ServerErrorPopupView: View {
                             .cornerRadius(4)
                     }
                     .accessibilityLabel("새로고침")
-                    .accessibilityIdentifier("server_error_refresh_button")
+                    .accessibilityIdentifier(AccessibilityID.DesignSystem.Popup.serverErrorRefresh)
                 }
                 .padding(.top, 24)
                 .padding(.bottom, 28)
@@ -72,7 +73,7 @@ public struct ServerErrorPopupView: View {
                         .cornerRadius(4)
                 }
                 .accessibilityLabel("새로고침")
-                .accessibilityIdentifier("server_error_refresh_button")
+                .accessibilityIdentifier(AccessibilityID.DesignSystem.Popup.serverErrorRefresh)
                 .padding(.top, 24)
                 .padding(.bottom, 28)
                 .padding(.horizontal, 24)

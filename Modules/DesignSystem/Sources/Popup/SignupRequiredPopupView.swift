@@ -7,6 +7,7 @@
 //
 
 import SwiftUI
+import Shared
 
 public struct SignupRequiredPopupView: View {
     public let onSignup: () -> Void
@@ -50,7 +51,7 @@ public struct SignupRequiredPopupView: View {
                         .cornerRadius(4)
                 }
                 .accessibilityLabel("회원가입")
-                .accessibilityIdentifier("signup_required_signup_button")
+                .accessibilityIdentifier(AccessibilityID.DesignSystem.Popup.signupRequiredSignup)
 
                 Spacer().frame(height: 12)
 
@@ -60,7 +61,7 @@ public struct SignupRequiredPopupView: View {
                         .foregroundColor(Color.primaryNormal)
                 }
                 .accessibilityLabel("나중에 하기")
-                .accessibilityIdentifier("signup_required_later_button")
+                .accessibilityIdentifier(AccessibilityID.DesignSystem.Popup.signupRequiredLater)
 
                 Spacer().frame(height: 28)
             }
@@ -72,7 +73,7 @@ public struct SignupRequiredPopupView: View {
                     .foregroundColor(Color.captionAssistive)
                     .accessibilityLabel("닫기")
             }
-            .accessibilityIdentifier("signup_required_close_button")
+            .accessibilityIdentifier(AccessibilityID.DesignSystem.Popup.signupRequiredClose)
             .padding(.top, 20)
             .padding(.trailing, 20)
         }

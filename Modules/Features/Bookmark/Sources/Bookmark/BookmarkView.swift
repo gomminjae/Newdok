@@ -41,7 +41,7 @@ struct BookmarkSortBottomSheet: View {
                     Image(asset: DesignSystemAsset.lineClose)
                 }
                 .accessibilityLabel("닫기")
-                .accessibilityIdentifier("bookmark_sort_close_button")
+                .accessibilityIdentifier(AccessibilityID.Bookmark.sortCloseButton)
             }
             .padding(.top, 32)
             .padding(.horizontal, 24)
@@ -71,7 +71,7 @@ struct BookmarkSortBottomSheet: View {
                         .contentShape(Rectangle())
                     }
                     .accessibilityLabel("\(option.text)\(sortOrder == option.value ? ", 선택됨" : "")")
-                    .accessibilityIdentifier("bookmark_sort_option_\(option.value)")
+                    .accessibilityIdentifier(AccessibilityID.Bookmark.sortOption(option.value))
                     .buttonStyle(.plain)
 
                     if option.value != sortOptions.last?.value {
@@ -191,7 +191,7 @@ public struct BookmarkView: View {
                     .padding(.trailing, 12)
             }
             .accessibilityLabel("검색")
-            .accessibilityIdentifier("bookmark_search_button")
+            .accessibilityIdentifier(AccessibilityID.Bookmark.searchButton)
         }
         .padding(.horizontal, 20)
         .padding(.vertical, 17)
@@ -228,7 +228,7 @@ public struct BookmarkView: View {
                             .foregroundColor(selectedCategory == name ? Color.primaryNormal : Color.captionStrong)
                     }
                     .accessibilityLabel(name)
-                    .accessibilityIdentifier("bookmark_category_\(id ?? -1)")
+                    .accessibilityIdentifier(AccessibilityID.Bookmark.category(id ?? -1))
                     .accessibilityAddTraits(selectedCategory == name ? .isSelected : [])
                 }
             }
@@ -256,7 +256,7 @@ public struct BookmarkView: View {
                 }
             }
             .accessibilityLabel("정렬: \(viewModel.sortOrder)")
-            .accessibilityIdentifier("bookmark_sort_button")
+            .accessibilityIdentifier(AccessibilityID.Bookmark.sortButton)
         }
         .padding(.horizontal, 24)
         .padding(.top, 20)

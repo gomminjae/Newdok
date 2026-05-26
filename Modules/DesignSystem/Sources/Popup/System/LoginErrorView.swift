@@ -7,6 +7,7 @@
 //
 
 import SwiftUI
+import Shared
 
 struct LoginErrorView: View {
     var body: some View {
@@ -33,7 +34,7 @@ struct LoginErrorView: View {
                     .padding(.bottom, 28)
             }
             .accessibilityLabel("로그인")
-            .accessibilityIdentifier("login_error_confirm_button")
+            .accessibilityIdentifier(AccessibilityID.DesignSystem.Popup.loginErrorConfirm)
         }
         .padding()
         .padding(.horizontal, 24)

@@ -7,6 +7,7 @@
 //
 
 import SwiftUI
+import Shared
 
 struct SystemErrorView: View {
     var body: some View {
@@ -32,7 +33,7 @@ struct SystemErrorView: View {
                     .padding(.bottom, 28)
             }
             .accessibilityLabel("재시도")
-            .accessibilityIdentifier("system_error_retry_button")
+            .accessibilityIdentifier(AccessibilityID.DesignSystem.Popup.systemErrorRetry)
         }
         .padding()
         .padding(.horizontal, 24)

@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Shared
 
 struct SubscribeNoticeView: View {
     var onClose: () -> Void
@@ -47,7 +48,7 @@ struct SubscribeNoticeView: View {
                 .background(Color.primaryNormal)
                 .cornerRadius(12)
                 .accessibilityLabel("확인")
-                .accessibilityIdentifier("subscribe_notice_confirm_button")
+                .accessibilityIdentifier(AccessibilityID.DesignSystem.Popup.subscribeNoticeConfirm)
                 .padding(.top, 18)
             }
             .padding(.horizontal, 24)

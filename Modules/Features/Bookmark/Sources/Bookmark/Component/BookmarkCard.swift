@@ -6,6 +6,7 @@
 //  Copyright © 2025 Newdok. All rights reserved.
 //
 import SwiftUI
+import Shared
 import Foundation
 import BookmarkDomain
 import DesignSystem
@@ -13,8 +14,8 @@ import Kingfisher
 
 struct BookmarkCard: View {
     let article: BookmarkItem
-    
     @Environment(\.displayScale) private var displayScale
+    
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
             Text(article.articleTitle)
@@ -61,6 +62,6 @@ struct BookmarkCard: View {
         )
         .accessibilityElement(children: .combine)
         .accessibilityLabel("\(article.articleTitle), \(article.brandName), \(String(article.date.prefix(10)))")
-        .accessibilityIdentifier("bookmark_article_\(article.id)")
+        .accessibilityIdentifier(AccessibilityID.Bookmark.article(article.id))
     }
 }

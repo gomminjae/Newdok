@@ -111,7 +111,7 @@ public struct HomeView: View {
                     .padding(.trailing, 12)
             }
             .accessibilityLabel("검색")
-            .accessibilityIdentifier("home_search_button")
+            .accessibilityIdentifier(AccessibilityID.Home.searchButton)
         }
         .padding(.horizontal, 20)
         .padding(.vertical, 17)
@@ -136,7 +136,7 @@ public struct HomeView: View {
                     .padding(.trailing, 24)
             }
             .accessibilityLabel("캘린더")
-            .accessibilityIdentifier("home_calendar_button")
+            .accessibilityIdentifier(AccessibilityID.Home.calendarButton)
         }
         .frame(height: 52)
         .background(Color.white.clipShape(RoundedRectangle(cornerRadius: 12)))
@@ -212,7 +212,7 @@ public struct HomeView: View {
                     }
                 }
                 .accessibilityLabel("새로고침")
-                .accessibilityIdentifier("home_refresh_button")
+                .accessibilityIdentifier(AccessibilityID.Home.refreshButton)
                 .padding(.top, 23)
                 .padding(.trailing, 24)
             }

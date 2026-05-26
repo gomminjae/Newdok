@@ -7,6 +7,7 @@
 //
 
 import SwiftUI
+import Shared
 
 public struct CheckSubscribeView: View {
     @Environment(\.dismiss) var dismiss
@@ -29,7 +30,7 @@ public struct CheckSubscribeView: View {
                         .foregroundColor(Color.captionAssistive)
                 }
                 .accessibilityLabel("닫기")
-                .accessibilityIdentifier("check_subscribe_close_button")
+                .accessibilityIdentifier(AccessibilityID.DesignSystem.Popup.checkSubscribeClose)
             }
             
             Image(asset: DesignSystemAsset.warning)
@@ -72,7 +73,7 @@ public struct CheckSubscribeView: View {
                         .overlay(RoundedRectangle(cornerRadius: 4).stroke(Color.lineNeutral))
                 }
                 .accessibilityLabel("메일 확인하기")
-                .accessibilityIdentifier("check_subscribe_confirm_button")
+                .accessibilityIdentifier(AccessibilityID.DesignSystem.Popup.checkSubscribeConfirm)
             }
         }
         .padding(20)

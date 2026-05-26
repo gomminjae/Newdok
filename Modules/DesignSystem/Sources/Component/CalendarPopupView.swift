@@ -1,4 +1,5 @@
 import SwiftUI
+import Shared
 import UIKit
 
 struct RoundedCorners: Shape {
@@ -101,7 +102,7 @@ public struct CalendarPopupView: View {
                 .overlay(RoundedRectangle(cornerRadius: 4).stroke(Color.primaryNormal, lineWidth: 1))
             }
             .accessibilityLabel("오늘 날짜로 이동")
-            .accessibilityIdentifier("calendar_today_button")
+            .accessibilityIdentifier(AccessibilityID.DesignSystem.Calendar.todayButton)
             .padding(.top, 20)
         }
         .background(Color.clear)
@@ -123,13 +124,13 @@ public struct CalendarPopupView: View {
                     }
                     .buttonStyle(PlainButtonStyle())
                     .accessibilityLabel("이전 달")
-                    .accessibilityIdentifier("calendar_previous_month")
+                    .accessibilityIdentifier(AccessibilityID.DesignSystem.Calendar.previousMonth)
 
                     Text(yearMonthTitle)
                         .frame(width: 120, height: 20)
                         .font(.hanSansNeo(14, .medium))
                         .foregroundStyle(Color.captionDeep)
-                        .accessibilityIdentifier("calendar_month_title")
+                        .accessibilityIdentifier(AccessibilityID.DesignSystem.Calendar.monthTitle)
 
                     Button(action: nextMonth) {
                         Image(systemName: "chevron.right")
@@ -139,7 +140,7 @@ public struct CalendarPopupView: View {
                     }
                     .buttonStyle(PlainButtonStyle())
                     .accessibilityLabel("다음 달")
-                    .accessibilityIdentifier("calendar_next_month")
+                    .accessibilityIdentifier(AccessibilityID.DesignSystem.Calendar.nextMonth)
 
                     Spacer()
                 }
@@ -150,7 +151,7 @@ public struct CalendarPopupView: View {
                         Image(asset: DesignSystemAsset.lineClose)
                     }
                     .accessibilityLabel("닫기")
-                    .accessibilityIdentifier("calendar_close_button")
+                    .accessibilityIdentifier(AccessibilityID.DesignSystem.Calendar.closeButton)
                 }
                 .frame(maxWidth: .infinity)
                 .padding(.trailing, 18)
@@ -211,19 +212,19 @@ public struct CalendarPopupView: View {
                 )
                 .background(
                     RoundedRectangle(cornerRadius: 12)
-                        .fill(isSelected ? Color(hex: "#161616") : .clear)
+                        .fill(isSelected ? Color.captionHeavy : .clear)
                 )
                 .overlay(
                     RoundedRectangle(cornerRadius: 12)
                         .stroke(
-                            isToday && !isSelected ? Color(hex: "#161616") : Color.clear,
+                            isToday && !isSelected ? Color.captionHeavy : Color.clear,
                             lineWidth: 1
                         )
                 )
 
             Circle()
                 .frame(width: 6, height: 6)
-                .foregroundColor(Color(hex: "#363636"))
+                .foregroundColor(Color.captionStrong)
                 .opacity(hasData && !cell.isBlank ? 1 : 0)
         }
         .frame(maxWidth: .infinity)
@@ -231,7 +232,7 @@ public struct CalendarPopupView: View {
         .contentShape(Rectangle())
         .accessibilityElement(children: .ignore)
         .accessibilityLabel(cell.isBlank ? "" : "\(cell.value)일\(isSelected ? ", 선택됨" : "")\(isToday ? ", 오늘" : "")\(hasData ? ", 아티클 있음" : "")")
-        .accessibilityIdentifier("calendar_day_\(cell.value)")
+        .accessibilityIdentifier(AccessibilityID.DesignSystem.Calendar.day(cell.value))
         .accessibilityAddTraits(isSelected ? .isSelected : [])
         .accessibilityAddTraits(isFuture ? .isStaticText : .isButton)
         .onTapGesture {

@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Shared
 
 public struct LoadingDotsView: View {
     @State private var activeDot = 0
@@ -38,7 +39,7 @@ public struct LoadingDotsView: View {
         }
         .accessibilityElement(children: .ignore)
         .accessibilityLabel("로딩 중")
-        .accessibilityIdentifier("loading_dots_view")
+        .accessibilityIdentifier(AccessibilityID.DesignSystem.loadingDotsView)
         .animation(.easeInOut(duration: 0.3), value: activeDot)
         .onAppear {
             startAnimation()

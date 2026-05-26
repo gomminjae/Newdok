@@ -7,6 +7,7 @@
 //
 
 import SwiftUI
+import Shared
 import Kingfisher
 import DesignSystem
 import ExploreDomain
@@ -14,8 +15,8 @@ import ExploreDomain
 public struct NewsletterRow: View {
     public let newsletter: ExploreNewsletterDetail
     public let prioritizedInterests: [ExploreInterest]
-
     @Environment(\.displayScale) private var displayScale
+
     public init(newsletter: ExploreNewsletterDetail, prioritizedInterests: [ExploreInterest]? = nil) {
         self.newsletter = newsletter
         self.prioritizedInterests = prioritizedInterests ?? newsletter.interests
@@ -80,6 +81,6 @@ public struct NewsletterRow: View {
         }
         .accessibilityElement(children: .combine)
         .accessibilityLabel("\(newsletter.brandName), \(newsletter.firstDescription)")
-        .accessibilityIdentifier("explore_newsletter_\(newsletter.id)")
+        .accessibilityIdentifier(AccessibilityID.Explore.newsletter(newsletter.id))
     }
 }

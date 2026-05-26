@@ -7,6 +7,7 @@
 //
 
 import SwiftUI
+import Shared
 
 public struct UnsubscribePopupView: View {
     public let brandName: String
@@ -57,7 +58,7 @@ public struct UnsubscribePopupView: View {
                         .overlay(RoundedRectangle(cornerRadius: 4).stroke(Color.lineNeutral))
                 }
                 .accessibilityLabel("취소")
-                .accessibilityIdentifier("unsubscribe_cancel_button")
+                .accessibilityIdentifier(AccessibilityID.DesignSystem.Popup.unsubscribeCancel)
 
                 Button(action: onConfirm) {
                     Text("구독 중지")
@@ -68,7 +69,7 @@ public struct UnsubscribePopupView: View {
                         .cornerRadius(4)
                 }
                 .accessibilityLabel("구독 중지")
-                .accessibilityIdentifier("unsubscribe_confirm_button")
+                .accessibilityIdentifier(AccessibilityID.DesignSystem.Popup.unsubscribeConfirm)
             }
         }
         .padding(24)

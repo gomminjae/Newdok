@@ -7,6 +7,7 @@
 //
 
 import SwiftUI
+import Shared
 
 public struct CheckIsSubscribeView: View {
     public let onClose: () -> Void
@@ -50,7 +51,7 @@ public struct CheckIsSubscribeView: View {
                 .background(Color.primaryNormal)
                 .cornerRadius(4)
                 .accessibilityLabel("메일 확인하기")
-                .accessibilityIdentifier("check_is_subscribe_confirm_button")
+                .accessibilityIdentifier(AccessibilityID.DesignSystem.Popup.checkIsSubscribeConfirm)
                 .padding(.top, 18)
 
                 HStack {
@@ -62,7 +63,7 @@ public struct CheckIsSubscribeView: View {
                     .font(.hanSansNeo(12, .medium))
                     .foregroundStyle(Color.primaryNormal)
                     .accessibilityLabel("다시 구독 신청하기")
-                    .accessibilityIdentifier("check_is_subscribe_resubscribe_button")
+                    .accessibilityIdentifier(AccessibilityID.DesignSystem.Popup.checkIsSubscribeResubscribe)
                 }
                 .padding(.top, 4)
                 .padding(.bottom, 34)
@@ -76,7 +77,7 @@ public struct CheckIsSubscribeView: View {
                     .foregroundColor(Color.captionAssistive)
                     .accessibilityLabel("닫기")
             }
-            .accessibilityIdentifier("check_is_subscribe_close_button")
+            .accessibilityIdentifier(AccessibilityID.DesignSystem.Popup.checkIsSubscribeClose)
             .padding(.top, 20)
             .padding(.trailing, 20)
         }

@@ -6,6 +6,7 @@
 //  Copyright © 2025 Your Organization Name. All rights reserved.
 //
 import SwiftUI
+import Shared
 
 public struct BackButton: View {
     var action: () -> Void  // 외부에서 전달받은 액션
@@ -27,6 +28,6 @@ public struct BackButton: View {
             .padding(.horizontal, 4)
         }
         .accessibilityLabel("뒤로가기")
-        .accessibilityIdentifier("back_button")
+        .accessibilityIdentifier(AccessibilityID.DesignSystem.backButton)
     }
 }

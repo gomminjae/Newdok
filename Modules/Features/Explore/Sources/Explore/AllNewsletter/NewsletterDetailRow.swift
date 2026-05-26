@@ -7,6 +7,7 @@
 //
 
 import SwiftUI
+import Shared
 import Kingfisher
 import ExploreDomain
 import DesignSystem
@@ -63,8 +64,8 @@ enum SubscriptionStatus: String {
 
 struct NewsletterDetailRow: View {
     var brand: ExploreBrand
-
     @Environment(\.displayScale) private var displayScale
+
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
             HStack(alignment: .top, spacing: 0) {
@@ -135,6 +136,6 @@ struct NewsletterDetailRow: View {
         }
         .accessibilityElement(children: .combine)
         .accessibilityLabel("\(brand.brandName), \(brand.shortDescription)\(SubscriptionStatus(rawValue: brand.isSubscribed ?? "").label.map { ", \($0)" } ?? "")")
-        .accessibilityIdentifier("explore_all_newsletter_\(brand.id)")
+        .accessibilityIdentifier(AccessibilityID.Explore.allNewsletter(brand.id))
     }
 }

@@ -5,6 +5,7 @@
 //  Created by 권민재 on 3/6/25.
 //
 import SwiftUI
+import Shared
 import UIKit
 
 public struct CustomTextFieldModifier: ViewModifier {
@@ -88,7 +89,7 @@ public struct PasswordFieldModifier: ViewModifier {
                     .foregroundStyle(isFocused ? Color.captionStrong : Color.captionAssistive)
             }
             .accessibilityLabel(isSecure ? "비밀번호 표시" : "비밀번호 숨기기")
-            .accessibilityIdentifier("password_visibility_toggle")
+            .accessibilityIdentifier(AccessibilityID.DesignSystem.passwordVisibilityToggle)
         }
         .padding(.horizontal)
         .frame(height: 48)

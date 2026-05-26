@@ -7,6 +7,7 @@
 //
 
 import SwiftUI
+import Shared
 
 public struct SubscribeStatePopupView: View {
     public let onCancel: () -> Void
@@ -56,7 +57,7 @@ public struct SubscribeStatePopupView: View {
                         .overlay(RoundedRectangle(cornerRadius: 4).stroke(Color.lineNeutral))
                 }
                 .accessibilityLabel("오늘 하루 보지 않기")
-                .accessibilityIdentifier("subscribe_state_dismiss_button")
+                .accessibilityIdentifier(AccessibilityID.DesignSystem.Popup.subscribeStateDismiss)
 
                 Button(action: onConfirm) {
                     Text("확인")
@@ -67,7 +68,7 @@ public struct SubscribeStatePopupView: View {
                         .cornerRadius(4)
                 }
                 .accessibilityLabel("확인")
-                .accessibilityIdentifier("subscribe_state_confirm_button")
+                .accessibilityIdentifier(AccessibilityID.DesignSystem.Popup.subscribeStateConfirm)
             }
         }
         .padding(24)

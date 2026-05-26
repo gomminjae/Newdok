@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Shared
 import DesignSystem
 
 public struct CustomSegmentedSlider: View {
@@ -53,7 +54,7 @@ public struct CustomSegmentedSlider: View {
                                 .padding(.horizontal, 2)
                         }
                         .accessibilityLabel(titles[index])
-                        .accessibilityIdentifier("subscribe_picker_\(index)")
+                        .accessibilityIdentifier(AccessibilityID.Subscribe.picker(index))
                         .accessibilityAddTraits(selectedIndex == index ? .isSelected : [])
                     }
                 }

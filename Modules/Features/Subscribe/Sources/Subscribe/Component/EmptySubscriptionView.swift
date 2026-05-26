@@ -46,7 +46,7 @@ public struct EmptySubscriptionView: View {
                             router.push(.login)
                         }
                         .accessibilityLabel("로그인")
-                        .accessibilityIdentifier("subscribe_empty_login")
+                        .accessibilityIdentifier(AccessibilityID.Subscribe.emptyLogin)
                         .accessibilityAddTraits(.isButton)
                         .padding(.trailing, 4)
                     Text("후 뉴스레터를 구독해 보세요.")

@@ -7,6 +7,7 @@
 //
 
 import SwiftUI
+import Shared
 import DesignSystem
 import SubscribeDomain
 import Kingfisher
@@ -19,8 +20,8 @@ public struct SubscribeRow: View {
 
     @State private var imageLoadFailed = false
     @State private var isPerformingAction = false
-
     @Environment(\.displayScale) private var displayScale
+
     public init(newsletter: SubscribeNewsletter, isSubscribed: Bool, onNavigate: (() -> Void)? = nil, onTap: @escaping () async -> Void) {
         self.newsletter = newsletter
         self.isSubscribed = isSubscribed
@@ -111,7 +112,7 @@ public struct SubscribeRow: View {
                     )
             }
             .accessibilityLabel(isSubscribed ? "구독 중지" : "구독 재개")
-            .accessibilityIdentifier("subscribe_toggle_\(newsletter.id ?? 0)")
+            .accessibilityIdentifier(AccessibilityID.Subscribe.toggle(newsletter.id ?? 0))
             .disabled(isPerformingAction)
         }
         .padding(.horizontal, 16)
@@ -124,6 +125,6 @@ public struct SubscribeRow: View {
         )
         .shadow(color: Color.black.opacity(0.02), radius: 1, y: 1)
         .accessibilityElement(children: .contain)
-        .accessibilityIdentifier("subscribe_row_\(newsletter.id ?? 0)")
+        .accessibilityIdentifier(AccessibilityID.Subscribe.row(newsletter.id ?? 0))
     }
 }
