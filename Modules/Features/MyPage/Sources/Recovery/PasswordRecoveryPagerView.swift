@@ -238,7 +238,8 @@ struct PasswordRecoveryPhoneView: View {
         .popup(isPresented: $viewModel.isShowPopup) {
             AuthFailView(onClose: {
                 viewModel.isShowPopup = false
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.25) {
+                Task { @MainActor in
+                    try? await Task.sleep(for: .seconds(0.25))
                     viewModel.resetVerificationStateAndRestart()
                 }
             })

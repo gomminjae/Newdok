@@ -122,7 +122,8 @@ public struct EditNicknameView: View {
         .ignoresSafeArea(.keyboard)
         .onAppear {
             // 닉네임 필드에 자동 포커스
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            Task {
+                try? await Task.sleep(for: .seconds(0.5))
                 isFocused = true
             }
         }

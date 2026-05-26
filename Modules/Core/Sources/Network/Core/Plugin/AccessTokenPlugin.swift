@@ -36,7 +36,7 @@ final class AuthPlugin: PluginType {
 
         guard statusCode == 401 else { return }
 
-        DispatchQueue.main.async {
+        Task { @MainActor in
             NotificationCenter.default.post(name: .didReceiveUnauthorized, object: nil)
         }
     }

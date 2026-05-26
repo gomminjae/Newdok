@@ -485,13 +485,13 @@ public struct ExploreView: View {
                 }
                 .onChange(of: viewModel.shouldScrollToTop) { _, shouldScroll in
                     if shouldScroll {
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                        Task {
+                            try? await Task.sleep(for: .seconds(0.1))
                             withAnimation(.easeInOut(duration: 0.5)) {
                                 proxy.scrollTo("top", anchor: .top)
                             }
-                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.6) {
-                                viewModel.shouldScrollToTop = false
-                            }
+                            try? await Task.sleep(for: .seconds(0.6))
+                            viewModel.shouldScrollToTop = false
                         }
                     }
                 }
@@ -557,7 +557,7 @@ struct PagingScrollView: View {
         // 끝에 가까워지면 더 추가
         let threshold = dynamicItems.count - 10
         if currentPage >= threshold {
-            DispatchQueue.main.async {
+            Task {
                 dynamicItems.append(contentsOf: items)
             }
         }

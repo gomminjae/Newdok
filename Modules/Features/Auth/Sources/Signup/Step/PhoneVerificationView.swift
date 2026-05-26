@@ -147,7 +147,8 @@ public struct PhoneVerificationView: View {
             .onChange(of: viewModel.shouldFocusVerificationCode) { _, shouldFocus in
                 if shouldFocus {
                     // UI 업데이트 완료를 위한 약간의 지연
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                    Task {
+                        try? await Task.sleep(for: .seconds(0.1))
                         isVerificationCodeFocused = true
                     }
                     viewModel.shouldFocusVerificationCode = false  // 상태 리셋

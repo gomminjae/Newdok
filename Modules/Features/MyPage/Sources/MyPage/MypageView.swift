@@ -59,10 +59,11 @@ public struct MypageView: View {
                             UIPasteboard.general.string = email
                             isCopy = true
 
-                            DispatchQueue.main.asyncAfter(deadline: .now() + 2.1) {
-                                    withAnimation {
-                                        isCopy = false
-                                    }
+                            Task {
+                                try? await Task.sleep(for: .seconds(2.1))
+                                withAnimation {
+                                    isCopy = false
+                                }
                             }
                         } label: {
                             Image(asset: DesignSystemAsset.lineCopy)
@@ -234,7 +235,7 @@ public struct MypageView: View {
             }
             .toolbar(.hidden, for: .navigationBar)
             .onAppear {
-                DispatchQueue.main.async {
+                Task {
                     userInfo = viewModel.loadUserInfo()
                 }
                 Task {
