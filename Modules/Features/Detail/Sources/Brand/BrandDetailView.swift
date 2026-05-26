@@ -76,6 +76,7 @@ public struct BrandDetailView: View {
     @State private var viewModel: BrandDetailViewModel
     @Environment(AppRouter.self) private var router
     @Environment(TabSelection.self) private var tabSelection
+    @Environment(\.displayScale) private var displayScale
     
     @State private var isShowPauseAlert: Bool = false
     @State private var isShowGuestAlert: Bool = false
@@ -273,9 +274,9 @@ public struct BrandDetailView: View {
                 Group {
                     if let urlString = detail.imageUrl,
                        let url = URL(string: urlString) {
-                        Color.clear.overlay {
+                        GeometryReader { geo in
                             KFImage(url)
-                                .setProcessor(DownsamplingImageProcessor(size: CGSize(width: UIScreen.main.bounds.width * UIScreen.main.scale, height: 260 * UIScreen.main.scale)))
+                                .setProcessor(DownsamplingImageProcessor(size: CGSize(width: geo.size.width * displayScale, height: geo.size.height * displayScale)))
                                 .resizable()
                                 .scaledToFill()
                         }

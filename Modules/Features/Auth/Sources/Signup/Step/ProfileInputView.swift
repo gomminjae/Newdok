@@ -112,21 +112,11 @@ public struct ProfileInputView: View {
                             RoundedRectangle(cornerRadius: 4)
                                 .stroke(isExpanded ? Color.primaryNormal : Color.lineAlternative, lineWidth: 1)
                         )
-                        .background(
-                            GeometryReader { geo in
-                                Color.clear
-                                    .onAppear {
-                                        DispatchQueue.main.async {
-                                            dropdownYPosition = geo.frame(in: .named("profileContainer")).maxY
-                                        }
-                                    }
-                                    .onChange(of: viewModel.showNicknameError) { _, _ in
-                                        DispatchQueue.main.async {
-                                            dropdownYPosition = geo.frame(in: .named("profileContainer")).maxY
-                                        }
-                                    }
-                            }
-                        )
+                        .onGeometryChange(for: CGFloat.self) { proxy in
+                            proxy.frame(in: .named("profileContainer")).maxY
+                        } action: { newValue in
+                            dropdownYPosition = newValue
+                        }
                     }
 
                     Text("출생연도는 뉴스레터 추천에 활용돼요.")

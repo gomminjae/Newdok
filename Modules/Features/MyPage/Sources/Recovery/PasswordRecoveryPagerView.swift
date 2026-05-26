@@ -239,7 +239,7 @@ struct PasswordRecoveryPhoneView: View {
             AuthFailView(onClose: {
                 viewModel.isShowPopup = false
                 Task { @MainActor in
-                    try? await Task.sleep(for: .seconds(0.25))
+                    try await Task.sleep(for: .seconds(0.25))
                     viewModel.resetVerificationStateAndRestart()
                 }
             })

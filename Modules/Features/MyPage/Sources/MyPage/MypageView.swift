@@ -60,7 +60,7 @@ public struct MypageView: View {
                             isCopy = true
 
                             Task {
-                                try? await Task.sleep(for: .seconds(2.1))
+                                try await Task.sleep(for: .seconds(2.1))
                                 withAnimation {
                                     isCopy = false
                                 }

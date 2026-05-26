@@ -123,7 +123,7 @@ public struct EditNicknameView: View {
         .onAppear {
             // 닉네임 필드에 자동 포커스
             Task {
-                try? await Task.sleep(for: .seconds(0.5))
+                try await Task.sleep(for: .seconds(0.5))
                 isFocused = true
             }
         }

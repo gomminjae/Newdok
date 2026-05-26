@@ -68,11 +68,11 @@ struct WebViewWrapper: UIViewRepresentable {
         func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
             let js = autoFillScript()
             // 즉시 1회 + SPA 렌더링 대비 지연 재시도
-            webView.evaluateJavaScript(js, completionHandler: nil)
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+            Task { @MainActor in
                 webView.evaluateJavaScript(js, completionHandler: nil)
-            }
-            DispatchQueue.main.asyncAfter(deadline: .now() + 2.5) {
+                try await Task.sleep(for: .seconds(1.0))
+                webView.evaluateJavaScript(js, completionHandler: nil)
+                try await Task.sleep(for: .seconds(1.5))
                 webView.evaluateJavaScript(js, completionHandler: nil)
             }
         }
@@ -224,7 +224,7 @@ public struct SubscribeModalView: View {
                 UIPasteboard.general.string = email
                 showToast = true
                 Task {
-                    try? await Task.sleep(for: .seconds(1.5))
+                    try await Task.sleep(for: .seconds(1.5))
                     showToast = false
                 }
             }
