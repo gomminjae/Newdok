@@ -98,7 +98,7 @@ public struct EditIndustryView: View {
                     guard didUpdate else { return }
                     await viewModel.fetchuserInfo()
                     router.pop()
-                    try? await Task.sleep(nanoseconds: 150_000_000)
+                    try await Task.sleep(nanoseconds: 150_000_000)
                     ToastCenter.shared.show("종사산업이 변경되었습니다.")
                 }
             }) {

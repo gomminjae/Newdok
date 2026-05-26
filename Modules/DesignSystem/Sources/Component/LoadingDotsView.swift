@@ -49,7 +49,11 @@ public struct LoadingDotsView: View {
         activeDot = 0
         Task { @MainActor in
             while !Task.isCancelled {
-                try? await Task.sleep(for: .milliseconds(400))
+                do {
+                    try await Task.sleep(for: .milliseconds(400))
+                } catch {
+                    break
+                }
                 activeDot = (activeDot + 1) % dotCount
             }
         }

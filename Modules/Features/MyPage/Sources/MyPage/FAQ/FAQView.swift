@@ -150,7 +150,7 @@ public struct FAQView: View {
                                     expandedFAQID = item.id
                                     // FAQ가 열릴 때 해당 항목으로 스크롤
                                     Task {
-                                        try? await Task.sleep(for: .milliseconds(100))
+                                        try await Task.sleep(for: .milliseconds(100))
                                         await MainActor.run {
                                             withAnimation(.easeInOut(duration: 0.3)) {
                                                 proxy.scrollTo(item.id, anchor: .top)

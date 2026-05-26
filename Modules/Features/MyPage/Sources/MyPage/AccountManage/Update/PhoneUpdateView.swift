@@ -180,7 +180,7 @@ public struct PhoneUpdateView: View {
                 router.pop()
                 // 뷰 pop 이후 전역 토스트 노출 (사라지는 뷰에서의 호출을 피하기 위해 약간 지연)
                 Task { @MainActor in
-                    try? await Task.sleep(nanoseconds: 150_000_000)
+                    try await Task.sleep(nanoseconds: 150_000_000)
                     ToastCenter.shared.show("휴대폰 번호가 변경되었습니다.")
                 }
             }

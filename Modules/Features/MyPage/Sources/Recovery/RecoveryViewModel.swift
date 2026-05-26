@@ -169,7 +169,11 @@ public final class RecoveryViewModel: ErrorHandling {
         isTimerActive = true
         timerTask = Task {
             while !Task.isCancelled && timerRemaining > 0 {
-                try? await Task.sleep(for: .seconds(1))
+                do {
+                    try await Task.sleep(for: .seconds(1))
+                } catch {
+                    break
+                }
                 guard !Task.isCancelled else { break }
                 timerRemaining -= 1
             }

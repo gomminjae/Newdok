@@ -349,7 +349,7 @@ struct PasswordRecoveryNewPasswordView: View {
                     if viewModel.passwordResetSuccess == true {
                         router.resetTo(.login)
                         Task { @MainActor in
-                            try? await Task.sleep(nanoseconds: 500_000_000)
+                            try await Task.sleep(nanoseconds: 500_000_000)
                             ToastCenter.shared.show("비밀번호가 재설정되었습니다.")
                         }
                     } else {

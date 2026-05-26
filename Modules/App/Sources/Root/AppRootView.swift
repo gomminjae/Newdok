@@ -43,7 +43,11 @@ struct AppRootView: View {
                 print("Failed to load options: \(error)")
             }
 
-            try? await Task.sleep(nanoseconds: UInt64(AppConstants.Duration.splash * 1_000_000_000))
+            do {
+                try await Task.sleep(nanoseconds: UInt64(AppConstants.Duration.splash * 1_000_000_000))
+            } catch {
+                return
+            }
 
             if TokenStorage.hasValidToken {
                 AppState.shared.login()
