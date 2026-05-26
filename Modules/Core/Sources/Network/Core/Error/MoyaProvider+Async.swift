@@ -10,6 +10,10 @@ import Foundation
 import Moya
 import Shared
 
+extension JSONDecoder {
+    static let newdokShared = JSONDecoder()
+}
+
 public extension MoyaProvider {
     func asyncRequest<T: Decodable & Sendable>(
         _ target: Target,
@@ -21,7 +25,7 @@ public extension MoyaProvider {
                 case .success(let response):
                     if (200..<300).contains(response.statusCode) {
                         do {
-                            let decoded = try JSONDecoder().decode(T.self, from: response.data)
+                            let decoded = try JSONDecoder.newdokShared.decode(T.self, from: response.data)
                             continuation.resume(returning: decoded)
                         } catch {
                             continuation.resume(throwing: NetworkError.decodeError(underlying: error))

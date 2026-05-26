@@ -21,7 +21,7 @@ private struct ServerErrorBody: Decodable {
 
 enum ErrorMapper {
     static func map(response: Response) -> NetworkError {
-        if let body = try? JSONDecoder().decode(ServerErrorBody.self, from: response.data),
+        if let body = try? JSONDecoder.newdokShared.decode(ServerErrorBody.self, from: response.data),
            let message = body.displayMessage {
             return .serverError(statusCode: response.statusCode, message: message)
         }
