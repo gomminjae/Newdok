@@ -23,7 +23,7 @@ public final class MockDetailBrandRepository: DetailBrandRepository, @unchecked 
                 imageUrl: nil,
                 interests: [],
                 brandArticleList: [],
-                isSubscribed: nil,
+                subscriptionStatus: .initial,
                 subscribeCheck: false
             )
         ),
@@ -37,7 +37,7 @@ public final class MockDetailBrandRepository: DetailBrandRepository, @unchecked 
                 imageUrl: nil,
                 interests: [],
                 brandArticleList: [],
-                isSubscribed: nil,
+                subscriptionStatus: .initial,
                 subscribeCheck: false
             )
         )

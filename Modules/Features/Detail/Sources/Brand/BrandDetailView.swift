@@ -39,12 +39,7 @@ struct VisualEffectBlur: UIViewRepresentable {
     }
 }
 
-enum SubscriptionStatus: String {
-    case initial = "INITIAL"
-    case check = "CHECK"
-    case confirmed = "CONFIRMED"
-    case paused = "PAUSED"
-
+extension SubscriptionStatus {
     var buttonTitle: String {
         switch self {
         case .initial: return "구독하기"
@@ -154,7 +149,7 @@ public struct BrandDetailView: View {
                 Task {
                     let didPause = await viewModel.pause()
                     guard didPause else { return }
-                    viewModel.detail?.isSubscribed = SubscriptionStatus.paused.rawValue
+                    viewModel.detail?.subscriptionStatus = .paused
                     showPauseToast = true
                 }
             })
@@ -307,7 +302,7 @@ public struct BrandDetailView: View {
                 )
                 
                 // 구독 확인 중 오버레이
-                if let status = SubscriptionStatus(rawValue: detail.isSubscribed ?? ""), status == .check {
+                if detail.subscriptionStatus == .check {
                     Color.bgPopupDim.opacity(0.6) 
                         .frame(maxWidth: .infinity)
                         .frame(height: 260)
@@ -339,7 +334,7 @@ public struct BrandDetailView: View {
                     
                     Spacer()
                     
-                    if let status = SubscriptionStatus(rawValue: detail.isSubscribed ?? ""), status == .confirmed {
+                    if detail.subscriptionStatus == .confirmed {
                         Text("구독중")
                             .font(.hanSansNeo(11, .medium))
                             .foregroundStyle(Color.white)
@@ -380,7 +375,7 @@ public struct BrandDetailView: View {
                         Spacer()
                         if isGuest {
                             subscribeButton(status: .initial)
-                        } else if let status = SubscriptionStatus(rawValue: viewModel.detail?.isSubscribed ?? "") {
+                        } else if let status = viewModel.detail?.subscriptionStatus {
                             subscribeButton(status: status)
                         }
                     }
@@ -562,7 +557,7 @@ public struct BrandDetailView: View {
             Task {
                 let didResume = await viewModel.resume()
                 guard didResume else { return }
-                viewModel.detail?.isSubscribed = SubscriptionStatus.confirmed.rawValue
+                viewModel.detail?.subscriptionStatus = .confirmed
                 showSubscribeToast = true
             }
         }
@@ -571,7 +566,7 @@ public struct BrandDetailView: View {
     private func presentCheckSubscribePopupIfNeeded(for detail: DetailBrandDetail) {
         guard !hasPresentedSubscribeCheckPopup else { return }
 
-        let needsPopup = SubscriptionStatus(rawValue: detail.isSubscribed ?? "") == .check
+        let needsPopup = detail.subscriptionStatus == .check
 
         if needsPopup {
             hasPresentedSubscribeCheckPopup = true

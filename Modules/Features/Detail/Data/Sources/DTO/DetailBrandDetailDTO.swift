@@ -27,7 +27,7 @@ public struct DetailBrandDetailDTO: Decodable, Sendable {
             imageUrl: imageUrl,
             interests: interests.map { $0.toDomain() },
             brandArticleList: brandArticleList.map { $0.toDomain() },
-            isSubscribed: isSubscribed,
+            subscriptionStatus: SubscriptionStatus(serverValue: isSubscribed ?? ""),
             subscribeCheck: subscribeCheck
         )
     }

@@ -12,7 +12,7 @@ public struct DetailBrandDetail {
     public let imageUrl: String?
     public let interests: [DetailInterest]
     public let brandArticleList: [DetailBrandArticle]
-    public var isSubscribed: String?
+    public var subscriptionStatus: SubscriptionStatus
     public let subscribeCheck: Bool
 
     public init(
@@ -24,7 +24,7 @@ public struct DetailBrandDetail {
         imageUrl: String?,
         interests: [DetailInterest],
         brandArticleList: [DetailBrandArticle],
-        isSubscribed: String?,
+        subscriptionStatus: SubscriptionStatus,
         subscribeCheck: Bool
     ) {
         self.brandId = brandId
@@ -35,7 +35,7 @@ public struct DetailBrandDetail {
         self.imageUrl = imageUrl
         self.interests = interests
         self.brandArticleList = brandArticleList
-        self.isSubscribed = isSubscribed
+        self.subscriptionStatus = subscriptionStatus
         self.subscribeCheck = subscribeCheck
     }
 }

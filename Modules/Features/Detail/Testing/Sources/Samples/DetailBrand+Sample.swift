@@ -37,7 +37,7 @@ public extension DetailBrandDetail {
         imageUrl: "https://picsum.photos/seed/db/200",
         interests: [.tech, .business],
         brandArticleList: [.recent, .lastWeek, .twoWeeksAgo],
-        isSubscribed: "Y",
+        subscriptionStatus: .confirmed,
         subscribeCheck: true
     )
 
@@ -50,7 +50,7 @@ public extension DetailBrandDetail {
         imageUrl: "https://picsum.photos/seed/wd/200",
         interests: [.design],
         brandArticleList: [.recent, .lastWeek],
-        isSubscribed: nil,
+        subscriptionStatus: .initial,
         subscribeCheck: false
     )
 }
