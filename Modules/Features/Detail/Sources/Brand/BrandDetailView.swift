@@ -42,7 +42,7 @@ struct VisualEffectBlur: UIViewRepresentable {
 extension SubscriptionStatus {
     var buttonTitle: String {
         switch self {
-        case .initial: return "구독하기"
+        case .initial, .unknown: return "구독하기"
         case .check: return "확인중"
         case .confirmed: return "구독중지"
         case .paused: return "구독재개"
@@ -55,7 +55,7 @@ extension SubscriptionStatus {
 
     var style: (background: Color, foreground: Color, border: Color) {
         switch self {
-        case .initial:
+        case .initial, .unknown:
             return (Color.primaryNormal, .white, .clear)
         case .check:
             return (Color.white, Color.captionNeutral, Color.lineNeutral)
@@ -274,8 +274,9 @@ public struct BrandDetailView: View {
                                 .setProcessor(DownsamplingImageProcessor(size: CGSize(width: geo.size.width * displayScale, height: geo.size.height * displayScale)))
                                 .resizable()
                                 .scaledToFill()
+                                .frame(width: geo.size.width, height: geo.size.height)
+                                .clipped()
                         }
-                        .clipped()
                     } else {
                         Color.lineSoft
                     }
@@ -542,7 +543,7 @@ public struct BrandDetailView: View {
         }
         
         switch status {
-        case .initial:
+        case .initial, .unknown:
             if viewModel.detail?.brandId == 321 {
                 showSignupRequiredPopup = true
             } else {

@@ -486,11 +486,11 @@ public struct ExploreView: View {
                 .onChange(of: viewModel.shouldScrollToTop) { _, shouldScroll in
                     if shouldScroll {
                         Task {
-                            try? await Task.sleep(for: .seconds(0.1))
+                            try await Task.sleep(for: .seconds(0.1))
                             withAnimation(.easeInOut(duration: 0.5)) {
                                 proxy.scrollTo("top", anchor: .top)
                             }
-                            try? await Task.sleep(for: .seconds(0.6))
+                            try await Task.sleep(for: .seconds(0.6))
                             viewModel.shouldScrollToTop = false
                         }
                     }
