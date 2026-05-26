@@ -64,11 +64,12 @@ enum SubscriptionStatus: String {
 struct NewsletterDetailRow: View {
     var brand: ExploreBrand
 
+    @Environment(\.displayScale) private var displayScale
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
             HStack(alignment: .top, spacing: 0) {
                 KFImage(URL(string: brand.imageUrl ?? ""))
-                    .setProcessor(DownsamplingImageProcessor(size: CGSize(width: 56 * UIScreen.main.scale, height: 56 * UIScreen.main.scale)))
+                    .setProcessor(DownsamplingImageProcessor(size: CGSize(width: 56 * displayScale, height: 56 * displayScale)))
                     .placeholder {
                         RoundedRectangle(cornerRadius: 10)
                             .fill(Color.gray.opacity(0.2))

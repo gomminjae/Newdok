@@ -13,11 +13,12 @@ import Kingfisher
 
 struct RecommendedNewsLetterView: View {
     var recommendation: ExploreNewsletterDetail
+    @Environment(\.displayScale) private var displayScale
 
     var body: some View {
         VStack(spacing: 0) {
             KFImage(URL(string: recommendation.imageUrl ?? ""))
-                .setProcessor(DownsamplingImageProcessor(size: CGSize(width: 320 * UIScreen.main.scale, height: 210 * UIScreen.main.scale)))
+                .setProcessor(DownsamplingImageProcessor(size: CGSize(width: 320 * displayScale, height: 210 * displayScale)))
                 .resizable()
                 .scaledToFill()
                 .frame(height: 210)

@@ -20,6 +20,7 @@ public struct SubscribeRow: View {
     @State private var imageLoadFailed = false
     @State private var isPerformingAction = false
 
+    @Environment(\.displayScale) private var displayScale
     public init(newsletter: SubscribeNewsletter, isSubscribed: Bool, onNavigate: (() -> Void)? = nil, onTap: @escaping () async -> Void) {
         self.newsletter = newsletter
         self.isSubscribed = isSubscribed
@@ -43,7 +44,7 @@ public struct SubscribeRow: View {
                                 .clipShape(RoundedRectangle(cornerRadius: 10))
                         } else {
                             KFImage(URL(string: newsletter.imageUrl))
-                                .setProcessor(DownsamplingImageProcessor(size: CGSize(width: 56 * UIScreen.main.scale, height: 56 * UIScreen.main.scale)))
+                                .setProcessor(DownsamplingImageProcessor(size: CGSize(width: 56 * displayScale, height: 56 * displayScale)))
                                 .placeholder {
                                     RoundedRectangle(cornerRadius: 10)
                                         .fill(Color.gray.opacity(0.2))

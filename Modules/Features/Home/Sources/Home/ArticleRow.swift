@@ -13,6 +13,7 @@ struct ArticleRow: View {
     let article: HomeArticle
     let highlightCount: Int
 
+    @Environment(\.displayScale) private var displayScale
     init(article: HomeArticle, highlightCount: Int = 0) {
         self.article = article
         self.highlightCount = highlightCount
@@ -21,7 +22,7 @@ struct ArticleRow: View {
     var body: some View {
         HStack(spacing: 12) {
             KFImage(URL(string: article.imageUrl))
-                .setProcessor(DownsamplingImageProcessor(size: CGSize(width: 56 * UIScreen.main.scale, height: 56 * UIScreen.main.scale)))
+                .setProcessor(DownsamplingImageProcessor(size: CGSize(width: 56 * displayScale, height: 56 * displayScale)))
                 .placeholder {
                     RoundedRectangle(cornerRadius: 12)
                         .fill(Color.gray.opacity(0.2))

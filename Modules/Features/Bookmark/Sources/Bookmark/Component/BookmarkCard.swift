@@ -14,6 +14,7 @@ import Kingfisher
 struct BookmarkCard: View {
     let article: BookmarkItem
     
+    @Environment(\.displayScale) private var displayScale
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
             Text(article.articleTitle)
@@ -31,7 +32,7 @@ struct BookmarkCard: View {
             HStack {
                 HStack(spacing: 4) {
                     KFImage(URL(string: article.imageURL))
-                        .setProcessor(DownsamplingImageProcessor(size: CGSize(width: 20 * UIScreen.main.scale, height: 20 * UIScreen.main.scale)))
+                        .setProcessor(DownsamplingImageProcessor(size: CGSize(width: 20 * displayScale, height: 20 * displayScale)))
                         .resizable()
                         .scaledToFill()
                         .frame(width: 20, height: 20)

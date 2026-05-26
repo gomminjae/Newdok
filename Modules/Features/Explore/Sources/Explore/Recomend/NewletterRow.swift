@@ -15,6 +15,7 @@ public struct NewsletterRow: View {
     public let newsletter: ExploreNewsletterDetail
     public let prioritizedInterests: [ExploreInterest]
 
+    @Environment(\.displayScale) private var displayScale
     public init(newsletter: ExploreNewsletterDetail, prioritizedInterests: [ExploreInterest]? = nil) {
         self.newsletter = newsletter
         self.prioritizedInterests = prioritizedInterests ?? newsletter.interests
@@ -24,7 +25,7 @@ public struct NewsletterRow: View {
         VStack(alignment: .leading, spacing: 0) {
             HStack(alignment: .top, spacing: 0) {
                 KFImage(URL(string: newsletter.imageUrl ?? ""))
-                    .setProcessor(DownsamplingImageProcessor(size: CGSize(width: 56 * UIScreen.main.scale, height: 56 * UIScreen.main.scale)))
+                    .setProcessor(DownsamplingImageProcessor(size: CGSize(width: 56 * displayScale, height: 56 * displayScale)))
                     .placeholder {
                         RoundedRectangle(cornerRadius: 10)
                             .fill(Color.gray.opacity(0.2))

@@ -15,6 +15,7 @@ struct CurationRow: View {
     let brand: AuthRecommendedBrand?
     let viewModel: SignupViewModel
     @State private var showSubscribeSheet = false
+    @Environment(\.displayScale) private var displayScale
     
     init(brand: AuthRecommendedBrand? = nil, viewModel: SignupViewModel) {
         self.brand = brand
@@ -25,7 +26,7 @@ struct CurationRow: View {
         VStack(alignment: .leading, spacing: 12) {
             HStack(alignment: .top, spacing: 12) {
                 KFImage(URL(string: brand?.imageUrl ?? ""))
-                    .setProcessor(DownsamplingImageProcessor(size: CGSize(width: 45 * UIScreen.main.scale, height: 45 * UIScreen.main.scale)))
+                    .setProcessor(DownsamplingImageProcessor(size: CGSize(width: 45 * displayScale, height: 45 * displayScale)))
                     .placeholder {
                         Color.gray.opacity(0.2)
                     }

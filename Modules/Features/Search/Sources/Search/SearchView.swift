@@ -246,10 +246,11 @@ public struct SearchView: View {
 // MARK: - 검색 결과 컴포넌트들
 struct SearchNewsletterRow: View {
     let result: SearchedNewsletter
+    @Environment(\.displayScale) private var displayScale
     var body: some View {
         HStack(spacing: 12) {
             KFImage(URL(string: result.imageUrl))
-                .setProcessor(DownsamplingImageProcessor(size: CGSize(width: 56 * UIScreen.main.scale, height: 56 * UIScreen.main.scale)))
+                .setProcessor(DownsamplingImageProcessor(size: CGSize(width: 56 * displayScale, height: 56 * displayScale)))
                 .placeholder {
                     Color.gray.opacity(0.2)
                 }
