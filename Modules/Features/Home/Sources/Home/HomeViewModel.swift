@@ -37,7 +37,8 @@ public enum HomeState {
 
 @Observable
 @MainActor
-public final class HomeViewModel {
+public final class HomeViewModel: ErrorHandling {
+    public var currentError: AppError?
     // MARK: - Dependencies
     private let fetchTodayArticlesUseCase: FetchTodayArticlesUseCase
     private let fetchMonthArticlesUseCase: FetchMonthArticlesUseCase
@@ -186,7 +187,7 @@ public final class HomeViewModel {
             lastLoadedDate = today
             homeState = resolveState()
         } catch {
-            logHomeError(error, operation: "loadToday")
+            handleError(error, feature: "home", operation: "loadToday")
             isLoaded = true
             calendarState.isLoading = false
             homeState = resolveState()
@@ -235,7 +236,7 @@ public final class HomeViewModel {
         do {
             try await refreshArticlesUseCase.execute()
         } catch {
-            logHomeError(error, operation: "refresh")
+            handleError(error, feature: "home", operation: "refresh")
         }
         await loadToday()
     }
@@ -385,7 +386,7 @@ public final class HomeViewModel {
             prefetchAdjacent(from: month)
         } catch {
             if Task.isCancelled { return }
-            logHomeError(error, operation: "loadMonthData")
+            handleError(error, feature: "home", operation: "loadMonthData")
             calendarState.isLoading = false
         }
     }
@@ -416,7 +417,7 @@ public final class HomeViewModel {
             storeArticles(decorated, for: date)
             return decorated
         } catch {
-            logHomeError(error, operation: "loadArticles")
+            handleError(error, feature: "home", operation: "loadArticles")
             return []
         }
     }
@@ -554,7 +555,7 @@ public final class HomeViewModel {
             storeDataDays(days, for: date)
             return days
         } catch {
-            logHomeError(error, operation: "fetchDataDays")
+            handleError(error, feature: "home", operation: "fetchDataDays")
             return []
         }
     }
@@ -585,13 +586,4 @@ public final class HomeViewModel {
 
     private func monthKey(for date: Date) -> String { date.newdokMonthKey }
     private func dayKey(for date: Date) -> String { date.newdokDayKey }
-}
-
-private func logHomeError(_ error: Error, operation: String) {
-    let context = ErrorContext(
-        underlyingError: error,
-        feature: "home",
-        operation: operation
-    )
-    ErrorLoggerRegistry.shared?.logError(context)
 }

@@ -42,6 +42,10 @@ extension ErrorHandling {
         )
         ErrorLoggerRegistry.shared?.logError(context)
 
+        if appError.shouldShowToast {
+            ToastCenter.shared.show(appError.userFacingMessage)
+        }
+
         currentError = appError
     }
 

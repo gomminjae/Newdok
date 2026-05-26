@@ -74,24 +74,20 @@ public final class LoginViewModel: ErrorHandling {
     private func handleLoginError(_ error: LoginError) {
         switch error {
         case .invalidPassword:
-            errorMessage = "비밀번호가 일치하지 않습니다"
+            errorMessage = error.localizedDescription
             isPasswordError = true
             isLoginIdError = false
-            currentError = .userMessage("비밀번호가 일치하지 않습니다")
         case .accountNotFound:
-            errorMessage = "등록되지 않은 계정이거나, 아이디를 다시 확인해주세요"
+            errorMessage = error.localizedDescription
             isLoginIdError = true
             isPasswordError = false
-            currentError = .userMessage("등록되지 않은 계정이거나, 아이디를 다시 확인해주세요")
         case .networkError(let underlying):
             isPasswordError = false
             isLoginIdError = false
-            if let convertible = underlying as? AppErrorConvertible {
-                currentError = convertible.toAppError()
-            } else {
-                currentError = .userMessage("네트워크 오류가 발생했습니다")
-            }
+            handleError(underlying, feature: "login", operation: "login")
+            return
         }
+        currentError = .userMessage(error.localizedDescription)
     }
 
     public var isLoginEnabled: Bool {

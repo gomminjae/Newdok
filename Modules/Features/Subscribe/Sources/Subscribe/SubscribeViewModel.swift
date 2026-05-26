@@ -85,20 +85,36 @@ public final class SubscribeViewModel: ErrorHandling {
         guard beginSubscriptionMutation(newsletterId) else { return false }
         defer { endSubscriptionMutation(newsletterId) }
 
-        let result: Void? = await performAsync(feature: "subscribe", operation: "pause") {
+        do {
             try await pauseUseCase.execute(newsletterId: newsletterId)
+            currentError = nil
+            return true
+        } catch let error as SubscribeError {
+            currentError = .userMessage(error.localizedDescription)
+            ToastCenter.shared.show(error.localizedDescription)
+            return false
+        } catch {
+            handleError(error, feature: "subscribe", operation: "pause")
+            return false
         }
-        return result != nil
     }
 
     public func resume(newsletterId: String) async -> Bool {
         guard beginSubscriptionMutation(newsletterId) else { return false }
         defer { endSubscriptionMutation(newsletterId) }
 
-        let result: Void? = await performAsync(feature: "subscribe", operation: "resume") {
+        do {
             try await resumeUseCase.execute(newsletterId: newsletterId)
+            currentError = nil
+            return true
+        } catch let error as SubscribeError {
+            currentError = .userMessage(error.localizedDescription)
+            ToastCenter.shared.show(error.localizedDescription)
+            return false
+        } catch {
+            handleError(error, feature: "subscribe", operation: "resume")
+            return false
         }
-        return result != nil
     }
 
     public func isSubscriptionPending(_ newsletterId: String) -> Bool {

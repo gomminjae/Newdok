@@ -75,6 +75,10 @@ public struct HomeView: View {
                   .backgroundColor(Color.bgPopupDim.opacity(0.6))
             }
             .navigationBarHidden(true)
+            .serverErrorPopup(
+                error: $viewModel.currentError,
+                onRetry: { Task { await viewModel.loadToday() } }
+            )
             .onAppear {
                 if isGuest {
                     viewModel.homeState = .guest

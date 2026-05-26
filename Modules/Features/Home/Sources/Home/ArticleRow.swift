@@ -71,7 +71,7 @@ struct ArticleRow: View {
         )
         .accessibilityElement(children: .combine)
         .accessibilityLabel("\(article.brandName), \(article.articleTitle), \(article.status.isRead ? "읽음" : "안읽음")\(highlightCount > 0 ? ", 하이라이트 \(highlightCount)개" : "")")
-        .accessibilityIdentifier(AccessibilityID.Home.article(article.articleId))
+        .accessibilityIdentifier("home_article_\(article.articleId)")
     }
 
     private var highlightBadge: some View {

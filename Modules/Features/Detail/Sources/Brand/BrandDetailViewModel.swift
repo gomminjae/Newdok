@@ -68,10 +68,18 @@ public final class BrandDetailViewModel: ErrorHandling {
         isSubscriptionMutating = true
         defer { isSubscriptionMutating = false }
 
-        let result: Void? = await performAsync(feature: "brandDetail", operation: "resume") {
+        do {
             try await brandRepository.resumeSubscription(newsletterId: id)
+            currentError = nil
+            return true
+        } catch let error as DetailError {
+            currentError = .userMessage(error.localizedDescription)
+            ToastCenter.shared.show(error.localizedDescription)
+            return false
+        } catch {
+            handleError(error, feature: "brandDetail", operation: "resume")
+            return false
         }
-        return result != nil
     }
 
     public func pause() async -> Bool {
@@ -79,9 +87,17 @@ public final class BrandDetailViewModel: ErrorHandling {
         isSubscriptionMutating = true
         defer { isSubscriptionMutating = false }
 
-        let result: Void? = await performAsync(feature: "brandDetail", operation: "pause") {
+        do {
             try await brandRepository.pauseSubscription(newsletterId: id)
+            currentError = nil
+            return true
+        } catch let error as DetailError {
+            currentError = .userMessage(error.localizedDescription)
+            ToastCenter.shared.show(error.localizedDescription)
+            return false
+        } catch {
+            handleError(error, feature: "brandDetail", operation: "pause")
+            return false
         }
-        return result != nil
     }
 }

@@ -19,11 +19,25 @@ public final class SubscribeNewsletterRepositoryImpl: SubscribeNewsletterReposit
     }
 
     public func pauseSubscription(newsletterId: String) async throws {
-        try await network.requestVoid(.pauseSubscription(newsletterId: newsletterId))
+        do {
+            try await network.requestVoid(.pauseSubscription(newsletterId: newsletterId))
+        } catch let error as NetworkError {
+            if case .serverError(let statusCode, _) = error, statusCode == 400 {
+                throw SubscribeError.alreadyPaused
+            }
+            throw error
+        }
     }
 
     public func resumeSubscription(newsletterId: String) async throws {
-        try await network.requestVoid(.resumeSubscription(newsletterId: newsletterId))
+        do {
+            try await network.requestVoid(.resumeSubscription(newsletterId: newsletterId))
+        } catch let error as NetworkError {
+            if case .serverError(let statusCode, _) = error, statusCode == 400 {
+                throw SubscribeError.alreadyActive
+            }
+            throw error
+        }
     }
 
     public func fetchSubscriptionCount() async throws -> Int {
