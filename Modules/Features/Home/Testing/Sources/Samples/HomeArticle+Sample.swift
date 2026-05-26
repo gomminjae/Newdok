@@ -7,7 +7,7 @@ public extension HomeArticle {
         imageUrl: "https://picsum.photos/seed/db/200",
         articleTitle: "오늘의 테크 한 입",
         articleId: 1001,
-        status: "Unread",
+        status: .unread,
         publishDate: 20260520,
         highlightCount: 3
     )
@@ -17,7 +17,7 @@ public extension HomeArticle {
         imageUrl: "https://picsum.photos/seed/wd/200",
         articleTitle: "한 주의 디자인 시스템 트렌드",
         articleId: 1002,
-        status: "Unread",
+        status: .unread,
         publishDate: 20260520,
         highlightCount: 1
     )
@@ -27,7 +27,7 @@ public extension HomeArticle {
         imageUrl: "https://picsum.photos/seed/mb/200",
         articleTitle: "오늘 아침의 마켓 뉴스",
         articleId: 1003,
-        status: "Read",
+        status: .read,
         publishDate: 20260520,
         highlightCount: 0
     )
@@ -37,7 +37,7 @@ public extension HomeArticle {
         imageUrl: "https://picsum.photos/seed/tt/200",
         articleTitle: "지난주 트렌드 정리",
         articleId: 1004,
-        status: "Read",
+        status: .read,
         publishDate: 20260513,
         highlightCount: 2
     )
@@ -47,7 +47,7 @@ public extension HomeArticle {
         imageUrl: "https://picsum.photos/seed/dn/200",
         articleTitle: "디자이너가 본 새 OS",
         articleId: 1005,
-        status: "Unread",
+        status: .unread,
         publishDate: 20260515,
         highlightCount: 4
     )
@@ -71,7 +71,7 @@ public enum SampleHomeArticles {
             imageUrl: "https://picsum.photos/seed/article\(index)/200",
             articleTitle: "샘플 아티클 \(index)",
             articleId: 2000 + index,
-            status: index % 3 == 0 ? "Read" : "Unread",
+            status: index % 3 == 0 ? .read : .unread,
             publishDate: 20260520,
             highlightCount: index % 5
         )

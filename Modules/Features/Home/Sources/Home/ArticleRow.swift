@@ -8,12 +8,13 @@ import SwiftUI
 import DesignSystem
 import HomeDomain
 import Kingfisher
+import Shared
 
 struct ArticleRow: View {
     let article: HomeArticle
     let highlightCount: Int
-
     @Environment(\.displayScale) private var displayScale
+
     init(article: HomeArticle, highlightCount: Int = 0) {
         self.article = article
         self.highlightCount = highlightCount
@@ -48,9 +49,9 @@ struct ArticleRow: View {
                     if highlightCount > 0 {
                         highlightBadge
                     } else {
-                        Text(article.status == "Read" ? "읽음" : "안읽음")
+                        Text(article.status.isRead ? "읽음" : "안읽음")
                             .font(.hanSansNeo(11, .medium))
-                            .foregroundColor(article.status == "Read" ? Color.captionAlternative : Color.primaryNormal)
+                            .foregroundColor(article.status.isRead ? Color.captionAlternative : Color.primaryNormal)
                     }
                 }
 
@@ -62,15 +63,15 @@ struct ArticleRow: View {
             }
         }
         .padding(16)
-        .background(article.status == "Read" ? Color.lineNeutral : Color.bgNormal)
+        .background(article.status.isRead ? Color.lineNeutral : Color.bgNormal)
         .clipShape(RoundedRectangle(cornerRadius: 12))
         .overlay(
             RoundedRectangle(cornerRadius: 12)
                 .stroke(Color.lineNeutral, lineWidth: 1)
         )
         .accessibilityElement(children: .combine)
-        .accessibilityLabel("\(article.brandName), \(article.articleTitle), \(article.status == "Read" ? "읽음" : "안읽음")\(highlightCount > 0 ? ", 하이라이트 \(highlightCount)개" : "")")
-        .accessibilityIdentifier("home_article_\(article.articleId)")
+        .accessibilityLabel("\(article.brandName), \(article.articleTitle), \(article.status.isRead ? "읽음" : "안읽음")\(highlightCount > 0 ? ", 하이라이트 \(highlightCount)개" : "")")
+        .accessibilityIdentifier(AccessibilityID.Home.article(article.articleId))
     }
 
     private var highlightBadge: some View {
@@ -92,7 +93,7 @@ struct ArticleRow: View {
 }
 
 #Preview(traits: .sizeThatFitsLayout) {
-    ArticleRow(article: HomeArticle(brandName: "네오", imageUrl: "", articleTitle: "헬로", articleId: 3, status: "Read"
+    ArticleRow(article: HomeArticle(brandName: "네오", imageUrl: "", articleTitle: "헬로", articleId: 3, status: .read
     ))
     .padding()
 }

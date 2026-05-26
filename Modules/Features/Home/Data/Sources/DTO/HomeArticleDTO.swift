@@ -60,7 +60,7 @@ public struct HomeArticleDTO: Decodable, Identifiable, Sendable {
             imageUrl: imageUrl ?? "",
             articleTitle: articleTitle,
             articleId: id,
-            status: status,
+            status: ReadStatus(serverValue: status),
             publishDate: publishDate
         )
     }

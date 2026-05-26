@@ -443,7 +443,7 @@ public final class HomeViewModel {
             imageUrl: article.imageUrl,
             articleTitle: article.articleTitle,
             articleId: article.articleId,
-            status: "Read",
+            status: .read,
             publishDate: article.publishDate
         )
     }
@@ -458,7 +458,7 @@ public final class HomeViewModel {
     }
 
     private func isRead(_ article: HomeArticle) -> Bool {
-        article.status.caseInsensitiveCompare("Read") == .orderedSame
+        article.status.isRead
     }
 
     // MARK: - Private: Cache Management

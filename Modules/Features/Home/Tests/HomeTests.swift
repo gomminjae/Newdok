@@ -35,8 +35,8 @@ struct HomeViewModelTests {
     }
 
     private static let sampleArticles = [
-        HomeArticle(brandName: "B1", imageUrl: "", articleTitle: "T1", articleId: 10, status: "Unread"),
-        HomeArticle(brandName: "B2", imageUrl: "", articleTitle: "T2", articleId: 20, status: "Unread")
+        HomeArticle(brandName: "B1", imageUrl: "", articleTitle: "T1", articleId: 10, status: .unread),
+        HomeArticle(brandName: "B2", imageUrl: "", articleTitle: "T2", articleId: 20, status: .unread)
     ]
 
     private static let sampleNewsletter = HomeNewsletter(
@@ -114,7 +114,7 @@ struct HomeViewModelTests {
         #expect(saveReadIds.executeCallCount == 1)
         #expect(saveReadIds.savedIds?.contains(10) == true)
         let readArticle = sut.filteredArticles.first(where: { $0.articleId == 10 })
-        #expect(readArticle?.status.caseInsensitiveCompare("Read") == .orderedSame)
+        #expect(readArticle?.status == .read)
     }
 
     @Test("resetForAuthChange clears all state")

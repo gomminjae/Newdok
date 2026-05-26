@@ -5,7 +5,7 @@ public struct HomeArticle: Sendable {
     public let imageUrl: String
     public let articleTitle: String
     public let articleId: Int
-    public let status: String
+    public let status: ReadStatus
     public let publishDate: Int?
     public let highlightCount: Int
 
@@ -14,7 +14,7 @@ public struct HomeArticle: Sendable {
         imageUrl: String,
         articleTitle: String,
         articleId: Int,
-        status: String,
+        status: ReadStatus,
         publishDate: Int? = nil,
         highlightCount: Int = 0
     ) {
