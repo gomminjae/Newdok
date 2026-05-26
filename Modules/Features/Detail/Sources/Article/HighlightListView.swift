@@ -8,6 +8,7 @@
 import SwiftUI
 import DesignSystem
 import DetailDomain
+import FoundationKit
 
 // MARK: - Highlight List View
 struct HighlightListView: View {
@@ -159,9 +160,6 @@ struct HighlightRowView: View {
     }
 
     private func formatDate(_ date: Date) -> String {
-        let formatter = DateFormatter()
-        formatter.locale = Locale(identifier: "ko_KR")
-        formatter.dateFormat = "yyyy-MM-dd HH:mm"
-        return formatter.string(from: date)
+        date.newdokHighlightDateTimeText
     }
 }

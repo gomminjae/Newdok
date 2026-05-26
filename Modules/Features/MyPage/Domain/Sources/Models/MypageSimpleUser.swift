@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import FoundationKit
 
 public struct MypageSimpleUser: Identifiable {
     public let id: Int
@@ -22,15 +23,10 @@ public struct MypageSimpleUser: Identifiable {
     }
 
     public var formattedCreatedAt: String {
-        let isoFormatter = ISO8601DateFormatter()
-        isoFormatter.formatOptions = [.withInternetDateTime, .withFractionalSeconds]
-        guard let date = isoFormatter.date(from: createdAt) else {
+        guard let date = createdAt.newdokISODate else {
             return createdAt
         }
-        let displayFormatter = DateFormatter()
-        displayFormatter.locale = Locale(identifier: "ko_KR")
-        displayFormatter.dateFormat = "yyyy.MM.dd"
-        return "\(displayFormatter.string(from: date)) 가입"
+        return "\(date.newdokJoinDateText) 가입"
     }
 
     public init(id: Int, loginId: String, phoneNumber: String, createdAt: String) {

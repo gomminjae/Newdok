@@ -11,6 +11,7 @@ import Kingfisher
 import DetailDomain
 import Shared
 import PopupView
+import FoundationKit
 
 struct RoundedCorner: Shape {
     var radius: CGFloat = 0
@@ -578,19 +579,7 @@ public struct BrandDetailView: View {
     }
 
     func extractTime(from isoString: String) -> String {
-        let isoFormatter = ISO8601DateFormatter()
-        isoFormatter.formatOptions = [.withInternetDateTime, .withFractionalSeconds]
-
-        let fallbackFormatter = ISO8601DateFormatter() // for when fractional seconds not present
-        fallbackFormatter.formatOptions = [.withInternetDateTime]
-
-        let date = isoFormatter.date(from: isoString) ?? fallbackFormatter.date(from: isoString)
-
-        guard let date = date else { return "" }
-
-        let timeFormatter = DateFormatter()
-        timeFormatter.dateFormat = "a h:mm"
-        timeFormatter.locale = Locale(identifier: "ko_KR")
-        return timeFormatter.string(from: date)
+        guard let date = isoString.newdokISODate else { return "" }
+        return date.newdokTimeText
     }
 }

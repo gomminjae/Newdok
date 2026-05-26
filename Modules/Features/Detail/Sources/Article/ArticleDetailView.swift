@@ -11,6 +11,7 @@ import Shared
 import DetailDomain
 import DesignSystem
 import Kingfisher
+import FoundationKit
 
 public struct ArticleDetailView: View {
     @State private var viewModel: ArticleDetailViewModel
@@ -221,20 +222,10 @@ public struct ArticleDetailView: View {
     }
 
     private func formatDate(_ isoString: String) -> String {
-        let isoFormatter = ISO8601DateFormatter()
-        isoFormatter.formatOptions = [.withInternetDateTime, .withFractionalSeconds]
-        isoFormatter.timeZone = TimeZone(secondsFromGMT: 0)
-
-        guard let date = isoFormatter.date(from: isoString) else {
+        guard let date = isoString.newdokISODate else {
             return isoString
         }
-
-        let displayFormatter = DateFormatter()
-        displayFormatter.locale = Locale(identifier: "ko_KR")
-        displayFormatter.timeZone = TimeZone(identifier: "Asia/Seoul")
-        displayFormatter.dateFormat = "M월 d일 (E) a h:mm"
-
-        return displayFormatter.string(from: date)
+        return date.newdokArticleDateTimeText
     }
 
     // MARK: - Highlight Actions (WebView JS 실행)
