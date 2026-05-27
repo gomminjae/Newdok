@@ -22,7 +22,7 @@ public struct AccountManagementView: View {
     private let onLogoutCleanup: () -> Void
 
     public init(
-        tokenStorage: TokenStorageProtocol = TokenStorageWrapper.shared,
+        tokenStorage: TokenStorageProtocol = TokenStore.shared,
         userInfoStore: UserInfoStoreProtocol = UserInfoStore.shared,
         appState: AppState = .shared,
         onLogoutCleanup: @escaping () -> Void = {}

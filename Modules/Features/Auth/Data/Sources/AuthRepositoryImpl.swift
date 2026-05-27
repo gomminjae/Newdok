@@ -10,7 +10,7 @@ public final class AuthRepositoryImpl: AuthRepository {
 
     public init(
         network: any NetworkService<UserAPI>,
-        tokenStorage: TokenStorageProtocol = TokenStorageWrapper.shared,
+        tokenStorage: TokenStorageProtocol = TokenStore.shared,
         userInfoStore: UserInfoStoreProtocol = UserInfoStore.shared
     ) {
         self.network = network

@@ -36,7 +36,7 @@ public final class WithdrawViewModel: ErrorHandling {
         fetchSubscriptionCountUseCase: FetchMypageSubscriptionCountUseCase,
         fetchArticleCountUseCase: FetchReceivedArticleCountUseCase,
         withdrawUseCase: MypageWithdrawUseCase,
-        tokenStorage: TokenStorageProtocol = TokenStorageWrapper.shared,
+        tokenStorage: TokenStorageProtocol = TokenStore.shared,
         userInfoStore: UserInfoStoreProtocol = UserInfoStore.shared,
         onCleanup: @escaping @MainActor () -> Void = {}
     ) {

@@ -17,7 +17,7 @@ struct NewdokApp: App {
         FirebaseApp.configure()
         DesignSystemFontFamily.registerAllCustomFonts()
         ErrorLoggerRegistry.register(CoreErrorLogger())
-        TokenStorage.migrateTokenIfNeeded()
+        TokenStore.shared.migrateTokenIfNeeded()
 
         let router = AppRouter()
         self._router = State(initialValue: router)

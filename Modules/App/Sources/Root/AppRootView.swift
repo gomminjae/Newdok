@@ -49,7 +49,7 @@ struct AppRootView: View {
                 return
             }
 
-            if TokenStorage.hasValidToken {
+            if TokenStore.shared.hasValidToken {
                 AppState.shared.login()
                 router.resetTo(.tabbar(selectedTab: .home))
             } else {
