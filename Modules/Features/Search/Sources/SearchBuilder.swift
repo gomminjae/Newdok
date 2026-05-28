@@ -8,7 +8,7 @@ public struct SearchBuilder: SearchBuildable {
     private let network: any NetworkService<SearchAPI>
 
     public init(networkProvider: NetworkProviding) {
-        self.network = SearchNetworkFactory.makeSearchNetwork(networkProvider)
+        self.network = networkProvider.makeService(for: SearchAPI.self)
     }
 
     public func makeSearchView() -> AnyView {

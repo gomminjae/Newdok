@@ -8,7 +8,7 @@ public struct SubscribeBuilder: SubscribeBuildable {
     private let network: any NetworkService<SubscribeNewsletterAPI>
 
     public init(networkProvider: NetworkProviding) {
-        self.network = SubscribeNetworkFactory.makeNewsletterNetwork(networkProvider)
+        self.network = networkProvider.makeService(for: SubscribeNewsletterAPI.self)
     }
 
     public func makeSubscribeView() -> AnyView {

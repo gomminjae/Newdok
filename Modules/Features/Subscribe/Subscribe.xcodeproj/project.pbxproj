@@ -58,7 +58,6 @@
 		AEE88122305B4428850A57DC /* DesignSystem.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AC1A311498193AE6DF677F49 /* DesignSystem.framework */; };
 		BC5D9A3AB6139B6790305DC5 /* SubscribeExampleApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67523DDB4CDDB4A9B5775D1D /* SubscribeExampleApp.swift */; };
 		C4D403ADB487A63B26DEBCBD /* SubscribeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B7D112BBF7502924041ED21 /* SubscribeView.swift */; };
-		C6178FDCFB4BB1EFF469641A /* SubscribeNetworkFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C0D5B6E2B77797326F3DFCD /* SubscribeNetworkFactory.swift */; };
 		C80E01B0867DE460720744E0 /* MockPauseSubscriptionUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52C6C8C86219782C79D3BD07 /* MockPauseSubscriptionUseCase.swift */; };
 		CB0B7570D2E7DCF3D9385631 /* Moya.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B92346DC382D5960E6BFCD0 /* Moya.framework */; };
 		CBCED34E905FF64C06915E3A /* Moya.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B92346DC382D5960E6BFCD0 /* Moya.framework */; };
@@ -285,7 +284,6 @@
 		255AADBF446AC4625B5B10B7 /* SubscribeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscribeTests.swift; sourceTree = "<group>"; };
 		27BE4372D9C9BB0DAF5A3985 /* SegmentPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentPickerView.swift; sourceTree = "<group>"; };
 		28774BD95118989809A32F82 /* SubscribeError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscribeError.swift; sourceTree = "<group>"; };
-		2C0D5B6E2B77797326F3DFCD /* SubscribeNetworkFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscribeNetworkFactory.swift; sourceTree = "<group>"; };
 		2D4AEFBB8D9678A0A33642D7 /* FetchPausedSubscriptionUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchPausedSubscriptionUseCase.swift; sourceTree = "<group>"; };
 		2DFA7E1292EDE861434D3C2A /* SubscribeTesting.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SubscribeTesting.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		32659030D723322E066C81FA /* SubscribeInterface.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SubscribeInterface.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -673,7 +671,6 @@
 			isa = PBXGroup;
 			children = (
 				CDA27B43ABB2A5922F6BF723 /* Encodable */,
-				2C0D5B6E2B77797326F3DFCD /* SubscribeNetworkFactory.swift */,
 				BDA341D080AD88E95DC1EFBD /* SubscribeNewsletterAPI.swift */,
 			);
 			path = API;
@@ -960,7 +957,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				989A43B3ADEEFACF867ECBC5 /* SubscriptionRequest.swift in Sources */,
-				C6178FDCFB4BB1EFF469641A /* SubscribeNetworkFactory.swift in Sources */,
 				4DE577C3AE91C2A7FE749119 /* SubscribeNewsletterAPI.swift in Sources */,
 				7EBB7D52E29B9F9617B05B0C /* SubscribeNewsletterDTO.swift in Sources */,
 				4A38A0AC6ACD1BD2DBDD257C /* SubscribeNewslettersCountDTO.swift in Sources */,

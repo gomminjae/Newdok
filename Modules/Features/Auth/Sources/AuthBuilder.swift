@@ -8,7 +8,7 @@ public struct AuthBuilder: AuthBuildable {
     private let network: any NetworkService<AuthUserAPI>
 
     public init(networkProvider: NetworkProviding) {
-        self.network = AuthNetworkFactory.makeUserNetwork(networkProvider)
+        self.network = networkProvider.makeService(for: AuthUserAPI.self)
     }
 
     public func makeOnboardingView() -> AnyView {

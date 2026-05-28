@@ -12,8 +12,8 @@ public struct HomeBuilder: HomeBuildable {
     private let highlightDataSource: HighlightLocalDataSource
 
     public init(networkProvider: NetworkProviding, highlightDataSource: HighlightLocalDataSource) {
-        self.articleNetwork = HomeNetworkFactory.makeArticleNetwork(networkProvider)
-        self.newsletterNetwork = HomeNetworkFactory.makeNewsletterNetwork(networkProvider)
+        self.articleNetwork = networkProvider.makeService(for: HomeArticleAPI.self)
+        self.newsletterNetwork = networkProvider.makeService(for: HomeNewsletterAPI.self)
         self.highlightDataSource = highlightDataSource
     }
 

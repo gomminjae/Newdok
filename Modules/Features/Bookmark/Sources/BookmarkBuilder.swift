@@ -8,7 +8,7 @@ public struct BookmarkBuilder: BookmarkBuildable {
     private let network: any NetworkService<BookmarkArticleAPI>
 
     public init(networkProvider: NetworkProviding) {
-        self.network = BookmarkNetworkFactory.makeArticleNetwork(networkProvider)
+        self.network = networkProvider.makeService(for: BookmarkArticleAPI.self)
     }
 
     public func makeBookmarkView() -> AnyView {

@@ -75,7 +75,6 @@
 		D90025D498615250A14DA6C7 /* Kingfisher.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 722BE9794BB696843B2378B9 /* Kingfisher.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		DB824CEA2A1609AD8764FBAB /* Moya.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD58982C5C438D314E6BEC2A /* Moya.framework */; };
 		E5164B2889523A1E7FCCA93E /* BookmarkTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D833BD260020B2F30A7E7FC8 /* BookmarkTests.swift */; };
-		E82D1A8835A37271F06833BA /* BookmarkNetworkFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F5B5AA92059FFDD64BB0762 /* BookmarkNetworkFactory.swift */; };
 		E8D17997A650266731C11F30 /* MockFetchBookmarkedInterestsUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D72B487917F46352154A5D /* MockFetchBookmarkedInterestsUseCase.swift */; };
 		EFEA28987FB90851599084C2 /* BookmarkInterestDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A8328380BADA8FF551AC269 /* BookmarkInterestDTO.swift */; };
 		F783D19B9CDAD845A9C48311 /* PopupView.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D7097229A5B4D0C77F9A1AA9 /* PopupView.framework */; };
@@ -291,7 +290,6 @@
 		16BF1ECB8E46A46B46E4DEC0 /* BookmarkTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "BookmarkTests-Info.plist"; sourceTree = "<group>"; };
 		177C50DB84A2207F875A86A6 /* BookmarkDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkDTO.swift; sourceTree = "<group>"; };
 		1D79073B3DFB35FD7DE769EB /* ToggleBookmarkStatusUseCaseImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToggleBookmarkStatusUseCaseImpl.swift; sourceTree = "<group>"; };
-		1F5B5AA92059FFDD64BB0762 /* BookmarkNetworkFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkNetworkFactory.swift; sourceTree = "<group>"; };
 		22775B642171631175E5C887 /* Shared.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Shared.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2FE6A4BBB210E743868DD0D5 /* BookmarkTesting-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "BookmarkTesting-Info.plist"; sourceTree = "<group>"; };
 		311265B76A7A915B60EE7767 /* BookmarkArticleAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkArticleAPI.swift; sourceTree = "<group>"; };
@@ -625,7 +623,6 @@
 			children = (
 				4D25B13C618DD4215B6282D2 /* Encodable */,
 				311265B76A7A915B60EE7767 /* BookmarkArticleAPI.swift */,
-				1F5B5AA92059FFDD64BB0762 /* BookmarkNetworkFactory.swift */,
 			);
 			path = API;
 			sourceTree = "<group>";
@@ -971,7 +968,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				BD2761C3F5A24B3D07E0DD13 /* BookmarkArticleAPI.swift in Sources */,
-				E82D1A8835A37271F06833BA /* BookmarkNetworkFactory.swift in Sources */,
 				965D814CB64A8A7096F0D5A6 /* BookmarkRequest.swift in Sources */,
 				5206F4FEEE24DA160A8A73E1 /* BookmarkRepositoryImpl.swift in Sources */,
 				46544D3CC066630ECA9B0AFE /* BookmarkDTO.swift in Sources */,

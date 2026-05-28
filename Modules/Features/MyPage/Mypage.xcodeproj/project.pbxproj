@@ -72,7 +72,6 @@
 		6676B749B932DA5CEC2E4FC7 /* MypageWithdrawUseCaseImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58EC02453D9378A9E882667F /* MypageWithdrawUseCaseImpl.swift */; };
 		66FED88CC9623B40E9018056 /* MypageStatsRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96C71387C911BEF715D45ED4 /* MypageStatsRepository.swift */; };
 		673279633359C697B138609A /* Shared.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A19D7843FEFE29BD0819145C /* Shared.framework */; };
-		6AA727C57E551EA0FCFC2381 /* MypageNetworkFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71D0D3FF9F2D5785733F01E8 /* MypageNetworkFactory.swift */; };
 		6F49967DE5266732372552CE /* NicknameRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60212C4A9A518D22D0675607 /* NicknameRequest.swift */; };
 		6F952B605A3F6F9FAD334A18 /* Kingfisher.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 09180759E35FAC99B7E89CD5 /* Kingfisher.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		7019BB754A571C304FE31EB5 /* PopupView.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AC9681D4DFFD4DDB3C3849F8 /* PopupView.framework */; };
@@ -405,7 +404,6 @@
 		6AF371A295252C79E14F27F3 /* CheckMypagePhoneNumberUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckMypagePhoneNumberUseCase.swift; sourceTree = "<group>"; };
 		70007C06D722D33C410CFB8D /* IndustryRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IndustryRequest.swift; sourceTree = "<group>"; };
 		70930A3EACB2DBAA1C7734DF /* MypageNewslettersCountDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MypageNewslettersCountDTO.swift; sourceTree = "<group>"; };
-		71D0D3FF9F2D5785733F01E8 /* MypageNetworkFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MypageNetworkFactory.swift; sourceTree = "<group>"; };
 		72AA4E9FF7DDC66639D13020 /* FetchMypageProfileUseCaseImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchMypageProfileUseCaseImpl.swift; sourceTree = "<group>"; };
 		734D04D066005B7F09E817DE /* EditProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileView.swift; sourceTree = "<group>"; };
 		76267DA5A11489013D8DD30E /* FetchMypageSubscriptionCountUseCaseImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchMypageSubscriptionCountUseCaseImpl.swift; sourceTree = "<group>"; };
@@ -772,7 +770,6 @@
 			children = (
 				4DCE5989B99AB90FC19CE2B3 /* Encodable */,
 				EB28F715ACFA56FEC8BEB075 /* MypageArticleAPI.swift */,
-				71D0D3FF9F2D5785733F01E8 /* MypageNetworkFactory.swift */,
 				00ADC4E6680A49B2835E0613 /* MypageNewsletterAPI.swift */,
 				01BFC2AEFC548A0615E91552 /* MypageUserAPI.swift */,
 			);
@@ -1321,7 +1318,6 @@
 				38D47628F17E29026D210B59 /* PasswordRequest.swift in Sources */,
 				64ACE20AAD8E457F506F6C0A /* PhoneNumberRequest.swift in Sources */,
 				F7B316BE3528AF02ADA6BE26 /* MypageArticleAPI.swift in Sources */,
-				6AA727C57E551EA0FCFC2381 /* MypageNetworkFactory.swift in Sources */,
 				9D82B3CCEBABF8D7C4472530 /* MypageNewsletterAPI.swift in Sources */,
 				97832CBF6E1651F5D99D9657 /* MypageUserAPI.swift in Sources */,
 				ACEFDA1D477291E9B8603C9B /* MypageArticlesCountDTO.swift in Sources */,

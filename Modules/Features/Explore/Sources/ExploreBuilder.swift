@@ -9,7 +9,7 @@ public struct ExploreBuilder: ExploreBuildable {
     private let network: any NetworkService<ExploreNewsletterAPI>
 
     public init(networkProvider: NetworkProviding) {
-        self.network = ExploreNetworkFactory.makeNewsletterNetwork(networkProvider)
+        self.network = networkProvider.makeService(for: ExploreNewsletterAPI.self)
     }
 
     public func makeExploreView() -> AnyView {

@@ -11,8 +11,8 @@ public struct DetailBuilder: DetailBuildable {
     private let highlightDataSource: HighlightLocalDataSource
 
     public init(networkProvider: NetworkProviding, highlightDataSource: HighlightLocalDataSource) {
-        self.articleNetwork = DetailNetworkFactory.makeArticleNetwork(networkProvider)
-        self.newsletterNetwork = DetailNetworkFactory.makeNewsletterNetwork(networkProvider)
+        self.articleNetwork = networkProvider.makeService(for: DetailArticleAPI.self)
+        self.newsletterNetwork = networkProvider.makeService(for: DetailNewsletterAPI.self)
         self.highlightDataSource = highlightDataSource
     }
 

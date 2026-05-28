@@ -23,7 +23,6 @@
 		1C52231AD0F31D01F81FF2EB /* Kingfisher.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 469D051C099D125ABFA94EBD /* Kingfisher.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		20D4BCFA115ABCEB63772C1A /* SearchDomain.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 138503897C437D2E43301F23 /* SearchDomain.framework */; };
 		28E36A746E3E061EF9D29291 /* MockSearchNewslettersUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6C9E8ECB6B925827AD7015D /* MockSearchNewslettersUseCase.swift */; };
-		28F1B041132346BE086F1A13 /* SearchNetworkFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAB874FE7B1BEFB1FFF15474 /* SearchNetworkFactory.swift */; };
 		2C0B7FFC91ABE89401F525AD /* MockFetchPopularKeywordsUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD06DB1B6FB5A4F669B5F023 /* MockFetchPopularKeywordsUseCase.swift */; };
 		2E50C5AF6A3FC0BDC11908E4 /* NoArticleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A1C453C66B2CD564B97D5DA /* NoArticleView.swift */; };
 		364E557C5349E74BA1C9B383 /* Core.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 382AEFFC63FBC3CADB8C4886 /* Core.framework */; };
@@ -303,7 +302,6 @@
 		9AEAA516F8E566FF78FD382B /* PopularKeywordDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopularKeywordDTO.swift; sourceTree = "<group>"; };
 		B3A2671DE7FC229A2D15ADA9 /* PopularKeyword.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopularKeyword.swift; sourceTree = "<group>"; };
 		B4C293EA1BEB83670D260B13 /* SearchExample-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "SearchExample-Info.plist"; sourceTree = "<group>"; };
-		BAB874FE7B1BEFB1FFF15474 /* SearchNetworkFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchNetworkFactory.swift; sourceTree = "<group>"; };
 		CD06DB1B6FB5A4F669B5F023 /* MockFetchPopularKeywordsUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockFetchPopularKeywordsUseCase.swift; sourceTree = "<group>"; };
 		CE3554F15AA861A6B98D0BC1 /* SearchResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultView.swift; sourceTree = "<group>"; };
 		D355E681C0F08758849D9345 /* SearchInterface.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SearchInterface.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -658,7 +656,6 @@
 			isa = PBXGroup;
 			children = (
 				E53596DC37AD0977FC3430D7 /* SearchAPI.swift */,
-				BAB874FE7B1BEFB1FFF15474 /* SearchNetworkFactory.swift */,
 			);
 			path = API;
 			sourceTree = "<group>";
@@ -913,7 +910,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				CEAA9FCA98F56C5C184D94B9 /* SearchAPI.swift in Sources */,
-				28F1B041132346BE086F1A13 /* SearchNetworkFactory.swift in Sources */,
 				BF44906891A735B74185071C /* PopularKeywordDTO.swift in Sources */,
 				413E3265B6666248C89E2464 /* SearchedNewsletterDTO.swift in Sources */,
 				CB176EEB1B83EF220AE01544 /* SearchRepositoryImpl.swift in Sources */,

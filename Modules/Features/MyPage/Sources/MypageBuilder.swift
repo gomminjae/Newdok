@@ -13,9 +13,9 @@ public final class MypageBuilder: MypageBuildable {
     private var cachedViewModel: MypageViewModel?
 
     public init(networkProvider: NetworkProviding) {
-        self.userNetwork = MypageNetworkFactory.makeUserNetwork(networkProvider)
-        self.articleNetwork = MypageNetworkFactory.makeArticleNetwork(networkProvider)
-        self.newsletterNetwork = MypageNetworkFactory.makeNewsletterNetwork(networkProvider)
+        self.userNetwork = networkProvider.makeService(for: MypageUserAPI.self)
+        self.articleNetwork = networkProvider.makeService(for: MypageArticleAPI.self)
+        self.newsletterNetwork = networkProvider.makeService(for: MypageNewsletterAPI.self)
     }
 
     private func makeUserRepository() -> MypageUserRepository {

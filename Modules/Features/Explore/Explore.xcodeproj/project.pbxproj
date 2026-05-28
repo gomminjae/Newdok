@@ -95,7 +95,6 @@
 		F4C199038FDD22B3FBAE14A8 /* FetchExploreNewslettersUseCaseImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05F8C6EFFFA7BD821F6A4C99 /* FetchExploreNewslettersUseCaseImpl.swift */; };
 		F5D01620ACBDF3BFBA5BAC7B /* FetchExploreNewslettersUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 550246FD48F5E850942D744B /* FetchExploreNewslettersUseCase.swift */; };
 		F5EA8F74D6A4033AF9485A7B /* ExploreBrand+Sample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 547C31C6AC2A90467288463A /* ExploreBrand+Sample.swift */; };
-		FD4C820D4E9051043B275BEC /* ExploreNetworkFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = E70CA265EE2B3500658BCBD0 /* ExploreNetworkFactory.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -358,7 +357,6 @@
 		DA2263923D4B545CDBF405D4 /* ExploreInterest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreInterest.swift; sourceTree = "<group>"; };
 		DC237F88BE629BF3598049C7 /* SortBottomSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortBottomSheet.swift; sourceTree = "<group>"; };
 		DE33DBDE88BA0AC4A46767D2 /* ExploreNewsletterDetailDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreNewsletterDetailDTO.swift; sourceTree = "<group>"; };
-		E70CA265EE2B3500658BCBD0 /* ExploreNetworkFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreNetworkFactory.swift; sourceTree = "<group>"; };
 		E8584C892020BB03C7F6C2EC /* Alamofire.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Alamofire.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		EAF7E9F91BEEED81420691F5 /* FetchExploreBrandDetailUseCaseImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchExploreBrandDetailUseCaseImpl.swift; sourceTree = "<group>"; };
 		EB6BFB9C49D58077BC4C3EE7 /* Shared.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Shared.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -731,7 +729,6 @@
 		EB7B3759C5FF2B14904DBD9D /* API */ = {
 			isa = PBXGroup;
 			children = (
-				E70CA265EE2B3500658BCBD0 /* ExploreNetworkFactory.swift */,
 				A9E5FC88EEBE9469E10BA69D /* ExploreNewsletterAPI.swift */,
 			);
 			path = API;
@@ -1077,7 +1074,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FD4C820D4E9051043B275BEC /* ExploreNetworkFactory.swift in Sources */,
 				B0B496DA44C9B1D2E644CDA2 /* ExploreNewsletterAPI.swift in Sources */,
 				485C9AA179D636FB26CBE6AF /* ExploreBrandArticleDTO.swift in Sources */,
 				71474BA87E102C5721C20066 /* ExploreBrandDTO.swift in Sources */,
