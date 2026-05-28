@@ -4,11 +4,11 @@ import Core
 import Shared
 
 public final class MypageUserRepositoryImpl: MypageUserRepository {
-    private let network: any NetworkService<UserAPI>
+    private let network: any NetworkService<MypageUserAPI>
     private let userInfoStore: UserInfoStoreProtocol
 
     public init(
-        network: any NetworkService<UserAPI>,
+        network: any NetworkService<MypageUserAPI>,
         userInfoStore: UserInfoStoreProtocol = UserInfoStore.shared
     ) {
         self.network = network

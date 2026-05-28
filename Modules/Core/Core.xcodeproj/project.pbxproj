@@ -9,14 +9,11 @@
 /* Begin PBXBuildFile section */
 		02527DA6DDB4B80446F4D0B6 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0005D64BC01AB62547E865D0 /* Logger.swift */; };
 		0CD90D2359B0E7BA52DF5427 /* ErrorMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72703E2E055FAC09CC450CE3 /* ErrorMapper.swift */; };
-		12A050898389A31D0211F7DD /* ArticleAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CAED9396624C071D9857C2A /* ArticleAPI.swift */; };
 		26DDBA6697F22B468B5DE126 /* LogLevel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4F359223CAD0B3B175BDB83 /* LogLevel.swift */; };
-		279D7C2E27034BD1592014A0 /* UserAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42017D3A75462296737C376F /* UserAPI.swift */; };
 		27E013E9E2A196C96E85C6E1 /* MoyaProvider+Async.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CB52B1CA1F1B0867255328D /* MoyaProvider+Async.swift */; };
-		3B794A025E43D1D75FBFB049 /* SearchAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F4C7AB450F070BA43F524B3 /* SearchAPI.swift */; };
+		346DAB73580C2685CAB995BE /* DefaultTargetType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 676C3369CEB9579251A09CB0 /* DefaultTargetType.swift */; };
 		3C70BCF59122F24D77D22BC3 /* AccessTokenPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05ECDCC9A0A1527B8AAEE504 /* AccessTokenPlugin.swift */; };
 		3DB99F69E9BE9A6C85929F7B /* ErrorLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7EB845D3EA91FB56577F772 /* ErrorLogger.swift */; };
-		547CE325F59B24CE8612138E /* NewsletterAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A500F39A85EDEA884FA67B7 /* NewsletterAPI.swift */; };
 		6060ADA578420B6B6DA0DED2 /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D2C05222F38012E3350EB44 /* NetworkError.swift */; };
 		67AA7B45164477AED0C7255D /* MoyaNetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6507D6169DA0C94A6619A052 /* MoyaNetworkService.swift */; };
 		78DE9E2870EA091066A98F3E /* Moya.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6260F75C087362295DDE52AE /* Moya.framework */; };
@@ -65,17 +62,14 @@
 		21B90BD9DAF1F16193798058 /* LogOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogOutput.swift; sourceTree = "<group>"; };
 		26BDD2D3E7FED8CDE9A52F46 /* Core-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "Core-Info.plist"; sourceTree = "<group>"; };
 		29D52B2E4D0092141C27BCFB /* TokenPlugin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenPlugin.swift; sourceTree = "<group>"; };
-		2A500F39A85EDEA884FA67B7 /* NewsletterAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsletterAPI.swift; sourceTree = "<group>"; };
 		2B0FA7F85F3573FB522F9478 /* Core.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Core.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2F1C44CB1AACD2D126BA6FE8 /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 		37D20FB3473EE5354A38EDF4 /* APIEnvironment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIEnvironment.swift; sourceTree = "<group>"; };
 		39C015A0A4F1E90FBDFFF855 /* AuthInterceptor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthInterceptor.swift; sourceTree = "<group>"; };
 		3CB52B1CA1F1B0867255328D /* MoyaProvider+Async.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MoyaProvider+Async.swift"; sourceTree = "<group>"; };
-		42017D3A75462296737C376F /* UserAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAPI.swift; sourceTree = "<group>"; };
-		4CAED9396624C071D9857C2A /* ArticleAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleAPI.swift; sourceTree = "<group>"; };
-		4F4C7AB450F070BA43F524B3 /* SearchAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchAPI.swift; sourceTree = "<group>"; };
 		6260F75C087362295DDE52AE /* Moya.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Moya.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6507D6169DA0C94A6619A052 /* MoyaNetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoyaNetworkService.swift; sourceTree = "<group>"; };
+		676C3369CEB9579251A09CB0 /* DefaultTargetType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultTargetType.swift; sourceTree = "<group>"; };
 		72703E2E055FAC09CC450CE3 /* ErrorMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorMapper.swift; sourceTree = "<group>"; };
 		A7EB845D3EA91FB56577F772 /* ErrorLogger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorLogger.swift; sourceTree = "<group>"; };
 		B8E481F76A48C00550F37F55 /* Shared.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Shared.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -167,7 +161,6 @@
 		81104ECEC5CD1B0F5111557B /* Sources */ = {
 			isa = PBXGroup;
 			children = (
-				EF43897A4EC2F17B200C08C2 /* API */,
 				4B0AD725144D540691BCF05F /* Log */,
 				A58C2BCC11B9ECEF52CEEC77 /* Network */,
 			);
@@ -190,6 +183,7 @@
 				29E6F4F991C14AC479421678 /* Core */,
 				5C475DB9E0AD9001EACCA8B5 /* Interceptor */,
 				37D20FB3473EE5354A38EDF4 /* APIEnvironment.swift */,
+				676C3369CEB9579251A09CB0 /* DefaultTargetType.swift */,
 				6507D6169DA0C94A6619A052 /* MoyaNetworkService.swift */,
 				CEF091BF7231A5E1E4699673 /* NetworkProvider.swift */,
 				2F1C44CB1AACD2D126BA6FE8 /* NetworkService.swift */,
@@ -204,17 +198,6 @@
 				81104ECEC5CD1B0F5111557B /* Sources */,
 			);
 			name = Project;
-			sourceTree = "<group>";
-		};
-		EF43897A4EC2F17B200C08C2 /* API */ = {
-			isa = PBXGroup;
-			children = (
-				4CAED9396624C071D9857C2A /* ArticleAPI.swift */,
-				2A500F39A85EDEA884FA67B7 /* NewsletterAPI.swift */,
-				4F4C7AB450F070BA43F524B3 /* SearchAPI.swift */,
-				42017D3A75462296737C376F /* UserAPI.swift */,
-			);
-			path = API;
 			sourceTree = "<group>";
 		};
 		F631B3543A0C26BDC2DE72DD /* Derived */ = {
@@ -293,10 +276,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				12A050898389A31D0211F7DD /* ArticleAPI.swift in Sources */,
-				547CE325F59B24CE8612138E /* NewsletterAPI.swift in Sources */,
-				3B794A025E43D1D75FBFB049 /* SearchAPI.swift in Sources */,
-				279D7C2E27034BD1592014A0 /* UserAPI.swift in Sources */,
 				3DB99F69E9BE9A6C85929F7B /* ErrorLogger.swift in Sources */,
 				ED6B6195294BC6C59ACC4C71 /* LogCategory.swift in Sources */,
 				AAE78F066282F78A8FE6CBA3 /* LogDestination.swift in Sources */,
@@ -311,6 +290,7 @@
 				3C70BCF59122F24D77D22BC3 /* AccessTokenPlugin.swift in Sources */,
 				9312E114DDCBE60BDD2DD032 /* NetworkLoggerPlugin.swift in Sources */,
 				D32B53DF3BA93B1875B18F04 /* TokenPlugin.swift in Sources */,
+				346DAB73580C2685CAB995BE /* DefaultTargetType.swift in Sources */,
 				AECBBB447FE9A2ED67703BF9 /* AuthInterceptor.swift in Sources */,
 				67AA7B45164477AED0C7255D /* MoyaNetworkService.swift in Sources */,
 				E04A978CAE4A2D7499F40213 /* NetworkProvider.swift in Sources */,

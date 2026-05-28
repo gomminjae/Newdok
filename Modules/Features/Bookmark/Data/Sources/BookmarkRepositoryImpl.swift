@@ -3,9 +3,9 @@ import Core
 import Shared
 
 public final class BookmarkRepositoryImpl: BookmarkRepository {
-    private let network: any NetworkService<ArticleAPI>
+    private let network: any NetworkService<BookmarkArticleAPI>
 
-    public init(network: any NetworkService<ArticleAPI>) {
+    public init(network: any NetworkService<BookmarkArticleAPI>) {
         self.network = network
     }
 

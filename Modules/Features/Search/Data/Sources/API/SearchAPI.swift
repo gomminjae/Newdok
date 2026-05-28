@@ -1,12 +1,6 @@
-//
-//  SearchAPI.swift
-//  Core
-//
-//  Created by 권민재 on 7/13/25.
-//  Copyright © 2025 Your Organization Name. All rights reserved.
-//
 import Moya
 import Foundation
+import Core
 
 public enum SearchAPI {
     case searchNewsletters(brandName: String)
@@ -15,9 +9,9 @@ public enum SearchAPI {
 
 extension SearchAPI: TargetType {
     public var baseURL: URL {
-        return URL(string: "\(APIEnvironment.current.baseURL)/search")!
+        return URL(string: "\(APIEnvironment.baseURL)/search")!
     }
-    
+
     public var path: String {
         switch self {
         case .searchNewsletters:
@@ -26,11 +20,11 @@ extension SearchAPI: TargetType {
             return "/popular"
         }
     }
-    
+
     public var method: Moya.Method {
         return .get
     }
-    
+
     public var task: Moya.Task {
         switch self {
         case .searchNewsletters(let keyword):
@@ -41,7 +35,7 @@ extension SearchAPI: TargetType {
             return .requestPlain
         }
     }
-    
+
     public var headers: [String: String]? {
         return [
             "Content-Type": "application/json",

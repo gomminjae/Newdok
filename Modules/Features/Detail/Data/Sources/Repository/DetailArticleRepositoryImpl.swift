@@ -3,9 +3,9 @@ import Core
 import Shared
 
 public final class DetailArticleRepositoryImpl: DetailArticleRepository {
-    private let network: any NetworkService<ArticleAPI>
+    private let network: any NetworkService<DetailArticleAPI>
 
-    public init(network: any NetworkService<ArticleAPI>) {
+    public init(network: any NetworkService<DetailArticleAPI>) {
         self.network = network
     }
 

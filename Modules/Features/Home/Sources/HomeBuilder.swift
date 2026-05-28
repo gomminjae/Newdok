@@ -7,17 +7,13 @@ import HomeDomain
 import HomeData
 
 public struct HomeBuilder: HomeBuildable {
-    private let articleNetwork: any NetworkService<ArticleAPI>
-    private let newsletterNetwork: any NetworkService<NewsletterAPI>
+    private let articleNetwork: any NetworkService<HomeArticleAPI>
+    private let newsletterNetwork: any NetworkService<HomeNewsletterAPI>
     private let highlightDataSource: HighlightLocalDataSource
 
-    public init(
-        articleNetwork: any NetworkService<ArticleAPI>,
-        newsletterNetwork: any NetworkService<NewsletterAPI>,
-        highlightDataSource: HighlightLocalDataSource
-    ) {
-        self.articleNetwork = articleNetwork
-        self.newsletterNetwork = newsletterNetwork
+    public init(networkProvider: NetworkProviding, highlightDataSource: HighlightLocalDataSource) {
+        self.articleNetwork = HomeNetworkFactory.makeArticleNetwork(networkProvider)
+        self.newsletterNetwork = HomeNetworkFactory.makeNewsletterNetwork(networkProvider)
         self.highlightDataSource = highlightDataSource
     }
 

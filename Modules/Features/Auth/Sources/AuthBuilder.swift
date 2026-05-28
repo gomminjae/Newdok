@@ -5,10 +5,10 @@ import AuthDomain
 import AuthData
 
 public struct AuthBuilder: AuthBuildable {
-    private let network: any NetworkService<UserAPI>
+    private let network: any NetworkService<AuthUserAPI>
 
-    public init(network: any NetworkService<UserAPI>) {
-        self.network = network
+    public init(networkProvider: NetworkProviding) {
+        self.network = AuthNetworkFactory.makeUserNetwork(networkProvider)
     }
 
     public func makeOnboardingView() -> AnyView {

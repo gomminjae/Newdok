@@ -5,10 +5,10 @@ import SubscribeDomain
 import SubscribeData
 
 public struct SubscribeBuilder: SubscribeBuildable {
-    private let network: any NetworkService<NewsletterAPI>
+    private let network: any NetworkService<SubscribeNewsletterAPI>
 
-    public init(network: any NetworkService<NewsletterAPI>) {
-        self.network = network
+    public init(networkProvider: NetworkProviding) {
+        self.network = SubscribeNetworkFactory.makeNewsletterNetwork(networkProvider)
     }
 
     public func makeSubscribeView() -> AnyView {

@@ -3,10 +3,10 @@ import Core
 import Shared
 
 public final class HomeArticleRepositoryImpl: HomeArticleRepository {
-    private let network: any NetworkService<ArticleAPI>
+    private let network: any NetworkService<HomeArticleAPI>
     private let readArticleStore: ReadArticleStore
 
-    public init(network: any NetworkService<ArticleAPI>, readArticleStore: ReadArticleStore = ReadArticleStore()) {
+    public init(network: any NetworkService<HomeArticleAPI>, readArticleStore: ReadArticleStore = ReadArticleStore()) {
         self.network = network
         self.readArticleStore = readArticleStore
     }

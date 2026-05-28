@@ -4,12 +4,12 @@ import Core
 import Shared
 
 public final class AuthRepositoryImpl: AuthRepository {
-    private let network: any NetworkService<UserAPI>
+    private let network: any NetworkService<AuthUserAPI>
     private let tokenStorage: TokenStorageProtocol
     private let userInfoStore: UserInfoStoreProtocol
 
     public init(
-        network: any NetworkService<UserAPI>,
+        network: any NetworkService<AuthUserAPI>,
         tokenStorage: TokenStorageProtocol = TokenStore.shared,
         userInfoStore: UserInfoStoreProtocol = UserInfoStore.shared
     ) {

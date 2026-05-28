@@ -26,32 +26,28 @@ final class AppContainer {
     let router: AppRouter
     private let deps: AppDependencies
 
-    private lazy var authBuilder: AuthBuildable = AuthBuilder(network: deps.userNetwork)
+    private lazy var authBuilder: AuthBuildable = AuthBuilder(networkProvider: deps.networkProvider)
 
     private lazy var homeBuilder: HomeBuildable = HomeBuilder(
-        articleNetwork: deps.articleNetwork,
-        newsletterNetwork: deps.newsletterNetwork,
+        networkProvider: deps.networkProvider,
         highlightDataSource: deps.highlightDataSource
     )
 
-    private lazy var exploreBuilder: ExploreBuildable = ExploreBuilder(network: deps.newsletterNetwork)
+    private lazy var exploreBuilder: ExploreBuildable = ExploreBuilder(networkProvider: deps.networkProvider)
 
-    private lazy var subscribeBuilder: SubscribeBuildable = SubscribeBuilder(network: deps.newsletterNetwork)
+    private lazy var subscribeBuilder: SubscribeBuildable = SubscribeBuilder(networkProvider: deps.networkProvider)
 
-    private lazy var bookmarkBuilder: BookmarkBuildable = BookmarkBuilder(network: deps.articleNetwork)
+    private lazy var bookmarkBuilder: BookmarkBuildable = BookmarkBuilder(networkProvider: deps.networkProvider)
 
     private lazy var detailBuilder: DetailBuildable = DetailBuilder(
-        articleNetwork: deps.articleNetwork,
-        newsletterNetwork: deps.newsletterNetwork,
+        networkProvider: deps.networkProvider,
         highlightDataSource: deps.highlightDataSource
     )
 
-    private lazy var searchBuilder: SearchBuildable = SearchBuilder(network: deps.searchNetwork)
+    private lazy var searchBuilder: SearchBuildable = SearchBuilder(networkProvider: deps.networkProvider)
 
     private lazy var mypageBuilder: MypageBuildable = MypageBuilder(
-        userNetwork: deps.userNetwork,
-        articleNetwork: deps.articleNetwork,
-        newsletterNetwork: deps.newsletterNetwork
+        networkProvider: deps.networkProvider
     )
 
     init(router: AppRouter, deps: AppDependencies) {

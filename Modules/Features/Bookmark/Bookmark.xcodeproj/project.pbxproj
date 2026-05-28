@@ -26,6 +26,7 @@
 		308C9A7AE3F98D84A0E2F33F /* BookmarkData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 82057388BFC0F3F42C3F8205 /* BookmarkData.framework */; };
 		35E55A3EB79F3C79237B06A9 /* BookmarkData.framework in Dependencies */ = {isa = PBXBuildFile; fileRef = 82057388BFC0F3F42C3F8205 /* BookmarkData.framework */; };
 		36A1C8F8DBC81433306D7FFD /* Bookmark.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 76BD577AD93EFB89FF1662CC /* Bookmark.framework */; };
+		398C358B05E39D463566987A /* BookmarkSortBottomSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = D13F9A4DD3CE365312FF6EFD /* BookmarkSortBottomSheet.swift */; };
 		41214122226FE32CD3C03506 /* BookmarkDomain.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D71C9FA16EA7F7B8C065C3F /* BookmarkDomain.framework */; };
 		45925DF8DE7496C4348BD0F9 /* BookmarkInterface.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E7655ACA3BC556B119528725 /* BookmarkInterface.framework */; };
 		46544D3CC066630ECA9B0AFE /* BookmarkDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 177C50DB84A2207F875A86A6 /* BookmarkDTO.swift */; };
@@ -53,6 +54,7 @@
 		8F0C6B4BC531BA9A2AB6D0D0 /* BookmarkInterface.framework in Dependencies */ = {isa = PBXBuildFile; fileRef = E7655ACA3BC556B119528725 /* BookmarkInterface.framework */; };
 		8FEE905D5215D72F335C01F4 /* MockToggleBookmarkStatusUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BB770F786C65953FA072D47 /* MockToggleBookmarkStatusUseCase.swift */; };
 		92AB3DEE28EE2D9A54BA8E83 /* Core.framework in Dependencies */ = {isa = PBXBuildFile; fileRef = 04218E44C8D7EEB4DB1FEB17 /* Core.framework */; };
+		965D814CB64A8A7096F0D5A6 /* BookmarkRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F85A76ED5370E68D43B50BD /* BookmarkRequest.swift */; };
 		9CDFF7E5C35845724D00EEF8 /* BookmarkItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = D276B3421EA24CE847FEE3A2 /* BookmarkItem.swift */; };
 		9D7C75A36F3F477772BD7FBE /* BookmarkEmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 962531354FC80D68BEDB100B /* BookmarkEmptyView.swift */; };
 		A4986F3B592504E5025275B6 /* DesignSystem.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F2A5BEA1A83032F8516C05FC /* DesignSystem.framework */; };
@@ -61,6 +63,7 @@
 		B5602D28474E43E016E4B621 /* DesignSystem.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = F2A5BEA1A83032F8516C05FC /* DesignSystem.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		BB3583AB8AFF5A8582A7EA5C /* Bookmark.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 76BD577AD93EFB89FF1662CC /* Bookmark.framework */; };
 		BCB178B26120DAE57F765D76 /* FetchBookmarkedInterestsUseCaseImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDB8DFAD64525DD3CF1E7EDF /* FetchBookmarkedInterestsUseCaseImpl.swift */; };
+		BD2761C3F5A24B3D07E0DD13 /* BookmarkArticleAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 311265B76A7A915B60EE7767 /* BookmarkArticleAPI.swift */; };
 		C1101C88BE3BC60EDA35F222 /* MockFetchBookmarkedArticlesUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBEAB6D95837215A0E40807C /* MockFetchBookmarkedArticlesUseCase.swift */; };
 		C3326C3758B8FE084CAF4D0A /* Shared.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22775B642171631175E5C887 /* Shared.framework */; };
 		C6294624C9177D6AB21D9D1C /* Alamofire.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = F0CCCA6FC1C50F4DD02B1CCC /* Alamofire.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -68,9 +71,11 @@
 		C9713249EFF54B95D5957871 /* Shared.framework in Dependencies */ = {isa = PBXBuildFile; fileRef = 22775B642171631175E5C887 /* Shared.framework */; };
 		CB39ECF8F89EB6D5AAC4958E /* BookmarkInterface.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E7655ACA3BC556B119528725 /* BookmarkInterface.framework */; };
 		CF73B8C022BAB1E5C80C0D99 /* Core.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04218E44C8D7EEB4DB1FEB17 /* Core.framework */; };
+		D332F437428E07D21B7E5834 /* Moya.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD58982C5C438D314E6BEC2A /* Moya.framework */; };
 		D90025D498615250A14DA6C7 /* Kingfisher.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 722BE9794BB696843B2378B9 /* Kingfisher.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		DB824CEA2A1609AD8764FBAB /* Moya.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD58982C5C438D314E6BEC2A /* Moya.framework */; };
 		E5164B2889523A1E7FCCA93E /* BookmarkTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D833BD260020B2F30A7E7FC8 /* BookmarkTests.swift */; };
+		E82D1A8835A37271F06833BA /* BookmarkNetworkFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F5B5AA92059FFDD64BB0762 /* BookmarkNetworkFactory.swift */; };
 		E8D17997A650266731C11F30 /* MockFetchBookmarkedInterestsUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D72B487917F46352154A5D /* MockFetchBookmarkedInterestsUseCase.swift */; };
 		EFEA28987FB90851599084C2 /* BookmarkInterestDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A8328380BADA8FF551AC269 /* BookmarkInterestDTO.swift */; };
 		F783D19B9CDAD845A9C48311 /* PopupView.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D7097229A5B4D0C77F9A1AA9 /* PopupView.framework */; };
@@ -282,11 +287,14 @@
 		0BB770F786C65953FA072D47 /* MockToggleBookmarkStatusUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockToggleBookmarkStatusUseCase.swift; sourceTree = "<group>"; };
 		0D3BBDC46E228A25D0BFF881 /* ToggleBookmarkStatusUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToggleBookmarkStatusUseCase.swift; sourceTree = "<group>"; };
 		0DEC7FF30725688E6BE8DE19 /* BookmarkRepositoryImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkRepositoryImpl.swift; sourceTree = "<group>"; };
+		0F85A76ED5370E68D43B50BD /* BookmarkRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkRequest.swift; sourceTree = "<group>"; };
 		16BF1ECB8E46A46B46E4DEC0 /* BookmarkTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "BookmarkTests-Info.plist"; sourceTree = "<group>"; };
 		177C50DB84A2207F875A86A6 /* BookmarkDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkDTO.swift; sourceTree = "<group>"; };
 		1D79073B3DFB35FD7DE769EB /* ToggleBookmarkStatusUseCaseImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToggleBookmarkStatusUseCaseImpl.swift; sourceTree = "<group>"; };
+		1F5B5AA92059FFDD64BB0762 /* BookmarkNetworkFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkNetworkFactory.swift; sourceTree = "<group>"; };
 		22775B642171631175E5C887 /* Shared.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Shared.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2FE6A4BBB210E743868DD0D5 /* BookmarkTesting-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "BookmarkTesting-Info.plist"; sourceTree = "<group>"; };
+		311265B76A7A915B60EE7767 /* BookmarkArticleAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkArticleAPI.swift; sourceTree = "<group>"; };
 		3454092925EB42A81D366B6F /* BookmarkedArticles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkedArticles.swift; sourceTree = "<group>"; };
 		3A8328380BADA8FF551AC269 /* BookmarkInterestDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkInterestDTO.swift; sourceTree = "<group>"; };
 		455970BB067D86A1E0357180 /* BookmarkTesting.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = BookmarkTesting.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -311,6 +319,7 @@
 		B5F84BC7D11297441DD5C5C4 /* BookmarkExample-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "BookmarkExample-Info.plist"; sourceTree = "<group>"; };
 		BE0794787B1481BD387B2CC6 /* BookmarkExampleApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkExampleApp.swift; sourceTree = "<group>"; };
 		CD58982C5C438D314E6BEC2A /* Moya.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Moya.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D13F9A4DD3CE365312FF6EFD /* BookmarkSortBottomSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkSortBottomSheet.swift; sourceTree = "<group>"; };
 		D276B3421EA24CE847FEE3A2 /* BookmarkItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkItem.swift; sourceTree = "<group>"; };
 		D31CA5BDB3B22749605469DE /* FetchBookmarkedArticlesUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchBookmarkedArticlesUseCase.swift; sourceTree = "<group>"; };
 		D7097229A5B4D0C77F9A1AA9 /* PopupView.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = PopupView.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -359,6 +368,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D332F437428E07D21B7E5834 /* Moya.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -469,6 +479,14 @@
 				97DAA337D2CC52A06A96F0BF /* BookmarkInterface.swift */,
 			);
 			path = Sources;
+			sourceTree = "<group>";
+		};
+		4D25B13C618DD4215B6282D2 /* Encodable */ = {
+			isa = PBXGroup;
+			children = (
+				0F85A76ED5370E68D43B50BD /* BookmarkRequest.swift */,
+			);
+			path = Encodable;
 			sourceTree = "<group>";
 		};
 		4D4AF63CE9F3CAA238AEF2F2 /* Testing */ = {
@@ -602,6 +620,16 @@
 			path = Example;
 			sourceTree = "<group>";
 		};
+		B8D0D90D2471B5381D1FCCD1 /* API */ = {
+			isa = PBXGroup;
+			children = (
+				4D25B13C618DD4215B6282D2 /* Encodable */,
+				311265B76A7A915B60EE7767 /* BookmarkArticleAPI.swift */,
+				1F5B5AA92059FFDD64BB0762 /* BookmarkNetworkFactory.swift */,
+			);
+			path = API;
+			sourceTree = "<group>";
+		};
 		CE65D08C36089461970B52C9 /* Data */ = {
 			isa = PBXGroup;
 			children = (
@@ -616,6 +644,7 @@
 				4A4FB4C4A723601828C258CC /* BookmarkCard.swift */,
 				962531354FC80D68BEDB100B /* BookmarkEmptyView.swift */,
 				A47C7D14746696637C609C95 /* BookmarkGuestView.swift */,
+				D13F9A4DD3CE365312FF6EFD /* BookmarkSortBottomSheet.swift */,
 			);
 			path = Component;
 			sourceTree = "<group>";
@@ -642,6 +671,7 @@
 		EB068E66345C99BA1DFDD42A /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				B8D0D90D2471B5381D1FCCD1 /* API */,
 				E55D71CDB28C15F3B0B5B35A /* DTO */,
 				0DEC7FF30725688E6BE8DE19 /* BookmarkRepositoryImpl.swift */,
 			);
@@ -917,6 +947,7 @@
 				4B8E741C0553FA36707879DF /* BookmarkCard.swift in Sources */,
 				9D7C75A36F3F477772BD7FBE /* BookmarkEmptyView.swift in Sources */,
 				17D27226B3ACEBBA22B67FA4 /* BookmarkGuestView.swift in Sources */,
+				398C358B05E39D463566987A /* BookmarkSortBottomSheet.swift in Sources */,
 				8E2AA545E351C1CFC4F6C213 /* BookmarkBuilder.swift in Sources */,
 				C6D2F181D424BE4BA0E205C4 /* BookmarkMain.swift in Sources */,
 				292A125709A1026D71045F7A /* NewsLetterView.swift in Sources */,
@@ -939,6 +970,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BD2761C3F5A24B3D07E0DD13 /* BookmarkArticleAPI.swift in Sources */,
+				E82D1A8835A37271F06833BA /* BookmarkNetworkFactory.swift in Sources */,
+				965D814CB64A8A7096F0D5A6 /* BookmarkRequest.swift in Sources */,
 				5206F4FEEE24DA160A8A73E1 /* BookmarkRepositoryImpl.swift in Sources */,
 				46544D3CC066630ECA9B0AFE /* BookmarkDTO.swift in Sources */,
 				EFEA28987FB90851599084C2 /* BookmarkInterestDTO.swift in Sources */,

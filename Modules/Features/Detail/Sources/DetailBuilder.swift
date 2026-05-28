@@ -6,17 +6,13 @@ import DetailDomain
 import DetailData
 
 public struct DetailBuilder: DetailBuildable {
-    private let articleNetwork: any NetworkService<ArticleAPI>
-    private let newsletterNetwork: any NetworkService<NewsletterAPI>
+    private let articleNetwork: any NetworkService<DetailArticleAPI>
+    private let newsletterNetwork: any NetworkService<DetailNewsletterAPI>
     private let highlightDataSource: HighlightLocalDataSource
 
-    public init(
-        articleNetwork: any NetworkService<ArticleAPI>,
-        newsletterNetwork: any NetworkService<NewsletterAPI>,
-        highlightDataSource: HighlightLocalDataSource
-    ) {
-        self.articleNetwork = articleNetwork
-        self.newsletterNetwork = newsletterNetwork
+    public init(networkProvider: NetworkProviding, highlightDataSource: HighlightLocalDataSource) {
+        self.articleNetwork = DetailNetworkFactory.makeArticleNetwork(networkProvider)
+        self.newsletterNetwork = DetailNetworkFactory.makeNewsletterNetwork(networkProvider)
         self.highlightDataSource = highlightDataSource
     }
 

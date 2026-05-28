@@ -3,12 +3,12 @@ import MypageDomain
 import Core
 
 public final class MypageStatsRepositoryImpl: MypageStatsRepository {
-    private let articleNetwork: any NetworkService<ArticleAPI>
-    private let newsletterNetwork: any NetworkService<NewsletterAPI>
+    private let articleNetwork: any NetworkService<MypageArticleAPI>
+    private let newsletterNetwork: any NetworkService<MypageNewsletterAPI>
 
     public init(
-        articleNetwork: any NetworkService<ArticleAPI>,
-        newsletterNetwork: any NetworkService<NewsletterAPI>
+        articleNetwork: any NetworkService<MypageArticleAPI>,
+        newsletterNetwork: any NetworkService<MypageNewsletterAPI>
     ) {
         self.articleNetwork = articleNetwork
         self.newsletterNetwork = newsletterNetwork

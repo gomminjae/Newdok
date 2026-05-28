@@ -3,9 +3,9 @@ import Core
 import Shared
 
 public final class DetailBrandRepositoryImpl: DetailBrandRepository {
-    private let network: any NetworkService<NewsletterAPI>
+    private let network: any NetworkService<DetailNewsletterAPI>
 
-    public init(network: any NetworkService<NewsletterAPI>) {
+    public init(network: any NetworkService<DetailNewsletterAPI>) {
         self.network = network
     }
 

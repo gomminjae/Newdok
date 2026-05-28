@@ -6,20 +6,16 @@ import MypageData
 
 @MainActor
 public final class MypageBuilder: MypageBuildable {
-    private let userNetwork: any NetworkService<UserAPI>
-    private let articleNetwork: any NetworkService<ArticleAPI>
-    private let newsletterNetwork: any NetworkService<NewsletterAPI>
+    private let userNetwork: any NetworkService<MypageUserAPI>
+    private let articleNetwork: any NetworkService<MypageArticleAPI>
+    private let newsletterNetwork: any NetworkService<MypageNewsletterAPI>
 
     private var cachedViewModel: MypageViewModel?
 
-    public init(
-        userNetwork: any NetworkService<UserAPI>,
-        articleNetwork: any NetworkService<ArticleAPI>,
-        newsletterNetwork: any NetworkService<NewsletterAPI>
-    ) {
-        self.userNetwork = userNetwork
-        self.articleNetwork = articleNetwork
-        self.newsletterNetwork = newsletterNetwork
+    public init(networkProvider: NetworkProviding) {
+        self.userNetwork = MypageNetworkFactory.makeUserNetwork(networkProvider)
+        self.articleNetwork = MypageNetworkFactory.makeArticleNetwork(networkProvider)
+        self.newsletterNetwork = MypageNetworkFactory.makeNewsletterNetwork(networkProvider)
     }
 
     private func makeUserRepository() -> MypageUserRepository {

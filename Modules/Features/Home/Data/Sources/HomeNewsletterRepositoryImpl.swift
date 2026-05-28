@@ -3,9 +3,9 @@ import Core
 import Shared
 
 public final class HomeNewsletterRepositoryImpl: HomeNewsletterRepository {
-    private let network: any NetworkService<NewsletterAPI>
+    private let network: any NetworkService<HomeNewsletterAPI>
 
-    public init(network: any NetworkService<NewsletterAPI>) {
+    public init(network: any NetworkService<HomeNewsletterAPI>) {
         self.network = network
     }
 

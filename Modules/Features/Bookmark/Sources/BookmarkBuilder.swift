@@ -5,10 +5,10 @@ import BookmarkDomain
 import BookmarkData
 
 public struct BookmarkBuilder: BookmarkBuildable {
-    private let network: any NetworkService<ArticleAPI>
+    private let network: any NetworkService<BookmarkArticleAPI>
 
-    public init(network: any NetworkService<ArticleAPI>) {
-        self.network = network
+    public init(networkProvider: NetworkProviding) {
+        self.network = BookmarkNetworkFactory.makeArticleNetwork(networkProvider)
     }
 
     public func makeBookmarkView() -> AnyView {

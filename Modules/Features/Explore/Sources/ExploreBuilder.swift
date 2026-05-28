@@ -6,10 +6,10 @@ import ExploreDomain
 import ExploreData
 
 public struct ExploreBuilder: ExploreBuildable {
-    private let network: any NetworkService<NewsletterAPI>
+    private let network: any NetworkService<ExploreNewsletterAPI>
 
-    public init(network: any NetworkService<NewsletterAPI>) {
-        self.network = network
+    public init(networkProvider: NetworkProviding) {
+        self.network = ExploreNetworkFactory.makeNewsletterNetwork(networkProvider)
     }
 
     public func makeExploreView() -> AnyView {
