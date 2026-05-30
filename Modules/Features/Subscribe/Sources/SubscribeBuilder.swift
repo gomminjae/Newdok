@@ -1,24 +1,16 @@
 import SwiftUI
 import Core
 import SubscribeInterface
-import SubscribeDomain
-import SubscribeData
 
 public struct SubscribeBuilder: SubscribeBuildable {
-    private let network: any NetworkService<SubscribeNewsletterAPI>
+    private let container: SubscribeDIContainer
 
     public init(networkProvider: NetworkProviding) {
-        self.network = networkProvider.makeService(for: SubscribeNewsletterAPI.self)
+        self.container = SubscribeDIContainer(networkProvider: networkProvider)
     }
 
     public func makeSubscribeView() -> AnyView {
-        let repository = SubscribeNewsletterRepositoryImpl(network: network)
-        let viewModel = SubscribeViewModel(
-            fetchActiveUseCase: FetchActiveSubscriptionUseCaseImpl(repository: repository),
-            fetchPausedUseCase: FetchPausedSubscriptionUseCaseImpl(repository: repository),
-            pauseUseCase: PauseSubscriptionUseCaseImpl(repository: repository),
-            resumeUseCase: ResumeSubscriptionUseCaseImpl(repository: repository)
-        )
+        let viewModel = container.makeViewModel()
         return AnyView(SubscribeView(viewModel: viewModel))
     }
 }

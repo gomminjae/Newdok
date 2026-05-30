@@ -1,33 +1,19 @@
 import SwiftUI
 import Core
-import Shared
 import ExploreInterface
-import ExploreDomain
-import ExploreData
 
 public struct ExploreBuilder: ExploreBuildable {
-    private let network: any NetworkService<ExploreNewsletterAPI>
+    private let container: ExploreDIContainer
 
     public init(networkProvider: NetworkProviding) {
-        self.network = networkProvider.makeService(for: ExploreNewsletterAPI.self)
+        self.container = ExploreDIContainer(networkProvider: networkProvider)
     }
 
     public func makeExploreView() -> AnyView {
-        let repository = ExploreNewsletterRepositoryImpl(network: network)
-        let viewModel = ExploreViewModel(
-            fetchNewslettersUseCase: FetchExploreNewslettersUseCaseImpl(repository: repository),
-            fetchBrandDetailUseCase: FetchExploreBrandDetailUseCaseImpl(repository: repository),
-            fetchGuestNewslettersUseCase: FetchGuestExploreNewslettersUseCaseImpl(repository: repository),
-            fetchRecommendationUseCase: FetchExploreRecommendationUseCaseImpl(repository: repository)
-        )
-        return AnyView(ExploreView(viewModel: viewModel))
+        AnyView(ExploreView(viewModel: container.makeViewModel()))
     }
 
     public func loadOptions() async throws {
-        let repository = ExploreNewsletterRepositoryImpl(network: network)
-        try await LoadOptionsUseCaseImpl(
-            repository: repository,
-            selectableItemStore: SelectableItemStore.shared
-        ).execute()
+        try await container.loadOptions()
     }
 }

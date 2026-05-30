@@ -74,7 +74,6 @@ public final class BrandDetailViewModel: ErrorHandling {
             return true
         } catch let error as DetailError {
             currentError = .userMessage(error.localizedDescription)
-            ToastCenter.shared.show(error.localizedDescription)
             return false
         } catch {
             handleError(error, feature: "brandDetail", operation: "resume")
@@ -93,7 +92,6 @@ public final class BrandDetailViewModel: ErrorHandling {
             return true
         } catch let error as DetailError {
             currentError = .userMessage(error.localizedDescription)
-            ToastCenter.shared.show(error.localizedDescription)
             return false
         } catch {
             handleError(error, feature: "brandDetail", operation: "pause")

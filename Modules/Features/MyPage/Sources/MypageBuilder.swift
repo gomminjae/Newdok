@@ -1,60 +1,24 @@
 import SwiftUI
 import Core
 import MypageInterface
-import MypageDomain
-import MypageData
 
-@MainActor
-public final class MypageBuilder: MypageBuildable {
-    private let userNetwork: any NetworkService<MypageUserAPI>
-    private let articleNetwork: any NetworkService<MypageArticleAPI>
-    private let newsletterNetwork: any NetworkService<MypageNewsletterAPI>
-
-    private var cachedViewModel: MypageViewModel?
+public struct MypageBuilder: MypageBuildable {
+    private let container: MypageDIContainer
 
     public init(networkProvider: NetworkProviding) {
-        self.userNetwork = networkProvider.makeService(for: MypageUserAPI.self)
-        self.articleNetwork = networkProvider.makeService(for: MypageArticleAPI.self)
-        self.newsletterNetwork = networkProvider.makeService(for: MypageNewsletterAPI.self)
-    }
-
-    private func makeUserRepository() -> MypageUserRepository {
-        MypageUserRepositoryImpl(network: userNetwork)
-    }
-
-    private func makeStatsRepository() -> MypageStatsRepository {
-        MypageStatsRepositoryImpl(articleNetwork: articleNetwork, newsletterNetwork: newsletterNetwork)
-    }
-
-    private func sharedViewModel() -> MypageViewModel {
-        if let cached = cachedViewModel {
-            return cached
-        }
-        let repository = makeUserRepository()
-        let viewModel = MypageViewModel(
-            fetchProfileUseCase: FetchMypageProfileUseCaseImpl(repository: repository),
-            updateNicknameUseCase: UpdateMypageNicknameUseCaseImpl(repository: repository),
-            updateInterestsUseCase: UpdateMypageInterestsUseCaseImpl(repository: repository),
-            updateIndustryUseCase: UpdateMypageIndustryUseCaseImpl(repository: repository)
-        )
-        cachedViewModel = viewModel
-        return viewModel
-    }
-
-    private func clearCache() {
-        cachedViewModel = nil
+        self.container = MypageDIContainer(networkProvider: networkProvider)
     }
 
     public func makeMypageView() -> AnyView {
-        AnyView(MypageView(viewModel: sharedViewModel()))
+        AnyView(MypageView(viewModel: container.sharedViewModel()))
     }
 
     public func makeEditProfileView() -> AnyView {
-        AnyView(EditProfileView().environment(sharedViewModel()))
+        AnyView(EditProfileView().environment(container.sharedViewModel()))
     }
 
     public func makeEditNicknameView() -> AnyView {
-        let viewModel = sharedViewModel()
+        let viewModel = container.sharedViewModel()
         let currentNickname = viewModel.user?.nickname
             ?? viewModel.loadUserInfo()?.nickname
             ?? ""
@@ -62,60 +26,35 @@ public final class MypageBuilder: MypageBuildable {
     }
 
     public func makeEditIndustryView() -> AnyView {
-        AnyView(EditIndustryView().environment(sharedViewModel()))
+        AnyView(EditIndustryView().environment(container.sharedViewModel()))
     }
 
     public func makeEditInterestView() -> AnyView {
-        AnyView(EditInterestView().environment(sharedViewModel()))
+        AnyView(EditInterestView().environment(container.sharedViewModel()))
     }
 
     public func makeRecoveryView() -> AnyView {
-        let repository = makeUserRepository()
-        let viewModel = RecoveryViewModel(
-            checkPhoneNumberUseCase: CheckMypagePhoneNumberUseCaseImpl(repository: repository),
-            checkIDDupUseCase: CheckMypageIDDupUseCaseImpl(repository: repository),
-            authSMSUseCase: MypageAuthSMSUseCaseImpl(repository: repository),
-            resetPasswordUseCase: ResetMypagePasswordUseCaseImpl(repository: repository)
-        )
-        return AnyView(RecoveryView(viewModel: viewModel))
+        AnyView(RecoveryView(viewModel: container.makeRecoveryViewModel()))
     }
 
     public func makeAccountManageView() -> AnyView {
-        AnyView(AccountManagementView(onLogoutCleanup: { [weak self] in
-            self?.clearCache()
+        AnyView(AccountManagementView(onLogoutCleanup: { [container] in
+            container.clearCache()
         }))
     }
 
     public func makeChangePasswordView() -> AnyView {
-        let repository = makeUserRepository()
-        let viewModel = PasswordUpdateViewModel(
-            updatePasswordUseCase: UpdateMypagePasswordUseCaseImpl(repository: repository)
-        )
-        return AnyView(PwdUpdateView(viewModel: viewModel))
+        AnyView(PwdUpdateView(viewModel: container.makePasswordUpdateViewModel()))
     }
 
     public func makeChangePhoneNumberView() -> AnyView {
-        let repository = makeUserRepository()
-        let viewModel = PhoneUpdateViewModel(
-            authSMSUseCase: MypageAuthSMSUseCaseImpl(repository: repository),
-            updatePhoneNumberUseCase: UpdateMypagePhoneNumberUseCaseImpl(repository: repository)
-        )
-        return AnyView(PhoneUpdateView(viewModel: viewModel))
+        AnyView(PhoneUpdateView(viewModel: container.makePhoneUpdateViewModel()))
     }
 
     public func makeWithdrawView() -> AnyView {
-        let userRepository = makeUserRepository()
-        let statsRepository = makeStatsRepository()
-        let viewModel = WithdrawViewModel(
-            fetchProfileUseCase: FetchMypageProfileUseCaseImpl(repository: userRepository),
-            fetchSubscriptionCountUseCase: FetchMypageSubscriptionCountUseCaseImpl(repository: statsRepository),
-            fetchArticleCountUseCase: FetchReceivedArticleCountUseCaseImpl(repository: statsRepository),
-            withdrawUseCase: MypageWithdrawUseCaseImpl(repository: userRepository),
-            onCleanup: { [weak self] in
-                self?.clearCache()
-            }
-        )
-        return AnyView(WithdrawView(viewModel: viewModel))
+        AnyView(WithdrawView(viewModel: container.makeWithdrawViewModel(onCleanup: { [container] in
+            container.clearCache()
+        })))
     }
 
     public func makeFAQView() -> AnyView {
