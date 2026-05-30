@@ -3,6 +3,7 @@ import Shared
 import ExploreDomain
 import ExploreData
 
+@MainActor
 struct ExploreDIContainer {
     private let network: any NetworkService<ExploreNewsletterAPI>
     private let userInfoStore: UserInfoStoreProtocol
