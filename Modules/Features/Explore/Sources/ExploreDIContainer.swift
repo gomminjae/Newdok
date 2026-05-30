@@ -3,11 +3,20 @@ import Shared
 import ExploreDomain
 import ExploreData
 
+@MainActor
 struct ExploreDIContainer {
     private let network: any NetworkService<ExploreNewsletterAPI>
+    private let userInfoStore: UserInfoStoreProtocol
+    private let selectableItemStore: SelectableItemStoreProtocol
 
-    init(networkProvider: NetworkProviding) {
+    init(
+        networkProvider: NetworkProviding,
+        userInfoStore: UserInfoStoreProtocol = UserInfoStore.shared,
+        selectableItemStore: SelectableItemStoreProtocol = SelectableItemStore.shared
+    ) {
         self.network = networkProvider.makeService(for: ExploreNewsletterAPI.self)
+        self.userInfoStore = userInfoStore
+        self.selectableItemStore = selectableItemStore
     }
 
     // MARK: - Repository
@@ -37,7 +46,7 @@ struct ExploreDIContainer {
     private func makeLoadOptionsUseCase() -> LoadOptionsUseCase {
         LoadOptionsUseCaseImpl(
             repository: makeRepository(),
-            selectableItemStore: SelectableItemStore.shared
+            selectableItemStore: selectableItemStore
         )
     }
 
@@ -49,7 +58,9 @@ struct ExploreDIContainer {
             fetchNewslettersUseCase: makeFetchNewslettersUseCase(),
             fetchBrandDetailUseCase: makeFetchBrandDetailUseCase(),
             fetchGuestNewslettersUseCase: makeFetchGuestNewslettersUseCase(),
-            fetchRecommendationUseCase: makeFetchRecommendationUseCase()
+            fetchRecommendationUseCase: makeFetchRecommendationUseCase(),
+            userInfoStore: userInfoStore,
+            selectableItemStore: selectableItemStore
         )
     }
 

@@ -1,4 +1,5 @@
 import Core
+import Shared
 import MypageDomain
 import MypageData
 
@@ -7,19 +8,33 @@ final class MypageDIContainer {
     private let userNetwork: any NetworkService<MypageUserAPI>
     private let articleNetwork: any NetworkService<MypageArticleAPI>
     private let newsletterNetwork: any NetworkService<MypageNewsletterAPI>
+    private let tokenStorage: TokenStorageProtocol
+    private let userInfoStore: UserInfoStoreProtocol
+    private let selectableItemStore: SelectableItemStoreProtocol
+    private let appState: AppState
 
     private var cachedViewModel: MypageViewModel?
 
-    init(networkProvider: NetworkProviding) {
+    init(
+        networkProvider: NetworkProviding,
+        tokenStorage: TokenStorageProtocol = TokenStore.shared,
+        userInfoStore: UserInfoStoreProtocol = UserInfoStore.shared,
+        selectableItemStore: SelectableItemStoreProtocol = SelectableItemStore.shared,
+        appState: AppState = .shared
+    ) {
         self.userNetwork = networkProvider.makeService(for: MypageUserAPI.self)
         self.articleNetwork = networkProvider.makeService(for: MypageArticleAPI.self)
         self.newsletterNetwork = networkProvider.makeService(for: MypageNewsletterAPI.self)
+        self.tokenStorage = tokenStorage
+        self.userInfoStore = userInfoStore
+        self.selectableItemStore = selectableItemStore
+        self.appState = appState
     }
 
     // MARK: - Repositories
 
     func makeUserRepository() -> MypageUserRepository {
-        MypageUserRepositoryImpl(network: userNetwork)
+        MypageUserRepositoryImpl(network: userNetwork, userInfoStore: userInfoStore)
     }
 
     func makeStatsRepository() -> MypageStatsRepository {
@@ -37,7 +52,9 @@ final class MypageDIContainer {
             fetchProfileUseCase: FetchMypageProfileUseCaseImpl(repository: repository),
             updateNicknameUseCase: UpdateMypageNicknameUseCaseImpl(repository: repository),
             updateInterestsUseCase: UpdateMypageInterestsUseCaseImpl(repository: repository),
-            updateIndustryUseCase: UpdateMypageIndustryUseCaseImpl(repository: repository)
+            updateIndustryUseCase: UpdateMypageIndustryUseCaseImpl(repository: repository),
+            selectableItemStore: selectableItemStore,
+            userInfoStore: userInfoStore
         )
         cachedViewModel = viewModel
         return viewModel
@@ -74,6 +91,15 @@ final class MypageDIContainer {
         )
     }
 
+    func makeAccountManagementView(onLogoutCleanup: @escaping () -> Void) -> AccountManagementView {
+        AccountManagementView(
+            tokenStorage: tokenStorage,
+            userInfoStore: userInfoStore,
+            appState: appState,
+            onLogoutCleanup: onLogoutCleanup
+        )
+    }
+
     func makeWithdrawViewModel(onCleanup: @escaping () -> Void) -> WithdrawViewModel {
         let userRepository = makeUserRepository()
         let statsRepository = makeStatsRepository()
@@ -82,6 +108,8 @@ final class MypageDIContainer {
             fetchSubscriptionCountUseCase: FetchMypageSubscriptionCountUseCaseImpl(repository: statsRepository),
             fetchArticleCountUseCase: FetchReceivedArticleCountUseCaseImpl(repository: statsRepository),
             withdrawUseCase: MypageWithdrawUseCaseImpl(repository: userRepository),
+            tokenStorage: tokenStorage,
+            userInfoStore: userInfoStore,
             onCleanup: onCleanup
         )
     }

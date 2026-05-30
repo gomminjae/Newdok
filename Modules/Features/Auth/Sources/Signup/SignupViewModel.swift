@@ -104,9 +104,9 @@ public final class SignupViewModel: ErrorHandling {
     public init(
         authRepository: AuthRepository,
         signupUseCase: SignupUseCase,
-        userInfoStore: UserInfoStoreProtocol = UserInfoStore.shared,
-        selectableItemStore: SelectableItemStoreProtocol = SelectableItemStore.shared,
-        appState: AppState = .shared
+        userInfoStore: UserInfoStoreProtocol,
+        selectableItemStore: SelectableItemStoreProtocol,
+        appState: AppState
     ) {
         self.authRepository = authRepository
         self.signupUseCase = signupUseCase

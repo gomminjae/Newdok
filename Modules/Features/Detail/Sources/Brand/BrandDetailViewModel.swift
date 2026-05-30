@@ -27,7 +27,7 @@ public final class BrandDetailViewModel: ErrorHandling {
         id: String,
         brandRepository: DetailBrandRepository,
         popupPreference: SubscribePopupStorable = SubscribePopupPreference.shared,
-        userInfoStore: UserInfoStoreProtocol = UserInfoStore.shared
+        userInfoStore: UserInfoStoreProtocol
     ) {
         self.id = id
         self.brandRepository = brandRepository

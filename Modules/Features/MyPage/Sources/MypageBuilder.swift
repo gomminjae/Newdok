@@ -38,7 +38,7 @@ public struct MypageBuilder: MypageBuildable {
     }
 
     public func makeAccountManageView() -> AnyView {
-        AnyView(AccountManagementView(onLogoutCleanup: { [container] in
+        AnyView(container.makeAccountManagementView(onLogoutCleanup: { [container] in
             container.clearCache()
         }))
     }

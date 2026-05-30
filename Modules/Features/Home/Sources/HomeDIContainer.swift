@@ -9,11 +9,17 @@ final class HomeDIContainer {
     private let articleNetwork: any NetworkService<HomeArticleAPI>
     private let newsletterNetwork: any NetworkService<HomeNewsletterAPI>
     private let highlightDataSource: HighlightLocalDataSource
+    private let appState: AppState
 
-    init(networkProvider: NetworkProviding, highlightDataSource: HighlightLocalDataSource) {
+    init(
+        networkProvider: NetworkProviding,
+        highlightDataSource: HighlightLocalDataSource,
+        appState: AppState = .shared
+    ) {
         self.articleNetwork = networkProvider.makeService(for: HomeArticleAPI.self)
         self.newsletterNetwork = networkProvider.makeService(for: HomeNewsletterAPI.self)
         self.highlightDataSource = highlightDataSource
+        self.appState = appState
     }
 
     func makeArticleRepository() -> HomeArticleRepository {
@@ -41,7 +47,7 @@ final class HomeDIContainer {
             refreshArticles: RefreshHomeArticlesUseCaseImpl(repository: articleRepo),
             loadReadIds: LoadReadArticleIdsUseCaseImpl(repository: articleRepo),
             saveReadIds: SaveReadArticleIdsUseCaseImpl(repository: articleRepo),
-            appState: AppState.shared
+            appState: appState
         )
     }
 }

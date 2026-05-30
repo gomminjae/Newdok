@@ -9,7 +9,7 @@ public final class MypageUserRepositoryImpl: MypageUserRepository {
 
     public init(
         network: any NetworkService<MypageUserAPI>,
-        userInfoStore: UserInfoStoreProtocol = UserInfoStore.shared
+        userInfoStore: UserInfoStoreProtocol
     ) {
         self.network = network
         self.userInfoStore = userInfoStore
