@@ -1,10 +1,3 @@
-//
-//  BrandDetailView.swift
-//  Detail
-//
-//  Created by 권민재 on 5/7/25.
-//
-
 import SwiftUI
 import DesignSystem
 import Kingfisher
@@ -12,32 +5,6 @@ import DetailDomain
 import Shared
 import PopupView
 import FoundationKit
-
-struct RoundedCorner: Shape {
-    var radius: CGFloat = 0
-    var corners: UIRectCorner = .allCorners
-    func path(in rect: CGRect) -> Path {
-        let p = UIBezierPath(
-            roundedRect: rect,
-            byRoundingCorners: corners,
-            cornerRadii: CGSize(width: radius, height: radius)
-        )
-        return Path(p.cgPath)
-    }
-}
-
-// UIKit 블러 효과
-struct VisualEffectBlur: UIViewRepresentable {
-    var blurStyle: UIBlurEffect.Style
-    
-    func makeUIView(context: Context) -> UIVisualEffectView {
-        return UIVisualEffectView(effect: UIBlurEffect(style: blurStyle))
-    }
-    
-    func updateUIView(_ uiView: UIVisualEffectView, context: Context) {
-        uiView.effect = UIBlurEffect(style: blurStyle)
-    }
-}
 
 extension SubscriptionStatus {
     var buttonTitle: String {
@@ -50,7 +17,7 @@ extension SubscriptionStatus {
     }
 
     var isActionable: Bool {
-        true // 모든 상태에서 버튼 활성화
+        true
     }
 
     var style: (background: Color, foreground: Color, border: Color) {
@@ -72,23 +39,19 @@ public struct BrandDetailView: View {
     @Environment(AppRouter.self) private var router
     @Environment(TabSelection.self) private var tabSelection
     @Environment(\.displayScale) private var displayScale
-    
-    @State private var isShowPauseAlert: Bool = false
-    @State private var isShowGuestAlert: Bool = false
-
     @Environment(AppState.self) private var appState
 
-    private var isGuest: Bool { appState.authState == .guest }
-    
+    @State private var isShowPauseAlert: Bool = false
+    @State private var isShowGuestAlert: Bool = false
     @State private var showSubscribeSheet = false
     @State private var showSubscribeStatePopup = false
     @State private var showCheckSubscribePopup = false
     @State private var hasPresentedSubscribeCheckPopup = false
     @State private var showSignupRequiredPopup = false
-    
-    // Toast
     @State private var showSubscribeToast: Bool = false
     @State private var showPauseToast: Bool = false
+
+    private var isGuest: Bool { appState.authState == .guest }
 
     public init(viewModel: BrandDetailViewModel) {
         self.viewModel = viewModel
@@ -97,7 +60,7 @@ public struct BrandDetailView: View {
     public var body: some View {
         ScrollView {
             if viewModel.isLoading {
-                // ProgressView().frame(maxWidth: .infinity, maxHeight: .infinity)
+                // loading
             } else if let detail = viewModel.detail {
                 detailContent(detail)
             } else {
@@ -110,18 +73,15 @@ public struct BrandDetailView: View {
         .background(Color.bgSystem)
         .onAppear {
             if viewModel.detail == nil {
-                if isGuest {
-                    Task { await viewModel.guestFetch() }
-                } else {
-                    Task { await viewModel.fetch() }
+                Task {
+                    if isGuest { await viewModel.guestFetch() }
+                    else { await viewModel.fetch() }
                 }
             }
         }
         .toolbar {
             ToolbarItem(placement: .navigationBarLeading) {
-                Button {
-                    router.pop()
-                } label: {
+                Button { router.pop() } label: {
                     Image(asset: DesignSystemAsset.back)
                         .resizable()
                         .renderingMode(.template)
@@ -129,7 +89,6 @@ public struct BrandDetailView: View {
                         .foregroundColor(.black)
                 }
             }
-
             ToolbarItem(placement: .principal) {
                 Text("뉴스레터 홈")
                     .font(.hanSansNeo(16, .bold))
@@ -142,9 +101,7 @@ public struct BrandDetailView: View {
         .toolbarBackground(.visible, for: .navigationBar)
         .popup(isPresented: $isShowPauseAlert) {
             UnsubscribePopupView(brandName: viewModel.detail?.brandName ?? "",
-                                 onCancel: {
-                isShowPauseAlert = false
-            },
+                                 onCancel: { isShowPauseAlert = false },
                                  onConfirm: {
                 Task {
                     let didPause = await viewModel.pause()
@@ -154,58 +111,30 @@ public struct BrandDetailView: View {
                 }
             })
         } customize: {
-            $0
-                .type(.default)
-                .position(.center)
-                .animation(.easeInOut)
+            $0.type(.default).position(.center).animation(.easeInOut)
                 .backgroundColor(Color.black.opacity(0.3))
-                .closeOnTapOutside(true)
-                .closeOnTap(false)
-                .allowTapThroughBG(false)
+                .closeOnTapOutside(true).closeOnTap(false).allowTapThroughBG(false)
         }
         .popup(isPresented: $isShowGuestAlert) {
-            SubscribeGuestAlertView(isPresented: $isShowGuestAlert,
-                                    onSignup: {
-                router.push(.signup)
-            }
-            )
+            SubscribeGuestAlertView(isPresented: $isShowGuestAlert, onSignup: { router.push(.signup) })
         } customize: {
-            $0
-                .type(.default)
-                .position(.center)
-                .animation(.easeInOut)
+            $0.type(.default).position(.center).animation(.easeInOut)
                 .backgroundColor(Color.black.opacity(0.3))
-                .closeOnTapOutside(true)
-                .closeOnTap(false)
-                .allowTapThroughBG(false)
+                .closeOnTapOutside(true).closeOnTap(false).allowTapThroughBG(false)
         }
         .popup(isPresented: $showPauseToast) {
-            ToastView(message: "구독이 중지되었습니다.")
-                .padding(.bottom, 50)
+            ToastView(message: "구독이 중지되었습니다.").padding(.bottom, 50)
         } customize: {
-            $0
-                .type(.toast)
-                .position(.bottom)
-                .autohideIn(1)
-                .animation(.easeInOut)
-                .closeOnTapOutside(false)
+            $0.type(.toast).position(.bottom).autohideIn(1).animation(.easeInOut).closeOnTapOutside(false)
         }
         .popup(isPresented: $showSubscribeToast) {
-            ToastView(message: "구독이 재개되었습니다.")
-                .padding(.bottom, 50)
+            ToastView(message: "구독이 재개되었습니다.").padding(.bottom, 50)
         } customize: {
-            $0
-                .type(.toast)
-                .position(.bottom)
-                .autohideIn(1)
-                .animation(.easeInOut)
-                .closeOnTapOutside(false)
+            $0.type(.toast).position(.bottom).autohideIn(1).animation(.easeInOut).closeOnTapOutside(false)
         }
         .popup(isPresented: $showCheckSubscribePopup) {
             CheckIsSubscribeView(
-                onClose: {
-                    showCheckSubscribePopup = false
-                },
+                onClose: { showCheckSubscribePopup = false },
                 checkMailbox: {
                     showCheckSubscribePopup = false
                     tabSelection.selectedTab = .home
@@ -217,14 +146,9 @@ public struct BrandDetailView: View {
                 }
             )
         } customize: {
-            $0
-                .type(.default)
-                .position(.center)
-                .animation(.easeInOut)
+            $0.type(.default).position(.center).animation(.easeInOut)
                 .backgroundColor(Color.black.opacity(0.3))
-                .closeOnTapOutside(true)
-                .closeOnTap(false)
-                .allowTapThroughBG(false)
+                .closeOnTapOutside(true).closeOnTap(false).allowTapThroughBG(false)
         }
         .popup(isPresented: $showSignupRequiredPopup) {
             SignupRequiredPopupView(
@@ -232,179 +156,37 @@ public struct BrandDetailView: View {
                     showSignupRequiredPopup = false
                     showSubscribeSheet = true
                 },
-                onDismiss: {
-                    showSignupRequiredPopup = false
-                }
+                onDismiss: { showSignupRequiredPopup = false }
             )
         } customize: {
-            $0
-                .type(.default)
-                .position(.center)
-                .animation(.easeInOut)
+            $0.type(.default).position(.center).animation(.easeInOut)
                 .backgroundColor(Color.black.opacity(0.3))
-                .closeOnTapOutside(true)
-                .closeOnTap(false)
-                .allowTapThroughBG(false)
+                .closeOnTapOutside(true).closeOnTap(false).allowTapThroughBG(false)
         }
         .serverErrorPopup(
             error: $viewModel.currentError,
             onGoBack: { router.pop() },
             onRetry: {
                 Task {
-                    if isGuest {
-                        await viewModel.guestFetch()
-                    } else {
-                        await viewModel.fetch()
-                    }
+                    if isGuest { await viewModel.guestFetch() }
+                    else { await viewModel.fetch() }
                 }
             }
         )
     }
 
+    // MARK: - Detail Content
+
     @ViewBuilder
-    // swiftlint:disable:next function_body_length
     private func detailContent(_ detail: DetailBrandDetail) -> some View {
         VStack(spacing: 0) {
-            ZStack(alignment: .topLeading) {
-                Group {
-                    if let urlString = detail.imageUrl,
-                       let url = URL(string: urlString) {
-                        GeometryReader { geo in
-                            KFImage(url)
-                                .setProcessor(DownsamplingImageProcessor(size: CGSize(width: geo.size.width * displayScale, height: geo.size.height * displayScale)))
-                                .resizable()
-                                .scaledToFill()
-                                .frame(width: geo.size.width, height: geo.size.height)
-                                .clipped()
-                        }
-                    } else {
-                        Color.lineSoft
-                    }
-                }
-                .frame(maxWidth: .infinity)
-                .frame(height: 260)
-                .overlay(
-                    LinearGradient(
-                        gradient: Gradient(stops: [
-                            .init(color: Color.black.opacity(0.0), location: 0.0),
-                            .init(color: Color.black.opacity(0.06), location: 1.0)
-                        ]),
-                        startPoint: .top,
-                        endPoint: .bottom
-                    )
-                )
-                .mask(
-                    RoundedCorner(radius: 12, corners: [.bottomLeft, .bottomRight])
-                )
-                .clipped()
-                .shadow(
-                    color: Color(red: 0x19 / 255, green: 0x19 / 255, blue: 0x19 / 255).opacity(0.04),
-                    radius: 4, x: 0, y: 2
-                )
-                
-                // 구독 확인 중 오버레이
-                if detail.subscriptionStatus == .check {
-                    Color.bgPopupDim.opacity(0.6) 
-                        .frame(maxWidth: .infinity)
-                        .frame(height: 260)
-                        .mask(
-                            RoundedCorner(radius: 12, corners: [.bottomLeft, .bottomRight])
-                        )
-                        .overlay(
-                            Text("구독 확인 중")
-                                .font(.hanSansNeo(16, .medium))
-                                .foregroundColor(.white)
-                                .frame(maxWidth: .infinity, maxHeight: .infinity)
-                        )
-                }
-                
-                HStack(spacing: 4) {
-                    ForEach(detail.interests.prefix(3), id: \.id) { interest in
-                        Text(interest.name)
-                            .font(.hanSansNeo(11, .medium))
-                            .foregroundStyle(Color.captionStrong)
-                            .padding(.horizontal, 12)
-                            .padding(.vertical, 6)
-                            .background(Color.bgNormal.opacity(0.61))
-                            .clipShape(Capsule())
-                            .overlay {
-                                Capsule()
-                                    .stroke(Color.lineNeutral, lineWidth: 1)
-                            }
-                    }
-                    
-                    Spacer()
-                    
-                    if detail.subscriptionStatus == .confirmed {
-                        Text("구독중")
-                            .font(.hanSansNeo(11, .medium))
-                            .foregroundStyle(Color.white)
-                            .frame(width: 50, height: 26)
-                            .background(Color.primaryLight)
-                            .clipShape(Capsule())
-                            .overlay {
-                                Capsule()
-                                    .stroke(Color.primaryNormal, lineWidth: 1)
-                            }
-                    }
-                }
-                .padding(.trailing, 16)
-                .padding(.top, 12)
-                .padding(.leading, 16)
-
-                VStack {
-                    Spacer()
-                    HStack {
-                        VStack(alignment: .leading, spacing: 4) {
-                            Text(detail.brandName)
-                                .font(.hanSansNeo(16, .bold))
-
-                            HStack(spacing: 4) {
-                                Image(asset: DesignSystemAsset.lineClock)
-                                    .renderingMode(.template)
-                                    .resizable()
-                                    .foregroundStyle(Color.captionNeutral)
-                                    .frame(width: 20, height: 20)
-
-                                Text(detail.publicationCycle)
-                                    .font(.hanSansNeo(12, .medium))
-                                    .foregroundStyle(Color.captionNeutral)
-                            }
-                            .frame(maxWidth: .infinity, alignment: .leading)
-                        }
-
-                        Spacer()
-                        if isGuest {
-                            subscribeButton(status: .initial)
-                        } else if let status = viewModel.detail?.subscriptionStatus {
-                            subscribeButton(status: status)
-                        }
-                    }
-                    .padding(.top, 20)
-                    .padding(.horizontal, 24)
-                    .padding(.bottom, 21)
-                    .background(
-                        // background: #FFFFFF99 (60% opacity)
-                        Color.bgNormal.opacity(0.6)
-                    )
-                    .background(
-                        // backdrop-filter: blur(8px)
-                        VisualEffectBlur(blurStyle: .systemUltraThinMaterial)
-                    )
-                    .clipShape(RoundedRectangle(cornerRadius: 8))
-                    .shadow(
-                        // box-shadow: 0px 4px 8px 0px #0000000A
-                        color: Color.black.opacity(0.04),
-                        radius: 8,
-                        x: 0,
-                        y: 4
-                    )
-                    .padding(.horizontal)
-                    .offset(y: 20)
-                    .padding(.bottom, 12)
-                }
-            }
-            .frame(height: 300)
+            BrandHeroSection(
+                detail: detail,
+                isGuest: isGuest,
+                isMutating: viewModel.isSubscriptionMutating,
+                displayScale: displayScale,
+                onSubscribeAction: handleSubscriptionAction
+            )
 
             Text(detail.detailDescription ?? "")
                 .font(.hanSansNeo(14, .regular))
@@ -412,61 +194,13 @@ public struct BrandDetailView: View {
                 .foregroundStyle(Color.captionBody)
                 .padding(.horizontal)
                 .padding(.vertical, 24)
-                
-            VStack(alignment: .leading, spacing: 8) {
-                Text("지난 아티클 보기")
-                    .font(.hanSansNeo(14, .bold))
-                    .foregroundStyle(Color.captionNeutral)
-                    .padding(.leading, 20)
-                    .padding(.top, 20)
-                if detail.brandArticleList.isEmpty {
-                    VStack(alignment: .center, spacing: 4) {
-                        Text("아티클을 준비하는 중이에요.")
-                            .font(.hanSansNeo(16, .bold))
-                            .foregroundStyle(Color.captionHeavy)
-                        
-                        Text("조금만 기다려 주세요!")
-                            .font(.hanSansNeo(14, .medium))
-                            .foregroundStyle(Color.captionNeutral)
-                    }
-                    .frame(maxWidth: .infinity, alignment: .center) // 스택을 수평 중앙
-                    .multilineTextAlignment(.center)                // 각 Text의 문단 중앙
-                    .padding(.top, 20)
-                } else {
-                    ForEach(detail.brandArticleList) { article in
-                        VStack(alignment: .leading, spacing: 4) {
-                            Text(article.title)
-                                .font(.hanSansNeo(14, .bold))
-                                .foregroundStyle(Color.captionStrong)
-                                .padding(.bottom, 4)
 
-                            HStack {
-                                Text(article.date.prefix(10))
-                                    .font(.hanSansNeo(12, .medium))
-                                    .foregroundColor(Color.captionNeutral)
-
-                                Divider()
-
-                                Text(extractTime(from: article.date))
-                                    .font(.hanSansNeo(12, .medium))
-                                    .foregroundColor(Color.captionNeutral)
-                            }
-                        }
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                        .padding(.horizontal, 16)
-                        .padding(.vertical, 16)
-                        .background(Color.white)
-                        .clipShape(RoundedRectangle(cornerRadius: 8))
-                        .overlay(RoundedRectangle(cornerRadius: 8).stroke(Color.lineNeutral, lineWidth: 1))
-                        .padding(.horizontal)
-                        .onTapGesture {
-                            router.push(.articleDetail(id: "\(article.id)", isPastArticle: true))
-                        }
-                    }
+            BrandArticleListSection(
+                articles: detail.brandArticleList,
+                onArticleTap: { id in
+                    router.push(.articleDetail(id: id, isPastArticle: true))
                 }
-            }
-            .frame(maxWidth: .infinity, alignment: .leading)
-            .padding(.bottom, 32)
+            )
             .sheet(isPresented: Binding(
                 get: { showSubscribeSheet && viewModel.detail?.brandId != 321 },
                 set: { showSubscribeSheet = $0 }
@@ -482,9 +216,7 @@ public struct BrandDetailView: View {
                 SubscribeModalView(title: viewModel.detail?.brandName ?? "", url: viewModel.detail?.subscribeUrl ?? "", email: viewModel.subscribeEmail, name: viewModel.userNickname)
             }
             .onChange(of: showSubscribeSheet) { _, newValue in
-                // 구독 시트가 닫힐 때 팝업 띄우기
                 if !newValue {
-                    // 오늘 하루 보지 않기 설정 확인
                     if viewModel.shouldShowSubscribeStatePopup {
                         showSubscribeStatePopup = true
                     }
@@ -496,19 +228,12 @@ public struct BrandDetailView: View {
                         viewModel.hideSubscribeStatePopupForToday()
                         showSubscribeStatePopup = false
                     },
-                    onConfirm: {
-                        showSubscribeStatePopup = false
-                    }
+                    onConfirm: { showSubscribeStatePopup = false }
                 )
             } customize: {
-                $0
-                    .type(.default)
-                    .position(.center)
-                    .animation(.easeInOut)
+                $0.type(.default).position(.center).animation(.easeInOut)
                     .backgroundColor(Color.black.opacity(0.3))
-                    .closeOnTapOutside(true)
-                    .closeOnTap(false)
-                    .allowTapThroughBG(false)
+                    .closeOnTapOutside(true).closeOnTap(false).allowTapThroughBG(false)
             }
         }
         .onAppear {
@@ -516,32 +241,13 @@ public struct BrandDetailView: View {
         }
     }
 
-    private func subscribeButton(status: SubscriptionStatus) -> some View {
-        let style = status.style
+    // MARK: - Actions
 
-        return Button(action: {
-            handleSubscriptionAction(status: status)
-        }) {
-            Text(status.buttonTitle)
-                .frame(width: 95, height: 40)
-                .font(.system(size: 14, weight: .semibold))
-                .background(style.background)
-                .foregroundColor(style.foreground)
-                .clipShape(RoundedRectangle(cornerRadius: 4))
-                .overlay(
-                    RoundedRectangle(cornerRadius: 4)
-                        .stroke(style.border, lineWidth: 1)
-                )
-        }
-        .disabled(!status.isActionable || viewModel.isSubscriptionMutating)
-    }
-    
     private func handleSubscriptionAction(status: SubscriptionStatus) {
         if isGuest {
             isShowGuestAlert = true
             return
         }
-        
         switch status {
         case .initial, .unknown:
             if viewModel.detail?.brandId == 321 {
@@ -553,7 +259,6 @@ public struct BrandDetailView: View {
             showCheckSubscribePopup = true
         case .confirmed:
             isShowPauseAlert = true
-            
         case .paused:
             Task {
                 let didResume = await viewModel.resume()
@@ -566,17 +271,9 @@ public struct BrandDetailView: View {
 
     private func presentCheckSubscribePopupIfNeeded(for detail: DetailBrandDetail) {
         guard !hasPresentedSubscribeCheckPopup else { return }
-
-        let needsPopup = detail.subscriptionStatus == .check
-
-        if needsPopup {
+        if detail.subscriptionStatus == .check {
             hasPresentedSubscribeCheckPopup = true
             showCheckSubscribePopup = true
         }
-    }
-
-    func extractTime(from isoString: String) -> String {
-        guard let date = isoString.newdokISODate else { return "" }
-        return date.newdokTimeText
     }
 }

@@ -30,8 +30,8 @@ public final class LoginViewModel: ErrorHandling {
 
     public init(
         loginUseCase: LoginUseCase,
-        tokenStorage: TokenStorageProtocol = TokenStore.shared,
-        appState: AppState = .shared
+        tokenStorage: TokenStorageProtocol,
+        appState: AppState
     ) {
         self.loginUseCase = loginUseCase
         self.tokenStorage = tokenStorage

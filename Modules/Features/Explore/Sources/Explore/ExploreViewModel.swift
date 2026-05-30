@@ -88,8 +88,8 @@ public final class ExploreViewModel: ErrorHandling {
         fetchBrandDetailUseCase: FetchExploreBrandDetailUseCase,
         fetchGuestNewslettersUseCase: FetchGuestExploreNewslettersUseCase,
         fetchRecommendationUseCase: FetchExploreRecommendationUseCase,
-        userInfoStore: UserInfoStoreProtocol = UserInfoStore.shared,
-        selectableItemStore: SelectableItemStoreProtocol = SelectableItemStore.shared
+        userInfoStore: UserInfoStoreProtocol,
+        selectableItemStore: SelectableItemStoreProtocol
     ) {
         self.fetchNewslettersUseCase = fetchNewslettersUseCase
         self.fetchBrandDetailUseCase = fetchBrandDetailUseCase

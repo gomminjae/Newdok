@@ -10,8 +10,8 @@ public final class AuthRepositoryImpl: AuthRepository {
 
     public init(
         network: any NetworkService<AuthUserAPI>,
-        tokenStorage: TokenStorageProtocol = TokenStore.shared,
-        userInfoStore: UserInfoStoreProtocol = UserInfoStore.shared
+        tokenStorage: TokenStorageProtocol,
+        userInfoStore: UserInfoStoreProtocol
     ) {
         self.network = network
         self.tokenStorage = tokenStorage

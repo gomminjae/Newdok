@@ -1,4 +1,5 @@
 import Core
+import Shared
 import DatabaseKit
 import DetailDomain
 import DetailData
@@ -8,11 +9,17 @@ final class DetailDIContainer {
     private let articleNetwork: any NetworkService<DetailArticleAPI>
     private let newsletterNetwork: any NetworkService<DetailNewsletterAPI>
     private let highlightDataSource: HighlightLocalDataSource
+    private let userInfoStore: UserInfoStoreProtocol
 
-    init(networkProvider: NetworkProviding, highlightDataSource: HighlightLocalDataSource) {
+    init(
+        networkProvider: NetworkProviding,
+        highlightDataSource: HighlightLocalDataSource,
+        userInfoStore: UserInfoStoreProtocol = UserInfoStore.shared
+    ) {
         self.articleNetwork = networkProvider.makeService(for: DetailArticleAPI.self)
         self.newsletterNetwork = networkProvider.makeService(for: DetailNewsletterAPI.self)
         self.highlightDataSource = highlightDataSource
+        self.userInfoStore = userInfoStore
     }
 
     func makeArticleRepository() -> DetailArticleRepository {
@@ -28,7 +35,7 @@ final class DetailDIContainer {
     }
 
     func makeBrandDetailViewModel(id: String) -> BrandDetailViewModel {
-        BrandDetailViewModel(id: id, brandRepository: makeBrandRepository())
+        BrandDetailViewModel(id: id, brandRepository: makeBrandRepository(), userInfoStore: userInfoStore)
     }
 
     func makeArticleDetailViewModel(id: String) -> ArticleDetailViewModel {

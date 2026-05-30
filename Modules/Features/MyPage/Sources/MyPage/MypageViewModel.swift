@@ -43,8 +43,8 @@ public final class MypageViewModel: ErrorHandling {
         updateNicknameUseCase: UpdateMypageNicknameUseCase,
         updateInterestsUseCase: UpdateMypageInterestsUseCase,
         updateIndustryUseCase: UpdateMypageIndustryUseCase,
-        selectableItemStore: SelectableItemStoreProtocol = SelectableItemStore.shared,
-        userInfoStore: UserInfoStoreProtocol = UserInfoStore.shared
+        selectableItemStore: SelectableItemStoreProtocol,
+        userInfoStore: UserInfoStoreProtocol
     ) {
         self.fetchProfileUseCase = fetchProfileUseCase
         self.updateNicknameUseCase = updateNicknameUseCase
