@@ -131,10 +131,10 @@ public struct SubscribeView: View {
         case .loading:
             EmptyView()
         case .guest:
-            EmptySubscriptionView(isSubscribedTab: selectedTab == 0, isGuest: true)
+            EmptySubscriptionView(isSubscribedTab: selectedTab == 0, isGuest: true, onLogin: { router.push(.login) })
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
         case .empty:
-            EmptySubscriptionView(isSubscribedTab: selectedTab == 0, isGuest: false)
+            EmptySubscriptionView(isSubscribedTab: selectedTab == 0, isGuest: false, onLogin: {})
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
         case .data:
             subscriptionListView

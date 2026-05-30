@@ -6,10 +6,10 @@
 //
 
 import SwiftUI
-import Shared
 
 struct NewsLetterEmptyView: View {
-    @Environment(AppRouter.self) private var router
+    let onRequestRegister: () -> Void
+
     var body: some View {
         VStack {
             Text("검색 결과가 없어요.")
@@ -19,7 +19,7 @@ struct NewsLetterEmptyView: View {
                 .foregroundStyle(Color.captionBody)
                 .padding(.top, 4)
             Button("뉴스레터 등록 요청하기") {
-                router.push(.serviceFeedback)
+                onRequestRegister()
             }
             .font(.hanSansNeo(16, .bold))
             .frame(maxWidth: .infinity)
@@ -38,5 +38,5 @@ struct NewsLetterEmptyView: View {
 }
 
 #Preview {
-    NewsLetterEmptyView()
+    NewsLetterEmptyView(onRequestRegister: {})
 }

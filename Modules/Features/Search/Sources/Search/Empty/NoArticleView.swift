@@ -7,9 +7,10 @@
 
 import SwiftUI
 import DesignSystem
-import Shared
+
 struct NoArticleView: View {
-    @Environment(AppRouter.self) private var router
+    let onContact: () -> Void
+
     var body: some View {
         VStack {
             Text("검색 결과가 없어요.")
@@ -19,7 +20,7 @@ struct NoArticleView: View {
                 .foregroundStyle(Color.captionBody)
                 .padding(.top, 4)
             Button(action: {
-                router.push(.serviceFeedback)
+                onContact()
             }) {
                 Text("문의하기")
                     .font(.hanSansNeo(14, .bold))
@@ -36,5 +37,5 @@ struct NoArticleView: View {
 }
 
 #Preview {
-    NoArticleView()
+    NoArticleView(onContact: {})
 }

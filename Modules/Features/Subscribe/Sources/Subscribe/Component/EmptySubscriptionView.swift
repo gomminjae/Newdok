@@ -8,17 +8,16 @@
 
 import SwiftUI
 import DesignSystem
-import Shared
 
 public struct EmptySubscriptionView: View {
     let isSubscribedTab: Bool
     let isGuest: Bool
-    
-    @Environment(AppRouter.self) private var router
-    
-    public init(isSubscribedTab: Bool, isGuest: Bool) {
+    let onLogin: () -> Void
+
+    public init(isSubscribedTab: Bool, isGuest: Bool, onLogin: @escaping () -> Void) {
         self.isSubscribedTab = isSubscribedTab
         self.isGuest = isGuest
+        self.onLogin = onLogin
     }
 
     public var body: some View {
@@ -43,7 +42,7 @@ public struct EmptySubscriptionView: View {
                         .underline()
                         .contentShape(Rectangle())
                         .onTapGesture {
-                            router.push(.login)
+                            onLogin()
                         }
                         .accessibilityLabel("로그인")
                         .accessibilityIdentifier("subscribe_empty_login")
