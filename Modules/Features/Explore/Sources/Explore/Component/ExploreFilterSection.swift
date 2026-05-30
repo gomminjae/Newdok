@@ -4,8 +4,8 @@ import Shared
 
 struct ExploreFilterSection: View {
     @Binding var orderOpt: String?
-    @Binding var industry: [SelectableItem]?
-    @Binding var day: [SelectableItem]?
+    @Binding var industry: [Int]?
+    @Binding var day: [Int]?
     @Binding var isShowSortSheet: Bool
     @Binding var isShowFilterSheet: Bool
 
