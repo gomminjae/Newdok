@@ -91,7 +91,6 @@ public final class SubscribeViewModel: ErrorHandling {
             return true
         } catch let error as SubscribeError {
             currentError = .userMessage(error.localizedDescription)
-            ToastCenter.shared.show(error.localizedDescription)
             return false
         } catch {
             handleError(error, feature: "subscribe", operation: "pause")
@@ -109,7 +108,6 @@ public final class SubscribeViewModel: ErrorHandling {
             return true
         } catch let error as SubscribeError {
             currentError = .userMessage(error.localizedDescription)
-            ToastCenter.shared.show(error.localizedDescription)
             return false
         } catch {
             handleError(error, feature: "subscribe", operation: "resume")

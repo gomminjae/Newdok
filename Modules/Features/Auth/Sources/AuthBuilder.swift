@@ -1,14 +1,12 @@
 import SwiftUI
 import Core
 import AuthInterface
-import AuthDomain
-import AuthData
 
 public struct AuthBuilder: AuthBuildable {
-    private let network: any NetworkService<AuthUserAPI>
+    private let container: AuthDIContainer
 
     public init(networkProvider: NetworkProviding) {
-        self.network = networkProvider.makeService(for: AuthUserAPI.self)
+        self.container = AuthDIContainer(networkProvider: networkProvider)
     }
 
     public func makeOnboardingView() -> AnyView {
@@ -16,21 +14,14 @@ public struct AuthBuilder: AuthBuildable {
     }
 
     public func makeLoginView() -> AnyView {
-        let repository = AuthRepositoryImpl(network: network)
-        let viewModel = LoginViewModel(loginUseCase: LoginUseCaseImpl(authRepository: repository))
-        return AnyView(LoginView(viewModel: viewModel))
+        AnyView(LoginView(viewModel: container.makeLoginViewModel()))
     }
 
     public func makeSignupView() -> AnyView {
-        let repository = AuthRepositoryImpl(network: network)
-        let viewModel = SignupViewModel(
-            authRepository: repository,
-            signupUseCase: SignupUseCaseImpl(authRepository: repository)
-        )
-        return AnyView(SignupView(viewModel: viewModel))
+        AnyView(SignupView(viewModel: container.makeSignupViewModel()))
     }
 
     public func signOut() async {
-        await AuthRepositoryImpl(network: network).signOut()
+        await container.signOut()
     }
 }

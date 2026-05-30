@@ -1,23 +1,15 @@
 import SwiftUI
 import Core
 import BookmarkInterface
-import BookmarkDomain
-import BookmarkData
 
 public struct BookmarkBuilder: BookmarkBuildable {
-    private let network: any NetworkService<BookmarkArticleAPI>
+    private let container: BookmarkDIContainer
 
     public init(networkProvider: NetworkProviding) {
-        self.network = networkProvider.makeService(for: BookmarkArticleAPI.self)
+        self.container = BookmarkDIContainer(networkProvider: networkProvider)
     }
 
     public func makeBookmarkView() -> AnyView {
-        let repository = BookmarkRepositoryImpl(network: network)
-        let viewModel = BookmarkViewModel(
-            fetchArticlesUseCase: FetchBookmarkedArticlesUseCaseImpl(repository: repository),
-            toggleBookmarkUseCase: ToggleBookmarkStatusUseCaseImpl(repository: repository),
-            fetchInterestsUseCase: FetchBookmarkedInterestsUseCaseImpl(repository: repository)
-        )
-        return AnyView(BookmarkView(viewModel: viewModel))
+        AnyView(BookmarkView(viewModel: container.makeViewModel()))
     }
 }
