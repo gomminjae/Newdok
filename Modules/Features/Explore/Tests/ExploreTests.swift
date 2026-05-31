@@ -43,6 +43,7 @@ struct ExploreViewModelTests {
             fetchGuestNewslettersUseCase: fetchGuest,
             fetchRecommendationUseCase: fetchRecommendation,
             transformRecommendationUseCase: MockTransformExploreRecommendationUseCase(),
+            prioritizeInterestsUseCase: MockPrioritizeInterestsUseCase(),
             userInfoStore: StubUserInfoStore(),
             selectableItemStore: StubSelectableItemStore()
         )

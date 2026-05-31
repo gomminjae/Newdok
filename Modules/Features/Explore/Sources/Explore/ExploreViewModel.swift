@@ -81,6 +81,7 @@ public final class ExploreViewModel: ErrorHandling {
     private let fetchGuestNewslettersUseCase: FetchGuestExploreNewslettersUseCase
     private let fetchRecommendationUseCase: FetchExploreRecommendationUseCase
     private let transformRecommendationUseCase: TransformExploreRecommendationUseCase
+    private let prioritizeInterestsUseCase: PrioritizeInterestsUseCase
     private let userInfoStore: UserInfoStoreProtocol
     private let selectableItemStore: SelectableItemStoreProtocol
 
@@ -90,6 +91,7 @@ public final class ExploreViewModel: ErrorHandling {
         fetchGuestNewslettersUseCase: FetchGuestExploreNewslettersUseCase,
         fetchRecommendationUseCase: FetchExploreRecommendationUseCase,
         transformRecommendationUseCase: TransformExploreRecommendationUseCase,
+        prioritizeInterestsUseCase: PrioritizeInterestsUseCase,
         userInfoStore: UserInfoStoreProtocol,
         selectableItemStore: SelectableItemStoreProtocol
     ) {
@@ -98,6 +100,7 @@ public final class ExploreViewModel: ErrorHandling {
         self.fetchGuestNewslettersUseCase = fetchGuestNewslettersUseCase
         self.fetchRecommendationUseCase = fetchRecommendationUseCase
         self.transformRecommendationUseCase = transformRecommendationUseCase
+        self.prioritizeInterestsUseCase = prioritizeInterestsUseCase
         self.userInfoStore = userInfoStore
         self.selectableItemStore = selectableItemStore
         self.nickname = userInfoStore.load()?.nickname ?? ""
@@ -144,7 +147,7 @@ public final class ExploreViewModel: ErrorHandling {
 
     public func prioritizeInterestsForNewsletter(_ newsletter: ExploreNewsletterDetail) -> [ExploreInterest] {
         let userInterestIds = userInfoStore.load()?.interestIds
-        return transformRecommendationUseCase.prioritizeInterests(for: newsletter, userInterestIds: userInterestIds)
+        return prioritizeInterestsUseCase.execute(newsletter: newsletter, userInterestIds: userInterestIds)
     }
 
     public func fetchAllNewsletters() async {

@@ -14,8 +14,4 @@ public final class MockTransformExploreRecommendationUseCase: TransformExploreRe
         if let result = executeResult { return result }
         return ExploreRecommendationResult(carousel: response.intersection, prioritizedUnion: response.union)
     }
-
-    public func prioritizeInterests(for newsletter: ExploreNewsletterDetail, userInterestIds: [Int]?) -> [ExploreInterest] {
-        newsletter.interests
-    }
 }

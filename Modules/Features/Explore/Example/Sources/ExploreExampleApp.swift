@@ -45,6 +45,7 @@ struct ExploreExampleApp: App {
             fetchGuestNewslettersUseCase: guestNewsletters,
             fetchRecommendationUseCase: recommendation,
             transformRecommendationUseCase: TransformExploreRecommendationUseCaseImpl(),
+            prioritizeInterestsUseCase: PrioritizeInterestsUseCaseImpl(),
             userInfoStore: UserInfoStore.shared,
             selectableItemStore: SelectableItemStore.shared
         )

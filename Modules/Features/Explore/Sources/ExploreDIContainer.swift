@@ -60,6 +60,7 @@ struct ExploreDIContainer {
             fetchGuestNewslettersUseCase: makeFetchGuestNewslettersUseCase(),
             fetchRecommendationUseCase: makeFetchRecommendationUseCase(),
             transformRecommendationUseCase: TransformExploreRecommendationUseCaseImpl(),
+            prioritizeInterestsUseCase: PrioritizeInterestsUseCaseImpl(),
             userInfoStore: userInfoStore,
             selectableItemStore: selectableItemStore
         )

@@ -12,5 +12,4 @@ public struct ExploreRecommendationResult {
 
 public protocol TransformExploreRecommendationUseCase: Sendable {
     func execute(response: ExploreRecommendedNewsletter, userInterestIds: [Int]?) -> ExploreRecommendationResult
-    func prioritizeInterests(for newsletter: ExploreNewsletterDetail, userInterestIds: [Int]?) -> [ExploreInterest]
 }
