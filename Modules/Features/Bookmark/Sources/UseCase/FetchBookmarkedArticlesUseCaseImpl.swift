@@ -7,7 +7,7 @@ public final class FetchBookmarkedArticlesUseCaseImpl: FetchBookmarkedArticlesUs
         self.repository = repository
     }
 
-    public func execute(interest: String?, sortBy: String?) async throws -> BookmarkedArticles {
+    public func execute(interest: String?, sortBy: BookmarkSortOption) async throws -> BookmarkedArticles {
         try await repository.fetchBookmarkArticles(interest: interest, sortBy: sortBy)
     }
 }

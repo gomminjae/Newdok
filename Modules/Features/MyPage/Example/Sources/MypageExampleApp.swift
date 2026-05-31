@@ -36,7 +36,9 @@ struct MypageExampleApp: App {
             fetchProfileUseCase: profile,
             updateNicknameUseCase: MockUpdateMypageNicknameUseCase(),
             updateInterestsUseCase: MockUpdateMypageInterestsUseCase(),
-            updateIndustryUseCase: MockUpdateMypageIndustryUseCase()
+            updateIndustryUseCase: MockUpdateMypageIndustryUseCase(),
+            selectableItemStore: SelectableItemStore.shared,
+            userInfoStore: UserInfoStore.shared
         )
     }
 }

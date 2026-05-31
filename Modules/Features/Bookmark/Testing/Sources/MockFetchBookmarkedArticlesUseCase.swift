@@ -6,11 +6,11 @@ public final class MockFetchBookmarkedArticlesUseCase: FetchBookmarkedArticlesUs
         BookmarkedArticles(totalAmount: 0, bookmarkForMonth: [])
     )
     public private(set) var executedInterest: String?
-    public private(set) var executedSortBy: String?
+    public private(set) var executedSortBy: BookmarkSortOption?
 
     public init() {}
 
-    public func execute(interest: String?, sortBy: String?) async throws -> BookmarkedArticles {
+    public func execute(interest: String?, sortBy: BookmarkSortOption) async throws -> BookmarkedArticles {
         executedInterest = interest
         executedSortBy = sortBy
         return try result.get()

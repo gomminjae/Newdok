@@ -23,7 +23,7 @@ public final class BookmarkViewModel: BookmarkViewModelBindable, ErrorHandling {
     public var interests: [BookmarkInterest] = []
 
     public var bookmarks: BookmarkedArticles?
-    public var sortOrder: String = "추가순"
+    public var sortOrder: BookmarkSortOption = .bookmarkDate
     public var currentError: AppError?
 
     private let fetchArticlesUseCase: FetchBookmarkedArticlesUseCase
@@ -57,8 +57,7 @@ public final class BookmarkViewModel: BookmarkViewModelBindable, ErrorHandling {
 
     func fetchUserBookmarks() async {
         await performAsync(feature: "bookmark", operation: "fetchUserBookmarks") {
-            let sortBy = convertSortOrderToOption(sortOrder)
-            bookmarks = try await fetchArticlesUseCase.execute(interest: interest, sortBy: sortBy)
+            bookmarks = try await fetchArticlesUseCase.execute(interest: interest, sortBy: sortOrder)
         }
     }
 
@@ -69,24 +68,10 @@ public final class BookmarkViewModel: BookmarkViewModelBindable, ErrorHandling {
         loadTask = Task { @MainActor in
             await performAsync(feature: "bookmark", operation: "loadInitial", loadingBinding: \.isLoading) {
                 async let fetchedInterests = fetchInterestsUseCase.execute()
-                async let fetchedArticles = fetchArticlesUseCase.execute(interest: interest, sortBy: convertSortOrderToOption(sortOrder))
+                async let fetchedArticles = fetchArticlesUseCase.execute(interest: interest, sortBy: sortOrder)
                 self.interests = try await fetchedInterests
                 self.bookmarks = try await fetchedArticles
             }
-        }
-    }
-
-    // 정렬 기준을 API 형식으로 변환
-    private func convertSortOrderToOption(_ sortOrder: String) -> String {
-        switch sortOrder {
-        case "추가순":
-            return "bookmark_date"
-        case "최근 아티클 순":
-            return "article_date_desc"
-        case "오래된 아티클 순":
-            return "article_date_asc"
-        default:
-            return "bookmark_date"
         }
     }
 
@@ -95,6 +80,6 @@ public final class BookmarkViewModel: BookmarkViewModelBindable, ErrorHandling {
         interest = ""
         interests = []
         bookmarks = nil
-        sortOrder = "추가순"
+        sortOrder = .bookmarkDate
     }
 }

@@ -166,7 +166,7 @@ public struct BookmarkView: View {
                 showSortSheet = true
             }) {
                 HStack(spacing: 0) {
-                    Text(viewModel.sortOrder)
+                    Text(viewModel.sortOrder.displayText)
                         .font(.hanSansNeo(13, .medium))
                         .foregroundColor(Color.captionStrong)
                     Image(asset: DesignSystemAsset.updown)
@@ -174,7 +174,7 @@ public struct BookmarkView: View {
                         .foregroundColor(Color.captionStrong)
                 }
             }
-            .accessibilityLabel("정렬: \(viewModel.sortOrder)")
+            .accessibilityLabel("정렬: \(viewModel.sortOrder.displayText)")
             .accessibilityIdentifier("bookmark_sort_button")
         }
         .padding(.horizontal, 24)

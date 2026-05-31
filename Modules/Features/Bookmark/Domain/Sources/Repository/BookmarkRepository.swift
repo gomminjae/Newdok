@@ -8,7 +8,7 @@
 import Foundation
 
 public protocol BookmarkRepository: Sendable {
-    func fetchBookmarkArticles(interest: String?, sortBy: String?) async throws -> BookmarkedArticles
+    func fetchBookmarkArticles(interest: String?, sortBy: BookmarkSortOption) async throws -> BookmarkedArticles
     func changeBookmarkState(articleId: String) async throws
     func fetchBookmarkedInterest() async throws -> [BookmarkInterest]
 }

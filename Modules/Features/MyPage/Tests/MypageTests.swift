@@ -1,8 +1,35 @@
 import Testing
 import Foundation
+import Shared
 @testable import Mypage
 @testable import MypageTesting
 @testable import MypageDomain
+
+private final class StubSelectableItemStore: SelectableItemStoreProtocol, @unchecked Sendable {
+    var interests: [SelectableItem] { [] }
+    var industries: [SelectableItem] { [] }
+    var days: [SelectableItem] { [] }
+    func loadOptions(interests: [SelectableItem], industries: [SelectableItem], days: [SelectableItem]) {}
+    func list(for category: SelectableCategoryType) -> [SelectableItem] { [] }
+    func name(for id: Int, in category: SelectableCategoryType) -> String { "" }
+    func id(for name: String, in category: SelectableCategoryType) -> Int? { nil }
+}
+
+private final class StubUserInfoStore: UserInfoStoreProtocol, @unchecked Sendable {
+    var storedUser: UserInfo?
+    func save(_ user: UserInfo) { storedUser = user }
+    func load() -> UserInfo? { storedUser }
+    func clear() { storedUser = nil }
+    var hasProfile: Bool { storedUser?.industryId != nil }
+}
+
+private final class StubTokenStorage: TokenStorageProtocol, @unchecked Sendable {
+    var accessToken: String?
+    var hasValidToken: Bool { accessToken != nil }
+    func saveAccessToken(_ token: String?) { accessToken = token }
+    func clear() { accessToken = nil }
+    func migrateTokenIfNeeded() {}
+}
 
 @Suite("MypageViewModel Tests")
 @MainActor
@@ -22,7 +49,9 @@ struct MypageViewModelTests {
             fetchProfileUseCase: fetchProfile,
             updateNicknameUseCase: updateNickname,
             updateInterestsUseCase: updateInterests,
-            updateIndustryUseCase: updateIndustry
+            updateIndustryUseCase: updateIndustry,
+            selectableItemStore: StubSelectableItemStore(),
+            userInfoStore: StubUserInfoStore()
         )
         return (vm, fetchProfile, updateNickname, updateInterests, updateIndustry)
     }
@@ -128,7 +157,9 @@ struct WithdrawViewModelTests {
             fetchProfileUseCase: fetchProfile,
             fetchSubscriptionCountUseCase: fetchSubCount,
             fetchArticleCountUseCase: fetchArticleCount,
-            withdrawUseCase: withdraw
+            withdrawUseCase: withdraw,
+            tokenStorage: StubTokenStorage(),
+            userInfoStore: StubUserInfoStore()
         )
         return (vm, fetchProfile, fetchSubCount, fetchArticleCount, withdraw)
     }

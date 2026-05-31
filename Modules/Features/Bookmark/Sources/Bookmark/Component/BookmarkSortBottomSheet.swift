@@ -1,15 +1,11 @@
 import SwiftUI
 import DesignSystem
+import BookmarkDomain
 
 struct BookmarkSortBottomSheet: View {
     @Environment(\.dismiss) private var dismiss
 
-    let sortOptions: [(text: String, value: String)] = [
-        ("추가순", "추가순"),
-        ("최근 아티클 순", "최근 아티클 순"),
-        ("오래된 아티클 순", "오래된 아티클 순")
-    ]
-    @Binding var sortOrder: String
+    @Binding var sortOrder: BookmarkSortOption
     var onSelect: () async -> Void
 
     var body: some View {
@@ -35,20 +31,20 @@ struct BookmarkSortBottomSheet: View {
             .padding(.horizontal, 24)
 
             VStack(spacing: 0) {
-                ForEach(sortOptions, id: \.value) { option in
+                ForEach(BookmarkSortOption.allCases, id: \.self) { option in
                     Button(action: {
-                        sortOrder = option.value
+                        sortOrder = option
                         Task {
                             await onSelect()
                             dismiss()
                         }
                     }) {
                         HStack(spacing: 0) {
-                            Text(option.text)
+                            Text(option.displayText)
                                 .font(.hanSansNeo(14, .medium))
                                 .foregroundColor(Color.captionStrong)
                             Spacer()
-                            if sortOrder == option.value {
+                            if sortOrder == option {
                                 Image(asset: DesignSystemAsset.lineCheckmark)
                                     .renderingMode(.template)
                                     .foregroundColor(Color.primaryNormal)
@@ -58,11 +54,11 @@ struct BookmarkSortBottomSheet: View {
                         .frame(height: 56)
                         .contentShape(Rectangle())
                     }
-                    .accessibilityLabel("\(option.text)\(sortOrder == option.value ? ", 선택됨" : "")")
-                    .accessibilityIdentifier("bookmark_sort_option_\(option.value)")
+                    .accessibilityLabel("\(option.displayText)\(sortOrder == option ? ", 선택됨" : "")")
+                    .accessibilityIdentifier("bookmark_sort_option_\(option.rawValue)")
                     .buttonStyle(.plain)
 
-                    if option.value != sortOptions.last?.value {
+                    if option != BookmarkSortOption.allCases.last {
                         Divider()
                             .padding(.leading, 24)
                     }

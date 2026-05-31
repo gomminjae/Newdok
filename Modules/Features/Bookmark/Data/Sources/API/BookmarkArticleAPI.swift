@@ -1,9 +1,10 @@
 import Moya
 import Foundation
 import Core
+import BookmarkDomain
 
 public enum BookmarkArticleAPI {
-    case fetchBookmarkArticles(interest: String?, sortBy: String?)
+    case fetchBookmarkArticles(interest: String?, sortBy: BookmarkSortOption)
     case changeBookmarkState(articleId: String)
     case fetchBookmarkedInterest
 }
@@ -37,12 +38,10 @@ extension BookmarkArticleAPI: TargetType {
         switch self {
         case .fetchBookmarkArticles(let interest, let sortBy):
             var parameters: [String: String] = [:]
-            if let interest = interest, !interest.isEmpty {
+            if let interest, !interest.isEmpty {
                 parameters["interestId"] = interest
             }
-            if let sortBy = sortBy, !sortBy.isEmpty {
-                parameters["sortBy"] = sortBy
-            }
+            parameters["sortBy"] = sortBy.rawValue
             return .requestParameters(parameters: parameters, encoding: URLEncoding.default)
         case .changeBookmarkState(let id):
             return .requestJSONEncodable(BookmarkRequest(articleId: id))

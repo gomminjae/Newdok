@@ -62,7 +62,7 @@ struct BookmarkViewModelTests {
         await vm.fetchUserBookmarks()
 
         #expect(vm.bookmarks?.totalAmount == 3)
-        #expect(mock.executedSortBy == "bookmark_date")
+        #expect(mock.executedSortBy == .bookmarkDate)
     }
 
     @Test("정렬 기준 변경 후 로드")
@@ -70,11 +70,11 @@ struct BookmarkViewModelTests {
         let mock = MockFetchBookmarkedArticlesUseCase()
         mock.result = .success(BookmarkedArticles(totalAmount: 0, bookmarkForMonth: []))
         let (vm, _, _) = makeSUT(articles: mock)
-        vm.sortOrder = "최근 아티클 순"
+        vm.sortOrder = .articleDateDesc
 
         await vm.fetchUserBookmarks()
 
-        #expect(mock.executedSortBy == "article_date_desc")
+        #expect(mock.executedSortBy == .articleDateDesc)
     }
 
     @Test("북마크 로드 실패 시 에러 처리")
@@ -106,6 +106,6 @@ struct BookmarkViewModelTests {
         #expect(vm.interest.isEmpty)
         #expect(vm.interests.isEmpty)
         #expect(vm.bookmarks == nil)
-        #expect(vm.sortOrder == "추가순")
+        #expect(vm.sortOrder == .bookmarkDate)
     }
 }

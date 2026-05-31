@@ -43,4 +43,16 @@ public struct MypageUser {
         self.industryId = industryId
         self.interests = interests
     }
+
+    public func with(nickname: String) -> MypageUser {
+        MypageUser(id: id, loginId: loginId, phoneNumber: phoneNumber, subscribeEmail: subscribeEmail, nickname: nickname, birthYear: birthYear, gender: gender, createdAt: createdAt, industryId: industryId, interests: interests)
+    }
+
+    public func with(industryId: Int) -> MypageUser {
+        MypageUser(id: id, loginId: loginId, phoneNumber: phoneNumber, subscribeEmail: subscribeEmail, nickname: nickname, birthYear: birthYear, gender: gender, createdAt: createdAt, industryId: industryId, interests: interests)
+    }
+
+    public func with(interests: [MypageInterest]) -> MypageUser {
+        MypageUser(id: id, loginId: loginId, phoneNumber: phoneNumber, subscribeEmail: subscribeEmail, nickname: nickname, birthYear: birthYear, gender: gender, createdAt: createdAt, industryId: industryId, interests: interests)
+    }
 }
