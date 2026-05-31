@@ -22,6 +22,14 @@ public final class ArticleDetailViewModel: ErrorHandling {
     var selectedText: String = ""
     private(set) var highlights: [DetailHighlight] = []
 
+    // 폰트 크기 (UserDefaults 연동)
+    private static let fontSizeKey = "articleFontSize"
+    private static let defaultFontSize: CGFloat = 20.0
+
+    var fontSize: CGFloat = UserDefaults.standard.object(forKey: fontSizeKey) as? CGFloat ?? defaultFontSize {
+        didSet { UserDefaults.standard.set(fontSize, forKey: Self.fontSizeKey) }
+    }
+
     // MARK: - Dependencies
 
     private let id: String
