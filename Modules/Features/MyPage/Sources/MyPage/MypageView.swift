@@ -28,183 +28,42 @@ public struct MypageView: View {
     public var body: some View {
         VStack(spacing: 0) {
                 // MARK: - 상단 프로필 영역
-                VStack(alignment: .leading, spacing: 16) {
-                    // 닉네임 (최대 2줄)
-                    Text(viewModel.user?.nickname ?? userInfo?.nickname ?? "")
-                        .font(.hanSansNeo(16, .bold))
-                        .lineLimit(2)
-                        .padding(.top, 32)
-
-                    // 구독이메일 라벨 + 툴팁
-                    HStack(spacing: 4) {
-                        Text("구독이메일")
-                            .font(.hanSansNeo(14, .medium))
-                            .foregroundColor(Color.captionNeutral)
-                        Button {
-                            showEmailAlert = true
-                        } label: {
-                            Image(systemName: "questionmark.circle")
-                                .font(.system(size: 13))
-                                .foregroundColor(Color.captionNeutral)
-                                .frame(width: 24, height: 24)
-                                .contentShape(Rectangle())
-                        }
-                        .buttonStyle(.plain)
-                    }
-
-                    // 이메일 텍스트 + 복사 버튼
-                    HStack(spacing: 6) {
-                        Button {
-                            let email = viewModel.user?.subscribeEmail ?? userInfo?.subscribeEmail ?? ""
-                            UIPasteboard.general.string = email
-                            isCopy = true
-
-                            Task {
-                                try await Task.sleep(for: .seconds(2.1))
-                                withAnimation {
-                                    isCopy = false
-                                }
-                            }
-                        } label: {
-                            Image(asset: DesignSystemAsset.lineCopy)
-                                .renderingMode(.template)
-                                .foregroundStyle(Color.primaryNormal)
-                                .frame(width: 24, height: 24)
-                                .contentShape(Rectangle())
-                        }
-                        .buttonStyle(.plain)
-
-                        Text(viewModel.user?.subscribeEmail ?? userInfo?.subscribeEmail ?? "")
-                            .font(.system(size: 14))
-                            .foregroundColor(Color.captionHeavy)
-                            .lineLimit(1)
-                            .truncationMode(.middle)
-                    }
-
-                    // 프로필 편집 버튼 (가로 전체)
-                    Button {
+                MypageProfileSection(
+                    nickname: viewModel.user?.nickname ?? userInfo?.nickname ?? "",
+                    subscribeEmail: viewModel.user?.subscribeEmail ?? userInfo?.subscribeEmail ?? "",
+                    onEditProfile: {
                         router.push(.editProfile)
-                    } label: {
-                        Text("프로필 편집")
-                            .font(.hanSansNeo(14, .bold))
-                            .foregroundColor(Color.captionNeutral)
-                            .frame(maxWidth: .infinity)
-                            .frame(height: 44)
-                            .contentShape(Rectangle())
-                            .overlay {
-                                RoundedRectangle(cornerRadius: 4)
-                                    .stroke(Color.lineNeutral, lineWidth: 1)
+                    },
+                    onCopyEmail: {
+                        let email = viewModel.user?.subscribeEmail ?? userInfo?.subscribeEmail ?? ""
+                        UIPasteboard.general.string = email
+                        isCopy = true
+                        Task {
+                            try await Task.sleep(for: .seconds(2.1))
+                            withAnimation {
+                                isCopy = false
                             }
+                        }
+                    },
+                    onShowEmailInfo: {
+                        showEmailAlert = true
                     }
-                    .buttonStyle(.plain)
-                    .padding(.top, 12)
-                }
-                .padding(.horizontal, 20)
-                
+                )
+
                 // MARK: - 서비스 섹션
                 VStack(spacing: 0) {
                     sectionHeader(title: "서비스")
-                    
-                    Button {
-                        router.push(.accountManage)
-                    } label: {
-                        HStack {
-                            Text("계정 관리")
-                                .font(.hanSansNeo(16, .medium))
-                                .foregroundStyle(Color.captionStrong)
-                            Spacer()
-                            Image(asset: DesignSystemAsset.lineRight)
-                                .foregroundColor(Color.captionNeutral)
-                                .frame(width: 24, height: 24)
-                        }
-                        .padding(.horizontal, 0)
-                        .frame(height: 48)
-                        .background(Color.white)
-                    }
-                    .buttonStyle(PlainButtonStyle())
-                    
-                    Button {
-                        // 시스템 알림 설정으로 이동
-//                        if let settingsUrl = URL(string: UIApplication.openSettingsURLString) {
-//                            UIApplication.shared.open(settingsUrl)
-//                        }
-                        router.push(.editAlert)
-                    } label: {
-                        HStack {
-                            Text("알림 설정")
-                                .font(.hanSansNeo(16, .medium))
-                                .foregroundStyle(Color.captionStrong)
-                            Spacer()
-                            Image(asset: DesignSystemAsset.lineRight)
-                                .foregroundColor(Color.captionNeutral)
-                                .frame(width: 24, height: 24)
-                        }
-                        .padding(.horizontal, 0)
-                        .frame(height: 48)
-                        .background(Color.white)
-                    }
-                    .buttonStyle(PlainButtonStyle())
+                    MypageMenuRow(title: "계정 관리") { router.push(.accountManage) }
+                    MypageMenuRow(title: "알림 설정") { router.push(.editAlert) }
                 }
                 .padding(.horizontal, 20)
-                
+
                 // MARK: - 고객센터 섹션
                 VStack(spacing: 0) {
                     sectionHeader(title: "고객센터")
-                    
-                    Button {
-                        router.push(.faq)
-                    } label: {
-                        HStack {
-                            Text("FAQ")
-                                .font(.hanSansNeo(16, .medium))
-                                .foregroundStyle(Color.captionStrong)
-                            Spacer()
-                            Image(asset: DesignSystemAsset.lineRight)
-                                .foregroundColor(Color.captionNeutral)
-                                .frame(width: 24, height: 24)
-                        }
-                        .padding(.horizontal, 0)
-                        .frame(height: 48)
-                        .background(Color.white)
-                    }
-                    .buttonStyle(PlainButtonStyle())
-                    
-                    Button {
-                        router.push(.feedback)
-                    } label: {
-                        HStack {
-                            Text("서비스 피드백")
-                                .font(.hanSansNeo(16, .medium))
-                                .foregroundStyle(Color.captionStrong)
-                            Spacer()
-                            Image(asset: DesignSystemAsset.lineRight)
-                                .foregroundColor(Color.captionNeutral)
-                                .frame(width: 24, height: 24)
-                        }
-                        .padding(.horizontal, 0)
-                        .frame(height: 48)
-                        .background(Color.white)
-                    }
-                    .buttonStyle(PlainButtonStyle())
-                    
-                    Button {
-                        router.push(.termsMenu)
-                    } label: {
-                        HStack {
-                            Text("약관 및 정책")
-                                .font(.hanSansNeo(16, .medium))
-                                .foregroundStyle(Color.captionStrong)
-                            Spacer()
-                            Image(asset: DesignSystemAsset.lineRight)
-                                .foregroundColor(Color.captionNeutral)
-                                .frame(width: 24, height: 24)
-                        }
-                        .padding(.horizontal, 0)
-                        .frame(height: 48)
-                        .background(Color.white)
-                    }
-                    .buttonStyle(PlainButtonStyle())
-                    
+                    MypageMenuRow(title: "FAQ") { router.push(.faq) }
+                    MypageMenuRow(title: "서비스 피드백") { router.push(.feedback) }
+                    MypageMenuRow(title: "약관 및 정책") { router.push(.termsMenu) }
                     HStack {
                         Text("버전")
                             .font(.hanSansNeo(16, .medium))
