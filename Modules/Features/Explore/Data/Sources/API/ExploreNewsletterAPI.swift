@@ -1,13 +1,14 @@
 import Moya
 import Foundation
 import Core
+import ExploreDomain
 
 public enum ExploreNewsletterAPI {
     case fetchRecommendIntersection
     case fetchRecommendUnion
-    case fetchAllNewsletterBrands(orderOpt: String?, industry: [Int]?, day: [Int]?)
+    case fetchAllNewsletterBrands(orderOpt: ExploreOrderOption, industry: [Int]?, day: [Int]?)
     case fetchNewsletterBrand(id: String)
-    case fetchGuestAllNewsletterBrand(orderOpt: String?, industry: [Int]?, day: [Int]?)
+    case fetchGuestAllNewsletterBrand(orderOpt: ExploreOrderOption, industry: [Int]?, day: [Int]?)
     case fetchGuestNewsletterBrand(id: String)
     case fetchOptionList
 }
@@ -51,10 +52,8 @@ extension ExploreNewsletterAPI: TargetType {
             return .requestPlain
         case .fetchAllNewsletterBrands(let orderOpt, let industry, let day):
             var params: [String: Any] = [:]
+            params["orderOpt"] = orderOpt.rawValue
 
-            if let orderOpt, !orderOpt.isEmpty {
-                params["orderOpt"] = orderOpt
-            }
             if let industry, !industry.isEmpty {
                 params["industry"] = industry.map { String($0) }.joined(separator: ",")
             }
@@ -65,10 +64,8 @@ extension ExploreNewsletterAPI: TargetType {
             return .requestParameters(parameters: params, encoding: URLEncoding.default)
         case .fetchGuestAllNewsletterBrand(let orderOpt, let industry, let day):
             var params: [String: Any] = [:]
+            params["orderOpt"] = orderOpt.rawValue
 
-            if let orderOpt, !orderOpt.isEmpty {
-                params["orderOpt"] = orderOpt
-            }
             if let industry, !industry.isEmpty {
                 params["industry"] = industry.map { String($0) }.joined(separator: ",")
             }

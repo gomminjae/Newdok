@@ -48,7 +48,7 @@ struct HomeExampleApp: App {
             fetchMonthArticles: month,
             fetchDayArticles: day,
             fetchNewsletters: newsletters,
-            fetchHighlightCounts: highlights,
+            decorateArticles: DecorateArticlesUseCaseImpl(highlightCountsUseCase: highlights),
             refreshArticles: MockRefreshHomeArticlesUseCase(),
             loadReadIds: MockLoadReadArticleIdsUseCase(),
             saveReadIds: MockSaveReadArticleIdsUseCase(),

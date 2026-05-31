@@ -7,7 +7,7 @@ struct ExploreRecommendationSection: View {
     let myRecommendation: [ExploreNewsletterDetail]
     let unionRecommendation: [ExploreNewsletterDetail]
     let isRefreshing: Bool
-    let prioritizedInterests: (ExploreNewsletterDetail) -> [String]
+    let prioritizedInterests: (ExploreNewsletterDetail) -> [ExploreInterest]
     let onBrandTap: (Int) -> Void
     let onRefresh: () -> Void
 

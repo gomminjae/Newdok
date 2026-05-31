@@ -7,7 +7,7 @@ public final class FetchGuestExploreNewslettersUseCaseImpl: FetchGuestExploreNew
         self.repository = repository
     }
 
-    public func execute(orderOpt: String?, industry: [Int]?, day: [Int]?) async throws -> [ExploreBrand] {
+    public func execute(orderOpt: ExploreOrderOption, industry: [Int]?, day: [Int]?) async throws -> [ExploreBrand] {
         try await repository.fetchGuestAllNewsletters(orderOpt: orderOpt, industry: industry, day: day)
     }
 }

@@ -44,7 +44,7 @@ public final class HomeViewModel: ErrorHandling {
     private let fetchMonthArticlesUseCase: FetchMonthArticlesUseCase
     private let fetchDayArticlesUseCase: FetchDayArticlesUseCase
     private let fetchNewslettersUseCase: FetchHomeNewslettersUseCase
-    private let fetchHighlightCountsUseCase: FetchHomeHighlightCountsUseCase
+    private let decorateArticlesUseCase: DecorateArticlesUseCase
     private let refreshArticlesUseCase: RefreshHomeArticlesUseCase
     private let loadReadIdsUseCase: LoadReadArticleIdsUseCase
     private let saveReadIdsUseCase: SaveReadArticleIdsUseCase
@@ -90,7 +90,7 @@ public final class HomeViewModel: ErrorHandling {
         fetchMonthArticles: FetchMonthArticlesUseCase,
         fetchDayArticles: FetchDayArticlesUseCase,
         fetchNewsletters: FetchHomeNewslettersUseCase,
-        fetchHighlightCounts: FetchHomeHighlightCountsUseCase,
+        decorateArticles: DecorateArticlesUseCase,
         refreshArticles: RefreshHomeArticlesUseCase,
         loadReadIds: LoadReadArticleIdsUseCase,
         saveReadIds: SaveReadArticleIdsUseCase,
@@ -100,7 +100,7 @@ public final class HomeViewModel: ErrorHandling {
         self.fetchMonthArticlesUseCase = fetchMonthArticles
         self.fetchDayArticlesUseCase = fetchDayArticles
         self.fetchNewslettersUseCase = fetchNewsletters
-        self.fetchHighlightCountsUseCase = fetchHighlightCounts
+        self.decorateArticlesUseCase = decorateArticles
         self.refreshArticlesUseCase = refreshArticles
         self.loadReadIdsUseCase = loadReadIds
         self.saveReadIdsUseCase = saveReadIds
@@ -306,7 +306,7 @@ public final class HomeViewModel: ErrorHandling {
     }
 
     public func refreshHighlights() async {
-        let updated = await applyHighlightCounts(filteredArticles)
+        let updated = await decorateArticlesUseCase.execute(articles: filteredArticles, readIds: readArticleIds)
         let targetDate = calendarState.selectedDate
         withAnimation(.easeInOut(duration: 0.25)) {
             filteredArticles = updated
@@ -423,43 +423,7 @@ public final class HomeViewModel: ErrorHandling {
     }
 
     private func decorateArticles(_ articles: [HomeArticle]) async -> [HomeArticle] {
-        let mapped = articles.map { applyReadStatus(to: $0) }
-        let prioritized = prioritize(mapped)
-        return await applyHighlightCounts(prioritized)
-    }
-
-    private func applyHighlightCounts(_ articles: [HomeArticle]) async -> [HomeArticle] {
-        guard !articles.isEmpty else { return articles }
-        let counts = await fetchHighlightCountsUseCase.execute(articleIds: articles.map(\.articleId))
-        return articles.map { article in
-            let count = counts[article.articleId] ?? 0
-            return count == article.highlightCount ? article : article.withHighlightCount(count)
-        }
-    }
-
-    private func applyReadStatus(to article: HomeArticle) -> HomeArticle {
-        guard readArticleIds.contains(article.articleId) else { return article }
-        return HomeArticle(
-            brandName: article.brandName,
-            imageUrl: article.imageUrl,
-            articleTitle: article.articleTitle,
-            articleId: article.articleId,
-            status: .read,
-            publishDate: article.publishDate
-        )
-    }
-
-    private func prioritize(_ articles: [HomeArticle]) -> [HomeArticle] {
-        articles.sorted { lhs, rhs in
-            let lhsRead = isRead(lhs)
-            let rhsRead = isRead(rhs)
-            if lhsRead != rhsRead { return !lhsRead }
-            return lhs.articleId > rhs.articleId
-        }
-    }
-
-    private func isRead(_ article: HomeArticle) -> Bool {
-        article.status.isRead
+        await decorateArticlesUseCase.execute(articles: articles, readIds: readArticleIds)
     }
 
     // MARK: - Private: Cache Management
@@ -513,7 +477,7 @@ public final class HomeViewModel: ErrorHandling {
     }
 
     private func unreadCount(in articles: [HomeArticle]) -> Int {
-        articles.count { !isRead($0) }
+        articles.count { !$0.status.isRead }
     }
 
     private static func extractDataDays(from monthly: [HomeArticles]) -> Set<Int> {

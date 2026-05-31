@@ -1,9 +1,10 @@
 import SwiftUI
 import DesignSystem
+import ExploreDomain
 import Shared
 
 struct ExploreFilterSection: View {
-    @Binding var orderOpt: String?
+    @Binding var orderOpt: ExploreOrderOption
     @Binding var industry: [Int]?
     @Binding var day: [Int]?
     @Binding var isShowSortSheet: Bool
@@ -52,7 +53,7 @@ struct ExploreFilterSection: View {
     private var sortButton: some View {
         Button(action: { isShowSortSheet.toggle() }) {
             HStack(spacing: 4) {
-                Text(orderOpt ?? "인기순")
+                Text(orderOpt.displayText)
                     .font(.hanSansNeo(14, .medium))
                     .foregroundStyle(Color.captionStrong)
                 Image(systemName: "arrow.up.arrow.down")
@@ -64,7 +65,7 @@ struct ExploreFilterSection: View {
             .background(RoundedRectangle(cornerRadius: 20).fill(Color.white))
             .overlay(RoundedRectangle(cornerRadius: 20).strokeBorder(Color.lineNeutral, lineWidth: 1))
         }
-        .accessibilityLabel("정렬: \(orderOpt ?? "인기순")")
+        .accessibilityLabel("정렬: \(orderOpt.displayText)")
         .accessibilityIdentifier("explore_sort_button")
         .buttonStyle(PlainButtonStyle())
     }

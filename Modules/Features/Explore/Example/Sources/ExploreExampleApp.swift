@@ -43,7 +43,10 @@ struct ExploreExampleApp: App {
             fetchNewslettersUseCase: newsletters,
             fetchBrandDetailUseCase: brandDetail,
             fetchGuestNewslettersUseCase: guestNewsletters,
-            fetchRecommendationUseCase: recommendation
+            fetchRecommendationUseCase: recommendation,
+            transformRecommendationUseCase: TransformExploreRecommendationUseCaseImpl(),
+            userInfoStore: UserInfoStore.shared,
+            selectableItemStore: SelectableItemStore.shared
         )
     }
 }

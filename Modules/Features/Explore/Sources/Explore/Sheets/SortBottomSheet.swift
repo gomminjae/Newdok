@@ -7,15 +7,12 @@
 //
 import SwiftUI
 import DesignSystem
+import ExploreDomain
 
 struct SortBottomSheet: View {
     @Environment(\.dismiss) private var dismiss
 
-    let sortOptions: [(text: String, value: String)] = [
-        ("인기순", "인기순"),
-        ("최신등록순", "최신순")
-    ]
-    @Binding var orderOpt: String?
+    @Binding var orderOpt: ExploreOrderOption
     var onSelect: () async -> Void
 
     var body: some View {
@@ -41,20 +38,20 @@ struct SortBottomSheet: View {
             .padding(.horizontal, 24)
 
             VStack(spacing: 0) {
-                ForEach(sortOptions, id: \.value) { option in
+                ForEach(ExploreOrderOption.allCases, id: \.self) { option in
                     Button(action: {
-                        orderOpt = option.value
+                        orderOpt = option
                         Task {
                             await onSelect()
                             dismiss()
                         }
                     }) {
                         HStack(spacing: 0) {
-                            Text(option.text)
+                            Text(option.displayText)
                                 .font(.hanSansNeo(14, .medium))
                                 .foregroundColor(Color.captionStrong)
                             Spacer()
-                            if orderOpt == option.value {
+                            if orderOpt == option {
                                 Image(asset: DesignSystemAsset.lineCheckmark)
                                     .renderingMode(.template)
                                     .foregroundColor(Color.primaryNormal)
@@ -63,10 +60,10 @@ struct SortBottomSheet: View {
                         .padding(.horizontal, 24)
                         .frame(height: 56)
                     }
-                    .accessibilityLabel("\(option.text)\(orderOpt == option.value ? ", 선택됨" : "")")
-                    .accessibilityIdentifier("sort_option_\(option.value)")
+                    .accessibilityLabel("\(option.displayText)\(orderOpt == option ? ", 선택됨" : "")")
+                    .accessibilityIdentifier("sort_option_\(option.rawValue)")
 
-                    if option.value != sortOptions.last?.value {
+                    if option != ExploreOrderOption.allCases.last {
                         Divider()
                             .padding(.leading, 24)
                     }

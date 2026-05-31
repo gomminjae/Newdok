@@ -1,6 +1,7 @@
 import SwiftUI
 import ExploreDomain
 import DesignSystem
+import Shared
 
 struct ExploreAllNewsletterSection: View {
     @Binding var orderOpt: ExploreOrderOption
@@ -63,15 +64,14 @@ struct ExploreAllNewsletterSection: View {
                     .padding(.bottom, 80)
                 }
                 .onChange(of: shouldScrollToTop) { _, shouldScroll in
-                    if shouldScroll {
-                        Task {
-                            try await Task.sleep(for: .seconds(0.1))
-                            withAnimation(.easeInOut(duration: 0.5)) {
-                                proxy.scrollTo("top", anchor: .top)
-                            }
-                            try await Task.sleep(for: .seconds(0.6))
-                            shouldScrollToTop = false
+                    guard shouldScroll else { return }
+                    Task {
+                        try await Task.sleep(for: .seconds(0.1))
+                        withAnimation(.easeInOut(duration: 0.5)) {
+                            proxy.scrollTo("top", anchor: .top)
                         }
+                        try await Task.sleep(for: .seconds(0.6))
+                        shouldScrollToTop = false
                     }
                 }
             }

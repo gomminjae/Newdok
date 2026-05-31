@@ -38,12 +38,13 @@ final class HomeDIContainer {
         let articleRepo = makeArticleRepository()
         let newsletterRepo = makeNewsletterRepository()
         let highlightRepo = makeHighlightRepository()
+        let highlightCounts = FetchHomeHighlightCountsUseCaseImpl(repository: highlightRepo)
         return HomeViewModel(
             fetchTodayArticles: FetchTodayArticlesUseCaseImpl(repository: articleRepo),
             fetchMonthArticles: FetchMonthArticlesUseCaseImpl(repository: articleRepo),
             fetchDayArticles: FetchDayArticlesUseCaseImpl(repository: articleRepo),
             fetchNewsletters: FetchHomeNewslettersUseCaseImpl(repository: newsletterRepo),
-            fetchHighlightCounts: FetchHomeHighlightCountsUseCaseImpl(repository: highlightRepo),
+            decorateArticles: DecorateArticlesUseCaseImpl(highlightCountsUseCase: highlightCounts),
             refreshArticles: RefreshHomeArticlesUseCaseImpl(repository: articleRepo),
             loadReadIds: LoadReadArticleIdsUseCaseImpl(repository: articleRepo),
             saveReadIds: SaveReadArticleIdsUseCaseImpl(repository: articleRepo),

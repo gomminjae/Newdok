@@ -9,7 +9,7 @@ public final class ExploreNewsletterRepositoryImpl: ExploreNewsletterRepository 
         self.network = network
     }
 
-    public func fetchNewsletters(orderOpt: String?, industry: [Int]?, day: [Int]?) async throws -> [ExploreBrand] {
+    public func fetchNewsletters(orderOpt: ExploreOrderOption, industry: [Int]?, day: [Int]?) async throws -> [ExploreBrand] {
         let response: [ExploreBrandDTO] = try await network.request(.fetchAllNewsletterBrands(orderOpt: orderOpt, industry: industry, day: day))
         return response.map { $0.toDomain() }
     }
@@ -19,7 +19,7 @@ public final class ExploreNewsletterRepositoryImpl: ExploreNewsletterRepository 
         return response.toDomain()
     }
 
-    public func fetchGuestAllNewsletters(orderOpt: String?, industry: [Int]?, day: [Int]?) async throws -> [ExploreBrand] {
+    public func fetchGuestAllNewsletters(orderOpt: ExploreOrderOption, industry: [Int]?, day: [Int]?) async throws -> [ExploreBrand] {
         let response: [ExploreBrandDTO] = try await network.request(.fetchGuestAllNewsletterBrand(orderOpt: orderOpt, industry: industry, day: day))
         return response.map { $0.toDomain() }
     }

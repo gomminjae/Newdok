@@ -1,7 +1,9 @@
 import Testing
 import Shared
 import FoundationKit
+@testable import Auth
 @testable import AuthDomain
+@testable import AuthTesting
 
 @Suite("SignupFormatStyle Tests")
 struct SignupFormatStyleTests {
@@ -258,5 +260,144 @@ struct NewdokVerificationTimerFormatStyleTests {
     @Test("음수는 0초로 보정")
     func formatNegativeSeconds() {
         #expect(style.format(-1) == "00:00")
+    }
+}
+
+// MARK: - LoginViewModel Tests
+
+private final class StubTokenStorage: TokenStorageProtocol, @unchecked Sendable {
+    var accessToken: String?
+    var hasValidToken: Bool { accessToken != nil }
+    private(set) var clearCalled = false
+    func saveAccessToken(_ token: String?) { accessToken = token }
+    func clear() { clearCalled = true; accessToken = nil }
+    func migrateTokenIfNeeded() {}
+}
+
+@Suite("LoginViewModel Tests")
+@MainActor
+struct LoginViewModelTests {
+    private func makeSUT(
+        loginUseCase: MockLoginUseCase = .init()
+    ) -> (vm: LoginViewModel, login: MockLoginUseCase, tokenStorage: StubTokenStorage) {
+        let tokenStorage = StubTokenStorage()
+        let vm = LoginViewModel(
+            loginUseCase: loginUseCase,
+            tokenStorage: tokenStorage,
+            appState: AppState.shared
+        )
+        return (vm, loginUseCase, tokenStorage)
+    }
+
+    // MARK: - isLoginEnabled
+
+    @Test("아이디/비밀번호 모두 입력 시 로그인 활성화")
+    func isLoginEnabled_bothFilled() {
+        let (vm, _, _) = makeSUT()
+        vm.loginId = "testuser"
+        vm.password = "pass1234"
+
+        #expect(vm.isLoginEnabled == true)
+    }
+
+    @Test("아이디 비어있으면 로그인 비활성화")
+    func isLoginEnabled_emptyId() {
+        let (vm, _, _) = makeSUT()
+        vm.loginId = ""
+        vm.password = "pass1234"
+
+        #expect(vm.isLoginEnabled == false)
+    }
+
+    @Test("비밀번호 비어있으면 로그인 비활성화")
+    func isLoginEnabled_emptyPassword() {
+        let (vm, _, _) = makeSUT()
+        vm.loginId = "testuser"
+        vm.password = ""
+
+        #expect(vm.isLoginEnabled == false)
+    }
+
+    // MARK: - loginAsGuest
+
+    @Test("게스트 로그인 시 토큰 클리어 및 로그아웃")
+    func loginAsGuest_clearsTokenAndLogsOut() {
+        let (vm, _, tokenStorage) = makeSUT()
+        AppState.shared.login()
+        tokenStorage.accessToken = "some-token"
+
+        vm.loginAsGuest()
+
+        #expect(tokenStorage.clearCalled == true)
+        #expect(AppState.shared.authState == .guest)
+    }
+
+    // MARK: - login
+
+    @Test("로그인 성공 시 에러 초기화 및 인증 상태 전환")
+    func login_success() async {
+        let mock = MockLoginUseCase()
+        let (vm, _, _) = makeSUT(loginUseCase: mock)
+        vm.loginId = "testuser"
+        vm.password = "pass1234"
+        AppState.shared.logout()
+
+        var successCalled = false
+        vm.login { successCalled = true }
+
+        // 내부 Task 완료 대기
+        try? await Task.sleep(for: .milliseconds(50))
+
+        #expect(mock.executedLoginId == "testuser")
+        #expect(mock.executedPassword == "pass1234")
+        #expect(successCalled == true)
+        #expect(vm.errorMessage == nil)
+        #expect(vm.isLoginIdError == false)
+        #expect(vm.isPasswordError == false)
+        #expect(AppState.shared.authState == .authenticated)
+    }
+
+    @Test("로그인 실패 — invalidPassword")
+    func login_invalidPassword() async {
+        let mock = MockLoginUseCase()
+        mock.result = .failure(LoginError.invalidPassword)
+        let (vm, _, _) = makeSUT(loginUseCase: mock)
+        vm.loginId = "testuser"
+        vm.password = "wrongpass"
+
+        vm.login { }
+
+        try? await Task.sleep(for: .milliseconds(50))
+
+        #expect(vm.isPasswordError == true)
+        #expect(vm.isLoginIdError == false)
+        #expect(vm.errorMessage != nil)
+    }
+
+    @Test("로그인 실패 — accountNotFound")
+    func login_accountNotFound() async {
+        let mock = MockLoginUseCase()
+        mock.result = .failure(LoginError.accountNotFound)
+        let (vm, _, _) = makeSUT(loginUseCase: mock)
+        vm.loginId = "nouser"
+        vm.password = "pass1234"
+
+        vm.login { }
+
+        try? await Task.sleep(for: .milliseconds(50))
+
+        #expect(vm.isLoginIdError == true)
+        #expect(vm.isPasswordError == false)
+        #expect(vm.errorMessage != nil)
+    }
+
+    @Test("로딩 중 중복 호출 방지")
+    func login_duplicatePrevented() {
+        let (vm, mock, _) = makeSUT()
+        vm.isLoading = true
+
+        vm.login { }
+
+        #expect(mock.executeCallCount == 0)
     }
 }

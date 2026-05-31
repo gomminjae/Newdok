@@ -13,7 +13,7 @@ struct HomeViewModelTests {
     private let fetchMonthArticles = MockFetchMonthArticlesUseCase()
     private let fetchDayArticles = MockFetchDayArticlesUseCase()
     private let fetchNewsletters = MockFetchHomeNewslettersUseCase()
-    private let fetchHighlightCounts = MockFetchHomeHighlightCountsUseCase()
+    private let decorateArticles = MockDecorateArticlesUseCase()
     private let refreshArticles = MockRefreshHomeArticlesUseCase()
     private let loadReadIds = MockLoadReadArticleIdsUseCase()
     private let saveReadIds = MockSaveReadArticleIdsUseCase()
@@ -26,7 +26,7 @@ struct HomeViewModelTests {
             fetchMonthArticles: fetchMonthArticles,
             fetchDayArticles: fetchDayArticles,
             fetchNewsletters: fetchNewsletters,
-            fetchHighlightCounts: fetchHighlightCounts,
+            decorateArticles: decorateArticles,
             refreshArticles: refreshArticles,
             loadReadIds: loadReadIds,
             saveReadIds: saveReadIds,
@@ -76,7 +76,7 @@ struct HomeViewModelTests {
             fetchMonthArticles: fetchMonthArticles,
             fetchDayArticles: fetchDayArticles,
             fetchNewsletters: fetchNewsletters,
-            fetchHighlightCounts: fetchHighlightCounts,
+            decorateArticles: decorateArticles,
             refreshArticles: refreshArticles,
             loadReadIds: loadReadIds,
             saveReadIds: saveReadIds,
@@ -104,6 +104,14 @@ struct HomeViewModelTests {
     @Test("markArticleAsRead updates read status and saves")
     func markArticleAsRead() async {
         setupSuccessScenario()
+        decorateArticles.handler = { articles, readIds in
+            articles.map { article in
+                if readIds.contains(article.articleId) {
+                    return HomeArticle(brandName: article.brandName, imageUrl: article.imageUrl, articleTitle: article.articleTitle, articleId: article.articleId, status: .read, publishDate: article.publishDate)
+                }
+                return article
+            }
+        }
 
         let sut = makeSUT()
         await sut.loadToday()
@@ -147,7 +155,9 @@ struct HomeViewModelTests {
         await sut.loadToday()
         #expect(!sut.filteredArticles.isEmpty)
 
-        fetchHighlightCounts.result = [10: 5, 20: 3]
+        decorateArticles.handler = { articles, _ in
+            articles.map { $0.withHighlightCount($0.articleId == 10 ? 5 : 3) }
+        }
         await sut.refreshHighlights()
 
         let article10 = sut.filteredArticles.first(where: { $0.articleId == 10 })

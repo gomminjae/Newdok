@@ -7,7 +7,7 @@ public final class MockFetchExploreNewslettersUseCase: FetchExploreNewslettersUs
 
     public init() {}
 
-    public func execute(orderOpt: String?, industry: [Int]?, day: [Int]?) async throws -> [ExploreBrand] {
+    public func execute(orderOpt: ExploreOrderOption, industry: [Int]?, day: [Int]?) async throws -> [ExploreBrand] {
         executeCallCount += 1
         return try result.get()
     }

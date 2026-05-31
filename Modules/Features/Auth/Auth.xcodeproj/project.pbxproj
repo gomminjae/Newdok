@@ -25,8 +25,10 @@
 		20967759C2FB3DD4A69AE22C /* AuthMain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 083CBFE74C9E7F71EDD0C703 /* AuthMain.swift */; };
 		253D4AA2306E9959F5F5B082 /* MyIndustryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF2249DD7EF8B30854479249 /* MyIndustryView.swift */; };
 		259316D8A0282451BBE30C75 /* OnboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05A17C657D4A51BEE81CB99C /* OnboardView.swift */; };
+		282B5EF203975D1974BBA825 /* AuthDIContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B7EBA8D7806B48F8D71D29A /* AuthDIContainer.swift */; };
 		2A7224C686420CFF1A66C683 /* Moya.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83D56B45D644E0B2DBA11EEC /* Moya.framework */; };
 		2B882611CD5D55FF9AA4BA30 /* CurationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF5156C9688647B73261D5AA /* CurationView.swift */; };
+		2D93D0C06F2FDF0903805593 /* Alamofire_Alamofire.bundle in Dependencies */ = {isa = PBXBuildFile; fileRef = 78FF525D0E8F54DA8ADC5422 /* Alamofire_Alamofire.bundle */; };
 		30FBE074985429C4E16AC952 /* AuthInterface.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE8C09C4CE36E3D06B61DAB5 /* AuthInterface.framework */; };
 		317F10B7A78A02208AD5F199 /* AuthSimpleUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A168642EA52AD1A834F65CA /* AuthSimpleUser.swift */; };
 		32D5A7DC8F48CD0FCC017BC4 /* FoundationKit.framework in Dependencies */ = {isa = PBXBuildFile; fileRef = 29FA6C20A6564CB1A65D83B5 /* FoundationKit.framework */; };
@@ -58,12 +60,14 @@
 		9ECE5640A650A001E9195A0F /* AuthUserAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5BA7E5065E6BFA71F04B38E /* AuthUserAPI.swift */; };
 		9F49D0A2DD12B3C6F2C9D9AA /* AuthBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDE7484E60F831CBAFFBD577 /* AuthBuilder.swift */; };
 		9FD0E0B05397F67F37A1530A /* AuthTesting.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5642BA06A94EBFDDB6B192CB /* AuthTesting.framework */; };
+		A0136FA014429C88E340055B /* DesignSystem_DesignSystem.bundle in Dependencies */ = {isa = PBXBuildFile; fileRef = 053F11E926A414E7E0C9D2C3 /* DesignSystem_DesignSystem.bundle */; };
 		A47F3F9CC80909D5A826ED2E /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6061C08937A7986D4F7D042 /* LoginView.swift */; };
 		A5D92D5C6F4866C1716747F6 /* FoundationKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 29FA6C20A6564CB1A65D83B5 /* FoundationKit.framework */; };
 		A873D6E66ACC7A15AE540405 /* BirthYearDropdown.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59EBC0CC5D916C5A4CB83108 /* BirthYearDropdown.swift */; };
 		AD2E02356CD05728AF7F6BED /* FoundationKit.framework in Dependencies */ = {isa = PBXBuildFile; fileRef = 29FA6C20A6564CB1A65D83B5 /* FoundationKit.framework */; };
 		ADD5AC589E22E51E680E9367 /* DesignSystem.framework in Dependencies */ = {isa = PBXBuildFile; fileRef = 45A8BB59B621EFC832DCFE0F /* DesignSystem.framework */; };
 		AE4E796AB6754D3972831029 /* AuthSimpleUserDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79D73FBD79BD1D75BD7F6D35 /* AuthSimpleUserDTO.swift */; };
+		B1B883AD5FA839D4A8A34813 /* DesignSystem_DesignSystem.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 053F11E926A414E7E0C9D2C3 /* DesignSystem_DesignSystem.bundle */; };
 		B1B8CA1ED66CA91DBA0C6606 /* AuthDomain.framework in Dependencies */ = {isa = PBXBuildFile; fileRef = 7C94165A812E44E5FD3BFC7F /* AuthDomain.framework */; };
 		B3BCEF7C74425A532B13BCA1 /* AuthSignupResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = E65656E0C636D6AF23FD06E9 /* AuthSignupResponseDTO.swift */; };
 		B99AFB0451E067C8FE60A309 /* PhoneNumberRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08278EF2ED11A60DB6D330B6 /* PhoneNumberRequest.swift */; };
@@ -79,6 +83,7 @@
 		E57A016EEFDE2A1DEF13C80E /* CurationRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07848F750646D4321324EFC6 /* CurationRow.swift */; };
 		E5BC4A325DD1F4C9FFC406C6 /* ProfileInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEFBC36DB36A7FB5F4EF2146 /* ProfileInputView.swift */; };
 		E70B49DE0EB688032C6698F5 /* RecommendView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DF1746A90A2DDFCD5AE9CB3 /* RecommendView.swift */; };
+		E8972536C344E7B0BDCDAD2D /* Alamofire_Alamofire.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 78FF525D0E8F54DA8ADC5422 /* Alamofire_Alamofire.bundle */; };
 		EEFF897EFB63EEF67243F2BF /* AuthTesting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A1EE55F16E7D24969D6632E /* AuthTesting.swift */; };
 		F42073A1A98F2AF60F8938C8 /* Auth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8895FC8BB8C3644A2923E77A /* Auth.framework */; };
 		F7B5E87E9981AE8BBA072E77 /* AuthDomain.framework in Dependencies */ = {isa = PBXBuildFile; fileRef = 7C94165A812E44E5FD3BFC7F /* AuthDomain.framework */; };
@@ -154,6 +159,17 @@
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
+		};
+		684EC3987431A3767320D468 /* Dependencies */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 8;
+			dstSubfolderSpec = 16;
+			files = (
+				2D93D0C06F2FDF0903805593 /* Alamofire_Alamofire.bundle in Dependencies */,
+				A0136FA014429C88E340055B /* DesignSystem_DesignSystem.bundle in Dependencies */,
+			);
+			name = Dependencies;
+			runOnlyForDeploymentPostprocessing = 1;
 		};
 		6B0F51A6942BBFE323B15EA1 /* Dependencies */ = {
 			isa = PBXCopyFilesBuildPhase;
@@ -256,6 +272,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		053F11E926A414E7E0C9D2C3 /* DesignSystem_DesignSystem.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DesignSystem_DesignSystem.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
 		05A17C657D4A51BEE81CB99C /* OnboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardView.swift; sourceTree = "<group>"; };
 		07848F750646D4321324EFC6 /* CurationRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurationRow.swift; sourceTree = "<group>"; };
 		08278EF2ED11A60DB6D330B6 /* PhoneNumberRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneNumberRequest.swift; sourceTree = "<group>"; };
@@ -284,7 +301,9 @@
 		59EBC0CC5D916C5A4CB83108 /* BirthYearDropdown.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BirthYearDropdown.swift; sourceTree = "<group>"; };
 		5E5E69594651E831F6B39550 /* AuthInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthInterface.swift; sourceTree = "<group>"; };
 		5ED3793EBF1965006A6246AA /* AuthIDCheckResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthIDCheckResult.swift; sourceTree = "<group>"; };
+		6B7EBA8D7806B48F8D71D29A /* AuthDIContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthDIContainer.swift; sourceTree = "<group>"; };
 		6DFBFB5E537C38ADF3FC6F51 /* AuthRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthRepository.swift; sourceTree = "<group>"; };
+		78FF525D0E8F54DA8ADC5422 /* Alamofire_Alamofire.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Alamofire_Alamofire.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
 		7943E1660F0F8C03171DA01B /* AuthSMSResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthSMSResponseDTO.swift; sourceTree = "<group>"; };
 		79D73FBD79BD1D75BD7F6D35 /* AuthSimpleUserDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthSimpleUserDTO.swift; sourceTree = "<group>"; };
 		7BDA675B82B10EC8A13AFB6B /* CompleteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompleteView.swift; sourceTree = "<group>"; };
@@ -456,6 +475,7 @@
 		47BB2EF37CEDEF87800073AF /* Products */ = {
 			isa = PBXGroup;
 			children = (
+				78FF525D0E8F54DA8ADC5422 /* Alamofire_Alamofire.bundle */,
 				8895FC8BB8C3644A2923E77A /* Auth.framework */,
 				FC8AEB8E0082B038CB7521FA /* AuthData.framework */,
 				7C94165A812E44E5FD3BFC7F /* AuthDomain.framework */,
@@ -463,6 +483,7 @@
 				5642BA06A94EBFDDB6B192CB /* AuthTesting.framework */,
 				CF8FCFE4AC3B608B5042F210 /* AuthTests.xctest */,
 				E0452B120F35B0BAE8B6916C /* Core.framework */,
+				053F11E926A414E7E0C9D2C3 /* DesignSystem_DesignSystem.bundle */,
 				45A8BB59B621EFC832DCFE0F /* DesignSystem.framework */,
 				29FA6C20A6564CB1A65D83B5 /* FoundationKit.framework */,
 				2FDB1F539F81A1BE90F87D4C /* Kingfisher.framework */,
@@ -481,6 +502,7 @@
 				9C2122ECB72A9CBE189BC226 /* Signup */,
 				030F56DDF96846B34F64AF89 /* UseCase */,
 				EDE7484E60F831CBAFFBD577 /* AuthBuilder.swift */,
+				6B7EBA8D7806B48F8D71D29A /* AuthDIContainer.swift */,
 				083CBFE74C9E7F71EDD0C703 /* AuthMain.swift */,
 			);
 			path = Sources;
@@ -735,6 +757,7 @@
 				E9C7F24A38551DB28EEA9184 /* Resources */,
 				B6A5B1067558D5212CD51DA8 /* Frameworks */,
 				DFA2E33A5B95A9DDC48D1C33 /* Embed Frameworks */,
+				684EC3987431A3767320D468 /* Dependencies */,
 			);
 			buildRules = (
 			);
@@ -905,6 +928,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E8972536C344E7B0BDCDAD2D /* Alamofire_Alamofire.bundle in Resources */,
+				B1B883AD5FA839D4A8A34813 /* DesignSystem_DesignSystem.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -941,6 +966,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9F49D0A2DD12B3C6F2C9D9AA /* AuthBuilder.swift in Sources */,
+				282B5EF203975D1974BBA825 /* AuthDIContainer.swift in Sources */,
 				20967759C2FB3DD4A69AE22C /* AuthMain.swift in Sources */,
 				A47F3F9CC80909D5A826ED2E /* LoginView.swift in Sources */,
 				06C7F1D619C3D8813EC698DC /* LoginViewModel.swift in Sources */,
@@ -1570,6 +1596,10 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-L$(DT_TOOLCHAIN_DIR)/usr/lib/swift/$(PLATFORM_NAME)",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.newdok.auth.tests;
 				PRODUCT_NAME = AuthTests;
 				SDKROOT = iphoneos;
@@ -1597,6 +1627,10 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
+				);
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-L$(DT_TOOLCHAIN_DIR)/usr/lib/swift/$(PLATFORM_NAME)",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.newdok.auth.tests;
 				PRODUCT_NAME = AuthTests;

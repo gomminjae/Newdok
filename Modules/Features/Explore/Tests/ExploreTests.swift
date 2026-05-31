@@ -1,8 +1,27 @@
 import Testing
 import Foundation
+import Shared
 @testable import Explore
 @testable import ExploreTesting
 @testable import ExploreDomain
+
+private final class StubUserInfoStore: UserInfoStoreProtocol, @unchecked Sendable {
+    var storedUser: UserInfo?
+    func save(_ user: UserInfo) { storedUser = user }
+    func load() -> UserInfo? { storedUser }
+    func clear() { storedUser = nil }
+    var hasProfile: Bool { storedUser?.industryId != nil }
+}
+
+private final class StubSelectableItemStore: SelectableItemStoreProtocol, @unchecked Sendable {
+    var interests: [SelectableItem] { [] }
+    var industries: [SelectableItem] { [] }
+    var days: [SelectableItem] { [] }
+    func loadOptions(interests: [SelectableItem], industries: [SelectableItem], days: [SelectableItem]) {}
+    func list(for category: SelectableCategoryType) -> [SelectableItem] { [] }
+    func name(for id: Int, in category: SelectableCategoryType) -> String { "" }
+    func id(for name: String, in category: SelectableCategoryType) -> Int? { nil }
+}
 
 @Suite("ExploreViewModel Tests")
 @MainActor
@@ -22,7 +41,10 @@ struct ExploreViewModelTests {
             fetchNewslettersUseCase: fetchNewsletters,
             fetchBrandDetailUseCase: fetchBrandDetail,
             fetchGuestNewslettersUseCase: fetchGuest,
-            fetchRecommendationUseCase: fetchRecommendation
+            fetchRecommendationUseCase: fetchRecommendation,
+            transformRecommendationUseCase: MockTransformExploreRecommendationUseCase(),
+            userInfoStore: StubUserInfoStore(),
+            selectableItemStore: StubSelectableItemStore()
         )
         return (vm, fetchNewsletters, fetchBrandDetail, fetchGuest, fetchRecommendation)
     }
@@ -77,13 +99,13 @@ struct ExploreViewModelTests {
         let (vm, _, _, _, _) = makeSUT()
         vm.day = [1, 2]
         vm.industry = [3]
-        vm.orderOpt = "최신순"
+        vm.orderOpt = .newest
 
         await vm.resetFilters()
 
         #expect(vm.day == nil)
         #expect(vm.industry == nil)
-        #expect(vm.orderOpt == "인기순")
+        #expect(vm.orderOpt == .popular)
         #expect(vm.shouldScrollToTop == true)
     }
 
@@ -96,6 +118,6 @@ struct ExploreViewModelTests {
 
         #expect(vm.allNewsletters.isEmpty)
         #expect(vm.selectedTab == 0)
-        #expect(vm.orderOpt == "인기순")
+        #expect(vm.orderOpt == .popular)
     }
 }
