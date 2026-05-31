@@ -27,9 +27,24 @@ public struct RecoveryView: View {
                 VStack(spacing: 0) {
                     tabSwitcher
                     if selectedTab == 0 {
-                        FindIdPagerView(viewModel: viewModel)
+                        FindIdPagerView(
+                            viewModel: viewModel,
+                            onSignUp: { router.push(.signup) },
+                            onLogin: { router.push(.login) },
+                            onContact: { router.push(.serviceFeedback) }
+                        )
                     } else {
-                        PasswordRecoveryPagerView(viewModel: viewModel)
+                        PasswordRecoveryPagerView(
+                            viewModel: viewModel,
+                            onPasswordResetComplete: {
+                                router.resetTo(.login)
+                                Task { @MainActor in
+                                    try? await Task.sleep(nanoseconds: 500_000_000)
+                                    ToastCenter.shared.show("비밀번호가 재설정되었습니다.")
+                                }
+                            },
+                            onLogin: { router.resetTo(.login) }
+                        )
                     }
                 }
             }

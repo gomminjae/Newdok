@@ -35,7 +35,7 @@ final class DetailDIContainer {
     }
 
     func makeBrandDetailViewModel(id: String) -> BrandDetailViewModel {
-        BrandDetailViewModel(id: id, brandRepository: makeBrandRepository(), userInfoStore: userInfoStore)
+        BrandDetailViewModel(id: id, brandRepository: makeBrandRepository(), popupPreference: SubscribePopupPreference.shared, userInfoStore: userInfoStore)
     }
 
     func makeArticleDetailViewModel(id: String) -> ArticleDetailViewModel {

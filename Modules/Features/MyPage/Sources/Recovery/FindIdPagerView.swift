@@ -8,20 +8,22 @@
 import SwiftUI
 import DesignSystem
 import MypageDomain
-import Shared
 import FoundationKit
 import PopupView
 
 struct FindIdPagerView: View {
     @Bindable var viewModel: RecoveryViewModel
+    let onSignUp: () -> Void
+    let onLogin: () -> Void
+    let onContact: () -> Void
 
     var body: some View {
         ZStack {
             if viewModel.currentPage == 0 {
-                FindIdPhoneInputView(viewModel: viewModel)
+                FindIdPhoneInputView(viewModel: viewModel, onSignUp: onSignUp)
                     .transition(.move(edge: .trailing).combined(with: .opacity))
             } else {
-                FindIdResultView(viewModel: viewModel)
+                FindIdResultView(viewModel: viewModel, onLogin: onLogin, onContact: onContact)
                     .transition(.move(edge: .leading).combined(with: .opacity))
             }
         }
@@ -30,12 +32,11 @@ struct FindIdPagerView: View {
 }
 struct FindIdPhoneInputView: View {
     @Bindable var viewModel: RecoveryViewModel
+    let onSignUp: () -> Void
     @FocusState private var isPhoneFieldFocused: Bool
     @FocusState private var isNumberPadFocused: Bool
-    
+
     @State private var isShowPhoneNumberError: Bool = false
-    
-    @Environment(AppRouter.self) private var router
 
     var body: some View {
         ZStack(alignment: .bottom) {
@@ -116,7 +117,7 @@ struct FindIdPhoneInputView: View {
                 onClose: { isShowPhoneNumberError = false },
                 onSignUp: {
                     isShowPhoneNumberError = false
-                    router.push(.signup)
+                    onSignUp()
                 }
             )
         } customize: {
@@ -133,8 +134,8 @@ struct FindIdPhoneInputView: View {
 
 struct FindIdResultView: View {
     @Bindable var viewModel: RecoveryViewModel
-    
-    @Environment(AppRouter.self) private var router
+    let onLogin: () -> Void
+    let onContact: () -> Void
 
     var body: some View {
             VStack(alignment: .leading, spacing: 0) {
@@ -150,7 +151,7 @@ struct FindIdResultView: View {
                 ForEach(viewModel.users) { user in
                     UserRow(user: user)
                         .contentShape(Rectangle())
-                        .onTapGesture { router.push(.login) }
+                        .onTapGesture { onLogin() }
                         .padding(.bottom, 12)
                 }
 
@@ -179,7 +180,7 @@ struct FindIdResultView: View {
 
         return HStack(spacing: 0) {
             prefix
-            Button(action: { router.push(.serviceFeedback) }) { link }
+            Button(action: { onContact() }) { link }
             suffix
         }
         .padding(.leading, 4)
