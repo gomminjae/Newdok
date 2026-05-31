@@ -15,7 +15,6 @@ struct NewdokApp: App {
 
     init() {
         FirebaseApp.configure()
-        DesignSystemFontFamily.registerAllCustomFonts()
         ErrorLoggerRegistry.register(CoreErrorLogger())
         TokenStore.shared.migrateTokenIfNeeded()
 

@@ -8,21 +8,23 @@
 
 import SwiftUI
 import PopupView
-import Shared
 import FoundationKit
 import DesignSystem
 import MypageDomain
+import Shared
 
 struct PasswordRecoveryPagerView: View {
     @Bindable var viewModel: RecoveryViewModel
-    
+    let onPasswordResetComplete: () -> Void
+    let onLogin: () -> Void
+
     var body: some View {
         VStack {
             switch viewModel.passwordRecoveryStep {
             case 0: PasswordRecoveryIdInputView(viewModel: viewModel)
             case 1: PasswordRecoveryPhoneView(viewModel: viewModel)
-            case 2: PasswordRecoveryNewPasswordView(viewModel: viewModel)
-            case 3: PasswordRecoveryResultView(viewModel: viewModel)
+            case 2: PasswordRecoveryNewPasswordView(viewModel: viewModel, onPasswordResetComplete: onPasswordResetComplete)
+            case 3: PasswordRecoveryResultView(viewModel: viewModel, onLogin: onLogin)
             default: EmptyView()
             }
         }
@@ -258,7 +260,7 @@ struct PasswordRecoveryPhoneView: View {
 // 3단계
 struct PasswordRecoveryNewPasswordView: View {
     @Bindable var viewModel: RecoveryViewModel
-    @Environment(AppRouter.self) private var router
+    let onPasswordResetComplete: () -> Void
     @State private var error: String?
     @State private var isSecurePassword: Bool = true
     @State private var isSecureConfirmPassword: Bool = true
@@ -347,11 +349,7 @@ struct PasswordRecoveryNewPasswordView: View {
                 Task {
                     await viewModel.resetPassword()
                     if viewModel.passwordResetSuccess == true {
-                        router.resetTo(.login)
-                        Task { @MainActor in
-                            try await Task.sleep(nanoseconds: 500_000_000)
-                            ToastCenter.shared.show("비밀번호가 재설정되었습니다.")
-                        }
+                        onPasswordResetComplete()
                     } else {
                         error = "비밀번호가 일치하지 않거나 조건에 맞지 않습니다."
                     }
@@ -386,8 +384,8 @@ struct PasswordRecoveryNewPasswordView: View {
 // 4단계
 struct PasswordRecoveryResultView: View {
     @Bindable var viewModel: RecoveryViewModel
-    @Environment(AppRouter.self) private var router
-    
+    let onLogin: () -> Void
+
     var body: some View {
         VStack(spacing: 24) {
             if viewModel.passwordResetSuccess == true {
@@ -395,7 +393,7 @@ struct PasswordRecoveryResultView: View {
                     .font(.hanSansNeo(20, .bold))
                     .padding(.top, 24)
                 Button {
-                    router.resetTo(.login)
+                    onLogin()
                 } label: {
                     Text("로그인하러 가기")
                         .font(.hanSansNeo(16, .bold))

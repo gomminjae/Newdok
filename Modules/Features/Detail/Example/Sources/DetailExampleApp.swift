@@ -65,7 +65,9 @@ private struct DetailExampleMenuView: View {
         )
         return BrandDetailViewModel(
             id: String(brand.brandId),
-            brandRepository: repository
+            brandRepository: repository,
+            popupPreference: SubscribePopupPreference.shared,
+            userInfoStore: UserInfoStore.shared
         )
     }
 
