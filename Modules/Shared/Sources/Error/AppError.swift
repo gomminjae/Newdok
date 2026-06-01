@@ -37,7 +37,7 @@ public enum AppError: Error, Equatable {
 
     public var shouldShowToast: Bool {
         switch self {
-        case .silent, .serverError:
+        case .silent, .serverError, .timeout:
             return false
         default:
             return true
