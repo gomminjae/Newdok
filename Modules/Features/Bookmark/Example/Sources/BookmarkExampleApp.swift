@@ -36,7 +36,6 @@ struct BookmarkExampleApp: App {
 
         return BookmarkViewModel(
             fetchArticlesUseCase: articles,
-            toggleBookmarkUseCase: MockToggleBookmarkStatusUseCase(),
             fetchInterestsUseCase: interests
         )
     }

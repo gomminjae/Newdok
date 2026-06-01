@@ -11,12 +11,10 @@ struct BookmarkViewModelTests {
 
     private func makeSUT(
         articles: MockFetchBookmarkedArticlesUseCase = .init(),
-        toggle: MockToggleBookmarkStatusUseCase = .init(),
         interests: MockFetchBookmarkedInterestsUseCase = .init()
     ) -> (vm: BookmarkViewModel, articles: MockFetchBookmarkedArticlesUseCase, interests: MockFetchBookmarkedInterestsUseCase) {
         let vm = BookmarkViewModel(
             fetchArticlesUseCase: articles,
-            toggleBookmarkUseCase: toggle,
             fetchInterestsUseCase: interests
         )
         return (vm, articles, interests)

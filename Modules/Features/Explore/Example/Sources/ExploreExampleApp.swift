@@ -31,8 +31,6 @@ struct ExploreExampleApp: App {
         let newsletters = MockFetchExploreNewslettersUseCase()
         newsletters.result = .success(SampleExploreBrands.mixed)
 
-        let brandDetail = MockFetchExploreBrandDetailUseCase()
-
         let guestNewsletters = MockFetchGuestExploreNewslettersUseCase()
         guestNewsletters.result = .success(SampleExploreBrands.mixed)
 
@@ -41,7 +39,6 @@ struct ExploreExampleApp: App {
 
         return ExploreViewModel(
             fetchNewslettersUseCase: newsletters,
-            fetchBrandDetailUseCase: brandDetail,
             fetchGuestNewslettersUseCase: guestNewsletters,
             fetchRecommendationUseCase: recommendation,
             transformRecommendationUseCase: TransformExploreRecommendationUseCaseImpl(),

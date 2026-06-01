@@ -14,19 +14,9 @@ public final class ExploreNewsletterRepositoryImpl: ExploreNewsletterRepository 
         return response.map { $0.toDomain() }
     }
 
-    public func fetchNewsletterBrand(id: String) async throws -> ExploreBrandDetail {
-        let response = try await network.request(FetchExploreNewsletterBrand(id: id))
-        return response.toDomain()
-    }
-
     public func fetchGuestAllNewsletters(orderOpt: ExploreOrderOption, industry: [Int]?, day: [Int]?) async throws -> [ExploreBrand] {
         let response = try await network.request(FetchGuestExploreAllNewsletterBrands(orderOpt: orderOpt, industry: industry, day: day))
         return response.map { $0.toDomain() }
-    }
-
-    public func fetchGuestNewsletterBrand(id: String) async throws -> ExploreBrandDetail {
-        let response = try await network.request(FetchGuestExploreNewsletterBrand(id: id))
-        return response.toDomain()
     }
 
     public func fetchRecommendation() async throws -> ExploreRecommendedNewsletter {

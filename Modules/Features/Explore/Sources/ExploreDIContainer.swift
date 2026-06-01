@@ -31,10 +31,6 @@ struct ExploreDIContainer {
         FetchExploreNewslettersUseCaseImpl(repository: makeRepository())
     }
 
-    private func makeFetchBrandDetailUseCase() -> FetchExploreBrandDetailUseCase {
-        FetchExploreBrandDetailUseCaseImpl(repository: makeRepository())
-    }
-
     private func makeFetchGuestNewslettersUseCase() -> FetchGuestExploreNewslettersUseCase {
         FetchGuestExploreNewslettersUseCaseImpl(repository: makeRepository())
     }
@@ -56,7 +52,6 @@ struct ExploreDIContainer {
     func makeViewModel() -> ExploreViewModel {
         ExploreViewModel(
             fetchNewslettersUseCase: makeFetchNewslettersUseCase(),
-            fetchBrandDetailUseCase: makeFetchBrandDetailUseCase(),
             fetchGuestNewslettersUseCase: makeFetchGuestNewslettersUseCase(),
             fetchRecommendationUseCase: makeFetchRecommendationUseCase(),
             transformRecommendationUseCase: TransformExploreRecommendationUseCaseImpl(),

@@ -21,10 +21,6 @@ struct BookmarkDIContainer {
         FetchBookmarkedArticlesUseCaseImpl(repository: repository)
     }
 
-    func makeToggleBookmarkUseCase(repository: BookmarkRepository) -> ToggleBookmarkStatusUseCase {
-        ToggleBookmarkStatusUseCaseImpl(repository: repository)
-    }
-
     func makeFetchInterestsUseCase(repository: BookmarkRepository) -> FetchBookmarkedInterestsUseCase {
         FetchBookmarkedInterestsUseCaseImpl(repository: repository)
     }
@@ -36,7 +32,6 @@ struct BookmarkDIContainer {
         let repository = makeRepository()
         return BookmarkViewModel(
             fetchArticlesUseCase: makeFetchArticlesUseCase(repository: repository),
-            toggleBookmarkUseCase: makeToggleBookmarkUseCase(repository: repository),
             fetchInterestsUseCase: makeFetchInterestsUseCase(repository: repository)
         )
     }

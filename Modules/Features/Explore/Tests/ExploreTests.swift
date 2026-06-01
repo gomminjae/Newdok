@@ -29,17 +29,14 @@ struct ExploreViewModelTests {
     private func makeSUT() -> (
         vm: ExploreViewModel,
         fetchNewsletters: MockFetchExploreNewslettersUseCase,
-        fetchBrandDetail: MockFetchExploreBrandDetailUseCase,
         fetchGuest: MockFetchGuestExploreNewslettersUseCase,
         fetchRecommendation: MockFetchExploreRecommendationUseCase
     ) {
         let fetchNewsletters = MockFetchExploreNewslettersUseCase()
-        let fetchBrandDetail = MockFetchExploreBrandDetailUseCase()
         let fetchGuest = MockFetchGuestExploreNewslettersUseCase()
         let fetchRecommendation = MockFetchExploreRecommendationUseCase()
         let vm = ExploreViewModel(
             fetchNewslettersUseCase: fetchNewsletters,
-            fetchBrandDetailUseCase: fetchBrandDetail,
             fetchGuestNewslettersUseCase: fetchGuest,
             fetchRecommendationUseCase: fetchRecommendation,
             transformRecommendationUseCase: MockTransformExploreRecommendationUseCase(),
@@ -47,11 +44,11 @@ struct ExploreViewModelTests {
             userInfoStore: StubUserInfoStore(),
             selectableItemStore: StubSelectableItemStore()
         )
-        return (vm, fetchNewsletters, fetchBrandDetail, fetchGuest, fetchRecommendation)
+        return (vm, fetchNewsletters, fetchGuest, fetchRecommendation)
     }
 
     @Test func fetchAllNewsletters_success() async {
-        let (vm, fetchNewsletters, _, _, _) = makeSUT()
+        let (vm, fetchNewsletters, _, _) = makeSUT()
         let brands = [
             ExploreBrand(brandId: 1, brandName: "뉴스레터A", imageUrl: nil, interests: [], isSubscribed: nil, shortDescription: "설명", subscriptionCount: 100)
         ]
@@ -65,7 +62,7 @@ struct ExploreViewModelTests {
     }
 
     @Test func fetchAllNewsletters_failure() async {
-        let (vm, fetchNewsletters, _, _, _) = makeSUT()
+        let (vm, fetchNewsletters, _, _) = makeSUT()
         fetchNewsletters.result = .failure(NSError(domain: "test", code: -1))
 
         await vm.fetchAllNewsletters()
@@ -74,7 +71,7 @@ struct ExploreViewModelTests {
     }
 
     @Test func fetchGuestAllNewsletters_success() async {
-        let (vm, _, _, fetchGuest, _) = makeSUT()
+        let (vm, _, fetchGuest, _) = makeSUT()
         let brands = [
             ExploreBrand(brandId: 2, brandName: "게스트B", imageUrl: nil, interests: [], isSubscribed: nil, shortDescription: "설명", subscriptionCount: 50)
         ]
@@ -87,7 +84,7 @@ struct ExploreViewModelTests {
     }
 
     @Test func fetchRecommendation_success() async {
-        let (vm, _, _, _, fetchRecommendation) = makeSUT()
+        let (vm, _, _, fetchRecommendation) = makeSUT()
         let recommendation = ExploreRecommendedNewsletter(union: [], intersection: [])
         fetchRecommendation.result = .success(recommendation)
 
@@ -97,7 +94,7 @@ struct ExploreViewModelTests {
     }
 
     @Test func resetFilters_clearsState() async {
-        let (vm, _, _, _, _) = makeSUT()
+        let (vm, _, _, _) = makeSUT()
         vm.day = [1, 2]
         vm.industry = [3]
         vm.orderOpt = .newest
@@ -111,7 +108,7 @@ struct ExploreViewModelTests {
     }
 
     @Test func clearData_resetsAllState() {
-        let (vm, _, _, _, _) = makeSUT()
+        let (vm, _, _, _) = makeSUT()
         vm.allNewsletters = [ExploreBrand(brandId: 1, brandName: "A", imageUrl: nil, interests: [], isSubscribed: nil, shortDescription: "", subscriptionCount: 0)]
         vm.selectedTab = 1
 

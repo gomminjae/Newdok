@@ -77,7 +77,6 @@ public final class ExploreViewModel: ErrorHandling {
     }
 
     private let fetchNewslettersUseCase: FetchExploreNewslettersUseCase
-    private let fetchBrandDetailUseCase: FetchExploreBrandDetailUseCase
     private let fetchGuestNewslettersUseCase: FetchGuestExploreNewslettersUseCase
     private let fetchRecommendationUseCase: FetchExploreRecommendationUseCase
     private let transformRecommendationUseCase: TransformExploreRecommendationUseCase
@@ -87,7 +86,6 @@ public final class ExploreViewModel: ErrorHandling {
 
     public init(
         fetchNewslettersUseCase: FetchExploreNewslettersUseCase,
-        fetchBrandDetailUseCase: FetchExploreBrandDetailUseCase,
         fetchGuestNewslettersUseCase: FetchGuestExploreNewslettersUseCase,
         fetchRecommendationUseCase: FetchExploreRecommendationUseCase,
         transformRecommendationUseCase: TransformExploreRecommendationUseCase,
@@ -96,7 +94,6 @@ public final class ExploreViewModel: ErrorHandling {
         selectableItemStore: SelectableItemStoreProtocol
     ) {
         self.fetchNewslettersUseCase = fetchNewslettersUseCase
-        self.fetchBrandDetailUseCase = fetchBrandDetailUseCase
         self.fetchGuestNewslettersUseCase = fetchGuestNewslettersUseCase
         self.fetchRecommendationUseCase = fetchRecommendationUseCase
         self.transformRecommendationUseCase = transformRecommendationUseCase
@@ -154,12 +151,6 @@ public final class ExploreViewModel: ErrorHandling {
         await performAsync(feature: "explore", operation: "fetchAllNewsletters", loadingBinding: \.isRefreshingAllNewsletters) {
             let response = try await fetchNewslettersUseCase.execute(orderOpt: orderOpt, industry: industry, day: day)
             allNewsletters = response
-        }
-    }
-
-    public func fetchBrandDetail(id: String) async {
-        await performAsync(feature: "explore", operation: "fetchBrandDetail") {
-            _ = try await fetchBrandDetailUseCase.execute(id: id)
         }
     }
 

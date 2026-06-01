@@ -47,24 +47,6 @@ struct FetchGuestExploreAllNewsletterBrands: APIRequest {
     var task: RequestTask { .query(brandQuery(orderOpt: orderOpt, industry: industry, day: day)) }
 }
 
-struct FetchExploreNewsletterBrand: APIRequest {
-    typealias Response = ExploreBrandDetailDTO
-    let id: String
-    var baseURL: URL { ExploreBaseURL.newsletters }
-    var path: String { "/\(id)" }
-    var method: HTTPMethod { .get }
-    var task: RequestTask { .plain }
-}
-
-struct FetchGuestExploreNewsletterBrand: APIRequest {
-    typealias Response = ExploreBrandDetailDTO
-    let id: String
-    var baseURL: URL { ExploreBaseURL.newsletters }
-    var path: String { "/\(id)/non-member" }
-    var method: HTTPMethod { .get }
-    var task: RequestTask { .plain }
-}
-
 struct FetchExploreOptionList: APIRequest {
     typealias Response = ExploreOptionListDTO
     var baseURL: URL { ExploreBaseURL.options }

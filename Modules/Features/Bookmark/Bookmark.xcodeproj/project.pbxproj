@@ -42,7 +42,6 @@
 		6144DD3831CAE3E3A2D7FB45 /* Kingfisher.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 722BE9794BB696843B2378B9 /* Kingfisher.framework */; };
 		61AF57048C6B4DDBC8302B65 /* Shared.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22775B642171631175E5C887 /* Shared.framework */; };
 		65FB09AD7D6D9B6D2D31199E /* BookmarkSortOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = 346AE55071CC52296677FA7D /* BookmarkSortOption.swift */; };
-		67B77DD174942AC92B42F299 /* ToggleBookmarkStatusUseCaseImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D79073B3DFB35FD7DE769EB /* ToggleBookmarkStatusUseCaseImpl.swift */; };
 		683C30DD6A267CC7141E08CB /* NetworkKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DFCFEC2F6E5E0AB50AFCB559 /* NetworkKit.framework */; };
 		6E2E23C7B71C7263BB660EE8 /* BookmarkInterface.framework in Dependencies */ = {isa = PBXBuildFile; fileRef = E7655ACA3BC556B119528725 /* BookmarkInterface.framework */; };
 		70433C64209F81F7C99A64F3 /* BookmarkTesting.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 455970BB067D86A1E0357180 /* BookmarkTesting.framework */; };
@@ -52,8 +51,6 @@
 		8BB89F4C1BD28E14E1D2144E /* FetchBookmarkedArticlesUseCaseImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BAB58DB9899AEE95F92115A /* FetchBookmarkedArticlesUseCaseImpl.swift */; };
 		8E2AA545E351C1CFC4F6C213 /* BookmarkBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = A929591859C2325718864003 /* BookmarkBuilder.swift */; };
 		8F0C6B4BC531BA9A2AB6D0D0 /* BookmarkInterface.framework in Dependencies */ = {isa = PBXBuildFile; fileRef = E7655ACA3BC556B119528725 /* BookmarkInterface.framework */; };
-		8FEE905D5215D72F335C01F4 /* MockToggleBookmarkStatusUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BB770F786C65953FA072D47 /* MockToggleBookmarkStatusUseCase.swift */; };
-		965D814CB64A8A7096F0D5A6 /* BookmarkRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F85A76ED5370E68D43B50BD /* BookmarkRequest.swift */; };
 		9CDFF7E5C35845724D00EEF8 /* BookmarkItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = D276B3421EA24CE847FEE3A2 /* BookmarkItem.swift */; };
 		9D7C75A36F3F477772BD7FBE /* BookmarkEmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 962531354FC80D68BEDB100B /* BookmarkEmptyView.swift */; };
 		A04E9AADF186FE1832AF4D59 /* NetworkKit.framework in Dependencies */ = {isa = PBXBuildFile; fileRef = DFCFEC2F6E5E0AB50AFCB559 /* NetworkKit.framework */; };
@@ -79,7 +76,6 @@
 		EFEA28987FB90851599084C2 /* BookmarkInterestDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A8328380BADA8FF551AC269 /* BookmarkInterestDTO.swift */; };
 		F3A20883E17372BAE2995BDA /* NetworkKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DFCFEC2F6E5E0AB50AFCB559 /* NetworkKit.framework */; };
 		F783D19B9CDAD845A9C48311 /* PopupView.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D7097229A5B4D0C77F9A1AA9 /* PopupView.framework */; };
-		FC2692497EEEBDB1B6509CA1 /* ToggleBookmarkStatusUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D3BBDC46E228A25D0BFF881 /* ToggleBookmarkStatusUseCase.swift */; };
 		FF662E892BCA85526915A148 /* FetchBookmarkedArticlesUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = D31CA5BDB3B22749605469DE /* FetchBookmarkedArticlesUseCase.swift */; };
 /* End PBXBuildFile section */
 
@@ -283,13 +279,9 @@
 		027337791E8D813CBD0E42DF /* MonthlyBookmarkDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthlyBookmarkDTO.swift; sourceTree = "<group>"; };
 		0899174EB9AB87E665590C43 /* StopSubscribeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StopSubscribeView.swift; sourceTree = "<group>"; };
 		0B901B124D76A459FEA9B515 /* BookmarkExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BookmarkExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		0BB770F786C65953FA072D47 /* MockToggleBookmarkStatusUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockToggleBookmarkStatusUseCase.swift; sourceTree = "<group>"; };
-		0D3BBDC46E228A25D0BFF881 /* ToggleBookmarkStatusUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToggleBookmarkStatusUseCase.swift; sourceTree = "<group>"; };
 		0DEC7FF30725688E6BE8DE19 /* BookmarkRepositoryImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkRepositoryImpl.swift; sourceTree = "<group>"; };
-		0F85A76ED5370E68D43B50BD /* BookmarkRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkRequest.swift; sourceTree = "<group>"; };
 		16BF1ECB8E46A46B46E4DEC0 /* BookmarkTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "BookmarkTests-Info.plist"; sourceTree = "<group>"; };
 		177C50DB84A2207F875A86A6 /* BookmarkDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkDTO.swift; sourceTree = "<group>"; };
-		1D79073B3DFB35FD7DE769EB /* ToggleBookmarkStatusUseCaseImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToggleBookmarkStatusUseCaseImpl.swift; sourceTree = "<group>"; };
 		22775B642171631175E5C887 /* Shared.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Shared.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2FE6A4BBB210E743868DD0D5 /* BookmarkTesting-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "BookmarkTesting-Info.plist"; sourceTree = "<group>"; };
 		311265B76A7A915B60EE7767 /* BookmarkArticleAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkArticleAPI.swift; sourceTree = "<group>"; };
@@ -432,7 +424,6 @@
 				76C31858612200B1F39B56B4 /* Samples */,
 				EBEAB6D95837215A0E40807C /* MockFetchBookmarkedArticlesUseCase.swift */,
 				B5D72B487917F46352154A5D /* MockFetchBookmarkedInterestsUseCase.swift */,
-				0BB770F786C65953FA072D47 /* MockToggleBookmarkStatusUseCase.swift */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -480,14 +471,6 @@
 				97DAA337D2CC52A06A96F0BF /* BookmarkInterface.swift */,
 			);
 			path = Sources;
-			sourceTree = "<group>";
-		};
-		4D25B13C618DD4215B6282D2 /* Encodable */ = {
-			isa = PBXGroup;
-			children = (
-				0F85A76ED5370E68D43B50BD /* BookmarkRequest.swift */,
-			);
-			path = Encodable;
 			sourceTree = "<group>";
 		};
 		4D4AF63CE9F3CAA238AEF2F2 /* Testing */ = {
@@ -575,7 +558,6 @@
 			children = (
 				D31CA5BDB3B22749605469DE /* FetchBookmarkedArticlesUseCase.swift */,
 				F65929928B4BF73E6E935DEF /* FetchBookmarkedInterestsUseCase.swift */,
-				0D3BBDC46E228A25D0BFF881 /* ToggleBookmarkStatusUseCase.swift */,
 			);
 			path = UseCase;
 			sourceTree = "<group>";
@@ -585,7 +567,6 @@
 			children = (
 				6BAB58DB9899AEE95F92115A /* FetchBookmarkedArticlesUseCaseImpl.swift */,
 				FDB8DFAD64525DD3CF1E7EDF /* FetchBookmarkedInterestsUseCaseImpl.swift */,
-				1D79073B3DFB35FD7DE769EB /* ToggleBookmarkStatusUseCaseImpl.swift */,
 			);
 			path = UseCase;
 			sourceTree = "<group>";
@@ -625,7 +606,6 @@
 		B8D0D90D2471B5381D1FCCD1 /* API */ = {
 			isa = PBXGroup;
 			children = (
-				4D25B13C618DD4215B6282D2 /* Encodable */,
 				311265B76A7A915B60EE7767 /* BookmarkArticleAPI.swift */,
 			);
 			path = API;
@@ -956,7 +936,6 @@
 				2892A5E3959641B7EB88CFB9 /* StopSubscribeView.swift in Sources */,
 				8BB89F4C1BD28E14E1D2144E /* FetchBookmarkedArticlesUseCaseImpl.swift in Sources */,
 				BCB178B26120DAE57F765D76 /* FetchBookmarkedInterestsUseCaseImpl.swift in Sources */,
-				67B77DD174942AC92B42F299 /* ToggleBookmarkStatusUseCaseImpl.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -973,7 +952,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				BD2761C3F5A24B3D07E0DD13 /* BookmarkArticleAPI.swift in Sources */,
-				965D814CB64A8A7096F0D5A6 /* BookmarkRequest.swift in Sources */,
 				5206F4FEEE24DA160A8A73E1 /* BookmarkRepositoryImpl.swift in Sources */,
 				46544D3CC066630ECA9B0AFE /* BookmarkDTO.swift in Sources */,
 				EFEA28987FB90851599084C2 /* BookmarkInterestDTO.swift in Sources */,
@@ -1004,7 +982,6 @@
 			files = (
 				C1101C88BE3BC60EDA35F222 /* MockFetchBookmarkedArticlesUseCase.swift in Sources */,
 				E8D17997A650266731C11F30 /* MockFetchBookmarkedInterestsUseCase.swift in Sources */,
-				8FEE905D5215D72F335C01F4 /* MockToggleBookmarkStatusUseCase.swift in Sources */,
 				7FBC51368BFE55520D4DD649 /* BookmarkItem+Sample.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1021,7 +998,6 @@
 				5D699E791C8658B19EB124BE /* BookmarkRepository.swift in Sources */,
 				FF662E892BCA85526915A148 /* FetchBookmarkedArticlesUseCase.swift in Sources */,
 				493EA6D98B8BDA489FE3ED8E /* FetchBookmarkedInterestsUseCase.swift in Sources */,
-				FC2692497EEEBDB1B6509CA1 /* ToggleBookmarkStatusUseCase.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

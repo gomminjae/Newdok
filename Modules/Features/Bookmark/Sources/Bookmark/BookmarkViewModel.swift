@@ -27,16 +27,13 @@ public final class BookmarkViewModel: BookmarkViewModelBindable, ErrorHandling {
     public var currentError: AppError?
 
     private let fetchArticlesUseCase: FetchBookmarkedArticlesUseCase
-    private let toggleBookmarkUseCase: ToggleBookmarkStatusUseCase
     private let fetchInterestsUseCase: FetchBookmarkedInterestsUseCase
 
     public init(
         fetchArticlesUseCase: FetchBookmarkedArticlesUseCase,
-        toggleBookmarkUseCase: ToggleBookmarkStatusUseCase,
         fetchInterestsUseCase: FetchBookmarkedInterestsUseCase
     ) {
         self.fetchArticlesUseCase = fetchArticlesUseCase
-        self.toggleBookmarkUseCase = toggleBookmarkUseCase
         self.fetchInterestsUseCase = fetchInterestsUseCase
     }
 

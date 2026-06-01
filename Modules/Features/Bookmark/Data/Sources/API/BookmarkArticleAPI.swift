@@ -21,14 +21,6 @@ struct FetchBookmarkArticles: APIRequest {
     }
 }
 
-struct ChangeBookmarkState: APIRequest {
-    let articleId: String
-    var baseURL: URL { bookmarkBaseURL }
-    var path: String { "/bookmark" }
-    var method: HTTPMethod { .post }
-    var task: RequestTask { .jsonBody(BookmarkRequest(articleId: articleId)) }
-}
-
 struct FetchBookmarkedInterest: APIRequest {
     typealias Response = InterestListResponse
     var baseURL: URL { bookmarkBaseURL }

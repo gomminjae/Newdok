@@ -16,11 +16,6 @@ public final class BookmarkRepositoryImpl: BookmarkRepository {
         return response.data.toDomain()
     }
 
-    public func changeBookmarkState(articleId: String) async throws {
-        logDebug("북마크 상태 변경 - ID: \(articleId)", category: .repository)
-        try await network.requestVoid(ChangeBookmarkState(articleId: articleId))
-    }
-
     public func fetchBookmarkedInterest() async throws -> [BookmarkInterest] {
         let response = try await network.request(FetchBookmarkedInterest())
         return response.data.map { $0.toDomain() }
