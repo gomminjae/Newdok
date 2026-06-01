@@ -26,6 +26,8 @@ extension ErrorHandling {
         let appError: AppError
         if let convertible = error as? AppErrorConvertible {
             appError = convertible.toAppError()
+        } else if let mapped = AppErrorMapperRegistry.map(error) {
+            appError = mapped
         } else {
             appError = .userMessage("일시적인 오류가 발생했습니다")
         }

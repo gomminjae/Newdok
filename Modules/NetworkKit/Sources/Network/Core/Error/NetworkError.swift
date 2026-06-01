@@ -6,8 +6,6 @@
 //  Copyright © 2025 Your Organization Name. All rights reserved.
 //
 import Foundation
-import Moya
-import Shared
 
 public enum NetworkError: Error, LocalizedError {
     case decodeError(underlying: Error)
@@ -34,31 +32,6 @@ public enum NetworkError: Error, LocalizedError {
             return "요청이 취소되었습니다."
         case .unknown:
             return "알 수 없는 네트워크 오류가 발생했습니다."
-        }
-    }
-}
-
-extension NetworkError: AppErrorConvertible {
-    public func toAppError() -> AppError {
-        switch self {
-        case .noInternet:
-            return .noInternet
-        case .timeout:
-            return .timeout
-        case .cancelled:
-            return .silent
-        case .serverError(let statusCode, _):
-            if statusCode == 401 {
-                return .unauthorized
-            }
-            // 400번대: 클라이언트 에러 → 뷰에서 자체 처리
-            if (400..<500).contains(statusCode) {
-                return .silent
-            }
-            // 500번대: 서버 에러 → 일시적 오류 팝업
-            return .serverError
-        case .decodeError, .underlying, .unknown:
-            return .userMessage("일시적인 오류가 발생했습니다")
         }
     }
 }

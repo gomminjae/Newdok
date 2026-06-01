@@ -57,3 +57,30 @@ public enum AppError: Error, Equatable {
 public protocol AppErrorConvertible {
     func toAppError() -> AppError
 }
+
+public protocol AppErrorMapping: Sendable {
+    func map(_ error: Error) -> AppError?
+}
+
+public enum AppErrorMapperRegistry {
+    private static let lock = NSLock()
+    nonisolated(unsafe) private static var _mappers: [AppErrorMapping] = []
+
+    public static func register(_ mapper: AppErrorMapping) {
+        lock.lock()
+        _mappers.append(mapper)
+        lock.unlock()
+    }
+
+    public static func map(_ error: Error) -> AppError? {
+        lock.lock()
+        let mappers = _mappers
+        lock.unlock()
+        for mapper in mappers {
+            if let appError = mapper.map(error) {
+                return appError
+            }
+        }
+        return nil
+    }
+}

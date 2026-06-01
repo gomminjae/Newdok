@@ -16,6 +16,7 @@ struct NewdokApp: App {
     init() {
         FirebaseApp.configure()
         ErrorLoggerRegistry.register(DefaultErrorLogger())
+        AppErrorMapperRegistry.register(NetworkErrorAppMapper())
         TokenStore.shared.migrateTokenIfNeeded()
 
         let router = AppRouter()
