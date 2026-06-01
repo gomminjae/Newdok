@@ -1,15 +1,23 @@
 import SwiftUI
 import NetworkKit
 import DatabaseKit
+import Shared
 import DetailInterface
 
 public struct DetailBuilder: DetailBuildable {
     private let container: DetailDIContainer
 
-    public init(networkProvider: NetworkProviding, highlightDataSource: HighlightLocalDataSource) {
+    public init(
+        networkProvider: NetworkProviding,
+        highlightDataSource: HighlightLocalDataSource,
+        userInfoStore: UserInfoStoreProtocol,
+        subscribePopupPreference: SubscribePopupStorable
+    ) {
         self.container = DetailDIContainer(
             networkProvider: networkProvider,
-            highlightDataSource: highlightDataSource
+            highlightDataSource: highlightDataSource,
+            userInfoStore: userInfoStore,
+            subscribePopupPreference: subscribePopupPreference
         )
     }
 

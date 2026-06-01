@@ -11,8 +11,8 @@ struct ExploreDIContainer {
 
     init(
         networkProvider: NetworkProviding,
-        userInfoStore: UserInfoStoreProtocol = UserInfoStore.shared,
-        selectableItemStore: SelectableItemStoreProtocol = SelectableItemStore.shared
+        userInfoStore: UserInfoStoreProtocol,
+        selectableItemStore: SelectableItemStoreProtocol
     ) {
         self.network = networkProvider.makeService()
         self.userInfoStore = userInfoStore

@@ -13,7 +13,7 @@ final class HomeDIContainer {
     init(
         networkProvider: NetworkProviding,
         highlightDataSource: HighlightLocalDataSource,
-        appState: AppState = .shared
+        appState: AppState
     ) {
         self.network = networkProvider.makeService()
         self.highlightDataSource = highlightDataSource

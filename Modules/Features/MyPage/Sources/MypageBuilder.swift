@@ -1,12 +1,25 @@
 import SwiftUI
 import NetworkKit
+import Shared
 import MypageInterface
 
 public struct MypageBuilder: MypageBuildable {
     private let container: MypageDIContainer
 
-    public init(networkProvider: NetworkProviding) {
-        self.container = MypageDIContainer(networkProvider: networkProvider)
+    public init(
+        networkProvider: NetworkProviding,
+        tokenStorage: TokenStorageProtocol,
+        userInfoStore: UserInfoStoreProtocol,
+        selectableItemStore: SelectableItemStoreProtocol,
+        appState: AppState
+    ) {
+        self.container = MypageDIContainer(
+            networkProvider: networkProvider,
+            tokenStorage: tokenStorage,
+            userInfoStore: userInfoStore,
+            selectableItemStore: selectableItemStore,
+            appState: appState
+        )
     }
 
     public func makeMypageView() -> AnyView {

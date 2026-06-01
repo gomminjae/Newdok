@@ -15,10 +15,10 @@ final class MypageDIContainer {
 
     init(
         networkProvider: NetworkProviding,
-        tokenStorage: TokenStorageProtocol = TokenStore.shared,
-        userInfoStore: UserInfoStoreProtocol = UserInfoStore.shared,
-        selectableItemStore: SelectableItemStoreProtocol = SelectableItemStore.shared,
-        appState: AppState = .shared
+        tokenStorage: TokenStorageProtocol,
+        userInfoStore: UserInfoStoreProtocol,
+        selectableItemStore: SelectableItemStoreProtocol,
+        appState: AppState
     ) {
         self.network = networkProvider.makeService()
         self.tokenStorage = tokenStorage

@@ -26,14 +26,26 @@ final class AppContainer {
     let router: AppRouter
     private let deps: AppDependencies
 
-    private lazy var authBuilder: AuthBuildable = AuthBuilder(networkProvider: deps.networkProvider)
+    private lazy var authBuilder: AuthBuildable = AuthBuilder(
+        networkProvider: deps.networkProvider,
+        tokenStorage: deps.tokenStorage,
+        userInfoStore: deps.userInfoStore,
+        selectableItemStore: deps.selectableItemStore,
+        appState: deps.appState,
+        onboardingStorage: deps.onboardingStorage
+    )
 
     private lazy var homeBuilder: HomeBuildable = HomeBuilder(
         networkProvider: deps.networkProvider,
-        highlightDataSource: deps.highlightDataSource
+        highlightDataSource: deps.highlightDataSource,
+        appState: deps.appState
     )
 
-    private lazy var exploreBuilder: ExploreBuildable = ExploreBuilder(networkProvider: deps.networkProvider)
+    private lazy var exploreBuilder: ExploreBuildable = ExploreBuilder(
+        networkProvider: deps.networkProvider,
+        userInfoStore: deps.userInfoStore,
+        selectableItemStore: deps.selectableItemStore
+    )
 
     private lazy var subscribeBuilder: SubscribeBuildable = SubscribeBuilder(networkProvider: deps.networkProvider)
 
@@ -41,13 +53,19 @@ final class AppContainer {
 
     private lazy var detailBuilder: DetailBuildable = DetailBuilder(
         networkProvider: deps.networkProvider,
-        highlightDataSource: deps.highlightDataSource
+        highlightDataSource: deps.highlightDataSource,
+        userInfoStore: deps.userInfoStore,
+        subscribePopupPreference: deps.subscribePopupPreference
     )
 
     private lazy var searchBuilder: SearchBuildable = SearchBuilder(networkProvider: deps.networkProvider)
 
     private lazy var mypageBuilder: MypageBuildable = MypageBuilder(
-        networkProvider: deps.networkProvider
+        networkProvider: deps.networkProvider,
+        tokenStorage: deps.tokenStorage,
+        userInfoStore: deps.userInfoStore,
+        selectableItemStore: deps.selectableItemStore,
+        appState: deps.appState
     )
 
     init(router: AppRouter, deps: AppDependencies) {

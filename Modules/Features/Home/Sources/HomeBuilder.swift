@@ -1,15 +1,21 @@
 import SwiftUI
 import NetworkKit
 import DatabaseKit
+import Shared
 import HomeInterface
 
 public struct HomeBuilder: HomeBuildable {
     private let container: HomeDIContainer
 
-    public init(networkProvider: NetworkProviding, highlightDataSource: HighlightLocalDataSource) {
+    public init(
+        networkProvider: NetworkProviding,
+        highlightDataSource: HighlightLocalDataSource,
+        appState: AppState
+    ) {
         self.container = HomeDIContainer(
             networkProvider: networkProvider,
-            highlightDataSource: highlightDataSource
+            highlightDataSource: highlightDataSource,
+            appState: appState
         )
     }
 

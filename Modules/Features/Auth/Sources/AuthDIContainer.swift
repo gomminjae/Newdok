@@ -10,19 +10,22 @@ final class AuthDIContainer {
     private let userInfoStore: UserInfoStoreProtocol
     private let selectableItemStore: SelectableItemStoreProtocol
     private let appState: AppState
+    let onboardingStorage: OnboardingStorable
 
     init(
         networkProvider: NetworkProviding,
-        tokenStorage: TokenStorageProtocol = TokenStore.shared,
-        userInfoStore: UserInfoStoreProtocol = UserInfoStore.shared,
-        selectableItemStore: SelectableItemStoreProtocol = SelectableItemStore.shared,
-        appState: AppState = .shared
+        tokenStorage: TokenStorageProtocol,
+        userInfoStore: UserInfoStoreProtocol,
+        selectableItemStore: SelectableItemStoreProtocol,
+        appState: AppState,
+        onboardingStorage: OnboardingStorable
     ) {
         self.network = networkProvider.makeService()
         self.tokenStorage = tokenStorage
         self.userInfoStore = userInfoStore
         self.selectableItemStore = selectableItemStore
         self.appState = appState
+        self.onboardingStorage = onboardingStorage
     }
 
     func makeRepository() -> AuthRepository {

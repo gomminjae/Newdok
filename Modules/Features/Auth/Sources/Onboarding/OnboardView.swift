@@ -17,7 +17,7 @@ public struct OnboardingView: View {
 
     private let onboardingStorage: OnboardingStorable
 
-    public init(onboardingStorage: OnboardingStorable = OnboardingStorage.shared) {
+    public init(onboardingStorage: OnboardingStorable) {
         self.onboardingStorage = onboardingStorage
     }
 

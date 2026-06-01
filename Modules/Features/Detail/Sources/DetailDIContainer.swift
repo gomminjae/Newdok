@@ -9,15 +9,18 @@ final class DetailDIContainer {
     private let network: any NetworkService
     private let highlightDataSource: HighlightLocalDataSource
     private let userInfoStore: UserInfoStoreProtocol
+    private let subscribePopupPreference: SubscribePopupStorable
 
     init(
         networkProvider: NetworkProviding,
         highlightDataSource: HighlightLocalDataSource,
-        userInfoStore: UserInfoStoreProtocol = UserInfoStore.shared
+        userInfoStore: UserInfoStoreProtocol,
+        subscribePopupPreference: SubscribePopupStorable
     ) {
         self.network = networkProvider.makeService()
         self.highlightDataSource = highlightDataSource
         self.userInfoStore = userInfoStore
+        self.subscribePopupPreference = subscribePopupPreference
     }
 
     func makeArticleRepository() -> DetailArticleRepository {
@@ -33,7 +36,7 @@ final class DetailDIContainer {
     }
 
     func makeBrandDetailViewModel(id: String) -> BrandDetailViewModel {
-        BrandDetailViewModel(id: id, brandRepository: makeBrandRepository(), popupPreference: SubscribePopupPreference.shared, userInfoStore: userInfoStore)
+        BrandDetailViewModel(id: id, brandRepository: makeBrandRepository(), popupPreference: subscribePopupPreference, userInfoStore: userInfoStore)
     }
 
     func makeArticleDetailViewModel(id: String) -> ArticleDetailViewModel {
