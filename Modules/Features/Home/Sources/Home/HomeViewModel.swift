@@ -48,6 +48,8 @@ public final class HomeViewModel: ErrorHandling {
     private let refreshArticlesUseCase: RefreshHomeArticlesUseCase
     private let loadReadIdsUseCase: LoadReadArticleIdsUseCase
     private let saveReadIdsUseCase: SaveReadArticleIdsUseCase
+    private let extractArticleDaysUseCase: ExtractArticleDaysUseCase
+    private let mergeDayArticleSummaryUseCase: MergeDayArticleSummaryUseCase
     private let appState: AppState
 
     // MARK: - Published State
@@ -94,6 +96,8 @@ public final class HomeViewModel: ErrorHandling {
         refreshArticles: RefreshHomeArticlesUseCase,
         loadReadIds: LoadReadArticleIdsUseCase,
         saveReadIds: SaveReadArticleIdsUseCase,
+        extractArticleDays: ExtractArticleDaysUseCase,
+        mergeDayArticleSummary: MergeDayArticleSummaryUseCase,
         appState: AppState
     ) {
         self.fetchTodayArticlesUseCase = fetchTodayArticles
@@ -104,6 +108,8 @@ public final class HomeViewModel: ErrorHandling {
         self.refreshArticlesUseCase = refreshArticles
         self.loadReadIdsUseCase = loadReadIds
         self.saveReadIdsUseCase = saveReadIds
+        self.extractArticleDaysUseCase = extractArticleDays
+        self.mergeDayArticleSummaryUseCase = mergeDayArticleSummary
         self.appState = appState
         self.calendarState = CalendarState()
         self.readArticleIds = loadReadIds.execute()
@@ -323,7 +329,7 @@ public final class HomeViewModel: ErrorHandling {
         }
 
         if let monthly = monthlyCache[key] {
-            let days = Self.extractDataDays(from: monthly)
+            let days = extractArticleDaysUseCase.execute(from: monthly)
             storeDataDays(days, for: date)
             return days
         }
@@ -379,7 +385,7 @@ public final class HomeViewModel: ErrorHandling {
             }
             articlesByMonth = monthly
             monthlyCache[key] = monthly
-            let days = Self.extractDataDays(from: monthly)
+            let days = extractArticleDaysUseCase.execute(from: monthly)
             storeDataDays(days, for: date)
             calendarState.dataDays = days
             calendarState.isLoading = false
@@ -442,46 +448,22 @@ public final class HomeViewModel: ErrorHandling {
 
     private func applyMonthlyAdjustment(for date: Date, articles: [HomeArticle]) {
         let day = Calendar.current.component(.day, from: date)
-        let entry = HomeArticles(
-            publishDate: day,
-            hasArticles: !articles.isEmpty,
-            totalCount: articles.count,
-            unreadCount: unreadCount(in: articles)
-        )
-
-        replaceEntry(entry, in: &articlesByMonth)
+        articlesByMonth = mergeDayArticleSummaryUseCase.execute(day: day, dayArticles: articles, into: articlesByMonth)
 
         let key = monthKey(for: date)
         if var cache = monthlyCache[key] {
-            replaceEntry(entry, in: &cache)
+            cache = mergeDayArticleSummaryUseCase.execute(day: day, dayArticles: articles, into: cache)
             monthlyCache[key] = cache
-            let days = Self.extractDataDays(from: cache)
+            let days = extractArticleDaysUseCase.execute(from: cache)
             storeDataDays(days, for: date)
             if key == monthKey(for: calendarState.displayedMonth) {
                 calendarState.dataDays = days
             }
         } else if key == monthKey(for: calendarState.displayedMonth) {
-            let days = Self.extractDataDays(from: articlesByMonth)
+            let days = extractArticleDaysUseCase.execute(from: articlesByMonth)
             storeDataDays(days, for: date)
             calendarState.dataDays = days
         }
-    }
-
-    private func replaceEntry(_ entry: HomeArticles, in list: inout [HomeArticles]) {
-        if let index = list.firstIndex(where: { $0.publishDate == entry.publishDate }) {
-            list[index] = entry
-        } else {
-            list.append(entry)
-            list.sort { $0.publishDate < $1.publishDate }
-        }
-    }
-
-    private func unreadCount(in articles: [HomeArticle]) -> Int {
-        articles.count { !$0.status.isRead }
-    }
-
-    private static func extractDataDays(from monthly: [HomeArticles]) -> Set<Int> {
-        Set(monthly.filter { $0.hasArticles }.map { $0.publishDate })
     }
 
     private func clearMonthlyCache(for date: Date) {
@@ -515,7 +497,7 @@ public final class HomeViewModel: ErrorHandling {
                 publicationMonth: formatMonth(date)
             )
             monthlyCache[key] = monthly
-            let days = Self.extractDataDays(from: monthly)
+            let days = extractArticleDaysUseCase.execute(from: monthly)
             storeDataDays(days, for: date)
             return days
         } catch {

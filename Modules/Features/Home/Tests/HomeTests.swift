@@ -30,6 +30,8 @@ struct HomeViewModelTests {
             refreshArticles: refreshArticles,
             loadReadIds: loadReadIds,
             saveReadIds: saveReadIds,
+            extractArticleDays: ExtractArticleDaysUseCaseImpl(),
+            mergeDayArticleSummary: MergeDayArticleSummaryUseCaseImpl(),
             appState: appState
         )
     }
@@ -80,6 +82,8 @@ struct HomeViewModelTests {
             refreshArticles: refreshArticles,
             loadReadIds: loadReadIds,
             saveReadIds: saveReadIds,
+            extractArticleDays: ExtractArticleDaysUseCaseImpl(),
+            mergeDayArticleSummary: MergeDayArticleSummaryUseCaseImpl(),
             appState: appState
         )
 

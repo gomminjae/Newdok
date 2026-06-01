@@ -52,6 +52,8 @@ struct HomeExampleApp: App {
             refreshArticles: MockRefreshHomeArticlesUseCase(),
             loadReadIds: MockLoadReadArticleIdsUseCase(),
             saveReadIds: MockSaveReadArticleIdsUseCase(),
+            extractArticleDays: ExtractArticleDaysUseCaseImpl(),
+            mergeDayArticleSummary: MergeDayArticleSummaryUseCaseImpl(),
             appState: AppState.shared
         )
     }

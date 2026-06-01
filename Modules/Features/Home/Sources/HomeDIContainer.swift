@@ -46,6 +46,8 @@ final class HomeDIContainer {
             refreshArticles: RefreshHomeArticlesUseCaseImpl(repository: articleRepo),
             loadReadIds: LoadReadArticleIdsUseCaseImpl(repository: articleRepo),
             saveReadIds: SaveReadArticleIdsUseCaseImpl(repository: articleRepo),
+            extractArticleDays: ExtractArticleDaysUseCaseImpl(),
+            mergeDayArticleSummary: MergeDayArticleSummaryUseCaseImpl(),
             appState: appState
         )
     }
