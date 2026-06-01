@@ -1,86 +1,87 @@
-import Moya
 import Foundation
-import Core
+import NetworkKit
 import ExploreDomain
 
-public enum ExploreNewsletterAPI {
-    case fetchRecommendIntersection
-    case fetchRecommendUnion
-    case fetchAllNewsletterBrands(orderOpt: ExploreOrderOption, industry: [Int]?, day: [Int]?)
-    case fetchNewsletterBrand(id: String)
-    case fetchGuestAllNewsletterBrand(orderOpt: ExploreOrderOption, industry: [Int]?, day: [Int]?)
-    case fetchGuestNewsletterBrand(id: String)
-    case fetchOptionList
+private enum ExploreBaseURL {
+    static var newsletters: URL { URL(string: "\(APIEnvironment.baseURL)/newsletters")! }
+    static var options: URL { URL(string: "\(APIEnvironment.baseURL)/options")! }
 }
 
-extension ExploreNewsletterAPI: TargetType {
-    public var baseURL: URL {
-        switch self {
-        case .fetchOptionList:
-            return URL(string: "\(APIEnvironment.baseURL)/options")!
-        default:
-            return URL(string: "\(APIEnvironment.baseURL)/newsletters")!
-        }
+struct FetchExploreRecommendUnion: APIRequest {
+    typealias Response = [ExploreNewsletterDetailDTO]
+    var baseURL: URL { ExploreBaseURL.newsletters }
+    var path: String { "/recommend/union" }
+    var method: HTTPMethod { .get }
+    var task: RequestTask { .plain }
+}
+
+struct FetchExploreRecommendIntersection: APIRequest {
+    typealias Response = [ExploreNewsletterDetailDTO]
+    var baseURL: URL { ExploreBaseURL.newsletters }
+    var path: String { "/recommend/intersection" }
+    var method: HTTPMethod { .get }
+    var task: RequestTask { .plain }
+}
+
+struct FetchExploreAllNewsletterBrands: APIRequest {
+    typealias Response = [ExploreBrandDTO]
+    let orderOpt: ExploreOrderOption
+    let industry: [Int]?
+    let day: [Int]?
+
+    var baseURL: URL { ExploreBaseURL.newsletters }
+    var path: String { "" }
+    var method: HTTPMethod { .get }
+    var task: RequestTask { .query(brandQuery(orderOpt: orderOpt, industry: industry, day: day)) }
+}
+
+struct FetchGuestExploreAllNewsletterBrands: APIRequest {
+    typealias Response = [ExploreBrandDTO]
+    let orderOpt: ExploreOrderOption
+    let industry: [Int]?
+    let day: [Int]?
+
+    var baseURL: URL { ExploreBaseURL.newsletters }
+    var path: String { "/non-member" }
+    var method: HTTPMethod { .get }
+    var task: RequestTask { .query(brandQuery(orderOpt: orderOpt, industry: industry, day: day)) }
+}
+
+struct FetchExploreNewsletterBrand: APIRequest {
+    typealias Response = ExploreBrandDetailDTO
+    let id: String
+    var baseURL: URL { ExploreBaseURL.newsletters }
+    var path: String { "/\(id)" }
+    var method: HTTPMethod { .get }
+    var task: RequestTask { .plain }
+}
+
+struct FetchGuestExploreNewsletterBrand: APIRequest {
+    typealias Response = ExploreBrandDetailDTO
+    let id: String
+    var baseURL: URL { ExploreBaseURL.newsletters }
+    var path: String { "/\(id)/non-member" }
+    var method: HTTPMethod { .get }
+    var task: RequestTask { .plain }
+}
+
+struct FetchExploreOptionList: APIRequest {
+    typealias Response = ExploreOptionListDTO
+    var baseURL: URL { ExploreBaseURL.options }
+    var path: String { "" }
+    var method: HTTPMethod { .get }
+    var task: RequestTask { .plain }
+}
+
+private func brandQuery(orderOpt: ExploreOrderOption, industry: [Int]?, day: [Int]?) -> [String: String] {
+    var params: [String: String] = [:]
+    params["orderOpt"] = orderOpt.rawValue
+
+    if let industry, !industry.isEmpty {
+        params["industry"] = industry.map { String($0) }.joined(separator: ",")
     }
-
-    public var path: String {
-        switch self {
-        case .fetchRecommendUnion:
-            return "/recommend/union"
-        case .fetchRecommendIntersection:
-            return "/recommend/intersection"
-        case .fetchAllNewsletterBrands:
-            return ""
-        case .fetchNewsletterBrand(let id):
-            return "/\(id)"
-        case .fetchGuestNewsletterBrand(let id):
-            return "/\(id)/non-member"
-        case .fetchGuestAllNewsletterBrand:
-            return "/non-member"
-        case .fetchOptionList:
-            return ""
-        }
+    if let day, !day.isEmpty {
+        params["day"] = day.map { String($0) }.joined(separator: ",")
     }
-
-    public var method: Moya.Method {
-        return .get
-    }
-
-    public var task: Moya.Task {
-        switch self {
-        case .fetchRecommendUnion, .fetchRecommendIntersection, .fetchGuestNewsletterBrand, .fetchNewsletterBrand, .fetchOptionList:
-            return .requestPlain
-        case .fetchAllNewsletterBrands(let orderOpt, let industry, let day):
-            var params: [String: Any] = [:]
-            params["orderOpt"] = orderOpt.rawValue
-
-            if let industry, !industry.isEmpty {
-                params["industry"] = industry.map { String($0) }.joined(separator: ",")
-            }
-            if let day, !day.isEmpty {
-                params["day"] = day.map { String($0) }.joined(separator: ",")
-            }
-
-            return .requestParameters(parameters: params, encoding: URLEncoding.default)
-        case .fetchGuestAllNewsletterBrand(let orderOpt, let industry, let day):
-            var params: [String: Any] = [:]
-            params["orderOpt"] = orderOpt.rawValue
-
-            if let industry, !industry.isEmpty {
-                params["industry"] = industry.map { String($0) }.joined(separator: ",")
-            }
-            if let day, !day.isEmpty {
-                params["day"] = day.map { String($0) }.joined(separator: ",")
-            }
-
-            return .requestParameters(parameters: params, encoding: URLEncoding.default)
-        }
-    }
-
-    public var headers: [String: String]? {
-        return [
-            "Content-Type": "application/json",
-            "Accept": "application/json"
-        ]
-    }
+    return params
 }

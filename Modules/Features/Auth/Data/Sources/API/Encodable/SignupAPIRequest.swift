@@ -1,4 +1,4 @@
-struct SignupAPIRequest: Encodable {
+struct SignupAPIRequest: Encodable, Sendable {
     let loginId: String
     let password: String
     let phoneNumber: String

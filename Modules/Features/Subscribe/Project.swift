@@ -3,8 +3,8 @@ import ProjectDescriptionHelpers
 
 let project = Project.feature(
     name: "Subscribe",
-    dataDependencies: [.external(name: "Moya")],
-    featureDependencies: [.featureData("Subscribe"), .core],
+    dataDependencies: [],
+    featureDependencies: [.featureData("Subscribe"), .networkKit],
     hasInterface: true,
     hasExample: true
 )

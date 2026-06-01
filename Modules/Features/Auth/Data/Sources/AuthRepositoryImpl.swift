@@ -1,15 +1,15 @@
 import Foundation
 import AuthDomain
-import Core
+import NetworkKit
 import Shared
 
 public final class AuthRepositoryImpl: AuthRepository {
-    private let network: any NetworkService<AuthUserAPI>
+    private let network: any NetworkService
     private let tokenStorage: TokenStorageProtocol
     private let userInfoStore: UserInfoStoreProtocol
 
     public init(
-        network: any NetworkService<AuthUserAPI>,
+        network: any NetworkService,
         tokenStorage: TokenStorageProtocol,
         userInfoStore: UserInfoStoreProtocol
     ) {
@@ -20,8 +20,8 @@ public final class AuthRepositoryImpl: AuthRepository {
 
     public func login(loginId: String, password: String) async throws -> (AuthUser, String) {
         do {
-            let response: AuthLoginResponseDTO = try await network.request(
-                .login(loginId: loginId, password: password)
+            let response = try await network.request(
+                Login(loginId: loginId, password: password)
             )
             let user = response.user.toDomain()
             let token = response.accessToken
@@ -53,8 +53,8 @@ public final class AuthRepositoryImpl: AuthRepository {
         birthYear: String,
         gender: String
     ) async throws -> AuthSignupResponse {
-        let response: AuthSignupResponseDTO = try await network.request(
-            .signup(
+        let response = try await network.request(
+            Signup(
                 loginId: loginId,
                 password: password,
                 phoneNumber: phoneNumber,
@@ -73,8 +73,8 @@ public final class AuthRepositoryImpl: AuthRepository {
 
     public func checkPhoneNumber(_ phoneNumber: String) async throws -> [AuthSimpleUser] {
         do {
-            let response: [AuthSimpleUserDTO] = try await network.request(
-                .checkPhoneNumber(phoneNumber: phoneNumber)
+            let response = try await network.request(
+                CheckPhoneNumber(phoneNumber: phoneNumber)
             )
             return response.map { $0.toDomain() }
         } catch let error as NetworkError {
@@ -90,8 +90,7 @@ public final class AuthRepositoryImpl: AuthRepository {
 
     public func checkIDDup(_ loginId: String) async throws -> AuthIDCheckResult {
         let result = try await network.checkRequest(
-            .checkIDDup(loginId: loginId),
-            decodeTo: AuthSimpleUserDTO.self
+            CheckIDDup(loginId: loginId)
         )
         switch result {
         case .exists(let dto):
@@ -102,8 +101,8 @@ public final class AuthRepositoryImpl: AuthRepository {
     }
 
     public func authSMS(phoneNumber: String) async throws -> AuthSMSResponse {
-        let response: AuthSMSResponseDTO = try await network.request(
-            .authSMS(phoneNumber: phoneNumber)
+        let response = try await network.request(
+            AuthSMS(phoneNumber: phoneNumber)
         )
         return response.toDomain()
     }
@@ -112,8 +111,8 @@ public final class AuthRepositoryImpl: AuthRepository {
         industryId: String,
         interestIds: [String]
     ) async throws -> [AuthRecommendedBrand] {
-        let response: AuthRecommendedBrandListResponseDTO = try await network.request(
-            .preInvestigate(industryId: industryId, interestIds: interestIds)
+        let response = try await network.request(
+            PreInvestigate(industryId: industryId, interestIds: interestIds)
         )
         return response.toDomain()
     }

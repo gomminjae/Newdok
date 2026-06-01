@@ -3,8 +3,8 @@ import ProjectDescriptionHelpers
 
 let project = Project.feature(
     name: "Search",
-    dataDependencies: [.external(name: "Moya")],
-    featureDependencies: [.featureData("Search"), .core],
+    dataDependencies: [],
+    featureDependencies: [.featureData("Search"), .networkKit],
     hasInterface: true,
     hasExample: true
 )

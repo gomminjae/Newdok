@@ -77,7 +77,7 @@ let project = Project(
             resources: ["Resources/**"],
             dependencies: [
                 // Infrastructure
-                .core,
+                .networkKit,
                 .designSystem,
                 .shared,
                 .databaseKit,

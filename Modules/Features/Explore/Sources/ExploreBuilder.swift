@@ -1,5 +1,5 @@
 import SwiftUI
-import Core
+import NetworkKit
 import ExploreInterface
 
 public struct ExploreBuilder: ExploreBuildable {

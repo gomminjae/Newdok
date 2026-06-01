@@ -1,26 +1,26 @@
 import SubscribeDomain
-import Core
+import NetworkKit
 
 public final class SubscribeNewsletterRepositoryImpl: SubscribeNewsletterRepository {
-    private let network: any NetworkService<SubscribeNewsletterAPI>
+    private let network: any NetworkService
 
-    public init(network: any NetworkService<SubscribeNewsletterAPI>) {
+    public init(network: any NetworkService) {
         self.network = network
     }
 
     public func fetchActiveSubscription() async throws -> [SubscribeNewsletter] {
-        let response: [SubscribeNewsletterDTO] = try await network.request(.fetchActiveNewletters)
+        let response = try await network.request(FetchActiveNewsletters())
         return response.map { $0.toDomain() }
     }
 
     public func fetchPausedSubscription() async throws -> [SubscribeNewsletter] {
-        let response: [SubscribeNewsletterDTO] = try await network.request(.fetchPausedNewletters)
+        let response = try await network.request(FetchPausedNewsletters())
         return response.map { $0.toDomain() }
     }
 
     public func pauseSubscription(newsletterId: String) async throws {
         do {
-            try await network.requestVoid(.pauseSubscription(newsletterId: newsletterId))
+            try await network.requestVoid(PauseSubscription(newsletterId: newsletterId))
         } catch let error as NetworkError {
             if case .serverError(let statusCode, _) = error, statusCode == 400 {
                 throw SubscribeError.alreadyPaused
@@ -31,7 +31,7 @@ public final class SubscribeNewsletterRepositoryImpl: SubscribeNewsletterReposit
 
     public func resumeSubscription(newsletterId: String) async throws {
         do {
-            try await network.requestVoid(.resumeSubscription(newsletterId: newsletterId))
+            try await network.requestVoid(ResumeSubscription(newsletterId: newsletterId))
         } catch let error as NetworkError {
             if case .serverError(let statusCode, _) = error, statusCode == 400 {
                 throw SubscribeError.alreadyActive
@@ -41,7 +41,7 @@ public final class SubscribeNewsletterRepositoryImpl: SubscribeNewsletterReposit
     }
 
     public func fetchSubscriptionCount() async throws -> Int {
-        let response: SubscribeNewslettersCountDTO = try await network.request(.fetchSubscriptionCount)
+        let response = try await network.request(FetchSubscriptionCount())
         return response.count
     }
 }

@@ -1,26 +1,21 @@
 import Foundation
 import MypageDomain
-import Core
+import NetworkKit
 
 public final class MypageStatsRepositoryImpl: MypageStatsRepository {
-    private let articleNetwork: any NetworkService<MypageArticleAPI>
-    private let newsletterNetwork: any NetworkService<MypageNewsletterAPI>
+    private let network: any NetworkService
 
-    public init(
-        articleNetwork: any NetworkService<MypageArticleAPI>,
-        newsletterNetwork: any NetworkService<MypageNewsletterAPI>
-    ) {
-        self.articleNetwork = articleNetwork
-        self.newsletterNetwork = newsletterNetwork
+    public init(network: any NetworkService) {
+        self.network = network
     }
 
     public func fetchReceivedArticleCount() async throws -> Int {
-        let response: MypageArticlesCountDTO = try await articleNetwork.request(.fetchReceivedArticleCount)
+        let response = try await network.request(FetchReceivedArticleCount())
         return response.count
     }
 
     public func fetchSubscriptionCount() async throws -> Int {
-        let response: MypageNewslettersCountDTO = try await newsletterNetwork.request(.fetchSubscriptionCount)
+        let response = try await network.request(FetchMypageSubscriptionCount())
         return response.count
     }
 }

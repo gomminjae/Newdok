@@ -26,7 +26,7 @@ public enum ProjectConfig {
 
 public extension TargetDependency {
     static let shared: TargetDependency = .project(target: "Shared", path: .relativeToRoot("Modules/Shared"))
-    static let core: TargetDependency = .project(target: "Core", path: .relativeToRoot("Modules/Core"))
+    static let networkKit: TargetDependency = .project(target: "NetworkKit", path: .relativeToRoot("Modules/NetworkKit"))
     static let designSystem: TargetDependency = .project(target: "DesignSystem", path: .relativeToRoot("Modules/DesignSystem"))
     static let databaseKit: TargetDependency = .project(target: "DatabaseKit", path: .relativeToRoot("Modules/DatabaseKit"))
     static let foundationKit: TargetDependency = .project(target: "FoundationKit", path: .relativeToRoot("Modules/FoundationKit"))
@@ -124,7 +124,7 @@ public extension Project {
                 deploymentTargets: ProjectConfig.deploymentTarget,
                 infoPlist: .default,
                 sources: ["Data/Sources/**"],
-                dependencies: [.target(name: "\(name)Domain"), .core] + dataDependencies,
+                dependencies: [.target(name: "\(name)Domain"), .networkKit] + dataDependencies,
                 settings: .settings(base: ProjectConfig.baseSettings)
             ))
         }

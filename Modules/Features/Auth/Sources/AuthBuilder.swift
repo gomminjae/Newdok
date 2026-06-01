@@ -1,5 +1,5 @@
 import SwiftUI
-import Core
+import NetworkKit
 import AuthInterface
 
 public struct AuthBuilder: AuthBuildable {

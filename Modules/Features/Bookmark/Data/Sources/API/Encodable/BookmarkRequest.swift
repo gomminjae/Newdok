@@ -1,3 +1,3 @@
-struct BookmarkRequest: Encodable {
+struct BookmarkRequest: Encodable, Sendable {
     let articleId: String
 }

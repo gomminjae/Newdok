@@ -1,58 +1,38 @@
-import Moya
 import Foundation
-import Core
+import NetworkKit
 
-public enum DetailNewsletterAPI {
-    case fetchNewsletterBrand(id: String)
-    case fetchGuestNewsletterBrand(id: String)
-    case pauseSubscription(newsletterId: String)
-    case resumeSubscription(newsletterId: String)
+private var newsletterBaseURL: URL { URL(string: "\(APIEnvironment.baseURL)/newsletters")! }
+
+struct FetchNewsletterBrand: APIRequest {
+    typealias Response = DetailBrandDetailDTO
+    let id: String
+    var baseURL: URL { newsletterBaseURL }
+    var path: String { "/\(id)" }
+    var method: HTTPMethod { .get }
+    var task: RequestTask { .plain }
 }
 
-extension DetailNewsletterAPI: TargetType {
-    public var baseURL: URL {
-        switch self {
-        default:
-            return URL(string:
-                        "\(APIEnvironment.baseURL)/newsletters")!
-        }
-    }
+struct FetchGuestNewsletterBrand: APIRequest {
+    typealias Response = DetailBrandDetailDTO
+    let id: String
+    var baseURL: URL { newsletterBaseURL }
+    var path: String { "/\(id)/non-member" }
+    var method: HTTPMethod { .get }
+    var task: RequestTask { .plain }
+}
 
-    public var path: String {
-        switch self {
-        case .fetchNewsletterBrand(let id):
-            return "/\(id)"
-        case .pauseSubscription:
-            return "/subscription/pause"
-        case .resumeSubscription:
-            return "/subscription/resume"
-        case .fetchGuestNewsletterBrand(let id):
-            return "/\(id)/non-member"
-        }
-    }
+struct PauseNewsletterSubscription: APIRequest {
+    let newsletterId: String
+    var baseURL: URL { newsletterBaseURL }
+    var path: String { "/subscription/pause" }
+    var method: HTTPMethod { .patch }
+    var task: RequestTask { .jsonBody(SubscriptionRequest(newsletterId: newsletterId)) }
+}
 
-    public var method: Moya.Method {
-        switch self {
-        case .pauseSubscription, .resumeSubscription:
-            return .patch
-        default:
-            return .get
-        }
-    }
-
-    public var task: Moya.Task {
-        switch self {
-        case .fetchGuestNewsletterBrand, .fetchNewsletterBrand:
-            return .requestPlain
-        case .pauseSubscription(let newsletterId), .resumeSubscription(let newsletterId):
-            return .requestJSONEncodable(SubscriptionRequest(newsletterId: newsletterId))
-        }
-    }
-
-    public var headers: [String: String]? {
-        return [
-            "Content-Type": "application/json",
-            "Accept": "application/json"
-        ]
-    }
+struct ResumeNewsletterSubscription: APIRequest {
+    let newsletterId: String
+    var baseURL: URL { newsletterBaseURL }
+    var path: String { "/subscription/resume" }
+    var method: HTTPMethod { .patch }
+    var task: RequestTask { .jsonBody(SubscriptionRequest(newsletterId: newsletterId)) }
 }

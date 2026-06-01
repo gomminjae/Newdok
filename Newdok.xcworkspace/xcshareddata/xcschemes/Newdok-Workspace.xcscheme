@@ -224,20 +224,6 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "B90FCF66245CD7327BEE2CBF"
-               BuildableName = "Core.framework"
-               BlueprintName = "Core"
-               ReferencedContainer = "container:Modules/Core/Core.xcodeproj">
-            </BuildableReference>
-         </BuildActionEntry>
-         <BuildActionEntry
-            buildForTesting = "YES"
-            buildForRunning = "YES"
-            buildForProfiling = "YES"
-            buildForArchiving = "YES"
-            buildForAnalyzing = "YES">
-            <BuildableReference
-               BuildableIdentifier = "primary"
                BlueprintIdentifier = "A9198DADA1C94D4688C417C6"
                BuildableName = "DatabaseKit.framework"
                BlueprintName = "DatabaseKit"
@@ -1068,6 +1054,20 @@
                BuildableName = "MypageTests.xctest"
                BlueprintName = "MypageTests"
                ReferencedContainer = "container:Modules/Features/Mypage/Mypage.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "DC93B437E5CFD867C043748F"
+               BuildableName = "NetworkKit.framework"
+               BlueprintName = "NetworkKit"
+               ReferencedContainer = "container:Modules/NetworkKit/NetworkKit.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
          <BuildActionEntry

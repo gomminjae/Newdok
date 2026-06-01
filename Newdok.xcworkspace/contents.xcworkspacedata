@@ -8,9 +8,6 @@
          location = "group:App/App.xcodeproj">
       </FileRef>
       <FileRef
-         location = "group:Core/Core.xcodeproj">
-      </FileRef>
-      <FileRef
          location = "group:DatabaseKit/DatabaseKit.xcodeproj">
       </FileRef>
       <FileRef
@@ -18,6 +15,9 @@
       </FileRef>
       <FileRef
          location = "group:FoundationKit/FoundationKit.xcodeproj">
+      </FileRef>
+      <FileRef
+         location = "group:NetworkKit/NetworkKit.xcodeproj">
       </FileRef>
       <FileRef
          location = "group:Shared/Shared.xcodeproj">

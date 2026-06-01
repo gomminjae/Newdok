@@ -1,59 +1,38 @@
-import Moya
 import Foundation
-import Core
+import NetworkKit
 import BookmarkDomain
 
-public enum BookmarkArticleAPI {
-    case fetchBookmarkArticles(interest: String?, sortBy: BookmarkSortOption)
-    case changeBookmarkState(articleId: String)
-    case fetchBookmarkedInterest
+private var bookmarkBaseURL: URL { URL(string: "\(APIEnvironment.baseURL)/articles")! }
+
+struct FetchBookmarkArticles: APIRequest {
+    typealias Response = BookmarkArticlesResponse
+    let interest: String?
+    let sortBy: BookmarkSortOption
+    var baseURL: URL { bookmarkBaseURL }
+    var path: String { "/bookmark" }
+    var method: HTTPMethod { .get }
+    var task: RequestTask {
+        var parameters: [String: String] = [:]
+        if let interest, !interest.isEmpty {
+            parameters["interestId"] = interest
+        }
+        parameters["sortBy"] = sortBy.rawValue
+        return .query(parameters)
+    }
 }
 
-extension BookmarkArticleAPI: TargetType {
-    public var baseURL: URL {
-        return URL(string: "\(APIEnvironment.baseURL)/articles")!
-    }
+struct ChangeBookmarkState: APIRequest {
+    let articleId: String
+    var baseURL: URL { bookmarkBaseURL }
+    var path: String { "/bookmark" }
+    var method: HTTPMethod { .post }
+    var task: RequestTask { .jsonBody(BookmarkRequest(articleId: articleId)) }
+}
 
-    public var path: String {
-        switch self {
-        case .fetchBookmarkArticles:
-            return "/bookmark"
-        case .changeBookmarkState:
-            return "/bookmark"
-        case .fetchBookmarkedInterest:
-            return "/bookmark/interest"
-        }
-    }
-
-    public var method: Moya.Method {
-        switch self {
-        case .changeBookmarkState:
-            return .post
-        default:
-            return .get
-        }
-    }
-
-    public var task: Moya.Task {
-        switch self {
-        case .fetchBookmarkArticles(let interest, let sortBy):
-            var parameters: [String: String] = [:]
-            if let interest, !interest.isEmpty {
-                parameters["interestId"] = interest
-            }
-            parameters["sortBy"] = sortBy.rawValue
-            return .requestParameters(parameters: parameters, encoding: URLEncoding.default)
-        case .changeBookmarkState(let id):
-            return .requestJSONEncodable(BookmarkRequest(articleId: id))
-        case .fetchBookmarkedInterest:
-            return .requestPlain
-        }
-    }
-
-    public var headers: [String: String]? {
-        return [
-            "Content-Type": "application/json",
-            "Accept": "application/json"
-        ]
-    }
+struct FetchBookmarkedInterest: APIRequest {
+    typealias Response = InterestListResponse
+    var baseURL: URL { bookmarkBaseURL }
+    var path: String { "/bookmark/interest" }
+    var method: HTTPMethod { .get }
+    var task: RequestTask { .plain }
 }

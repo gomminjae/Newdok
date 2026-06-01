@@ -1,11 +1,11 @@
-import Core
+import NetworkKit
 import Shared
 import ExploreDomain
 import ExploreData
 
 @MainActor
 struct ExploreDIContainer {
-    private let network: any NetworkService<ExploreNewsletterAPI>
+    private let network: any NetworkService
     private let userInfoStore: UserInfoStoreProtocol
     private let selectableItemStore: SelectableItemStoreProtocol
 
@@ -14,7 +14,7 @@ struct ExploreDIContainer {
         userInfoStore: UserInfoStoreProtocol = UserInfoStore.shared,
         selectableItemStore: SelectableItemStoreProtocol = SelectableItemStore.shared
     ) {
-        self.network = networkProvider.makeService(for: ExploreNewsletterAPI.self)
+        self.network = networkProvider.makeService()
         self.userInfoStore = userInfoStore
         self.selectableItemStore = selectableItemStore
     }

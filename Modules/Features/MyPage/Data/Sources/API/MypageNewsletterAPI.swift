@@ -1,35 +1,12 @@
-import Moya
 import Foundation
-import Core
+import NetworkKit
 
-public enum MypageNewsletterAPI {
-    case fetchSubscriptionCount
-}
+private var mypageNewsletterBaseURL: URL { URL(string: "\(APIEnvironment.baseURL)/newsletters")! }
 
-extension MypageNewsletterAPI: TargetType {
-    public var baseURL: URL {
-        return URL(string: "\(APIEnvironment.baseURL)/newsletters")!
-    }
-
-    public var path: String {
-        switch self {
-        case .fetchSubscriptionCount:
-            return "/subscription/count"
-        }
-    }
-
-    public var method: Moya.Method {
-        return .get
-    }
-
-    public var task: Moya.Task {
-        return .requestPlain
-    }
-
-    public var headers: [String: String]? {
-        return [
-            "Content-Type": "application/json",
-            "Accept": "application/json"
-        ]
-    }
+struct FetchMypageSubscriptionCount: APIRequest {
+    typealias Response = MypageNewslettersCountDTO
+    var baseURL: URL { mypageNewsletterBaseURL }
+    var path: String { "/subscription/count" }
+    var method: HTTPMethod { .get }
+    var task: RequestTask { .plain }
 }

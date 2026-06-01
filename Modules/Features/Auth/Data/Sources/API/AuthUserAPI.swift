@@ -1,96 +1,82 @@
-import Moya
 import Foundation
-import Core
+import NetworkKit
 
-public enum AuthUserAPI {
-    case login(loginId: String, password: String)
-    // swiftlint:disable:next enum_case_associated_values_count
-    case signup(loginId: String, password: String, phoneNumber: String, nickname: String, birthYear: String, gender: String)
-    case checkPhoneNumber(phoneNumber: String)
-    case checkIDDup(loginId: String)
-    case authSMS(phoneNumber: String)
-    case preInvestigate(industryId: String, interestIds: [String])
+private enum AuthBaseURL {
+    static var users: URL { URL(string: "\(APIEnvironment.baseURL)/users")! }
+    static var auth: URL { URL(string: "\(APIEnvironment.baseURL)/auth")! }
 }
 
-extension AuthUserAPI: TargetType {
-    public var baseURL: URL {
-        switch self {
-        case .authSMS:
-            return URL(string: "\(APIEnvironment.baseURL)/auth")!
-        default:
-            return URL(string: "\(APIEnvironment.baseURL)/users")!
-        }
+struct Login: APIRequest {
+    typealias Response = AuthLoginResponseDTO
+    let loginId: String
+    let password: String
+    var baseURL: URL { AuthBaseURL.users }
+    var path: String { "/login" }
+    var method: HTTPMethod { .post }
+    var task: RequestTask { .jsonBody(LoginRequest(loginId: loginId, password: password)) }
+}
+
+struct Signup: APIRequest {
+    typealias Response = AuthSignupResponseDTO
+    let loginId: String
+    let password: String
+    let phoneNumber: String
+    let nickname: String
+    let birthYear: String
+    let gender: String
+    var baseURL: URL { AuthBaseURL.users }
+    var path: String { "/signup" }
+    var method: HTTPMethod { .post }
+    var task: RequestTask {
+        .jsonBody(SignupAPIRequest(
+            loginId: loginId,
+            password: password,
+            phoneNumber: phoneNumber,
+            nickname: nickname,
+            birthYear: birthYear,
+            gender: gender
+        ))
     }
+}
 
-    public var path: String {
-        switch self {
-        case .login:
-            return "/login"
-        case .signup:
-            return "/signup"
-        case .checkPhoneNumber:
-            return "/check/phoneNumber"
-        case .checkIDDup:
-            return "/check/loginId"
-        case .authSMS:
-            return "/SMS"
-        case .preInvestigate:
-            return "/preInvestigate"
-        }
-    }
+struct CheckPhoneNumber: APIRequest {
+    typealias Response = [AuthSimpleUserDTO]
+    let phoneNumber: String
+    var baseURL: URL { AuthBaseURL.users }
+    var path: String { "/check/phoneNumber" }
+    var method: HTTPMethod { .get }
+    var task: RequestTask { .query(["phoneNumber": phoneNumber]) }
+}
 
-    public var method: Moya.Method {
-        switch self {
-        case .login, .signup, .authSMS:
-            return .post
-        case .preInvestigate, .checkIDDup, .checkPhoneNumber:
-            return .get
-        }
-    }
+struct CheckIDDup: APIRequest {
+    typealias Response = AuthSimpleUserDTO
+    let loginId: String
+    var baseURL: URL { AuthBaseURL.users }
+    var path: String { "/check/loginId" }
+    var method: HTTPMethod { .get }
+    var task: RequestTask { .query(["loginId": loginId]) }
+}
 
-    public var task: Task {
-        switch self {
-        case let .login(loginId, password):
-            return .requestJSONEncodable(LoginRequest(loginId: loginId, password: password))
+struct AuthSMS: APIRequest {
+    typealias Response = AuthSMSResponseDTO
+    let phoneNumber: String
+    var baseURL: URL { AuthBaseURL.auth }
+    var path: String { "/SMS" }
+    var method: HTTPMethod { .post }
+    var task: RequestTask { .jsonBody(PhoneNumberRequest(phoneNumber: phoneNumber)) }
+}
 
-        case let .signup(loginId, password, phoneNumber, nickname, birthYear, gender):
-            return .requestJSONEncodable(SignupAPIRequest(
-                loginId: loginId,
-                password: password,
-                phoneNumber: phoneNumber,
-                nickname: nickname,
-                birthYear: birthYear,
-                gender: gender
-            ))
-
-        case let .checkPhoneNumber(phoneNumber):
-            return .requestParameters(parameters: ["phoneNumber": phoneNumber], encoding: URLEncoding.default)
-
-        case let .checkIDDup(loginId):
-            return .requestParameters(parameters: ["loginId": loginId], encoding: URLEncoding.default)
-
-        case let .authSMS(phoneNumber):
-            return .requestJSONEncodable(PhoneNumberRequest(phoneNumber: phoneNumber))
-
-        case let .preInvestigate(industryId, interestIds):
-            let parameters: [String: Any] = [
-                "industry": industryId,
-                "interest": interestIds
-            ]
-            let encoding = URLEncoding(
-                destination: .queryString,
-                arrayEncoding: .noBrackets,
-                boolEncoding: .literal
-            )
-            return .requestParameters(parameters: parameters, encoding: encoding)
-        }
-    }
-
-    public var headers: [String: String]? {
-        return ["Content-Type": "application/json"]
-    }
-
-    public var sampleData: Data {
-        return Data()
+struct PreInvestigate: APIRequest {
+    typealias Response = AuthRecommendedBrandListResponseDTO
+    let industryId: String
+    let interestIds: [String]
+    var baseURL: URL { AuthBaseURL.users }
+    var path: String { "/preInvestigate" }
+    var method: HTTPMethod { .get }
+    var task: RequestTask {
+        .queryArray([
+            "industry": [industryId],
+            "interest": interestIds
+        ])
     }
 }

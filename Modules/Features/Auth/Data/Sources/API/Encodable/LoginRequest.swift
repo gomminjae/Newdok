@@ -1,4 +1,4 @@
-struct LoginRequest: Encodable {
+struct LoginRequest: Encodable, Sendable {
     let loginId: String
     let password: String
 }

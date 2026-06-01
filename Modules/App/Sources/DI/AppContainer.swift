@@ -1,6 +1,6 @@
 import SwiftUI
 import Foundation
-import Core
+import NetworkKit
 import Shared
 import DatabaseKit
 import Auth

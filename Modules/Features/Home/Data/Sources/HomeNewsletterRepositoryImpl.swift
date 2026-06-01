@@ -1,16 +1,16 @@
 import HomeDomain
-import Core
+import NetworkKit
 import Shared
 
 public final class HomeNewsletterRepositoryImpl: HomeNewsletterRepository {
-    private let network: any NetworkService<HomeNewsletterAPI>
+    private let network: any NetworkService
 
-    public init(network: any NetworkService<HomeNewsletterAPI>) {
+    public init(network: any NetworkService) {
         self.network = network
     }
 
     public func fetchActiveSubscription() async throws -> [HomeNewsletter] {
-        let response: [HomeNewsletterDTO] = try await network.request(.fetchActiveNewletters)
+        let response = try await network.request(FetchHomeActiveNewsletters())
         return response.map { $0.toDomain() }
     }
 }

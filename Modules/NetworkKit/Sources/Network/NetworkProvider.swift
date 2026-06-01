@@ -4,7 +4,7 @@ import Alamofire
 import Shared
 
 public protocol NetworkProviding {
-    func makeService<API: TargetType>(for type: API.Type) -> any NetworkService<API>
+    func makeService() -> any NetworkService
 }
 
 public final class NetworkProvider: NetworkProviding {
@@ -23,12 +23,12 @@ public final class NetworkProvider: NetworkProviding {
         return pluginList
     }
 
-    public func makeService<API: TargetType>(for type: API.Type) -> any NetworkService<API> {
-        MoyaNetworkService<API>(provider: makeProvider())
+    public func makeService() -> any NetworkService {
+        MoyaNetworkService(provider: makeProvider())
     }
 
-    private func makeProvider<API: TargetType>() -> MoyaProvider<API> {
-        return MoyaProvider<API>(
+    private func makeProvider() -> MoyaProvider<MoyaTarget> {
+        return MoyaProvider<MoyaTarget>(
             session: makeSafeSession(),
             plugins: plugins
         )

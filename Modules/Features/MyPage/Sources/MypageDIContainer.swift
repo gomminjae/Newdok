@@ -1,13 +1,11 @@
-import Core
+import NetworkKit
 import Shared
 import MypageDomain
 import MypageData
 
 @MainActor
 final class MypageDIContainer {
-    private let userNetwork: any NetworkService<MypageUserAPI>
-    private let articleNetwork: any NetworkService<MypageArticleAPI>
-    private let newsletterNetwork: any NetworkService<MypageNewsletterAPI>
+    private let network: any NetworkService
     private let tokenStorage: TokenStorageProtocol
     private let userInfoStore: UserInfoStoreProtocol
     private let selectableItemStore: SelectableItemStoreProtocol
@@ -22,9 +20,7 @@ final class MypageDIContainer {
         selectableItemStore: SelectableItemStoreProtocol = SelectableItemStore.shared,
         appState: AppState = .shared
     ) {
-        self.userNetwork = networkProvider.makeService(for: MypageUserAPI.self)
-        self.articleNetwork = networkProvider.makeService(for: MypageArticleAPI.self)
-        self.newsletterNetwork = networkProvider.makeService(for: MypageNewsletterAPI.self)
+        self.network = networkProvider.makeService()
         self.tokenStorage = tokenStorage
         self.userInfoStore = userInfoStore
         self.selectableItemStore = selectableItemStore
@@ -34,11 +30,11 @@ final class MypageDIContainer {
     // MARK: - Repositories
 
     func makeUserRepository() -> MypageUserRepository {
-        MypageUserRepositoryImpl(network: userNetwork, userInfoStore: userInfoStore)
+        MypageUserRepositoryImpl(network: network, userInfoStore: userInfoStore)
     }
 
     func makeStatsRepository() -> MypageStatsRepository {
-        MypageStatsRepositoryImpl(articleNetwork: articleNetwork, newsletterNetwork: newsletterNetwork)
+        MypageStatsRepositoryImpl(network: network)
     }
 
     // MARK: - Shared ViewModel (cached)

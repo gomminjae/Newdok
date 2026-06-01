@@ -1,13 +1,13 @@
-import Core
+import NetworkKit
 import SearchDomain
 import SearchData
 
 @MainActor
 final class SearchDIContainer {
-    private let network: any NetworkService<SearchAPI>
+    private let network: any NetworkService
 
     init(networkProvider: NetworkProviding) {
-        self.network = networkProvider.makeService(for: SearchAPI.self)
+        self.network = networkProvider.makeService()
     }
 
     func makeRepository() -> SearchRepository {

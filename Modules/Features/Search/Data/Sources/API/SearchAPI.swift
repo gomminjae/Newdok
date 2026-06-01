@@ -1,45 +1,21 @@
-import Moya
 import Foundation
-import Core
+import NetworkKit
 
-public enum SearchAPI {
-    case searchNewsletters(brandName: String)
-    case popularKeywords
+private var searchBaseURL: URL { URL(string: "\(APIEnvironment.baseURL)/search")! }
+
+struct SearchNewslettersRequest: APIRequest {
+    typealias Response = [SearchedNewsletterDTO]
+    let brandName: String
+    var baseURL: URL { searchBaseURL }
+    var path: String { "/newsletter" }
+    var method: HTTPMethod { .get }
+    var task: RequestTask { .query(["brandName": brandName]) }
 }
 
-extension SearchAPI: TargetType {
-    public var baseURL: URL {
-        return URL(string: "\(APIEnvironment.baseURL)/search")!
-    }
-
-    public var path: String {
-        switch self {
-        case .searchNewsletters:
-            return "/newsletter"
-        case .popularKeywords:
-            return "/popular"
-        }
-    }
-
-    public var method: Moya.Method {
-        return .get
-    }
-
-    public var task: Moya.Task {
-        switch self {
-        case .searchNewsletters(let keyword):
-            return .requestParameters(parameters: [
-                "brandName": keyword
-            ], encoding: URLEncoding.default)
-        case .popularKeywords:
-            return .requestPlain
-        }
-    }
-
-    public var headers: [String: String]? {
-        return [
-            "Content-Type": "application/json",
-            "Accept": "application/json"
-        ]
-    }
+struct PopularKeywordsRequest: APIRequest {
+    typealias Response = PopularKeywordResponseDTO
+    var baseURL: URL { searchBaseURL }
+    var path: String { "/popular" }
+    var method: HTTPMethod { .get }
+    var task: RequestTask { .plain }
 }

@@ -1,11 +1,11 @@
-import Core
+import NetworkKit
 import Shared
 import AuthDomain
 import AuthData
 
 @MainActor
 final class AuthDIContainer {
-    private let network: any NetworkService<AuthUserAPI>
+    private let network: any NetworkService
     private let tokenStorage: TokenStorageProtocol
     private let userInfoStore: UserInfoStoreProtocol
     private let selectableItemStore: SelectableItemStoreProtocol
@@ -18,7 +18,7 @@ final class AuthDIContainer {
         selectableItemStore: SelectableItemStoreProtocol = SelectableItemStore.shared,
         appState: AppState = .shared
     ) {
-        self.network = networkProvider.makeService(for: AuthUserAPI.self)
+        self.network = networkProvider.makeService()
         self.tokenStorage = tokenStorage
         self.userInfoStore = userInfoStore
         self.selectableItemStore = selectableItemStore

@@ -8,10 +8,13 @@
 
 /* Begin PBXBuildFile section */
 		0A31F646E7C019CF28F858E4 /* ErrorContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = E80F84F2471E74E153A95E3D /* ErrorContext.swift */; };
+		12FEB2D3D5F4DDBD5C9931E6 /* DefaultErrorLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5E6EEF1A33D6281B13D499B /* DefaultErrorLogger.swift */; };
 		1E4FC189D89AE0C0186D6241 /* AppError.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD702AB7C476E6478EBDE1D1 /* AppError.swift */; };
+		20ADFF55A4CB8630C0A76820 /* LogFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967E8427915D071AAB148195 /* LogFormatter.swift */; };
 		2440871C3D29D9C5EBE970A2 /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7E2402EF9A73970D230C689 /* AppState.swift */; };
 		2543C610AB3A48B4D249A302 /* TabSelection.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDF80E5080EED4A4B010B1F2 /* TabSelection.swift */; };
 		33E8EBCBB6B5FE66AD0C44D2 /* UserInfoStoreProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65238954FE2DB40FAE58AB93 /* UserInfoStoreProtocol.swift */; };
+		3513856E2C8D87F6244A8D69 /* LogLevel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2E0E6536BE609E2CCAB2B11 /* LogLevel.swift */; };
 		3943A30AA7C2116A86287D44 /* UserDefault.swift in Sources */ = {isa = PBXBuildFile; fileRef = E18D363A3EC3579FD532BEAB /* UserDefault.swift */; };
 		42C547F2B0DB34F78126F92D /* OnboardingStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBEFFF1F37AF959C2FB751BE /* OnboardingStorage.swift */; };
 		4DE7CDCD6EFA166208D29E3B /* KeychainItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC12BB49A1DB8E04FAFD16B7 /* KeychainItem.swift */; };
@@ -25,14 +28,18 @@
 		7D04C850BB0BAE64479467A3 /* AppRoute.swift in Sources */ = {isa = PBXBuildFile; fileRef = 990582F8C227FE7665BA5DC8 /* AppRoute.swift */; };
 		7EA17643B1BF737840760B76 /* ToastCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0DE4CC8E8325473FA349E3F /* ToastCenter.swift */; };
 		96CFE788CBFC80C85178485A /* CheckResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0616F85852A726E9E6A1E31B /* CheckResult.swift */; };
+		979025728DB60110FE8BD5E5 /* LogOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23B219F5B278364391B60E95 /* LogOutput.swift */; };
 		986650F906C2F56D536CFFAA /* SelectableItemStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1743374E82CFD282451B401 /* SelectableItemStore.swift */; };
 		A12C94D0A0401696BB9F6E1B /* ErrorHandling.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2125DE09B958AC81707B7938 /* ErrorHandling.swift */; };
+		A694D92F40EDD134B03ECCB0 /* LogCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91077BCFC6BBA601E71989F8 /* LogCategory.swift */; };
 		AB7871A6114FFBE13D2C68F1 /* SelectableItemStoreProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 014639417F98AB3569DF5034 /* SelectableItemStoreProtocol.swift */; };
+		C063D90E4444DE44CAA03B24 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B334701E5508F3430A8A6C3 /* Logger.swift */; };
 		C1F55CCE5F47EFD7E182822F /* SelectableItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8A1EBAD9AC767B12A003540 /* SelectableItem.swift */; };
 		CAA079B09B7E96E5F69E5FE0 /* OnboardingStorable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40B7B0DCCFA9E41A01F78AC4 /* OnboardingStorable.swift */; };
 		D33431FC2D83603755E9891B /* Notification+Names.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAFAE7C6C99697B1113513FA /* Notification+Names.swift */; };
 		D75A8FD022EEBC29AF185D36 /* AppConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2BEA0C3B8E576918DE74F38 /* AppConstants.swift */; };
 		DECBAACDAECC2379F5B517CA /* AppRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B003F7CC7D7753A3F19A643 /* AppRouter.swift */; };
+		EF03E3CAE97DFC51E76A693D /* LogDestination.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77CC1134A7DA27C17FA0C6E0 /* LogDestination.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -53,18 +60,25 @@
 		0616F85852A726E9E6A1E31B /* CheckResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckResult.swift; sourceTree = "<group>"; };
 		080C58231FCEDC083F899294 /* Shared.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Shared.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2125DE09B958AC81707B7938 /* ErrorHandling.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorHandling.swift; sourceTree = "<group>"; };
+		23B219F5B278364391B60E95 /* LogOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogOutput.swift; sourceTree = "<group>"; };
 		40B7B0DCCFA9E41A01F78AC4 /* OnboardingStorable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingStorable.swift; sourceTree = "<group>"; };
+		5B334701E5508F3430A8A6C3 /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
 		5D19AE1865F5A91E0ED703D6 /* TokenStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenStore.swift; sourceTree = "<group>"; };
 		65238954FE2DB40FAE58AB93 /* UserInfoStoreProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoStoreProtocol.swift; sourceTree = "<group>"; };
 		675DC976D9F58E8233DABE05 /* UserInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfo.swift; sourceTree = "<group>"; };
+		77CC1134A7DA27C17FA0C6E0 /* LogDestination.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogDestination.swift; sourceTree = "<group>"; };
 		7B003F7CC7D7753A3F19A643 /* AppRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppRouter.swift; sourceTree = "<group>"; };
+		91077BCFC6BBA601E71989F8 /* LogCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogCategory.swift; sourceTree = "<group>"; };
 		962B163644F815D1BF4ECB11 /* SelectableCategoryType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectableCategoryType.swift; sourceTree = "<group>"; };
+		967E8427915D071AAB148195 /* LogFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogFormatter.swift; sourceTree = "<group>"; };
 		990582F8C227FE7665BA5DC8 /* AppRoute.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppRoute.swift; sourceTree = "<group>"; };
 		ABD09C1E8E179695F3A17A71 /* UserInfoStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoStore.swift; sourceTree = "<group>"; };
 		B1743374E82CFD282451B401 /* SelectableItemStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectableItemStore.swift; sourceTree = "<group>"; };
 		B28B630733E4DE41A787D657 /* SubscribePopupStorable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscribePopupStorable.swift; sourceTree = "<group>"; };
 		BAFAE7C6C99697B1113513FA /* Notification+Names.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Notification+Names.swift"; sourceTree = "<group>"; };
 		BD702AB7C476E6478EBDE1D1 /* AppError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppError.swift; sourceTree = "<group>"; };
+		C2E0E6536BE609E2CCAB2B11 /* LogLevel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogLevel.swift; sourceTree = "<group>"; };
+		C5E6EEF1A33D6281B13D499B /* DefaultErrorLogger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultErrorLogger.swift; sourceTree = "<group>"; };
 		C6FF4F6005F77CD1C374B945 /* TokenStorageProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenStorageProtocol.swift; sourceTree = "<group>"; };
 		C7E2402EF9A73970D230C689 /* AppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
 		D72BA6AE8B9AF02B56D8FC04 /* Shared-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "Shared-Info.plist"; sourceTree = "<group>"; };
@@ -96,6 +110,20 @@
 				F0DE4CC8E8325473FA349E3F /* ToastCenter.swift */,
 			);
 			path = Toast;
+			sourceTree = "<group>";
+		};
+		0E58EC7FB31BB2E5D05D6D13 /* Log */ = {
+			isa = PBXGroup;
+			children = (
+				C5E6EEF1A33D6281B13D499B /* DefaultErrorLogger.swift */,
+				91077BCFC6BBA601E71989F8 /* LogCategory.swift */,
+				77CC1134A7DA27C17FA0C6E0 /* LogDestination.swift */,
+				967E8427915D071AAB148195 /* LogFormatter.swift */,
+				5B334701E5508F3430A8A6C3 /* Logger.swift */,
+				C2E0E6536BE609E2CCAB2B11 /* LogLevel.swift */,
+				23B219F5B278364391B60E95 /* LogOutput.swift */,
+			);
+			path = Log;
 			sourceTree = "<group>";
 		};
 		18761086C2A2199A9552439D /* Store */ = {
@@ -182,6 +210,7 @@
 			children = (
 				70F30DEB3BC7EA590CBA4A44 /* Constants */,
 				4C0EA287ACE99588C39C62FD /* Error */,
+				0E58EC7FB31BB2E5D05D6D13 /* Log */,
 				E436D0D82D53B4FAD084ABBB /* Notification */,
 				ED14C3119F3986C76CA453A1 /* Preferences */,
 				B009AEDC1F84E55C19868CE1 /* Router */,
@@ -324,6 +353,13 @@
 				1E4FC189D89AE0C0186D6241 /* AppError.swift in Sources */,
 				0A31F646E7C019CF28F858E4 /* ErrorContext.swift in Sources */,
 				A12C94D0A0401696BB9F6E1B /* ErrorHandling.swift in Sources */,
+				12FEB2D3D5F4DDBD5C9931E6 /* DefaultErrorLogger.swift in Sources */,
+				A694D92F40EDD134B03ECCB0 /* LogCategory.swift in Sources */,
+				EF03E3CAE97DFC51E76A693D /* LogDestination.swift in Sources */,
+				20ADFF55A4CB8630C0A76820 /* LogFormatter.swift in Sources */,
+				3513856E2C8D87F6244A8D69 /* LogLevel.swift in Sources */,
+				979025728DB60110FE8BD5E5 /* LogOutput.swift in Sources */,
+				C063D90E4444DE44CAA03B24 /* Logger.swift in Sources */,
 				D33431FC2D83603755E9891B /* Notification+Names.swift in Sources */,
 				CAA079B09B7E96E5F69E5FE0 /* OnboardingStorable.swift in Sources */,
 				42C547F2B0DB34F78126F92D /* OnboardingStorage.swift in Sources */,

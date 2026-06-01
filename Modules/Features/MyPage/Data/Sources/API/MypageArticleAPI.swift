@@ -1,35 +1,12 @@
-import Moya
 import Foundation
-import Core
+import NetworkKit
 
-public enum MypageArticleAPI {
-    case fetchReceivedArticleCount
-}
+private var mypageArticleBaseURL: URL { URL(string: "\(APIEnvironment.baseURL)/articles")! }
 
-extension MypageArticleAPI: TargetType {
-    public var baseURL: URL {
-        return URL(string: "\(APIEnvironment.baseURL)/articles")!
-    }
-
-    public var path: String {
-        switch self {
-        case .fetchReceivedArticleCount:
-            return "/received/count"
-        }
-    }
-
-    public var method: Moya.Method {
-        return .get
-    }
-
-    public var task: Moya.Task {
-        return .requestPlain
-    }
-
-    public var headers: [String: String]? {
-        return [
-            "Content-Type": "application/json",
-            "Accept": "application/json"
-        ]
-    }
+struct FetchReceivedArticleCount: APIRequest {
+    typealias Response = MypageArticlesCountDTO
+    var baseURL: URL { mypageArticleBaseURL }
+    var path: String { "/received/count" }
+    var method: HTTPMethod { .get }
+    var task: RequestTask { .plain }
 }

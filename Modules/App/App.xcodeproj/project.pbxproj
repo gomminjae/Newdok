@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0124B5187DA64DDD60250AD7 /* Core.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 514C6A786251DDEC6B3DFF77 /* Core.framework */; };
+		00DB7DDCAF9469B0E81AC51B /* NetworkKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EF021344F16945968371F691 /* NetworkKit.framework */; };
 		0263D464A0060067F7C699E4 /* Firebase.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F44EDE91A79696F3FBBFE16 /* Firebase.framework */; };
 		03C31E734B72B29FEA1E066D /* SubscribeDomain.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6403E5FCF0FC81B2922FA5E5 /* SubscribeDomain.framework */; };
 		097F71382AB33B072400656E /* FirebaseCoreExtension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D986AB50C6EC5E677534690A /* FirebaseCoreExtension.framework */; };
@@ -189,7 +189,6 @@
 		48998AA38F90160E6A754556 /* GoogleUtilities_AppDelegateSwizzler.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = GoogleUtilities_AppDelegateSwizzler.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		49A8F44173AE773538037143 /* GoogleUtilities_Environment.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = GoogleUtilities_Environment.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4DF851AB63186CE3D1CB0DED /* Promises.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Promises.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		514C6A786251DDEC6B3DFF77 /* Core.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Core.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		56CEFEBE90EBB1FAFCA079B3 /* DetailData.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = DetailData.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		571E08A9083FD4334E4B7D06 /* App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = App.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		579A16AE603CDAC89FBACF86 /* FirebaseCrashlytics.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = FirebaseCrashlytics.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -255,6 +254,7 @@
 		E72FF74C328526DB94E50010 /* BookmarkInterface.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = BookmarkInterface.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E9369BFA2C65412102538303 /* DesignSystem.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = DesignSystem.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		EE6F604B0FACC3BEB663D1D1 /* GoogleAdsOnDeviceConversionTarget.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = GoogleAdsOnDeviceConversionTarget.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		EF021344F16945968371F691 /* NetworkKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = NetworkKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F8F861BEFA693139AC601928 /* BookmarkDomain.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = BookmarkDomain.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FBAB840F54EFA40D6A143F7F /* GoogleAppMeasurementTarget.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = GoogleAppMeasurementTarget.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FCA3C5FAA7EFDD728B5A5DA0 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS.sdk/System/Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
@@ -282,7 +282,6 @@
 				951F5F7AD846B44C5D2B4794 /* BookmarkData.framework in Frameworks */,
 				6F40F0302996AC8E9B709719 /* BookmarkDomain.framework in Frameworks */,
 				19AA6DB30A90955617F9B7FD /* BookmarkInterface.framework in Frameworks */,
-				0124B5187DA64DDD60250AD7 /* Core.framework in Frameworks */,
 				1C97140162D8A52649A79034 /* DatabaseKit.framework in Frameworks */,
 				8F3691F7301E714387485350 /* DesignSystem.framework in Frameworks */,
 				1DAF338EC3091F9B6BB61A11 /* Detail.framework in Frameworks */,
@@ -329,6 +328,7 @@
 				92F54D6F46C20B4A9B9764D4 /* MypageData.framework in Frameworks */,
 				8B7F4D5F182C6C286C41D29C /* MypageDomain.framework in Frameworks */,
 				825230B66CE03FD8757C0F13 /* MypageInterface.framework in Frameworks */,
+				00DB7DDCAF9469B0E81AC51B /* NetworkKit.framework in Frameworks */,
 				E876353B6A37EF48E58A9D39 /* PopupView.framework in Frameworks */,
 				7B9F449FE333FAF6C557BDCD /* Promises.framework in Frameworks */,
 				F4F71442B9CC6C3E397CD7E8 /* Search.framework in Frameworks */,
@@ -551,7 +551,6 @@
 				0DBF32E59C44117542EBDEFB /* BookmarkData.framework */,
 				F8F861BEFA693139AC601928 /* BookmarkDomain.framework */,
 				E72FF74C328526DB94E50010 /* BookmarkInterface.framework */,
-				514C6A786251DDEC6B3DFF77 /* Core.framework */,
 				20472DE96208EAF694E16719 /* DatabaseKit.framework */,
 				E9369BFA2C65412102538303 /* DesignSystem.framework */,
 				6FB9E693CAE8686756749690 /* Detail.framework */,
@@ -599,6 +598,7 @@
 				BF295CF0B578304BEF374ADF /* MypageDomain.framework */,
 				96DD70846B0784404F045D9B /* MypageInterface.framework */,
 				5F4076E956478B59F7481B80 /* nanopb.framework */,
+				EF021344F16945968371F691 /* NetworkKit.framework */,
 				7D4C1070D34B90B47363412F /* PopupView.framework */,
 				4DF851AB63186CE3D1CB0DED /* Promises.framework */,
 				460AADA523E2A539BF85F4C6 /* Search.framework */,

@@ -1,3 +1,3 @@
-struct SubscriptionRequest: Encodable {
+struct SubscriptionRequest: Encodable, Sendable {
     let newsletterId: String
 }

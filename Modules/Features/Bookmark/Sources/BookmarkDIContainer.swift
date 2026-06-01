@@ -1,12 +1,12 @@
-import Core
+import NetworkKit
 import BookmarkDomain
 import BookmarkData
 
 struct BookmarkDIContainer {
-    private let network: any NetworkService<BookmarkArticleAPI>
+    private let network: any NetworkService
 
     init(networkProvider: NetworkProviding) {
-        self.network = networkProvider.makeService(for: BookmarkArticleAPI.self)
+        self.network = networkProvider.makeService()
     }
 
     // MARK: - Repository

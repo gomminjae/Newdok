@@ -1,49 +1,21 @@
-import Moya
 import Foundation
-import Core
+import NetworkKit
 
-public enum DetailArticleAPI {
-    case changeBookmarkState(articleId: String)
-    case fetchArticleDetail(id: String)
+private var articleBaseURL: URL { URL(string: "\(APIEnvironment.baseURL)/articles")! }
+
+struct FetchArticleDetail: APIRequest {
+    typealias Response = DetailArticleDetailDTO
+    let id: String
+    var baseURL: URL { articleBaseURL }
+    var path: String { "/\(id)" }
+    var method: HTTPMethod { .get }
+    var task: RequestTask { .plain }
 }
 
-extension DetailArticleAPI: TargetType {
-    public var baseURL: URL {
-        return URL(string:
-                    "\(APIEnvironment.baseURL)/articles")!
-    }
-
-    public var path: String {
-        switch self {
-        case .changeBookmarkState:
-            return "/bookmark"
-        case .fetchArticleDetail(let id):
-            return "/\(id)"
-        }
-    }
-
-    public var method: Moya.Method {
-        switch self {
-        case .changeBookmarkState:
-            return .post
-        case .fetchArticleDetail:
-            return .get
-        }
-    }
-
-    public var task: Moya.Task {
-        switch self {
-        case .changeBookmarkState(let id):
-            return .requestJSONEncodable(BookmarkRequest(articleId: id))
-        case .fetchArticleDetail:
-            return .requestPlain
-        }
-    }
-
-    public var headers: [String: String]? {
-        return [
-            "Content-Type": "application/json",
-            "Accept": "application/json"
-        ]
-    }
+struct ChangeBookmarkState: APIRequest {
+    let articleId: String
+    var baseURL: URL { articleBaseURL }
+    var path: String { "/bookmark" }
+    var method: HTTPMethod { .post }
+    var task: RequestTask { .jsonBody(BookmarkRequest(articleId: articleId)) }
 }

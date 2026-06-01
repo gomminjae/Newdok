@@ -1,4 +1,4 @@
-import Core
+import NetworkKit
 import Shared
 import DatabaseKit
 import HomeDomain
@@ -6,8 +6,7 @@ import HomeData
 
 @MainActor
 final class HomeDIContainer {
-    private let articleNetwork: any NetworkService<HomeArticleAPI>
-    private let newsletterNetwork: any NetworkService<HomeNewsletterAPI>
+    private let network: any NetworkService
     private let highlightDataSource: HighlightLocalDataSource
     private let appState: AppState
 
@@ -16,18 +15,17 @@ final class HomeDIContainer {
         highlightDataSource: HighlightLocalDataSource,
         appState: AppState = .shared
     ) {
-        self.articleNetwork = networkProvider.makeService(for: HomeArticleAPI.self)
-        self.newsletterNetwork = networkProvider.makeService(for: HomeNewsletterAPI.self)
+        self.network = networkProvider.makeService()
         self.highlightDataSource = highlightDataSource
         self.appState = appState
     }
 
     func makeArticleRepository() -> HomeArticleRepository {
-        HomeArticleRepositoryImpl(network: articleNetwork)
+        HomeArticleRepositoryImpl(network: network)
     }
 
     func makeNewsletterRepository() -> HomeNewsletterRepository {
-        HomeNewsletterRepositoryImpl(network: newsletterNetwork)
+        HomeNewsletterRepositoryImpl(network: network)
     }
 
     func makeHighlightRepository() -> HighlightCountRepository {

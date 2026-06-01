@@ -1,106 +1,92 @@
-import Moya
 import Foundation
-import Core
+import NetworkKit
 
-public enum MypageUserAPI {
-    case checkPhoneNumber(phoneNumber: String)
-    case checkIDDup(loginId: String)
-    case updateNickname(nickname: String)
-    case updatePassword(loginId: String, prevPassword: String, password: String)
-    case updateInterest(interestsId: [Int])
-    case updateIndustry(industryId: Int)
-    case updatePhoneNumber(phoneNumber: String)
-    case authSMS(phoneNumber: String)
-    case profile
-    case withdraw
+private var mypageUserBaseURL: URL { URL(string: "\(APIEnvironment.baseURL)/users")! }
+private var mypageAuthBaseURL: URL { URL(string: "\(APIEnvironment.baseURL)/auth")! }
+
+struct CheckPhoneNumber: APIRequest {
+    typealias Response = [MypageSimpleUserDTO]
+    let phoneNumber: String
+    var baseURL: URL { mypageUserBaseURL }
+    var path: String { "/check/phoneNumber" }
+    var method: HTTPMethod { .get }
+    var task: RequestTask { .query(["phoneNumber": phoneNumber]) }
 }
 
-extension MypageUserAPI: TargetType {
-    public var baseURL: URL {
-        switch self {
-        case .authSMS:
-            return URL(string: "\(APIEnvironment.baseURL)/auth")!
-        default:
-            return URL(string: "\(APIEnvironment.baseURL)/users")!
-        }
+struct CheckIDDup: APIRequest {
+    typealias Response = MypageSimpleUserDTO
+    let loginId: String
+    var baseURL: URL { mypageUserBaseURL }
+    var path: String { "/check/loginId" }
+    var method: HTTPMethod { .get }
+    var task: RequestTask { .query(["loginId": loginId]) }
+}
+
+struct UpdateNickname: APIRequest {
+    typealias Response = MypageNicknameResponseDTO
+    let nickname: String
+    var baseURL: URL { mypageUserBaseURL }
+    var path: String { "/mypage/nickname" }
+    var method: HTTPMethod { .patch }
+    var task: RequestTask { .jsonBody(NicknameRequest(nickname: nickname)) }
+}
+
+struct UpdatePassword: APIRequest {
+    let loginId: String
+    let prevPassword: String
+    let password: String
+    var baseURL: URL { mypageUserBaseURL }
+    var path: String { "/mypage/password" }
+    var method: HTTPMethod { .patch }
+    var task: RequestTask {
+        .jsonBody(PasswordRequest(loginId: loginId, prevPassword: prevPassword, password: password))
     }
+}
 
-    public var path: String {
-        switch self {
-        case .checkPhoneNumber:
-            return "/check/phoneNumber"
-        case .checkIDDup:
-            return "/check/loginId"
-        case .updateNickname:
-            return "/mypage/nickname"
-        case .updatePassword:
-            return "/mypage/password"
-        case .updateIndustry:
-            return "/mypage/industry"
-        case .updateInterest:
-            return "/mypage/interest"
-        case .updatePhoneNumber:
-            return "/mypage/phoneNumber"
-        case .authSMS:
-            return "/SMS"
-        case .profile:
-            return "/my"
-        case .withdraw:
-            return "/withdraw"
-        }
-    }
+struct UpdateInterest: APIRequest {
+    let interestsId: [Int]
+    var baseURL: URL { mypageUserBaseURL }
+    var path: String { "/mypage/interest" }
+    var method: HTTPMethod { .patch }
+    var task: RequestTask { .jsonBody(InterestRequest(interestIds: interestsId)) }
+}
 
-    public var method: Moya.Method {
-        switch self {
-        case .updatePassword, .updateIndustry, .updateInterest, .updatePhoneNumber, .updateNickname, .withdraw:
-            return .patch
-        case .authSMS:
-            return .post
-        case .checkIDDup, .checkPhoneNumber, .profile:
-            return .get
-        }
-    }
+struct UpdateIndustry: APIRequest {
+    let industryId: Int
+    var baseURL: URL { mypageUserBaseURL }
+    var path: String { "/mypage/industry" }
+    var method: HTTPMethod { .patch }
+    var task: RequestTask { .jsonBody(IndustryRequest(industryId: industryId)) }
+}
 
-    public var task: Task {
-        switch self {
-        case let .checkPhoneNumber(phoneNumber):
-            return .requestParameters(parameters: ["phoneNumber": phoneNumber], encoding: URLEncoding.default)
+struct UpdatePhoneNumber: APIRequest {
+    let phoneNumber: String
+    var baseURL: URL { mypageUserBaseURL }
+    var path: String { "/mypage/phoneNumber" }
+    var method: HTTPMethod { .patch }
+    var task: RequestTask { .jsonBody(PhoneNumberRequest(phoneNumber: phoneNumber)) }
+}
 
-        case let .checkIDDup(loginId):
-            return .requestParameters(parameters: ["loginId": loginId], encoding: URLEncoding.default)
+struct AuthSMS: APIRequest {
+    typealias Response = MypageSMSResponseDTO
+    let phoneNumber: String
+    var baseURL: URL { mypageAuthBaseURL }
+    var path: String { "/SMS" }
+    var method: HTTPMethod { .post }
+    var task: RequestTask { .jsonBody(PhoneNumberRequest(phoneNumber: phoneNumber)) }
+}
 
-        case let .updateNickname(nickname):
-            return .requestJSONEncodable(NicknameRequest(nickname: nickname))
+struct FetchProfile: APIRequest {
+    typealias Response = MypageUserDTO
+    var baseURL: URL { mypageUserBaseURL }
+    var path: String { "/my" }
+    var method: HTTPMethod { .get }
+    var task: RequestTask { .plain }
+}
 
-        case let .updatePassword(loginId, prevPassword, password):
-            return .requestJSONEncodable(PasswordRequest(
-                loginId: loginId,
-                prevPassword: prevPassword,
-                password: password
-            ))
-
-        case let .updateInterest(interestsId):
-            return .requestJSONEncodable(InterestRequest(interestIds: interestsId))
-
-        case let .updateIndustry(industryId):
-            return .requestJSONEncodable(IndustryRequest(industryId: industryId))
-
-        case let .updatePhoneNumber(phoneNumber):
-            return .requestJSONEncodable(PhoneNumberRequest(phoneNumber: phoneNumber))
-
-        case let .authSMS(phoneNumber):
-            return .requestJSONEncodable(PhoneNumberRequest(phoneNumber: phoneNumber))
-
-        case .profile, .withdraw:
-            return .requestPlain
-        }
-    }
-
-    public var headers: [String: String]? {
-        return ["Content-Type": "application/json"]
-    }
-
-    public var sampleData: Data {
-        return Data()
-    }
+struct Withdraw: APIRequest {
+    var baseURL: URL { mypageUserBaseURL }
+    var path: String { "/withdraw" }
+    var method: HTTPMethod { .patch }
+    var task: RequestTask { .plain }
 }

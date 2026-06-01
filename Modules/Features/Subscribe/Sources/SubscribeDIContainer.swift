@@ -1,12 +1,12 @@
-import Core
+import NetworkKit
 import SubscribeDomain
 import SubscribeData
 
 struct SubscribeDIContainer {
-    private let network: any NetworkService<SubscribeNewsletterAPI>
+    private let network: any NetworkService
 
     init(networkProvider: NetworkProviding) {
-        self.network = networkProvider.makeService(for: SubscribeNewsletterAPI.self)
+        self.network = networkProvider.makeService()
     }
 
     // MARK: - Repository

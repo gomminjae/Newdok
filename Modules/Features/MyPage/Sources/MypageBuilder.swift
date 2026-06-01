@@ -1,5 +1,5 @@
 import SwiftUI
-import Core
+import NetworkKit
 import MypageInterface
 
 public struct MypageBuilder: MypageBuildable {

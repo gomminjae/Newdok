@@ -2,7 +2,7 @@ import ProjectDescription
 import ProjectDescriptionHelpers
 
 let project = Project.module(
-    name: "Core",
+    name: "NetworkKit",
     dependencies: [
         .external(name: "Moya"),
         .shared

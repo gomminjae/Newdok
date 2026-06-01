@@ -1,3 +1,3 @@
-struct NicknameRequest: Encodable {
+struct NicknameRequest: Encodable, Sendable {
     let nickname: String
 }

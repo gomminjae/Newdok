@@ -4,8 +4,8 @@ import ProjectDescriptionHelpers
 let project = Project.feature(
     name: "Auth",
     domainDependencies: [.foundationKit],
-    dataDependencies: [.external(name: "Moya")],
-    featureDependencies: [.foundationKit, .featureData("Auth"), .core],
+    dataDependencies: [],
+    featureDependencies: [.foundationKit, .featureData("Auth"), .networkKit],
     testDependencies: [.foundationKit],
     hasInterface: true
 )

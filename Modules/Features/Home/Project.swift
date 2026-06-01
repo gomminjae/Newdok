@@ -3,8 +3,8 @@ import ProjectDescriptionHelpers
 
 let project = Project.feature(
     name: "Home",
-    dataDependencies: [.databaseKit, .external(name: "Moya")],
-    featureDependencies: [.foundationKit, .featureData("Home"), .core, .databaseKit],
+    dataDependencies: [.databaseKit],
+    featureDependencies: [.foundationKit, .featureData("Home"), .networkKit, .databaseKit],
     hasInterface: true,
     hasExample: true
 )

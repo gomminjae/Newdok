@@ -1,4 +1,4 @@
-import Core
+import NetworkKit
 import Shared
 import DatabaseKit
 import DetailDomain
@@ -6,8 +6,7 @@ import DetailData
 
 @MainActor
 final class DetailDIContainer {
-    private let articleNetwork: any NetworkService<DetailArticleAPI>
-    private let newsletterNetwork: any NetworkService<DetailNewsletterAPI>
+    private let network: any NetworkService
     private let highlightDataSource: HighlightLocalDataSource
     private let userInfoStore: UserInfoStoreProtocol
 
@@ -16,18 +15,17 @@ final class DetailDIContainer {
         highlightDataSource: HighlightLocalDataSource,
         userInfoStore: UserInfoStoreProtocol = UserInfoStore.shared
     ) {
-        self.articleNetwork = networkProvider.makeService(for: DetailArticleAPI.self)
-        self.newsletterNetwork = networkProvider.makeService(for: DetailNewsletterAPI.self)
+        self.network = networkProvider.makeService()
         self.highlightDataSource = highlightDataSource
         self.userInfoStore = userInfoStore
     }
 
     func makeArticleRepository() -> DetailArticleRepository {
-        DetailArticleRepositoryImpl(network: articleNetwork)
+        DetailArticleRepositoryImpl(network: network)
     }
 
     func makeBrandRepository() -> DetailBrandRepository {
-        DetailBrandRepositoryImpl(network: newsletterNetwork)
+        DetailBrandRepositoryImpl(network: network)
     }
 
     func makeHighlightRepository() -> DetailHighlightRepository {

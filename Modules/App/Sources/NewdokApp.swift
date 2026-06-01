@@ -1,5 +1,5 @@
 import SwiftUI
-import Core
+import NetworkKit
 import Shared
 import DesignSystem
 import PopupView
@@ -15,7 +15,7 @@ struct NewdokApp: App {
 
     init() {
         FirebaseApp.configure()
-        ErrorLoggerRegistry.register(CoreErrorLogger())
+        ErrorLoggerRegistry.register(DefaultErrorLogger())
         TokenStore.shared.migrateTokenIfNeeded()
 
         let router = AppRouter()
