@@ -76,6 +76,9 @@
          location = "group:Tuist/.build/tuist-derived/GoogleUtilities/GoogleUtilities.xcodeproj">
       </FileRef>
       <FileRef
+         location = "group:Tuist/.build/tuist-derived/KakaoOpenSDK/KakaoOpenSDK.xcodeproj">
+      </FileRef>
+      <FileRef
          location = "group:Tuist/.build/tuist-derived/Kingfisher/Kingfisher.xcodeproj">
       </FileRef>
       <FileRef

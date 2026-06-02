@@ -103,7 +103,10 @@ let project = Project(
                 // External
                 .external(name: "PopupView"),
                 .external(name: "FirebaseAnalytics"),
-                .external(name: "FirebaseCrashlytics")
+                .external(name: "FirebaseCrashlytics"),
+                .external(name: "KakaoSDKCommon"),
+                .external(name: "KakaoSDKAuth"),
+                .external(name: "KakaoSDKUser")
             ]
         )
     ],

@@ -34,6 +34,7 @@
 		343BDB365A3C8C6E6705D1F5 /* GoogleAppMeasurementIdentitySupport.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = A6CC5BE38C825952D62A4FEA /* GoogleAppMeasurementIdentitySupport.xcframework */; };
 		352FA513E7B4EF4FF9C5A9A0 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 80E02385EF041EF7C0B15DA4 /* CoreTelephony.framework */; };
 		3B197E4B3C8EC9C0A91A7459 /* FBLPromises.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A04862A34120F5891A8E63BD /* FBLPromises.framework */; };
+		3B8CD8CA059DB727F00BFCFD /* KakaoSDKCommon.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 07A64FDDEF0AA8332A7C2E8F /* KakaoSDKCommon.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		3E218B454583303272ECB968 /* DetailData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56CEFEBE90EBB1FAFCA079B3 /* DetailData.framework */; };
 		3F828FC9E0F2A854B6E472EF /* FirebaseInstallations.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 1EDD3D57F65917DB1A07B052 /* FirebaseInstallations.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		4056A0FE42A1656466061EE8 /* Alamofire.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C86E6E6BCDFAB61BBD09E06F /* Alamofire.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -59,6 +60,7 @@
 		6F40F0302996AC8E9B709719 /* BookmarkDomain.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F8F861BEFA693139AC601928 /* BookmarkDomain.framework */; };
 		6F52EB8BAB38DBC2979F5AB7 /* GoogleDataTransport.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = CAA551898AB3AD913E2B2E80 /* GoogleDataTransport.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		70F3CF0BB9F240B2A59853E0 /* DesignSystem.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = E9369BFA2C65412102538303 /* DesignSystem.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		729F10544E8CB2CD05A2D73D /* KakaoSDKAuth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6C71FCA8677FAE2B173DC8BC /* KakaoSDKAuth.framework */; };
 		7389C3BF0F6EE9AA745BEADA /* Subscribe.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7280B4F86503740125AA0E61 /* Subscribe.framework */; };
 		73F3FC1D4FF7EB1EE2A318E4 /* FirebaseCrashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 579A16AE603CDAC89FBACF86 /* FirebaseCrashlytics.framework */; };
 		7652F95357A65A6D95872B14 /* FirebaseRemoteConfigInterop.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2EC0EED4803AED8EF066F337 /* FirebaseRemoteConfigInterop.framework */; };
@@ -83,6 +85,7 @@
 		92F54D6F46C20B4A9B9764D4 /* MypageData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 25D86E385893D41F56082155 /* MypageData.framework */; };
 		951F5F7AD846B44C5D2B4794 /* BookmarkData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0DBF32E59C44117542EBDEFB /* BookmarkData.framework */; };
 		9531452380F62186E3D0D24B /* PopupView.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 7D4C1070D34B90B47363412F /* PopupView.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		98213E62324FAFF244E18FFB /* KakaoSDKAuth.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 6C71FCA8677FAE2B173DC8BC /* KakaoSDKAuth.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		98231FB337224089D071C61A /* AppToastHost.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6011F38009256ECAA5FCCE7 /* AppToastHost.swift */; };
 		9ADB6DE0770536AB7D9F7EA2 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 75C1D964EE1929E7F47691C1 /* libsqlite3.tbd */; };
 		9D12C99AAD2F9CD449517FBA /* SearchData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8D326740F43A5F556E2007C0 /* SearchData.framework */; };
@@ -91,11 +94,14 @@
 		9FC27D46D287335E3F17DE53 /* Bookmark.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84FBE2452C04B4D7AC7749E0 /* Bookmark.framework */; };
 		A0142B1AA7D90160EBBC2FE8 /* SearchDomain.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A00883EC86642517904880FC /* SearchDomain.framework */; };
 		A0EBB486D9671C02D5B5293F /* AuthInterface.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 364B2FD98E76A3247813D747 /* AuthInterface.framework */; };
+		A74FEE290A5DA1D3F24DF935 /* KakaoSDKUser.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D38B74E3880A33963F2FC652 /* KakaoSDKUser.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		A76F97E3ED283C3131700469 /* KakaoSDKCommon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 07A64FDDEF0AA8332A7C2E8F /* KakaoSDKCommon.framework */; };
 		A92C683605E31D18E761A10D /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9FE0ECF9910AB356967B5279 /* SystemConfiguration.framework */; };
 		AA253D8AD1A1D49463E18C89 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 0BE35C6E44DDB3DC2EAFA79F /* libz.tbd */; };
 		AB34FB6F6DB90E6EABE7E0D3 /* FirebaseAnalyticsWrapper.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9FBB016895105DD820FB961E /* FirebaseAnalyticsWrapper.framework */; };
 		ACB9F921EC8195E3A4550EF3 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E554DAA4AB515DAF86082D9E /* GoogleService-Info.plist */; };
 		AF2C76A0516AA27E58A19304 /* FirebaseCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6057899A5EBA0F72DCB4F9FB /* FirebaseCore.framework */; };
+		B202306A3AFE89A5BDBFB17A /* KakaoSDKUser.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D38B74E3880A33963F2FC652 /* KakaoSDKUser.framework */; };
 		BA0821813F9EFEC96108F29C /* FirebaseSessions.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 235BA3CECEDCE6AB843915C7 /* FirebaseSessions.framework */; };
 		BCC9EDD6ADD2F07F95D4BAC9 /* GoogleUtilities_AppDelegateSwizzler.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 48998AA38F90160E6A754556 /* GoogleUtilities_AppDelegateSwizzler.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C3589A70DFF400CA5B499F90 /* AppRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81B1B1045BA33FE4E4B7B2BE /* AppRootView.swift */; };
@@ -149,6 +155,9 @@
 				2FEC4C6AC218B26FF4A2F4A8 /* GoogleUtilities_Network.framework in Embed Frameworks */,
 				82084C94D10127344D2915C5 /* GoogleUtilities_Reachability.framework in Embed Frameworks */,
 				617287F49CD5AF999D4CC84E /* GoogleUtilities_UserDefaults.framework in Embed Frameworks */,
+				98213E62324FAFF244E18FFB /* KakaoSDKAuth.framework in Embed Frameworks */,
+				3B8CD8CA059DB727F00BFCFD /* KakaoSDKCommon.framework in Embed Frameworks */,
+				A74FEE290A5DA1D3F24DF935 /* KakaoSDKUser.framework in Embed Frameworks */,
 				69B40BAF2815D2969E4A0FB1 /* Kingfisher.framework in Embed Frameworks */,
 				6E8362D867B53D4394477600 /* Moya.framework in Embed Frameworks */,
 				9531452380F62186E3D0D24B /* PopupView.framework in Embed Frameworks */,
@@ -163,6 +172,7 @@
 /* Begin PBXFileReference section */
 		01E1AA015F9EE84780DE15E5 /* App-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "App-Info.plist"; sourceTree = "<group>"; };
 		03CE70F210A2CC94EABD7C03 /* FirebaseSessionsObjC.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = FirebaseSessionsObjC.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		07A64FDDEF0AA8332A7C2E8F /* KakaoSDKCommon.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = KakaoSDKCommon.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		083CD4D343ECF7F321C1905D /* TuistBundle+App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TuistBundle+App.swift"; sourceTree = "<group>"; };
 		0BE35C6E44DDB3DC2EAFA79F /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS.sdk/usr/lib/libz.tbd; sourceTree = DEVELOPER_DIR; };
 		0DBF32E59C44117542EBDEFB /* BookmarkData.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = BookmarkData.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -202,6 +212,7 @@
 		6403E5FCF0FC81B2922FA5E5 /* SubscribeDomain.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SubscribeDomain.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		64190CDE29515E79F9CFDF34 /* FirebaseCoreInternal.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = FirebaseCoreInternal.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6AE449FC872A10DA9227F0A7 /* Mypage.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Mypage.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		6C71FCA8677FAE2B173DC8BC /* KakaoSDKAuth.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = KakaoSDKAuth.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6FB9E693CAE8686756749690 /* Detail.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Detail.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		709ECB981BF7FB2A9D697179 /* Auth.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Auth.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7280B4F86503740125AA0E61 /* Subscribe.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Subscribe.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -249,6 +260,7 @@
 		C99EEBAAE10B045CF1A64A0E /* GoogleUtilities_Network.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = GoogleUtilities_Network.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CAA551898AB3AD913E2B2E80 /* GoogleDataTransport.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = GoogleDataTransport.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D2EE2EA788E57C11B55BBF8A /* ExploreData.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ExploreData.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D38B74E3880A33963F2FC652 /* KakaoSDKUser.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = KakaoSDKUser.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D5C086E361BFD0D4DF600B2D /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS.sdk/usr/lib/libc++.tbd"; sourceTree = DEVELOPER_DIR; };
 		D986AB50C6EC5E677534690A /* FirebaseCoreExtension.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = FirebaseCoreExtension.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E554DAA4AB515DAF86082D9E /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -323,6 +335,9 @@
 				F2527FB2BF7081A7A0F63630 /* HomeData.framework in Frameworks */,
 				33E81FC86F95AFABE4A4C1CE /* HomeDomain.framework in Frameworks */,
 				781E1A97690EAB40B031F79C /* HomeInterface.framework in Frameworks */,
+				729F10544E8CB2CD05A2D73D /* KakaoSDKAuth.framework in Frameworks */,
+				A76F97E3ED283C3131700469 /* KakaoSDKCommon.framework in Frameworks */,
+				B202306A3AFE89A5BDBFB17A /* KakaoSDKUser.framework in Frameworks */,
 				784452FA2E8E29178120DA76 /* Kingfisher.framework in Frameworks */,
 				2DECB327F9E1EFE0AE533114 /* Launch.framework in Frameworks */,
 				55C10C02F203892AF5DFBEC5 /* Moya.framework in Frameworks */,
@@ -593,6 +608,9 @@
 				399957C9AAC3B887DDD3649B /* HomeData.framework */,
 				A384F9952484B3EE82AEEEB0 /* HomeDomain.framework */,
 				3378AADEC52D5A8AE2261C5D /* HomeInterface.framework */,
+				6C71FCA8677FAE2B173DC8BC /* KakaoSDKAuth.framework */,
+				07A64FDDEF0AA8332A7C2E8F /* KakaoSDKCommon.framework */,
+				D38B74E3880A33963F2FC652 /* KakaoSDKUser.framework */,
 				77D69EAF942AA87F8A9468BF /* Kingfisher.framework */,
 				7E710496E985656C6B2D0826 /* Launch.framework */,
 				97590F8716CD862F585CC863 /* Moya.framework */,
