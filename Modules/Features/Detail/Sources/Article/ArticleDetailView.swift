@@ -38,13 +38,10 @@ public struct ArticleDetailView: View {
                         articleId: viewModel.articleId,
                         savedHighlights: isPastArticle ? [] : viewModel.highlights,
                         fontSize: $viewModel.fontSize,
-                        selectedText: $viewModel.selectedText,
                         showScrollToTop: $showScrollToTop,
                         pendingActions: $webViewActions,
                         disableHighlight: isPastArticle,
-                        onSaveHighlight: { color in viewModel.saveHighlight(style: HighlightStyle(rawValue: color) ?? .yellow) },
-                        onHighlightTypeChanged: { text, newType in viewModel.changeHighlightStyle(text: text, to: HighlightStyle(rawValue: newType) ?? .yellow) },
-                        onHighlightDeleted: { text in viewModel.deleteHighlightByText(text: text) }
+                        onEvent: { viewModel.handle($0) }
                     )
                     .ignoresSafeArea(edges: .bottom)
                 }

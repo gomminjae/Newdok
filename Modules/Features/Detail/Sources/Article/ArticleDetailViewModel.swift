@@ -86,6 +86,20 @@ public final class ArticleDetailViewModel: ErrorHandling {
 
     // MARK: - Highlight Actions
 
+    func handle(_ event: HighlightEvent) {
+        switch event {
+        case .selected(let text):
+            selectedText = text
+        case .applied(let text, let style):
+            selectedText = text
+            saveHighlight(style: style)
+        case .styleChanged(let text, let style):
+            changeHighlightStyle(text: text, to: style)
+        case .deleted(let text):
+            deleteHighlightByText(text: text)
+        }
+    }
+
     /// 현재 선택된 텍스트를 하이라이트로 저장
     func saveHighlight(style: HighlightStyle) {
         guard !selectedText.isEmpty,
