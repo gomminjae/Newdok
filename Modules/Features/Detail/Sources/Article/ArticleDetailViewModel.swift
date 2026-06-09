@@ -21,6 +21,7 @@ public final class ArticleDetailViewModel: ErrorHandling {
     // 하이라이트 관련
     var selectedText: String = ""
     private(set) var highlights: [DetailHighlight] = []
+    private var renderer: (any HighlightRenderable)?
 
     // 폰트 크기 (UserDefaults 연동)
     private static let fontSizeKey = "articleFontSize"
@@ -82,6 +83,23 @@ public final class ArticleDetailViewModel: ErrorHandling {
             try await toggleBookmarkUseCase.execute(articleId: "\(articleId)")
             detail?.isBookmarked.toggle()
         }
+    }
+
+    // MARK: - Renderer Binding
+
+    func bind(renderer: some HighlightRenderable) async {
+        self.renderer = renderer
+        for await event in renderer.events {
+            handle(event)
+        }
+    }
+
+    func scrollToHighlight(text: String) {
+        renderer?.send(.scrollTo(text: text))
+    }
+
+    func removeHighlightFromWebView(text: String) {
+        renderer?.send(.remove(text: text))
     }
 
     // MARK: - Highlight Actions

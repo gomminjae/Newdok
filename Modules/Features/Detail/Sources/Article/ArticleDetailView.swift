@@ -16,6 +16,7 @@ public struct ArticleDetailView: View {
     @State private var showScrollToTop: Bool = false
     @State private var isViewReady: Bool = false
     @State private var webViewActions: [ArticleWebViewAction] = []
+    @State private var renderer = WebViewHighlightRenderer()
 
     private let isPastArticle: Bool
 
@@ -41,7 +42,7 @@ public struct ArticleDetailView: View {
                         showScrollToTop: $showScrollToTop,
                         pendingActions: $webViewActions,
                         disableHighlight: isPastArticle,
-                        onEvent: { viewModel.handle($0) }
+                        renderer: isPastArticle ? nil : renderer
                     )
                     .ignoresSafeArea(edges: .bottom)
                 }
@@ -60,6 +61,7 @@ public struct ArticleDetailView: View {
             if detail != nil { isViewReady = true }
         }
         .task { await viewModel.fetch() }
+        .task { await viewModel.bind(renderer: renderer) }
         .popup(isPresented: $showBookmarkToast) {
             ToastView(message: bookmarkToastMessage).padding(.bottom, 50)
         } customize: {
@@ -70,7 +72,7 @@ public struct ArticleDetailView: View {
         }
         .sheet(isPresented: $showHighlightList, onDismiss: {
             for text in pendingHighlightRemovals {
-                webViewActions.append(.removeHighlight(text: text))
+                viewModel.removeHighlightFromWebView(text: text)
             }
             pendingHighlightRemovals.removeAll()
         }) {
@@ -78,7 +80,7 @@ public struct ArticleDetailView: View {
                 highlights: viewModel.highlights,
                 onSelectHighlight: { highlight in
                     showHighlightList = false
-                    webViewActions.append(.scrollToHighlight(text: highlight.selectedText))
+                    viewModel.scrollToHighlight(text: highlight.selectedText)
                 },
                 onDeleteHighlight: { highlight in
                     pendingHighlightRemovals.append(highlight.selectedText)

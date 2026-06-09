@@ -2,12 +2,10 @@ import SwiftUI
 import WebKit
 import DetailDomain
 
-// MARK: - WebView Action (trigger pattern)
+// MARK: - WebView Action (non-highlight triggers)
 
 enum ArticleWebViewAction: Equatable {
     case scrollToTop
-    case scrollToHighlight(text: String)
-    case removeHighlight(text: String)
 }
 
 // MARK: - Custom WKWebView
@@ -35,7 +33,7 @@ struct ArticleWebView: UIViewRepresentable {
     @Binding var showScrollToTop: Bool
     @Binding var pendingActions: [ArticleWebViewAction]
     var disableHighlight: Bool = false
-    var onEvent: ((HighlightEvent) -> Void)?
+    var renderer: WebViewHighlightRenderer?
 
     func makeCoordinator() -> Coordinator {
         Coordinator(self)
@@ -49,6 +47,7 @@ struct ArticleWebView: UIViewRepresentable {
 
         let webView = HighlightableWebView(frame: .zero, configuration: config)
         webView.disableHighlight = disableHighlight
+        renderer?.attach(webView)
         webView.uiDelegate = context.coordinator
         webView.navigationDelegate = context.coordinator
         webView.scrollView.isScrollEnabled = true
@@ -72,12 +71,6 @@ struct ArticleWebView: UIViewRepresentable {
                 switch action {
                 case .scrollToTop:
                     uiView.scrollView.setContentOffset(.zero, animated: true)
-                case .scrollToHighlight(let text):
-                    let script = ArticleHighlightJS.scrollToHighlightScript(text: text)
-                    uiView.evaluateJavaScript(script, completionHandler: nil)
-                case .removeHighlight(let text):
-                    let script = ArticleHighlightJS.removeHighlightScript(text: text)
-                    uiView.evaluateJavaScript(script, completionHandler: nil)
                 }
             }
             DispatchQueue.main.async { self.pendingActions = [] }
@@ -152,7 +145,7 @@ struct ArticleWebView: UIViewRepresentable {
                   let event = HighlightEvent(messageBody: message.body) else { return }
 
             DispatchQueue.main.async {
-                self.parent.onEvent?(event)
+                self.parent.renderer?.receive(event)
             }
         }
 
