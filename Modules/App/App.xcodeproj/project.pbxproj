@@ -43,6 +43,7 @@
 		4943C02C8CCE2B41CF3E2D13 /* FirebaseCoreInternal.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 64190CDE29515E79F9CFDF34 /* FirebaseCoreInternal.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		4B4BEDFFBA8F6B8697F6D658 /* GoogleUtilities_NSData.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 97F9F26BC0A0A0A32CD460D4 /* GoogleUtilities_NSData.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		509D382CCFE306D7B52B5D3F /* FirebaseSessionsObjC.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 03CE70F210A2CC94EABD7C03 /* FirebaseSessionsObjC.framework */; };
+		51247B74AD34D897B25E4802 /* Detail.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 6FB9E693CAE8686756749690 /* Detail.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		5189CF63EEE31ED6C09F5354 /* FirebaseCoreExtension.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D986AB50C6EC5E677534690A /* FirebaseCoreExtension.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		5533C7995DDE899C36BC2346 /* third_party_IsAppEncrypted.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 255DFB5369032FF8E4C1007C /* third_party_IsAppEncrypted.framework */; };
 		557E5EB9CE186DC932D2D731 /* GoogleUtilities_NSData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97F9F26BC0A0A0A32CD460D4 /* GoogleUtilities_NSData.framework */; };
@@ -140,6 +141,7 @@
 			files = (
 				4056A0FE42A1656466061EE8 /* Alamofire.framework in Embed Frameworks */,
 				70F3CF0BB9F240B2A59853E0 /* DesignSystem.framework in Embed Frameworks */,
+				51247B74AD34D897B25E4802 /* Detail.framework in Embed Frameworks */,
 				D7023AF7E9A9396BAF28A867 /* FBLPromises.framework in Embed Frameworks */,
 				2A9E6C9228EFD0F89BB15873 /* FirebaseCore.framework in Embed Frameworks */,
 				5189CF63EEE31ED6C09F5354 /* FirebaseCoreExtension.framework in Embed Frameworks */,

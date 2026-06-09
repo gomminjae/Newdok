@@ -32,13 +32,10 @@ struct ArticleWebView: UIViewRepresentable {
     let articleId: String
     let savedHighlights: [DetailHighlight]
     @Binding var fontSize: CGFloat
-    @Binding var selectedText: String
     @Binding var showScrollToTop: Bool
     @Binding var pendingActions: [ArticleWebViewAction]
     var disableHighlight: Bool = false
-    var onSaveHighlight: ((String) -> Void)?
-    var onHighlightTypeChanged: ((String, String) -> Void)?
-    var onHighlightDeleted: ((String) -> Void)?
+    var onEvent: ((HighlightEvent) -> Void)?
 
     func makeCoordinator() -> Coordinator {
         Coordinator(self)
@@ -47,11 +44,8 @@ struct ArticleWebView: UIViewRepresentable {
     func makeUIView(context: Context) -> HighlightableWebView {
         let config = WKWebViewConfiguration()
         config.defaultWebpagePreferences.allowsContentJavaScript = true
-        config.userContentController.add(context.coordinator, name: "textSelected")
-        config.userContentController.add(context.coordinator, name: "getSelectedText")
+        config.userContentController.add(context.coordinator, name: "highlightEvent")
         config.userContentController.add(context.coordinator, name: "consoleLog")
-        config.userContentController.add(context.coordinator, name: "highlightTypeChanged")
-        config.userContentController.add(context.coordinator, name: "highlightDeleted")
 
         let webView = HighlightableWebView(frame: .zero, configuration: config)
         webView.disableHighlight = disableHighlight
@@ -154,38 +148,11 @@ struct ArticleWebView: UIViewRepresentable {
                 return
             }
 
-            guard let body = message.body as? [String: Any] else { return }
+            guard message.name == "highlightEvent",
+                  let event = HighlightEvent(messageBody: message.body) else { return }
 
-            switch message.name {
-            case "textSelected":
-                let hasSelection = body["hasSelection"] as? Bool ?? false
-                let highlightApplied = body["highlightApplied"] as? Bool ?? false
-                let highlightColor = body["highlightColor"] as? String
-
-                DispatchQueue.main.async {
-                    if hasSelection {
-                        self.parent.selectedText = (body["text"] as? String) ?? ""
-                    }
-                    if highlightApplied, let color = highlightColor {
-                        self.parent.onSaveHighlight?(color)
-                    }
-                }
-
-            case "highlightTypeChanged":
-                let text = body["text"] as? String ?? ""
-                let newType = body["newType"] as? String ?? ""
-                DispatchQueue.main.async {
-                    self.parent.onHighlightTypeChanged?(text, newType)
-                }
-
-            case "highlightDeleted":
-                let text = body["text"] as? String ?? ""
-                DispatchQueue.main.async {
-                    self.parent.onHighlightDeleted?(text)
-                }
-
-            default:
-                break
+            DispatchQueue.main.async {
+                self.parent.onEvent?(event)
             }
         }
 
