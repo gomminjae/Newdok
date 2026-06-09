@@ -42,8 +42,8 @@ public struct ArticleDetailView: View {
                         showScrollToTop: $showScrollToTop,
                         pendingActions: $webViewActions,
                         disableHighlight: isPastArticle,
-                        onSaveHighlight: { type in viewModel.saveHighlight(type: type) },
-                        onHighlightTypeChanged: { text, newType in viewModel.changeHighlightType(text: text, newType: newType) },
+                        onSaveHighlight: { color in viewModel.saveHighlight(style: HighlightStyle(rawValue: color) ?? .yellow) },
+                        onHighlightTypeChanged: { text, newType in viewModel.changeHighlightStyle(text: text, to: HighlightStyle(rawValue: newType) ?? .yellow) },
                         onHighlightDeleted: { text in viewModel.deleteHighlightByText(text: text) }
                     )
                     .ignoresSafeArea(edges: .bottom)

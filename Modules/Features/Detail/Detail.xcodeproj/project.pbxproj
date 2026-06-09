@@ -14,6 +14,7 @@
 		0E9AD2803FD7D0A62CC1A072 /* MockToggleArticleBookmarkUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E155CB1056429557CEFA7CB /* MockToggleArticleBookmarkUseCase.swift */; };
 		1104AEB09AC223B45D45C575 /* Moya.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 767F6388D464E3D8420F18D2 /* Moya.framework */; };
 		1536F42215DB595E7BF87726 /* DetailData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05B413B7BB7364B2A8EB43B8 /* DetailData.framework */; };
+		168C6F27B1CEEDCFF161D62E /* HighlightStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42B2228FB1F42508CD26B420 /* HighlightStyle.swift */; };
 		17317F475E53E771034636AE /* Moya.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 767F6388D464E3D8420F18D2 /* Moya.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		19F643E350D25CC82773DF53 /* Kingfisher.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 037730AF7DDB88D4A7CFEC27 /* Kingfisher.framework */; };
 		1A2F518D2EDE2203A73E7E80 /* Kingfisher.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 037730AF7DDB88D4A7CFEC27 /* Kingfisher.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -39,6 +40,7 @@
 		4E25DF1EA440EC32B957A409 /* DetailArticleDetailDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2342B528C8EF2F01C4011A5 /* DetailArticleDetailDTO.swift */; };
 		579FD491C39E775B1855B67E /* Shared.framework in Dependencies */ = {isa = PBXBuildFile; fileRef = 16E9D08E995905CE2B02915B /* Shared.framework */; };
 		5964495ABC5CD31091FECF77 /* DetailError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8913DD26045FA9B30B463521 /* DetailError.swift */; };
+		5A2A8EA92A5DD81BB02464B9 /* HighlightStyleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2298CEE69AC04C6C5CCF1106 /* HighlightStyleTests.swift */; };
 		5E7B91384F72F810EBFBE662 /* DetailInterest.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F091D55409F8BB269CF55D /* DetailInterest.swift */; };
 		60ACB81D3B115BDA82C1C0A1 /* DetailInterface.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6B1AE62965A0CCECBA5E4E62 /* DetailInterface.framework */; };
 		62E57D9A477C43218EFCFD39 /* DetailMain.swift in Sources */ = {isa = PBXBuildFile; fileRef = A883D2FFA63ECF6643BD9A68 /* DetailMain.swift */; };
@@ -311,12 +313,14 @@
 		16E9D08E995905CE2B02915B /* Shared.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Shared.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		19C9C8E4DD02773C8AA3821B /* FetchArticleDetailUseCaseImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchArticleDetailUseCaseImpl.swift; sourceTree = "<group>"; };
 		1ECFC5C90FF58B3D2AF210DD /* MockDetailHighlightRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockDetailHighlightRepository.swift; sourceTree = "<group>"; };
+		2298CEE69AC04C6C5CCF1106 /* HighlightStyleTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HighlightStyleTests.swift; sourceTree = "<group>"; };
 		23D5D8F4620FFA9D5FAD4CBE /* DetailArticleRepositoryImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailArticleRepositoryImpl.swift; sourceTree = "<group>"; };
 		25E300CBDD8DD1CB03AB6372 /* DetailArticleDetailResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailArticleDetailResult.swift; sourceTree = "<group>"; };
 		2CF917A0E31942609F337894 /* DetailBrandArticle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailBrandArticle.swift; sourceTree = "<group>"; };
 		2DC131721167BC8AA615F8D6 /* FoundationKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = FoundationKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		315587186714BA35F86EACFA /* DetailHighlight.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailHighlight.swift; sourceTree = "<group>"; };
 		3B95DEB0BB0769D679538C4A /* Detail.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Detail.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		42B2228FB1F42508CD26B420 /* HighlightStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HighlightStyle.swift; sourceTree = "<group>"; };
 		44FAC0CD654C1727458CCD6B /* DetailArticleDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailArticleDetail.swift; sourceTree = "<group>"; };
 		453D8A2E57EC8CB33197FB6A /* DetailExampleApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailExampleApp.swift; sourceTree = "<group>"; };
 		520DC973A302CE54DF2F8D7A /* Detail-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "Detail-Info.plist"; sourceTree = "<group>"; };
@@ -528,6 +532,7 @@
 			isa = PBXGroup;
 			children = (
 				7DCF08A981030825A2FC8348 /* DetailTests.swift */,
+				2298CEE69AC04C6C5CCF1106 /* HighlightStyleTests.swift */,
 			);
 			path = Tests;
 			sourceTree = "<group>";
@@ -762,6 +767,7 @@
 				8913DD26045FA9B30B463521 /* DetailError.swift */,
 				315587186714BA35F86EACFA /* DetailHighlight.swift */,
 				D7F091D55409F8BB269CF55D /* DetailInterest.swift */,
+				42B2228FB1F42508CD26B420 /* HighlightStyle.swift */,
 				5C3341D48D082CA7690C2B06 /* SubscriptionStatus.swift */,
 			);
 			path = Models;
@@ -1048,6 +1054,7 @@
 				5964495ABC5CD31091FECF77 /* DetailError.swift in Sources */,
 				FC6DAEFF4D81A101A3FAEA5A /* DetailHighlight.swift in Sources */,
 				5E7B91384F72F810EBFBE662 /* DetailInterest.swift in Sources */,
+				168C6F27B1CEEDCFF161D62E /* HighlightStyle.swift in Sources */,
 				1D3BD41B18EAB5E2D01FAF9B /* SubscriptionStatus.swift in Sources */,
 				BBB2AA8E96719EE07A07C445 /* DetailArticleRepository.swift in Sources */,
 				0D96F6D256F648B72CDA8740 /* DetailBrandRepository.swift in Sources */,
@@ -1080,6 +1087,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E6452BFC6770104F497B0A4F /* DetailTests.swift in Sources */,
+				5A2A8EA92A5DD81BB02464B9 /* HighlightStyleTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

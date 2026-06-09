@@ -101,7 +101,7 @@ struct ArticleWebView: UIViewRepresentable {
             context.coordinator.needsReload = false
 
             let highlightsJSON = savedHighlights.map { highlight in
-                ["text": highlight.selectedText, "type": highlight.highlightType]
+                ["text": highlight.selectedText, "type": highlight.style.rawValue]
             }
 
             let htmlBuilder = ArticleHTMLBuilder(

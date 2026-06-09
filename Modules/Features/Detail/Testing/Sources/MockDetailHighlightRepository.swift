@@ -15,9 +15,9 @@ public final class MockDetailHighlightRepository: DetailHighlightRepository {
         highlightResult
     }
 
-    public func addHighlight(articleId: String, articleTitle: String, brandName: String, selectedText: String, type: String) async throws {}
+    public func addHighlight(articleId: String, articleTitle: String, brandName: String, selectedText: String, style: HighlightStyle) async throws {}
 
     public func removeHighlight(id: UUID) async throws {}
 
-    public func changeHighlightType(id: UUID, to newType: String) async throws {}
+    public func changeHighlightStyle(id: UUID, to newStyle: HighlightStyle) async throws {}
 }

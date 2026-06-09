@@ -134,7 +134,7 @@ struct ArticleDetailViewModelTests {
         )
         fetchDetail.result = .success(DetailArticleDetailResult(detail: detail, articleId: "1"))
         highlightRepo.highlightsResult = [
-            DetailHighlight(id: UUID(), articleId: "1", articleTitle: "제목", brandName: "브랜드", selectedText: "하이라이트", highlightType: "yellow", textOffset: 0, createdAt: Date())
+            DetailHighlight(id: UUID(), articleId: "1", articleTitle: "제목", brandName: "브랜드", selectedText: "하이라이트", style: .yellow, textOffset: 0, createdAt: Date())
         ]
 
         await vm.fetch()

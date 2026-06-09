@@ -87,7 +87,7 @@ public final class ArticleDetailViewModel: ErrorHandling {
     // MARK: - Highlight Actions
 
     /// 현재 선택된 텍스트를 하이라이트로 저장
-    func saveHighlight(type: String) {
+    func saveHighlight(style: HighlightStyle) {
         guard !selectedText.isEmpty,
               let detail = detail else { return }
         let articleId = String(detail.articleId)
@@ -101,7 +101,7 @@ public final class ArticleDetailViewModel: ErrorHandling {
                     articleTitle: title,
                     brandName: brand,
                     selectedText: text,
-                    type: type
+                    style: style
                 )
                 await loadHighlights()
             } catch {
@@ -129,16 +129,16 @@ public final class ArticleDetailViewModel: ErrorHandling {
     }
 
     /// 하이라이트 타입 변경 (JS 에디트 메뉴에서 호출)
-    func changeHighlightType(text: String, newType: String) {
+    func changeHighlightStyle(text: String, to newStyle: HighlightStyle) {
         guard let detail = detail else { return }
         let articleId = String(detail.articleId)
         Task {
             guard let highlight = await highlightRepository.highlight(articleId: articleId, matching: text) else { return }
             do {
-                try await highlightRepository.changeHighlightType(id: highlight.id, to: newType)
+                try await highlightRepository.changeHighlightStyle(id: highlight.id, to: newStyle)
                 await loadHighlights()
             } catch {
-                handleError(error, feature: "articleDetail", operation: "changeHighlightType")
+                handleError(error, feature: "articleDetail", operation: "changeHighlightStyle")
             }
         }
     }
@@ -161,7 +161,7 @@ public final class ArticleDetailViewModel: ErrorHandling {
     /// 하이라이트 JSON 배열 (WebView용)
     func highlightsJSON() -> [[String: String]] {
         highlights.map { highlight in
-            ["text": highlight.selectedText, "type": highlight.highlightType]
+            ["text": highlight.selectedText, "type": highlight.style.rawValue]
         }
     }
 }

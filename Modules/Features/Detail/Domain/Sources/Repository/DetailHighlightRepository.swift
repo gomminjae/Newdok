@@ -8,8 +8,8 @@ public protocol DetailHighlightRepository: Sendable {
         articleTitle: String,
         brandName: String,
         selectedText: String,
-        type: String
+        style: HighlightStyle
     ) async throws
     func removeHighlight(id: UUID) async throws
-    func changeHighlightType(id: UUID, to newType: String) async throws
+    func changeHighlightStyle(id: UUID, to newStyle: HighlightStyle) async throws
 }

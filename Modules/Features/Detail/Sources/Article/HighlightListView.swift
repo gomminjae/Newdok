@@ -96,23 +96,22 @@ struct HighlightRowView: View {
     let onDelete: () -> Void
 
     private var highlightColor: Color {
-        switch highlight.highlightType {
-        case "yellow": return Color.highlightYellow
-        case "orange": return Color.highlightOrange
-        case "pink": return Color.highlightPink
-        case "green": return Color.highlightGreen
-        case "blue": return Color.highlightBlue
-        case "underline": return Color.errorLight
-        default: return Color.gray.opacity(0.4)
+        switch highlight.style {
+        case .yellow: return Color.highlightYellow
+        case .orange: return Color.highlightOrange
+        case .pink: return Color.highlightPink
+        case .green: return Color.highlightGreen
+        case .blue: return Color.highlightBlue
+        case .underline: return Color.errorLight
         }
     }
 
     private var barWidth: CGFloat {
-        highlight.highlightType == "underline" ? 2 : 6
+        highlight.style == .underline ? 2 : 6
     }
 
     private var barRadius: CGFloat {
-        highlight.highlightType == "underline" ? 1 : 3
+        highlight.style == .underline ? 1 : 3
     }
 
     var body: some View {
