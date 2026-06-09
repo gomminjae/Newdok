@@ -103,7 +103,7 @@ public enum SampleDetailHighlights {
             articleTitle: "샘플 아티클: AI가 바꾸는 일상",
             brandName: "Daily Bytes",
             selectedText: "AI가 바꾸는 일상",
-            highlightType: "yellow",
+            style: .yellow,
             textOffset: 0,
             createdAt: Date()
         ),
@@ -113,7 +113,7 @@ public enum SampleDetailHighlights {
             articleTitle: "샘플 아티클: AI가 바꾸는 일상",
             brandName: "Daily Bytes",
             selectedText: "샘플 본문",
-            highlightType: "green",
+            style: .green,
             textOffset: 30,
             createdAt: Date()
         )

@@ -22,7 +22,7 @@ public final class DetailHighlightRepositoryImpl: DetailHighlightRepository {
         articleTitle: String,
         brandName: String,
         selectedText: String,
-        type: String
+        style: HighlightStyle
     ) async throws {
         try await dataSource.add(
             HighlightDTO(
@@ -30,7 +30,7 @@ public final class DetailHighlightRepositoryImpl: DetailHighlightRepository {
                 articleTitle: articleTitle,
                 brandName: brandName,
                 selectedText: selectedText,
-                highlightType: type
+                highlightType: style.rawValue
             )
         )
     }
@@ -39,8 +39,8 @@ public final class DetailHighlightRepositoryImpl: DetailHighlightRepository {
         try await dataSource.remove(id: id)
     }
 
-    public func changeHighlightType(id: UUID, to newType: String) async throws {
-        try await dataSource.updateType(id: id, newType: newType)
+    public func changeHighlightStyle(id: UUID, to newStyle: HighlightStyle) async throws {
+        try await dataSource.updateType(id: id, newType: newStyle.rawValue)
     }
 }
 
@@ -52,7 +52,7 @@ private extension HighlightDTO {
             articleTitle: articleTitle,
             brandName: brandName,
             selectedText: selectedText,
-            highlightType: highlightType,
+            style: HighlightStyle(rawValue: highlightType) ?? .yellow,
             textOffset: textOffset,
             createdAt: createdAt
         )
