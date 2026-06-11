@@ -8,7 +8,7 @@ import FirebaseAnalytics
 
 @main
 struct NewdokApp: App {
-    @State private var showUpdateAlert = false
+    @State private var showUpdatePopup = false
     @State private var router = AppRouter()
     @State private var tabSelection = TabSelection()
     private let container: AppContainer
@@ -42,15 +42,8 @@ struct NewdokApp: App {
             .task {
                 await checkVersion()
             }
-            .alert(isPresented: $showUpdateAlert) {
-                Alert(
-                    title: Text("업데이트 안내"),
-                    message: Text("새로운 버전이 출시되었습니다. 스토어로 이동하여 업데이트를 진행해주세요."),
-                    primaryButton: .default(Text("업데이트"), action: {
-                        VersionCheckService.shared.openAppStore()
-                    }),
-                    secondaryButton: .cancel(Text("나중에"))
-                )
+            .updateAvailablePopup(isPresented: $showUpdatePopup) {
+                VersionCheckService.shared.openAppStore()
             }
         }
     }
@@ -58,7 +51,7 @@ struct NewdokApp: App {
     private func checkVersion() async {
         let needsUpdate = await VersionCheckService.shared.checkForUpdate()
         if needsUpdate {
-            showUpdateAlert = true
+            showUpdatePopup = true
         }
     }
 }

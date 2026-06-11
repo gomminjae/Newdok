@@ -8,7 +8,7 @@ struct AppRootView: View {
     let container: AppContainer
 
     @State private var launched = false
-    @State private var showUnauthorizedAlert = false
+    @State private var showSessionExpiredPopup = false
 
     init(router: AppRouter, container: AppContainer) {
         self.router = router
@@ -63,14 +63,10 @@ struct AppRootView: View {
         .onReceive(NotificationCenter.default.publisher(for: .didReceiveUnauthorized)) { _ in
             Task { await container.signOut() }
             AppState.shared.logout()
-            showUnauthorizedAlert = true
+            showSessionExpiredPopup = true
         }
-        .alert("로그인이 필요합니다", isPresented: $showUnauthorizedAlert) {
-            Button("로그인하기") {
-                router.resetTo(.login)
-            }
-        } message: {
-            Text("세션이 만료되었습니다. 다시 로그인해주세요.")
+        .sessionExpiredPopup(isPresented: $showSessionExpiredPopup) {
+            router.resetTo(.login)
         }
     }
 
