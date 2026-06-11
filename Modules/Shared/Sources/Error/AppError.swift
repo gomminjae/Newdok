@@ -35,15 +35,6 @@ public enum AppError: Error, Equatable {
         }
     }
 
-    public var shouldShowToast: Bool {
-        switch self {
-        case .silent, .serverError, .timeout:
-            return false
-        default:
-            return true
-        }
-    }
-
     public var requiresFullScreenError: Bool {
         switch self {
         case .noInternet, .unauthorized, .serverError:
