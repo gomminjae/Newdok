@@ -1,6 +1,7 @@
 import SwiftUI
 import WebKit
 import DetailDomain
+import Shared
 
 // MARK: - WebView Action (non-highlight triggers)
 
@@ -62,6 +63,14 @@ struct ArticleWebView: UIViewRepresentable {
         return webView
     }
 
+    static func dismantleUIView(_ uiView: HighlightableWebView, coordinator: Coordinator) {
+        uiView.configuration.userContentController.removeScriptMessageHandler(forName: "highlightEvent")
+        uiView.configuration.userContentController.removeScriptMessageHandler(forName: "consoleLog")
+        uiView.scrollView.delegate = nil
+        uiView.navigationDelegate = nil
+        uiView.uiDelegate = nil
+    }
+
     func updateUIView(_ uiView: HighlightableWebView, context: Context) {
         context.coordinator.parent = self
 
@@ -73,7 +82,7 @@ struct ArticleWebView: UIViewRepresentable {
                     uiView.scrollView.setContentOffset(.zero, animated: true)
                 }
             }
-            DispatchQueue.main.async { self.pendingActions = [] }
+            Task { @MainActor in self.pendingActions = [] }
         }
 
         // Content reload
@@ -104,7 +113,11 @@ struct ArticleWebView: UIViewRepresentable {
             uiView.loadHTMLString(htmlBuilder.build(), baseURL: nil)
         } else if context.coordinator.lastFontSize != fontSize {
             context.coordinator.lastFontSize = fontSize
-            uiView.evaluateJavaScript("adjustFontSize(\(fontSize));", completionHandler: nil)
+            uiView.evaluateJavaScript("adjustFontSize(\(fontSize));") { _, error in
+                if let error {
+                    logError("adjustFontSize 실행 실패: \(error)", category: .detail)
+                }
+            }
         }
     }
 
@@ -129,7 +142,7 @@ struct ArticleWebView: UIViewRepresentable {
         func scrollViewDidScroll(_ scrollView: UIScrollView) {
             let shouldShow = scrollView.contentOffset.y > 200
             if parent.showScrollToTop != shouldShow {
-                DispatchQueue.main.async {
+                Task { @MainActor in
                     self.parent.showScrollToTop = shouldShow
                 }
             }
@@ -144,7 +157,7 @@ struct ArticleWebView: UIViewRepresentable {
             guard message.name == "highlightEvent",
                   let event = HighlightEvent(messageBody: message.body) else { return }
 
-            DispatchQueue.main.async {
+            Task { @MainActor in
                 self.parent.renderer?.receive(event)
             }
         }

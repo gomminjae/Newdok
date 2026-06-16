@@ -1,4 +1,5 @@
 import WebKit
+import Shared
 
 @MainActor
 final class WebViewHighlightRenderer: HighlightRenderable {
@@ -25,7 +26,11 @@ final class WebViewHighlightRenderer: HighlightRenderable {
         case .remove(let text):
             script = ArticleHighlightJS.removeHighlightScript(text: text)
         }
-        webView.evaluateJavaScript(script, completionHandler: nil)
+        webView.evaluateJavaScript(script) { _, error in
+            if let error {
+                logError("하이라이트 명령 실행 실패 \(command): \(error)", category: .detail)
+            }
+        }
     }
 
     func receive(_ event: HighlightEvent) {
