@@ -9,6 +9,7 @@ import SwiftUI
 
 public struct LoadingDotsView: View {
     @State private var activeDot = 0
+    @State private var animationTask: Task<Void, Never>?
 
     private let dotCount = 3
     private let dotSize: CGFloat
@@ -43,11 +44,16 @@ public struct LoadingDotsView: View {
         .onAppear {
             startAnimation()
         }
+        .onDisappear {
+            animationTask?.cancel()
+            animationTask = nil
+        }
     }
 
     private func startAnimation() {
         activeDot = 0
-        Task { @MainActor in
+        animationTask?.cancel()
+        animationTask = Task { @MainActor in
             while !Task.isCancelled {
                 do {
                     try await Task.sleep(for: .milliseconds(400))

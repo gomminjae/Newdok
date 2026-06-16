@@ -7,9 +7,10 @@ public final class DecorateArticlesUseCaseImpl: DecorateArticlesUseCase {
         self.highlightCountsUseCase = highlightCountsUseCase
     }
 
-    public func execute(articles: [HomeArticle], readIds: Set<Int>) async -> [HomeArticle] {
+    public func execute(articles: [HomeArticle], readIds: Set<Int>, refreshHighlightCounts: Bool) async -> [HomeArticle] {
         let withStatus = articles.map { applyReadStatus(to: $0, readIds: readIds) }
         let prioritized = prioritize(withStatus)
+        guard refreshHighlightCounts else { return prioritized }
         return await applyHighlightCounts(prioritized)
     }
 
@@ -21,7 +22,8 @@ public final class DecorateArticlesUseCaseImpl: DecorateArticlesUseCase {
             articleTitle: article.articleTitle,
             articleId: article.articleId,
             status: .read,
-            publishDate: article.publishDate
+            publishDate: article.publishDate,
+            highlightCount: article.highlightCount
         )
     }
 

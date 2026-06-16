@@ -45,7 +45,7 @@ private extension CurationView {
                 .padding(.top, 8)
             
             ScrollView {
-                VStack(spacing: 12) {
+                LazyVStack(spacing: 12) {
                     ForEach(viewModel.recommendedPost, id: \.id) { brand in
                         CurationRow(brand: brand, viewModel: viewModel)
                     }

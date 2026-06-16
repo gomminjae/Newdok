@@ -142,7 +142,7 @@ public struct SubscribeView: View {
     }
 
     private var subscriptionListView: some View {
-        VStack(alignment: .leading, spacing: 0) {
+        LazyVStack(alignment: .leading, spacing: 0) {
             listHeaderView()
                 .padding(.horizontal, 20)
                 .padding(.bottom, 20)

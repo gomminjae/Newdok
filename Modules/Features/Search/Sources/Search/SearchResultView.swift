@@ -136,7 +136,7 @@ extension SearchResultView {
         if viewModel.searchResults.isEmpty {
             newsletterEmptySection()
         } else {
-            VStack(alignment: .leading, spacing: 12) {
+            LazyVStack(alignment: .leading, spacing: 12) {
                 Text("뉴스레터")
                     .font(.hanSansNeo(16, .medium))
                 ForEach(viewModel.searchResults, id: \.id) { result in

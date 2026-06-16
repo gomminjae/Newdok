@@ -75,9 +75,12 @@ public final class HomeViewModel: ErrorHandling {
     public var articlesByMonth: [HomeArticles] = []
 
     // MARK: - Caches
+    private let maxCachedMonths = 4
     private var dataDaysCache: [String: Set<Int>] = [:]
     private var monthlyCache: [String: [HomeArticles]] = [:]
     private var dayArticlesCache: [String: [HomeArticle]] = [:]
+    private var cachedMonthOrder: [String] = []
+    private var inFlightPrefetch: Set<String> = []
     private var readArticleIds: Set<Int> = []
     private var lastLoadedDate: Date?
     private var isTodayLoading = false
@@ -126,28 +129,11 @@ public final class HomeViewModel: ErrorHandling {
         set { calendarState.displayedMonth = newValue }
     }
 
-    public var articlesByMonthDates: Set<Date> {
-        let calendar = Calendar.current
-        let comps = calendar.dateComponents([.year, .month], from: selectedDate)
-        return Set(articlesByMonth.compactMap { group in
-            guard group.unreadCount > 0 else { return nil }
-            var dc = comps
-            dc.day = group.publishDate
-            return calendar.date(from: dc)
-        })
-    }
-
     private func resolveState() -> HomeState {
         if isGuest { return .guest }
         if subscribedNewsletters.isEmpty && filteredArticles.isEmpty { return .noSubscriptions }
         if filteredArticles.isEmpty { return .noArticles }
         return .articles
-    }
-
-    public var activeArticeDays: [Int] {
-        articlesByMonth
-            .filter { $0.unreadCount > 0 }
-            .map { $0.publishDate }
     }
 
     public var formattedDate: String {
@@ -265,7 +251,7 @@ public final class HomeViewModel: ErrorHandling {
 
         let targetDate = calendarState.selectedDate
         if var cached = cachedArticles(for: targetDate) {
-            cached = await decorateArticles(cached)
+            cached = await decorateArticles(cached, refreshHighlightCounts: false)
             storeArticles(cached, for: targetDate)
             withAnimation(.easeInOut(duration: 0.25)) {
                 filteredArticles = cached
@@ -282,6 +268,8 @@ public final class HomeViewModel: ErrorHandling {
         dataDaysCache.removeAll()
         monthlyCache.removeAll()
         dayArticlesCache.removeAll()
+        cachedMonthOrder.removeAll()
+        inFlightPrefetch.removeAll()
         readArticleIds.removeAll()
         lastLoadedDate = nil
         isTodayLoading = false
@@ -363,6 +351,7 @@ public final class HomeViewModel: ErrorHandling {
         let month = startOfMonth(date)
 
         if !forceReload, let cached = monthlyCache[key] {
+            touchMonthCache(key)
             batchUpdate {
                 calendarState.displayedMonth = month
                 calendarState.dataDays = dataDaysCache[key] ?? []
@@ -428,8 +417,8 @@ public final class HomeViewModel: ErrorHandling {
         }
     }
 
-    private func decorateArticles(_ articles: [HomeArticle]) async -> [HomeArticle] {
-        await decorateArticlesUseCase.execute(articles: articles, readIds: readArticleIds)
+    private func decorateArticles(_ articles: [HomeArticle], refreshHighlightCounts: Bool = true) async -> [HomeArticle] {
+        await decorateArticlesUseCase.execute(articles: articles, readIds: readArticleIds, refreshHighlightCounts: refreshHighlightCounts)
     }
 
     // MARK: - Private: Cache Management
@@ -443,7 +432,28 @@ public final class HomeViewModel: ErrorHandling {
     }
 
     private func storeDataDays(_ days: Set<Int>, for date: Date) {
-        dataDaysCache[monthKey(for: date)] = days
+        let key = monthKey(for: date)
+        dataDaysCache[key] = days
+        touchMonthCache(key)
+    }
+
+    private func touchMonthCache(_ key: String) {
+        cachedMonthOrder.removeAll { $0 == key }
+        cachedMonthOrder.append(key)
+
+        let displayedKey = monthKey(for: calendarState.displayedMonth)
+        while cachedMonthOrder.count > maxCachedMonths,
+              let oldest = cachedMonthOrder.first(where: { $0 != displayedKey }) {
+            cachedMonthOrder.removeAll { $0 == oldest }
+            evictMonth(oldest)
+        }
+    }
+
+    private func evictMonth(_ key: String) {
+        monthlyCache.removeValue(forKey: key)
+        dataDaysCache.removeValue(forKey: key)
+        let prefix = "\(key)-"
+        dayArticlesCache = dayArticlesCache.filter { !$0.key.hasPrefix(prefix) }
     }
 
     private func applyMonthlyAdjustment(for date: Date, articles: [HomeArticle]) {
@@ -468,10 +478,8 @@ public final class HomeViewModel: ErrorHandling {
 
     private func clearMonthlyCache(for date: Date) {
         let key = monthKey(for: date)
-        monthlyCache.removeValue(forKey: key)
-        dataDaysCache.removeValue(forKey: key)
-        let prefix = "\(key)-"
-        dayArticlesCache = dayArticlesCache.filter { !$0.key.hasPrefix(prefix) }
+        cachedMonthOrder.removeAll { $0 == key }
+        evictMonth(key)
     }
 
     // MARK: - Private: Prefetching
@@ -481,9 +489,11 @@ public final class HomeViewModel: ErrorHandling {
         for offset in [-1, 1] {
             guard let target = calendar.date(byAdding: .month, value: offset, to: date) else { continue }
             let key = monthKey(for: target)
-            if monthlyCache[key] != nil { continue }
+            if monthlyCache[key] != nil || inFlightPrefetch.contains(key) { continue }
+            inFlightPrefetch.insert(key)
             Task { [weak self] in
                 await self?.fetchDataDays(for: target)
+                self?.inFlightPrefetch.remove(key)
             }
         }
     }
