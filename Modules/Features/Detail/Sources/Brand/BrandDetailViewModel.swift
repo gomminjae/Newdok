@@ -47,6 +47,10 @@ public final class BrandDetailViewModel: ErrorHandling {
         popupPreference.shouldShow
     }
 
+    var requiresSpecialSubscribeFlow: Bool {
+        detail?.brandId == 321
+    }
+
     func hideSubscribeStatePopupForToday() {
         popupPreference.hideForToday()
     }
@@ -71,6 +75,7 @@ public final class BrandDetailViewModel: ErrorHandling {
         do {
             try await brandRepository.resumeSubscription(newsletterId: id)
             currentError = nil
+            detail?.subscriptionStatus = .confirmed
             return true
         } catch let error as DetailError {
             currentError = .userMessage(error.localizedDescription)
@@ -89,6 +94,7 @@ public final class BrandDetailViewModel: ErrorHandling {
         do {
             try await brandRepository.pauseSubscription(newsletterId: id)
             currentError = nil
+            detail?.subscriptionStatus = .paused
             return true
         } catch let error as DetailError {
             currentError = .userMessage(error.localizedDescription)

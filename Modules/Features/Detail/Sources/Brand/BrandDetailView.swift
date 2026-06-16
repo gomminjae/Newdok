@@ -106,7 +106,6 @@ public struct BrandDetailView: View {
                 Task {
                     let didPause = await viewModel.pause()
                     guard didPause else { return }
-                    viewModel.detail?.subscriptionStatus = .paused
                     showPauseToast = true
                 }
             })
@@ -202,7 +201,7 @@ public struct BrandDetailView: View {
                 }
             )
             .sheet(isPresented: Binding(
-                get: { showSubscribeSheet && viewModel.detail?.brandId != 321 },
+                get: { showSubscribeSheet && !viewModel.requiresSpecialSubscribeFlow },
                 set: { showSubscribeSheet = $0 }
             )) {
                 SubscribeModalView(title: viewModel.detail?.brandName ?? "", url: viewModel.detail?.subscribeUrl ?? "", email: viewModel.subscribeEmail, name: viewModel.userNickname)
@@ -210,7 +209,7 @@ public struct BrandDetailView: View {
                     .presentationDragIndicator(.hidden)
             }
             .fullScreenCover(isPresented: Binding(
-                get: { showSubscribeSheet && viewModel.detail?.brandId == 321 },
+                get: { showSubscribeSheet && viewModel.requiresSpecialSubscribeFlow },
                 set: { showSubscribeSheet = $0 }
             )) {
                 SubscribeModalView(title: viewModel.detail?.brandName ?? "", url: viewModel.detail?.subscribeUrl ?? "", email: viewModel.subscribeEmail, name: viewModel.userNickname)
@@ -250,7 +249,7 @@ public struct BrandDetailView: View {
         }
         switch status {
         case .initial, .unknown:
-            if viewModel.detail?.brandId == 321 {
+            if viewModel.requiresSpecialSubscribeFlow {
                 showSignupRequiredPopup = true
             } else {
                 showSubscribeSheet = true
@@ -263,7 +262,6 @@ public struct BrandDetailView: View {
             Task {
                 let didResume = await viewModel.resume()
                 guard didResume else { return }
-                viewModel.detail?.subscriptionStatus = .confirmed
                 showSubscribeToast = true
             }
         }

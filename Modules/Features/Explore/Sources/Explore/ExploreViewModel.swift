@@ -39,9 +39,12 @@ public final class ExploreViewModel: ErrorHandling {
     // 로딩 상태 관리
     public var isRefreshingRecommendation: Bool = false
     public var isRefreshingAllNewsletters: Bool = false
+    public var isInitialLoaded: Bool = false
     public var currentError: AppError?
 
     public var nickname: String = ""
+
+    private var isGuest: Bool { appState.authState == .guest }
 
     var hasUserProfile: Bool {
         return userInfoStore.hasProfile
@@ -83,6 +86,7 @@ public final class ExploreViewModel: ErrorHandling {
     private let prioritizeInterestsUseCase: PrioritizeInterestsUseCase
     private let userInfoStore: UserInfoStoreProtocol
     private let selectableItemStore: SelectableItemStoreProtocol
+    private let appState: AppState
 
     public init(
         fetchNewslettersUseCase: FetchExploreNewslettersUseCase,
@@ -91,7 +95,8 @@ public final class ExploreViewModel: ErrorHandling {
         transformRecommendationUseCase: TransformExploreRecommendationUseCase,
         prioritizeInterestsUseCase: PrioritizeInterestsUseCase,
         userInfoStore: UserInfoStoreProtocol,
-        selectableItemStore: SelectableItemStoreProtocol
+        selectableItemStore: SelectableItemStoreProtocol,
+        appState: AppState = .shared
     ) {
         self.fetchNewslettersUseCase = fetchNewslettersUseCase
         self.fetchGuestNewslettersUseCase = fetchGuestNewslettersUseCase
@@ -100,6 +105,7 @@ public final class ExploreViewModel: ErrorHandling {
         self.prioritizeInterestsUseCase = prioritizeInterestsUseCase
         self.userInfoStore = userInfoStore
         self.selectableItemStore = selectableItemStore
+        self.appState = appState
         self.nickname = userInfoStore.load()?.nickname ?? ""
     }
 
@@ -158,6 +164,70 @@ public final class ExploreViewModel: ErrorHandling {
         await performAsync(feature: "explore", operation: "fetchGuestAllNewsletters") {
             let response = try await fetchGuestNewslettersUseCase.execute(orderOpt: orderOpt, industry: industry, day: day)
             allNewsletters = response
+        }
+    }
+
+    public func loadInitial() async {
+        if isGuest {
+            await fetchGuestAllNewsletters()
+            isInitialLoaded = true
+        } else {
+            await fetchRecommendation()
+            isInitialLoaded = true
+            await fetchAllNewsletters()
+        }
+    }
+
+    public func reloadOnAuthChanged() async {
+        clearData()
+        reloadUserInfo()
+        if isGuest {
+            await fetchGuestAllNewsletters()
+        } else {
+            await fetchRecommendation()
+            await fetchAllNewsletters()
+        }
+        isInitialLoaded = true
+    }
+
+    public func reloadOnTrigger() async {
+        if isGuest {
+            await fetchGuestAllNewsletters()
+        } else {
+            await fetchRecommendation()
+            await fetchAllNewsletters()
+        }
+    }
+
+    public func retryLoad() async {
+        if isGuest {
+            await fetchGuestAllNewsletters()
+        } else {
+            await fetchRecommendation()
+            await fetchAllNewsletters()
+        }
+    }
+
+    public func handleSort() async {
+        shouldScrollToTop = true
+        await fetchCurrentNewsletters()
+    }
+
+    public func handleFilter() async {
+        shouldScrollToTop = true
+        await fetchCurrentNewsletters()
+    }
+
+    public func handleReset() async {
+        await resetFilters()
+        await fetchCurrentNewsletters()
+    }
+
+    private func fetchCurrentNewsletters() async {
+        if isGuest {
+            await fetchGuestAllNewsletters()
+        } else {
+            await fetchAllNewsletters()
         }
     }
 

@@ -85,8 +85,8 @@ public struct SearchView: View {
                 ProgressView()
                     .tint(Color.primaryNormal)
                 Spacer()
-            } else if let error = viewModel.errorMessage {
-                Text(error).foregroundColor(.red)
+            } else if let error = viewModel.searchError {
+                Text(error.userFacingMessage).foregroundColor(.red)
             } else if !viewModel.searchResults.isEmpty {
                 // 검색 결과가 있을 때 - SearchResultView와 동일한 UI
                 ScrollView {
@@ -148,9 +148,9 @@ public struct SearchView: View {
                 ForEach(keywords) { keyword in
                     popularKeywordRow(keyword)
                 }
-            } else if let error = viewModel.popularErrorMessage {
+            } else if let error = viewModel.popularError {
                 VStack(alignment: .leading, spacing: 8) {
-                    Text(error)
+                    Text(error.userFacingMessage)
                         .font(.hanSansNeo(14, .medium))
                         .foregroundColor(.primaryNormal)
                     Button("다시 시도하기") {

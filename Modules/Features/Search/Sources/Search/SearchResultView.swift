@@ -81,8 +81,8 @@ public struct SearchResultView: View {
 
             ScrollView {
                 VStack(alignment: .leading, spacing: 20) {
-                    if let error = viewModel.errorMessage {
-                        Text(error).foregroundColor(.red)
+                    if let error = viewModel.searchError {
+                        Text(error.userFacingMessage).foregroundColor(.red)
                     } else {
                         newsletterSection()
                     }

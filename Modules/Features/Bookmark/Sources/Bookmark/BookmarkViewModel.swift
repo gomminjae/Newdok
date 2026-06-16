@@ -42,6 +42,14 @@ public final class BookmarkViewModel: BookmarkViewModelBindable, ErrorHandling {
         return bookmarks
     }
 
+    public var sortedCategories: [(Int?, String)] {
+        [(nil, "전체")] + interests.map { ($0.id, $0.name) }
+    }
+
+    public var isBookmarkEmpty: Bool {
+        bookmarks?.totalAmount == 0
+    }
+
     private var loadTask: Task<Void, Never>?
 
     func cancelLoads() { loadTask?.cancel(); loadTask = nil }

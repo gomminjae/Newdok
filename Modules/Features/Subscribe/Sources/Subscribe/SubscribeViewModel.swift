@@ -25,6 +25,7 @@ public final class SubscribeViewModel: ErrorHandling {
     private let fetchPausedUseCase: FetchPausedSubscriptionUseCase
     private let pauseUseCase: PauseSubscriptionUseCase
     private let resumeUseCase: ResumeSubscriptionUseCase
+    private let appState: AppState
 
     public var activeNewsletters: [SubscribeNewsletter] = []
     public var pausedNewsletters: [SubscribeNewsletter] = []
@@ -33,20 +34,52 @@ public final class SubscribeViewModel: ErrorHandling {
     public var isRefreshing: Bool = false
     public var isLoadingActive: Bool = false
     public var isLoadingPaused: Bool = false
-    public var lastRefreshTime = Date.distantPast
     public var currentError: AppError?
     public private(set) var pendingSubscriptionIds: Set<String> = []
+
+    private var lastRefreshTime = Date.distantPast
+    private let refreshCooldown: TimeInterval = 2.0
 
     public init(
         fetchActiveUseCase: FetchActiveSubscriptionUseCase,
         fetchPausedUseCase: FetchPausedSubscriptionUseCase,
         pauseUseCase: PauseSubscriptionUseCase,
-        resumeUseCase: ResumeSubscriptionUseCase
+        resumeUseCase: ResumeSubscriptionUseCase,
+        appState: AppState = .shared
     ) {
         self.fetchActiveUseCase = fetchActiveUseCase
         self.fetchPausedUseCase = fetchPausedUseCase
         self.pauseUseCase = pauseUseCase
         self.resumeUseCase = resumeUseCase
+        self.appState = appState
+    }
+
+    private var isGuest: Bool { appState.authState == .guest }
+
+    public func filteredSubscriptions(tab: Int) -> [SubscribeNewsletter] {
+        guard initialLoaded else { return [] }
+        return tab == 0 ? activeNewsletters : pausedNewsletters
+    }
+
+    public func subscribeState(tab: Int) -> SubscribeState {
+        if !initialLoaded {
+            return .loading
+        }
+        if isGuest {
+            return .guest
+        }
+        if filteredSubscriptions(tab: tab).isEmpty {
+            return .empty
+        }
+        return .data
+    }
+
+    public func canRefresh(referenceDate: Date = Date()) -> Bool {
+        guard referenceDate.timeIntervalSince(lastRefreshTime) >= refreshCooldown else {
+            return false
+        }
+        lastRefreshTime = referenceDate
+        return true
     }
 
     public func loadInitial() async {

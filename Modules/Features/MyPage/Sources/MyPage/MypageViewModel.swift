@@ -10,6 +10,7 @@ import Foundation
 import MypageDomain
 import Shared
 import Observation
+import UIKit
 
 @Observable
 @MainActor
@@ -18,6 +19,15 @@ public final class MypageViewModel: ErrorHandling {
 
     var nickname: String = ""
     public var user: MypageUser?
+    private var localUserInfo: UserInfo?
+
+    public var displayNickname: String {
+        user?.nickname ?? localUserInfo?.nickname ?? ""
+    }
+
+    public var displaySubscribeEmail: String {
+        user?.subscribeEmail ?? localUserInfo?.subscribeEmail ?? ""
+    }
 
     var shownicknameToast: Bool = false
     var showIndustryToast: Bool = false
@@ -54,8 +64,15 @@ public final class MypageViewModel: ErrorHandling {
         self.userInfoStore = userInfoStore
     }
 
+    @discardableResult
     public func loadUserInfo() -> UserInfo? {
-        userInfoStore.load()
+        let info = userInfoStore.load()
+        localUserInfo = info
+        return info
+    }
+
+    public func copySubscribeEmail() {
+        UIPasteboard.general.string = displaySubscribeEmail
     }
 
     public func fetchuserInfo() async {

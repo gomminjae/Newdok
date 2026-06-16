@@ -6,7 +6,6 @@ import Shared
 public struct ExploreView: View {
     @State private var viewModel: ExploreViewModel
     @State private var currentPage: Int = 0
-    @State private var isLoaded: Bool = false
     @Environment(AppRouter.self) private var router
     @Environment(TabSelection.self) private var tabSelection
     @Environment(AppState.self) private var appState
@@ -33,43 +32,17 @@ public struct ExploreView: View {
             .frame(maxHeight: .infinity, alignment: .top)
             .background(Color.white)
             .onChange(of: appState.authState) {
-                viewModel.clearData()
-                viewModel.reloadUserInfo()
-                Task {
-                    if isGuest {
-                        await viewModel.fetchGuestAllNewsletters()
-                    } else {
-                        await viewModel.fetchRecommendation()
-                        await viewModel.fetchAllNewsletters()
-                    }
-                    isLoaded = true
-                }
+                Task { await viewModel.reloadOnAuthChanged() }
             }
             .onChange(of: tabSelection.exploreTrigger) {
                 guard tabSelection.hasPendingExplore else { return }
                 applyExploreParams()
-                Task {
-                    if isGuest {
-                        await viewModel.fetchGuestAllNewsletters()
-                    } else {
-                        await viewModel.fetchRecommendation()
-                        await viewModel.fetchAllNewsletters()
-                    }
-                }
+                Task { await viewModel.reloadOnTrigger() }
             }
             .onAppear {
                 applyExploreParams()
                 viewModel.reloadUserInfo()
-                Task {
-                    if isGuest {
-                        await viewModel.fetchGuestAllNewsletters()
-                        isLoaded = true
-                    } else {
-                        await viewModel.fetchRecommendation()
-                        isLoaded = true
-                        await viewModel.fetchAllNewsletters()
-                    }
-                }
+                Task { await viewModel.loadInitial() }
             }
             .onReceive(NotificationCenter.default.publisher(for: UIApplication.willEnterForegroundNotification)) { _ in
                 viewModel.reloadUserInfo()
@@ -77,14 +50,7 @@ public struct ExploreView: View {
             .serverErrorPopup(
                 error: $viewModel.currentError,
                 onRetry: {
-                    Task {
-                        if isGuest {
-                            await viewModel.fetchGuestAllNewsletters()
-                        } else {
-                            await viewModel.fetchRecommendation()
-                            await viewModel.fetchAllNewsletters()
-                        }
-                    }
+                    Task { await viewModel.retryLoad() }
                 }
             )
         }
@@ -161,7 +127,7 @@ public struct ExploreView: View {
     @ViewBuilder
     private var loggedInContent: some View {
         if viewModel.selectedTab == 0 {
-            if !isLoaded {
+            if !viewModel.isInitialLoaded {
                 EmptyView()
             } else if !viewModel.hasUserProfile {
                 ExploreNoProfileSection(
@@ -202,28 +168,13 @@ public struct ExploreView: View {
             days: viewModel.days,
             newsletters: viewModel.allNewsletters,
             onSort: {
-                viewModel.shouldScrollToTop = true
-                if isGuest {
-                    await viewModel.fetchGuestAllNewsletters()
-                } else {
-                    await viewModel.fetchAllNewsletters()
-                }
+                await viewModel.handleSort()
             },
             onFilter: {
-                viewModel.shouldScrollToTop = true
-                if isGuest {
-                    await viewModel.fetchGuestAllNewsletters()
-                } else {
-                    await viewModel.fetchAllNewsletters()
-                }
+                await viewModel.handleFilter()
             },
             onReset: {
-                await viewModel.resetFilters()
-                if isGuest {
-                    await viewModel.fetchGuestAllNewsletters()
-                } else {
-                    await viewModel.fetchAllNewsletters()
-                }
+                await viewModel.handleReset()
             },
             onBrandTap: { id in router.push(.brandDetail(id: "\(id)")) }
         )
