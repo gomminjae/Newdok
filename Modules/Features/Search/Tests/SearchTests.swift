@@ -36,7 +36,7 @@ struct SearchViewModelTests {
         #expect(vm.searchResults.count == 1)
         #expect(vm.searchResults.first?.brandName == "뉴닉")
         #expect(mock.executedBrandName == "뉴닉")
-        #expect(vm.errorMessage == nil)
+        #expect(vm.searchError == nil)
     }
 
     @Test("검색 실패 시 에러 메시지 설정")
@@ -49,7 +49,7 @@ struct SearchViewModelTests {
         await vm.searchNewsletters()
 
         #expect(vm.searchResults.isEmpty)
-        #expect(vm.errorMessage != nil)
+        #expect(vm.searchError != nil)
     }
 
     @Test("빈 검색어는 검색하지 않음")
@@ -122,7 +122,7 @@ struct SearchViewModelTests {
         await vm.loadPopularKeywords()
 
         #expect(vm.popularKeywords == nil)
-        #expect(vm.popularErrorMessage != nil)
+        #expect(vm.popularError != nil)
     }
 
     // MARK: - clearSearchResults
@@ -141,7 +141,7 @@ struct SearchViewModelTests {
 
         #expect(vm.searchText.isEmpty)
         #expect(vm.searchResults.isEmpty)
-        #expect(vm.errorMessage == nil)
+        #expect(vm.searchError == nil)
     }
 
     // MARK: - selectPopularKeyword

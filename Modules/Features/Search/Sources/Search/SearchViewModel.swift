@@ -20,10 +20,10 @@ public final class SearchViewModel: ErrorHandling {
     public var searchText: String = ""
     public var searchResults: [SearchedNewsletter] = []
     public var isLoading: Bool = false
-    public var errorMessage: String?
+    public var searchError: AppError?
     public private(set) var popularKeywords: PopularKeywordList?
     public var isPopularLoading: Bool = false
-    public var popularErrorMessage: String?
+    public var popularError: AppError?
     public var currentError: AppError?
 
     public init(
@@ -37,20 +37,20 @@ public final class SearchViewModel: ErrorHandling {
     public func clearSearchResults() {
         searchText = ""
         searchResults = []
-        errorMessage = nil
+        searchError = nil
     }
 
     public func loadPopularKeywords(force: Bool = false) async {
         if isPopularLoading { return }
         if !force, popularKeywords != nil { return }
         isPopularLoading = true
-        popularErrorMessage = nil
+        popularError = nil
         do {
             let response = try await fetchPopularKeywordsUseCase.execute()
             self.popularKeywords = response
         } catch {
             handleError(error, feature: "search", operation: "loadPopularKeywords")
-            self.popularErrorMessage = currentError?.userFacingMessage
+            self.popularError = currentError
         }
         isPopularLoading = false
     }
@@ -61,13 +61,13 @@ public final class SearchViewModel: ErrorHandling {
 
         isLoading = true
         let query = searchText
-        errorMessage = nil
+        searchError = nil
         do {
             let results = try await searchNewslettersUseCase.execute(brandName: query)
             self.searchResults = results
         } catch {
             handleError(error, feature: "search", operation: "searchNewsletters")
-            self.errorMessage = currentError?.userFacingMessage
+            self.searchError = currentError
         }
         isLoading = false
     }

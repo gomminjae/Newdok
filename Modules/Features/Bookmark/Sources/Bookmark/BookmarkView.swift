@@ -41,7 +41,7 @@ public struct BookmarkView: View {
                                     router.push(.login)
                                 })
                                     .frame(maxWidth: .infinity, maxHeight: .infinity)
-                            } else if viewModel.bookmarks?.totalAmount == 0 {
+                            } else if viewModel.isBookmarkEmpty {
                                 BookmarkEmptyView()
                                     .frame(maxWidth: .infinity, maxHeight: .infinity)
                             } else {
@@ -118,11 +118,9 @@ public struct BookmarkView: View {
     }
     
     private var categoryFilter: some View {
-        let sortedCategories: [(Int?, String)] = [(nil, "전체")] + viewModel.interests.map { ($0.id, $0.name) }
-
-        return ScrollView(.horizontal, showsIndicators: false) {
+        ScrollView(.horizontal, showsIndicators: false) {
             HStack(spacing: 4) {
-                ForEach(sortedCategories, id: \.0) { id, name in
+                ForEach(viewModel.sortedCategories, id: \.0) { id, name in
                     Button(action: {
                         withAnimation(.easeInOut(duration: 0.2)) {
                             selectedCategory = name

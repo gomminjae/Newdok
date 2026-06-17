@@ -24,8 +24,6 @@ public struct SubscribeView: View {
 
     @Environment(AppState.self) private var appState
 
-    private var isGuest: Bool { appState.authState == .guest }
-
     public init(viewModel: SubscribeViewModel) {
         self.viewModel = viewModel
     }
@@ -114,11 +112,7 @@ public struct SubscribeView: View {
                 LoadingView()
             },
             onRefresh: {
-                let timeSinceLastRefresh = Date().timeIntervalSince(viewModel.lastRefreshTime)
-                if timeSinceLastRefresh < 2.0 {
-                    return
-                }
-                viewModel.lastRefreshTime = Date()
+                guard viewModel.canRefresh() else { return }
                 await viewModel.refresh(tab: selectedTab)
             }
         )
@@ -127,7 +121,7 @@ public struct SubscribeView: View {
 
     @ViewBuilder
     private var contentView: some View {
-        switch subscribeState {
+        switch viewModel.subscribeState(tab: selectedTab) {
         case .loading:
             EmptyView()
         case .guest:
@@ -142,12 +136,13 @@ public struct SubscribeView: View {
     }
 
     private var subscriptionListView: some View {
-        LazyVStack(alignment: .leading, spacing: 0) {
+        let subscriptions = viewModel.filteredSubscriptions(tab: selectedTab)
+        return LazyVStack(alignment: .leading, spacing: 0) {
             listHeaderView()
                 .padding(.horizontal, 20)
                 .padding(.bottom, 20)
 
-            ForEach(Array(filteredSubscriptions.enumerated()), id: \.element.id) { index, newsletter in
+            ForEach(Array(subscriptions.enumerated()), id: \.element.id) { index, newsletter in
                 SubscribeRow(newsletter: newsletter, isSubscribed: selectedTab == 0, onNavigate: {
                     router.push(.brandDetail(id: "\(newsletter.id ?? 0)"))
                 }) {
@@ -167,30 +162,11 @@ public struct SubscribeView: View {
                     }
                 }
                 .padding(.horizontal, 20)
-                .padding(.bottom, index == filteredSubscriptions.count - 1 ? 28 : 12)
+                .padding(.bottom, index == subscriptions.count - 1 ? 28 : 12)
             }
         }
         .transition(.opacity.combined(with: .move(edge: .bottom)))
-        .animation(.easeInOut(duration: 0.3), value: filteredSubscriptions.count)
-    }
-
-    private var subscribeState: SubscribeState {
-        if !viewModel.initialLoaded {
-            return .loading
-        }
-        if isGuest {
-            return .guest
-        }
-        if filteredSubscriptions.isEmpty {
-            return .empty
-        }
-        return .data
-    }
-
-    private var filteredSubscriptions: [SubscribeNewsletter] {
-        // 초기 로딩이 완료되지 않았으면 빈 배열 반환
-        guard viewModel.initialLoaded else { return [] }
-        return selectedTab == 0 ? viewModel.activeNewsletters : viewModel.pausedNewsletters
+        .animation(.easeInOut(duration: 0.3), value: subscriptions.count)
     }
 
     // MARK: - Header
@@ -215,10 +191,11 @@ public struct SubscribeView: View {
     }
 
     private func listHeaderView() -> some View {
-        VStack(alignment: .leading, spacing: 8) {
+        let count = viewModel.filteredSubscriptions(tab: selectedTab).count
+        return VStack(alignment: .leading, spacing: 8) {
             Text(selectedTab == 0
-                 ? "총 \(filteredSubscriptions.count)개의 뉴스레터를 구독중이에요."
-                 : "\(filteredSubscriptions.count)개의 뉴스레터를 구독 중지했어요.")
+                 ? "총 \(count)개의 뉴스레터를 구독중이에요."
+                 : "\(count)개의 뉴스레터를 구독 중지했어요.")
                 .font(.hanSansNeo(16, .bold))
                 .padding(.top, 30)
             Text(selectedTab == 0

@@ -11,7 +11,6 @@ import Shared
 import PopupView
 
 public struct MypageView: View {
-    @State private var userInfo: UserInfo?
     @State private var showToast: Bool = false
     @State private var showEmailAlert: Bool = false
     
@@ -29,14 +28,13 @@ public struct MypageView: View {
         VStack(spacing: 0) {
                 // MARK: - 상단 프로필 영역
                 MypageProfileSection(
-                    nickname: viewModel.user?.nickname ?? userInfo?.nickname ?? "",
-                    subscribeEmail: viewModel.user?.subscribeEmail ?? userInfo?.subscribeEmail ?? "",
+                    nickname: viewModel.displayNickname,
+                    subscribeEmail: viewModel.displaySubscribeEmail,
                     onEditProfile: {
                         router.push(.editProfile)
                     },
                     onCopyEmail: {
-                        let email = viewModel.user?.subscribeEmail ?? userInfo?.subscribeEmail ?? ""
-                        UIPasteboard.general.string = email
+                        viewModel.copySubscribeEmail()
                         isCopy = true
                         Task {
                             try await Task.sleep(for: .seconds(2.1))
@@ -94,9 +92,7 @@ public struct MypageView: View {
             }
             .toolbar(.hidden, for: .navigationBar)
             .onAppear {
-                Task {
-                    userInfo = viewModel.loadUserInfo()
-                }
+                viewModel.loadUserInfo()
                 Task {
                     await viewModel.fetchuserInfo()
                 }
