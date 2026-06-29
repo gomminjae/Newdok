@@ -8,12 +8,14 @@ private enum AuthBaseURL {
 
 struct Login: APIRequest {
     typealias Response = AuthLoginResponseDTO
-    let loginId: String
-    let password: String
-    var baseURL: URL { AuthBaseURL.users }
-    var path: String { "/login" }
+    let provider: String
+    let idToken: String
+    var baseURL: URL { AuthBaseURL.auth }
+    var path: String { "/social-login" }
     var method: HTTPMethod { .post }
-    var task: RequestTask { .jsonBody(LoginRequest(loginId: loginId, password: password)) }
+    var task: RequestTask {
+        .jsonBody(LoginRequest(provider: provider, platform: "IOS", idToken: idToken))
+    }
 }
 
 struct Signup: APIRequest {

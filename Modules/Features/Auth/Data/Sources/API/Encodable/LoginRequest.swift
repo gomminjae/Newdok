@@ -1,4 +1,5 @@
 struct LoginRequest: Encodable, Sendable {
-    let loginId: String
-    let password: String
+    let provider: String
+    let platform: String
+    let idToken: String
 }

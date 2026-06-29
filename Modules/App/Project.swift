@@ -38,6 +38,7 @@ let project = Project(
             infoPlist: .extendingDefault(
                 with: [
                     "API_BASE_URL": "$(API_BASE_URL)",
+                    "KAKAO_NATIVE_APP_KEY": "$(KAKAO_NATIVE_APP_KEY)",
                     "CFBundleDisplayName": "$(APP_DISPLAY_NAME)",
                     "CFBundleShortVersionString": "$(MARKETING_VERSION)",
                     "CFBundleVersion": "$(CURRENT_PROJECT_VERSION)",
@@ -68,13 +69,24 @@ let project = Project(
                         [
                             "CFBundleURLName": "$(PRODUCT_BUNDLE_IDENTIFIER)",
                             "CFBundleURLSchemes": ["newdok"]
+                        ],
+                        [
+                            "CFBundleURLName": "kakao",
+                            "CFBundleURLSchemes": ["kakao$(KAKAO_NATIVE_APP_KEY)"]
                         ]
+                    ],
+                    "LSApplicationQueriesSchemes": [
+                        "kakaokompassauth",
+                        "kakaotalk",
+                        "kakaolink",
+                        "kakaoplus"
                     ],
                     "ITSAppUsesNonExemptEncryption": false
                 ]
             ),
             sources: ["Sources/**"],
             resources: ["Resources/**"],
+            entitlements: "App.entitlements",
             dependencies: [
                 // Infrastructure
                 .networkKit,

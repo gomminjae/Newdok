@@ -18,10 +18,10 @@ public final class AuthRepositoryImpl: AuthRepository {
         self.userInfoStore = userInfoStore
     }
 
-    public func login(loginId: String, password: String) async throws -> (AuthUser, String) {
+    public func login(provider: SocialProvider, idToken: String) async throws -> (AuthUser, String) {
         do {
             let response = try await network.request(
-                Login(loginId: loginId, password: password)
+                Login(provider: provider.rawValue, idToken: idToken)
             )
             let user = response.user.toDomain()
             let token = response.accessToken
@@ -31,14 +31,6 @@ public final class AuthRepositoryImpl: AuthRepository {
 
             return (user, token)
         } catch let error as NetworkError {
-            if case .serverError(let statusCode, let message) = error, statusCode == 400 {
-                let errorMessage = message ?? ""
-                if errorMessage.contains("비밀번호") {
-                    throw LoginError.invalidPassword
-                } else if errorMessage.contains("계정") {
-                    throw LoginError.accountNotFound
-                }
-            }
             throw LoginError.networkError(error)
         } catch {
             throw LoginError.networkError(error)

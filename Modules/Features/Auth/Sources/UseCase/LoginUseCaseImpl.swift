@@ -16,8 +16,8 @@ public final class LoginUseCaseImpl: LoginUseCase {
         self.authRepository = authRepository
     }
 
-    public func execute(loginId: String, password: String) async throws -> AuthUser {
-        let (user, _) = try await authRepository.login(loginId: loginId, password: password)
+    public func execute(provider: SocialProvider, idToken: String) async throws -> AuthUser {
+        let (user, _) = try await authRepository.login(provider: provider, idToken: idToken)
         return user
     }
 }

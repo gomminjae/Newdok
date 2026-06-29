@@ -5,6 +5,8 @@ import DesignSystem
 import PopupView
 import FirebaseCore
 import FirebaseAnalytics
+import KakaoSDKCommon
+import KakaoSDKAuth
 
 @main
 struct NewdokApp: App {
@@ -18,6 +20,10 @@ struct NewdokApp: App {
         ErrorLoggerRegistry.register(DefaultErrorLogger())
         AppErrorMapperRegistry.register(NetworkErrorAppMapper())
         TokenStore.shared.migrateTokenIfNeeded()
+
+        if let kakaoAppKey = Bundle.main.object(forInfoDictionaryKey: "KAKAO_NATIVE_APP_KEY") as? String {
+            KakaoSDK.initSDK(appKey: kakaoAppKey)
+        }
 
         let router = AppRouter()
         self._router = State(initialValue: router)
@@ -39,6 +45,11 @@ struct NewdokApp: App {
                     .environment(ToastCenter.shared)
                     .allowsHitTesting(false)
             )
+            .onOpenURL { url in
+                if AuthApi.isKakaoTalkLoginUrl(url) {
+                    AuthController.handleOpenUrl(url: url)
+                }
+            }
             .task {
                 await checkVersion()
             }

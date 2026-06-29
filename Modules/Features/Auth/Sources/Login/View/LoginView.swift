@@ -10,15 +10,13 @@ import DesignSystem
 import AuthDomain
 import Shared
 import PopupView
+import AuthenticationServices
 
 public struct LoginView: View {
     @State private var viewModel: LoginViewModel
-    @FocusState private var isIdFocused: Bool
-    @FocusState private var isPwdFocused: Bool
-    @State private var showHomeView = false
     @State private var showToast: Bool = false
     @State private var toastMessage: String = ""
-    
+
     @Environment(AppRouter.self) private var router
     @Environment(TabSelection.self) private var tabSelection
 
@@ -27,108 +25,41 @@ public struct LoginView: View {
     }
 
     public var body: some View {
-        ZStack {
-            VStack {
+        VStack {
             HStack {
                 Image(asset: DesignSystemAsset.logo)
-                    .frame(alignment: .leading)
                     .padding(.leading, 28)
                 Spacer()
             }
-            .padding(.bottom, 24)
+            .padding(.top, 40)
 
-            VStack(alignment: .leading) {
-                Text("아이디")
-                    .font(.hanSansNeo(14, .medium))
+            Spacer()
 
-                TextField("아이디를 입력하세요", text: $viewModel.loginId)
-                    .font(.hanSansNeo(14, .medium))
-                    .frame(height: 56)
-                    .customTextFieldStyle(isError: viewModel.isLoginIdError, isFocused: $isIdFocused)
-                    .focused($isIdFocused)
-                Text(viewModel.isLoginIdError ? (viewModel.errorMessage ?? "") : " ")
-                    .font(.hanSansNeo(12, .medium))
-                    .foregroundStyle(Color.errorNormal)
+            VStack(spacing: 12) {
+                kakaoButton
 
-                Text("비밀번호")
-                    .font(.hanSansNeo(14, .medium))
-                    .padding(.top, 16)
-
-                Group {
-                    if viewModel.isSecurePassword {
-                        SecureField("비밀번호를 입력해주세요", text: $viewModel.password)
-                            .focused($isPwdFocused)
-                    } else {
-                        TextField("비밀번호를 입력해주세요", text: $viewModel.password)
-                            .focused($isPwdFocused)
+                SignInWithAppleButton(.continue) { request in
+                    request.requestedScopes = [.fullName, .email]
+                } onCompletion: { result in
+                    viewModel.handleAppleResult(result) {
+                        router.resetTo(.tabbar(selectedTab: .home))
                     }
+                }
+                .signInWithAppleButtonStyle(.black)
+                .frame(height: 48)
+                .cornerRadius(4)
+                .disabled(viewModel.isLoading)
+
+                Button("비회원으로 이용하기") {
+                    viewModel.loginAsGuest()
+                    router.resetTo(.tabbar(selectedTab: .home))
                 }
                 .font(.hanSansNeo(14, .medium))
-                .modifier(
-                    PasswordFieldModifier(
-                        isSecure: $viewModel.isSecurePassword,
-                        isFocused: $isPwdFocused,
-                        isError: viewModel.isPasswordError
-                    )
-                )
-                Text(viewModel.isPasswordError ? (viewModel.errorMessage ?? "") : " ")
-                    .font(.hanSansNeo(12, .medium))
-                    .foregroundStyle(Color.errorNormal)
-
-                HStack {
-                    Spacer()
-                    Button("아이디/비밀번호 찾기") {
-                        router.push(.recovery)
-                    }
-                    .font(.hanSansNeo(14, .medium))
-                    .foregroundStyle(Color.captionNeutral)
-                }
-                .padding(.top, 10)
-
-                Spacer()
-
-                Button {
-                    viewModel.login {
-                        router.resetTo(.tabbar(selectedTab: .home))
-                    }
-                } label: {
-                    Text("로그인")
-                        .font(.hanSansNeo(16, .bold))
-                        .disabled(!viewModel.isLoginEnabled)
-                        .frame(maxWidth: .infinity)
-                        .frame(height: 48)
-                        .background(viewModel.isLoginEnabled ? Color.primaryNormal : Color.lineNeutral)
-                        .foregroundColor(viewModel.isLoginEnabled ? .white : Color.captionDisabled)
-                        .cornerRadius(4)
-                        .contentShape(Rectangle())
-                }
-                .disabled(!viewModel.isLoginEnabled || viewModel.isLoading)
-
-                HStack {
-                    Button("비회원으로 이용하기") {
-                        viewModel.loginAsGuest()
-                        router.resetTo(.tabbar(selectedTab: .home))
-                    }
-                    .font(.hanSansNeo(14, .medium))
-                    .foregroundStyle(Color.captionNeutral)
-                    .padding(.leading, 80)
-
-                    Text("|")
-                        .foregroundStyle(Color.lineAlternative)
-
-                    Button("회원가입") {
-                        router.push(.signup)
-                    }
-                    .font(.hanSansNeo(14, .medium))
-                    .foregroundStyle(Color.primaryNormal)
-                }
-                .padding(.bottom, 56)
+                .foregroundStyle(Color.captionNeutral)
+                .padding(.top, 8)
             }
             .padding(.horizontal, 24)
-            }
-        }
-        .safeAreaInset(edge: .top, spacing: 0) {
-            Color.clear.frame(height: 20)
+            .padding(.bottom, 56)
         }
         .ignoresSafeArea(.keyboard)
         .navigationBarTitleDisplayMode(.inline)
@@ -151,14 +82,6 @@ public struct LoginView: View {
                 .closeOnTapOutside(false)
         }
         .toolbar {
-            ToolbarItem(placement: .navigationBarLeading) {
-                if !router.path.isEmpty {
-                    BackButton(action: {
-                        router.pop()
-                    })
-                }
-            }
-            
             ToolbarItem(placement: .principal) {
                 Text("로그인")
                     .font(.hanSansNeo(16, .bold))
@@ -170,5 +93,23 @@ public struct LoginView: View {
             onGoBack: { router.pop() },
             onRetry: {}
         )
+    }
+
+    private var kakaoButton: some View {
+        Button {
+            viewModel.loginWithKakao {
+                router.resetTo(.tabbar(selectedTab: .home))
+            }
+        } label: {
+            Text("카카오로 시작하기")
+                .font(.hanSansNeo(16, .bold))
+                .frame(maxWidth: .infinity)
+                .frame(height: 48)
+                .background(Color(red: 254 / 255, green: 229 / 255, blue: 0))
+                .foregroundColor(Color(red: 0, green: 0, blue: 0).opacity(0.85))
+                .cornerRadius(4)
+                .contentShape(Rectangle())
+        }
+        .disabled(viewModel.isLoading)
     }
 }

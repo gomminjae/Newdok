@@ -36,6 +36,7 @@ final class AuthDIContainer {
         let repository = makeRepository()
         return LoginViewModel(
             loginUseCase: LoginUseCaseImpl(authRepository: repository),
+            kakaoAuthService: KakaoAuthService(),
             tokenStorage: tokenStorage,
             appState: appState
         )

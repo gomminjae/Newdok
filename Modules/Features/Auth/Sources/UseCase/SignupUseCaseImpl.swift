@@ -21,14 +21,6 @@ public final class SignupUseCaseImpl: SignupUseCase {
             gender: request.gender
         )
 
-        do {
-            let (user, _) = try await authRepository.login(
-                loginId: request.loginId,
-                password: request.password
-            )
-            return user
-        } catch {
-            return result.user
-        }
+        return result.user
     }
 }
