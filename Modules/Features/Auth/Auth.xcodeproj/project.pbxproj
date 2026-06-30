@@ -11,17 +11,16 @@
 		068F8D60BA7BADAEE244105C /* LoginError.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7179D642D174007438E18BB /* LoginError.swift */; };
 		06C7F1D619C3D8813EC698DC /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADA7DDBBA02C09D5678982D1 /* LoginViewModel.swift */; };
 		0AAC727B5804E8861378DBA9 /* AuthErrorResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8002CFA53E586CEF850C3B0A /* AuthErrorResponseDTO.swift */; };
-		0C8A59F69E82B238BBACE038 /* PwInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C904E1C986F43E7E3173A68 /* PwInputView.swift */; };
 		0DD4957EB4B1CA41581F98F0 /* AuthLoginResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 252C2F86266EE72217090DE5 /* AuthLoginResponseDTO.swift */; };
 		0F56C20E1DA7712315D9E806 /* AuthUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D19C06CB9237BDD75BDE6D0 /* AuthUser.swift */; };
 		11398BE7E7D82516E37D424D /* SignupFormatStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F2A7B152CF8BFC2A33B5864 /* SignupFormatStyle.swift */; };
 		122C53001252A72B60454C84 /* Kingfisher.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2FDB1F539F81A1BE90F87D4C /* Kingfisher.framework */; };
 		132D2FA4E5F037EC5B17C668 /* AuthInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E5E69594651E831F6B39550 /* AuthInterface.swift */; };
+		137BF12EC0FDBB780C48D99B /* KakaoSDKUser.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CF43922EE1D6125FE8B383ED /* KakaoSDKUser.framework */; };
 		1463124D79BBAFE03BC7BF17 /* NetworkKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 62778DFF53ACB46ECC6F5F35 /* NetworkKit.framework */; };
 		15945F0A7DFC670E3A6F579E /* AuthDomain.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7C94165A812E44E5FD3BFC7F /* AuthDomain.framework */; };
 		1637E15B361BE0077BB2E4A4 /* AuthSignupResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7AF374FFD2C1DCB9C67C232 /* AuthSignupResponse.swift */; };
 		16D5D214569544F40FBBDB04 /* AuthTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA9479B1142A48D6DA9E15EB /* AuthTests.swift */; };
-		1BABD6D99B96B85A977A088C /* AuthSMSResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7943E1660F0F8C03171DA01B /* AuthSMSResponseDTO.swift */; };
 		1F96AE8D6C41A9E6FC6BA978 /* AuthInterface.framework in Dependencies */ = {isa = PBXBuildFile; fileRef = BE8C09C4CE36E3D06B61DAB5 /* AuthInterface.framework */; };
 		1FE2762E1914BB12D2471757 /* AuthData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FC8AEB8E0082B038CB7521FA /* AuthData.framework */; };
 		20967759C2FB3DD4A69AE22C /* AuthMain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 083CBFE74C9E7F71EDD0C703 /* AuthMain.swift */; };
@@ -31,7 +30,6 @@
 		2A7224C686420CFF1A66C683 /* Moya.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83D56B45D644E0B2DBA11EEC /* Moya.framework */; };
 		2B882611CD5D55FF9AA4BA30 /* CurationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF5156C9688647B73261D5AA /* CurationView.swift */; };
 		30FBE074985429C4E16AC952 /* AuthInterface.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE8C09C4CE36E3D06B61DAB5 /* AuthInterface.framework */; };
-		317F10B7A78A02208AD5F199 /* AuthSimpleUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A168642EA52AD1A834F65CA /* AuthSimpleUser.swift */; };
 		32D5A7DC8F48CD0FCC017BC4 /* FoundationKit.framework in Dependencies */ = {isa = PBXBuildFile; fileRef = 29FA6C20A6564CB1A65D83B5 /* FoundationKit.framework */; };
 		3439C05F4186A8EAEAB3AAC7 /* AuthInterface.framework in Dependencies */ = {isa = PBXBuildFile; fileRef = BE8C09C4CE36E3D06B61DAB5 /* AuthInterface.framework */; };
 		38885CC0C2414879F652B0A7 /* Shared.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2D55F8F97BF588B8074069DA /* Shared.framework */; };
@@ -41,19 +39,23 @@
 		4AC581D077DF9A536B6119DD /* PopupView.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A03B7D8DBF8FA6DF9A7FAB5E /* PopupView.framework */; };
 		54098FD0A269D65E21141F44 /* AuthRecommendedBrand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AEEA4760F10DA275AAD667C /* AuthRecommendedBrand.swift */; };
 		57943534CBB1B0733A0580B1 /* OnboardingPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E92D4A67D04128BB7B34CC41 /* OnboardingPageView.swift */; };
+		581473F58B2101FA8819F6FD /* KakaoAuthServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBE015DFA89E6676D907A335 /* KakaoAuthServiceProtocol.swift */; };
 		584FF6C187A388DDE2785C63 /* LoginUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95E8500002BC4B6ABD877A90 /* LoginUseCase.swift */; };
 		585839CA64514AE531B3B0E1 /* AuthUserDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32B432D7D19D2651FD4EA9D0 /* AuthUserDTO.swift */; };
-		63C7E725C2305C1E327EBA3A /* AuthIDCheckResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ED3793EBF1965006A6246AA /* AuthIDCheckResult.swift */; };
 		63F1911F5DA70E6FF6B0936C /* AuthDomain.framework in Dependencies */ = {isa = PBXBuildFile; fileRef = 7C94165A812E44E5FD3BFC7F /* AuthDomain.framework */; };
 		67B7704E819E86BACD4CF144 /* LoginRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 114EA565B42439D2BD31D001 /* LoginRequest.swift */; };
 		684614D8E6FDC6F7CF4C413F /* SignupViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F194D0253B7B41E31A2318E0 /* SignupViewModel.swift */; };
-		6A6F3F4667ED7D186BCA77C2 /* IDInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1C581C211BB1E550A1B7F9F /* IDInputView.swift */; };
 		6BAE6A217722795DA8B18F6E /* DesignSystem.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45A8BB59B621EFC832DCFE0F /* DesignSystem.framework */; };
 		6DBDE15A3229AEC6AD04315F /* LoginUseCaseImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D3D3E4DD934FD1AB010EE7 /* LoginUseCaseImpl.swift */; };
 		70FD0520699A99F87E907143 /* IndustrySurveyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 529EEA7B499B7A83B7C62D3A /* IndustrySurveyView.swift */; };
+		713CD4B5400822ACBE3098A1 /* KakaoAuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D807F75F499DBD2AF39E92 /* KakaoAuthService.swift */; };
 		71A2A19E91125B3B05216EEF /* SignupUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB8FAA33147E7CBDF3C9BC71 /* SignupUseCase.swift */; };
-		88D7670D4BE1270B9CEC6115 /* SignupAPIRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83317B7D942AFBFF7BF79908 /* SignupAPIRequest.swift */; };
+		78E4129880FADAC971EDCBA3 /* AuthAgreement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9157EC605745CAD73475CA84 /* AuthAgreement.swift */; };
+		7AF6C54D10C7AC3CAB25F44F /* KakaoSDKCommon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1327587164DBBAA16F3C33DE /* KakaoSDKCommon.framework */; };
 		8E1720B8F639A95ABC17313B /* SignupCurationSkeletonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27AC2DEAF917CC5E6CAE23A3 /* SignupCurationSkeletonView.swift */; };
+		8E1DE8EEA3B43CEEB1BC3350 /* SocialLoginResultType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 791F16AF341F57533D166B00 /* SocialLoginResultType.swift */; };
+		95708794CC0EFBB17C81A967 /* KakaoSDKUser.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CF43922EE1D6125FE8B383ED /* KakaoSDKUser.framework */; };
+		9ADF09FF06C78C632CCB3E3F /* KakaoSDKCommon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1327587164DBBAA16F3C33DE /* KakaoSDKCommon.framework */; };
 		9D083976CECA423E68F0F099 /* AuthRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DFBFB5E537C38ADF3FC6F51 /* AuthRepository.swift */; };
 		9D88DB33AC00BF061BEFF003 /* AuthRepositoryImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED7D603A82E085B8AD32B04F /* AuthRepositoryImpl.swift */; };
 		9ECE5640A650A001E9195A0F /* AuthUserAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5BA7E5065E6BFA71F04B38E /* AuthUserAPI.swift */; };
@@ -62,27 +64,27 @@
 		A47F3F9CC80909D5A826ED2E /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6061C08937A7986D4F7D042 /* LoginView.swift */; };
 		A5D92D5C6F4866C1716747F6 /* FoundationKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 29FA6C20A6564CB1A65D83B5 /* FoundationKit.framework */; };
 		A873D6E66ACC7A15AE540405 /* BirthYearDropdown.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59EBC0CC5D916C5A4CB83108 /* BirthYearDropdown.swift */; };
+		AD16ADE5EA0A857DC8FCA049 /* AuthSocialLoginResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DA3D0897326D379FB89FB89 /* AuthSocialLoginResponseDTO.swift */; };
 		AD2E02356CD05728AF7F6BED /* FoundationKit.framework in Dependencies */ = {isa = PBXBuildFile; fileRef = 29FA6C20A6564CB1A65D83B5 /* FoundationKit.framework */; };
 		ADD5AC589E22E51E680E9367 /* DesignSystem.framework in Dependencies */ = {isa = PBXBuildFile; fileRef = 45A8BB59B621EFC832DCFE0F /* DesignSystem.framework */; };
-		AE4E796AB6754D3972831029 /* AuthSimpleUserDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79D73FBD79BD1D75BD7F6D35 /* AuthSimpleUserDTO.swift */; };
 		B1B8CA1ED66CA91DBA0C6606 /* AuthDomain.framework in Dependencies */ = {isa = PBXBuildFile; fileRef = 7C94165A812E44E5FD3BFC7F /* AuthDomain.framework */; };
 		B3BCEF7C74425A532B13BCA1 /* AuthSignupResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = E65656E0C636D6AF23FD06E9 /* AuthSignupResponseDTO.swift */; };
-		B99AFB0451E067C8FE60A309 /* PhoneNumberRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08278EF2ED11A60DB6D330B6 /* PhoneNumberRequest.swift */; };
-		BB5132E0726E9AD5CDE5A167 /* AuthSMSResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D9606FB084D1C548133A03A /* AuthSMSResponse.swift */; };
+		BE76C14172FBC93CFF00C6EB /* SocialSignupRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C3738B5D3CB94C1EAE7091C /* SocialSignupRequest.swift */; };
 		CEECBC8150603B9D9911E035 /* Shared.framework in Dependencies */ = {isa = PBXBuildFile; fileRef = 2D55F8F97BF588B8074069DA /* Shared.framework */; };
 		CFC5F5E41FBB37824529D154 /* CompleteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BDA675B82B10EC8A13AFB6B /* CompleteView.swift */; };
 		D417671EFC2BB25A1ED34B9A /* AuthBrandListResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89277BD77D124EAB69AE0989 /* AuthBrandListResponseDTO.swift */; };
 		DAB7DF3408A8935171BD2FAB /* SignupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B61AAE20E84CFDA0CD5581B7 /* SignupView.swift */; };
 		DB7091B9F2506C318356C761 /* AgreeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1BDDFC6BDACA5DBB3EA0C30 /* AgreeView.swift */; };
-		DEC116B8172E6EC0EE96B13D /* PhoneVerificationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C9108C9EC4721DDB960586 /* PhoneVerificationView.swift */; };
+		E1A5DE4105173FE48B0A8A12 /* KakaoSDKAuth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 46E7D8C72118ED61834F52D6 /* KakaoSDKAuth.framework */; };
+		E2D87D4F27F5006602D75147 /* KakaoSDKAuth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 46E7D8C72118ED61834F52D6 /* KakaoSDKAuth.framework */; };
 		E446254DECC0CB9FABD7CF86 /* NetworkKit.framework in Dependencies */ = {isa = PBXBuildFile; fileRef = 62778DFF53ACB46ECC6F5F35 /* NetworkKit.framework */; };
 		E57A016EEFDE2A1DEF13C80E /* CurationRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07848F750646D4321324EFC6 /* CurationRow.swift */; };
 		E5BC4A325DD1F4C9FFC406C6 /* ProfileInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEFBC36DB36A7FB5F4EF2146 /* ProfileInputView.swift */; };
 		E70B49DE0EB688032C6698F5 /* RecommendView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DF1746A90A2DDFCD5AE9CB3 /* RecommendView.swift */; };
+		EBFC25633602E81D366CEF7F /* SocialProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC378D97E8C797A1B2CB788B /* SocialProvider.swift */; };
 		EEFF897EFB63EEF67243F2BF /* AuthTesting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A1EE55F16E7D24969D6632E /* AuthTesting.swift */; };
 		F42073A1A98F2AF60F8938C8 /* Auth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8895FC8BB8C3644A2923E77A /* Auth.framework */; };
 		F7B5E87E9981AE8BBA072E77 /* AuthDomain.framework in Dependencies */ = {isa = PBXBuildFile; fileRef = 7C94165A812E44E5FD3BFC7F /* AuthDomain.framework */; };
-		FC24FEA6A044D05C84A21BF3 /* SignupPopupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 809C13866FB7C74A59818EDF /* SignupPopupView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -258,15 +260,13 @@
 /* Begin PBXFileReference section */
 		05A17C657D4A51BEE81CB99C /* OnboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardView.swift; sourceTree = "<group>"; };
 		07848F750646D4321324EFC6 /* CurationRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurationRow.swift; sourceTree = "<group>"; };
-		08278EF2ED11A60DB6D330B6 /* PhoneNumberRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneNumberRequest.swift; sourceTree = "<group>"; };
 		083CBFE74C9E7F71EDD0C703 /* AuthMain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthMain.swift; sourceTree = "<group>"; };
 		0AEEA4760F10DA275AAD667C /* AuthRecommendedBrand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthRecommendedBrand.swift; sourceTree = "<group>"; };
-		0C904E1C986F43E7E3173A68 /* PwInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PwInputView.swift; sourceTree = "<group>"; };
 		0CC431E5DC117F84221E3049 /* PolicyWebSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PolicyWebSheetView.swift; sourceTree = "<group>"; };
 		10C1F41914414CE45C317D84 /* AuthData-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "AuthData-Info.plist"; sourceTree = "<group>"; };
 		114EA565B42439D2BD31D001 /* LoginRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginRequest.swift; sourceTree = "<group>"; };
+		1327587164DBBAA16F3C33DE /* KakaoSDKCommon.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = KakaoSDKCommon.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		189DB6C61185D4742A4F68D5 /* SignupUseCaseImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupUseCaseImpl.swift; sourceTree = "<group>"; };
-		18C9108C9EC4721DDB960586 /* PhoneVerificationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneVerificationView.swift; sourceTree = "<group>"; };
 		1A1EE55F16E7D24969D6632E /* AuthTesting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthTesting.swift; sourceTree = "<group>"; };
 		252C2F86266EE72217090DE5 /* AuthLoginResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthLoginResponseDTO.swift; sourceTree = "<group>"; };
 		27AC2DEAF917CC5E6CAE23A3 /* SignupCurationSkeletonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupCurationSkeletonView.swift; sourceTree = "<group>"; };
@@ -278,47 +278,48 @@
 		3D19C06CB9237BDD75BDE6D0 /* AuthUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthUser.swift; sourceTree = "<group>"; };
 		3DF1746A90A2DDFCD5AE9CB3 /* RecommendView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendView.swift; sourceTree = "<group>"; };
 		45A8BB59B621EFC832DCFE0F /* DesignSystem.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = DesignSystem.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		46E7D8C72118ED61834F52D6 /* KakaoSDKAuth.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = KakaoSDKAuth.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		4DA3D0897326D379FB89FB89 /* AuthSocialLoginResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthSocialLoginResponseDTO.swift; sourceTree = "<group>"; };
 		4F6F33418EB25913880BECBA /* AuthInterface-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "AuthInterface-Info.plist"; sourceTree = "<group>"; };
 		529EEA7B499B7A83B7C62D3A /* IndustrySurveyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IndustrySurveyView.swift; sourceTree = "<group>"; };
 		5642BA06A94EBFDDB6B192CB /* AuthTesting.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = AuthTesting.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		59EBC0CC5D916C5A4CB83108 /* BirthYearDropdown.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BirthYearDropdown.swift; sourceTree = "<group>"; };
 		5E5E69594651E831F6B39550 /* AuthInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthInterface.swift; sourceTree = "<group>"; };
-		5ED3793EBF1965006A6246AA /* AuthIDCheckResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthIDCheckResult.swift; sourceTree = "<group>"; };
 		62778DFF53ACB46ECC6F5F35 /* NetworkKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = NetworkKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6B7EBA8D7806B48F8D71D29A /* AuthDIContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthDIContainer.swift; sourceTree = "<group>"; };
+		6C3738B5D3CB94C1EAE7091C /* SocialSignupRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialSignupRequest.swift; sourceTree = "<group>"; };
 		6DFBFB5E537C38ADF3FC6F51 /* AuthRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthRepository.swift; sourceTree = "<group>"; };
-		7943E1660F0F8C03171DA01B /* AuthSMSResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthSMSResponseDTO.swift; sourceTree = "<group>"; };
-		79D73FBD79BD1D75BD7F6D35 /* AuthSimpleUserDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthSimpleUserDTO.swift; sourceTree = "<group>"; };
+		791F16AF341F57533D166B00 /* SocialLoginResultType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialLoginResultType.swift; sourceTree = "<group>"; };
 		7BDA675B82B10EC8A13AFB6B /* CompleteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompleteView.swift; sourceTree = "<group>"; };
 		7C94165A812E44E5FD3BFC7F /* AuthDomain.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = AuthDomain.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8002CFA53E586CEF850C3B0A /* AuthErrorResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthErrorResponseDTO.swift; sourceTree = "<group>"; };
-		809C13866FB7C74A59818EDF /* SignupPopupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupPopupView.swift; sourceTree = "<group>"; };
-		83317B7D942AFBFF7BF79908 /* SignupAPIRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupAPIRequest.swift; sourceTree = "<group>"; };
 		83D56B45D644E0B2DBA11EEC /* Moya.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Moya.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8895FC8BB8C3644A2923E77A /* Auth.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Auth.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		89277BD77D124EAB69AE0989 /* AuthBrandListResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthBrandListResponseDTO.swift; sourceTree = "<group>"; };
+		9157EC605745CAD73475CA84 /* AuthAgreement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthAgreement.swift; sourceTree = "<group>"; };
 		95E8500002BC4B6ABD877A90 /* LoginUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginUseCase.swift; sourceTree = "<group>"; };
-		9A168642EA52AD1A834F65CA /* AuthSimpleUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthSimpleUser.swift; sourceTree = "<group>"; };
-		9D9606FB084D1C548133A03A /* AuthSMSResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthSMSResponse.swift; sourceTree = "<group>"; };
 		9F2A7B152CF8BFC2A33B5864 /* SignupFormatStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupFormatStyle.swift; sourceTree = "<group>"; };
 		A03B7D8DBF8FA6DF9A7FAB5E /* PopupView.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = PopupView.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A6061C08937A7986D4F7D042 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		ADA7DDBBA02C09D5678982D1 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
-		B1C581C211BB1E550A1B7F9F /* IDInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IDInputView.swift; sourceTree = "<group>"; };
+		B5D807F75F499DBD2AF39E92 /* KakaoAuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KakaoAuthService.swift; sourceTree = "<group>"; };
 		B61AAE20E84CFDA0CD5581B7 /* SignupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupView.swift; sourceTree = "<group>"; };
 		BE8C09C4CE36E3D06B61DAB5 /* AuthInterface.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = AuthInterface.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BEFBC36DB36A7FB5F4EF2146 /* ProfileInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileInputView.swift; sourceTree = "<group>"; };
 		C857B2C600CA35873D2A9D32 /* Auth-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "Auth-Info.plist"; sourceTree = "<group>"; };
+		CF43922EE1D6125FE8B383ED /* KakaoSDKUser.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = KakaoSDKUser.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CF8FCFE4AC3B608B5042F210 /* AuthTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AuthTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D7AF374FFD2C1DCB9C67C232 /* AuthSignupResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthSignupResponse.swift; sourceTree = "<group>"; };
 		DA9479B1142A48D6DA9E15EB /* AuthTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthTests.swift; sourceTree = "<group>"; };
 		DB8FAA33147E7CBDF3C9BC71 /* SignupUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupUseCase.swift; sourceTree = "<group>"; };
+		DBE015DFA89E6676D907A335 /* KakaoAuthServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KakaoAuthServiceProtocol.swift; sourceTree = "<group>"; };
 		E1BDDFC6BDACA5DBB3EA0C30 /* AgreeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgreeView.swift; sourceTree = "<group>"; };
 		E5BA7E5065E6BFA71F04B38E /* AuthUserAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthUserAPI.swift; sourceTree = "<group>"; };
 		E65656E0C636D6AF23FD06E9 /* AuthSignupResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthSignupResponseDTO.swift; sourceTree = "<group>"; };
 		E6D3D3E4DD934FD1AB010EE7 /* LoginUseCaseImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginUseCaseImpl.swift; sourceTree = "<group>"; };
 		E7179D642D174007438E18BB /* LoginError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginError.swift; sourceTree = "<group>"; };
 		E92D4A67D04128BB7B34CC41 /* OnboardingPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingPageView.swift; sourceTree = "<group>"; };
+		EC378D97E8C797A1B2CB788B /* SocialProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialProvider.swift; sourceTree = "<group>"; };
 		ED7D603A82E085B8AD32B04F /* AuthRepositoryImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthRepositoryImpl.swift; sourceTree = "<group>"; };
 		EDE7484E60F831CBAFFBD577 /* AuthBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthBuilder.swift; sourceTree = "<group>"; };
 		EF08C43BB60D5CD101D7A686 /* AuthTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "AuthTests-Info.plist"; sourceTree = "<group>"; };
@@ -362,6 +363,9 @@
 				9FD0E0B05397F67F37A1530A /* AuthTesting.framework in Frameworks */,
 				6BAE6A217722795DA8B18F6E /* DesignSystem.framework in Frameworks */,
 				A5D92D5C6F4866C1716747F6 /* FoundationKit.framework in Frameworks */,
+				E2D87D4F27F5006602D75147 /* KakaoSDKAuth.framework in Frameworks */,
+				9ADF09FF06C78C632CCB3E3F /* KakaoSDKCommon.framework in Frameworks */,
+				95708794CC0EFBB17C81A967 /* KakaoSDKUser.framework in Frameworks */,
 				122C53001252A72B60454C84 /* Kingfisher.framework in Frameworks */,
 				2A7224C686420CFF1A66C683 /* Moya.framework in Frameworks */,
 				1463124D79BBAFE03BC7BF17 /* NetworkKit.framework in Frameworks */,
@@ -381,6 +385,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E1A5DE4105173FE48B0A8A12 /* KakaoSDKAuth.framework in Frameworks */,
+				7AF6C54D10C7AC3CAB25F44F /* KakaoSDKCommon.framework in Frameworks */,
+				137BF12EC0FDBB780C48D99B /* KakaoSDKUser.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -399,13 +406,13 @@
 		1F7FCF002E9EA49C9154B97A /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				5ED3793EBF1965006A6246AA /* AuthIDCheckResult.swift */,
+				9157EC605745CAD73475CA84 /* AuthAgreement.swift */,
 				0AEEA4760F10DA275AAD667C /* AuthRecommendedBrand.swift */,
 				D7AF374FFD2C1DCB9C67C232 /* AuthSignupResponse.swift */,
-				9A168642EA52AD1A834F65CA /* AuthSimpleUser.swift */,
-				9D9606FB084D1C548133A03A /* AuthSMSResponse.swift */,
 				3D19C06CB9237BDD75BDE6D0 /* AuthUser.swift */,
 				E7179D642D174007438E18BB /* LoginError.swift */,
+				791F16AF341F57533D166B00 /* SocialLoginResultType.swift */,
+				EC378D97E8C797A1B2CB788B /* SocialProvider.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -448,6 +455,7 @@
 				CA67E9589C79D55919B4AC98 /* Format */,
 				1F7FCF002E9EA49C9154B97A /* Models */,
 				2E50C36B10E667A8B5B249DB /* Repository */,
+				67B1B968B12862927CA5D06F /* Service */,
 				E7ADF26634B3AEC468A96EFB /* UseCase */,
 			);
 			path = Sources;
@@ -464,6 +472,9 @@
 				CF8FCFE4AC3B608B5042F210 /* AuthTests.xctest */,
 				45A8BB59B621EFC832DCFE0F /* DesignSystem.framework */,
 				29FA6C20A6564CB1A65D83B5 /* FoundationKit.framework */,
+				46E7D8C72118ED61834F52D6 /* KakaoSDKAuth.framework */,
+				1327587164DBBAA16F3C33DE /* KakaoSDKCommon.framework */,
+				CF43922EE1D6125FE8B383ED /* KakaoSDKUser.framework */,
 				2FDB1F539F81A1BE90F87D4C /* Kingfisher.framework */,
 				83D56B45D644E0B2DBA11EEC /* Moya.framework */,
 				62778DFF53ACB46ECC6F5F35 /* NetworkKit.framework */,
@@ -527,8 +538,7 @@
 				8002CFA53E586CEF850C3B0A /* AuthErrorResponseDTO.swift */,
 				252C2F86266EE72217090DE5 /* AuthLoginResponseDTO.swift */,
 				E65656E0C636D6AF23FD06E9 /* AuthSignupResponseDTO.swift */,
-				79D73FBD79BD1D75BD7F6D35 /* AuthSimpleUserDTO.swift */,
-				7943E1660F0F8C03171DA01B /* AuthSMSResponseDTO.swift */,
+				4DA3D0897326D379FB89FB89 /* AuthSocialLoginResponseDTO.swift */,
 				32B432D7D19D2651FD4EA9D0 /* AuthUserDTO.swift */,
 			);
 			path = DTO;
@@ -540,6 +550,14 @@
 				ADA7DDBBA02C09D5678982D1 /* LoginViewModel.swift */,
 			);
 			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		67B1B968B12862927CA5D06F /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				DBE015DFA89E6676D907A335 /* KakaoAuthServiceProtocol.swift */,
+			);
+			path = Service;
 			sourceTree = "<group>";
 		};
 		6C19D8EF6FBB8C39757E46B1 /* Sources */ = {
@@ -555,7 +573,6 @@
 			children = (
 				59EBC0CC5D916C5A4CB83108 /* BirthYearDropdown.swift */,
 				0CC431E5DC117F84221E3049 /* PolicyWebSheetView.swift */,
-				809C13866FB7C74A59818EDF /* SignupPopupView.swift */,
 			);
 			path = Popup;
 			sourceTree = "<group>";
@@ -565,6 +582,7 @@
 			children = (
 				D213E4CBC9366CE3FD45FDED /* API */,
 				61EAB215B4B277EBBEBB30EA /* DTO */,
+				F0975FF2DD59FA556C7AF3E6 /* Social */,
 				ED7D603A82E085B8AD32B04F /* AuthRepositoryImpl.swift */,
 			);
 			path = Sources;
@@ -589,10 +607,7 @@
 			children = (
 				E1BDDFC6BDACA5DBB3EA0C30 /* AgreeView.swift */,
 				7BDA675B82B10EC8A13AFB6B /* CompleteView.swift */,
-				B1C581C211BB1E550A1B7F9F /* IDInputView.swift */,
-				18C9108C9EC4721DDB960586 /* PhoneVerificationView.swift */,
 				BEFBC36DB36A7FB5F4EF2146 /* ProfileInputView.swift */,
-				0C904E1C986F43E7E3173A68 /* PwInputView.swift */,
 				3DF1746A90A2DDFCD5AE9CB3 /* RecommendView.swift */,
 			);
 			path = Step;
@@ -614,8 +629,7 @@
 			isa = PBXGroup;
 			children = (
 				114EA565B42439D2BD31D001 /* LoginRequest.swift */,
-				08278EF2ED11A60DB6D330B6 /* PhoneNumberRequest.swift */,
-				83317B7D942AFBFF7BF79908 /* SignupAPIRequest.swift */,
+				6C3738B5D3CB94C1EAE7091C /* SocialSignupRequest.swift */,
 			);
 			path = Encodable;
 			sourceTree = "<group>";
@@ -694,6 +708,14 @@
 				EF08C43BB60D5CD101D7A686 /* AuthTests-Info.plist */,
 			);
 			path = InfoPlists;
+			sourceTree = "<group>";
+		};
+		F0975FF2DD59FA556C7AF3E6 /* Social */ = {
+			isa = PBXGroup;
+			children = (
+				B5D807F75F499DBD2AF39E92 /* KakaoAuthService.swift */,
+			);
+			path = Social;
 			sourceTree = "<group>";
 		};
 		F801810B5F8B8D58E891B0B5 /* Data */ = {
@@ -924,14 +946,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				11398BE7E7D82516E37D424D /* SignupFormatStyle.swift in Sources */,
-				63C7E725C2305C1E327EBA3A /* AuthIDCheckResult.swift in Sources */,
+				78E4129880FADAC971EDCBA3 /* AuthAgreement.swift in Sources */,
 				54098FD0A269D65E21141F44 /* AuthRecommendedBrand.swift in Sources */,
-				BB5132E0726E9AD5CDE5A167 /* AuthSMSResponse.swift in Sources */,
 				1637E15B361BE0077BB2E4A4 /* AuthSignupResponse.swift in Sources */,
-				317F10B7A78A02208AD5F199 /* AuthSimpleUser.swift in Sources */,
 				0F56C20E1DA7712315D9E806 /* AuthUser.swift in Sources */,
 				068F8D60BA7BADAEE244105C /* LoginError.swift in Sources */,
+				8E1DE8EEA3B43CEEB1BC3350 /* SocialLoginResultType.swift in Sources */,
+				EBFC25633602E81D366CEF7F /* SocialProvider.swift in Sources */,
 				9D083976CECA423E68F0F099 /* AuthRepository.swift in Sources */,
+				581473F58B2101FA8819F6FD /* KakaoAuthServiceProtocol.swift in Sources */,
 				584FF6C187A388DDE2785C63 /* LoginUseCase.swift in Sources */,
 				71A2A19E91125B3B05216EEF /* SignupUseCase.swift in Sources */,
 			);
@@ -955,15 +978,11 @@
 				8E1720B8F639A95ABC17313B /* SignupCurationSkeletonView.swift in Sources */,
 				A873D6E66ACC7A15AE540405 /* BirthYearDropdown.swift in Sources */,
 				452C194C93875A657D1EF472 /* PolicyWebSheetView.swift in Sources */,
-				FC24FEA6A044D05C84A21BF3 /* SignupPopupView.swift in Sources */,
 				DAB7DF3408A8935171BD2FAB /* SignupView.swift in Sources */,
 				684614D8E6FDC6F7CF4C413F /* SignupViewModel.swift in Sources */,
 				DB7091B9F2506C318356C761 /* AgreeView.swift in Sources */,
 				CFC5F5E41FBB37824529D154 /* CompleteView.swift in Sources */,
-				6A6F3F4667ED7D186BCA77C2 /* IDInputView.swift in Sources */,
-				DEC116B8172E6EC0EE96B13D /* PhoneVerificationView.swift in Sources */,
 				E5BC4A325DD1F4C9FFC406C6 /* ProfileInputView.swift in Sources */,
-				0C8A59F69E82B238BBACE038 /* PwInputView.swift in Sources */,
 				E70B49DE0EB688032C6698F5 /* RecommendView.swift in Sources */,
 				6DBDE15A3229AEC6AD04315F /* LoginUseCaseImpl.swift in Sources */,
 				3DE41050BD58F53CEBF1CD89 /* SignupUseCaseImpl.swift in Sources */,
@@ -1000,16 +1019,15 @@
 			files = (
 				9ECE5640A650A001E9195A0F /* AuthUserAPI.swift in Sources */,
 				67B7704E819E86BACD4CF144 /* LoginRequest.swift in Sources */,
-				B99AFB0451E067C8FE60A309 /* PhoneNumberRequest.swift in Sources */,
-				88D7670D4BE1270B9CEC6115 /* SignupAPIRequest.swift in Sources */,
+				BE76C14172FBC93CFF00C6EB /* SocialSignupRequest.swift in Sources */,
 				9D88DB33AC00BF061BEFF003 /* AuthRepositoryImpl.swift in Sources */,
 				D417671EFC2BB25A1ED34B9A /* AuthBrandListResponseDTO.swift in Sources */,
 				0AAC727B5804E8861378DBA9 /* AuthErrorResponseDTO.swift in Sources */,
 				0DD4957EB4B1CA41581F98F0 /* AuthLoginResponseDTO.swift in Sources */,
-				1BABD6D99B96B85A977A088C /* AuthSMSResponseDTO.swift in Sources */,
 				B3BCEF7C74425A532B13BCA1 /* AuthSignupResponseDTO.swift in Sources */,
-				AE4E796AB6754D3972831029 /* AuthSimpleUserDTO.swift in Sources */,
+				AD16ADE5EA0A857DC8FCA049 /* AuthSocialLoginResponseDTO.swift in Sources */,
 				585839CA64514AE531B3B0E1 /* AuthUserDTO.swift in Sources */,
+				713CD4B5400822ACBE3098A1 /* KakaoAuthService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

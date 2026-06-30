@@ -2,10 +2,13 @@ import Foundation
 import AuthDomain
 
 public final class MockLoginUseCase: LoginUseCase, @unchecked Sendable {
-    public var result: Result<AuthUser, Error> = .success(
-        AuthUser(id: 1, loginId: "test", phoneNumber: "010", subscribeEmail: nil,
-                 nickname: "테스터", birthYear: "2000", gender: "M",
-                 createdAt: "2025-01-01", industryId: nil, interestIds: [])
+    public var result: Result<SocialLoginResultType, Error> = .success(
+        .registered(
+            AuthUser(id: 1, subscribeEmail: nil,
+                     nickname: "테스터", birthYear: "2000", gender: "남자",
+                     createdAt: "2025-01-01", industryId: nil, interestIds: []),
+            accessToken: "mock-access-token"
+        )
     )
     public private(set) var executedProvider: SocialProvider?
     public private(set) var executedIDToken: String?
@@ -13,7 +16,7 @@ public final class MockLoginUseCase: LoginUseCase, @unchecked Sendable {
 
     public init() {}
 
-    public func execute(provider: SocialProvider, idToken: String) async throws -> AuthUser {
+    public func execute(provider: SocialProvider, idToken: String) async throws -> SocialLoginResultType {
         executeCallCount += 1
         executedProvider = provider
         executedIDToken = idToken

@@ -32,8 +32,8 @@ public struct AuthBuilder: AuthBuildable {
         AnyView(LoginView(viewModel: container.makeLoginViewModel()))
     }
 
-    public func makeSignupView() -> AnyView {
-        AnyView(SignupView(viewModel: container.makeSignupViewModel()))
+    public func makeSignupView(signupToken: String, nickname: String?) -> AnyView {
+        AnyView(SignupView(viewModel: container.makeSignupViewModel(signupToken: signupToken, nickname: nickname)))
     }
 
     public func signOut() async {

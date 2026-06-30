@@ -76,8 +76,8 @@ struct AppRootView: View {
         switch route {
         case .onboarding:
             container.makeOnboardingView()
-        case .signup:
-            container.makeSignupView()
+        case let .signup(signupToken, nickname):
+            container.makeSignupView(signupToken: signupToken, nickname: nickname)
         case .login:
             container.makeLoginView()
         case .home:

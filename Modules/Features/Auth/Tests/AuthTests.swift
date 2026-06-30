@@ -316,7 +316,7 @@ struct LoginViewModelTests {
         AppState.shared.logout()
 
         var successCalled = false
-        vm.loginWithKakao { successCalled = true }
+        vm.loginWithKakao(onLoggedIn: { successCalled = true }, onNeedSignup: { _, _ in })
 
         // 내부 Task 완료 대기
         try? await Task.sleep(for: .milliseconds(50))
@@ -335,7 +335,7 @@ struct LoginViewModelTests {
         let (vm, _, _, _) = makeSUT(kakaoAuthService: kakao)
 
         var successCalled = false
-        vm.loginWithKakao { successCalled = true }
+        vm.loginWithKakao(onLoggedIn: { successCalled = true }, onNeedSignup: { _, _ in })
 
         try? await Task.sleep(for: .milliseconds(50))
 
@@ -352,7 +352,7 @@ struct LoginViewModelTests {
         kakao.result = .success("kakao-id-token")
         let (vm, _, _, _) = makeSUT(loginUseCase: mock, kakaoAuthService: kakao)
 
-        vm.loginWithKakao { }
+        vm.loginWithKakao(onLoggedIn: { }, onNeedSignup: { _, _ in })
 
         try? await Task.sleep(for: .milliseconds(50))
 
@@ -365,7 +365,7 @@ struct LoginViewModelTests {
         let (vm, mock, _, _) = makeSUT()
         vm.isLoading = true
 
-        vm.loginWithKakao { }
+        vm.loginWithKakao(onLoggedIn: { }, onNeedSignup: { _, _ in })
 
         try? await Task.sleep(for: .milliseconds(50))
 

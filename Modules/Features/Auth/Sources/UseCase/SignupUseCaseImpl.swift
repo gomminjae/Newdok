@@ -13,12 +13,11 @@ public final class SignupUseCaseImpl: SignupUseCase {
         let trimmedNickname = request.nickname.trimmingCharacters(in: .whitespacesAndNewlines)
 
         let result = try await authRepository.signup(
-            loginId: request.loginId,
-            password: request.password,
-            phoneNumber: request.phoneNumber,
+            signupToken: request.signupToken,
             nickname: trimmedNickname,
             birthYear: request.birthYear,
-            gender: request.gender
+            gender: request.gender,
+            agreements: request.agreements
         )
 
         return result.user

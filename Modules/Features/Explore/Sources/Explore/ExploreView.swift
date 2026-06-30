@@ -116,7 +116,7 @@ public struct ExploreView: View {
             allNewsletterSection
         } else {
             ExploreGuestSection(
-                onSignup: { router.push(.signup) },
+                onSignup: { router.push(.login) },
                 onLogin: { router.push(.login) }
             )
         }

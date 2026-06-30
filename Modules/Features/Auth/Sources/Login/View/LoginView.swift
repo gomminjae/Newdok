@@ -43,6 +43,8 @@ public struct LoginView: View {
                 } onCompletion: { result in
                     viewModel.handleAppleResult(result) {
                         router.resetTo(.tabbar(selectedTab: .home))
+                    } onNeedSignup: { signupToken, nickname in
+                        router.push(.signup(signupToken: signupToken, nickname: nickname))
                     }
                 }
                 .signInWithAppleButtonStyle(.black)
@@ -99,6 +101,8 @@ public struct LoginView: View {
         Button {
             viewModel.loginWithKakao {
                 router.resetTo(.tabbar(selectedTab: .home))
+            } onNeedSignup: { signupToken, nickname in
+                router.push(.signup(signupToken: signupToken, nickname: nickname))
             }
         } label: {
             Text("카카오로 시작하기")

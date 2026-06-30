@@ -1,27 +1,24 @@
 import Foundation
 
 public struct AuthSignupRequest {
-    public let loginId: String
-    public let password: String
-    public let phoneNumber: String
+    public let signupToken: String
     public let nickname: String
     public let birthYear: String
     public let gender: String
+    public let agreements: [AuthAgreement]
 
     public init(
-        loginId: String,
-        password: String,
-        phoneNumber: String,
+        signupToken: String,
         nickname: String,
         birthYear: String,
-        gender: String
+        gender: String,
+        agreements: [AuthAgreement]
     ) {
-        self.loginId = loginId
-        self.password = password
-        self.phoneNumber = phoneNumber
+        self.signupToken = signupToken
         self.nickname = nickname
         self.birthYear = birthYear
         self.gender = gender
+        self.agreements = agreements
     }
 }
 

@@ -89,8 +89,8 @@ final class AppContainer {
         authBuilder.makeLoginView()
     }
 
-    func makeSignupView() -> some View {
-        authBuilder.makeSignupView()
+    func makeSignupView(signupToken: String, nickname: String?) -> some View {
+        authBuilder.makeSignupView(signupToken: signupToken, nickname: nickname)
     }
 
     func makeHomeView() -> some View {

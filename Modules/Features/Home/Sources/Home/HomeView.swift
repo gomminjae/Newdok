@@ -157,7 +157,7 @@ public struct HomeView: View {
         case .guest:
             NoDataView(
                 type: .requireSignUp,
-                buttonAction: { router.push(.signup) },
+                buttonAction: { router.push(.login) },
                 loginAction: { router.push(.login) },
                 refreshAction: { Task { await viewModel.loadToday() } }
             )

@@ -29,7 +29,7 @@ public struct RecoveryView: View {
                     if selectedTab == 0 {
                         FindIdPagerView(
                             viewModel: viewModel,
-                            onSignUp: { router.push(.signup) },
+                            onSignUp: { router.push(.login) },
                             onLogin: { router.push(.login) },
                             onContact: { router.push(.serviceFeedback) }
                         )

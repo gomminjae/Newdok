@@ -55,7 +55,6 @@ private extension CurationView {
             .scrollIndicators(.hidden)
 
             Button {
-                viewModel.reset()
                 router.resetTo(.tabbar(selectedTab: .home))
             } label: {
                 Text("메인으로")

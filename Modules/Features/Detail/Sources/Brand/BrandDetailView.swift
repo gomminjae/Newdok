@@ -115,7 +115,7 @@ public struct BrandDetailView: View {
                 .closeOnTapOutside(true).closeOnTap(false).allowTapThroughBG(false)
         }
         .popup(isPresented: $isShowGuestAlert) {
-            SubscribeGuestAlertView(isPresented: $isShowGuestAlert, onSignup: { router.push(.signup) })
+            SubscribeGuestAlertView(isPresented: $isShowGuestAlert, onSignup: { router.push(.login) })
         } customize: {
             $0.type(.default).position(.center).animation(.easeInOut)
                 .backgroundColor(Color.black.opacity(0.3))

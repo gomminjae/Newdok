@@ -14,100 +14,48 @@ public final class SignupViewModel: ErrorHandling {
     private let selectableItemStore: SelectableItemStoreProtocol
     private let appState: AppState
 
-    var currentStep: SignupStep = .phoneVerification
+    private let signupToken: String
 
-    // MARK: - Form
-    public var phoneNumber: String = ""
-
-    var isPhoneNumberValid: Bool {
-        SignupFormatStyle.validatePhoneNumber(phoneNumber) == nil
-    }
-    public var enteredVerificationCode: String = ""
-    private var verificationCode: String = ""
-    public var resendFailureCount: Int = 0
-
-    // MARK: - ID
-    public var loginID: String = "" {
-        didSet {
-            if oldValue != loginID {
-                isIDAvailable = nil
-            }
-        }
-    }
-    public var isIDAvailable: Bool?
-
-    var idValidationError: IDValidationError? {
-        guard !loginID.isEmpty else { return nil }
-        return SignupFormatStyle.validateID(loginID)
-    }
-
-    var isIDCheckEnabled: Bool { SignupFormatStyle.validateID(loginID) == nil }
-
-    var isIDErrorState: Bool {
-        guard !loginID.isEmpty else { return false }
-        if isIDAvailable == false { return true }
-        if isIDAvailable == nil, SignupFormatStyle.validateID(loginID) != nil { return true }
-        return false
-    }
-
-    var idValidationMessage: (text: String, color: Color)? {
-        if let available = isIDAvailable {
-            return (available ? "사용 가능한 아이디입니다" : "이미 사용중인 아이디입니다",
-                    available ? Color.primaryNormal : Color.errorNormal)
-        } else if let error = idValidationError {
-            return (error.message, Color.errorNormal)
-        } else {
-            return nil
-        }
-    }
+    var currentStep: SignupStep = .enterProfile
 
     // MARK: - State
     public var isLoading = false
     public var errorMessage: String?
-    public var userList: [AuthSimpleUser] = []
-    public var isShowUserList = false
-    public var isRequestSent = false
-    public var isTimerActive = false
-    public var timerRemaining = 180
-    public var showAlreadyRegisteredAlert = false
-    public var showError = false
-    public var skipUserCheck = false
-    public var shouldFocusVerificationCode = false
-
-    public var emails: [String] = []
-    public var isShowPopup: Bool = false
     public var currentError: AppError?
 
-    private var timerTask: Task<Void, Never>?
-    private var verificationTask: Task<Void, Never>?
-    private var idCheckTask: Task<Void, Never>?
     private var interestsTask: Task<Void, Never>?
     private var signupTask: Task<Void, Never>?
 
-    // MARK: password
-    public var password: String = ""
-    public var checkedPassword: String = ""
-
-    // MARK: profile
+    // MARK: - Profile
     public var nickname: String = ""
     public var birthYear: String = ""
     public var gender: String = ""
 
+    // MARK: - Agreements
+    public var agreeOver14: Bool = false
+    public var agreeService: Bool = false
+    public var agreePersonalInfo: Bool = false
+    public var agreeMarketing: Bool = false
+
     public var user: AuthUser?
 
-    // MARK: Investigate
+    // MARK: - Investigate
     public var myIndustry: String = ""
     public var selectedInterests: Set<String> = []
     public var recommendedPost: [AuthRecommendedBrand] = []
     public var isCurationLoading = false
 
     public init(
+        signupToken: String,
+        suggestedNickname: String?,
         authRepository: AuthRepository,
         signupUseCase: SignupUseCase,
         userInfoStore: UserInfoStoreProtocol,
         selectableItemStore: SelectableItemStoreProtocol,
         appState: AppState
     ) {
+        self.signupToken = signupToken
+        self.nickname = suggestedNickname ?? ""
         self.authRepository = authRepository
         self.signupUseCase = signupUseCase
         self.userInfoStore = userInfoStore
@@ -122,179 +70,12 @@ public final class SignupViewModel: ErrorHandling {
     public func goToNextStep() {
         if let next = SignupStep(rawValue: currentStep.rawValue + 1) {
             currentStep = next
-            resendFailureCount = 0
-            stopTimer()
-            isRequestSent = false
-            timerRemaining = 180
-            showError = false
-            skipUserCheck = false
-            shouldFocusVerificationCode = false
         }
     }
 
     public func goToPreviousStep() {
         if let prev = SignupStep(rawValue: currentStep.rawValue - 1) {
             currentStep = prev
-            resendFailureCount = 0
-            stopTimer()
-            isRequestSent = false
-            timerRemaining = 180
-            showError = false
-            skipUserCheck = false
-            shouldFocusVerificationCode = false
-        }
-    }
-
-    public func resetVerificationState() {
-           stopTimer()
-           isShowPopup = false
-           isRequestSent = false
-           timerRemaining = 180
-           showError = false
-           enteredVerificationCode = ""
-           resendFailureCount = 0
-           verificationCode = ""
-           skipUserCheck = false
-           shouldFocusVerificationCode = false
-       }
-
-    // MARK: - 인증코드 전송 (초기/재전송 공통)
-    public func sendVerificationCode(skipCheck: Bool = false) {
-        #if DEBUG
-        enteredVerificationCode = ""
-        showError = false
-        timerRemaining = 180
-        isRequestSent = true
-        startTimer()
-        shouldFocusVerificationCode = true
-        verificationCode = "121212"
-        #else
-        guard resendFailureCount < 3 else {
-            isShowPopup = true
-            return
-        }
-
-        if isRequestSent {
-            resendFailureCount += 1
-        }
-        verificationTask?.cancel()
-        verificationTask = Task {
-            do {
-                isLoading = true
-                userList = []
-                isShowUserList = false
-                errorMessage = nil
-                enteredVerificationCode = ""
-                showError = false
-                timerRemaining = 180
-
-                if !skipCheck && !skipUserCheck {
-                    let users = try await authRepository.checkPhoneNumber(phoneNumber)
-                    if !users.isEmpty {
-                        userList = users
-                        isShowUserList = true
-                        showAlreadyRegisteredAlert = true
-                        isLoading = false
-                        return
-                    }
-                }
-
-                let result = try await authRepository.authSMS(phoneNumber: phoneNumber)
-                verificationCode = String(result.code)
-                await MainActor.run {
-                    isRequestSent = true
-                    startTimer()
-                    shouldFocusVerificationCode = true
-                }
-            } catch {
-                handleError(error, feature: "signup", operation: "sendVerificationCode")
-                errorMessage = currentError?.userFacingMessage
-                resendFailureCount += 1
-            }
-            isLoading = false
-        }
-        #endif
-    }
-
-    // MARK: - 인증번호 검증
-    func verifyCode() -> Bool {
-        guard isRequestSent else { return false }
-        if timerRemaining <= 0 {
-            showError = true
-            return false
-        }
-
-        #if DEBUG
-        if enteredVerificationCode == "121212" {
-            stopTimer()
-            resendFailureCount = 0
-            showError = false
-            return true
-        }
-        #endif
-
-        if enteredVerificationCode == verificationCode {
-            stopTimer()
-            resendFailureCount = 0
-            showError = false
-            return true
-        } else {
-            showError = true
-            return false
-        }
-    }
-
-    // MARK: - Timer
-    private func startTimer() {
-        stopTimer()
-        isTimerActive = true
-        timerTask = Task { [weak self] in
-            while !Task.isCancelled {
-                guard let vm = self, vm.timerRemaining > 0 else { break }
-                do {
-                    try await Task.sleep(for: .seconds(1))
-                } catch {
-                    break
-                }
-                if Task.isCancelled { break }
-                vm.timerRemaining -= 1
-            }
-            if let vm = self, vm.timerRemaining <= 0 {
-                vm.isTimerActive = false
-                vm.showError = true
-            }
-        }
-    }
-
-    private func stopTimer() {
-        isTimerActive = false
-        timerTask?.cancel()
-        timerTask = nil
-    }
-
-    // MARK: - ID Dup Check
-    public func checkIDDup() {
-        guard SignupFormatStyle.validateID(loginID) == nil else {
-            isIDAvailable = nil
-            return
-        }
-
-        isIDAvailable = nil
-        idCheckTask?.cancel()
-        idCheckTask = Task { @MainActor in
-            do {
-                let result = try await authRepository.checkIDDup(loginID)
-                switch result {
-                case .exists:
-                    isIDAvailable = false
-                case .notFound:
-                    isIDAvailable = true
-                }
-            } catch {
-                guard !Task.isCancelled else { return }
-                isIDAvailable = nil
-                handleError(error, feature: "signup", operation: "checkIDDup")
-            }
         }
     }
 
@@ -358,12 +139,16 @@ public final class SignupViewModel: ErrorHandling {
         signupTask = Task {
             do {
                 let request = AuthSignupRequest(
-                    loginId: loginID,
-                    password: password,
-                    phoneNumber: phoneNumber,
+                    signupToken: signupToken,
                     nickname: nickname,
                     birthYear: birthYear,
-                    gender: gender
+                    gender: gender,
+                    agreements: [
+                        AuthAgreement(type: .ageConfirmationOver14, agreed: agreeOver14),
+                        AuthAgreement(type: .termsOfService, agreed: agreeService),
+                        AuthAgreement(type: .personalInformation, agreed: agreePersonalInfo),
+                        AuthAgreement(type: .marketing, agreed: agreeMarketing)
+                    ]
                 )
 
                 let resultUser = try await signupUseCase.execute(request: request)
@@ -379,41 +164,5 @@ public final class SignupViewModel: ErrorHandling {
                 errorMessage = "회원가입에 실패했습니다"
             }
         }
-    }
-
-    // MARK: - 초기화 메서드
-    public func reset() {
-        currentStep = .phoneVerification
-
-        phoneNumber = ""
-        enteredVerificationCode = ""
-        verificationCode = ""
-        resendFailureCount = 0
-
-        loginID = ""
-        isIDAvailable = nil
-        password = ""
-        nickname = ""
-        birthYear = ""
-        gender = ""
-
-        user = nil
-        recommendedPost = []
-        selectedInterests.removeAll()
-        myIndustry = ""
-
-        errorMessage = nil
-        showError = false
-        isLoading = false
-        isRequestSent = false
-        timerRemaining = 180
-        isShowPopup = false
-
-        stopTimer()
-        verificationTask?.cancel()
-        idCheckTask?.cancel()
-        interestsTask?.cancel()
-        signupTask?.cancel()
-        isCurationLoading = false
     }
 }

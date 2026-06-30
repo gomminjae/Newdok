@@ -35,14 +35,22 @@ public final class LoginViewModel: ErrorHandling {
     }
 
     /// 카카오 로그인: SDK로 idToken 획득 후 서버 로그인
-    public func loginWithKakao(onSuccess: @escaping () -> Void) {
+    public func loginWithKakao(
+        onLoggedIn: @escaping () -> Void,
+        onNeedSignup: @escaping (_ signupToken: String, _ suggestedNickname: String?) -> Void
+    ) {
         guard !isLoading else { return }
         isLoading = true
 
         Task {
             do {
                 let idToken = try await kakaoAuthService.fetchIDToken()
-                try await authenticate(provider: .kakao, idToken: idToken, onSuccess: onSuccess)
+                try await authenticate(
+                    provider: .kakao,
+                    idToken: idToken,
+                    onLoggedIn: onLoggedIn,
+                    onNeedSignup: onNeedSignup
+                )
             } catch {
                 isLoading = false
                 handle(error)
@@ -53,7 +61,8 @@ public final class LoginViewModel: ErrorHandling {
     /// 애플 로그인: SignInWithAppleButton 콜백 결과 처리
     public func handleAppleResult(
         _ result: Result<ASAuthorization, Error>,
-        onSuccess: @escaping () -> Void
+        onLoggedIn: @escaping () -> Void,
+        onNeedSignup: @escaping (_ signupToken: String, _ suggestedNickname: String?) -> Void
     ) {
         guard !isLoading else { return }
 
@@ -70,7 +79,12 @@ public final class LoginViewModel: ErrorHandling {
             isLoading = true
             Task {
                 do {
-                    try await authenticate(provider: .apple, idToken: idToken, onSuccess: onSuccess)
+                    try await authenticate(
+                        provider: .apple,
+                        idToken: idToken,
+                        onLoggedIn: onLoggedIn,
+                        onNeedSignup: onNeedSignup
+                    )
                 } catch {
                     isLoading = false
                     handle(error)
@@ -85,13 +99,20 @@ public final class LoginViewModel: ErrorHandling {
     private func authenticate(
         provider: SocialProvider,
         idToken: String,
-        onSuccess: @escaping () -> Void
+        onLoggedIn: @escaping () -> Void,
+        onNeedSignup: @escaping (_ signupToken: String, _ suggestedNickname: String?) -> Void
     ) async throws {
         defer { isLoading = false }
-        _ = try await loginUseCase.execute(provider: provider, idToken: idToken)
+        let result = try await loginUseCase.execute(provider: provider, idToken: idToken)
         currentError = nil
-        appState.login()
-        onSuccess()
+
+        switch result {
+        case .registered:
+            appState.login()
+            onLoggedIn()
+        case let .newUser(signupToken, suggestedNickname):
+            onNeedSignup(signupToken, suggestedNickname)
+        }
     }
 
     private func handle(_ error: Error) {

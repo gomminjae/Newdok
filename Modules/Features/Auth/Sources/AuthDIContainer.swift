@@ -42,9 +42,11 @@ final class AuthDIContainer {
         )
     }
 
-    func makeSignupViewModel() -> SignupViewModel {
+    func makeSignupViewModel(signupToken: String, nickname: String?) -> SignupViewModel {
         let repository = makeRepository()
         return SignupViewModel(
+            signupToken: signupToken,
+            suggestedNickname: nickname,
             authRepository: repository,
             signupUseCase: SignupUseCaseImpl(authRepository: repository),
             userInfoStore: userInfoStore,

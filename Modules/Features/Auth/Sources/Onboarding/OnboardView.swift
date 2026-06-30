@@ -52,7 +52,7 @@ public struct OnboardingView: View {
                 VStack(spacing: 0) {
                     Button(action: {
                         onboardingStorage.markCompleted()
-                        router.push(.signup)
+                        router.push(.login)
                     }) {
                         Text("회원가입")
                             .font(.hanSansNeo(14, .bold))

@@ -18,8 +18,6 @@ struct AuthInterestDTO: Decodable, Sendable {
 
 struct AuthUserDTO: Decodable, Sendable {
     let id: Int
-    let loginId: String
-    let phoneNumber: String
     let subscribeEmail: String?
     let nickname: String
     let birthYear: String
@@ -31,8 +29,6 @@ struct AuthUserDTO: Decodable, Sendable {
     func toDomain() -> AuthUser {
         return AuthUser(
             id: id,
-            loginId: loginId,
-            phoneNumber: phoneNumber,
             subscribeEmail: subscribeEmail,
             nickname: nickname,
             birthYear: birthYear,

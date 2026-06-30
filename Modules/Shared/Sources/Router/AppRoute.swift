@@ -8,7 +8,7 @@
 public enum AppRoute: Hashable {
     case onboarding
     case login
-    case signup
+    case signup(signupToken: String, nickname: String?)
     case home
     case profile
     case explore

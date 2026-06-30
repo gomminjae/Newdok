@@ -1,10 +1,3 @@
-//
-//  LoginUseCaseImpl.swift
-//  Domain
-//
-//  Created by 권민재 on 2/14/26.
-//
-
 import Foundation
 import AuthDomain
 import Shared
@@ -16,8 +9,7 @@ public final class LoginUseCaseImpl: LoginUseCase {
         self.authRepository = authRepository
     }
 
-    public func execute(provider: SocialProvider, idToken: String) async throws -> AuthUser {
-        let (user, _) = try await authRepository.login(provider: provider, idToken: idToken)
-        return user
+    public func execute(provider: SocialProvider, idToken: String) async throws -> SocialLoginResultType {
+        try await authRepository.login(provider: provider, idToken: idToken)
     }
 }

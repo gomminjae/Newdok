@@ -36,6 +36,12 @@ final class AuthPlugin: PluginType {
 
         guard statusCode == 401 else { return }
 
+        // 로그인/회원가입 같은 미인증 엔드포인트의 401은 자격 증명 실패이지
+        // 세션 만료가 아니므로 전역 로그아웃을 트리거하지 않는다.
+        if let target = target as? MoyaTarget, !target.emitsUnauthorizedEvent {
+            return
+        }
+
         AuthEvent.notifyUnauthorized()
     }
 }
