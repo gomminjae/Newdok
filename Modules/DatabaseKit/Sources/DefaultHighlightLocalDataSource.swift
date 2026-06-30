@@ -1,5 +1,8 @@
 import Foundation
 import SwiftData
+import os
+
+private let dbLog = Logger(subsystem: "com.newdok.DatabaseKit", category: "HighlightStore")
 
 @Model
 final class ArticleHighlight {
@@ -64,7 +67,7 @@ public final class DefaultHighlightLocalDataSource: HighlightLocalDataSource {
         ) {
             self.context = ModelContext(memory)
             self.isPersistent = false
-            print("[DatabaseKit] ⚠️ Disk container failed, using in-memory fallback")
+            dbLog.warning("Disk container 생성 실패 → in-memory fallback 사용")
             return
         }
 
@@ -73,7 +76,19 @@ public final class DefaultHighlightLocalDataSource: HighlightLocalDataSource {
 
     private func entity(id: UUID) -> ArticleHighlight? {
         let descriptor = FetchDescriptor<ArticleHighlight>(predicate: #Predicate { $0.id == id })
-        return try? context.fetch(descriptor).first
+        return fetch(descriptor, operation: "entity(id:)").first
+    }
+
+    private func fetch(
+        _ descriptor: FetchDescriptor<ArticleHighlight>,
+        operation: String
+    ) -> [ArticleHighlight] {
+        do {
+            return try context.fetch(descriptor)
+        } catch {
+            dbLog.error("\(operation, privacy: .public) fetch 실패: \(error.localizedDescription, privacy: .public)")
+            return []
+        }
     }
 
     private func map(_ entity: ArticleHighlight) -> HighlightDTO {
@@ -94,7 +109,7 @@ public final class DefaultHighlightLocalDataSource: HighlightLocalDataSource {
         let descriptor = FetchDescriptor<ArticleHighlight>(
             predicate: #Predicate { stringIds.contains($0.articleId) }
         )
-        let highlights = (try? context.fetch(descriptor)) ?? []
+        let highlights = fetch(descriptor, operation: "counts(forArticleIds:)")
         var result: [Int: Int] = [:]
         for entity in highlights {
             if let articleId = Int(entity.articleId) {
@@ -109,14 +124,14 @@ public final class DefaultHighlightLocalDataSource: HighlightLocalDataSource {
             predicate: #Predicate { $0.articleId == articleId },
             sortBy: [SortDescriptor(\.createdAt, order: .reverse)]
         )
-        return ((try? context.fetch(descriptor)) ?? []).map(map)
+        return fetch(descriptor, operation: "list(articleId:)").map(map)
     }
 
     public func find(articleId: String, text: String) async -> HighlightDTO? {
         let descriptor = FetchDescriptor<ArticleHighlight>(
             predicate: #Predicate { $0.articleId == articleId && $0.selectedText == text }
         )
-        return ((try? context.fetch(descriptor)) ?? []).first.map(map)
+        return fetch(descriptor, operation: "find(articleId:text:)").first.map(map)
     }
 
     public func add(_ highlight: HighlightDTO) async throws {

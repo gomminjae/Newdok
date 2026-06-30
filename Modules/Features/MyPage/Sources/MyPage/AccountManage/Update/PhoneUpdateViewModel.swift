@@ -107,19 +107,18 @@ public final class PhoneUpdateViewModel: ErrorHandling {
 
     private func startTimer() {
         stopTimer()
-        timerTask = Task {
-            while !Task.isCancelled && timerRemaining > 0 {
+        timerTask = Task { [weak self] in
+            while !Task.isCancelled, let self, self.timerRemaining > 0 {
                 do {
                     try await Task.sleep(for: .seconds(1))
                 } catch {
                     break
                 }
                 guard !Task.isCancelled else { break }
-                timerRemaining -= 1
+                self.timerRemaining -= 1
             }
-            if timerRemaining <= 0 {
-                showError = true
-            }
+            guard let self, self.timerRemaining <= 0 else { return }
+            self.showError = true
         }
     }
 

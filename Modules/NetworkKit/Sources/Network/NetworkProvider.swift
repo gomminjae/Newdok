@@ -43,6 +43,9 @@ public final class NetworkProvider: NetworkProviding {
         config.headers = .default
         #endif
 
+        config.timeoutIntervalForRequest = 30
+        config.timeoutIntervalForResource = 60
+
         return Session(configuration: config)
     }
 }
