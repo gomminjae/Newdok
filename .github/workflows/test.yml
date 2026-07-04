@@ -1,0 +1,86 @@
+name: Test
+
+# 비용 방어: develop 대상 PR에서 코드가 실제로 바뀐 경우에만 실행.
+# (main PR은 deploy가 어차피 빌드하므로 제외, 문서/설정 변경은 paths로 스킵)
+on:
+  pull_request:
+    branches: [develop]
+    paths:
+      - '**/*.swift'
+      - '**/Project.swift'
+      - 'Workspace.swift'
+      - 'Tuist/**'
+      - '.github/workflows/test.yml'
+  workflow_dispatch:
+
+concurrency:
+  group: test-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    name: Unit Tests
+    runs-on: macos-15
+    timeout-minutes: 25          # 폭주 과금 방어 (macOS는 10배 과금)
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup mise
+        uses: jdx/mise-action@v2
+
+      - name: Cache SPM dependencies
+        uses: actions/cache@v4
+        with:
+          path: Tuist/.build
+          key: tuist-${{ runner.os }}-${{ hashFiles('Tuist/Package.resolved') }}
+          restore-keys: tuist-${{ runner.os }}-
+
+      - name: Cache DerivedData
+        uses: actions/cache@v4
+        with:
+          path: ~/Library/Developer/Xcode/DerivedData
+          key: deriveddata-test-${{ runner.os }}-${{ hashFiles('Tuist/Package.resolved') }}
+          restore-keys: deriveddata-test-${{ runner.os }}-
+
+      - name: Generate xcconfig files
+        run: |
+          mkdir -p Configurations
+          cat <<'XCCONFIG' > Configurations/env.xcconfig
+          DEV_BASE_URL = http:/$()//3.38.79.19
+          BASE_URL = https:/$()//newdok.shop
+          XCCONFIG
+
+          cat <<'XCCONFIG' > Configurations/Debug.xcconfig
+          #include "env.xcconfig"
+          API_BASE_URL = $(DEV_BASE_URL)
+          PRODUCT_BUNDLE_IDENTIFIER = com.newdok.app.dev
+          APP_DISPLAY_NAME = Newdok-Dev
+          ASSETCATALOG_COMPILER_APPICON_NAME = DevAppIcon
+          SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG
+          OTHER_LDFLAGS = $(inherited) -ObjC
+          XCCONFIG
+
+          cat <<'XCCONFIG' > Configurations/Release.xcconfig
+          #include "env.xcconfig"
+          API_BASE_URL = $(BASE_URL)
+          PRODUCT_BUNDLE_IDENTIFIER = com.newdok.app
+          APP_DISPLAY_NAME = Newdok
+          ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon
+          SWIFT_ACTIVE_COMPILATION_CONDITIONS = RELEASE
+          OTHER_LDFLAGS = $(inherited) -ObjC
+          XCCONFIG
+
+      - name: Generate project
+        run: |
+          tuist install
+          tuist generate --no-open
+
+      - name: Run tests
+        run: |
+          xcodebuild test \
+            -workspace Newdok.xcworkspace \
+            -scheme Newdok \
+            -configuration Debug \
+            -destination 'platform=iOS Simulator,name=iPhone 16' \
+            CODE_SIGNING_ALLOWED=NO \
+            -quiet
