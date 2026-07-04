@@ -269,7 +269,8 @@ private final class StubTokenStorage: TokenStorageProtocol, @unchecked Sendable 
     var accessToken: String?
     var hasValidToken: Bool { accessToken != nil }
     private(set) var clearCalled = false
-    func saveAccessToken(_ token: String?) { accessToken = token }
+    @discardableResult
+    func saveAccessToken(_ token: String?) -> Bool { accessToken = token; return true }
     func clear() { clearCalled = true; accessToken = nil }
     func migrateTokenIfNeeded() {}
 }
