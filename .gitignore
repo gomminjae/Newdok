@@ -1,5 +1,8 @@
 Tuist/.build/
 
+# AI agent harness state (oh-my-claudecode) — machine-managed tool state, not source
+.omc/
+
 # Xcode build output
 build/
 **/build/
