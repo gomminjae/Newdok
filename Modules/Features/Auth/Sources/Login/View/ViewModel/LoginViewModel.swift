@@ -86,6 +86,9 @@ public final class LoginViewModel: ErrorHandling {
             isLoginIdError = false
             handleError(underlying, feature: "login", operation: "login")
             return
+        case .tokenPersistenceFailed:
+            isPasswordError = false
+            isLoginIdError = false
         }
         currentError = .userMessage(error.localizedDescription)
     }

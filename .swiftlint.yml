@@ -12,6 +12,7 @@ excluded:
   - "**/Generated"
   - "**/*.generated.swift"
   - "**/Tests"
+  - "**/Testing"   # 테스트 지원 모듈(목/스텁) — Tests와 동일하게 린트 제외
 
 # 비활성화할 규칙
 disabled_rules:
