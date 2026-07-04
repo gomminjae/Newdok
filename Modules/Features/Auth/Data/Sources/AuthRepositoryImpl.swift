@@ -19,17 +19,14 @@ public final class AuthRepositoryImpl: AuthRepository {
     }
 
     public func login(loginId: String, password: String) async throws -> (AuthUser, String) {
+        let user: AuthUser
+        let token: String
         do {
             let response = try await network.request(
                 Login(loginId: loginId, password: password)
             )
-            let user = response.user.toDomain()
-            let token = response.accessToken
-
-            tokenStorage.saveAccessToken(token)
-            persistLocalUser(from: user)
-
-            return (user, token)
+            user = response.user.toDomain()
+            token = response.accessToken
         } catch let error as NetworkError {
             if case .serverError(let statusCode, let message) = error, statusCode == 400 {
                 let errorMessage = message ?? ""
@@ -43,6 +40,14 @@ public final class AuthRepositoryImpl: AuthRepository {
         } catch {
             throw LoginError.networkError(error)
         }
+
+        // Keychain 저장 실패 시 로그인 실패로 처리 — 다음 실행 때 조용히 로그아웃되는 것 방지.
+        guard tokenStorage.saveAccessToken(token) else {
+            throw LoginError.tokenPersistenceFailed
+        }
+        persistLocalUser(from: user)
+
+        return (user, token)
     }
 
     public func signup(
@@ -65,7 +70,9 @@ public final class AuthRepositoryImpl: AuthRepository {
         )
         let domain = response.toDomain()
 
-        tokenStorage.saveAccessToken(domain.accessToken)
+        guard tokenStorage.saveAccessToken(domain.accessToken) else {
+            throw LoginError.tokenPersistenceFailed
+        }
         persistLocalUser(from: domain.user)
 
         return domain
