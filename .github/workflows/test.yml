@@ -70,17 +70,9 @@ jobs:
           OTHER_LDFLAGS = $(inherited) -ObjC
           XCCONFIG
 
-      - name: Generate project
+      - name: Run tests
+        # tuist test: 모든 모듈의 테스트 타깃을 빌드·실행하고 시뮬레이터도 자동 선택.
+        # (Newdok 스킴엔 testAction이 없어 xcodebuild test는 못 씀)
         run: |
           tuist install
-          tuist generate --no-open
-
-      - name: Run tests
-        run: |
-          xcodebuild test \
-            -workspace Newdok.xcworkspace \
-            -scheme Newdok \
-            -configuration Debug \
-            -destination 'platform=iOS Simulator,name=iPhone 16' \
-            CODE_SIGNING_ALLOWED=NO \
-            -quiet
+          tuist test --platform ios
