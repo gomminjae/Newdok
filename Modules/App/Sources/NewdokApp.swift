@@ -5,6 +5,7 @@ import DesignSystem
 import PopupView
 import FirebaseCore
 import FirebaseAnalytics
+import FirebaseCrashlytics
 
 @main
 struct NewdokApp: App {
@@ -15,7 +16,11 @@ struct NewdokApp: App {
 
     init() {
         FirebaseApp.configure()
-        ErrorLoggerRegistry.register(DefaultErrorLogger())
+        #if DEBUG
+        ErrorLoggerRegistry.register(DefaultErrorLogger())        // 로컬 로깅만 (Crashlytics 오염 방지)
+        #else
+        ErrorLoggerRegistry.register(CrashlyticsErrorLogger())    // 로컬 + Crashlytics non-fatal
+        #endif
         AppErrorMapperRegistry.register(NetworkErrorAppMapper())
         TokenStore.shared.migrateTokenIfNeeded()
 
