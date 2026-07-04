@@ -34,6 +34,14 @@ iOS 뉴스레터 앱. SwiftUI + Tuist로 생성되는 모듈러 워크스페이�
 - **브랜치**: base/default = `develop`. develop에서 분기하고 PR도 develop 대상.
 - **커밋**: `type(scope): 제목` (한국어 본문). feat/refactor/perf/fix/chore.
 
+## Spec-Driven Development
+
+비자명한 기능(새 화면·플로우·모듈)은 코드보다 스펙을 먼저 쓴다. `docs/specs/_template/`를 `docs/specs/<기능>/`으로 복사해 채우고, spec 승인 후 구현.
+- `spec.md` = **무엇을·왜** (요구사항·수용조건, 구현 언급 금지)
+- `plan.md` = **어떻게** (영향 모듈·설계·엣지케이스)
+- `tasks.md` = 순서 있는 작업 분해
+- 구현이 스펙과 어긋나면 코드가 아니라 스펙을 먼저 고친다 (drift 방지).
+
 ## Notes
 
 - 테스트 타깃 미구성 — 테스트 스킴이 생기면 명령을 여기에 추가할 것.
