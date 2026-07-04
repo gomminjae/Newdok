@@ -52,8 +52,8 @@ enum ErrorMapper {
                     return .timeout
                 case .cancelled:
                     return .cancelled
-                case .cannotConnectToHost, .cannotFindHost, .dnsLookupFailed:
-                    return .serverError(statusCode: 0, message: urlError.localizedDescription)
+                case .cannotConnectToHost, .cannotFindHost, .dnsLookupFailed, .networkConnectionLost:
+                    return .noInternet
                 default:
                     return .underlying(urlError)
                 }

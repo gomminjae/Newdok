@@ -26,8 +26,12 @@ public enum KeychainStorage {
         return string
     }
 
-    public static func save(_ value: String, key: String, service: String = defaultService) {
-        guard let data = value.data(using: .utf8) else { return }
+    @discardableResult
+    public static func save(_ value: String, key: String, service: String = defaultService) -> Bool {
+        guard let data = value.data(using: .utf8) else {
+            logError("save: \(key) UTF-8 인코딩 실패", category: .token)
+            return false
+        }
 
         // 기존 항목 삭제 후 추가 (멱등성 보장)
         delete(key: key, service: service)
@@ -40,16 +44,27 @@ public enum KeychainStorage {
             kSecAttrAccessible as String: kSecAttrAccessibleAfterFirstUnlockThisDeviceOnly
         ]
 
-        SecItemAdd(query as CFDictionary, nil)
+        let status = SecItemAdd(query as CFDictionary, nil)
+        guard status == errSecSuccess else {
+            logError("save: \(key) 실패 (OSStatus \(status))", category: .token)
+            return false
+        }
+        return true
     }
 
-    public static func delete(key: String, service: String = defaultService) {
+    @discardableResult
+    public static func delete(key: String, service: String = defaultService) -> Bool {
         let query: [String: Any] = [
             kSecClass as String: kSecClassGenericPassword,
             kSecAttrService as String: service,
             kSecAttrAccount as String: key
         ]
 
-        SecItemDelete(query as CFDictionary)
+        let status = SecItemDelete(query as CFDictionary)
+        guard status == errSecSuccess || status == errSecItemNotFound else {
+            logError("delete: \(key) 실패 (OSStatus \(status))", category: .token)
+            return false
+        }
+        return true
     }
 }

@@ -17,8 +17,8 @@ public final class ToastCenter {
         self.isShown = true
 
         dismissTask = Task { [weak self] in
-            guard let self else { return }
-            do { try await Task.sleep(nanoseconds: UInt64(duration * 1_000_000_000)) } catch {}
+            do { try await Task.sleep(nanoseconds: UInt64(duration * 1_000_000_000)) } catch { return }
+            guard let self, !Task.isCancelled else { return }
             self.isShown = false
         }
     }
