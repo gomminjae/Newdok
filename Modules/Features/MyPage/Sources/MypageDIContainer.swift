@@ -87,12 +87,24 @@ final class MypageDIContainer {
         )
     }
 
-    func makeAccountManagementView(onLogoutCleanup: @escaping () -> Void) -> AccountManagementView {
+    func makeAccountManagementView(
+        onLogoutCleanup: @escaping () -> Void,
+        onBack: @escaping () -> Void,
+        onUpdatePhone: @escaping () -> Void,
+        onUpdatePassword: @escaping () -> Void,
+        onWithdraw: @escaping () -> Void,
+        onLoggedOut: @escaping () -> Void
+    ) -> AccountManagementView {
         AccountManagementView(
             tokenStorage: tokenStorage,
             userInfoStore: userInfoStore,
             appState: appState,
-            onLogoutCleanup: onLogoutCleanup
+            onLogoutCleanup: onLogoutCleanup,
+            onBack: onBack,
+            onUpdatePhone: onUpdatePhone,
+            onUpdatePassword: onUpdatePassword,
+            onWithdraw: onWithdraw,
+            onLoggedOut: onLoggedOut
         )
     }
 

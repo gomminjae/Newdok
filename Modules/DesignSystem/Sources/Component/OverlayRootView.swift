@@ -13,9 +13,6 @@ import PopupView
 import Observation
 
 public struct OverlayRootView<Content: View>: View {
-    @Environment(AppRouter.self) private var router
-    @Environment(TabSelection.self) private var tabSelection
-
     private var networkManager = NetworkStatusManager.shared
     private let content: () -> Content
     
@@ -33,8 +30,6 @@ public struct OverlayRootView<Content: View>: View {
     public var body: some View {
         ZStack {
             content()
-                .environment(router)
-                .environment(tabSelection) 
         }
         .popup(isPresented: isPopupPresented) {
             NetworkErrorView()

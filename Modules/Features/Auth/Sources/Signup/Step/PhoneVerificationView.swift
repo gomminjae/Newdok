@@ -13,16 +13,22 @@ import PopupView
 import AuthDomain
 
 public struct PhoneVerificationView: View {
-    @Environment(AppRouter.self) private var router
-    
     @FocusState private var isPhoneFieldFocused: Bool
     @FocusState private var isVerificationCodeFocused: Bool
 
     @Bindable private var viewModel: SignupViewModel
-    
-    public init(viewModel: SignupViewModel) {
-            self.viewModel = viewModel
-        }
+    private let onLogin: () -> Void
+    private let onRecovery: () -> Void
+
+    public init(
+        viewModel: SignupViewModel,
+        onLogin: @escaping () -> Void,
+        onRecovery: @escaping () -> Void
+    ) {
+        self.viewModel = viewModel
+        self.onLogin = onLogin
+        self.onRecovery = onRecovery
+    }
 
     public var body: some View {
         ZStack(alignment: .bottom) {
@@ -194,11 +200,11 @@ public struct PhoneVerificationView: View {
                 },
                 onLogin: {
                     viewModel.isShowUserList = false
-                    router.push(.login)
+                    onLogin()
                 },
                 onRecovery: {
                     viewModel.isShowUserList = false
-                    router.push(.recovery)
+                    onRecovery()
                 }
             )
         } customize: {

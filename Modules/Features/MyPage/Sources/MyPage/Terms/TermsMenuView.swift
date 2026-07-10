@@ -11,9 +11,11 @@ import DesignSystem
 import Shared
 
 public struct TermsMenuView: View {
-    @Environment(AppRouter.self) private var router
+    private let onBack: () -> Void
 
-    public init() {}
+    public init(onBack: @escaping () -> Void) {
+        self.onBack = onBack
+    }
 
     public var body: some View {
         VStack(spacing: 12) {
@@ -55,7 +57,7 @@ public struct TermsMenuView: View {
         .toolbar {
             ToolbarItem(placement: .navigationBarLeading) {
                 Button {
-                    router.pop()
+                    onBack()
                 } label: {
                     Image(asset: DesignSystemAsset.back)
                         .font(.system(size: 17, weight: .semibold))
@@ -75,7 +77,7 @@ public struct TermsMenuView: View {
 public struct WebLinkView: View {
     public let title: String
     public let urlString: String
-    @Environment(AppRouter.self) private var router
+    @Environment(\.dismiss) private var dismiss
 
     public init(title: String, urlString: String) {
         self.title = title
@@ -90,7 +92,7 @@ public struct WebLinkView: View {
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
                     Button(action: {
-                        router.pop()
+                        dismiss()
                     }) {
                         Image(asset: DesignSystemAsset.back)
                             .font(.system(size: 17, weight: .semibold))

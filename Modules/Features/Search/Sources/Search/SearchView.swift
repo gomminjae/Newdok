@@ -14,16 +14,27 @@ import Kingfisher
 public struct SearchView: View {
     @Environment(\.dismiss) private var dismiss
     @State private var viewModel: SearchViewModel
-    @Environment(AppRouter.self) private var router
-    
-    public init(viewModel: SearchViewModel) {
+
+    private let onBack: () -> Void
+    private let onBrandTap: (String) -> Void
+    private let onFeedback: () -> Void
+
+    public init(
+        viewModel: SearchViewModel,
+        onBack: @escaping () -> Void,
+        onBrandTap: @escaping (String) -> Void,
+        onFeedback: @escaping () -> Void
+    ) {
         self.viewModel = viewModel
+        self.onBack = onBack
+        self.onBrandTap = onBrandTap
+        self.onFeedback = onFeedback
     }
 
     public var body: some View {
         VStack(spacing: 0) {
             HStack(spacing: 8) {
-                Button(action: { router.pop() }) {
+                Button(action: { onBack() }) {
                     Image(asset: DesignSystemAsset.back)
                         .renderingMode(.template)
                         .resizable()
@@ -120,7 +131,7 @@ public struct SearchView: View {
         }
         .serverErrorPopup(
             error: $viewModel.currentError,
-            onGoBack: { router.pop() },
+            onGoBack: { onBack() },
             onRetry: { Task { await viewModel.loadPopularKeywords() } }
         )
     }
@@ -201,7 +212,7 @@ public struct SearchView: View {
                     .font(.hanSansNeo(16, .medium))
                 ForEach(viewModel.searchResults, id: \.id) { result in
                     Button(action: {
-                        router.push(.brandDetail(id: result.id))
+                        onBrandTap(result.id)
                     }) {
                         SearchNewsletterRow(result: result)
                     }
@@ -224,7 +235,7 @@ public struct SearchView: View {
                 .font(.hanSansNeo(14, .medium))
                 .foregroundColor(Color.captionNeutral)
             Button(action: {
-                router.push(.feedback)
+                onFeedback()
             }) {
                 Text("뉴스레터 등록 요청하기")
                     .font(.hanSansNeo(14, .bold))

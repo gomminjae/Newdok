@@ -15,10 +15,23 @@ public struct RecoveryView: View {
   
     @State private var viewModel: RecoveryViewModel
 
-    @Environment(AppRouter.self) private var router
+    private let onBack: () -> Void
+    private let onSignup: () -> Void
+    private let onLogin: () -> Void
+    private let onServiceFeedback: () -> Void
 
-    public init(viewModel: RecoveryViewModel) {
+    public init(
+        viewModel: RecoveryViewModel,
+        onBack: @escaping () -> Void,
+        onSignup: @escaping () -> Void,
+        onLogin: @escaping () -> Void,
+        onServiceFeedback: @escaping () -> Void
+    ) {
         self.viewModel = viewModel
+        self.onBack = onBack
+        self.onSignup = onSignup
+        self.onLogin = onLogin
+        self.onServiceFeedback = onServiceFeedback
     }
     
     public var body: some View {
@@ -29,21 +42,21 @@ public struct RecoveryView: View {
                     if selectedTab == 0 {
                         FindIdPagerView(
                             viewModel: viewModel,
-                            onSignUp: { router.push(.signup) },
-                            onLogin: { router.push(.login) },
-                            onContact: { router.push(.serviceFeedback) }
+                            onSignUp: { onSignup() },
+                            onLogin: { onLogin() },
+                            onContact: { onServiceFeedback() }
                         )
                     } else {
                         PasswordRecoveryPagerView(
                             viewModel: viewModel,
                             onPasswordResetComplete: {
-                                router.resetTo(.login)
+                                onLogin()
                                 Task { @MainActor in
                                     try? await Task.sleep(nanoseconds: 500_000_000)
                                     ToastCenter.shared.show("비밀번호가 재설정되었습니다.")
                                 }
                             },
-                            onLogin: { router.resetTo(.login) }
+                            onLogin: { onLogin() }
                         )
                     }
                 }
@@ -57,7 +70,7 @@ public struct RecoveryView: View {
         .toolbar {
             ToolbarItem(placement: .navigationBarLeading) {
                 Button {
-                    router.pop()
+                    onBack()
                 } label: {
                     Image(asset: DesignSystemAsset.back)
                         .foregroundColor(.black)
@@ -72,7 +85,7 @@ public struct RecoveryView: View {
         .ignoresSafeArea(.keyboard)
         .serverErrorPopup(
             error: $viewModel.currentError,
-            onGoBack: { router.pop() },
+            onGoBack: { onBack() },
             onRetry: {}
         )
     }

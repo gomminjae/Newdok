@@ -15,14 +15,29 @@ public struct HomeView: View {
     @State private var viewModel: HomeViewModel
     @State private var showCalendar = false
     @State private var refreshSpinAngle: Double = 0
-    @Environment(AppRouter.self) private var router
-    @Environment(TabSelection.self) private var tabSelection
-    @Environment(AppState.self) private var appState
 
-    private var isGuest: Bool { appState.authState == .guest }
+    private let onArticleTap: (String) -> Void
+    private let onSearch: () -> Void
+    private let onSignup: () -> Void
+    private let onLogin: () -> Void
+    private let onGoToExplore: (Int?, Int) -> Void
 
-    public init(viewModel: HomeViewModel) {
+    private var isGuest: Bool { AppState.shared.authState == .guest }
+
+    public init(
+        viewModel: HomeViewModel,
+        onArticleTap: @escaping (String) -> Void,
+        onSearch: @escaping () -> Void,
+        onSignup: @escaping () -> Void,
+        onLogin: @escaping () -> Void,
+        onGoToExplore: @escaping (Int?, Int) -> Void
+    ) {
         self.viewModel = viewModel
+        self.onArticleTap = onArticleTap
+        self.onSearch = onSearch
+        self.onSignup = onSignup
+        self.onLogin = onLogin
+        self.onGoToExplore = onGoToExplore
     }
 
     public var body: some View {
@@ -91,7 +106,7 @@ public struct HomeView: View {
                     await viewModel.refreshHighlights()
                 }
             }
-            .onChange(of: appState.authState) { _, newValue in
+            .onChange(of: AppState.shared.authState) { _, newValue in
                 Task {
                     await viewModel.resetForAuthChange()
                     if newValue == .authenticated {
@@ -109,7 +124,7 @@ public struct HomeView: View {
             Spacer()
 
             Button {
-                router.push(.search)
+                onSearch()
             } label: {
                 Image(asset: DesignSystemAsset.lineSearch)
                     .padding(.trailing, 12)
@@ -157,16 +172,15 @@ public struct HomeView: View {
         case .guest:
             NoDataView(
                 type: .requireSignUp,
-                buttonAction: { router.push(.signup) },
-                loginAction: { router.push(.login) },
+                buttonAction: { onSignup() },
+                loginAction: { onLogin() },
                 refreshAction: { Task { await viewModel.loadToday() } }
             )
         case .noSubscriptions:
             NoDataView(
                 type: .noSubscriptions,
                 buttonAction: {
-                    tabSelection.moveToExplore(tab: 0)
-                    router.resetTo(.tabbar(selectedTab: .explore))
+                    onGoToExplore(nil, 0)
                 },
                 refreshAction: { Task { await viewModel.loadToday() } }
             )
@@ -176,8 +190,7 @@ public struct HomeView: View {
                 buttonAction: {
                     let weekday = Calendar.current.component(.weekday, from: viewModel.selectedDate)
                     let dayIndex = convertWeekdayToExploreIndex(weekday)
-                    tabSelection.moveToExplore(day: dayIndex, tab: 1)
-                    router.resetTo(.tabbar(selectedTab: .explore))
+                    onGoToExplore(dayIndex, 1)
                 },
                 refreshAction: { Task { await viewModel.loadToday() } },
                 selectedDate: viewModel.selectedDate
@@ -228,7 +241,7 @@ public struct HomeView: View {
                         .contentShape(Rectangle())
                         .onTapGesture {
                             Task { await viewModel.markArticleAsRead(articleId: article.articleId) }
-                            router.push(.articleDetail(id: "\(article.articleId)"))
+                            onArticleTap("\(article.articleId)")
                         }
                 }
             }

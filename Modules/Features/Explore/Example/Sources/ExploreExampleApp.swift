@@ -7,9 +7,6 @@ import ExploreTesting
 
 @main
 struct ExploreExampleApp: App {
-    @State private var router = AppRouter()
-    @State private var tabSelection = TabSelection()
-
     init() {
         AppState.shared.login()
     }
@@ -17,10 +14,17 @@ struct ExploreExampleApp: App {
     var body: some Scene {
         WindowGroup {
             NavigationStack {
-                ExploreView(viewModel: makeViewModel())
+                ExploreView(
+                    viewModel: makeViewModel(),
+                    exploreTrigger: UUID(),
+                    onConsumePending: { nil },
+                    onSearch: {},
+                    onSignup: {},
+                    onLogin: {},
+                    onEditProfile: {},
+                    onBrandTap: { _ in }
+                )
             }
-            .environment(router)
-            .environment(tabSelection)
             .environment(AppState.shared)
             .environment(ToastCenter.shared)
         }

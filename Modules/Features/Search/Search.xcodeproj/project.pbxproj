@@ -44,7 +44,6 @@
 		93CFB175583BCC8DBEBE90CB /* SearchData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 701D52A197B8E7BDBA756946 /* SearchData.framework */; };
 		9950030BD2A53CC9781CC3A8 /* NetworkKit.framework in Dependencies */ = {isa = PBXBuildFile; fileRef = 09C6456DA96EB978D6D9D462 /* NetworkKit.framework */; };
 		9B30F210F68970DF5127C523 /* SearchDomain.framework in Dependencies */ = {isa = PBXBuildFile; fileRef = 138503897C437D2E43301F23 /* SearchDomain.framework */; };
-		9C6B538CFDB456B982AF0C03 /* SearchResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3554F15AA861A6B98D0BC1 /* SearchResultView.swift */; };
 		9EC2625822DA13904C8A29EB /* SearchTesting.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 838EBFAB897D38EC2B391886 /* SearchTesting.framework */; };
 		A829B59B25970B6991E2848B /* FetchPopularKeywordsUseCaseImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 473B77528DB0E33CEF09E0D4 /* FetchPopularKeywordsUseCaseImpl.swift */; };
 		AC04590E07695AE7A806FAD9 /* Search.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DCEA3ABCBA70F49C90FFC61F /* Search.framework */; };
@@ -304,7 +303,6 @@
 		B3A2671DE7FC229A2D15ADA9 /* PopularKeyword.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopularKeyword.swift; sourceTree = "<group>"; };
 		B4C293EA1BEB83670D260B13 /* SearchExample-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "SearchExample-Info.plist"; sourceTree = "<group>"; };
 		CD06DB1B6FB5A4F669B5F023 /* MockFetchPopularKeywordsUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockFetchPopularKeywordsUseCase.swift; sourceTree = "<group>"; };
-		CE3554F15AA861A6B98D0BC1 /* SearchResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultView.swift; sourceTree = "<group>"; };
 		D355E681C0F08758849D9345 /* SearchInterface.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SearchInterface.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D532402CD48F0D3BAE7ACD48 /* SearchInterface-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "SearchInterface-Info.plist"; sourceTree = "<group>"; };
 		D6C9E8ECB6B925827AD7015D /* MockSearchNewslettersUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockSearchNewslettersUseCase.swift; sourceTree = "<group>"; };
@@ -624,7 +622,6 @@
 			children = (
 				65D65495AB68D9211B32EC1F /* Component */,
 				2BB623F4D43D8DF1D62CDA0B /* Empty */,
-				CE3554F15AA861A6B98D0BC1 /* SearchResultView.swift */,
 				47BBAD42EB12AACAC02F1E63 /* SearchView.swift */,
 				6D2ACA18D21B051155077DA3 /* SearchViewModel.swift */,
 			);
@@ -932,7 +929,6 @@
 				6DAE677C5B47001C1B9D09AD /* SearchNewsletterRow.swift in Sources */,
 				0CA24716D9F70C942AD25477 /* NewsLetterEmptyView.swift in Sources */,
 				2E50C5AF6A3FC0BDC11908E4 /* NoArticleView.swift in Sources */,
-				9C6B538CFDB456B982AF0C03 /* SearchResultView.swift in Sources */,
 				EC0DE49ED53C716E1554A609 /* SearchView.swift in Sources */,
 				FE71144B1C50E1D95991A604 /* SearchViewModel.swift in Sources */,
 				88D874BEEA4169CD598264B3 /* SearchBuilder.swift in Sources */,

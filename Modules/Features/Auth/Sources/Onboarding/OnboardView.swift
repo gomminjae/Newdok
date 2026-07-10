@@ -13,12 +13,18 @@ public struct OnboardingView: View {
     @State private var currentPage = 0
     let totalPages = 3
 
-    @Environment(AppRouter.self) private var router
-
     private let onboardingStorage: OnboardingStorable
+    private let onSignup: () -> Void
+    private let onLogin: () -> Void
 
-    public init(onboardingStorage: OnboardingStorable) {
+    public init(
+        onboardingStorage: OnboardingStorable,
+        onSignup: @escaping () -> Void,
+        onLogin: @escaping () -> Void
+    ) {
         self.onboardingStorage = onboardingStorage
+        self.onSignup = onSignup
+        self.onLogin = onLogin
     }
 
     public var body: some View {
@@ -52,7 +58,7 @@ public struct OnboardingView: View {
                 VStack(spacing: 0) {
                     Button(action: {
                         onboardingStorage.markCompleted()
-                        router.push(.signup)
+                        onSignup()
                     }) {
                         Text("회원가입")
                             .font(.hanSansNeo(14, .bold))
@@ -72,7 +78,7 @@ public struct OnboardingView: View {
 
                         Button(action: {
                             onboardingStorage.markCompleted()
-                            router.push(.login)
+                            onLogin()
                         }) {
                             Text("로그인")
                                 .font(.hanSansNeo(14, .medium))

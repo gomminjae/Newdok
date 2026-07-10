@@ -21,11 +21,35 @@ public struct DetailBuilder: DetailBuildable {
         )
     }
 
-    public func makeBrandDetailView(id: String) -> AnyView {
-        AnyView(BrandDetailView(viewModel: container.makeBrandDetailViewModel(id: id)))
+    public func makeBrandDetailView(
+        id: String,
+        onBack: @escaping () -> Void,
+        onSignup: @escaping () -> Void,
+        onGoHome: @escaping () -> Void,
+        onArticleTap: @escaping (String) -> Void
+    ) -> AnyView {
+        AnyView(
+            BrandDetailView(
+                viewModel: container.makeBrandDetailViewModel(id: id),
+                onBack: onBack,
+                onSignup: onSignup,
+                onGoHome: onGoHome,
+                onArticleTap: onArticleTap
+            )
+        )
     }
 
-    public func makeArticleDetailView(id: String, isPastArticle: Bool) -> AnyView {
-        AnyView(ArticleDetailView(viewModel: container.makeArticleDetailViewModel(id: id), isPastArticle: isPastArticle))
+    public func makeArticleDetailView(
+        id: String,
+        isPast: Bool,
+        onBack: @escaping () -> Void
+    ) -> AnyView {
+        AnyView(
+            ArticleDetailView(
+                viewModel: container.makeArticleDetailViewModel(id: id),
+                isPastArticle: isPast,
+                onBack: onBack
+            )
+        )
     }
 }

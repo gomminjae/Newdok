@@ -17,13 +17,22 @@ public struct BookmarkView: View {
     
     @State private var viewModel: BookmarkViewModel
 
-    @Environment(AppRouter.self) private var router
-    @Environment(AppState.self) private var appState
+    private let onSearch: () -> Void
+    private let onLogin: () -> Void
+    private let onArticleTap: (String) -> Void
 
-    private var isGuest: Bool { appState.authState == .guest }
+    private var isGuest: Bool { AppState.shared.authState == .guest }
 
-    public init(viewModel: BookmarkViewModel) {
+    public init(
+        viewModel: BookmarkViewModel,
+        onSearch: @escaping () -> Void,
+        onLogin: @escaping () -> Void,
+        onArticleTap: @escaping (String) -> Void
+    ) {
         self.viewModel = viewModel
+        self.onSearch = onSearch
+        self.onLogin = onLogin
+        self.onArticleTap = onArticleTap
     }
     
     public var body: some View {
@@ -38,7 +47,7 @@ public struct BookmarkView: View {
                         VStack(spacing: 0) {
                             if isGuest {
                                 BookmarkGuestView(onLogin: {
-                                    router.push(.login)
+                                    onLogin()
                                 })
                                     .frame(maxWidth: .infinity, maxHeight: .infinity)
                             } else if viewModel.isBookmarkEmpty {
@@ -83,7 +92,7 @@ public struct BookmarkView: View {
                 viewModel.loadInitial()
             }
         }
-        .onChange(of: appState.authState) { _, newValue in
+        .onChange(of: AppState.shared.authState) { _, newValue in
             if newValue == .guest {
                 viewModel.clearData()
             } else {
@@ -104,7 +113,7 @@ public struct BookmarkView: View {
                 .foregroundStyle(Color.captionHeavy)
             Spacer()
             Button {
-                router.push(.search)
+                onSearch()
             } label: {
                 Image(asset: DesignSystemAsset.lineSearch)
                     .padding(.trailing, 12)
@@ -193,7 +202,7 @@ public struct BookmarkView: View {
                     .padding(.bottom, 8)
                     .contentShape(Rectangle())
                     .onTapGesture {
-                        router.push(.articleDetail(id: "\(article.id)"))
+                        onArticleTap("\(article.id)")
                     }
             }
         }

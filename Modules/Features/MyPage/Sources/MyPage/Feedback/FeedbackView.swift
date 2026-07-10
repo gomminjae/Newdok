@@ -12,11 +12,13 @@ import WebKit
 import Shared
 
 public struct FeedbackView: View {
-    @Environment(AppRouter.self) private var router
+    private let onBack: () -> Void
 
     private let faqURL = "https://7xrdp4cp24a.typeform.com/to/Lkh7C9zd"
 
-    public init() {}
+    public init(onBack: @escaping () -> Void) {
+        self.onBack = onBack
+    }
 
     public var body: some View {
         VStack(spacing: 0) {
@@ -28,7 +30,7 @@ public struct FeedbackView: View {
             // ⬅️ Back 버튼
             ToolbarItem(placement: .navigationBarLeading) {
                 Button {
-                    router.pop()
+                    onBack()
                 } label: {
                     Image(asset: DesignSystemAsset.back)
                         .font(.system(size: 17, weight: .semibold))

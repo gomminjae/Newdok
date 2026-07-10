@@ -12,7 +12,7 @@ import Shared
 
 public struct PwdUpdateView: View {
     @Environment(\.dismiss) private var dismiss
-    @Environment(AppRouter.self) private var router
+    private let onBack: () -> Void
 
     @State private var isSecureOldPassword: Bool = true
     @State private var isSecureNewPassword: Bool = true
@@ -24,8 +24,9 @@ public struct PwdUpdateView: View {
 
     @Bindable private var viewModel: PasswordUpdateViewModel
 
-    public init(viewModel: PasswordUpdateViewModel) {
+    public init(viewModel: PasswordUpdateViewModel, onBack: @escaping () -> Void) {
         self.viewModel = viewModel
+        self.onBack = onBack
     }
 
     public var body: some View {
@@ -134,7 +135,7 @@ public struct PwdUpdateView: View {
         .toolbar {
             ToolbarItem(placement: .navigationBarLeading) {
                 Button {
-                   router.pop()
+                   onBack()
                 } label: {
                     Image(asset: DesignSystemAsset.back)
                         .font(.system(size: 17, weight: .semibold))
@@ -149,7 +150,7 @@ public struct PwdUpdateView: View {
         }
         .onChange(of: viewModel.isPasswordUpdateSuccess) { _, success in
             if success {
-                router.pop()
+                onBack()
                 Task { @MainActor in
                     try await Task.sleep(nanoseconds: 150_000_000)
                     ToastCenter.shared.show("비밀번호가 변경되었습니다.")

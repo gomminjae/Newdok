@@ -7,9 +7,6 @@ import HomeTesting
 
 @main
 struct HomeExampleApp: App {
-    @State private var router = AppRouter()
-    @State private var tabSelection = TabSelection()
-
     init() {
         AppState.shared.login()
     }
@@ -17,10 +14,15 @@ struct HomeExampleApp: App {
     var body: some Scene {
         WindowGroup {
             NavigationStack {
-                HomeView(viewModel: makeViewModel())
+                HomeView(
+                    viewModel: makeViewModel(),
+                    onArticleTap: { _ in },
+                    onSearch: {},
+                    onSignup: {},
+                    onLogin: {},
+                    onGoToExplore: { _, _ in }
+                )
             }
-            .environment(router)
-            .environment(tabSelection)
             .environment(AppState.shared)
             .environment(ToastCenter.shared)
         }

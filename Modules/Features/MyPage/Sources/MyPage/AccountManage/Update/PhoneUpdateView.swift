@@ -11,16 +11,17 @@ import FoundationKit
 import PopupView
 
 public struct PhoneUpdateView: View {
-    @Environment(AppRouter.self) private var router
     @Environment(\.dismiss) private var dismiss
-    
+    private let onBack: () -> Void
+
     @FocusState private var isPhoneFieldFocused: Bool
     @FocusState private var isNumberPadFocused: Bool
 
     @Bindable private var viewModel: PhoneUpdateViewModel
 
-    public init(viewModel: PhoneUpdateViewModel) {
+    public init(viewModel: PhoneUpdateViewModel, onBack: @escaping () -> Void) {
         self.viewModel = viewModel
+        self.onBack = onBack
     }
 
     public var body: some View {
@@ -127,7 +128,7 @@ public struct PhoneUpdateView: View {
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
                     Button {
-                        router.pop()
+                        onBack()
                     } label: {
                         Image(asset: DesignSystemAsset.back)
                             .font(.system(size: 17, weight: .semibold))
@@ -177,7 +178,7 @@ public struct PhoneUpdateView: View {
         .ignoresSafeArea(.keyboard)
         .onChange(of: viewModel.isPhoneUpdateSuccess) { _, success in
             if success {
-                router.pop()
+                onBack()
                 // 뷰 pop 이후 전역 토스트 노출 (사라지는 뷰에서의 호출을 피하기 위해 약간 지연)
                 Task { @MainActor in
                     try await Task.sleep(nanoseconds: 150_000_000)
@@ -188,7 +189,7 @@ public struct PhoneUpdateView: View {
         .popup(isPresented: $viewModel.isShowPopup) {
             AuthFailView(onClose: {
                 viewModel.isShowPopup = false
-                router.pop()
+                onBack()
             })
         } customize: {
             $0

@@ -17,15 +17,23 @@ public struct SubscribeView: View {
     @State private var showUnsubscribeAlert: Bool = false
     @State private var selectedNewsletter: SubscribeNewsletter?
 
-    @Environment(AppRouter.self) private var router
-
     @State private var showSubscribeToast: Bool = false
     @State private var showPauseToast: Bool = false
 
-    @Environment(AppState.self) private var appState
+    private let onSearch: () -> Void
+    private let onLogin: () -> Void
+    private let onBrandTap: (String) -> Void
 
-    public init(viewModel: SubscribeViewModel) {
+    public init(
+        viewModel: SubscribeViewModel,
+        onSearch: @escaping () -> Void,
+        onLogin: @escaping () -> Void,
+        onBrandTap: @escaping (String) -> Void
+    ) {
         self.viewModel = viewModel
+        self.onSearch = onSearch
+        self.onLogin = onLogin
+        self.onBrandTap = onBrandTap
     }
 
     public var body: some View {
@@ -125,7 +133,7 @@ public struct SubscribeView: View {
         case .loading:
             EmptyView()
         case .guest:
-            EmptySubscriptionView(isSubscribedTab: selectedTab == 0, isGuest: true, onLogin: { router.push(.login) })
+            EmptySubscriptionView(isSubscribedTab: selectedTab == 0, isGuest: true, onLogin: { onLogin() })
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
         case .empty:
             EmptySubscriptionView(isSubscribedTab: selectedTab == 0, isGuest: false, onLogin: {})
@@ -144,7 +152,7 @@ public struct SubscribeView: View {
 
             ForEach(Array(subscriptions.enumerated()), id: \.element.id) { index, newsletter in
                 SubscribeRow(newsletter: newsletter, isSubscribed: selectedTab == 0, onNavigate: {
-                    router.push(.brandDetail(id: "\(newsletter.id ?? 0)"))
+                    onBrandTap("\(newsletter.id ?? 0)")
                 }) {
                     if selectedTab == 0 {
                         selectedNewsletter = newsletter
@@ -177,7 +185,7 @@ public struct SubscribeView: View {
                 .foregroundStyle(Color.captionHeavy)
             Spacer()
             Button {
-                router.push(.search)
+                onSearch()
             } label: {
                 Image(asset: DesignSystemAsset.lineSearch)
                     .padding(.trailing, 12)

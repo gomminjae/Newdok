@@ -9,7 +9,18 @@ public struct BookmarkBuilder: BookmarkBuildable {
         self.container = BookmarkDIContainer(networkProvider: networkProvider)
     }
 
-    public func makeBookmarkView() -> AnyView {
-        AnyView(BookmarkView(viewModel: container.makeViewModel()))
+    public func makeBookmarkView(
+        onSearch: @escaping () -> Void,
+        onLogin: @escaping () -> Void,
+        onArticleTap: @escaping (String) -> Void
+    ) -> AnyView {
+        AnyView(
+            BookmarkView(
+                viewModel: container.makeViewModel(),
+                onSearch: onSearch,
+                onLogin: onLogin,
+                onArticleTap: onArticleTap
+            )
+        )
     }
 }
