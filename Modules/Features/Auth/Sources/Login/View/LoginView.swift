@@ -10,48 +10,39 @@ import DesignSystem
 import AuthDomain
 import Shared
 import PopupView
-import AuthenticationServices
 
 public struct LoginView: View {
     @State private var viewModel: LoginViewModel
     @State private var showToast: Bool = false
     @State private var toastMessage: String = ""
-
+    
     @Environment(AppRouter.self) private var router
     @Environment(TabSelection.self) private var tabSelection
-
+    
     public init(viewModel: LoginViewModel) {
         self.viewModel = viewModel
     }
-
+    
     public var body: some View {
         VStack {
-            HStack {
-                Image(asset: DesignSystemAsset.logo)
-                    .padding(.leading, 28)
-                Spacer()
-            }
-            .padding(.top, 40)
-
             Spacer()
-
+            
+            Image(asset: DesignSystemAsset.logo)
+                .resizable()
+                .padding(.horizontal, 91.14)
+                .frame(height: 48)
+            
+            Spacer()
+            Spacer()
+            
             VStack(spacing: 12) {
                 kakaoButton
-
-                SignInWithAppleButton(.continue) { request in
-                    request.requestedScopes = [.fullName, .email]
-                } onCompletion: { result in
-                    viewModel.handleAppleResult(result) {
-                        router.resetTo(.tabbar(selectedTab: .home))
-                    } onNeedSignup: { signupToken, nickname in
-                        router.push(.signup(signupToken: signupToken, nickname: nickname))
+                    .overlay(alignment: .top) {
+                        startBadge.offset(y: -30)
                     }
-                }
-                .signInWithAppleButtonStyle(.black)
-                .frame(height: 48)
-                .cornerRadius(4)
-                .disabled(viewModel.isLoading)
-
+                
+                appleButton
+                
                 Button("비회원으로 이용하기") {
                     viewModel.loginAsGuest()
                     router.resetTo(.tabbar(selectedTab: .home))
@@ -83,37 +74,93 @@ public struct LoginView: View {
                 .animation(.easeInOut)
                 .closeOnTapOutside(false)
         }
-        .toolbar {
-            ToolbarItem(placement: .principal) {
-                Text("로그인")
-                    .font(.hanSansNeo(16, .bold))
-                    .foregroundStyle(Color.captionHeavy)
-            }
-        }
         .serverErrorPopup(
             error: $viewModel.currentError,
             onGoBack: { router.pop() },
             onRetry: {}
         )
     }
-
+    
     private var kakaoButton: some View {
-        Button {
+        socialButton(
+            title: "카카오로 계속하기",
+            background: Color(red: 254 / 255, green: 229 / 255, blue: 0),
+            foreground: Color.black.opacity(0.85)
+        ) {
+            Image(asset: DesignSystemAsset.kakaoBubble)
+                .renderingMode(.template)
+                .resizable()
+                .scaledToFit()
+                .frame(width: 16, height: 16)
+                .foregroundColor(Color.black.opacity(0.85))
+        } action: {
             viewModel.loginWithKakao {
                 router.resetTo(.tabbar(selectedTab: .home))
             } onNeedSignup: { signupToken, nickname in
                 router.push(.signup(signupToken: signupToken, nickname: nickname))
             }
-        } label: {
-            Text("카카오로 시작하기")
-                .font(.hanSansNeo(16, .bold))
-                .frame(maxWidth: .infinity)
-                .frame(height: 48)
-                .background(Color(red: 254 / 255, green: 229 / 255, blue: 0))
-                .foregroundColor(Color(red: 0, green: 0, blue: 0).opacity(0.85))
-                .cornerRadius(4)
-                .contentShape(Rectangle())
+        }
+    }
+    
+    private var appleButton: some View {
+        socialButton(
+            title: "Apple로 계속하기",
+            background: .black,
+            foreground: .white
+        ) {
+            Image(systemName: "apple.logo")
+                .font(.system(size: 20))
+                .foregroundColor(.white)
+        } action: {
+            viewModel.loginWithApple {
+                router.resetTo(.tabbar(selectedTab: .home))
+            } onNeedSignup: { signupToken, nickname in
+                router.push(.signup(signupToken: signupToken, nickname: nickname))
+            }
+        }
+    }
+    
+    private func socialButton(
+        title: String,
+        background: Color,
+        foreground: Color,
+        @ViewBuilder icon: () -> some View,
+        action: @escaping () -> Void
+    ) -> some View {
+        Button(action: action) {
+            ZStack {
+                Text(title)
+                    .font(.hanSansNeo(16, .bold))
+                    .foregroundColor(foreground)
+                HStack {
+                    icon()
+                    Spacer()
+                }
+                .padding(.leading, 20)
+            }
+            .frame(maxWidth: .infinity)
+            .frame(height: 56)
+            .background(background)
+            .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
+            .contentShape(Rectangle())
         }
         .disabled(viewModel.isLoading)
     }
+    
+    private var startBadge: some View {
+        VStack(spacing: 0) {
+            Text("3초만에 시작하기")
+                .font(.hanSansNeo(12, .bold))
+                .foregroundStyle(.white)
+                .padding(.horizontal, 12)
+                .padding(.vertical, 6)
+                .background(Color(hex: "FB4F4F"), in: Capsule())
+            Image(systemName: "arrowtriangle.down.fill")
+                .font(.system(size: 10))
+                .foregroundStyle(Color(hex: "FB4F4F"))
+                .offset(y: -2)
+        }
+    }
 }
+
+

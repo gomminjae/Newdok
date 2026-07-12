@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		031E2B926BC3F4B22BBFCA35 /* NetworkKit.framework in Dependencies */ = {isa = PBXBuildFile; fileRef = 62778DFF53ACB46ECC6F5F35 /* NetworkKit.framework */; };
+		05B26DCC15BAC48E1F871A86 /* AppleAuthServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA0BAEBE3CDD9B85B10AE26D /* AppleAuthServiceProtocol.swift */; };
 		068F8D60BA7BADAEE244105C /* LoginError.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7179D642D174007438E18BB /* LoginError.swift */; };
 		06C7F1D619C3D8813EC698DC /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADA7DDBBA02C09D5678982D1 /* LoginViewModel.swift */; };
 		0AAC727B5804E8861378DBA9 /* AuthErrorResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8002CFA53E586CEF850C3B0A /* AuthErrorResponseDTO.swift */; };
@@ -29,6 +30,7 @@
 		282B5EF203975D1974BBA825 /* AuthDIContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B7EBA8D7806B48F8D71D29A /* AuthDIContainer.swift */; };
 		2A7224C686420CFF1A66C683 /* Moya.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83D56B45D644E0B2DBA11EEC /* Moya.framework */; };
 		2B882611CD5D55FF9AA4BA30 /* CurationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF5156C9688647B73261D5AA /* CurationView.swift */; };
+		2D93D0C06F2FDF0903805593 /* Alamofire_Alamofire.bundle in Dependencies */ = {isa = PBXBuildFile; fileRef = 78FF525D0E8F54DA8ADC5422 /* Alamofire_Alamofire.bundle */; };
 		30FBE074985429C4E16AC952 /* AuthInterface.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE8C09C4CE36E3D06B61DAB5 /* AuthInterface.framework */; };
 		32D5A7DC8F48CD0FCC017BC4 /* FoundationKit.framework in Dependencies */ = {isa = PBXBuildFile; fileRef = 29FA6C20A6564CB1A65D83B5 /* FoundationKit.framework */; };
 		3439C05F4186A8EAEAB3AAC7 /* AuthInterface.framework in Dependencies */ = {isa = PBXBuildFile; fileRef = BE8C09C4CE36E3D06B61DAB5 /* AuthInterface.framework */; };
@@ -61,15 +63,18 @@
 		9ECE5640A650A001E9195A0F /* AuthUserAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5BA7E5065E6BFA71F04B38E /* AuthUserAPI.swift */; };
 		9F49D0A2DD12B3C6F2C9D9AA /* AuthBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDE7484E60F831CBAFFBD577 /* AuthBuilder.swift */; };
 		9FD0E0B05397F67F37A1530A /* AuthTesting.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5642BA06A94EBFDDB6B192CB /* AuthTesting.framework */; };
+		A0136FA014429C88E340055B /* DesignSystem_DesignSystem.bundle in Dependencies */ = {isa = PBXBuildFile; fileRef = 053F11E926A414E7E0C9D2C3 /* DesignSystem_DesignSystem.bundle */; };
 		A47F3F9CC80909D5A826ED2E /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6061C08937A7986D4F7D042 /* LoginView.swift */; };
 		A5D92D5C6F4866C1716747F6 /* FoundationKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 29FA6C20A6564CB1A65D83B5 /* FoundationKit.framework */; };
 		A873D6E66ACC7A15AE540405 /* BirthYearDropdown.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59EBC0CC5D916C5A4CB83108 /* BirthYearDropdown.swift */; };
 		AD16ADE5EA0A857DC8FCA049 /* AuthSocialLoginResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DA3D0897326D379FB89FB89 /* AuthSocialLoginResponseDTO.swift */; };
 		AD2E02356CD05728AF7F6BED /* FoundationKit.framework in Dependencies */ = {isa = PBXBuildFile; fileRef = 29FA6C20A6564CB1A65D83B5 /* FoundationKit.framework */; };
 		ADD5AC589E22E51E680E9367 /* DesignSystem.framework in Dependencies */ = {isa = PBXBuildFile; fileRef = 45A8BB59B621EFC832DCFE0F /* DesignSystem.framework */; };
+		B1B883AD5FA839D4A8A34813 /* DesignSystem_DesignSystem.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 053F11E926A414E7E0C9D2C3 /* DesignSystem_DesignSystem.bundle */; };
 		B1B8CA1ED66CA91DBA0C6606 /* AuthDomain.framework in Dependencies */ = {isa = PBXBuildFile; fileRef = 7C94165A812E44E5FD3BFC7F /* AuthDomain.framework */; };
 		B3BCEF7C74425A532B13BCA1 /* AuthSignupResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = E65656E0C636D6AF23FD06E9 /* AuthSignupResponseDTO.swift */; };
 		BE76C14172FBC93CFF00C6EB /* SocialSignupRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C3738B5D3CB94C1EAE7091C /* SocialSignupRequest.swift */; };
+		BF9C7ADABAF6E76DBD66CC18 /* AppleAuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31D1F0799992DED05F63CE19 /* AppleAuthService.swift */; };
 		CEECBC8150603B9D9911E035 /* Shared.framework in Dependencies */ = {isa = PBXBuildFile; fileRef = 2D55F8F97BF588B8074069DA /* Shared.framework */; };
 		CFC5F5E41FBB37824529D154 /* CompleteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BDA675B82B10EC8A13AFB6B /* CompleteView.swift */; };
 		D417671EFC2BB25A1ED34B9A /* AuthBrandListResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89277BD77D124EAB69AE0989 /* AuthBrandListResponseDTO.swift */; };
@@ -81,6 +86,7 @@
 		E57A016EEFDE2A1DEF13C80E /* CurationRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07848F750646D4321324EFC6 /* CurationRow.swift */; };
 		E5BC4A325DD1F4C9FFC406C6 /* ProfileInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEFBC36DB36A7FB5F4EF2146 /* ProfileInputView.swift */; };
 		E70B49DE0EB688032C6698F5 /* RecommendView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DF1746A90A2DDFCD5AE9CB3 /* RecommendView.swift */; };
+		E8972536C344E7B0BDCDAD2D /* Alamofire_Alamofire.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 78FF525D0E8F54DA8ADC5422 /* Alamofire_Alamofire.bundle */; };
 		EBFC25633602E81D366CEF7F /* SocialProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC378D97E8C797A1B2CB788B /* SocialProvider.swift */; };
 		EEFF897EFB63EEF67243F2BF /* AuthTesting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A1EE55F16E7D24969D6632E /* AuthTesting.swift */; };
 		F42073A1A98F2AF60F8938C8 /* Auth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8895FC8BB8C3644A2923E77A /* Auth.framework */; };
@@ -156,6 +162,17 @@
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
+		};
+		684EC3987431A3767320D468 /* Dependencies */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 8;
+			dstSubfolderSpec = 16;
+			files = (
+				2D93D0C06F2FDF0903805593 /* Alamofire_Alamofire.bundle in Dependencies */,
+				A0136FA014429C88E340055B /* DesignSystem_DesignSystem.bundle in Dependencies */,
+			);
+			name = Dependencies;
+			runOnlyForDeploymentPostprocessing = 1;
 		};
 		6B0F51A6942BBFE323B15EA1 /* Dependencies */ = {
 			isa = PBXCopyFilesBuildPhase;
@@ -258,6 +275,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		053F11E926A414E7E0C9D2C3 /* DesignSystem_DesignSystem.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DesignSystem_DesignSystem.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
 		05A17C657D4A51BEE81CB99C /* OnboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardView.swift; sourceTree = "<group>"; };
 		07848F750646D4321324EFC6 /* CurationRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurationRow.swift; sourceTree = "<group>"; };
 		083CBFE74C9E7F71EDD0C703 /* AuthMain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthMain.swift; sourceTree = "<group>"; };
@@ -273,6 +291,7 @@
 		29FA6C20A6564CB1A65D83B5 /* FoundationKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = FoundationKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D55F8F97BF588B8074069DA /* Shared.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Shared.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2FDB1F539F81A1BE90F87D4C /* Kingfisher.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Kingfisher.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		31D1F0799992DED05F63CE19 /* AppleAuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleAuthService.swift; sourceTree = "<group>"; };
 		32B432D7D19D2651FD4EA9D0 /* AuthUserDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthUserDTO.swift; sourceTree = "<group>"; };
 		3B5098B4E6393EB4AD46B5F8 /* AuthTesting-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "AuthTesting-Info.plist"; sourceTree = "<group>"; };
 		3D19C06CB9237BDD75BDE6D0 /* AuthUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthUser.swift; sourceTree = "<group>"; };
@@ -289,6 +308,7 @@
 		6B7EBA8D7806B48F8D71D29A /* AuthDIContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthDIContainer.swift; sourceTree = "<group>"; };
 		6C3738B5D3CB94C1EAE7091C /* SocialSignupRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialSignupRequest.swift; sourceTree = "<group>"; };
 		6DFBFB5E537C38ADF3FC6F51 /* AuthRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthRepository.swift; sourceTree = "<group>"; };
+		78FF525D0E8F54DA8ADC5422 /* Alamofire_Alamofire.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Alamofire_Alamofire.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
 		791F16AF341F57533D166B00 /* SocialLoginResultType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialLoginResultType.swift; sourceTree = "<group>"; };
 		7BDA675B82B10EC8A13AFB6B /* CompleteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompleteView.swift; sourceTree = "<group>"; };
 		7C94165A812E44E5FD3BFC7F /* AuthDomain.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = AuthDomain.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -307,6 +327,7 @@
 		BE8C09C4CE36E3D06B61DAB5 /* AuthInterface.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = AuthInterface.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BEFBC36DB36A7FB5F4EF2146 /* ProfileInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileInputView.swift; sourceTree = "<group>"; };
 		C857B2C600CA35873D2A9D32 /* Auth-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "Auth-Info.plist"; sourceTree = "<group>"; };
+		CA0BAEBE3CDD9B85B10AE26D /* AppleAuthServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleAuthServiceProtocol.swift; sourceTree = "<group>"; };
 		CF43922EE1D6125FE8B383ED /* KakaoSDKUser.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = KakaoSDKUser.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CF8FCFE4AC3B608B5042F210 /* AuthTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AuthTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D7AF374FFD2C1DCB9C67C232 /* AuthSignupResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthSignupResponse.swift; sourceTree = "<group>"; };
@@ -464,12 +485,14 @@
 		47BB2EF37CEDEF87800073AF /* Products */ = {
 			isa = PBXGroup;
 			children = (
+				78FF525D0E8F54DA8ADC5422 /* Alamofire_Alamofire.bundle */,
 				8895FC8BB8C3644A2923E77A /* Auth.framework */,
 				FC8AEB8E0082B038CB7521FA /* AuthData.framework */,
 				7C94165A812E44E5FD3BFC7F /* AuthDomain.framework */,
 				BE8C09C4CE36E3D06B61DAB5 /* AuthInterface.framework */,
 				5642BA06A94EBFDDB6B192CB /* AuthTesting.framework */,
 				CF8FCFE4AC3B608B5042F210 /* AuthTests.xctest */,
+				053F11E926A414E7E0C9D2C3 /* DesignSystem_DesignSystem.bundle */,
 				45A8BB59B621EFC832DCFE0F /* DesignSystem.framework */,
 				29FA6C20A6564CB1A65D83B5 /* FoundationKit.framework */,
 				46E7D8C72118ED61834F52D6 /* KakaoSDKAuth.framework */,
@@ -555,6 +578,7 @@
 		67B1B968B12862927CA5D06F /* Service */ = {
 			isa = PBXGroup;
 			children = (
+				CA0BAEBE3CDD9B85B10AE26D /* AppleAuthServiceProtocol.swift */,
 				DBE015DFA89E6676D907A335 /* KakaoAuthServiceProtocol.swift */,
 			);
 			path = Service;
@@ -713,6 +737,7 @@
 		F0975FF2DD59FA556C7AF3E6 /* Social */ = {
 			isa = PBXGroup;
 			children = (
+				31D1F0799992DED05F63CE19 /* AppleAuthService.swift */,
 				B5D807F75F499DBD2AF39E92 /* KakaoAuthService.swift */,
 			);
 			path = Social;
@@ -758,6 +783,7 @@
 				E9C7F24A38551DB28EEA9184 /* Resources */,
 				B6A5B1067558D5212CD51DA8 /* Frameworks */,
 				DFA2E33A5B95A9DDC48D1C33 /* Embed Frameworks */,
+				684EC3987431A3767320D468 /* Dependencies */,
 			);
 			buildRules = (
 			);
@@ -928,6 +954,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E8972536C344E7B0BDCDAD2D /* Alamofire_Alamofire.bundle in Resources */,
+				B1B883AD5FA839D4A8A34813 /* DesignSystem_DesignSystem.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -954,6 +982,7 @@
 				8E1DE8EEA3B43CEEB1BC3350 /* SocialLoginResultType.swift in Sources */,
 				EBFC25633602E81D366CEF7F /* SocialProvider.swift in Sources */,
 				9D083976CECA423E68F0F099 /* AuthRepository.swift in Sources */,
+				05B26DCC15BAC48E1F871A86 /* AppleAuthServiceProtocol.swift in Sources */,
 				581473F58B2101FA8819F6FD /* KakaoAuthServiceProtocol.swift in Sources */,
 				584FF6C187A388DDE2785C63 /* LoginUseCase.swift in Sources */,
 				71A2A19E91125B3B05216EEF /* SignupUseCase.swift in Sources */,
@@ -1027,6 +1056,7 @@
 				B3BCEF7C74425A532B13BCA1 /* AuthSignupResponseDTO.swift in Sources */,
 				AD16ADE5EA0A857DC8FCA049 /* AuthSocialLoginResponseDTO.swift in Sources */,
 				585839CA64514AE531B3B0E1 /* AuthUserDTO.swift in Sources */,
+				BF9C7ADABAF6E76DBD66CC18 /* AppleAuthService.swift in Sources */,
 				713CD4B5400822ACBE3098A1 /* KakaoAuthService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1590,6 +1620,10 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-L$(DT_TOOLCHAIN_DIR)/usr/lib/swift/$(PLATFORM_NAME)",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.newdok.auth.tests;
 				PRODUCT_NAME = AuthTests;
 				SDKROOT = iphoneos;
@@ -1617,6 +1651,10 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
+				);
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-L$(DT_TOOLCHAIN_DIR)/usr/lib/swift/$(PLATFORM_NAME)",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.newdok.auth.tests;
 				PRODUCT_NAME = AuthTests;

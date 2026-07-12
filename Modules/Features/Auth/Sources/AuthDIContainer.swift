@@ -37,6 +37,7 @@ final class AuthDIContainer {
         return LoginViewModel(
             loginUseCase: LoginUseCaseImpl(authRepository: repository),
             kakaoAuthService: KakaoAuthService(),
+            appleAuthService: AppleAuthService(),
             tokenStorage: tokenStorage,
             appState: appState
         )

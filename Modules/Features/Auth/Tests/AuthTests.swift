@@ -1,4 +1,5 @@
 import Testing
+import Foundation
 import Shared
 import FoundationKit
 @testable import Auth
@@ -279,12 +280,14 @@ private final class StubTokenStorage: TokenStorageProtocol, @unchecked Sendable 
 struct LoginViewModelTests {
     private func makeSUT(
         loginUseCase: MockLoginUseCase = .init(),
-        kakaoAuthService: MockKakaoAuthService = .init()
+        kakaoAuthService: MockKakaoAuthService = .init(),
+        appleAuthService: MockAppleAuthService = .init()
     ) -> (vm: LoginViewModel, login: MockLoginUseCase, kakao: MockKakaoAuthService, tokenStorage: StubTokenStorage) {
         let tokenStorage = StubTokenStorage()
         let vm = LoginViewModel(
             loginUseCase: loginUseCase,
             kakaoAuthService: kakaoAuthService,
+            appleAuthService: appleAuthService,
             tokenStorage: tokenStorage,
             appState: AppState.shared
         )

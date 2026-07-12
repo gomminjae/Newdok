@@ -28,7 +28,18 @@ public final class MockLoginUseCase: LoginUseCase, @unchecked Sendable {
 public final class MockKakaoAuthService: KakaoAuthServiceProtocol {
     public var result: Result<String, Error> = .success("mock-id-token")
 
-    public init() {}
+    public nonisolated init() {}
+
+    public func fetchIDToken() async throws -> String {
+        try result.get()
+    }
+}
+
+@MainActor
+public final class MockAppleAuthService: AppleAuthServiceProtocol {
+    public var result: Result<String, Error> = .success("apple-id-token")
+
+    public nonisolated init() {}
 
     public func fetchIDToken() async throws -> String {
         try result.get()

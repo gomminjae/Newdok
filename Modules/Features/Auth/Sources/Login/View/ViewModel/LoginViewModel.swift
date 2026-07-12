@@ -8,13 +8,13 @@ import SwiftUI
 import AuthDomain
 import Shared
 import Observation
-import AuthenticationServices
 
 @Observable
 @MainActor
 public final class LoginViewModel: ErrorHandling {
     private let loginUseCase: LoginUseCase
     private let kakaoAuthService: KakaoAuthServiceProtocol
+    private let appleAuthService: AppleAuthServiceProtocol
     private let tokenStorage: TokenStorageProtocol
     private let appState: AppState
 
@@ -24,11 +24,13 @@ public final class LoginViewModel: ErrorHandling {
     public init(
         loginUseCase: LoginUseCase,
         kakaoAuthService: KakaoAuthServiceProtocol,
+        appleAuthService: AppleAuthServiceProtocol,
         tokenStorage: TokenStorageProtocol,
         appState: AppState
     ) {
         self.loginUseCase = loginUseCase
         self.kakaoAuthService = kakaoAuthService
+        self.appleAuthService = appleAuthService
         self.tokenStorage = tokenStorage
         self.appState = appState
         self.isLoading = false
@@ -58,41 +60,27 @@ public final class LoginViewModel: ErrorHandling {
         }
     }
 
-    /// 애플 로그인: SignInWithAppleButton 콜백 결과 처리
-    public func handleAppleResult(
-        _ result: Result<ASAuthorization, Error>,
+    /// 애플 로그인: 서비스로 idToken 획득 후 서버 로그인 (카카오와 동일 흐름)
+    public func loginWithApple(
         onLoggedIn: @escaping () -> Void,
         onNeedSignup: @escaping (_ signupToken: String, _ suggestedNickname: String?) -> Void
     ) {
         guard !isLoading else { return }
+        isLoading = true
 
-        switch result {
-        case .success(let authorization):
-            guard
-                let credential = authorization.credential as? ASAuthorizationAppleIDCredential,
-                let tokenData = credential.identityToken,
-                let idToken = String(data: tokenData, encoding: .utf8)
-            else {
-                handle(LoginError.missingIDToken)
-                return
+        Task {
+            do {
+                let idToken = try await appleAuthService.fetchIDToken()
+                try await authenticate(
+                    provider: .apple,
+                    idToken: idToken,
+                    onLoggedIn: onLoggedIn,
+                    onNeedSignup: onNeedSignup
+                )
+            } catch {
+                isLoading = false
+                handle(error)
             }
-            isLoading = true
-            Task {
-                do {
-                    try await authenticate(
-                        provider: .apple,
-                        idToken: idToken,
-                        onLoggedIn: onLoggedIn,
-                        onNeedSignup: onNeedSignup
-                    )
-                } catch {
-                    isLoading = false
-                    handle(error)
-                }
-            }
-        case .failure(let error):
-            if (error as? ASAuthorizationError)?.code == .canceled { return }
-            handle(LoginError.networkError(error))
         }
     }
 
