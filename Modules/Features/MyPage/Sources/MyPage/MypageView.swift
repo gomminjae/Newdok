@@ -16,12 +16,31 @@ public struct MypageView: View {
     
     @State private var isCopy: Bool = false
     
-    @Environment(AppRouter.self) private var router
-    
     @State private var viewModel: MypageViewModel
 
-    public init(viewModel: MypageViewModel) {
+    private let onEditProfile: () -> Void
+    private let onAccountManage: () -> Void
+    private let onEditAlert: () -> Void
+    private let onFAQ: () -> Void
+    private let onFeedback: () -> Void
+    private let onTermsMenu: () -> Void
+
+    public init(
+        viewModel: MypageViewModel,
+        onEditProfile: @escaping () -> Void,
+        onAccountManage: @escaping () -> Void,
+        onEditAlert: @escaping () -> Void,
+        onFAQ: @escaping () -> Void,
+        onFeedback: @escaping () -> Void,
+        onTermsMenu: @escaping () -> Void
+    ) {
         self.viewModel = viewModel
+        self.onEditProfile = onEditProfile
+        self.onAccountManage = onAccountManage
+        self.onEditAlert = onEditAlert
+        self.onFAQ = onFAQ
+        self.onFeedback = onFeedback
+        self.onTermsMenu = onTermsMenu
     }
 
     public var body: some View {
@@ -31,7 +50,7 @@ public struct MypageView: View {
                     nickname: viewModel.displayNickname,
                     subscribeEmail: viewModel.displaySubscribeEmail,
                     onEditProfile: {
-                        router.push(.editProfile)
+                        onEditProfile()
                     },
                     onCopyEmail: {
                         viewModel.copySubscribeEmail()
@@ -51,17 +70,17 @@ public struct MypageView: View {
                 // MARK: - 서비스 섹션
                 VStack(spacing: 0) {
                     sectionHeader(title: "서비스")
-                    MypageMenuRow(title: "계정 관리") { router.push(.accountManage) }
-                    MypageMenuRow(title: "알림 설정") { router.push(.editAlert) }
+                    MypageMenuRow(title: "계정 관리") { onAccountManage() }
+                    MypageMenuRow(title: "알림 설정") { onEditAlert() }
                 }
                 .padding(.horizontal, 20)
 
                 // MARK: - 고객센터 섹션
                 VStack(spacing: 0) {
                     sectionHeader(title: "고객센터")
-                    MypageMenuRow(title: "FAQ") { router.push(.faq) }
-                    MypageMenuRow(title: "서비스 피드백") { router.push(.feedback) }
-                    MypageMenuRow(title: "약관 및 정책") { router.push(.termsMenu) }
+                    MypageMenuRow(title: "FAQ") { onFAQ() }
+                    MypageMenuRow(title: "서비스 피드백") { onFeedback() }
+                    MypageMenuRow(title: "약관 및 정책") { onTermsMenu() }
                     HStack {
                         Text("버전")
                             .font(.hanSansNeo(16, .medium))

@@ -12,10 +12,11 @@ import AuthDomain
 
 public struct CurationView: View {
     @Bindable private var viewModel: SignupViewModel
-    @Environment(AppRouter.self) private var router
-    
-    public init(viewModel: SignupViewModel) {
+    private let onAuthenticated: () -> Void
+
+    public init(viewModel: SignupViewModel, onAuthenticated: @escaping () -> Void) {
         self.viewModel = viewModel
+        self.onAuthenticated = onAuthenticated
     }
     
     public var body: some View {
@@ -56,7 +57,7 @@ private extension CurationView {
 
             Button {
                 viewModel.reset()
-                router.resetTo(.tabbar(selectedTab: .home))
+                onAuthenticated()
             } label: {
                 Text("메인으로")
                     .font(.hanSansNeo(14, .bold))

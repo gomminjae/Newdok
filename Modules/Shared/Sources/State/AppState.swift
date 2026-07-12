@@ -8,7 +8,7 @@
 import Foundation
 import Observation
 
-public enum AuthState {
+public enum AuthState: Equatable {
     case guest
     case authenticated
 }

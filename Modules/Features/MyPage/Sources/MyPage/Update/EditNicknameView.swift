@@ -21,12 +21,12 @@ public struct EditNicknameView: View {
     @FocusState private var isFocused: Bool
 
     @Environment(MypageViewModel.self) private var viewModel
-    @Environment(ToastCenter.self) private var toast
-    @Environment(AppRouter.self) private var router
+    private let onBack: () -> Void
 
-    public init(initialNickname: String) {
+    public init(initialNickname: String, onBack: @escaping () -> Void) {
         self.initialNickname = initialNickname
         self._draftNickname = State(initialValue: initialNickname)
+        self.onBack = onBack
     }
     
     public var body: some View {
@@ -71,7 +71,7 @@ public struct EditNicknameView: View {
                     let didUpdate = await viewModel.updateNickname(nickname: draftNickname)
                     guard didUpdate else { return }
                     await viewModel.fetchuserInfo()
-                    router.pop()
+                    onBack()
                     try await Task.sleep(nanoseconds: 150_000_000)
                     ToastCenter.shared.show("닉네임이 변경되었습니다.")
                 }
@@ -93,7 +93,7 @@ public struct EditNicknameView: View {
         .toolbar {
             ToolbarItem(placement: .navigationBarLeading) {
                 Button {
-                    router.pop()
+                    onBack()
                 } label: {
                     Image(asset: DesignSystemAsset.back)
                         .resizable()

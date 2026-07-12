@@ -21,10 +21,11 @@ public struct EditIndustryView: View {
     @State private var isExpanded: Bool = false
 
     @Environment(MypageViewModel.self) private var viewModel
-    @Environment(ToastCenter.self) private var toast
-    @Environment(AppRouter.self) private var router
+    private let onBack: () -> Void
 
-    public init() {}
+    public init(onBack: @escaping () -> Void) {
+        self.onBack = onBack
+    }
 
     public var body: some View {
         VStack(alignment: .leading, spacing: 12) {
@@ -97,7 +98,7 @@ public struct EditIndustryView: View {
                     let didUpdate = await viewModel.updateIndustry(id: selectedId)
                     guard didUpdate else { return }
                     await viewModel.fetchuserInfo()
-                    router.pop()
+                    onBack()
                     try await Task.sleep(nanoseconds: 150_000_000)
                     ToastCenter.shared.show("종사산업이 변경되었습니다.")
                 }
@@ -136,7 +137,7 @@ public struct EditIndustryView: View {
         .navigationBarBackButtonHidden(true)
         .toolbar {
             ToolbarItem(placement: .navigationBarLeading) {
-                Button { router.pop() } label: {
+                Button { onBack() } label: {
                     Image(asset: DesignSystemAsset.back)
                         .resizable()
                         .renderingMode(.template)

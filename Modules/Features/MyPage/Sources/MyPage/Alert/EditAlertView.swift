@@ -15,9 +15,11 @@ public struct EditAlertView: View {
     @State private var isUpdateAlert: Bool = false
     @State private var isRecommendAlert: Bool = false
 
-    @Environment(AppRouter.self) private var router
+    private let onBack: () -> Void
 
-    public init() {}
+    public init(onBack: @escaping () -> Void) {
+        self.onBack = onBack
+    }
 
     public var body: some View {
         ScrollView {
@@ -104,7 +106,7 @@ public struct EditAlertView: View {
         .navigationBarBackButtonHidden(true)
         .toolbar {
             ToolbarItem(placement: .navigationBarLeading) {
-                Button { router.pop() } label: {
+                Button { onBack() } label: {
                     Image(asset: DesignSystemAsset.back)
                         .font(.system(size: 17, weight: .semibold))
                         .foregroundColor(.black)

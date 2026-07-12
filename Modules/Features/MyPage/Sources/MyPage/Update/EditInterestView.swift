@@ -12,8 +12,7 @@ import Shared
 
 public struct EditInterestView: View {
     @Environment(MypageViewModel.self) private var viewModel
-    @Environment(ToastCenter.self) private var toast
-    @Environment(AppRouter.self) private var router
+    private let onBack: () -> Void
 
     @State private var selectedIds: Set<Int> = []
 
@@ -23,7 +22,9 @@ public struct EditInterestView: View {
         GridItem(.flexible(), spacing: 12)
     ]
 
-    public init() {}
+    public init(onBack: @escaping () -> Void) {
+        self.onBack = onBack
+    }
 
     public var body: some View {
         VStack(spacing: 0) {
@@ -73,7 +74,7 @@ public struct EditInterestView: View {
                     let didUpdate = await viewModel.updateInterests(ids: Array(selectedIds))
                     guard didUpdate else { return }
                     await viewModel.fetchuserInfo()
-                    router.pop()
+                    onBack()
                     try await Task.sleep(nanoseconds: 150_000_000)
                     ToastCenter.shared.show("관심사가 변경되었습니다.")
                 }
@@ -115,7 +116,7 @@ public struct EditInterestView: View {
         .navigationBarBackButtonHidden(true)
         .toolbar {
             ToolbarItem(placement: .navigationBarLeading) {
-                Button { router.pop() } label: {
+                Button { onBack() } label: {
                     Image(asset: DesignSystemAsset.back)
                         .resizable()
                         .renderingMode(.template)

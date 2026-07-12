@@ -9,7 +9,18 @@ public struct SearchBuilder: SearchBuildable {
         self.container = SearchDIContainer(networkProvider: networkProvider)
     }
 
-    public func makeSearchView() -> AnyView {
-        AnyView(SearchView(viewModel: container.makeSearchViewModel()))
+    public func makeSearchView(
+        onBack: @escaping () -> Void,
+        onBrandTap: @escaping (String) -> Void,
+        onFeedback: @escaping () -> Void
+    ) -> AnyView {
+        AnyView(
+            SearchView(
+                viewModel: container.makeSearchViewModel(),
+                onBack: onBack,
+                onBrandTap: onBrandTap,
+                onFeedback: onFeedback
+            )
+        )
     }
 }

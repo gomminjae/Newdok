@@ -19,11 +19,26 @@ public struct LoginView: View {
     @State private var showToast: Bool = false
     @State private var toastMessage: String = ""
     
-    @Environment(AppRouter.self) private var router
-    @Environment(TabSelection.self) private var tabSelection
+    private let canGoBack: Bool
+    private let onBack: () -> Void
+    private let onRecovery: () -> Void
+    private let onSignup: () -> Void
+    private let onAuthenticated: () -> Void
 
-    public init(viewModel: LoginViewModel) {
+    public init(
+        viewModel: LoginViewModel,
+        canGoBack: Bool,
+        onBack: @escaping () -> Void,
+        onRecovery: @escaping () -> Void,
+        onSignup: @escaping () -> Void,
+        onAuthenticated: @escaping () -> Void
+    ) {
         self.viewModel = viewModel
+        self.canGoBack = canGoBack
+        self.onBack = onBack
+        self.onRecovery = onRecovery
+        self.onSignup = onSignup
+        self.onAuthenticated = onAuthenticated
     }
 
     public var body: some View {
@@ -78,7 +93,7 @@ public struct LoginView: View {
                 HStack {
                     Spacer()
                     Button("아이디/비밀번호 찾기") {
-                        router.push(.recovery)
+                        onRecovery()
                     }
                     .font(.hanSansNeo(14, .medium))
                     .foregroundStyle(Color.captionNeutral)
@@ -89,7 +104,7 @@ public struct LoginView: View {
 
                 Button {
                     viewModel.login {
-                        router.resetTo(.tabbar(selectedTab: .home))
+                        onAuthenticated()
                     }
                 } label: {
                     Text("로그인")
@@ -107,7 +122,7 @@ public struct LoginView: View {
                 HStack {
                     Button("비회원으로 이용하기") {
                         viewModel.loginAsGuest()
-                        router.resetTo(.tabbar(selectedTab: .home))
+                        onAuthenticated()
                     }
                     .font(.hanSansNeo(14, .medium))
                     .foregroundStyle(Color.captionNeutral)
@@ -117,7 +132,7 @@ public struct LoginView: View {
                         .foregroundStyle(Color.lineAlternative)
 
                     Button("회원가입") {
-                        router.push(.signup)
+                        onSignup()
                     }
                     .font(.hanSansNeo(14, .medium))
                     .foregroundStyle(Color.primaryNormal)
@@ -152,9 +167,9 @@ public struct LoginView: View {
         }
         .toolbar {
             ToolbarItem(placement: .navigationBarLeading) {
-                if !router.path.isEmpty {
+                if canGoBack {
                     BackButton(action: {
-                        router.pop()
+                        onBack()
                     })
                 }
             }
@@ -167,7 +182,7 @@ public struct LoginView: View {
         }
         .serverErrorPopup(
             error: $viewModel.currentError,
-            onGoBack: { router.pop() },
+            onGoBack: { onBack() },
             onRetry: {}
         )
     }

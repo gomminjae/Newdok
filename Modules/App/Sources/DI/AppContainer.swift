@@ -23,7 +23,6 @@ import Launch
 
 @MainActor
 final class AppContainer {
-    let router: AppRouter
     private let deps: AppDependencies
 
     private lazy var authBuilder: AuthBuildable = AuthBuilder(
@@ -68,8 +67,7 @@ final class AppContainer {
         appState: deps.appState
     )
 
-    init(router: AppRouter, deps: AppDependencies) {
-        self.router = router
+    init(deps: AppDependencies) {
         self.deps = deps
     }
 
@@ -81,107 +79,237 @@ final class AppContainer {
         try await exploreBuilder.loadOptions()
     }
 
-    func makeOnboardingView() -> some View {
-        authBuilder.makeOnboardingView()
-    }
-
-    func makeLoginView() -> some View {
-        authBuilder.makeLoginView()
-    }
-
-    func makeSignupView() -> some View {
-        authBuilder.makeSignupView()
-    }
-
-    func makeHomeView() -> some View {
-        homeBuilder.makeHomeView()
-    }
-
-    func makeExploreView() -> some View {
-        exploreBuilder.makeExploreView()
-    }
-
-    func makeSubscribeView() -> some View {
-        subscribeBuilder.makeSubscribeView()
-    }
-
-    func makeBookmarkView() -> some View {
-        bookmarkBuilder.makeBookmarkView()
-    }
-
-    func makeBrandDetailView(id: String) -> some View {
-        detailBuilder.makeBrandDetailView(id: id)
-    }
-
-    func makeArticleDetailView(id: String, isPastArticle: Bool) -> some View {
-        detailBuilder.makeArticleDetailView(id: id, isPastArticle: isPastArticle)
-    }
-
-    func makeSearchView() -> some View {
-        searchBuilder.makeSearchView()
-    }
-
     func makeSplashView() -> some View {
         SplashView()
     }
 
-    func makeMypageView() -> some View {
-        mypageBuilder.makeMypageView()
+    func makeOnboardingView(
+        onSignup: @escaping () -> Void,
+        onLogin: @escaping () -> Void
+    ) -> some View {
+        authBuilder.makeOnboardingView(onSignup: onSignup, onLogin: onLogin)
     }
 
-    func makeEditProfileView() -> some View {
-        mypageBuilder.makeEditProfileView()
+    func makeLoginView(
+        canGoBack: Bool,
+        onBack: @escaping () -> Void,
+        onRecovery: @escaping () -> Void,
+        onSignup: @escaping () -> Void,
+        onAuthenticated: @escaping () -> Void
+    ) -> some View {
+        authBuilder.makeLoginView(
+            canGoBack: canGoBack,
+            onBack: onBack,
+            onRecovery: onRecovery,
+            onSignup: onSignup,
+            onAuthenticated: onAuthenticated
+        )
     }
 
-    func makeEditNicknameView() -> some View {
-        mypageBuilder.makeEditNicknameView()
+    func makeSignupView(
+        onBack: @escaping () -> Void,
+        onLogin: @escaping () -> Void,
+        onRecovery: @escaping () -> Void,
+        onAuthenticated: @escaping () -> Void
+    ) -> some View {
+        authBuilder.makeSignupView(
+            onBack: onBack,
+            onLogin: onLogin,
+            onRecovery: onRecovery,
+            onAuthenticated: onAuthenticated
+        )
     }
 
-    func makeEditIndustryView() -> some View {
-        mypageBuilder.makeEditIndustryView()
+    func makeHomeView(
+        onArticleTap: @escaping (String) -> Void,
+        onSearch: @escaping () -> Void,
+        onSignup: @escaping () -> Void,
+        onLogin: @escaping () -> Void,
+        onGoToExplore: @escaping (Int?, Int) -> Void
+    ) -> some View {
+        homeBuilder.makeHomeView(
+            onArticleTap: onArticleTap,
+            onSearch: onSearch,
+            onSignup: onSignup,
+            onLogin: onLogin,
+            onGoToExplore: onGoToExplore
+        )
     }
 
-    func makeEditInterestView() -> some View {
-        mypageBuilder.makeEditInterestView()
+    func makeExploreView(
+        exploreTrigger: UUID,
+        onConsumePending: @escaping () -> (day: Int?, tab: Int)?,
+        onSearch: @escaping () -> Void,
+        onSignup: @escaping () -> Void,
+        onLogin: @escaping () -> Void,
+        onEditProfile: @escaping () -> Void,
+        onBrandTap: @escaping (String) -> Void
+    ) -> some View {
+        exploreBuilder.makeExploreView(
+            exploreTrigger: exploreTrigger,
+            onConsumePending: onConsumePending,
+            onSearch: onSearch,
+            onSignup: onSignup,
+            onLogin: onLogin,
+            onEditProfile: onEditProfile,
+            onBrandTap: onBrandTap
+        )
     }
 
-    func makeRecoveryView() -> some View {
-        mypageBuilder.makeRecoveryView()
+    func makeSubscribeView(
+        onSearch: @escaping () -> Void,
+        onLogin: @escaping () -> Void,
+        onBrandTap: @escaping (String) -> Void
+    ) -> some View {
+        subscribeBuilder.makeSubscribeView(onSearch: onSearch, onLogin: onLogin, onBrandTap: onBrandTap)
     }
 
-    func makeAccountManageView() -> some View {
-        mypageBuilder.makeAccountManageView()
+    func makeBookmarkView(
+        onSearch: @escaping () -> Void,
+        onLogin: @escaping () -> Void,
+        onArticleTap: @escaping (String) -> Void
+    ) -> some View {
+        bookmarkBuilder.makeBookmarkView(onSearch: onSearch, onLogin: onLogin, onArticleTap: onArticleTap)
     }
 
-    func makeChangePasswordView() -> some View {
-        mypageBuilder.makeChangePasswordView()
+    func makeBrandDetailView(
+        id: String,
+        onBack: @escaping () -> Void,
+        onSignup: @escaping () -> Void,
+        onGoHome: @escaping () -> Void,
+        onArticleTap: @escaping (String) -> Void
+    ) -> some View {
+        detailBuilder.makeBrandDetailView(
+            id: id,
+            onBack: onBack,
+            onSignup: onSignup,
+            onGoHome: onGoHome,
+            onArticleTap: onArticleTap
+        )
     }
 
-    func makeChangePhoneNumberView() -> some View {
-        mypageBuilder.makeChangePhoneNumberView()
+    func makeArticleDetailView(
+        id: String,
+        isPast: Bool,
+        onBack: @escaping () -> Void
+    ) -> some View {
+        detailBuilder.makeArticleDetailView(id: id, isPast: isPast, onBack: onBack)
     }
 
-    func makeWithdrawView() -> some View {
-        mypageBuilder.makeWithdrawView()
+    func makeSearchView(
+        onBack: @escaping () -> Void,
+        onBrandTap: @escaping (String) -> Void,
+        onFeedback: @escaping () -> Void
+    ) -> some View {
+        searchBuilder.makeSearchView(onBack: onBack, onBrandTap: onBrandTap, onFeedback: onFeedback)
     }
 
-    func makeFAQView() -> some View {
-        mypageBuilder.makeFAQView()
+    func makeMypageView(
+        onEditProfile: @escaping () -> Void,
+        onAccountManage: @escaping () -> Void,
+        onEditAlert: @escaping () -> Void,
+        onFAQ: @escaping () -> Void,
+        onFeedback: @escaping () -> Void,
+        onTermsMenu: @escaping () -> Void
+    ) -> some View {
+        mypageBuilder.makeMypageView(
+            onEditProfile: onEditProfile,
+            onAccountManage: onAccountManage,
+            onEditAlert: onEditAlert,
+            onFAQ: onFAQ,
+            onFeedback: onFeedback,
+            onTermsMenu: onTermsMenu
+        )
     }
 
-    func makeFeedbackView() -> some View {
-        mypageBuilder.makeFeedbackView()
+    func makeEditProfileView(
+        onBack: @escaping () -> Void,
+        onEditNickname: @escaping () -> Void,
+        onEditIndustry: @escaping () -> Void,
+        onEditInterest: @escaping () -> Void
+    ) -> some View {
+        mypageBuilder.makeEditProfileView(
+            onBack: onBack,
+            onEditNickname: onEditNickname,
+            onEditIndustry: onEditIndustry,
+            onEditInterest: onEditInterest
+        )
     }
 
-    func makeTermsMenuView() -> some View {
-        mypageBuilder.makeTermsMenuView()
+    func makeEditNicknameView(onBack: @escaping () -> Void) -> some View {
+        mypageBuilder.makeEditNicknameView(onBack: onBack)
     }
 
-    func makeEditAlertView() -> some View {
-        mypageBuilder.makeEditAlertView()
+    func makeEditIndustryView(onBack: @escaping () -> Void) -> some View {
+        mypageBuilder.makeEditIndustryView(onBack: onBack)
     }
 
-    func makeTabView(selectedTab: NewDokTab? = nil) -> some View {
-        NewDokTabView(container: self, selectedTab: selectedTab).environment(router)
+    func makeEditInterestView(onBack: @escaping () -> Void) -> some View {
+        mypageBuilder.makeEditInterestView(onBack: onBack)
+    }
+
+    func makeAccountManageView(
+        onBack: @escaping () -> Void,
+        onUpdatePhone: @escaping () -> Void,
+        onUpdatePassword: @escaping () -> Void,
+        onWithdraw: @escaping () -> Void,
+        onLoggedOut: @escaping () -> Void
+    ) -> some View {
+        mypageBuilder.makeAccountManageView(
+            onBack: onBack,
+            onUpdatePhone: onUpdatePhone,
+            onUpdatePassword: onUpdatePassword,
+            onWithdraw: onWithdraw,
+            onLoggedOut: onLoggedOut
+        )
+    }
+
+    func makeChangePasswordView(onBack: @escaping () -> Void) -> some View {
+        mypageBuilder.makeChangePasswordView(onBack: onBack)
+    }
+
+    func makeChangePhoneNumberView(onBack: @escaping () -> Void) -> some View {
+        mypageBuilder.makeChangePhoneNumberView(onBack: onBack)
+    }
+
+    func makeWithdrawView(
+        onBack: @escaping () -> Void,
+        onWithdrawn: @escaping () -> Void
+    ) -> some View {
+        mypageBuilder.makeWithdrawView(onBack: onBack, onWithdrawn: onWithdrawn)
+    }
+
+    func makeFAQView(onBack: @escaping () -> Void) -> some View {
+        mypageBuilder.makeFAQView(onBack: onBack)
+    }
+
+    func makeFeedbackView(onBack: @escaping () -> Void) -> some View {
+        mypageBuilder.makeFeedbackView(onBack: onBack)
+    }
+
+    func makeTermsMenuView(onBack: @escaping () -> Void) -> some View {
+        mypageBuilder.makeTermsMenuView(onBack: onBack)
+    }
+
+    func makeEditAlertView(onBack: @escaping () -> Void) -> some View {
+        mypageBuilder.makeEditAlertView(onBack: onBack)
+    }
+
+    func makeVersionView(onBack: @escaping () -> Void) -> some View {
+        mypageBuilder.makeVersionView(onBack: onBack)
+    }
+
+    func makeRecoveryView(
+        onBack: @escaping () -> Void,
+        onSignup: @escaping () -> Void,
+        onLogin: @escaping () -> Void,
+        onServiceFeedback: @escaping () -> Void
+    ) -> some View {
+        mypageBuilder.makeRecoveryView(
+            onBack: onBack,
+            onSignup: onSignup,
+            onLogin: onLogin,
+            onServiceFeedback: onServiceFeedback
+        )
     }
 }

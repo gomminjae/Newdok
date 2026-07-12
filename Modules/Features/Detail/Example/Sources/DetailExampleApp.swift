@@ -7,9 +7,6 @@ import DetailTesting
 
 @main
 struct DetailExampleApp: App {
-    @State private var router = AppRouter()
-    @State private var tabSelection = TabSelection()
-
     init() {
         AppState.shared.login()
     }
@@ -19,8 +16,6 @@ struct DetailExampleApp: App {
             NavigationStack {
                 DetailExampleMenuView()
             }
-            .environment(router)
-            .environment(tabSelection)
             .environment(AppState.shared)
             .environment(ToastCenter.shared)
         }
@@ -32,10 +27,22 @@ private struct DetailExampleMenuView: View {
         List {
             Section("Brand Detail") {
                 NavigationLink("Daily Bytes (구독 중)") {
-                    BrandDetailView(viewModel: makeBrandDetailViewModel(brand: .dailyBytes))
+                    BrandDetailView(
+                        viewModel: makeBrandDetailViewModel(brand: .dailyBytes),
+                        onBack: {},
+                        onSignup: {},
+                        onGoHome: {},
+                        onArticleTap: { _ in }
+                    )
                 }
                 NavigationLink("Weekly Design (미구독)") {
-                    BrandDetailView(viewModel: makeBrandDetailViewModel(brand: .weeklyDesign))
+                    BrandDetailView(
+                        viewModel: makeBrandDetailViewModel(brand: .weeklyDesign),
+                        onBack: {},
+                        onSignup: {},
+                        onGoHome: {},
+                        onArticleTap: { _ in }
+                    )
                 }
             }
 
@@ -43,13 +50,15 @@ private struct DetailExampleMenuView: View {
                 NavigationLink("기본 아티클") {
                     ArticleDetailView(
                         viewModel: makeArticleDetailViewModel(article: .sample),
-                        isPastArticle: false
+                        isPastArticle: false,
+                        onBack: {}
                     )
                 }
                 NavigationLink("북마크된 아티클 (지난 호)") {
                     ArticleDetailView(
                         viewModel: makeArticleDetailViewModel(article: .bookmarked),
-                        isPastArticle: true
+                        isPastArticle: true,
+                        onBack: {}
                     )
                 }
             }

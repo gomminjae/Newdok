@@ -9,13 +9,26 @@ public struct EditProfileView: View {
     @State private var userInfo: UserInfo?
     @State private var showEditInterest = false
 
-    @Environment(AppRouter.self) private var router
+    private let onBack: () -> Void
+    private let onEditNickname: () -> Void
+    private let onEditIndustry: () -> Void
+    private let onEditInterest: () -> Void
 
     @FocusState private var isTextFieldFocused: Bool
 
     @Environment(MypageViewModel.self) private var viewModel
 
-    public init() {}
+    public init(
+        onBack: @escaping () -> Void,
+        onEditNickname: @escaping () -> Void,
+        onEditIndustry: @escaping () -> Void,
+        onEditInterest: @escaping () -> Void
+    ) {
+        self.onBack = onBack
+        self.onEditNickname = onEditNickname
+        self.onEditIndustry = onEditIndustry
+        self.onEditInterest = onEditInterest
+    }
 
     public var body: some View {
         VStack(alignment: .leading, spacing: 0) {
@@ -30,7 +43,7 @@ public struct EditProfileView: View {
                 title: "닉네임",
                 text: viewModel.user?.nickname ?? userInfo?.nickname ?? "",
                 onEdit: {
-                    router.push(.editNickname)
+                    onEditNickname()
                 }
             )
 
@@ -41,7 +54,7 @@ public struct EditProfileView: View {
                 text: industryName,
                 placeholder: "산업군을 선택해주세요.",
                 onEdit: {
-                    router.push(.editIndustry)
+                    onEditIndustry()
                 }
             )
             .padding(.top, 24)
@@ -71,7 +84,7 @@ public struct EditProfileView: View {
         .navigationBarBackButtonHidden(true)
         .toolbar {
             ToolbarItem(placement: .navigationBarLeading) {
-                Button { router.pop() } label: {
+                Button { onBack() } label: {
                     Image(asset: DesignSystemAsset.back)
                         .resizable()
                         .renderingMode(.template)
@@ -144,7 +157,7 @@ public struct EditProfileView: View {
                     }
 
                     Button {
-                        router.push(.editInterest)
+                        onEditInterest()
                     } label: {
                         Image(asset: DesignSystemAsset.linePlus)
                             .renderingMode(.template)
@@ -164,7 +177,7 @@ public struct EditProfileView: View {
             }
         } else {
             Button {
-                router.push(.editInterest)
+                onEditInterest()
             } label: {
                 EditableRow(
                     title: "관심사",

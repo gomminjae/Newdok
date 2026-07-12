@@ -2,18 +2,52 @@ import SwiftUI
 
 @MainActor
 public protocol MypageBuildable {
-    func makeMypageView() -> AnyView
-    func makeEditProfileView() -> AnyView
-    func makeEditNicknameView() -> AnyView
-    func makeEditIndustryView() -> AnyView
-    func makeEditInterestView() -> AnyView
-    func makeRecoveryView() -> AnyView
-    func makeAccountManageView() -> AnyView
-    func makeChangePasswordView() -> AnyView
-    func makeChangePhoneNumberView() -> AnyView
-    func makeWithdrawView() -> AnyView
-    func makeFAQView() -> AnyView
-    func makeFeedbackView() -> AnyView
-    func makeTermsMenuView() -> AnyView
-    func makeEditAlertView() -> AnyView
+    func makeMypageView(
+        onEditProfile: @escaping () -> Void,
+        onAccountManage: @escaping () -> Void,
+        onEditAlert: @escaping () -> Void,
+        onFAQ: @escaping () -> Void,
+        onFeedback: @escaping () -> Void,
+        onTermsMenu: @escaping () -> Void
+    ) -> AnyView
+
+    func makeEditProfileView(
+        onBack: @escaping () -> Void,
+        onEditNickname: @escaping () -> Void,
+        onEditIndustry: @escaping () -> Void,
+        onEditInterest: @escaping () -> Void
+    ) -> AnyView
+
+    func makeEditNicknameView(onBack: @escaping () -> Void) -> AnyView
+    func makeEditIndustryView(onBack: @escaping () -> Void) -> AnyView
+    func makeEditInterestView(onBack: @escaping () -> Void) -> AnyView
+
+    func makeRecoveryView(
+        onBack: @escaping () -> Void,
+        onSignup: @escaping () -> Void,
+        onLogin: @escaping () -> Void,
+        onServiceFeedback: @escaping () -> Void
+    ) -> AnyView
+
+    func makeAccountManageView(
+        onBack: @escaping () -> Void,
+        onUpdatePhone: @escaping () -> Void,
+        onUpdatePassword: @escaping () -> Void,
+        onWithdraw: @escaping () -> Void,
+        onLoggedOut: @escaping () -> Void
+    ) -> AnyView
+
+    func makeChangePasswordView(onBack: @escaping () -> Void) -> AnyView
+    func makeChangePhoneNumberView(onBack: @escaping () -> Void) -> AnyView
+
+    func makeWithdrawView(
+        onBack: @escaping () -> Void,
+        onWithdrawn: @escaping () -> Void
+    ) -> AnyView
+
+    func makeFAQView(onBack: @escaping () -> Void) -> AnyView
+    func makeFeedbackView(onBack: @escaping () -> Void) -> AnyView
+    func makeTermsMenuView(onBack: @escaping () -> Void) -> AnyView
+    func makeEditAlertView(onBack: @escaping () -> Void) -> AnyView
+    func makeVersionView(onBack: @escaping () -> Void) -> AnyView
 }

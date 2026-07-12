@@ -127,9 +127,11 @@ let sampleFAQs: [FAQItem] = [
 public struct FAQView: View {
     @State private var expandedFAQID: UUID?
     
-    @Environment(AppRouter.self) private var router
+    private let onBack: () -> Void
     
-    public init() {}
+    public init(onBack: @escaping () -> Void) {
+        self.onBack = onBack
+    }
 
     public var body: some View {
         ScrollViewReader { proxy in
@@ -171,7 +173,7 @@ public struct FAQView: View {
         .toolbar {
             ToolbarItem(placement: .navigationBarLeading) {
                 Button {
-                    router.pop()
+                    onBack()
                 } label: {
                     Image(asset: DesignSystemAsset.back)
                         .font(.system(size: 17, weight: .semibold))

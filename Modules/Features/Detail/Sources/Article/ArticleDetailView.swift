@@ -6,7 +6,6 @@ import FoundationKit
 
 public struct ArticleDetailView: View {
     @State private var viewModel: ArticleDetailViewModel
-    @Environment(AppRouter.self) private var router
 
     @State private var showBookmarkToast: Bool = false
     @State private var bookmarkToastMessage: String = ""
@@ -19,10 +18,12 @@ public struct ArticleDetailView: View {
     @State private var renderer = WebViewHighlightRenderer()
 
     private let isPastArticle: Bool
+    private let onBack: () -> Void
 
-    public init(viewModel: ArticleDetailViewModel, isPastArticle: Bool = false) {
+    public init(viewModel: ArticleDetailViewModel, isPastArticle: Bool = false, onBack: @escaping () -> Void) {
         self.viewModel = viewModel
         self.isPastArticle = isPastArticle
+        self.onBack = onBack
     }
 
     public var body: some View {
@@ -90,7 +91,7 @@ public struct ArticleDetailView: View {
         }
         .serverErrorPopup(
             error: $viewModel.currentError,
-            onGoBack: { router.pop() },
+            onGoBack: { onBack() },
             onRetry: { Task { await viewModel.fetch() } }
         )
     }
@@ -99,7 +100,7 @@ public struct ArticleDetailView: View {
 
     private var navigationBar: some View {
         HStack(spacing: 0) {
-            Button { router.pop() } label: {
+            Button { onBack() } label: {
                 Image(asset: DesignSystemAsset.back)
                     .foregroundColor(Color.captionHeavy)
                     .frame(width: 28, height: 28)

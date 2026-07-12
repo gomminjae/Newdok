@@ -10,8 +10,7 @@ import FirebaseCrashlytics
 @main
 struct NewdokApp: App {
     @State private var showUpdatePopup = false
-    @State private var router = AppRouter()
-    @State private var tabSelection = TabSelection()
+    @State private var coordinator = AppCoordinator()
     private let container: AppContainer
 
     init() {
@@ -24,24 +23,17 @@ struct NewdokApp: App {
         AppErrorMapperRegistry.register(NetworkErrorAppMapper())
         TokenStore.shared.migrateTokenIfNeeded()
 
-        let router = AppRouter()
-        self._router = State(initialValue: router)
-        self.container = AppContainer(router: router, deps: AppDependencies())
+        self.container = AppContainer(deps: AppDependencies())
     }
 
     var body: some Scene {
         WindowGroup {
             OverlayRootView {
-                AppRootView(router: router, container: container)
+                AppRootView(container: container, coordinator: coordinator)
             }
             .hideKeyboardOnTap()
-            .environment(router)
-            .environment(tabSelection)
-            .environment(AppState.shared)
-            .environment(ToastCenter.shared)
             .overlay(
                 AppToastHost()
-                    .environment(ToastCenter.shared)
                     .allowsHitTesting(false)
             )
             .task {

@@ -14,30 +14,44 @@ import Shared
 public struct AccountManagementView: View {
     @Environment(\.dismiss) private var dismiss
     @State private var showLogoutPopup = false
-    @Environment(AppRouter.self) private var router
 
     private let tokenStorage: TokenStorageProtocol
     private let userInfoStore: UserInfoStoreProtocol
     private let appState: AppState
     private let onLogoutCleanup: () -> Void
+    private let onBack: () -> Void
+    private let onUpdatePhone: () -> Void
+    private let onUpdatePassword: () -> Void
+    private let onWithdraw: () -> Void
+    private let onLoggedOut: () -> Void
 
     public init(
         tokenStorage: TokenStorageProtocol,
         userInfoStore: UserInfoStoreProtocol,
         appState: AppState,
-        onLogoutCleanup: @escaping () -> Void = {}
+        onLogoutCleanup: @escaping () -> Void = {},
+        onBack: @escaping () -> Void,
+        onUpdatePhone: @escaping () -> Void,
+        onUpdatePassword: @escaping () -> Void,
+        onWithdraw: @escaping () -> Void,
+        onLoggedOut: @escaping () -> Void
     ) {
         self.tokenStorage = tokenStorage
         self.userInfoStore = userInfoStore
         self.appState = appState
         self.onLogoutCleanup = onLogoutCleanup
+        self.onBack = onBack
+        self.onUpdatePhone = onUpdatePhone
+        self.onUpdatePassword = onUpdatePassword
+        self.onWithdraw = onWithdraw
+        self.onLoggedOut = onLoggedOut
     }
 
     public var body: some View {
         VStack(alignment: .leading, spacing: 0) {
             // 휴대폰 번호 변경
             Button {
-                router.push(.updatePhoneNumber)
+                onUpdatePhone()
             } label: {
                 rowLabel(title: "휴대폰 번호 변경")
             }
@@ -46,7 +60,7 @@ public struct AccountManagementView: View {
 
             // 비밀번호 변경
             Button {
-                router.push(.updatePassword)
+                onUpdatePassword()
             } label: {
                 rowLabel(title: "비밀번호 변경")
             }
@@ -64,7 +78,7 @@ public struct AccountManagementView: View {
 
             // 회원탈퇴
             Button(action: {
-                router.push(.withdraw)
+                onWithdraw()
             }) {
                 Text("회원탈퇴")
                     .font(.hanSansNeo(13, .regular))
@@ -84,7 +98,7 @@ public struct AccountManagementView: View {
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
             ToolbarItem(placement: .navigationBarLeading) {
-                Button(action: { router.pop() }) {
+                Button(action: { onBack() }) {
                     Image(asset: DesignSystemAsset.back)
                         .resizable()
                         .renderingMode(.template)
@@ -107,7 +121,7 @@ public struct AccountManagementView: View {
                     userInfoStore.clear()
                     onLogoutCleanup()
                     appState.logout()
-                    router.resetTo(.login)
+                    onLoggedOut()
                 }
             )
         } customize: {

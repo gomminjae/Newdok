@@ -7,14 +7,16 @@ import SubscribeTesting
 
 @main
 struct SubscribeExampleApp: App {
-    @State private var router = AppRouter()
-
     var body: some Scene {
         WindowGroup {
             NavigationStack {
-                SubscribeView(viewModel: makeViewModel())
+                SubscribeView(
+                    viewModel: makeViewModel(),
+                    onSearch: {},
+                    onLogin: {},
+                    onBrandTap: { _ in }
+                )
             }
-            .environment(router)
             .environment(AppState.shared)
             .environment(ToastCenter.shared)
         }

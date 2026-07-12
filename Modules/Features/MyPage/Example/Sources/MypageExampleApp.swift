@@ -7,9 +7,6 @@ import MypageTesting
 
 @main
 struct MypageExampleApp: App {
-    @State private var router = AppRouter()
-    @State private var tabSelection = TabSelection()
-
     init() {
         AppState.shared.login()
         UserInfoStore.shared.save(.sample)
@@ -18,10 +15,16 @@ struct MypageExampleApp: App {
     var body: some Scene {
         WindowGroup {
             NavigationStack {
-                MypageView(viewModel: makeViewModel())
+                MypageView(
+                    viewModel: makeViewModel(),
+                    onEditProfile: {},
+                    onAccountManage: {},
+                    onEditAlert: {},
+                    onFAQ: {},
+                    onFeedback: {},
+                    onTermsMenu: {}
+                )
             }
-            .environment(router)
-            .environment(tabSelection)
             .environment(AppState.shared)
             .environment(ToastCenter.shared)
         }
