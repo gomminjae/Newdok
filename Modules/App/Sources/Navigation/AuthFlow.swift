@@ -20,8 +20,9 @@ struct AuthFlow: View {
     private func routeView(_ route: AuthRoute) -> some View {
         switch route {
         case .onboarding:
+            // 소셜 로그인: 직접 회원가입 진입 없음 — 회원가입 버튼도 로그인 화면으로
             container.makeOnboardingView(
-                onSignup: { router.push(.signup) },
+                onSignup: { router.push(.login) },
                 onLogin: { router.push(.login) }
             )
         case .login:
@@ -29,11 +30,16 @@ struct AuthFlow: View {
                 canGoBack: !router.path.isEmpty,
                 onBack: { router.pop() },
                 onRecovery: { router.push(.recovery) },
-                onSignup: { router.push(.signup) },
+                onSignup: { router.push(.login) },
+                onNeedSignup: { token, nickname in
+                    router.push(.signup(signupToken: token, nickname: nickname))
+                },
                 onAuthenticated: { coordinator.finishAuth() }
             )
-        case .signup:
+        case let .signup(token, nickname):
             container.makeSignupView(
+                signupToken: token,
+                nickname: nickname,
                 onBack: { router.pop() },
                 onLogin: { router.push(.login) },
                 onRecovery: { router.push(.recovery) },
@@ -42,7 +48,7 @@ struct AuthFlow: View {
         case .recovery:
             container.makeRecoveryView(
                 onBack: { router.pop() },
-                onSignup: { router.push(.signup) },
+                onSignup: { router.push(.login) },
                 onLogin: { router.push(.login) },
                 onServiceFeedback: { router.push(.serviceFeedback) }
             )

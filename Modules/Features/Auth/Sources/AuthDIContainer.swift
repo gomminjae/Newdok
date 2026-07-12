@@ -36,14 +36,18 @@ final class AuthDIContainer {
         let repository = makeRepository()
         return LoginViewModel(
             loginUseCase: LoginUseCaseImpl(authRepository: repository),
+            kakaoAuthService: KakaoAuthService(),
+            appleAuthService: AppleAuthService(),
             tokenStorage: tokenStorage,
             appState: appState
         )
     }
 
-    func makeSignupViewModel() -> SignupViewModel {
+    func makeSignupViewModel(signupToken: String, nickname: String?) -> SignupViewModel {
         let repository = makeRepository()
         return SignupViewModel(
+            signupToken: signupToken,
+            suggestedNickname: nickname,
             authRepository: repository,
             signupUseCase: SignupUseCaseImpl(authRepository: repository),
             userInfoStore: userInfoStore,

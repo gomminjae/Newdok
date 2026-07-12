@@ -42,6 +42,7 @@ public struct AuthBuilder: AuthBuildable {
         onBack: @escaping () -> Void,
         onRecovery: @escaping () -> Void,
         onSignup: @escaping () -> Void,
+        onNeedSignup: @escaping (String, String?) -> Void,
         onAuthenticated: @escaping () -> Void
     ) -> AnyView {
         AnyView(
@@ -49,14 +50,15 @@ public struct AuthBuilder: AuthBuildable {
                 viewModel: container.makeLoginViewModel(),
                 canGoBack: canGoBack,
                 onBack: onBack,
-                onRecovery: onRecovery,
-                onSignup: onSignup,
+                onNeedSignup: onNeedSignup,
                 onAuthenticated: onAuthenticated
             )
         )
     }
 
     public func makeSignupView(
+        signupToken: String,
+        nickname: String?,
         onBack: @escaping () -> Void,
         onLogin: @escaping () -> Void,
         onRecovery: @escaping () -> Void,
@@ -64,7 +66,7 @@ public struct AuthBuilder: AuthBuildable {
     ) -> AnyView {
         AnyView(
             SignupView(
-                viewModel: container.makeSignupViewModel(),
+                viewModel: container.makeSignupViewModel(signupToken: signupToken, nickname: nickname),
                 onBack: onBack,
                 onLogin: onLogin,
                 onRecovery: onRecovery,

@@ -11,7 +11,7 @@ struct HomeStack: View {
             container.makeHomeView(
                 onArticleTap: { coordinator.homeRouter.push(.articleDetail(id: $0, isPast: false)) },
                 onSearch: { coordinator.homeRouter.push(.search) },
-                onSignup: { coordinator.presentAuth(.signup) },
+                onSignup: { coordinator.presentAuth(.login) },
                 onLogin: { coordinator.presentAuth(.login) },
                 onGoToExplore: { day, tab in coordinator.moveToExplore(day: day, tab: tab) }
             )
@@ -38,7 +38,7 @@ struct HomeStack: View {
             container.makeBrandDetailView(
                 id: id,
                 onBack: { coordinator.homeRouter.pop() },
-                onSignup: { coordinator.presentAuth(.signup) },
+                onSignup: { coordinator.presentAuth(.login) },
                 onGoHome: { coordinator.goHome() },
                 onArticleTap: { coordinator.homeRouter.push(.articleDetail(id: $0, isPast: true)) }
             )

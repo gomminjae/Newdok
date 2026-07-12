@@ -13,88 +13,108 @@ import Observation
 @MainActor
 public final class LoginViewModel: ErrorHandling {
     private let loginUseCase: LoginUseCase
+    private let kakaoAuthService: KakaoAuthServiceProtocol
+    private let appleAuthService: AppleAuthServiceProtocol
     private let tokenStorage: TokenStorageProtocol
     private let appState: AppState
 
-    public var loginId: String
-    public var password: String
-    public var isUserIdValid: Bool
-    public var isUserPwdValid: Bool
-    public var errorMessage: String?
     public var isLoading: Bool
-    public var isSecurePassword: Bool = true
-    public var user: AuthUser?
-    public var isLoginIdError: Bool = false
-    public var isPasswordError: Bool = false
     public var currentError: AppError?
 
     public init(
         loginUseCase: LoginUseCase,
+        kakaoAuthService: KakaoAuthServiceProtocol,
+        appleAuthService: AppleAuthServiceProtocol,
         tokenStorage: TokenStorageProtocol,
         appState: AppState
     ) {
         self.loginUseCase = loginUseCase
+        self.kakaoAuthService = kakaoAuthService
+        self.appleAuthService = appleAuthService
         self.tokenStorage = tokenStorage
         self.appState = appState
-        self.loginId = ""
-        self.password = ""
-        self.isUserIdValid = false
-        self.isUserPwdValid = false
         self.isLoading = false
-        self.errorMessage = nil
     }
 
-    public func login(onSuccess: @escaping () -> Void) {
+    /// 카카오 로그인: SDK로 idToken 획득 후 서버 로그인
+    public func loginWithKakao(
+        onLoggedIn: @escaping () -> Void,
+        onNeedSignup: @escaping (_ signupToken: String, _ suggestedNickname: String?) -> Void
+    ) {
         guard !isLoading else { return }
         isLoading = true
 
         Task {
-            defer { isLoading = false }
-
             do {
-                _ = try await loginUseCase.execute(loginId: loginId, password: password)
-
-                errorMessage = nil
-                isLoginIdError = false
-                isPasswordError = false
-
-                appState.login()
-                onSuccess()
-            } catch let error as LoginError {
-                handleLoginError(error)
+                let idToken = try await kakaoAuthService.fetchIDToken()
+                try await authenticate(
+                    provider: .kakao,
+                    idToken: idToken,
+                    onLoggedIn: onLoggedIn,
+                    onNeedSignup: onNeedSignup
+                )
             } catch {
-                errorMessage = "로그인에 실패했습니다"
-                isPasswordError = false
-                isLoginIdError = false
-                handleError(error, feature: "login", operation: "login")
+                isLoading = false
+                handle(error)
             }
         }
     }
 
-    private func handleLoginError(_ error: LoginError) {
-        switch error {
-        case .invalidPassword:
-            errorMessage = error.localizedDescription
-            isPasswordError = true
-            isLoginIdError = false
-        case .accountNotFound:
-            errorMessage = error.localizedDescription
-            isLoginIdError = true
-            isPasswordError = false
-        case .networkError(let underlying):
-            isPasswordError = false
-            isLoginIdError = false
-            handleError(underlying, feature: "login", operation: "login")
-            return
-        case .tokenPersistenceFailed:
-            isPasswordError = false
-            isLoginIdError = false
+    /// 애플 로그인: 서비스로 idToken 획득 후 서버 로그인 (카카오와 동일 흐름)
+    public func loginWithApple(
+        onLoggedIn: @escaping () -> Void,
+        onNeedSignup: @escaping (_ signupToken: String, _ suggestedNickname: String?) -> Void
+    ) {
+        guard !isLoading else { return }
+        isLoading = true
+
+        Task {
+            do {
+                let idToken = try await appleAuthService.fetchIDToken()
+                try await authenticate(
+                    provider: .apple,
+                    idToken: idToken,
+                    onLoggedIn: onLoggedIn,
+                    onNeedSignup: onNeedSignup
+                )
+            } catch {
+                isLoading = false
+                handle(error)
+            }
         }
-        currentError = .userMessage(error.localizedDescription)
     }
 
-    public var isLoginEnabled: Bool {
-        !loginId.isEmpty && !password.isEmpty
+    private func authenticate(
+        provider: SocialProvider,
+        idToken: String,
+        onLoggedIn: @escaping () -> Void,
+        onNeedSignup: @escaping (_ signupToken: String, _ suggestedNickname: String?) -> Void
+    ) async throws {
+        defer { isLoading = false }
+        let result = try await loginUseCase.execute(provider: provider, idToken: idToken)
+        currentError = nil
+
+        switch result {
+        case .registered:
+            appState.login()
+            onLoggedIn()
+        case let .newUser(signupToken, suggestedNickname):
+            onNeedSignup(signupToken, suggestedNickname)
+        }
+    }
+
+    private func handle(_ error: Error) {
+        switch error {
+        case LoginError.cancelled:
+            // 사용자가 취소 — 조용히 무시
+            break
+        case LoginError.missingIDToken:
+            currentError = .userMessage(LoginError.missingIDToken.localizedDescription)
+        case LoginError.networkError(let underlying):
+            handleError(underlying, feature: "login", operation: "socialLogin")
+        default:
+            handleError(error, feature: "login", operation: "socialLogin")
+        }
     }
 
     public func loginAsGuest() {

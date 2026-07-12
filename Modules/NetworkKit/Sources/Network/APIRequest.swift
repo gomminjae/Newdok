@@ -28,6 +28,10 @@ public protocol APIRequest: Sendable {
     var method: HTTPMethod { get }
     var task: RequestTask { get }
     var headers: [String: String]? { get }
+
+    /// 이 요청의 401이 "세션 만료"(전역 로그아웃)로 해석되어야 하는지 여부.
+    /// 로그인/회원가입처럼 미인증 진입 엔드포인트는 401이 자격 증명 실패이므로 false.
+    var emitsUnauthorizedEvent: Bool { get }
 }
 
 public extension APIRequest {
@@ -37,4 +41,6 @@ public extension APIRequest {
             "Accept": "application/json"
         ]
     }
+
+    var emitsUnauthorizedEvent: Bool { true }
 }

@@ -13,137 +13,58 @@ import PopupView
 
 public struct LoginView: View {
     @State private var viewModel: LoginViewModel
-    @FocusState private var isIdFocused: Bool
-    @FocusState private var isPwdFocused: Bool
-    @State private var showHomeView = false
     @State private var showToast: Bool = false
     @State private var toastMessage: String = ""
-    
+
     private let canGoBack: Bool
     private let onBack: () -> Void
-    private let onRecovery: () -> Void
-    private let onSignup: () -> Void
+    private let onNeedSignup: (String, String?) -> Void
     private let onAuthenticated: () -> Void
 
     public init(
         viewModel: LoginViewModel,
         canGoBack: Bool,
         onBack: @escaping () -> Void,
-        onRecovery: @escaping () -> Void,
-        onSignup: @escaping () -> Void,
+        onNeedSignup: @escaping (String, String?) -> Void,
         onAuthenticated: @escaping () -> Void
     ) {
         self.viewModel = viewModel
         self.canGoBack = canGoBack
         self.onBack = onBack
-        self.onRecovery = onRecovery
-        self.onSignup = onSignup
+        self.onNeedSignup = onNeedSignup
         self.onAuthenticated = onAuthenticated
     }
 
     public var body: some View {
-        ZStack {
-            VStack {
-            HStack {
-                Image(asset: DesignSystemAsset.logo)
-                    .frame(alignment: .leading)
-                    .padding(.leading, 28)
-                Spacer()
-            }
-            .padding(.bottom, 24)
+        VStack {
+            Spacer()
 
-            VStack(alignment: .leading) {
-                Text("아이디")
-                    .font(.hanSansNeo(14, .medium))
+            Image(asset: DesignSystemAsset.logo)
+                .resizable()
+                .scaledToFit()
+                .frame(height: 48)
 
-                TextField("아이디를 입력하세요", text: $viewModel.loginId)
-                    .font(.hanSansNeo(14, .medium))
-                    .frame(height: 56)
-                    .customTextFieldStyle(isError: viewModel.isLoginIdError, isFocused: $isIdFocused)
-                    .focused($isIdFocused)
-                Text(viewModel.isLoginIdError ? (viewModel.errorMessage ?? "") : " ")
-                    .font(.hanSansNeo(12, .medium))
-                    .foregroundStyle(Color.errorNormal)
+            Spacer()
+            Spacer()
 
-                Text("비밀번호")
-                    .font(.hanSansNeo(14, .medium))
-                    .padding(.top, 16)
-
-                Group {
-                    if viewModel.isSecurePassword {
-                        SecureField("비밀번호를 입력해주세요", text: $viewModel.password)
-                            .focused($isPwdFocused)
-                    } else {
-                        TextField("비밀번호를 입력해주세요", text: $viewModel.password)
-                            .focused($isPwdFocused)
+            VStack(spacing: 12) {
+                kakaoButton
+                    .overlay(alignment: .top) {
+                        startBadge.offset(y: -30)
                     }
+
+                appleButton
+
+                Button("비회원으로 이용하기") {
+                    viewModel.loginAsGuest()
+                    onAuthenticated()
                 }
                 .font(.hanSansNeo(14, .medium))
-                .modifier(
-                    PasswordFieldModifier(
-                        isSecure: $viewModel.isSecurePassword,
-                        isFocused: $isPwdFocused,
-                        isError: viewModel.isPasswordError
-                    )
-                )
-                Text(viewModel.isPasswordError ? (viewModel.errorMessage ?? "") : " ")
-                    .font(.hanSansNeo(12, .medium))
-                    .foregroundStyle(Color.errorNormal)
-
-                HStack {
-                    Spacer()
-                    Button("아이디/비밀번호 찾기") {
-                        onRecovery()
-                    }
-                    .font(.hanSansNeo(14, .medium))
-                    .foregroundStyle(Color.captionNeutral)
-                }
-                .padding(.top, 10)
-
-                Spacer()
-
-                Button {
-                    viewModel.login {
-                        onAuthenticated()
-                    }
-                } label: {
-                    Text("로그인")
-                        .font(.hanSansNeo(16, .bold))
-                        .disabled(!viewModel.isLoginEnabled)
-                        .frame(maxWidth: .infinity)
-                        .frame(height: 48)
-                        .background(viewModel.isLoginEnabled ? Color.primaryNormal : Color.lineNeutral)
-                        .foregroundColor(viewModel.isLoginEnabled ? .white : Color.captionDisabled)
-                        .cornerRadius(4)
-                        .contentShape(Rectangle())
-                }
-                .disabled(!viewModel.isLoginEnabled || viewModel.isLoading)
-
-                HStack {
-                    Button("비회원으로 이용하기") {
-                        viewModel.loginAsGuest()
-                        onAuthenticated()
-                    }
-                    .font(.hanSansNeo(14, .medium))
-                    .foregroundStyle(Color.captionNeutral)
-                    .padding(.leading, 80)
-
-                    Text("|")
-                        .foregroundStyle(Color.lineAlternative)
-
-                    Button("회원가입") {
-                        onSignup()
-                    }
-                    .font(.hanSansNeo(14, .medium))
-                    .foregroundStyle(Color.primaryNormal)
-                }
-                .padding(.bottom, 56)
+                .foregroundStyle(Color.captionNeutral)
+                .padding(.top, 8)
             }
             .padding(.horizontal, 24)
-            }
-        }
-        .safeAreaInset(edge: .top, spacing: 0) {
-            Color.clear.frame(height: 20)
+            .padding(.bottom, 56)
         }
         .ignoresSafeArea(.keyboard)
         .navigationBarTitleDisplayMode(.inline)
@@ -168,16 +89,8 @@ public struct LoginView: View {
         .toolbar {
             ToolbarItem(placement: .navigationBarLeading) {
                 if canGoBack {
-                    BackButton(action: {
-                        onBack()
-                    })
+                    BackButton(action: { onBack() })
                 }
-            }
-            
-            ToolbarItem(placement: .principal) {
-                Text("로그인")
-                    .font(.hanSansNeo(16, .bold))
-                    .foregroundStyle(Color.captionHeavy)
             }
         }
         .serverErrorPopup(
@@ -185,5 +98,86 @@ public struct LoginView: View {
             onGoBack: { onBack() },
             onRetry: {}
         )
+    }
+
+    private var kakaoButton: some View {
+        socialButton(
+            title: "카카오로 계속하기",
+            background: Color(red: 254 / 255, green: 229 / 255, blue: 0),
+            foreground: Color.black.opacity(0.85)
+        ) {
+            Image(asset: DesignSystemAsset.kakaoBubble)
+                .renderingMode(.template)
+                .resizable()
+                .scaledToFit()
+                .frame(width: 16, height: 16)
+                .foregroundColor(Color.black.opacity(0.85))
+        } action: {
+            viewModel.loginWithKakao {
+                onAuthenticated()
+            } onNeedSignup: { signupToken, nickname in
+                onNeedSignup(signupToken, nickname)
+            }
+        }
+    }
+
+    private var appleButton: some View {
+        socialButton(
+            title: "Apple로 계속하기",
+            background: .black,
+            foreground: .white
+        ) {
+            Image(systemName: "apple.logo")
+                .font(.system(size: 20))
+                .foregroundColor(.white)
+        } action: {
+            viewModel.loginWithApple {
+                onAuthenticated()
+            } onNeedSignup: { signupToken, nickname in
+                onNeedSignup(signupToken, nickname)
+            }
+        }
+    }
+
+    private func socialButton(
+        title: String,
+        background: Color,
+        foreground: Color,
+        @ViewBuilder icon: () -> some View,
+        action: @escaping () -> Void
+    ) -> some View {
+        Button(action: action) {
+            ZStack {
+                Text(title)
+                    .font(.hanSansNeo(16, .bold))
+                    .foregroundColor(foreground)
+                HStack {
+                    icon()
+                    Spacer()
+                }
+                .padding(.leading, 20)
+            }
+            .frame(maxWidth: .infinity)
+            .frame(height: 56)
+            .background(background)
+            .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
+            .contentShape(Rectangle())
+        }
+        .disabled(viewModel.isLoading)
+    }
+
+    private var startBadge: some View {
+        VStack(spacing: 0) {
+            Text("3초만에 시작하기")
+                .font(.hanSansNeo(12, .bold))
+                .foregroundStyle(.white)
+                .padding(.horizontal, 12)
+                .padding(.vertical, 6)
+                .background(Color(hex: "FB4F4F"), in: Capsule())
+            Image(systemName: "arrowtriangle.down.fill")
+                .font(.system(size: 10))
+                .foregroundStyle(Color(hex: "FB4F4F"))
+                .offset(y: -2)
+        }
     }
 }

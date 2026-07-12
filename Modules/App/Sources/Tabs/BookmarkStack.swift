@@ -36,7 +36,7 @@ struct BookmarkStack: View {
             container.makeBrandDetailView(
                 id: id,
                 onBack: { coordinator.bookmarkRouter.pop() },
-                onSignup: { coordinator.presentAuth(.signup) },
+                onSignup: { coordinator.presentAuth(.login) },
                 onGoHome: { coordinator.goHome() },
                 onArticleTap: { coordinator.bookmarkRouter.push(.articleDetail(id: $0, isPast: true)) }
             )

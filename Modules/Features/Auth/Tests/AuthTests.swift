@@ -1,4 +1,5 @@
 import Testing
+import Foundation
 import Shared
 import FoundationKit
 @testable import Auth
@@ -279,51 +280,26 @@ private final class StubTokenStorage: TokenStorageProtocol, @unchecked Sendable 
 @MainActor
 struct LoginViewModelTests {
     private func makeSUT(
-        loginUseCase: MockLoginUseCase = .init()
-    ) -> (vm: LoginViewModel, login: MockLoginUseCase, tokenStorage: StubTokenStorage) {
+        loginUseCase: MockLoginUseCase = .init(),
+        kakaoAuthService: MockKakaoAuthService = .init(),
+        appleAuthService: MockAppleAuthService = .init()
+    ) -> (vm: LoginViewModel, login: MockLoginUseCase, kakao: MockKakaoAuthService, tokenStorage: StubTokenStorage) {
         let tokenStorage = StubTokenStorage()
         let vm = LoginViewModel(
             loginUseCase: loginUseCase,
+            kakaoAuthService: kakaoAuthService,
+            appleAuthService: appleAuthService,
             tokenStorage: tokenStorage,
             appState: AppState.shared
         )
-        return (vm, loginUseCase, tokenStorage)
-    }
-
-    // MARK: - isLoginEnabled
-
-    @Test("아이디/비밀번호 모두 입력 시 로그인 활성화")
-    func isLoginEnabled_bothFilled() {
-        let (vm, _, _) = makeSUT()
-        vm.loginId = "testuser"
-        vm.password = "pass1234"
-
-        #expect(vm.isLoginEnabled == true)
-    }
-
-    @Test("아이디 비어있으면 로그인 비활성화")
-    func isLoginEnabled_emptyId() {
-        let (vm, _, _) = makeSUT()
-        vm.loginId = ""
-        vm.password = "pass1234"
-
-        #expect(vm.isLoginEnabled == false)
-    }
-
-    @Test("비밀번호 비어있으면 로그인 비활성화")
-    func isLoginEnabled_emptyPassword() {
-        let (vm, _, _) = makeSUT()
-        vm.loginId = "testuser"
-        vm.password = ""
-
-        #expect(vm.isLoginEnabled == false)
+        return (vm, loginUseCase, kakaoAuthService, tokenStorage)
     }
 
     // MARK: - loginAsGuest
 
     @Test("게스트 로그인 시 토큰 클리어 및 로그아웃")
     func loginAsGuest_clearsTokenAndLogsOut() {
-        let (vm, _, tokenStorage) = makeSUT()
+        let (vm, _, _, tokenStorage) = makeSUT()
         AppState.shared.login()
         tokenStorage.accessToken = "some-token"
 
@@ -333,71 +309,69 @@ struct LoginViewModelTests {
         #expect(AppState.shared.authState == .guest)
     }
 
-    // MARK: - login
+    // MARK: - loginWithKakao
 
-    @Test("로그인 성공 시 에러 초기화 및 인증 상태 전환")
-    func login_success() async {
+    @Test("카카오 로그인 성공 시 idToken 전달 및 인증 상태 전환")
+    func kakaoLogin_success() async {
         let mock = MockLoginUseCase()
-        let (vm, _, _) = makeSUT(loginUseCase: mock)
-        vm.loginId = "testuser"
-        vm.password = "pass1234"
+        let kakao = MockKakaoAuthService()
+        kakao.result = .success("kakao-id-token")
+        let (vm, _, _, _) = makeSUT(loginUseCase: mock, kakaoAuthService: kakao)
         AppState.shared.logout()
 
         var successCalled = false
-        vm.login { successCalled = true }
+        vm.loginWithKakao(onLoggedIn: { successCalled = true }, onNeedSignup: { _, _ in })
 
         // 내부 Task 완료 대기
         try? await Task.sleep(for: .milliseconds(50))
 
-        #expect(mock.executedLoginId == "testuser")
-        #expect(mock.executedPassword == "pass1234")
+        #expect(mock.executedProvider == .kakao)
+        #expect(mock.executedIDToken == "kakao-id-token")
         #expect(successCalled == true)
-        #expect(vm.errorMessage == nil)
-        #expect(vm.isLoginIdError == false)
-        #expect(vm.isPasswordError == false)
+        #expect(vm.currentError == nil)
         #expect(AppState.shared.authState == .authenticated)
     }
 
-    @Test("로그인 실패 — invalidPassword")
-    func login_invalidPassword() async {
-        let mock = MockLoginUseCase()
-        mock.result = .failure(LoginError.invalidPassword)
-        let (vm, _, _) = makeSUT(loginUseCase: mock)
-        vm.loginId = "testuser"
-        vm.password = "wrongpass"
+    @Test("카카오 로그인 취소 시 에러 표시 없이 무시")
+    func kakaoLogin_cancelled() async {
+        let kakao = MockKakaoAuthService()
+        kakao.result = .failure(LoginError.cancelled)
+        let (vm, _, _, _) = makeSUT(kakaoAuthService: kakao)
 
-        vm.login { }
+        var successCalled = false
+        vm.loginWithKakao(onLoggedIn: { successCalled = true }, onNeedSignup: { _, _ in })
 
         try? await Task.sleep(for: .milliseconds(50))
 
-        #expect(vm.isPasswordError == true)
-        #expect(vm.isLoginIdError == false)
-        #expect(vm.errorMessage != nil)
+        #expect(successCalled == false)
+        #expect(vm.currentError == nil)
+        #expect(vm.isLoading == false)
     }
 
-    @Test("로그인 실패 — accountNotFound")
-    func login_accountNotFound() async {
+    @Test("카카오 로그인 네트워크 실패 시 에러 표시")
+    func kakaoLogin_networkError() async {
         let mock = MockLoginUseCase()
-        mock.result = .failure(LoginError.accountNotFound)
-        let (vm, _, _) = makeSUT(loginUseCase: mock)
-        vm.loginId = "nouser"
-        vm.password = "pass1234"
+        mock.result = .failure(LoginError.networkError(URLError(.notConnectedToInternet)))
+        let kakao = MockKakaoAuthService()
+        kakao.result = .success("kakao-id-token")
+        let (vm, _, _, _) = makeSUT(loginUseCase: mock, kakaoAuthService: kakao)
 
-        vm.login { }
+        vm.loginWithKakao(onLoggedIn: { }, onNeedSignup: { _, _ in })
 
         try? await Task.sleep(for: .milliseconds(50))
 
-        #expect(vm.isLoginIdError == true)
-        #expect(vm.isPasswordError == false)
-        #expect(vm.errorMessage != nil)
+        #expect(vm.currentError != nil)
+        #expect(vm.isLoading == false)
     }
 
     @Test("로딩 중 중복 호출 방지")
-    func login_duplicatePrevented() {
-        let (vm, mock, _) = makeSUT()
+    func kakaoLogin_duplicatePrevented() async {
+        let (vm, mock, _, _) = makeSUT()
         vm.isLoading = true
 
-        vm.login { }
+        vm.loginWithKakao(onLoggedIn: { }, onNeedSignup: { _, _ in })
+
+        try? await Task.sleep(for: .milliseconds(50))
 
         #expect(mock.executeCallCount == 0)
     }

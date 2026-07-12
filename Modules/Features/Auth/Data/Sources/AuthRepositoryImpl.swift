@@ -18,54 +18,45 @@ public final class AuthRepositoryImpl: AuthRepository {
         self.userInfoStore = userInfoStore
     }
 
-    public func login(loginId: String, password: String) async throws -> (AuthUser, String) {
-        let user: AuthUser
-        let token: String
+    public func login(provider: SocialProvider, idToken: String) async throws -> SocialLoginResultType {
         do {
             let response = try await network.request(
-                Login(loginId: loginId, password: password)
+                Login(provider: provider.rawValue, idToken: idToken)
             )
-            user = response.user.toDomain()
-            token = response.accessToken
-        } catch let error as NetworkError {
-            if case .serverError(let statusCode, let message) = error, statusCode == 400 {
-                let errorMessage = message ?? ""
-                if errorMessage.contains("비밀번호") {
-                    throw LoginError.invalidPassword
-                } else if errorMessage.contains("계정") {
-                    throw LoginError.accountNotFound
+            let result = try response.toDomain()
+
+            if case let .registered(user, accessToken) = result {
+                // Keychain 저장 실패 시 로그인 실패로 처리 — 다음 실행 때 조용히 로그아웃되는 것 방지.
+                guard tokenStorage.saveAccessToken(accessToken) else {
+                    throw LoginError.tokenPersistenceFailed
                 }
+                persistLocalUser(from: user)
             }
-            throw LoginError.networkError(error)
+
+            return result
+        } catch let error as LoginError {
+            throw error
         } catch {
             throw LoginError.networkError(error)
         }
-
-        // Keychain 저장 실패 시 로그인 실패로 처리 — 다음 실행 때 조용히 로그아웃되는 것 방지.
-        guard tokenStorage.saveAccessToken(token) else {
-            throw LoginError.tokenPersistenceFailed
-        }
-        persistLocalUser(from: user)
-
-        return (user, token)
     }
 
     public func signup(
-        loginId: String,
-        password: String,
-        phoneNumber: String,
+        signupToken: String,
         nickname: String,
         birthYear: String,
-        gender: String
+        gender: String,
+        agreements: [AuthAgreement]
     ) async throws -> AuthSignupResponse {
         let response = try await network.request(
-            Signup(
-                loginId: loginId,
-                password: password,
-                phoneNumber: phoneNumber,
+            SocialSignup(
+                signupToken: signupToken,
                 nickname: nickname,
                 birthYear: birthYear,
-                gender: gender
+                gender: gender,
+                agreements: agreements.map {
+                    SocialSignupAgreementRequest(type: $0.type.rawValue, agreed: $0.agreed)
+                }
             )
         )
         let domain = response.toDomain()
@@ -76,42 +67,6 @@ public final class AuthRepositoryImpl: AuthRepository {
         persistLocalUser(from: domain.user)
 
         return domain
-    }
-
-    public func checkPhoneNumber(_ phoneNumber: String) async throws -> [AuthSimpleUser] {
-        do {
-            let response = try await network.request(
-                CheckPhoneNumber(phoneNumber: phoneNumber)
-            )
-            return response.map { $0.toDomain() }
-        } catch let error as NetworkError {
-            if case .serverError(let statusCode, _) = error, statusCode == 400 {
-                return []
-            } else {
-                throw error
-            }
-        } catch {
-            throw error
-        }
-    }
-
-    public func checkIDDup(_ loginId: String) async throws -> AuthIDCheckResult {
-        let result = try await network.checkRequest(
-            CheckIDDup(loginId: loginId)
-        )
-        switch result {
-        case .exists(let dto):
-            return .exists(dto.toDomain())
-        case .notFound:
-            return .notFound
-        }
-    }
-
-    public func authSMS(phoneNumber: String) async throws -> AuthSMSResponse {
-        let response = try await network.request(
-            AuthSMS(phoneNumber: phoneNumber)
-        )
-        return response.toDomain()
     }
 
     public func preInvestigate(
@@ -132,8 +87,8 @@ public final class AuthRepositoryImpl: AuthRepository {
     private func persistLocalUser(from user: AuthUser) {
         let userInfo = UserInfo(
             id: user.id,
-            loginId: user.loginId,
-            phoneNumber: user.phoneNumber,
+            loginId: "",
+            phoneNumber: "",
             subscribeEmail: user.subscribeEmail,
             nickname: user.nickname,
             birthYear: user.birthYear,

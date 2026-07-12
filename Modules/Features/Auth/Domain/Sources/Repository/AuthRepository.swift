@@ -1,18 +1,14 @@
 import Foundation
 
 public protocol AuthRepository: Sendable {
-    func login(loginId: String, password: String) async throws -> (AuthUser, String)
+    func login(provider: SocialProvider, idToken: String) async throws -> SocialLoginResultType
     func signup(
-        loginId: String,
-        password: String,
-        phoneNumber: String,
+        signupToken: String,
         nickname: String,
         birthYear: String,
-        gender: String
+        gender: String,
+        agreements: [AuthAgreement]
     ) async throws -> AuthSignupResponse
-    func checkPhoneNumber(_ phoneNumber: String) async throws -> [AuthSimpleUser]
-    func checkIDDup(_ loginId: String) async throws -> AuthIDCheckResult
-    func authSMS(phoneNumber: String) async throws -> AuthSMSResponse
     func preInvestigate(industryId: String, interestIds: [String]) async throws -> [AuthRecommendedBrand]
     func signOut() async
 }

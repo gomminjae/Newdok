@@ -9,40 +9,28 @@ import DesignSystem
 import Shared
 
 public enum SignupStep: Int, CaseIterable {
-    case phoneVerification = 0
-    case idInput = 1
-    case pwInput = 2
-    case enterProfile = 3
-    case agreeTerms = 4
-    case complete = 5
-    case recommend = 6
-    case myIndustry = 7
-    case indutryList = 8
-    case curation = 9
+    case enterProfile = 0
+    case agreeTerms = 1
+    case complete = 2
+    case recommend = 3
+    case myIndustry = 4
+    case indutryList = 5
+    case curation = 6
 
     var progressValue: Double {
         switch self {
-        case .phoneVerification: return 0.1
-        case .idInput: return 0.3
-        case .pwInput: return 0.5
-        case .enterProfile: return 0.7
+        case .enterProfile: return 0.5
         case .agreeTerms: return 0.9
         case .myIndustry: return 0.3
         case .indutryList: return 0.7
         case .curation: return 1.0
-        
+
         default: return 1.0
         }
     }
-    
+
     var title: String {
         switch self {
-        case .phoneVerification:
-            return "회원가입"
-        case .idInput:
-            return "회원가입"
-        case .pwInput:
-            return "회원가입"
         case .enterProfile:
             return "회원가입"
         case .agreeTerms:
@@ -89,12 +77,6 @@ public struct SignupView: View {
 
             Group {
                 switch viewModel.currentStep {
-                case .phoneVerification:
-                    PhoneVerificationView(viewModel: viewModel, onLogin: onLogin, onRecovery: onRecovery)
-                case .idInput:
-                    IDInputView(viewModel: viewModel)
-                case .pwInput:
-                    PwInputView(viewModel: viewModel)
                 case .enterProfile:
                     ProfileInputView(viewModel: viewModel)
                 case .agreeTerms:
@@ -126,7 +108,7 @@ public struct SignupView: View {
     }
 
     private func previousStepOrExit() {
-        if viewModel.currentStep == .phoneVerification {
+        if viewModel.currentStep == .enterProfile {
             onBack()
         } else {
             viewModel.goToPreviousStep()

@@ -10,11 +10,6 @@ import DesignSystem
 import WebKit
 
 public struct AgreeView: View {
-    @State private var isOver14 = false
-    @State private var serviceAgreement = false
-    @State private var personalInfoAgreement = false
-    @State private var marketingAgreement = false
-
     @State private var showSheet = false
     @State private var sheetType: SheetType?
 
@@ -33,31 +28,31 @@ public struct AgreeView: View {
 
             VStack(spacing: 16) {
                 // 버튼 없는 행
-                SimpleAgreementRow(title: "만 14세 이상 확인", required: true, isChecked: $isOver14)
-                
+                SimpleAgreementRow(title: "만 14세 이상 확인", required: true, isChecked: $viewModel.agreeOver14)
+
                 // 버튼 있는 행
                 TappableAgreementRow(
                     mainText: "서비스 이용",
                     required: true,
-                    isChecked: $serviceAgreement,
+                    isChecked: $viewModel.agreeService,
                     onTextTap: {
                         sheetType = .terms
                         showSheet = true
                     }
                 )
-                
+
                 TappableAgreementRow(
                     mainText: "개인정보 수집 및 이용",
                     required: true,
-                    isChecked: $personalInfoAgreement,
+                    isChecked: $viewModel.agreePersonalInfo,
                     onTextTap: {
                         sheetType = .privacy
                         showSheet = true
                     }
                 )
-                
+
                 // 버튼 없는 행
-                SimpleAgreementRow(title: "마케팅 활용/광고성 정보 수신", required: false, isChecked: $marketingAgreement)
+                SimpleAgreementRow(title: "마케팅 활용/광고성 정보 수신", required: false, isChecked: $viewModel.agreeMarketing)
             }
             .padding(.top, 8)
             .padding(.horizontal, 24)
@@ -71,11 +66,11 @@ public struct AgreeView: View {
                     .font(.hanSansNeo(16, .medium))
                 Spacer()
                 Button {
-                    let toggle = !(isOver14 && serviceAgreement && personalInfoAgreement && marketingAgreement)
-                    isOver14 = toggle
-                    serviceAgreement = toggle
-                    personalInfoAgreement = toggle
-                    marketingAgreement = toggle
+                    let toggle = !isAllAgreed
+                    viewModel.agreeOver14 = toggle
+                    viewModel.agreeService = toggle
+                    viewModel.agreePersonalInfo = toggle
+                    viewModel.agreeMarketing = toggle
                 } label: {
                     Image(asset: isAllAgreed ? DesignSystemAsset.allcheck : DesignSystemAsset.uncheck)
                         .frame(width: 44, height: 44)
@@ -128,11 +123,11 @@ public struct AgreeView: View {
     }
 
     private var isSignUpEnabled: Bool {
-        isOver14 && serviceAgreement && personalInfoAgreement
+        viewModel.agreeOver14 && viewModel.agreeService && viewModel.agreePersonalInfo
     }
 
     private var isAllAgreed: Bool {
-        isOver14 && serviceAgreement && personalInfoAgreement && marketingAgreement
+        viewModel.agreeOver14 && viewModel.agreeService && viewModel.agreePersonalInfo && viewModel.agreeMarketing
     }
 
     enum SheetType {

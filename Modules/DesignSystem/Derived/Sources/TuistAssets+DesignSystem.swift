@@ -44,6 +44,7 @@ public enum DesignSystemAsset: Sendable {
   public static let font = DesignSystemImages(name: "font")
   public static let highlight = DesignSystemImages(name: "highlight")
   public static let home = DesignSystemImages(name: "home")
+  public static let kakaoBubble = DesignSystemImages(name: "kakaoBubble")
   public static let letter = DesignSystemImages(name: "letter")
   public static let logo = DesignSystemImages(name: "logo")
   public static let mailbox = DesignSystemImages(name: "mailbox")

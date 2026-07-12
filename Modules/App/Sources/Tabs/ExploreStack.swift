@@ -12,7 +12,7 @@ struct ExploreStack: View {
                 exploreTrigger: coordinator.exploreTrigger,
                 onConsumePending: { coordinator.consumeExploreParams() },
                 onSearch: { coordinator.exploreRouter.push(.search) },
-                onSignup: { coordinator.presentAuth(.signup) },
+                onSignup: { coordinator.presentAuth(.login) },
                 onLogin: { coordinator.presentAuth(.login) },
                 onEditProfile: { coordinator.openEditProfile() },
                 onBrandTap: { coordinator.exploreRouter.push(.brandDetail(id: $0)) }
@@ -36,7 +36,7 @@ struct ExploreStack: View {
             container.makeBrandDetailView(
                 id: id,
                 onBack: { coordinator.exploreRouter.pop() },
-                onSignup: { coordinator.presentAuth(.signup) },
+                onSignup: { coordinator.presentAuth(.login) },
                 onGoHome: { coordinator.goHome() },
                 onArticleTap: { coordinator.exploreRouter.push(.articleDetail(id: $0, isPast: true)) }
             )

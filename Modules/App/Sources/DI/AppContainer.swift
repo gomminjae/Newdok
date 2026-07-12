@@ -95,6 +95,7 @@ final class AppContainer {
         onBack: @escaping () -> Void,
         onRecovery: @escaping () -> Void,
         onSignup: @escaping () -> Void,
+        onNeedSignup: @escaping (String, String?) -> Void,
         onAuthenticated: @escaping () -> Void
     ) -> some View {
         authBuilder.makeLoginView(
@@ -102,17 +103,22 @@ final class AppContainer {
             onBack: onBack,
             onRecovery: onRecovery,
             onSignup: onSignup,
+            onNeedSignup: onNeedSignup,
             onAuthenticated: onAuthenticated
         )
     }
 
     func makeSignupView(
+        signupToken: String,
+        nickname: String?,
         onBack: @escaping () -> Void,
         onLogin: @escaping () -> Void,
         onRecovery: @escaping () -> Void,
         onAuthenticated: @escaping () -> Void
     ) -> some View {
         authBuilder.makeSignupView(
+            signupToken: signupToken,
+            nickname: nickname,
             onBack: onBack,
             onLogin: onLogin,
             onRecovery: onRecovery,

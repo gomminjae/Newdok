@@ -8,12 +8,14 @@ struct MoyaTarget: Moya.TargetType {
     let task: Moya.Task
     let headers: [String: String]?
     let sampleData: Data
+    let emitsUnauthorizedEvent: Bool
 
     init<R: APIRequest>(_ request: R) {
         baseURL = request.baseURL
         path = request.path
         headers = request.headers
         sampleData = Data()
+        emitsUnauthorizedEvent = request.emitsUnauthorizedEvent
 
         switch request.method {
         case .get: method = .get

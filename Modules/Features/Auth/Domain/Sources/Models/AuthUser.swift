@@ -2,8 +2,6 @@ import Foundation
 
 public struct AuthUser {
     public let id: Int
-    public let loginId: String
-    public let phoneNumber: String
     public let subscribeEmail: String?
     public let nickname: String
     public let birthYear: String
@@ -14,8 +12,6 @@ public struct AuthUser {
 
     public init(
         id: Int,
-        loginId: String,
-        phoneNumber: String,
         subscribeEmail: String?,
         nickname: String,
         birthYear: String,
@@ -25,8 +21,6 @@ public struct AuthUser {
         interestIds: [Int]
     ) {
         self.id = id
-        self.loginId = loginId
-        self.phoneNumber = phoneNumber
         self.subscribeEmail = subscribeEmail
         self.nickname = nickname
         self.birthYear = birthYear

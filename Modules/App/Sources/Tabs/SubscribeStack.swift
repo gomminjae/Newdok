@@ -32,7 +32,7 @@ struct SubscribeStack: View {
             container.makeBrandDetailView(
                 id: id,
                 onBack: { coordinator.subscribeRouter.pop() },
-                onSignup: { coordinator.presentAuth(.signup) },
+                onSignup: { coordinator.presentAuth(.login) },
                 onGoHome: { coordinator.goHome() },
                 onArticleTap: { coordinator.subscribeRouter.push(.articleDetail(id: $0, isPast: true)) }
             )

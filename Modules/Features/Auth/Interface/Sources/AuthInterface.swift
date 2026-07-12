@@ -12,10 +12,13 @@ public protocol AuthBuildable {
         onBack: @escaping () -> Void,
         onRecovery: @escaping () -> Void,
         onSignup: @escaping () -> Void,
+        onNeedSignup: @escaping (String, String?) -> Void,
         onAuthenticated: @escaping () -> Void
     ) -> AnyView
 
     func makeSignupView(
+        signupToken: String,
+        nickname: String?,
         onBack: @escaping () -> Void,
         onLogin: @escaping () -> Void,
         onRecovery: @escaping () -> Void,

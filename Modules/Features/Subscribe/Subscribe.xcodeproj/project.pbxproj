@@ -13,6 +13,8 @@
 		18C097FEE30E087906590A11 /* SubscribeDomain.framework in Dependencies */ = {isa = PBXBuildFile; fileRef = C4490CBDF56FA86E240C6B38 /* SubscribeDomain.framework */; };
 		1D808CDF8AF5B904FC97DB9A /* SubscribeInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = A41979B86D33DCE3C96AF5E6 /* SubscribeInterface.swift */; };
 		25854157DCA8CBE5626D4678 /* Moya.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4B92346DC382D5960E6BFCD0 /* Moya.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		2876F661347187156292E9DF /* DesignSystem_DesignSystem.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 88725C861E43B9844D9D4D87 /* DesignSystem_DesignSystem.bundle */; };
+		28955AE1A98B7A1F05BABCB6 /* DesignSystem_DesignSystem.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 88725C861E43B9844D9D4D87 /* DesignSystem_DesignSystem.bundle */; };
 		2A2CC7861E654128BCF341C1 /* Shared.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 818348BBF6B997119C6F5E6A /* Shared.framework */; };
 		2C9F2B1D40235C64AF4842E2 /* Subscribe.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5595DBABF800B949A8877D83 /* Subscribe.framework */; };
 		3110F4E21938AE7A242D84BF /* SubscribeNewsletter+Sample.swift in Sources */ = {isa = PBXBuildFile; fileRef = A534C6A232AC46225249EA00 /* SubscribeNewsletter+Sample.swift */; };
@@ -26,6 +28,7 @@
 		4ACCBD0A2EAA7E518EF2FB3C /* MockResumeSubscriptionUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF719FE89E8FDC35CB2F20CC /* MockResumeSubscriptionUseCase.swift */; };
 		4DE577C3AE91C2A7FE749119 /* SubscribeNewsletterAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDA341D080AD88E95DC1EFBD /* SubscribeNewsletterAPI.swift */; };
 		58D5C2CFA60155CD19084E6E /* FetchPausedSubscriptionUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D4AEFBB8D9678A0A33642D7 /* FetchPausedSubscriptionUseCase.swift */; };
+		5DD195D73E348A1AF31C3698 /* Alamofire_Alamofire.bundle in Dependencies */ = {isa = PBXBuildFile; fileRef = 597FEA69136238C9DCCDE9B0 /* Alamofire_Alamofire.bundle */; };
 		5F9D05B7F1E2203A0BDEA43F /* SubscribeInterface.framework in Dependencies */ = {isa = PBXBuildFile; fileRef = 32659030D723322E066C81FA /* SubscribeInterface.framework */; };
 		646AFF2CA9E115D116B5636B /* SubscribeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 255AADBF446AC4625B5B10B7 /* SubscribeTests.swift */; };
 		6577BDC6B8C05F2868DFB096 /* FetchSubscriptionCountUseCaseImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6941CB8A17245A73A120BA0D /* FetchSubscriptionCountUseCaseImpl.swift */; };
@@ -47,7 +50,6 @@
 		989A43B3ADEEFACF867ECBC5 /* SubscriptionRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB2B45BE2400769168823DB3 /* SubscriptionRequest.swift */; };
 		9ED4023D5406DC0E465583D7 /* MockFetchPausedSubscriptionUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF924BB2C781BBA6D2E123D0 /* MockFetchPausedSubscriptionUseCase.swift */; };
 		A0179DBE853A8A7F3174C5DC /* Kingfisher.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 77C44007B0D39A42AB4ACE21 /* Kingfisher.framework */; };
-		A18295DA317249F7144A9E1B /* Alamofire.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = A71898F4F86DD408E9654E98 /* Alamofire.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		A1EDAD31829A35641A2646A7 /* DesignSystem.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AC1A311498193AE6DF677F49 /* DesignSystem.framework */; };
 		A8D3077CAB611B4EAF820E6B /* PauseSubscriptionUseCaseImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 550ED7054D9A6D9D260531A9 /* PauseSubscriptionUseCaseImpl.swift */; };
 		AC2E314D9F7BB541918AE29C /* SubscribeData.framework in Dependencies */ = {isa = PBXBuildFile; fileRef = DF5FF2A79CAAD6E1707060E8 /* SubscribeData.framework */; };
@@ -57,8 +59,10 @@
 		BC5D9A3AB6139B6790305DC5 /* SubscribeExampleApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67523DDB4CDDB4A9B5775D1D /* SubscribeExampleApp.swift */; };
 		C4D403ADB487A63B26DEBCBD /* SubscribeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B7D112BBF7502924041ED21 /* SubscribeView.swift */; };
 		C80E01B0867DE460720744E0 /* MockPauseSubscriptionUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52C6C8C86219782C79D3BD07 /* MockPauseSubscriptionUseCase.swift */; };
+		C9FFFA2C52AF78ABDECF998B /* Alamofire_Alamofire.bundle in Dependencies */ = {isa = PBXBuildFile; fileRef = 597FEA69136238C9DCCDE9B0 /* Alamofire_Alamofire.bundle */; };
 		CB0B7570D2E7DCF3D9385631 /* Moya.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B92346DC382D5960E6BFCD0 /* Moya.framework */; };
 		CBCED34E905FF64C06915E3A /* Moya.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B92346DC382D5960E6BFCD0 /* Moya.framework */; };
+		CBD1E4831C5CA195DD24BC84 /* Alamofire_Alamofire.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 597FEA69136238C9DCCDE9B0 /* Alamofire_Alamofire.bundle */; };
 		D4AB4A546B907E1C6A744C01 /* SubscribeDomain.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4490CBDF56FA86E240C6B38 /* SubscribeDomain.framework */; };
 		D863D5A1D86640B66ADDE802 /* SubscribeData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF5FF2A79CAAD6E1707060E8 /* SubscribeData.framework */; };
 		DB5C9D560E785B286AAA4E2E /* SubscribeRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 518873D08881857BF9308510 /* SubscribeRow.swift */; };
@@ -71,11 +75,14 @@
 		EA6088EE736EA710C61A29C6 /* SubscribeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 210E740423E2557577E07549 /* SubscribeViewModel.swift */; };
 		EA6395FFFF6759BD38A8252A /* SubscribeNewsletterRepositoryImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5478AD7CFD21E8DFD1DAAB8A /* SubscribeNewsletterRepositoryImpl.swift */; };
 		ECB3A6D8A5EE4F0D5BDA3B5A /* SubscribeMain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 601DDD48F11BCA082BCDC946 /* SubscribeMain.swift */; };
-		F19F0F05C353E24561393294 /* DesignSystem.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = AC1A311498193AE6DF677F49 /* DesignSystem.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		ED87ACF2C48CBCD9FA816100 /* DesignSystem_DesignSystem.bundle in Dependencies */ = {isa = PBXBuildFile; fileRef = 88725C861E43B9844D9D4D87 /* DesignSystem_DesignSystem.bundle */; };
+		EDB26E33DE561926E9D1C2A4 /* DesignSystem_DesignSystem.bundle in Dependencies */ = {isa = PBXBuildFile; fileRef = 88725C861E43B9844D9D4D87 /* DesignSystem_DesignSystem.bundle */; };
+		F14B81EA5BFF0F05FF2156FE /* Alamofire_Alamofire.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 597FEA69136238C9DCCDE9B0 /* Alamofire_Alamofire.bundle */; };
 		F34D9DBEC1E48FCAFAEF3336 /* SubscribeNewsletterRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80AC022782541B311A1C6B99 /* SubscribeNewsletterRepository.swift */; };
 		F3CB6A79FD601706C034F708 /* SegmentPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27BE4372D9C9BB0DAF5A3985 /* SegmentPickerView.swift */; };
 		F9E18925131A335A18BDAC8C /* SubscribeError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28774BD95118989809A32F82 /* SubscribeError.swift */; };
 		FAE8DCC1FABFF0F0FE9BE8BB /* ResumeSubscriptionUseCaseImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AB58445B89F114633E08BD2 /* ResumeSubscriptionUseCaseImpl.swift */; };
+		FD946B80E197F38EE50F199A /* Shared.framework in Dependencies */ = {isa = PBXBuildFile; fileRef = 818348BBF6B997119C6F5E6A /* Shared.framework */; };
 		FDB9C9A8EA11ED7D892A2B48 /* DesignSystem.framework in Dependencies */ = {isa = PBXBuildFile; fileRef = AC1A311498193AE6DF677F49 /* DesignSystem.framework */; };
 		FE5D7DB06470DBA2B3DD9C6F /* Shared.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 818348BBF6B997119C6F5E6A /* Shared.framework */; };
 /* End PBXBuildFile section */
@@ -171,14 +178,34 @@
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		17724452884607EE74BED1FD /* Dependencies */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 8;
+			dstSubfolderSpec = 16;
+			files = (
+				5DD195D73E348A1AF31C3698 /* Alamofire_Alamofire.bundle in Dependencies */,
+				ED87ACF2C48CBCD9FA816100 /* DesignSystem_DesignSystem.bundle in Dependencies */,
+			);
+			name = Dependencies;
+			runOnlyForDeploymentPostprocessing = 1;
+		};
+		2085267526EB0E32B527F413 /* Dependencies */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 8;
+			dstSubfolderSpec = 16;
+			files = (
+				C9FFFA2C52AF78ABDECF998B /* Alamofire_Alamofire.bundle in Dependencies */,
+				EDB26E33DE561926E9D1C2A4 /* DesignSystem_DesignSystem.bundle in Dependencies */,
+			);
+			name = Dependencies;
+			runOnlyForDeploymentPostprocessing = 1;
+		};
 		374F2BB2E1D2FA7F1C9C4CDB /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				A18295DA317249F7144A9E1B /* Alamofire.framework in Embed Frameworks */,
-				F19F0F05C353E24561393294 /* DesignSystem.framework in Embed Frameworks */,
 				47153128BB9B7F991DDC15C3 /* Kingfisher.framework in Embed Frameworks */,
 				25854157DCA8CBE5626D4678 /* Moya.framework in Embed Frameworks */,
 				41148B83A433BA12D1036EE1 /* PopupView.framework in Embed Frameworks */,
@@ -257,6 +284,7 @@
 			buildActionMask = 8;
 			dstSubfolderSpec = 16;
 			files = (
+				FD946B80E197F38EE50F199A /* Shared.framework in Dependencies */,
 				834BB2CBE006EA0013B984F5 /* SubscribeDomain.framework in Dependencies */,
 				760849803B870DD2D9E68B91 /* SubscribeInterface.framework in Dependencies */,
 			);
@@ -296,6 +324,7 @@
 		5478AD7CFD21E8DFD1DAAB8A /* SubscribeNewsletterRepositoryImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscribeNewsletterRepositoryImpl.swift; sourceTree = "<group>"; };
 		550ED7054D9A6D9D260531A9 /* PauseSubscriptionUseCaseImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PauseSubscriptionUseCaseImpl.swift; sourceTree = "<group>"; };
 		5595DBABF800B949A8877D83 /* Subscribe.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Subscribe.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		597FEA69136238C9DCCDE9B0 /* Alamofire_Alamofire.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Alamofire_Alamofire.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
 		601DDD48F11BCA082BCDC946 /* SubscribeMain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscribeMain.swift; sourceTree = "<group>"; };
 		67523DDB4CDDB4A9B5775D1D /* SubscribeExampleApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscribeExampleApp.swift; sourceTree = "<group>"; };
 		6941CB8A17245A73A120BA0D /* FetchSubscriptionCountUseCaseImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchSubscriptionCountUseCaseImpl.swift; sourceTree = "<group>"; };
@@ -306,6 +335,7 @@
 		80C0B3B0D19108DC3253B219 /* SubscribeInterface-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "SubscribeInterface-Info.plist"; sourceTree = "<group>"; };
 		818348BBF6B997119C6F5E6A /* Shared.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Shared.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8630490A9341AB3457AEA349 /* FetchActiveSubscriptionUseCaseImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchActiveSubscriptionUseCaseImpl.swift; sourceTree = "<group>"; };
+		88725C861E43B9844D9D4D87 /* DesignSystem_DesignSystem.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DesignSystem_DesignSystem.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
 		8D51B34F0FB31FC07BA7A661 /* ResumeSubscriptionUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResumeSubscriptionUseCase.swift; sourceTree = "<group>"; };
 		902DD38A5009735AFD6ABECD /* SubscribeNewsletterDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscribeNewsletterDTO.swift; sourceTree = "<group>"; };
 		905D13D71D11FFC0A126A1AD /* SubscribeExample-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "SubscribeExample-Info.plist"; sourceTree = "<group>"; };
@@ -315,7 +345,6 @@
 		A41979B86D33DCE3C96AF5E6 /* SubscribeInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscribeInterface.swift; sourceTree = "<group>"; };
 		A534C6A232AC46225249EA00 /* SubscribeNewsletter+Sample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SubscribeNewsletter+Sample.swift"; sourceTree = "<group>"; };
 		A60CF944F586955460558986 /* MockFetchActiveSubscriptionUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockFetchActiveSubscriptionUseCase.swift; sourceTree = "<group>"; };
-		A71898F4F86DD408E9654E98 /* Alamofire.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Alamofire.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A80D97104AC5352523E57C90 /* SubscribeData-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "SubscribeData-Info.plist"; sourceTree = "<group>"; };
 		AC1A311498193AE6DF677F49 /* DesignSystem.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = DesignSystem.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		AF719FE89E8FDC35CB2F20CC /* MockResumeSubscriptionUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockResumeSubscriptionUseCase.swift; sourceTree = "<group>"; };
@@ -451,7 +480,8 @@
 		46A85862377EC9F7C2F801A2 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				A71898F4F86DD408E9654E98 /* Alamofire.framework */,
+				597FEA69136238C9DCCDE9B0 /* Alamofire_Alamofire.bundle */,
+				88725C861E43B9844D9D4D87 /* DesignSystem_DesignSystem.bundle */,
 				AC1A311498193AE6DF677F49 /* DesignSystem.framework */,
 				77C44007B0D39A42AB4ACE21 /* Kingfisher.framework */,
 				4B92346DC382D5960E6BFCD0 /* Moya.framework */,
@@ -738,6 +768,7 @@
 				362F04D734D17695F7B75B43 /* Resources */,
 				B4BCF0AB15B1EB025E7CBEAE /* Frameworks */,
 				374F2BB2E1D2FA7F1C9C4CDB /* Embed Frameworks */,
+				2085267526EB0E32B527F413 /* Dependencies */,
 			);
 			buildRules = (
 			);
@@ -828,6 +859,7 @@
 				ED60597D7D1B55395C12B6D7 /* Resources */,
 				A1D89E331889E56366446D38 /* Frameworks */,
 				AFD814EEF955823CAF55FD20 /* Embed Frameworks */,
+				17724452884607EE74BED1FD /* Dependencies */,
 			);
 			buildRules = (
 			);
@@ -889,6 +921,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CBD1E4831C5CA195DD24BC84 /* Alamofire_Alamofire.bundle in Resources */,
+				2876F661347187156292E9DF /* DesignSystem_DesignSystem.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -924,6 +958,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F14B81EA5BFF0F05FF2156FE /* Alamofire_Alamofire.bundle in Resources */,
+				28955AE1A98B7A1F05BABCB6 /* DesignSystem_DesignSystem.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1320,6 +1356,10 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-L$(DT_TOOLCHAIN_DIR)/usr/lib/swift/$(PLATFORM_NAME)",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.newdok.subscribe.tests;
 				PRODUCT_NAME = SubscribeTests;
 				SDKROOT = iphoneos;
@@ -1347,6 +1387,10 @@
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
+				);
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-L$(DT_TOOLCHAIN_DIR)/usr/lib/swift/$(PLATFORM_NAME)",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.newdok.subscribe.example;
 				PRODUCT_NAME = SubscribeExample;
@@ -1470,6 +1514,10 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-L$(DT_TOOLCHAIN_DIR)/usr/lib/swift/$(PLATFORM_NAME)",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.newdok.subscribe.tests;
 				PRODUCT_NAME = SubscribeTests;
 				SDKROOT = iphoneos;
@@ -1501,6 +1549,10 @@
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
+				);
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-L$(DT_TOOLCHAIN_DIR)/usr/lib/swift/$(PLATFORM_NAME)",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.newdok.subscribe.example;
 				PRODUCT_NAME = SubscribeExample;

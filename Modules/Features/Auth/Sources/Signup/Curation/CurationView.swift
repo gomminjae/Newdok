@@ -56,7 +56,6 @@ private extension CurationView {
             .scrollIndicators(.hidden)
 
             Button {
-                viewModel.reset()
                 onAuthenticated()
             } label: {
                 Text("메인으로")
