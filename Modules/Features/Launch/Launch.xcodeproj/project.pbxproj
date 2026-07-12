@@ -10,13 +10,16 @@
 		0B55C607E32BA0CA157B3BDA /* DesignSystem.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9229787BA766DFA18583ABFA /* DesignSystem.framework */; };
 		113F0CBB242B95E70E2B695B /* PopupView.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA5E611CA9D5AA49AF6715E1 /* PopupView.framework */; };
 		1AEFE7FA6BB5863FD0BA5386 /* LaunchMain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A44DF136146F6B9A83C6AB1 /* LaunchMain.swift */; };
+		20F3FEBE364914EB1EF8A480 /* DesignSystem_DesignSystem.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 33C3A825E35B81636156DB43 /* DesignSystem_DesignSystem.bundle */; };
 		43DAFA287C241F9A81F3F9A6 /* Shared.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAD73AE618B7002C6F84BF4C /* Shared.framework */; };
 		45B48283F14B7CAE2E5F4216 /* Kingfisher.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C483202D74E2B6F40348B08 /* Kingfisher.framework */; };
 		4A5EC27A4FD3253280EBFD1D /* Shared.framework in Dependencies */ = {isa = PBXBuildFile; fileRef = FAD73AE618B7002C6F84BF4C /* Shared.framework */; };
+		91E7FC6828BFD26C633D7876 /* DesignSystem_DesignSystem.bundle in Dependencies */ = {isa = PBXBuildFile; fileRef = 33C3A825E35B81636156DB43 /* DesignSystem_DesignSystem.bundle */; };
 		988A639C908D85348FA3C893 /* SplashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AB4BC8E5564382493B0CEDB /* SplashView.swift */; };
 		9B8DE9786A8471253B1F77E3 /* DesignSystem.framework in Dependencies */ = {isa = PBXBuildFile; fileRef = 9229787BA766DFA18583ABFA /* DesignSystem.framework */; };
 		A7AB08F321F5FB1D2A837467 /* Launch.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CAE9D80105EE847E612B7E64 /* Launch.framework */; };
 		B1F79015784E7B2762AE008B /* LaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C397ED87CA36DDB17BA0A60 /* LaunchTests.swift */; };
+		EBB92F90542ED84308AE68A6 /* Shared.framework in Dependencies */ = {isa = PBXBuildFile; fileRef = FAD73AE618B7002C6F84BF4C /* Shared.framework */; };
 		F4A2FC493ADCD4CAE25B78CF /* LaunchTesting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB364B90EFC14BFABA85950 /* LaunchTesting.swift */; };
 		F7B0B86E17DD269FA98EB7CA /* LaunchTesting.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D5554D8163780EA3FBF884CE /* LaunchTesting.framework */; };
 /* End PBXBuildFile section */
@@ -39,6 +42,26 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
+		10A449D84915DD62332B904F /* Dependencies */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 8;
+			dstSubfolderSpec = 16;
+			files = (
+				91E7FC6828BFD26C633D7876 /* DesignSystem_DesignSystem.bundle in Dependencies */,
+			);
+			name = Dependencies;
+			runOnlyForDeploymentPostprocessing = 1;
+		};
+		31E08F68DC5A80FAE63BA5AD /* Dependencies */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 8;
+			dstSubfolderSpec = 16;
+			files = (
+				EBB92F90542ED84308AE68A6 /* Shared.framework in Dependencies */,
+			);
+			name = Dependencies;
+			runOnlyForDeploymentPostprocessing = 1;
+		};
 		5080B47EE8ECE75CBC8C2A75 /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -85,6 +108,7 @@
 /* Begin PBXFileReference section */
 		0AB4BC8E5564382493B0CEDB /* SplashView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashView.swift; sourceTree = "<group>"; };
 		0C397ED87CA36DDB17BA0A60 /* LaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchTests.swift; sourceTree = "<group>"; };
+		33C3A825E35B81636156DB43 /* DesignSystem_DesignSystem.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DesignSystem_DesignSystem.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
 		45D9FF020D2DC8F6DABC4415 /* LaunchTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "LaunchTests-Info.plist"; sourceTree = "<group>"; };
 		4C483202D74E2B6F40348B08 /* Kingfisher.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Kingfisher.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5BB364B90EFC14BFABA85950 /* LaunchTesting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchTesting.swift; sourceTree = "<group>"; };
@@ -201,6 +225,7 @@
 		DAD3AD821D47FA47C1C68E93 /* Products */ = {
 			isa = PBXGroup;
 			children = (
+				33C3A825E35B81636156DB43 /* DesignSystem_DesignSystem.bundle */,
 				9229787BA766DFA18583ABFA /* DesignSystem.framework */,
 				4C483202D74E2B6F40348B08 /* Kingfisher.framework */,
 				CAE9D80105EE847E612B7E64 /* Launch.framework */,
@@ -233,6 +258,7 @@
 				EAA8360EA3C8B818BB84073F /* Resources */,
 				680A82AE1D6229AD99D80095 /* Frameworks */,
 				8018432BFC560EB6A47324C9 /* Embed Frameworks */,
+				31E08F68DC5A80FAE63BA5AD /* Dependencies */,
 			);
 			buildRules = (
 			);
@@ -274,6 +300,7 @@
 				312535B7C3FB5E1BFCFEABA3 /* Resources */,
 				95086E17C1046738BE921DC9 /* Frameworks */,
 				5080B47EE8ECE75CBC8C2A75 /* Embed Frameworks */,
+				10A449D84915DD62332B904F /* Dependencies */,
 			);
 			buildRules = (
 			);
@@ -324,6 +351,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				20F3FEBE364914EB1EF8A480 /* DesignSystem_DesignSystem.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -397,6 +425,10 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
+				);
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-L$(DT_TOOLCHAIN_DIR)/usr/lib/swift/$(PLATFORM_NAME)",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.newdok.launch.tests;
 				PRODUCT_NAME = LaunchTests;
@@ -558,6 +590,10 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
+				);
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-L$(DT_TOOLCHAIN_DIR)/usr/lib/swift/$(PLATFORM_NAME)",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.newdok.launch.tests;
 				PRODUCT_NAME = LaunchTests;

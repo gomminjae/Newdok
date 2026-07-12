@@ -24,16 +24,55 @@ public struct AuthBuilder: AuthBuildable {
         )
     }
 
-    public func makeOnboardingView() -> AnyView {
-        AnyView(OnboardingView(onboardingStorage: container.onboardingStorage))
+    public func makeOnboardingView(
+        onSignup: @escaping () -> Void,
+        onLogin: @escaping () -> Void
+    ) -> AnyView {
+        AnyView(
+            OnboardingView(
+                onboardingStorage: container.onboardingStorage,
+                onSignup: onSignup,
+                onLogin: onLogin
+            )
+        )
     }
 
-    public func makeLoginView() -> AnyView {
-        AnyView(LoginView(viewModel: container.makeLoginViewModel()))
+    public func makeLoginView(
+        canGoBack: Bool,
+        onBack: @escaping () -> Void,
+        onRecovery: @escaping () -> Void,
+        onSignup: @escaping () -> Void,
+        onNeedSignup: @escaping (String, String?) -> Void,
+        onAuthenticated: @escaping () -> Void
+    ) -> AnyView {
+        AnyView(
+            LoginView(
+                viewModel: container.makeLoginViewModel(),
+                canGoBack: canGoBack,
+                onBack: onBack,
+                onNeedSignup: onNeedSignup,
+                onAuthenticated: onAuthenticated
+            )
+        )
     }
 
-    public func makeSignupView(signupToken: String, nickname: String?) -> AnyView {
-        AnyView(SignupView(viewModel: container.makeSignupViewModel(signupToken: signupToken, nickname: nickname)))
+    public func makeSignupView(
+        signupToken: String,
+        nickname: String?,
+        onBack: @escaping () -> Void,
+        onLogin: @escaping () -> Void,
+        onRecovery: @escaping () -> Void,
+        onAuthenticated: @escaping () -> Void
+    ) -> AnyView {
+        AnyView(
+            SignupView(
+                viewModel: container.makeSignupViewModel(signupToken: signupToken, nickname: nickname),
+                onBack: onBack,
+                onLogin: onLogin,
+                onRecovery: onRecovery,
+                onAuthenticated: onAuthenticated
+            )
+        )
     }
 
     public func signOut() async {

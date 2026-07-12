@@ -15,37 +15,49 @@ public struct LoginView: View {
     @State private var viewModel: LoginViewModel
     @State private var showToast: Bool = false
     @State private var toastMessage: String = ""
-    
-    @Environment(AppRouter.self) private var router
-    @Environment(TabSelection.self) private var tabSelection
-    
-    public init(viewModel: LoginViewModel) {
+
+    private let canGoBack: Bool
+    private let onBack: () -> Void
+    private let onNeedSignup: (String, String?) -> Void
+    private let onAuthenticated: () -> Void
+
+    public init(
+        viewModel: LoginViewModel,
+        canGoBack: Bool,
+        onBack: @escaping () -> Void,
+        onNeedSignup: @escaping (String, String?) -> Void,
+        onAuthenticated: @escaping () -> Void
+    ) {
         self.viewModel = viewModel
+        self.canGoBack = canGoBack
+        self.onBack = onBack
+        self.onNeedSignup = onNeedSignup
+        self.onAuthenticated = onAuthenticated
     }
-    
+
     public var body: some View {
         VStack {
             Spacer()
-            
+
             Image(asset: DesignSystemAsset.logo)
                 .resizable()
-                .padding(.horizontal, 91.14)
+                .scaledToFit()
                 .frame(height: 48)
-            
+
             Spacer()
             Spacer()
-            
+
             VStack(spacing: 12) {
                 kakaoButton
                     .overlay(alignment: .top) {
                         startBadge.offset(y: -30)
                     }
-                
+
                 appleButton
-                
+
                 Button("비회원으로 이용하기") {
                     viewModel.loginAsGuest()
-                    router.resetTo(.tabbar(selectedTab: .home))
+                    onAuthenticated()
                 }
                 .font(.hanSansNeo(14, .medium))
                 .foregroundStyle(Color.captionNeutral)
@@ -74,13 +86,20 @@ public struct LoginView: View {
                 .animation(.easeInOut)
                 .closeOnTapOutside(false)
         }
+        .toolbar {
+            ToolbarItem(placement: .navigationBarLeading) {
+                if canGoBack {
+                    BackButton(action: { onBack() })
+                }
+            }
+        }
         .serverErrorPopup(
             error: $viewModel.currentError,
-            onGoBack: { router.pop() },
+            onGoBack: { onBack() },
             onRetry: {}
         )
     }
-    
+
     private var kakaoButton: some View {
         socialButton(
             title: "카카오로 계속하기",
@@ -95,13 +114,13 @@ public struct LoginView: View {
                 .foregroundColor(Color.black.opacity(0.85))
         } action: {
             viewModel.loginWithKakao {
-                router.resetTo(.tabbar(selectedTab: .home))
+                onAuthenticated()
             } onNeedSignup: { signupToken, nickname in
-                router.push(.signup(signupToken: signupToken, nickname: nickname))
+                onNeedSignup(signupToken, nickname)
             }
         }
     }
-    
+
     private var appleButton: some View {
         socialButton(
             title: "Apple로 계속하기",
@@ -113,13 +132,13 @@ public struct LoginView: View {
                 .foregroundColor(.white)
         } action: {
             viewModel.loginWithApple {
-                router.resetTo(.tabbar(selectedTab: .home))
+                onAuthenticated()
             } onNeedSignup: { signupToken, nickname in
-                router.push(.signup(signupToken: signupToken, nickname: nickname))
+                onNeedSignup(signupToken, nickname)
             }
         }
     }
-    
+
     private func socialButton(
         title: String,
         background: Color,
@@ -146,7 +165,7 @@ public struct LoginView: View {
         }
         .disabled(viewModel.isLoading)
     }
-    
+
     private var startBadge: some View {
         VStack(spacing: 0) {
             Text("3초만에 시작하기")
@@ -162,5 +181,3 @@ public struct LoginView: View {
         }
     }
 }
-
-

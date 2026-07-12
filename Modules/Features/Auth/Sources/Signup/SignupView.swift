@@ -52,10 +52,23 @@ public enum SignupStep: Int, CaseIterable {
 public struct SignupView: View {
     @State public var viewModel: SignupViewModel
 
-    @Environment(AppRouter.self) private var router
+    private let onBack: () -> Void
+    private let onLogin: () -> Void
+    private let onRecovery: () -> Void
+    private let onAuthenticated: () -> Void
 
-    public init(viewModel: SignupViewModel) {
+    public init(
+        viewModel: SignupViewModel,
+        onBack: @escaping () -> Void,
+        onLogin: @escaping () -> Void,
+        onRecovery: @escaping () -> Void,
+        onAuthenticated: @escaping () -> Void
+    ) {
         self.viewModel = viewModel
+        self.onBack = onBack
+        self.onLogin = onLogin
+        self.onRecovery = onRecovery
+        self.onAuthenticated = onAuthenticated
     }
 
     public var body: some View {
@@ -70,7 +83,6 @@ public struct SignupView: View {
                     AgreeView(viewModel: viewModel)
                 case .complete:
                     CompleteView(viewModel: viewModel)
-                        .environment(router)
                 case .recommend:
                     RecommendView(viewModel: viewModel)
                 case .myIndustry:
@@ -78,7 +90,7 @@ public struct SignupView: View {
                 case .indutryList:
                     InterestSelectionView(viewModel: viewModel)
                 case .curation:
-                    CurationView(viewModel: viewModel)
+                    CurationView(viewModel: viewModel, onAuthenticated: onAuthenticated)
                 }
             }
             .animation(.easeInOut(duration: 0.3), value: viewModel.currentStep)
@@ -86,7 +98,7 @@ public struct SignupView: View {
         .ignoresSafeArea(.keyboard)
         .serverErrorPopup(
             error: $viewModel.currentError,
-            onGoBack: { router.pop() },
+            onGoBack: { onBack() },
             onRetry: {}
         )
     }
@@ -97,7 +109,7 @@ public struct SignupView: View {
 
     private func previousStepOrExit() {
         if viewModel.currentStep == .enterProfile {
-            router.pop()
+            onBack()
         } else {
             viewModel.goToPreviousStep()
         }
@@ -132,7 +144,7 @@ public struct SignupView: View {
                 if viewModel.currentStep == .recommend {
                     Button(action: {
                         withAnimation(.easeInOut) {
-                            router.resetTo(.tabbar(selectedTab: .home))
+                            onAuthenticated()
                         }
                     }) {
                         Text("건너뛰기")

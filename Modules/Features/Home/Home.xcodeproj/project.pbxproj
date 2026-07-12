@@ -23,10 +23,12 @@
 		1E62878C0C7B5C3F9ED0AB99 /* HomeDomain.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7E7CDF63113C2F46BE8A71B0 /* HomeDomain.framework */; };
 		1E7E45098752C3B4C517EF1A /* MockFetchHomeNewslettersUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5334BF9E23A4C0D601A88700 /* MockFetchHomeNewslettersUseCase.swift */; };
 		22CCBAB1A599A71D9B5F775B /* HomeArticle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F9D57C7C3F6677D7BA035EB /* HomeArticle.swift */; };
+		25632853C21928B783200A6A /* Alamofire_Alamofire.bundle in Dependencies */ = {isa = PBXBuildFile; fileRef = 64B42078E0A87CEE27F32CF2 /* Alamofire_Alamofire.bundle */; };
 		261CEAC9556FF74D8C655436 /* Moya.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E45A37D9EB117BE8E26CCEAF /* Moya.framework */; };
 		269DAC6E999F4D87706612D6 /* Home.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9290645AFD421A6E8E0A3C77 /* Home.framework */; };
 		296BBBFAE6A19D780B60F09F /* MockFetchHomeHighlightCountsUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE5D92798C2C2687A8EC0852 /* MockFetchHomeHighlightCountsUseCase.swift */; };
 		2B8F29F0ED90A533AB1AEC24 /* HomeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CADBDBCE22FDE304B4127596 /* HomeTests.swift */; };
+		2ECBD5048EFF4DB5DF891E1E /* DesignSystem_DesignSystem.bundle in Resources */ = {isa = PBXBuildFile; fileRef = A393F8EFC0690F199B785B09 /* DesignSystem_DesignSystem.bundle */; };
 		30D2AC437EAEB059AF6636D7 /* DesignSystem.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8C3EBAC2F650C65DE1069CB5 /* DesignSystem.framework */; };
 		34BF87846D5FD728A6D2685E /* DatabaseKit.framework in Dependencies */ = {isa = PBXBuildFile; fileRef = AEAB33304E14B478149B9571 /* DatabaseKit.framework */; };
 		368747EF3CFA31EDD1D3DA44 /* MockLoadReadArticleIdsUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D739686E84362857C0CCFD5 /* MockLoadReadArticleIdsUseCase.swift */; };
@@ -35,6 +37,7 @@
 		3CE34D0B41EB1D188B43C40B /* HighlightCountRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99BE0540C0D9101967B30B88 /* HighlightCountRepository.swift */; };
 		3DE07EC4C5A5F7F5E0FB5DF5 /* Moya.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = E45A37D9EB117BE8E26CCEAF /* Moya.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		3DE6F333B7FB683C1E5E5025 /* HomeArticleRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = F073CBC0ECE36A2D30D69D1F /* HomeArticleRepository.swift */; };
+		3F63BD4E0C5F97AB63D99AFF /* Shared.framework in Dependencies */ = {isa = PBXBuildFile; fileRef = 5D35F66BCBA8EB427B5DE027 /* Shared.framework */; };
 		45F47826A26195919CD537A9 /* HomeData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4690E81D73D861BE25E27C63 /* HomeData.swift */; };
 		468EE7C2A17CEB07A48DA21F /* HomeInterface.framework in Dependencies */ = {isa = PBXBuildFile; fileRef = FD41FB3E0EEA6290D73279DC /* HomeInterface.framework */; };
 		49123A0C78DE39E4C17EF7D7 /* DecorateArticlesUseCaseImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35613C429EA041D0B77F54B7 /* DecorateArticlesUseCaseImpl.swift */; };
@@ -44,7 +47,6 @@
 		508E2389B68D5FB2D0824D4A /* HomeNewsletterAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21D83C7A0A54DF67941C009B /* HomeNewsletterAPI.swift */; };
 		547F394565001BA1D23C0A7E /* RefreshHomeArticlesUseCaseImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC3295E7AF8FD2DAD41E6490 /* RefreshHomeArticlesUseCaseImpl.swift */; };
 		56746DB4C018F47A3E75FE13 /* HighlightCountRepositoryImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A1A0FDB37378365582383FA /* HighlightCountRepositoryImpl.swift */; };
-		588D25E2E77205E3EF774C37 /* DesignSystem.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 8C3EBAC2F650C65DE1069CB5 /* DesignSystem.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		58A3F6A90D1AB2E122FB415A /* FetchMonthArticlesUseCaseImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C27E30652D5F73686FD4353 /* FetchMonthArticlesUseCaseImpl.swift */; };
 		5958A795220236D936B094E6 /* PopupView.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B81F80C2FEAA1107F2AE9F09 /* PopupView.framework */; };
 		5BC163E8AAE46124A7EEE0DC /* HomeMain.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF03E4A61F76015E77430AF5 /* HomeMain.swift */; };
@@ -54,6 +56,7 @@
 		641594D3A073EA80DB5E176E /* HomeDomain.framework in Dependencies */ = {isa = PBXBuildFile; fileRef = 7E7CDF63113C2F46BE8A71B0 /* HomeDomain.framework */; };
 		65566DD060259C10F5144675 /* Kingfisher.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EDB4C3569E3D5CCC18BE7FD7 /* Kingfisher.framework */; };
 		67611AF5B54B257C073CC1C7 /* SaveReadArticleIdsUseCaseImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EA930739B49D4617C017495 /* SaveReadArticleIdsUseCaseImpl.swift */; };
+		69BB4BC16D9D12EB4A93D7FB /* DesignSystem_DesignSystem.bundle in Dependencies */ = {isa = PBXBuildFile; fileRef = A393F8EFC0690F199B785B09 /* DesignSystem_DesignSystem.bundle */; };
 		6AC90B31C866C0162BF72964 /* FetchHomeNewslettersUseCaseImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = D74C49D5F0BE0EAD712EC97F /* FetchHomeNewslettersUseCaseImpl.swift */; };
 		6AF94EE489A31CAB497CC765 /* Shared.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5D35F66BCBA8EB427B5DE027 /* Shared.framework */; };
 		6C158EC00C3B9956038A27BD /* DecorateArticlesUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0271616E5AD36378C969B8C1 /* DecorateArticlesUseCase.swift */; };
@@ -61,6 +64,7 @@
 		79ED22B68E7D3A2900BE5FDC /* FoundationKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04AE699792985C546477918C /* FoundationKit.framework */; };
 		7A474E19149BC0324CA36909 /* DatabaseKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AEAB33304E14B478149B9571 /* DatabaseKit.framework */; };
 		7B2159DD0AE47DB3CDC00C51 /* HomeInterface.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FD41FB3E0EEA6290D73279DC /* HomeInterface.framework */; };
+		7F1749E8E21F3F81E13A5F02 /* DesignSystem_DesignSystem.bundle in Resources */ = {isa = PBXBuildFile; fileRef = A393F8EFC0690F199B785B09 /* DesignSystem_DesignSystem.bundle */; };
 		832F5D657EE9511AC7DFC1AD /* MergeDayArticleSummaryUseCaseImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8D1954B3703B1B17DBF59CF /* MergeDayArticleSummaryUseCaseImpl.swift */; };
 		84F4A42C18D61D66E82A0895 /* ExtractArticleDaysUseCaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F2EEE595AA21F5D1615EC72 /* ExtractArticleDaysUseCaseTests.swift */; };
 		85F59319531E6997AA4537A2 /* NetworkKit.framework in Dependencies */ = {isa = PBXBuildFile; fileRef = D149E26863DC2280CAD0A26A /* NetworkKit.framework */; };
@@ -89,17 +93,19 @@
 		C279A57619B644F716EFC768 /* DesignSystem.framework in Dependencies */ = {isa = PBXBuildFile; fileRef = 8C3EBAC2F650C65DE1069CB5 /* DesignSystem.framework */; };
 		C4FD9A6455255BF6D470039B /* MockFetchMonthArticlesUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 403D445062511989EB5D5859 /* MockFetchMonthArticlesUseCase.swift */; };
 		C8DC844992B30693A7FEA61D /* Moya.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E45A37D9EB117BE8E26CCEAF /* Moya.framework */; };
+		CAEDE3EF78324D11746C2B1E /* DesignSystem_DesignSystem.bundle in Dependencies */ = {isa = PBXBuildFile; fileRef = A393F8EFC0690F199B785B09 /* DesignSystem_DesignSystem.bundle */; };
 		D12E7BE78DF7D57850728578 /* ExtractArticleDaysUseCaseImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30ECF71ADE0B3362CF30069F /* ExtractArticleDaysUseCaseImpl.swift */; };
 		D22A62D9C2CD11BCFD1F27AF /* MockFetchTodayArticlesUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18B147F8538F2F090A9A3957 /* MockFetchTodayArticlesUseCase.swift */; };
 		D4087F9283F2719065049F61 /* DatabaseKit.framework in Dependencies */ = {isa = PBXBuildFile; fileRef = AEAB33304E14B478149B9571 /* DatabaseKit.framework */; };
 		D6BABF0A33009DD83E61B578 /* HomeData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 37935B9DA7BE7EBD9E6DD632 /* HomeData.framework */; };
 		D9D9BAD34448A277BC8FE8BA /* MockSaveReadArticleIdsUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14F01053817F2ABEB643810A /* MockSaveReadArticleIdsUseCase.swift */; };
 		DB35F207C7F50C6FF9DD31BB /* ExtractArticleDaysUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59CEC279B35991FF12BC9856 /* ExtractArticleDaysUseCase.swift */; };
+		DDAD0FE540D6F9D7690072AB /* Alamofire_Alamofire.bundle in Dependencies */ = {isa = PBXBuildFile; fileRef = 64B42078E0A87CEE27F32CF2 /* Alamofire_Alamofire.bundle */; };
 		DDE76B7216877C0F1932E837 /* HomeTesting.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0782543C21EE711EE550C2AA /* HomeTesting.framework */; };
 		DF8B9B3A9110E55D7DCD1F33 /* HomeArticles.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB200FEEBF56F1BFB5116FBE /* HomeArticles.swift */; };
 		E12B05BA3D98A1C4A80DCEA1 /* FetchHomeNewslettersUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87652B4152AA8312B7A8C04A /* FetchHomeNewslettersUseCase.swift */; };
 		E383AB41A613F381C05B01FF /* ReadStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = D54728880638341BCCD4F900 /* ReadStatus.swift */; };
-		E4415727F375CA05B79540D3 /* Alamofire.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 5B1A5FAB7ADFFA55459CCD3E /* Alamofire.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		E5C33DAB0820F43C0173ACF8 /* Alamofire_Alamofire.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 64B42078E0A87CEE27F32CF2 /* Alamofire_Alamofire.bundle */; };
 		E64CBE866CA7745A151893DE /* HomeArticleDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = A430E623D63FB6321CF778E8 /* HomeArticleDTO.swift */; };
 		E8293EF958828F6E454A2E37 /* NetworkKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D149E26863DC2280CAD0A26A /* NetworkKit.framework */; };
 		E83573CD9ACCDB5F6D5A4E62 /* ReadArticleStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED77EB24D60E4333278594E7 /* ReadArticleStore.swift */; };
@@ -113,6 +119,7 @@
 		FC677ACB765EBCE2CD302AE4 /* HomeExampleApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 812DBB1714096105DB2CC859 /* HomeExampleApp.swift */; };
 		FEA6F52F574DAE316B56ED98 /* HomeNewsletter+Sample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 340C26E4EDD860280FD94F05 /* HomeNewsletter+Sample.swift */; };
 		FF14E6EE45E4990DB8B026DD /* NetworkKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D149E26863DC2280CAD0A26A /* NetworkKit.framework */; };
+		FF99CC3918E2F8453AFACA84 /* Alamofire_Alamofire.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 64B42078E0A87CEE27F32CF2 /* Alamofire_Alamofire.bundle */; };
 		FFC8FCCA16E79951DFD5AA8D /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAD2FE377459D687CCBCE3E0 /* HomeViewModel.swift */; };
 /* End PBXBuildFile section */
 
@@ -236,6 +243,7 @@
 			files = (
 				95F99C807FD982C4E6125404 /* HomeDomain.framework in Dependencies */,
 				98D19B21F2097F841C0F2DDF /* HomeInterface.framework in Dependencies */,
+				3F63BD4E0C5F97AB63D99AFF /* Shared.framework in Dependencies */,
 			);
 			name = Dependencies;
 			runOnlyForDeploymentPostprocessing = 1;
@@ -260,14 +268,23 @@
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		72F4E209847032C394F96253 /* Dependencies */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 8;
+			dstSubfolderSpec = 16;
+			files = (
+				25632853C21928B783200A6A /* Alamofire_Alamofire.bundle in Dependencies */,
+				CAEDE3EF78324D11746C2B1E /* DesignSystem_DesignSystem.bundle in Dependencies */,
+			);
+			name = Dependencies;
+			runOnlyForDeploymentPostprocessing = 1;
+		};
 		8E77B6070471420CCBA638D9 /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				E4415727F375CA05B79540D3 /* Alamofire.framework in Embed Frameworks */,
-				588D25E2E77205E3EF774C37 /* DesignSystem.framework in Embed Frameworks */,
 				5CC2D77A673B6A9B791CC64A /* Kingfisher.framework in Embed Frameworks */,
 				3DE07EC4C5A5F7F5E0FB5DF5 /* Moya.framework in Embed Frameworks */,
 				8FD0FC35862FD44D5C85D445 /* PopupView.framework in Embed Frameworks */,
@@ -301,6 +318,17 @@
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9E23B10E1EBB1B064EF280D1 /* Dependencies */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 8;
+			dstSubfolderSpec = 16;
+			files = (
+				DDAD0FE540D6F9D7690072AB /* Alamofire_Alamofire.bundle in Dependencies */,
+				69BB4BC16D9D12EB4A93D7FB /* DesignSystem_DesignSystem.bundle in Dependencies */,
+			);
+			name = Dependencies;
+			runOnlyForDeploymentPostprocessing = 1;
 		};
 		AB6F9991EFFF8EB658ECFA57 /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
@@ -347,10 +375,10 @@
 		5334BF9E23A4C0D601A88700 /* MockFetchHomeNewslettersUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockFetchHomeNewslettersUseCase.swift; sourceTree = "<group>"; };
 		59CEC279B35991FF12BC9856 /* ExtractArticleDaysUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtractArticleDaysUseCase.swift; sourceTree = "<group>"; };
 		5A1A0FDB37378365582383FA /* HighlightCountRepositoryImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HighlightCountRepositoryImpl.swift; sourceTree = "<group>"; };
-		5B1A5FAB7ADFFA55459CCD3E /* Alamofire.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Alamofire.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5D35F66BCBA8EB427B5DE027 /* Shared.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Shared.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5F888AB37F684670D6487433 /* HomeData-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "HomeData-Info.plist"; sourceTree = "<group>"; };
 		61EC700930D1096A1F12C0D7 /* Home-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "Home-Info.plist"; sourceTree = "<group>"; };
+		64B42078E0A87CEE27F32CF2 /* Alamofire_Alamofire.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Alamofire_Alamofire.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
 		6F2EEE595AA21F5D1615EC72 /* ExtractArticleDaysUseCaseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtractArticleDaysUseCaseTests.swift; sourceTree = "<group>"; };
 		6F9D57C7C3F6677D7BA035EB /* HomeArticle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeArticle.swift; sourceTree = "<group>"; };
 		769838F5159DD381C709E560 /* HomeArticle+Sample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HomeArticle+Sample.swift"; sourceTree = "<group>"; };
@@ -367,6 +395,7 @@
 		9879BE437F14BB2EB41CC295 /* HomeBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeBuilder.swift; sourceTree = "<group>"; };
 		99BE0540C0D9101967B30B88 /* HighlightCountRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HighlightCountRepository.swift; sourceTree = "<group>"; };
 		9A449CFDCA59CB8A8B2144B9 /* FetchDayArticlesUseCaseImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchDayArticlesUseCaseImpl.swift; sourceTree = "<group>"; };
+		A393F8EFC0690F199B785B09 /* DesignSystem_DesignSystem.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DesignSystem_DesignSystem.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
 		A42B7A6C3FBA6B39ACF0EB0D /* MockFetchDayArticlesUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockFetchDayArticlesUseCase.swift; sourceTree = "<group>"; };
 		A430E623D63FB6321CF778E8 /* HomeArticleDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeArticleDTO.swift; sourceTree = "<group>"; };
 		A4F549A46AF7A1574E4E5924 /* RefreshHomeArticlesUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefreshHomeArticlesUseCase.swift; sourceTree = "<group>"; };
@@ -520,8 +549,9 @@
 		156072FA40260C0FBAAE35F3 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				5B1A5FAB7ADFFA55459CCD3E /* Alamofire.framework */,
+				64B42078E0A87CEE27F32CF2 /* Alamofire_Alamofire.bundle */,
 				AEAB33304E14B478149B9571 /* DatabaseKit.framework */,
+				A393F8EFC0690F199B785B09 /* DesignSystem_DesignSystem.bundle */,
 				8C3EBAC2F650C65DE1069CB5 /* DesignSystem.framework */,
 				04AE699792985C546477918C /* FoundationKit.framework */,
 				9290645AFD421A6E8E0A3C77 /* Home.framework */,
@@ -859,6 +889,7 @@
 				A3E9A846F2389D47B0821045 /* Resources */,
 				23A28F306D3F7D64A552EE00 /* Frameworks */,
 				8E77B6070471420CCBA638D9 /* Embed Frameworks */,
+				9E23B10E1EBB1B064EF280D1 /* Dependencies */,
 			);
 			buildRules = (
 			);
@@ -902,6 +933,7 @@
 				95C7AAA080E708276A8F09A7 /* Resources */,
 				D2D1CD11E151DABAE249ECD8 /* Frameworks */,
 				724F10C18B84459D2E88EF10 /* Embed Frameworks */,
+				72F4E209847032C394F96253 /* Dependencies */,
 			);
 			buildRules = (
 			);
@@ -993,6 +1025,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FF99CC3918E2F8453AFACA84 /* Alamofire_Alamofire.bundle in Resources */,
+				7F1749E8E21F3F81E13A5F02 /* DesignSystem_DesignSystem.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1007,6 +1041,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E5C33DAB0820F43C0173ACF8 /* Alamofire_Alamofire.bundle in Resources */,
+				2ECBD5048EFF4DB5DF891E1E /* DesignSystem_DesignSystem.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1558,6 +1594,10 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-L$(DT_TOOLCHAIN_DIR)/usr/lib/swift/$(PLATFORM_NAME)",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.newdok.home.example;
 				PRODUCT_NAME = HomeExample;
 				SDKROOT = iphoneos;
@@ -1623,6 +1663,10 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-L$(DT_TOOLCHAIN_DIR)/usr/lib/swift/$(PLATFORM_NAME)",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.newdok.home.tests;
 				PRODUCT_NAME = HomeTests;
 				SDKROOT = iphoneos;
@@ -1651,6 +1695,10 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-L$(DT_TOOLCHAIN_DIR)/usr/lib/swift/$(PLATFORM_NAME)",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.newdok.home.example;
 				PRODUCT_NAME = HomeExample;
 				SDKROOT = iphoneos;
@@ -1674,6 +1722,10 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
+				);
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-L$(DT_TOOLCHAIN_DIR)/usr/lib/swift/$(PLATFORM_NAME)",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.newdok.home.tests;
 				PRODUCT_NAME = HomeTests;

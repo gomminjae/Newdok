@@ -48,14 +48,18 @@ struct PagingScrollView: View {
                 ScrollView(.horizontal, showsIndicators: false) {
                     LazyHStack(spacing: itemSpacing) {
                         ForEach(dynamicItems.indices, id: \.self) { index in
-                            let newsletter = dynamicItems[index]
-                            RecommendedNewsLetterView(recommendation: newsletter)
-                                .frame(width: itemWidth, height: itemHeight)
-                                .id(index)
-                                .contentShape(Rectangle())
-                                .onTapGesture {
-                                    onItemTap(newsletter.id)
-                                }
+                            // LazyHStack이 배열 축소 후 stale 인덱스를 실현하며 subscript 크래시가
+                            // 나는 것을 방어한다.
+                            if index < dynamicItems.count {
+                                let newsletter = dynamicItems[index]
+                                RecommendedNewsLetterView(recommendation: newsletter)
+                                    .frame(width: itemWidth, height: itemHeight)
+                                    .id(index)
+                                    .contentShape(Rectangle())
+                                    .onTapGesture {
+                                        onItemTap(newsletter.id)
+                                    }
+                            }
                         }
                         Color.clear.frame(width: trailingSpace)
                     }

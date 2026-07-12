@@ -7,9 +7,6 @@ import BookmarkTesting
 
 @main
 struct BookmarkExampleApp: App {
-    @State private var router = AppRouter()
-    @State private var tabSelection = TabSelection()
-
     init() {
         AppState.shared.login()
     }
@@ -17,10 +14,13 @@ struct BookmarkExampleApp: App {
     var body: some Scene {
         WindowGroup {
             NavigationStack {
-                BookmarkView(viewModel: makeViewModel())
+                BookmarkView(
+                    viewModel: makeViewModel(),
+                    onSearch: {},
+                    onLogin: {},
+                    onArticleTap: { _ in }
+                )
             }
-            .environment(router)
-            .environment(tabSelection)
             .environment(AppState.shared)
             .environment(ToastCenter.shared)
         }

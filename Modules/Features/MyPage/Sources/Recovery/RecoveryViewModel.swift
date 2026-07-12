@@ -167,22 +167,21 @@ public final class RecoveryViewModel: ErrorHandling {
     private func startTimer() {
         stopTimer()
         isTimerActive = true
-        timerTask = Task {
-            while !Task.isCancelled && timerRemaining > 0 {
+        timerTask = Task { [weak self] in
+            while !Task.isCancelled, let self, self.timerRemaining > 0 {
                 do {
                     try await Task.sleep(for: .seconds(1))
                 } catch {
                     break
                 }
                 guard !Task.isCancelled else { break }
-                timerRemaining -= 1
+                self.timerRemaining -= 1
             }
-            if timerRemaining <= 0 {
-                isTimerActive = false
-                // 3회 모두 사용한 상태에서 만료되면 팝업
-                if resendCount >= maxResends {
-                    isShowPopup = true
-                }
+            guard let self, self.timerRemaining <= 0 else { return }
+            self.isTimerActive = false
+            // 3회 모두 사용한 상태에서 만료되면 팝업
+            if self.resendCount >= self.maxResends {
+                self.isShowPopup = true
             }
         }
     }

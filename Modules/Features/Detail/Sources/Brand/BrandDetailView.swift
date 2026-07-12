@@ -36,10 +36,12 @@ extension SubscriptionStatus {
 
 public struct BrandDetailView: View {
     @State private var viewModel: BrandDetailViewModel
-    @Environment(AppRouter.self) private var router
-    @Environment(TabSelection.self) private var tabSelection
     @Environment(\.displayScale) private var displayScale
-    @Environment(AppState.self) private var appState
+
+    private let onBack: () -> Void
+    private let onSignup: () -> Void
+    private let onGoHome: () -> Void
+    private let onArticleTap: (String) -> Void
 
     @State private var isShowPauseAlert: Bool = false
     @State private var isShowGuestAlert: Bool = false
@@ -51,10 +53,20 @@ public struct BrandDetailView: View {
     @State private var showSubscribeToast: Bool = false
     @State private var showPauseToast: Bool = false
 
-    private var isGuest: Bool { appState.authState == .guest }
+    private var isGuest: Bool { AppState.shared.authState == .guest }
 
-    public init(viewModel: BrandDetailViewModel) {
+    public init(
+        viewModel: BrandDetailViewModel,
+        onBack: @escaping () -> Void,
+        onSignup: @escaping () -> Void,
+        onGoHome: @escaping () -> Void,
+        onArticleTap: @escaping (String) -> Void
+    ) {
         self.viewModel = viewModel
+        self.onBack = onBack
+        self.onSignup = onSignup
+        self.onGoHome = onGoHome
+        self.onArticleTap = onArticleTap
     }
 
     public var body: some View {
@@ -81,7 +93,7 @@ public struct BrandDetailView: View {
         }
         .toolbar {
             ToolbarItem(placement: .navigationBarLeading) {
-                Button { router.pop() } label: {
+                Button { onBack() } label: {
                     Image(asset: DesignSystemAsset.back)
                         .resizable()
                         .renderingMode(.template)
@@ -115,7 +127,7 @@ public struct BrandDetailView: View {
                 .closeOnTapOutside(true).closeOnTap(false).allowTapThroughBG(false)
         }
         .popup(isPresented: $isShowGuestAlert) {
-            SubscribeGuestAlertView(isPresented: $isShowGuestAlert, onSignup: { router.push(.login) })
+            SubscribeGuestAlertView(isPresented: $isShowGuestAlert, onSignup: { onSignup() })
         } customize: {
             $0.type(.default).position(.center).animation(.easeInOut)
                 .backgroundColor(Color.black.opacity(0.3))
@@ -136,8 +148,7 @@ public struct BrandDetailView: View {
                 onClose: { showCheckSubscribePopup = false },
                 checkMailbox: {
                     showCheckSubscribePopup = false
-                    tabSelection.selectedTab = .home
-                    router.resetTo(.tabbar(selectedTab: .home))
+                    onGoHome()
                 },
                 subscribe: {
                     showCheckSubscribePopup = false
@@ -164,7 +175,7 @@ public struct BrandDetailView: View {
         }
         .serverErrorPopup(
             error: $viewModel.currentError,
-            onGoBack: { router.pop() },
+            onGoBack: { onBack() },
             onRetry: {
                 Task {
                     if isGuest { await viewModel.guestFetch() }
@@ -197,7 +208,7 @@ public struct BrandDetailView: View {
             BrandArticleListSection(
                 articles: detail.brandArticleList,
                 onArticleTap: { id in
-                    router.push(.articleDetail(id: id, isPastArticle: true))
+                    onArticleTap(id)
                 }
             )
             .sheet(isPresented: Binding(

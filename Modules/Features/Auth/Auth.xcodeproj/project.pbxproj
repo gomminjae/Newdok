@@ -37,6 +37,7 @@
 		38885CC0C2414879F652B0A7 /* Shared.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2D55F8F97BF588B8074069DA /* Shared.framework */; };
 		394486121B1C9520A5164E43 /* AuthData.framework in Dependencies */ = {isa = PBXBuildFile; fileRef = FC8AEB8E0082B038CB7521FA /* AuthData.framework */; };
 		3DE41050BD58F53CEBF1CD89 /* SignupUseCaseImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 189DB6C61185D4742A4F68D5 /* SignupUseCaseImpl.swift */; };
+		4305092A6017903397FDA5DD /* Shared.framework in Dependencies */ = {isa = PBXBuildFile; fileRef = 2D55F8F97BF588B8074069DA /* Shared.framework */; };
 		452C194C93875A657D1EF472 /* PolicyWebSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CC431E5DC117F84221E3049 /* PolicyWebSheetView.swift */; };
 		4AC581D077DF9A536B6119DD /* PopupView.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A03B7D8DBF8FA6DF9A7FAB5E /* PopupView.framework */; };
 		54098FD0A269D65E21141F44 /* AuthRecommendedBrand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AEEA4760F10DA275AAD667C /* AuthRecommendedBrand.swift */; };
@@ -232,6 +233,7 @@
 			files = (
 				F7B5E87E9981AE8BBA072E77 /* AuthDomain.framework in Dependencies */,
 				1F96AE8D6C41A9E6FC6BA978 /* AuthInterface.framework in Dependencies */,
+				4305092A6017903397FDA5DD /* Shared.framework in Dependencies */,
 			);
 			name = Dependencies;
 			runOnlyForDeploymentPostprocessing = 1;

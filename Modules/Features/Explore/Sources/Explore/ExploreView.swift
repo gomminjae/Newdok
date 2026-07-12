@@ -6,14 +6,35 @@ import Shared
 public struct ExploreView: View {
     @State private var viewModel: ExploreViewModel
     @State private var currentPage: Int = 0
-    @Environment(AppRouter.self) private var router
-    @Environment(TabSelection.self) private var tabSelection
-    @Environment(AppState.self) private var appState
 
-    private var isGuest: Bool { appState.authState == .guest }
+    private let exploreTrigger: UUID
+    private let onConsumePending: () -> (day: Int?, tab: Int)?
+    private let onSearch: () -> Void
+    private let onSignup: () -> Void
+    private let onLogin: () -> Void
+    private let onEditProfile: () -> Void
+    private let onBrandTap: (String) -> Void
 
-    public init(viewModel: ExploreViewModel) {
+    private var isGuest: Bool { AppState.shared.authState == .guest }
+
+    public init(
+        viewModel: ExploreViewModel,
+        exploreTrigger: UUID,
+        onConsumePending: @escaping () -> (day: Int?, tab: Int)?,
+        onSearch: @escaping () -> Void,
+        onSignup: @escaping () -> Void,
+        onLogin: @escaping () -> Void,
+        onEditProfile: @escaping () -> Void,
+        onBrandTap: @escaping (String) -> Void
+    ) {
         self.viewModel = viewModel
+        self.exploreTrigger = exploreTrigger
+        self.onConsumePending = onConsumePending
+        self.onSearch = onSearch
+        self.onSignup = onSignup
+        self.onLogin = onLogin
+        self.onEditProfile = onEditProfile
+        self.onBrandTap = onBrandTap
     }
 
     public var body: some View {
@@ -31,16 +52,16 @@ public struct ExploreView: View {
             }
             .frame(maxHeight: .infinity, alignment: .top)
             .background(Color.white)
-            .onChange(of: appState.authState) {
+            .onChange(of: AppState.shared.authState) {
                 Task { await viewModel.reloadOnAuthChanged() }
             }
-            .onChange(of: tabSelection.exploreTrigger) {
-                guard tabSelection.hasPendingExplore else { return }
-                applyExploreParams()
+            .onChange(of: exploreTrigger) {
+                guard let params = onConsumePending() else { return }
+                applyExploreParams(params)
                 Task { await viewModel.reloadOnTrigger() }
             }
             .onAppear {
-                applyExploreParams()
+                if let params = onConsumePending() { applyExploreParams(params) }
                 viewModel.reloadUserInfo()
                 Task { await viewModel.loadInitial() }
             }
@@ -65,7 +86,7 @@ public struct ExploreView: View {
                 .foregroundStyle(Color.captionHeavy)
             Spacer()
             Button {
-                router.push(.search)
+                onSearch()
             } label: {
                 Image(asset: DesignSystemAsset.lineSearch)
                     .padding(.trailing, 12)
@@ -116,8 +137,8 @@ public struct ExploreView: View {
             allNewsletterSection
         } else {
             ExploreGuestSection(
-                onSignup: { router.push(.login) },
-                onLogin: { router.push(.login) }
+                onSignup: { onSignup() },
+                onLogin: { onLogin() }
             )
         }
     }
@@ -132,7 +153,7 @@ public struct ExploreView: View {
             } else if !viewModel.hasUserProfile {
                 ExploreNoProfileSection(
                     nickname: viewModel.nickname,
-                    onEditProfile: { router.push(.editProfile) }
+                    onEditProfile: { onEditProfile() }
                 )
             } else {
                 ExploreRecommendationSection(
@@ -141,7 +162,7 @@ public struct ExploreView: View {
                     unionRecommendation: viewModel.fixedUnionRecommendation,
                     isRefreshing: viewModel.isRefreshingRecommendation,
                     prioritizedInterests: viewModel.prioritizeInterestsForNewsletter,
-                    onBrandTap: { id in router.push(.brandDetail(id: "\(id)")) },
+                    onBrandTap: { id in onBrandTap("\(id)") },
                     onRefresh: { Task { await viewModel.fetchRecommendation(forceRefresh: true) } },
                     currentPage: $currentPage
                 )
@@ -176,7 +197,7 @@ public struct ExploreView: View {
             onReset: {
                 await viewModel.handleReset()
             },
-            onBrandTap: { id in router.push(.brandDetail(id: "\(id)")) }
+            onBrandTap: { id in onBrandTap("\(id)") }
         )
     }
 
@@ -196,9 +217,7 @@ public struct ExploreView: View {
         .accessibilityAddTraits(viewModel.selectedTab == index ? .isSelected : [])
     }
 
-    private func applyExploreParams() {
-        guard tabSelection.hasPendingExplore else { return }
-        let params = tabSelection.consumeExploreParams()
+    private func applyExploreParams(_ params: (day: Int?, tab: Int)) {
         if let day = params.day, viewModel.day != [day] {
             viewModel.day = [day]
         }

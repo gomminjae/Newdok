@@ -26,7 +26,10 @@ public final class AuthRepositoryImpl: AuthRepository {
             let result = try response.toDomain()
 
             if case let .registered(user, accessToken) = result {
-                tokenStorage.saveAccessToken(accessToken)
+                // Keychain 저장 실패 시 로그인 실패로 처리 — 다음 실행 때 조용히 로그아웃되는 것 방지.
+                guard tokenStorage.saveAccessToken(accessToken) else {
+                    throw LoginError.tokenPersistenceFailed
+                }
                 persistLocalUser(from: user)
             }
 
@@ -58,7 +61,9 @@ public final class AuthRepositoryImpl: AuthRepository {
         )
         let domain = response.toDomain()
 
-        tokenStorage.saveAccessToken(domain.accessToken)
+        guard tokenStorage.saveAccessToken(domain.accessToken) else {
+            throw LoginError.tokenPersistenceFailed
+        }
         persistLocalUser(from: domain.user)
 
         return domain

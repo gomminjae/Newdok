@@ -11,24 +11,12 @@ concurrency:
 jobs:
   lint:
     name: SwiftLint
-    runs-on: macos-15
+    # Linux 러너 사용 (macOS 대비 1/10 과금). SwiftLint 공식 Docker 이미지로 실행.
+    runs-on: ubuntu-latest
+    container: ghcr.io/realm/swiftlint:0.62.2
     steps:
       - uses: actions/checkout@v4
 
-      - name: Cache SwiftLint
-        id: cache-swiftlint
-        uses: actions/cache@v4
-        with:
-          path: swiftlint-bin
-          key: swiftlint-0.62.2
-
-      - name: Install SwiftLint 0.62.2
-        if: steps.cache-swiftlint.outputs.cache-hit != 'true'
-        run: |
-          curl -sL https://github.com/realm/SwiftLint/releases/download/0.62.2/portable_swiftlint.zip -o swiftlint.zip
-          unzip -o swiftlint.zip -d swiftlint-bin
-          chmod +x swiftlint-bin/swiftlint
-
       - name: Run SwiftLint
-        run: swiftlint-bin/swiftlint lint --reporter github-actions-logging
+        run: swiftlint lint --reporter github-actions-logging
 

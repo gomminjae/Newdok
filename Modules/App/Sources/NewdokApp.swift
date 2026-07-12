@@ -5,51 +5,37 @@ import DesignSystem
 import PopupView
 import FirebaseCore
 import FirebaseAnalytics
-import KakaoSDKCommon
-import KakaoSDKAuth
+import FirebaseCrashlytics
 
 @main
 struct NewdokApp: App {
     @State private var showUpdatePopup = false
-    @State private var router = AppRouter()
-    @State private var tabSelection = TabSelection()
+    @State private var coordinator = AppCoordinator()
     private let container: AppContainer
 
     init() {
         FirebaseApp.configure()
-        ErrorLoggerRegistry.register(DefaultErrorLogger())
+        #if DEBUG
+        ErrorLoggerRegistry.register(DefaultErrorLogger())        // 로컬 로깅만 (Crashlytics 오염 방지)
+        #else
+        ErrorLoggerRegistry.register(CrashlyticsErrorLogger())    // 로컬 + Crashlytics non-fatal
+        #endif
         AppErrorMapperRegistry.register(NetworkErrorAppMapper())
         TokenStore.shared.migrateTokenIfNeeded()
 
-        if let kakaoAppKey = Bundle.main.object(forInfoDictionaryKey: "KAKAO_NATIVE_APP_KEY") as? String {
-            KakaoSDK.initSDK(appKey: kakaoAppKey)
-        }
-
-        let router = AppRouter()
-        self._router = State(initialValue: router)
-        self.container = AppContainer(router: router, deps: AppDependencies())
+        self.container = AppContainer(deps: AppDependencies())
     }
 
     var body: some Scene {
         WindowGroup {
             OverlayRootView {
-                AppRootView(router: router, container: container)
+                AppRootView(container: container, coordinator: coordinator)
             }
             .hideKeyboardOnTap()
-            .environment(router)
-            .environment(tabSelection)
-            .environment(AppState.shared)
-            .environment(ToastCenter.shared)
             .overlay(
                 AppToastHost()
-                    .environment(ToastCenter.shared)
                     .allowsHitTesting(false)
             )
-            .onOpenURL { url in
-                if AuthApi.isKakaoTalkLoginUrl(url) {
-                    AuthController.handleOpenUrl(url: url)
-                }
-            }
             .task {
                 await checkVersion()
             }

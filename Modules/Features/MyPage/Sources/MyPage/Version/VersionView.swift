@@ -10,9 +10,11 @@ import DesignSystem
 import Shared
 
 public struct VersionView: View {
-    @Environment(AppRouter.self) private var router
+    private let onBack: () -> Void
     
-    public init() {}
+    public init(onBack: @escaping () -> Void) {
+        self.onBack = onBack
+    }
     
     // 앱 버전 정보 가져오기
     private var appVersion: String {
@@ -24,7 +26,7 @@ public struct VersionView: View {
             // 헤더
             HStack {
                 Button {
-                    router.pop()
+                    onBack()
                 } label: {
                     Image(asset: DesignSystemAsset.back)
                         .resizable()

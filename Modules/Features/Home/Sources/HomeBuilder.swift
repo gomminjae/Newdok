@@ -19,7 +19,22 @@ public struct HomeBuilder: HomeBuildable {
         )
     }
 
-    public func makeHomeView() -> AnyView {
-        AnyView(HomeView(viewModel: container.makeHomeViewModel()))
+    public func makeHomeView(
+        onArticleTap: @escaping (String) -> Void,
+        onSearch: @escaping () -> Void,
+        onSignup: @escaping () -> Void,
+        onLogin: @escaping () -> Void,
+        onGoToExplore: @escaping (Int?, Int) -> Void
+    ) -> AnyView {
+        AnyView(
+            HomeView(
+                viewModel: container.makeHomeViewModel(),
+                onArticleTap: onArticleTap,
+                onSearch: onSearch,
+                onSignup: onSignup,
+                onLogin: onLogin,
+                onGoToExplore: onGoToExplore
+            )
+        )
     }
 }

@@ -18,8 +18,27 @@ public struct ExploreBuilder: ExploreBuildable {
         )
     }
 
-    public func makeExploreView() -> AnyView {
-        AnyView(ExploreView(viewModel: container.makeViewModel()))
+    public func makeExploreView(
+        exploreTrigger: UUID,
+        onConsumePending: @escaping () -> (day: Int?, tab: Int)?,
+        onSearch: @escaping () -> Void,
+        onSignup: @escaping () -> Void,
+        onLogin: @escaping () -> Void,
+        onEditProfile: @escaping () -> Void,
+        onBrandTap: @escaping (String) -> Void
+    ) -> AnyView {
+        AnyView(
+            ExploreView(
+                viewModel: container.makeViewModel(),
+                exploreTrigger: exploreTrigger,
+                onConsumePending: onConsumePending,
+                onSearch: onSearch,
+                onSignup: onSignup,
+                onLogin: onLogin,
+                onEditProfile: onEditProfile,
+                onBrandTap: onBrandTap
+            )
+        )
     }
 
     public func loadOptions() async throws {

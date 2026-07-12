@@ -11,7 +11,8 @@ public protocol TokenStorageProtocol: Sendable {
     var accessToken: String? { get }
     var hasValidToken: Bool { get }
 
-    func saveAccessToken(_ token: String?)
+    @discardableResult
+    func saveAccessToken(_ token: String?) -> Bool
     func clear()
     func migrateTokenIfNeeded()
 }

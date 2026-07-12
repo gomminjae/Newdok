@@ -12,6 +12,7 @@
 		041E31D70D5CEF8FC84F8A6A /* BookmarkViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F66F6C2D2FE5931531949059 /* BookmarkViewModel.swift */; };
 		087F2C6B78A32AE7E1D205C4 /* BookmarkDomain.framework in Dependencies */ = {isa = PBXBuildFile; fileRef = 7D71C9FA16EA7F7B8C065C3F /* BookmarkDomain.framework */; };
 		1458ECB9E29B36B27B2C65B4 /* Moya.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD58982C5C438D314E6BEC2A /* Moya.framework */; };
+		15B5B61710D883857442F7D8 /* Alamofire_Alamofire.bundle in Dependencies */ = {isa = PBXBuildFile; fileRef = 89B93615CAA3A4B6EDE00CC7 /* Alamofire_Alamofire.bundle */; };
 		176538BC0FF6A9B25033A910 /* MonthlyBookmark.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0206BD8483F955BBBE9319B6 /* MonthlyBookmark.swift */; };
 		17D27226B3ACEBBA22B67FA4 /* BookmarkGuestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A47C7D14746696637C609C95 /* BookmarkGuestView.swift */; };
 		1A9388B3195E7434819F3A90 /* BookmarkDomain.framework in Dependencies */ = {isa = PBXBuildFile; fileRef = 7D71C9FA16EA7F7B8C065C3F /* BookmarkDomain.framework */; };
@@ -26,6 +27,7 @@
 		35E55A3EB79F3C79237B06A9 /* BookmarkData.framework in Dependencies */ = {isa = PBXBuildFile; fileRef = 82057388BFC0F3F42C3F8205 /* BookmarkData.framework */; };
 		36A1C8F8DBC81433306D7FFD /* Bookmark.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 76BD577AD93EFB89FF1662CC /* Bookmark.framework */; };
 		398C358B05E39D463566987A /* BookmarkSortBottomSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = D13F9A4DD3CE365312FF6EFD /* BookmarkSortBottomSheet.swift */; };
+		3F1C052B1B8FCFABBE443EF9 /* Alamofire_Alamofire.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 89B93615CAA3A4B6EDE00CC7 /* Alamofire_Alamofire.bundle */; };
 		41214122226FE32CD3C03506 /* BookmarkDomain.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D71C9FA16EA7F7B8C065C3F /* BookmarkDomain.framework */; };
 		45925DF8DE7496C4348BD0F9 /* BookmarkInterface.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E7655ACA3BC556B119528725 /* BookmarkInterface.framework */; };
 		46544D3CC066630ECA9B0AFE /* BookmarkDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 177C50DB84A2207F875A86A6 /* BookmarkDTO.swift */; };
@@ -36,6 +38,7 @@
 		5206F4FEEE24DA160A8A73E1 /* BookmarkRepositoryImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DEC7FF30725688E6BE8DE19 /* BookmarkRepositoryImpl.swift */; };
 		52645DC713DA5763373B841A /* DesignSystem.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F2A5BEA1A83032F8516C05FC /* DesignSystem.framework */; };
 		55B78CD6D6C94876F593D4D4 /* BookmarkDomain.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D71C9FA16EA7F7B8C065C3F /* BookmarkDomain.framework */; };
+		58118EB0B59B21E0BB307280 /* DesignSystem_DesignSystem.bundle in Resources */ = {isa = PBXBuildFile; fileRef = BBDE9251A6A0136A7E26B3E5 /* DesignSystem_DesignSystem.bundle */; };
 		5D699E791C8658B19EB124BE /* BookmarkRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5E4D1C21AD8172E2DE26AB5 /* BookmarkRepository.swift */; };
 		5DA795FD8AE82AF3E6657BB5 /* DesignSystem.framework in Dependencies */ = {isa = PBXBuildFile; fileRef = F2A5BEA1A83032F8516C05FC /* DesignSystem.framework */; };
 		612EE9439A6C38F03EABBCF4 /* Kingfisher.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 722BE9794BB696843B2378B9 /* Kingfisher.framework */; };
@@ -54,18 +57,20 @@
 		9CDFF7E5C35845724D00EEF8 /* BookmarkItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = D276B3421EA24CE847FEE3A2 /* BookmarkItem.swift */; };
 		9D7C75A36F3F477772BD7FBE /* BookmarkEmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 962531354FC80D68BEDB100B /* BookmarkEmptyView.swift */; };
 		A04E9AADF186FE1832AF4D59 /* NetworkKit.framework in Dependencies */ = {isa = PBXBuildFile; fileRef = DFCFEC2F6E5E0AB50AFCB559 /* NetworkKit.framework */; };
+		A291F84729C809444E84AA46 /* Shared.framework in Dependencies */ = {isa = PBXBuildFile; fileRef = 22775B642171631175E5C887 /* Shared.framework */; };
 		A4986F3B592504E5025275B6 /* DesignSystem.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F2A5BEA1A83032F8516C05FC /* DesignSystem.framework */; };
+		A5876B6DBB7C98F72CFD191F /* DesignSystem_DesignSystem.bundle in Dependencies */ = {isa = PBXBuildFile; fileRef = BBDE9251A6A0136A7E26B3E5 /* DesignSystem_DesignSystem.bundle */; };
 		A7A6863FE15A79DB2C7C5B88 /* BookmarkDIContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 877A2A9247AC50B3C3131A91 /* BookmarkDIContainer.swift */; };
+		AFA065CCADB1C955C11D1EE7 /* Alamofire_Alamofire.bundle in Dependencies */ = {isa = PBXBuildFile; fileRef = 89B93615CAA3A4B6EDE00CC7 /* Alamofire_Alamofire.bundle */; };
 		B077BEF4EBFB5B47890445A2 /* BookmarkView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A67016F7ECAD609354E68E6 /* BookmarkView.swift */; };
 		B3DDE87514556E0BA6A6257E /* PopupView.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D7097229A5B4D0C77F9A1AA9 /* PopupView.framework */; };
-		B5602D28474E43E016E4B621 /* DesignSystem.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = F2A5BEA1A83032F8516C05FC /* DesignSystem.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		BB3583AB8AFF5A8582A7EA5C /* Bookmark.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 76BD577AD93EFB89FF1662CC /* Bookmark.framework */; };
 		BCB178B26120DAE57F765D76 /* FetchBookmarkedInterestsUseCaseImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDB8DFAD64525DD3CF1E7EDF /* FetchBookmarkedInterestsUseCaseImpl.swift */; };
 		BD2761C3F5A24B3D07E0DD13 /* BookmarkArticleAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 311265B76A7A915B60EE7767 /* BookmarkArticleAPI.swift */; };
 		C1101C88BE3BC60EDA35F222 /* MockFetchBookmarkedArticlesUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBEAB6D95837215A0E40807C /* MockFetchBookmarkedArticlesUseCase.swift */; };
 		C12F9D2C0850C3C1B5039645 /* NetworkKit.framework in Dependencies */ = {isa = PBXBuildFile; fileRef = DFCFEC2F6E5E0AB50AFCB559 /* NetworkKit.framework */; };
+		C200E53FF641FB80FF25FBBC /* DesignSystem_DesignSystem.bundle in Dependencies */ = {isa = PBXBuildFile; fileRef = BBDE9251A6A0136A7E26B3E5 /* DesignSystem_DesignSystem.bundle */; };
 		C3326C3758B8FE084CAF4D0A /* Shared.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22775B642171631175E5C887 /* Shared.framework */; };
-		C6294624C9177D6AB21D9D1C /* Alamofire.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = F0CCCA6FC1C50F4DD02B1CCC /* Alamofire.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C6D2F181D424BE4BA0E205C4 /* BookmarkMain.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8CAFD478C6DDC83E089E3A7 /* BookmarkMain.swift */; };
 		C9713249EFF54B95D5957871 /* Shared.framework in Dependencies */ = {isa = PBXBuildFile; fileRef = 22775B642171631175E5C887 /* Shared.framework */; };
 		CB39ECF8F89EB6D5AAC4958E /* BookmarkInterface.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E7655ACA3BC556B119528725 /* BookmarkInterface.framework */; };
@@ -73,9 +78,11 @@
 		DB824CEA2A1609AD8764FBAB /* Moya.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD58982C5C438D314E6BEC2A /* Moya.framework */; };
 		E5164B2889523A1E7FCCA93E /* BookmarkTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D833BD260020B2F30A7E7FC8 /* BookmarkTests.swift */; };
 		E8D17997A650266731C11F30 /* MockFetchBookmarkedInterestsUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D72B487917F46352154A5D /* MockFetchBookmarkedInterestsUseCase.swift */; };
+		EA5E9ECBD41EC0272310C6FE /* Alamofire_Alamofire.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 89B93615CAA3A4B6EDE00CC7 /* Alamofire_Alamofire.bundle */; };
 		EFEA28987FB90851599084C2 /* BookmarkInterestDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A8328380BADA8FF551AC269 /* BookmarkInterestDTO.swift */; };
 		F3A20883E17372BAE2995BDA /* NetworkKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DFCFEC2F6E5E0AB50AFCB559 /* NetworkKit.framework */; };
 		F783D19B9CDAD845A9C48311 /* PopupView.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D7097229A5B4D0C77F9A1AA9 /* PopupView.framework */; };
+		FF071D7F25F1A1CD20AC825D /* DesignSystem_DesignSystem.bundle in Resources */ = {isa = PBXBuildFile; fileRef = BBDE9251A6A0136A7E26B3E5 /* DesignSystem_DesignSystem.bundle */; };
 		FF662E892BCA85526915A148 /* FetchBookmarkedArticlesUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = D31CA5BDB3B22749605469DE /* FetchBookmarkedArticlesUseCase.swift */; };
 /* End PBXBuildFile section */
 
@@ -177,6 +184,18 @@
 			files = (
 				8B9E4218261392B76342AFC1 /* BookmarkDomain.framework in Dependencies */,
 				6E2E23C7B71C7263BB660EE8 /* BookmarkInterface.framework in Dependencies */,
+				A291F84729C809444E84AA46 /* Shared.framework in Dependencies */,
+			);
+			name = Dependencies;
+			runOnlyForDeploymentPostprocessing = 1;
+		};
+		40DAC921EE2E1CE51FBB2E5C /* Dependencies */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 8;
+			dstSubfolderSpec = 16;
+			files = (
+				AFA065CCADB1C955C11D1EE7 /* Alamofire_Alamofire.bundle in Dependencies */,
+				A5876B6DBB7C98F72CFD191F /* DesignSystem_DesignSystem.bundle in Dependencies */,
 			);
 			name = Dependencies;
 			runOnlyForDeploymentPostprocessing = 1;
@@ -207,8 +226,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				C6294624C9177D6AB21D9D1C /* Alamofire.framework in Embed Frameworks */,
-				B5602D28474E43E016E4B621 /* DesignSystem.framework in Embed Frameworks */,
 				D90025D498615250A14DA6C7 /* Kingfisher.framework in Embed Frameworks */,
 				0353DF8DA771DC2B45C38979 /* Moya.framework in Embed Frameworks */,
 				2B296FFE6CB88BCC3C50EF7B /* PopupView.framework in Embed Frameworks */,
@@ -247,6 +264,17 @@
 				5DA795FD8AE82AF3E6657BB5 /* DesignSystem.framework in Dependencies */,
 				A04E9AADF186FE1832AF4D59 /* NetworkKit.framework in Dependencies */,
 				C9713249EFF54B95D5957871 /* Shared.framework in Dependencies */,
+			);
+			name = Dependencies;
+			runOnlyForDeploymentPostprocessing = 1;
+		};
+		BF69A515542BB9C5AB004EB7 /* Dependencies */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 8;
+			dstSubfolderSpec = 16;
+			files = (
+				15B5B61710D883857442F7D8 /* Alamofire_Alamofire.bundle in Dependencies */,
+				C200E53FF641FB80FF25FBBC /* DesignSystem_DesignSystem.bundle in Dependencies */,
 			);
 			name = Dependencies;
 			runOnlyForDeploymentPostprocessing = 1;
@@ -300,6 +328,7 @@
 		7D71C9FA16EA7F7B8C065C3F /* BookmarkDomain.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = BookmarkDomain.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		82057388BFC0F3F42C3F8205 /* BookmarkData.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = BookmarkData.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		877A2A9247AC50B3C3131A91 /* BookmarkDIContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkDIContainer.swift; sourceTree = "<group>"; };
+		89B93615CAA3A4B6EDE00CC7 /* Alamofire_Alamofire.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Alamofire_Alamofire.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
 		928A9853C70554E2166EA819 /* BookmarkInterest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkInterest.swift; sourceTree = "<group>"; };
 		962531354FC80D68BEDB100B /* BookmarkEmptyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkEmptyView.swift; sourceTree = "<group>"; };
 		97DAA337D2CC52A06A96F0BF /* BookmarkInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkInterface.swift; sourceTree = "<group>"; };
@@ -309,6 +338,7 @@
 		B5D72B487917F46352154A5D /* MockFetchBookmarkedInterestsUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockFetchBookmarkedInterestsUseCase.swift; sourceTree = "<group>"; };
 		B5E4D1C21AD8172E2DE26AB5 /* BookmarkRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkRepository.swift; sourceTree = "<group>"; };
 		B5F84BC7D11297441DD5C5C4 /* BookmarkExample-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "BookmarkExample-Info.plist"; sourceTree = "<group>"; };
+		BBDE9251A6A0136A7E26B3E5 /* DesignSystem_DesignSystem.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DesignSystem_DesignSystem.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
 		BE0794787B1481BD387B2CC6 /* BookmarkExampleApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkExampleApp.swift; sourceTree = "<group>"; };
 		CD58982C5C438D314E6BEC2A /* Moya.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Moya.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D13F9A4DD3CE365312FF6EFD /* BookmarkSortBottomSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkSortBottomSheet.swift; sourceTree = "<group>"; };
@@ -320,7 +350,6 @@
 		E20CAF6D40A69ECF1CABB4B5 /* BookmarkItem+Sample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BookmarkItem+Sample.swift"; sourceTree = "<group>"; };
 		E7655ACA3BC556B119528725 /* BookmarkInterface.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = BookmarkInterface.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		EBEAB6D95837215A0E40807C /* MockFetchBookmarkedArticlesUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockFetchBookmarkedArticlesUseCase.swift; sourceTree = "<group>"; };
-		F0CCCA6FC1C50F4DD02B1CCC /* Alamofire.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Alamofire.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F1105013526F13651EC442F5 /* BookmarkTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BookmarkTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		F2A5BEA1A83032F8516C05FC /* DesignSystem.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = DesignSystem.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F5CC4B625E176A882F77C5A9 /* BookmarkData-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "BookmarkData-Info.plist"; sourceTree = "<group>"; };
@@ -439,7 +468,7 @@
 		349FAF58BCF75F1E87F887B1 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				F0CCCA6FC1C50F4DD02B1CCC /* Alamofire.framework */,
+				89B93615CAA3A4B6EDE00CC7 /* Alamofire_Alamofire.bundle */,
 				76BD577AD93EFB89FF1662CC /* Bookmark.framework */,
 				82057388BFC0F3F42C3F8205 /* BookmarkData.framework */,
 				7D71C9FA16EA7F7B8C065C3F /* BookmarkDomain.framework */,
@@ -447,6 +476,7 @@
 				E7655ACA3BC556B119528725 /* BookmarkInterface.framework */,
 				455970BB067D86A1E0357180 /* BookmarkTesting.framework */,
 				F1105013526F13651EC442F5 /* BookmarkTests.xctest */,
+				BBDE9251A6A0136A7E26B3E5 /* DesignSystem_DesignSystem.bundle */,
 				F2A5BEA1A83032F8516C05FC /* DesignSystem.framework */,
 				722BE9794BB696843B2378B9 /* Kingfisher.framework */,
 				CD58982C5C438D314E6BEC2A /* Moya.framework */,
@@ -685,6 +715,7 @@
 				2BBBA6E24C5983E3548F5BA6 /* Resources */,
 				CEC9DA134F79755CB448916B /* Frameworks */,
 				9767153D635DF53C78790F4A /* Embed Frameworks */,
+				40DAC921EE2E1CE51FBB2E5C /* Dependencies */,
 			);
 			buildRules = (
 			);
@@ -817,6 +848,7 @@
 				ACE72C6E428CCBA07334E279 /* Resources */,
 				20B520E08F0B31EDFD381617 /* Frameworks */,
 				9BC99EC1B32ACA3FFCFA4EAA /* Embed Frameworks */,
+				BF69A515542BB9C5AB004EB7 /* Dependencies */,
 			);
 			buildRules = (
 			);
@@ -878,6 +910,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3F1C052B1B8FCFABBE443EF9 /* Alamofire_Alamofire.bundle in Resources */,
+				58118EB0B59B21E0BB307280 /* DesignSystem_DesignSystem.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -892,6 +926,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EA5E9ECBD41EC0272310C6FE /* Alamofire_Alamofire.bundle in Resources */,
+				FF071D7F25F1A1CD20AC825D /* DesignSystem_DesignSystem.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1128,6 +1164,10 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-L$(DT_TOOLCHAIN_DIR)/usr/lib/swift/$(PLATFORM_NAME)",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.newdok.bookmark.example;
 				PRODUCT_NAME = BookmarkExample;
 				SDKROOT = iphoneos;
@@ -1249,6 +1289,10 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-L$(DT_TOOLCHAIN_DIR)/usr/lib/swift/$(PLATFORM_NAME)",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.newdok.bookmark.tests;
 				PRODUCT_NAME = BookmarkTests;
 				SDKROOT = iphoneos;
@@ -1308,6 +1352,10 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
+				);
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-L$(DT_TOOLCHAIN_DIR)/usr/lib/swift/$(PLATFORM_NAME)",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.newdok.bookmark.tests;
 				PRODUCT_NAME = BookmarkTests;
@@ -1569,6 +1617,10 @@
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
+				);
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-L$(DT_TOOLCHAIN_DIR)/usr/lib/swift/$(PLATFORM_NAME)",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.newdok.bookmark.example;
 				PRODUCT_NAME = BookmarkExample;

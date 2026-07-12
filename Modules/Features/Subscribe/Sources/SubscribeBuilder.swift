@@ -9,8 +9,19 @@ public struct SubscribeBuilder: SubscribeBuildable {
         self.container = SubscribeDIContainer(networkProvider: networkProvider)
     }
 
-    public func makeSubscribeView() -> AnyView {
+    public func makeSubscribeView(
+        onSearch: @escaping () -> Void,
+        onLogin: @escaping () -> Void,
+        onBrandTap: @escaping (String) -> Void
+    ) -> AnyView {
         let viewModel = container.makeViewModel()
-        return AnyView(SubscribeView(viewModel: viewModel))
+        return AnyView(
+            SubscribeView(
+                viewModel: viewModel,
+                onSearch: onSearch,
+                onLogin: onLogin,
+                onBrandTap: onBrandTap
+            )
+        )
     }
 }

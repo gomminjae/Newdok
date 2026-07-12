@@ -16,8 +16,7 @@ struct CompleteView: View {
     
     @Bindable private var viewModel: SignupViewModel
     @State private var showingNotificationAlert = false
-    @Environment(AppRouter.self) private var router
-    
+
     init(viewModel: SignupViewModel) {
         self.viewModel = viewModel
     }

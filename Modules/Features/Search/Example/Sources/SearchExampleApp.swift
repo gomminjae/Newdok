@@ -7,9 +7,6 @@ import SearchTesting
 
 @main
 struct SearchExampleApp: App {
-    @State private var router = AppRouter()
-    @State private var tabSelection = TabSelection()
-
     init() {
         AppState.shared.login()
     }
@@ -17,10 +14,13 @@ struct SearchExampleApp: App {
     var body: some Scene {
         WindowGroup {
             NavigationStack {
-                SearchView(viewModel: makeViewModel())
+                SearchView(
+                    viewModel: makeViewModel(),
+                    onBack: {},
+                    onBrandTap: { _ in },
+                    onFeedback: {}
+                )
             }
-            .environment(router)
-            .environment(tabSelection)
             .environment(AppState.shared)
             .environment(ToastCenter.shared)
         }

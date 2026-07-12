@@ -17,8 +17,8 @@ public final class ToastCenter {
         self.isShown = true
 
         dismissTask = Task { [weak self] in
-            guard let self else { return }
-            do { try await Task.sleep(nanoseconds: UInt64(duration * 1_000_000_000)) } catch {}
+            do { try await Task.sleep(nanoseconds: UInt64(duration * 1_000_000_000)) } catch { return }
+            guard let self, !Task.isCancelled else { return }
             self.isShown = false
         }
     }
@@ -31,16 +31,14 @@ public final class ToastCenter {
 
 // [ADDED] 전역 토스트 렌더러: 루트에서 overlay로 한 번만 붙임
 public struct ToastHost: View {
-    @Environment(ToastCenter.self) private var toast
-
     public init() {}
 
     public var body: some View {
         VStack {
-            if toast.isShown {
+            if ToastCenter.shared.isShown {
                 // DesignSystem의 ToastView는 상위 모듈에 존재하므로, 여기서는 텍스트만 렌더합니다.
                 // 실제 디자인 토스트를 쓰려면 이 ToastHost를 App 레이어로 옮겨 DesignSystem을 import 하세요.Thread 1: Fatal error: No ObservableObject
-                Text(toast.message)
+                Text(ToastCenter.shared.message)
                     .font(.system(size: 14, weight: .semibold))
                     .foregroundColor(.white)
                     .padding(.vertical, 10)
@@ -52,6 +50,6 @@ public struct ToastHost: View {
             }
             Spacer()
         }
-        .animation(.easeInOut, value: toast.isShown)
+        .animation(.easeInOut, value: ToastCenter.shared.isShown)
     }
 }

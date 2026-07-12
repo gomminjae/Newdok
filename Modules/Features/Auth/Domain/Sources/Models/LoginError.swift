@@ -6,6 +6,7 @@ public enum LoginError: Error, LocalizedError {
     /// 소셜 SDK에서 idToken을 받지 못함
     case missingIDToken
     case networkError(Error)
+    case tokenPersistenceFailed
 
     public var errorDescription: String? {
         switch self {
@@ -15,6 +16,8 @@ public enum LoginError: Error, LocalizedError {
             return "소셜 로그인 정보를 가져오지 못했습니다"
         case .networkError(let error):
             return "네트워크 오류: \(error.localizedDescription)"
+        case .tokenPersistenceFailed:
+            return "로그인 정보를 저장하지 못했습니다. 다시 시도해주세요"
         }
     }
 }

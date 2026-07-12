@@ -10,6 +10,7 @@ import Foundation
 
 final class NetworkLoggerPlugin: PluginType {
     func willSend(_ request: RequestType, target: TargetType) {
+        #if DEBUG
         if let url = request.request?.url?.absoluteString {
             print("➡️ [Request] \(target.method.rawValue) \(url)")
         } else {
@@ -24,9 +25,11 @@ final class NetworkLoggerPlugin: PluginType {
            let bodyString = String(data: body, encoding: .utf8) {
             print("📦 Body: \(bodyString)")
         }
+        #endif
     }
 
     func didReceive(_ result: Result<Moya.Response, MoyaError>, target: TargetType) {
+        #if DEBUG
         switch result {
         case .success(let response):
             if let url = response.request?.url?.absoluteString {
@@ -53,5 +56,6 @@ final class NetworkLoggerPlugin: PluginType {
                 print("📥 Body: \(String(data: response.data, encoding: .utf8) ?? "N/A")")
             }
         }
+        #endif
     }
 }

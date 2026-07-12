@@ -4,7 +4,8 @@ import Shared
 
 public struct WithdrawView: View {
     @State private var viewModel: WithdrawViewModel
-    @Environment(AppRouter.self) private var router
+    private let onBack: () -> Void
+    private let onWithdrawn: () -> Void
     @State private var isChecked = false
     @State private var tabSelection = 0
     @State private var withdrawReasons = [false, false, false, false]
@@ -16,8 +17,10 @@ public struct WithdrawView: View {
         "기타"
     ]
     
-    public init(viewModel: WithdrawViewModel) {
+    public init(viewModel: WithdrawViewModel, onBack: @escaping () -> Void, onWithdrawn: @escaping () -> Void) {
         self.viewModel = viewModel
+        self.onBack = onBack
+        self.onWithdrawn = onWithdrawn
     }
     
     public var body: some View {
@@ -37,7 +40,7 @@ public struct WithdrawView: View {
             ToolbarItem(placement: .navigationBarLeading) {
                 Button { 
                     if tabSelection == 0 {
-                        router.pop()
+                        onBack()
                     } else {
                         withAnimation { tabSelection = 0 }
                     }
@@ -60,12 +63,12 @@ public struct WithdrawView: View {
         }
         .serverErrorPopup(
             error: $viewModel.currentError,
-            onGoBack: { router.pop() },
+            onGoBack: { onBack() },
             onRetry: { Task { await viewModel.fetchUserInfo() } }
         )
         .onChange(of: viewModel.withdrawSuccess) { _, success in
             if success {
-                router.resetTo(.onboarding)
+                onWithdrawn()
             }
         }
     }

@@ -157,7 +157,7 @@ public extension Project {
 
         // MARK: Testing (Mocks)
         if hasTesting {
-            var testingDeps: [TargetDependency] = []
+            var testingDeps: [TargetDependency] = [.shared]   // 목/스텁이 Shared 타입(TokenStorageProtocol 등)을 흔히 참조
             if hasInterface {
                 testingDeps.append(.target(name: "\(name)Interface"))
             }

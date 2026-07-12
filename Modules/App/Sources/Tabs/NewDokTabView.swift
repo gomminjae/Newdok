@@ -124,31 +124,15 @@ struct TabContentView<Content: View>: View {
 }
 
 struct NewDokTabView: View {
-    @State private var selectedTab: NewDokTab = .home
-    @State private var previousTab: NewDokTab = .home
-
-    @Environment(AppRouter.self) private var router
-    @Environment(TabSelection.self) private var tabSelection
-    @Environment(AppState.self) private var appState
-
-    private var isGuest: Bool { appState.authState == .guest }
-
-    private let container: AppContainer
-    private let initialSelectedTab: NewDokTab?
-
-    init(container: AppContainer, selectedTab: NewDokTab? = nil) {
-        self.container = container
-        self.initialSelectedTab = selectedTab
-    }
+    let container: AppContainer
+    @Bindable var coordinator: AppCoordinator
 
     @AppStorage("userId") private var userId: Int = 0
-    @State private var didApplyInitialTab = false
 
     var body: some View {
-        @Bindable var tabSelection = tabSelection
-        TabView(selection: $tabSelection.selectedTab) {
+        TabView(selection: $coordinator.selectedTab) {
             TabContentView {
-                container.makeExploreView()
+                ExploreStack(container: container, coordinator: coordinator)
             }
             .tabItem {
                 Image(asset: DesignSystemAsset.lineNewsletter)
@@ -158,7 +142,7 @@ struct NewDokTabView: View {
             .tag(NewDokTab.explore)
 
             TabContentView {
-                container.makeSubscribeView()
+                SubscribeStack(container: container, coordinator: coordinator)
             }
             .tabItem {
                 Image(asset: DesignSystemAsset.lineMailbox)
@@ -168,7 +152,7 @@ struct NewDokTabView: View {
             .tag(NewDokTab.subscribe)
 
             TabContentView {
-                container.makeHomeView()
+                HomeStack(container: container, coordinator: coordinator)
             }
             .tabItem {
                 Image(asset: DesignSystemAsset.lineHome)
@@ -178,7 +162,7 @@ struct NewDokTabView: View {
             .tag(NewDokTab.home)
 
             TabContentView {
-                container.makeBookmarkView()
+                BookmarkStack(container: container, coordinator: coordinator)
             }
             .tabItem {
                 Image(asset: DesignSystemAsset.lineBookmark)
@@ -188,7 +172,7 @@ struct NewDokTabView: View {
             .tag(NewDokTab.bookmark)
 
             TabContentView {
-                container.makeMypageView()
+                MyPageStack(container: container, coordinator: coordinator)
             }
             .tabItem {
                 Image(asset: DesignSystemAsset.lineUser)
@@ -198,21 +182,16 @@ struct NewDokTabView: View {
             .tag(NewDokTab.profile)
         }
         .id(userId == 0 ? "guest" : "user_\(userId)")
-        .onChange(of: tabSelection.selectedTab) { _, newTab in
-            if isGuest && newTab == .profile {
-                tabSelection.selectedTab = .home
-                router.push(.login)
+        .onChange(of: coordinator.selectedTab) { _, newTab in
+            if AppState.shared.authState == .guest && newTab == .profile {
+                coordinator.selectedTab = .home
+                coordinator.presentAuth(.login)
             }
         }
         .navigationBarHidden(true)
         .accentColor(Color.primaryNormal)
-        .environment(tabSelection)
         .onAppear {
             setupTabBarAppearance()
-            if !didApplyInitialTab, let tab = initialSelectedTab {
-                tabSelection.selectedTab = tab
-                didApplyInitialTab = true
-            }
         }
     }
 }
