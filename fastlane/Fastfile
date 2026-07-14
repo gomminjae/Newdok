@@ -55,7 +55,8 @@ platform :ios do
 
     upload_symbols_to_crashlytics(
       dsym_path: lane_context[SharedValues::DSYM_OUTPUT_PATH],
-      gsp_path: "Modules/App/Resources/GoogleService-Info.plist"
+      gsp_path: "Modules/App/Resources/GoogleService-Info.plist",
+      binary_path: "Tuist/.build/checkouts/firebase-ios-sdk/Crashlytics/upload-symbols"
     )
 
     upload_to_testflight(api_key: key, skip_waiting_for_build_processing: true)
@@ -83,7 +84,8 @@ platform :ios do
 
     upload_symbols_to_crashlytics(
       dsym_path: lane_context[SharedValues::DSYM_OUTPUT_PATH],
-      gsp_path: "Modules/App/Resources/GoogleService-Info.plist"
+      gsp_path: "Modules/App/Resources/GoogleService-Info.plist",
+      binary_path: "Tuist/.build/checkouts/firebase-ios-sdk/Crashlytics/upload-symbols"
     )
 
     upload_to_testflight(api_key: key, app_identifier: "com.newdok.test", skip_waiting_for_build_processing: true)
