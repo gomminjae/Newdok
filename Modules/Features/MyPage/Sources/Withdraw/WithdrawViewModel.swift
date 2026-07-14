@@ -50,6 +50,11 @@ public final class WithdrawViewModel: ErrorHandling {
     }
 
     public func fetchUserInfo() async {
+        // 서버 응답 전까지 로컬 캐시로 즉시 표시
+        if nickName.isEmpty, let cached = userInfoStore.load()?.nickname {
+            nickName = cached
+        }
+
         await performAsync(feature: "withdraw", operation: "fetchUserInfo", loadingBinding: \.isLoading) {
             let user = try await fetchProfileUseCase.execute()
             self.nickName = user.nickname

@@ -162,14 +162,13 @@ public struct EditProfileView: View {
                         Image(asset: DesignSystemAsset.linePlus)
                             .renderingMode(.template)
                             .foregroundColor(.primaryNormal)
-                            .frame(width: 32, height: 32)
+                            .frame(width: 30, height: 30)  // 칩 높이(폰트 13 + 상하 패딩 6)와 동일
                             .background(Color.white)
                             .clipShape(Circle())
                             .overlay(
                                 Circle()
                                     .stroke(Color.primaryNormal, lineWidth: 1)
                             )
-                            .frame(width: 44, height: 44)
                             .contentShape(Circle())
                     }
                 }
