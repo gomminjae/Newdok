@@ -8,7 +8,7 @@ let project = Project(
         base: [
             "DEVELOPMENT_TEAM": "AU24ZRJ649",
             "SWIFT_VERSION": "6.0",
-            "MARKETING_VERSION": "1.0.1",
+            "MARKETING_VERSION": "1.1.0",
             "CURRENT_PROJECT_VERSION": "1",
             "CODE_SIGN_STYLE": "Automatic"
         ],
@@ -40,6 +40,7 @@ let project = Project(
                     "API_BASE_URL": "$(API_BASE_URL)",
                     "KAKAO_NATIVE_APP_KEY": "$(KAKAO_NATIVE_APP_KEY)",
                     "CFBundleDisplayName": "$(APP_DISPLAY_NAME)",
+                    "CFBundleName": "$(APP_DISPLAY_NAME)",
                     "CFBundleShortVersionString": "$(MARKETING_VERSION)",
                     "CFBundleVersion": "$(CURRENT_PROJECT_VERSION)",
                     "UILaunchScreen": [

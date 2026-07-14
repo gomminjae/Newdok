@@ -14,7 +14,7 @@ public enum SignupStep: Int, CaseIterable {
     case complete = 2
     case recommend = 3
     case myIndustry = 4
-    case indutryList = 5
+    case industryList = 5
     case curation = 6
 
     var progressValue: Double {
@@ -22,7 +22,7 @@ public enum SignupStep: Int, CaseIterable {
         case .enterProfile: return 0.5
         case .agreeTerms: return 0.9
         case .myIndustry: return 0.3
-        case .indutryList: return 0.7
+        case .industryList: return 0.7
         case .curation: return 1.0
 
         default: return 1.0
@@ -41,7 +41,7 @@ public enum SignupStep: Int, CaseIterable {
             return "회원가입 완료"
         case .myIndustry:
             return "프로필 설정"
-        case .indutryList:
+        case .industryList:
             return "프로필 설정"
         case .curation:
             return "추천 뉴스레터"
@@ -87,7 +87,7 @@ public struct SignupView: View {
                     RecommendView(viewModel: viewModel)
                 case .myIndustry:
                     MyIndustryView(viewModel: viewModel)
-                case .indutryList:
+                case .industryList:
                     InterestSelectionView(viewModel: viewModel)
                 case .curation:
                     CurationView(viewModel: viewModel, onAuthenticated: onAuthenticated)
