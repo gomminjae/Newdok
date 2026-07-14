@@ -11,13 +11,7 @@ import Foundation
 public protocol MypageUserRepository: Sendable {
     func getProfile() async throws -> MypageUser
     func updateNickname(_ nickname: String) async throws -> MypageNicknameResponse
-    func updatePassword(prevPassword: String, newPassword: String) async throws
-    func updatePassword(loginId: String, prevPassword: String, newPassword: String) async throws
     func updateInterest(_ interestsId: [Int]) async throws
     func updateIndustry(_ industryId: Int) async throws
-    func updatePhoneNumber(_ phoneNumber: String) async throws
-    func authSMS(phoneNumber: String) async throws -> MypageSMSResponse
-    func checkPhoneNumber(_ phoneNumber: String) async throws -> [MypageSimpleUser]
-    func checkIDDup(_ loginId: String) async throws -> MypageIDCheckResult
     func withdraw() async throws
 }

@@ -11,8 +11,6 @@ public extension MypageInterest {
 public extension MypageUser {
     static let standard = MypageUser(
         id: 1,
-        loginId: "newdok_user",
-        phoneNumber: "010-1234-5678",
         subscribeEmail: "newdok@example.com",
         nickname: "뉴독러",
         birthYear: "1995",
@@ -24,8 +22,6 @@ public extension MypageUser {
 
     static let withoutEmail = MypageUser(
         id: 2,
-        loginId: "no_email_user",
-        phoneNumber: "010-9876-5432",
         subscribeEmail: nil,
         nickname: "이메일없음",
         birthYear: "1990",

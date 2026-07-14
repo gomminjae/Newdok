@@ -4,8 +4,6 @@ enum MyPageRoute: Hashable {
     case editIndustry
     case editInterest
     case accountManage
-    case updatePhoneNumber
-    case updatePassword
     case withdraw
     case editAlert
     case faq

@@ -33,8 +33,6 @@ public struct MypageLoginInterestDTO: Decodable, Sendable {
 
 public struct MypageUserDTO: Decodable, Sendable {
     let id: Int
-    let loginId: String
-    let phoneNumber: String
     let subscribeEmail: String?
     let nickname: String
     let birthYear: String
@@ -46,8 +44,6 @@ public struct MypageUserDTO: Decodable, Sendable {
     public func toDomain() -> MypageUser {
         return MypageUser(
             id: id,
-            loginId: loginId,
-            phoneNumber: phoneNumber,
             subscribeEmail: subscribeEmail,
             nickname: nickname,
             birthYear: birthYear,

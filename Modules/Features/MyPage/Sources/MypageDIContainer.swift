@@ -62,36 +62,9 @@ final class MypageDIContainer {
 
     // MARK: - ViewModels
 
-    func makeRecoveryViewModel() -> RecoveryViewModel {
-        let repository = makeUserRepository()
-        return RecoveryViewModel(
-            checkPhoneNumberUseCase: CheckMypagePhoneNumberUseCaseImpl(repository: repository),
-            checkIDDupUseCase: CheckMypageIDDupUseCaseImpl(repository: repository),
-            authSMSUseCase: MypageAuthSMSUseCaseImpl(repository: repository),
-            resetPasswordUseCase: ResetMypagePasswordUseCaseImpl(repository: repository)
-        )
-    }
-
-    func makePasswordUpdateViewModel() -> PasswordUpdateViewModel {
-        let repository = makeUserRepository()
-        return PasswordUpdateViewModel(
-            updatePasswordUseCase: UpdateMypagePasswordUseCaseImpl(repository: repository)
-        )
-    }
-
-    func makePhoneUpdateViewModel() -> PhoneUpdateViewModel {
-        let repository = makeUserRepository()
-        return PhoneUpdateViewModel(
-            authSMSUseCase: MypageAuthSMSUseCaseImpl(repository: repository),
-            updatePhoneNumberUseCase: UpdateMypagePhoneNumberUseCaseImpl(repository: repository)
-        )
-    }
-
     func makeAccountManagementView(
         onLogoutCleanup: @escaping () -> Void,
         onBack: @escaping () -> Void,
-        onUpdatePhone: @escaping () -> Void,
-        onUpdatePassword: @escaping () -> Void,
         onWithdraw: @escaping () -> Void,
         onLoggedOut: @escaping () -> Void
     ) -> AccountManagementView {
@@ -101,8 +74,6 @@ final class MypageDIContainer {
             appState: appState,
             onLogoutCleanup: onLogoutCleanup,
             onBack: onBack,
-            onUpdatePhone: onUpdatePhone,
-            onUpdatePassword: onUpdatePassword,
             onWithdraw: onWithdraw,
             onLoggedOut: onLoggedOut
         )

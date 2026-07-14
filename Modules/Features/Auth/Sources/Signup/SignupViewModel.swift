@@ -104,8 +104,6 @@ public final class SignupViewModel: ErrorHandling {
                 if let currentUserInfo = userInfoStore.load() {
                     let updatedUserInfo = UserInfo(
                         id: currentUserInfo.id,
-                        loginId: currentUserInfo.loginId,
-                        phoneNumber: currentUserInfo.phoneNumber,
                         subscribeEmail: currentUserInfo.subscribeEmail,
                         nickname: currentUserInfo.nickname,
                         birthYear: currentUserInfo.birthYear,

@@ -54,20 +54,17 @@ public struct SignupView: View {
 
     private let onBack: () -> Void
     private let onLogin: () -> Void
-    private let onRecovery: () -> Void
     private let onAuthenticated: () -> Void
 
     public init(
         viewModel: SignupViewModel,
         onBack: @escaping () -> Void,
         onLogin: @escaping () -> Void,
-        onRecovery: @escaping () -> Void,
         onAuthenticated: @escaping () -> Void
     ) {
         self.viewModel = viewModel
         self.onBack = onBack
         self.onLogin = onLogin
-        self.onRecovery = onRecovery
         self.onAuthenticated = onAuthenticated
     }
 

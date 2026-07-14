@@ -41,15 +41,9 @@ struct MyPageStack: View {
         case .accountManage:
             container.makeAccountManageView(
                 onBack: { coordinator.mypageRouter.pop() },
-                onUpdatePhone: { coordinator.mypageRouter.push(.updatePhoneNumber) },
-                onUpdatePassword: { coordinator.mypageRouter.push(.updatePassword) },
                 onWithdraw: { coordinator.mypageRouter.push(.withdraw) },
                 onLoggedOut: { coordinator.logout(to: .login) }
             )
-        case .updatePhoneNumber:
-            container.makeChangePhoneNumberView(onBack: { coordinator.mypageRouter.pop() })
-        case .updatePassword:
-            container.makeChangePasswordView(onBack: { coordinator.mypageRouter.pop() })
         case .withdraw:
             container.makeWithdrawView(
                 onBack: { coordinator.mypageRouter.pop() },

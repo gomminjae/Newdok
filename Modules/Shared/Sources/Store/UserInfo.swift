@@ -7,8 +7,6 @@
 
 public struct UserInfo: Sendable {
     public var id: Int
-    public var loginId: String
-    public var phoneNumber: String
     public var subscribeEmail: String?
     public var nickname: String
     public var birthYear: String
@@ -19,8 +17,6 @@ public struct UserInfo: Sendable {
 
     public init(
         id: Int,
-        loginId: String,
-        phoneNumber: String,
         subscribeEmail: String? = nil,
         nickname: String,
         birthYear: String,
@@ -30,8 +26,6 @@ public struct UserInfo: Sendable {
         interestIds: [Int]
     ) {
         self.id = id
-        self.loginId = loginId
-        self.phoneNumber = phoneNumber
         self.subscribeEmail = subscribeEmail
         self.nickname = nickname
         self.birthYear = birthYear

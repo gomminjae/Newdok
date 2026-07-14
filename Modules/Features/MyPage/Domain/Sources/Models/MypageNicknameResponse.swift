@@ -10,12 +10,10 @@ import Foundation
 
 public struct MypageNicknameResponse {
     public let id: Int
-    public let loginId: String
     public let nickname: String
 
-    public init(id: Int, loginId: String, nickname: String) {
+    public init(id: Int, nickname: String) {
         self.id = id
-        self.loginId = loginId
         self.nickname = nickname
     }
 }

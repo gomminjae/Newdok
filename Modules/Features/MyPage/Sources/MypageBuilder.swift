@@ -79,27 +79,8 @@ public struct MypageBuilder: MypageBuildable {
         AnyView(EditInterestView(onBack: onBack).environment(container.sharedViewModel()))
     }
 
-    public func makeRecoveryView(
-        onBack: @escaping () -> Void,
-        onSignup: @escaping () -> Void,
-        onLogin: @escaping () -> Void,
-        onServiceFeedback: @escaping () -> Void
-    ) -> AnyView {
-        AnyView(
-            RecoveryView(
-                viewModel: container.makeRecoveryViewModel(),
-                onBack: onBack,
-                onSignup: onSignup,
-                onLogin: onLogin,
-                onServiceFeedback: onServiceFeedback
-            )
-        )
-    }
-
     public func makeAccountManageView(
         onBack: @escaping () -> Void,
-        onUpdatePhone: @escaping () -> Void,
-        onUpdatePassword: @escaping () -> Void,
         onWithdraw: @escaping () -> Void,
         onLoggedOut: @escaping () -> Void
     ) -> AnyView {
@@ -107,20 +88,10 @@ public struct MypageBuilder: MypageBuildable {
             container.makeAccountManagementView(
                 onLogoutCleanup: { [container] in container.clearCache() },
                 onBack: onBack,
-                onUpdatePhone: onUpdatePhone,
-                onUpdatePassword: onUpdatePassword,
                 onWithdraw: onWithdraw,
                 onLoggedOut: onLoggedOut
             )
         )
-    }
-
-    public func makeChangePasswordView(onBack: @escaping () -> Void) -> AnyView {
-        AnyView(PwdUpdateView(viewModel: container.makePasswordUpdateViewModel(), onBack: onBack))
-    }
-
-    public func makeChangePhoneNumberView(onBack: @escaping () -> Void) -> AnyView {
-        AnyView(PhoneUpdateView(viewModel: container.makePhoneUpdateViewModel(), onBack: onBack))
     }
 
     public func makeWithdrawView(

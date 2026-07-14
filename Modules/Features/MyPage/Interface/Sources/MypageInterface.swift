@@ -22,23 +22,11 @@ public protocol MypageBuildable {
     func makeEditIndustryView(onBack: @escaping () -> Void) -> AnyView
     func makeEditInterestView(onBack: @escaping () -> Void) -> AnyView
 
-    func makeRecoveryView(
-        onBack: @escaping () -> Void,
-        onSignup: @escaping () -> Void,
-        onLogin: @escaping () -> Void,
-        onServiceFeedback: @escaping () -> Void
-    ) -> AnyView
-
     func makeAccountManageView(
         onBack: @escaping () -> Void,
-        onUpdatePhone: @escaping () -> Void,
-        onUpdatePassword: @escaping () -> Void,
         onWithdraw: @escaping () -> Void,
         onLoggedOut: @escaping () -> Void
     ) -> AnyView
-
-    func makeChangePasswordView(onBack: @escaping () -> Void) -> AnyView
-    func makeChangePhoneNumberView(onBack: @escaping () -> Void) -> AnyView
 
     func makeWithdrawView(
         onBack: @escaping () -> Void,

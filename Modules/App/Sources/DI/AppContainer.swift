@@ -93,7 +93,6 @@ final class AppContainer {
     func makeLoginView(
         canGoBack: Bool,
         onBack: @escaping () -> Void,
-        onRecovery: @escaping () -> Void,
         onSignup: @escaping () -> Void,
         onNeedSignup: @escaping (String, String?) -> Void,
         onAuthenticated: @escaping () -> Void
@@ -101,7 +100,6 @@ final class AppContainer {
         authBuilder.makeLoginView(
             canGoBack: canGoBack,
             onBack: onBack,
-            onRecovery: onRecovery,
             onSignup: onSignup,
             onNeedSignup: onNeedSignup,
             onAuthenticated: onAuthenticated
@@ -113,7 +111,6 @@ final class AppContainer {
         nickname: String?,
         onBack: @escaping () -> Void,
         onLogin: @escaping () -> Void,
-        onRecovery: @escaping () -> Void,
         onAuthenticated: @escaping () -> Void
     ) -> some View {
         authBuilder.makeSignupView(
@@ -121,7 +118,6 @@ final class AppContainer {
             nickname: nickname,
             onBack: onBack,
             onLogin: onLogin,
-            onRecovery: onRecovery,
             onAuthenticated: onAuthenticated
         )
     }
@@ -256,26 +252,14 @@ final class AppContainer {
 
     func makeAccountManageView(
         onBack: @escaping () -> Void,
-        onUpdatePhone: @escaping () -> Void,
-        onUpdatePassword: @escaping () -> Void,
         onWithdraw: @escaping () -> Void,
         onLoggedOut: @escaping () -> Void
     ) -> some View {
         mypageBuilder.makeAccountManageView(
             onBack: onBack,
-            onUpdatePhone: onUpdatePhone,
-            onUpdatePassword: onUpdatePassword,
             onWithdraw: onWithdraw,
             onLoggedOut: onLoggedOut
         )
-    }
-
-    func makeChangePasswordView(onBack: @escaping () -> Void) -> some View {
-        mypageBuilder.makeChangePasswordView(onBack: onBack)
-    }
-
-    func makeChangePhoneNumberView(onBack: @escaping () -> Void) -> some View {
-        mypageBuilder.makeChangePhoneNumberView(onBack: onBack)
     }
 
     func makeWithdrawView(
@@ -303,19 +287,5 @@ final class AppContainer {
 
     func makeVersionView(onBack: @escaping () -> Void) -> some View {
         mypageBuilder.makeVersionView(onBack: onBack)
-    }
-
-    func makeRecoveryView(
-        onBack: @escaping () -> Void,
-        onSignup: @escaping () -> Void,
-        onLogin: @escaping () -> Void,
-        onServiceFeedback: @escaping () -> Void
-    ) -> some View {
-        mypageBuilder.makeRecoveryView(
-            onBack: onBack,
-            onSignup: onSignup,
-            onLogin: onLogin,
-            onServiceFeedback: onServiceFeedback
-        )
     }
 }

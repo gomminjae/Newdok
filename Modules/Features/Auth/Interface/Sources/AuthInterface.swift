@@ -10,7 +10,6 @@ public protocol AuthBuildable {
     func makeLoginView(
         canGoBack: Bool,
         onBack: @escaping () -> Void,
-        onRecovery: @escaping () -> Void,
         onSignup: @escaping () -> Void,
         onNeedSignup: @escaping (String, String?) -> Void,
         onAuthenticated: @escaping () -> Void
@@ -21,7 +20,6 @@ public protocol AuthBuildable {
         nickname: String?,
         onBack: @escaping () -> Void,
         onLogin: @escaping () -> Void,
-        onRecovery: @escaping () -> Void,
         onAuthenticated: @escaping () -> Void
     ) -> AnyView
 

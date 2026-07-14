@@ -11,10 +11,9 @@ import MypageDomain
 
 public struct MypageNicknameResponseDTO: Decodable, Sendable {
     let id: Int
-    let loginId: String
     let nickname: String
 
     public func toDomain() -> MypageNicknameResponse {
-        return MypageNicknameResponse(id: id, loginId: loginId, nickname: nickname)
+        return MypageNicknameResponse(id: id, nickname: nickname)
     }
 }

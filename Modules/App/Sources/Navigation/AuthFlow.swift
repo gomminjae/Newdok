@@ -29,7 +29,6 @@ struct AuthFlow: View {
             container.makeLoginView(
                 canGoBack: !router.path.isEmpty,
                 onBack: { router.pop() },
-                onRecovery: { router.push(.recovery) },
                 onSignup: { router.push(.login) },
                 onNeedSignup: { token, nickname in
                     router.push(.signup(signupToken: token, nickname: nickname))
@@ -42,18 +41,8 @@ struct AuthFlow: View {
                 nickname: nickname,
                 onBack: { router.pop() },
                 onLogin: { router.push(.login) },
-                onRecovery: { router.push(.recovery) },
                 onAuthenticated: { coordinator.finishAuth() }
             )
-        case .recovery:
-            container.makeRecoveryView(
-                onBack: { router.pop() },
-                onSignup: { router.push(.login) },
-                onLogin: { router.push(.login) },
-                onServiceFeedback: { router.push(.serviceFeedback) }
-            )
-        case .serviceFeedback:
-            container.makeFeedbackView(onBack: { router.pop() })
         }
     }
 }

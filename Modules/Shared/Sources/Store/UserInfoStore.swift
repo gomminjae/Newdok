@@ -36,8 +36,6 @@ public final class UserInfoStore: UserInfoStoreProtocol, Sendable {
 
 private struct UserInfoDTO: Codable {
     let id: Int
-    let loginId: String
-    let phoneNumber: String
     let subscribeEmail: String?
     let nickname: String
     let birthYear: String
@@ -48,8 +46,6 @@ private struct UserInfoDTO: Codable {
 
     init(from domain: UserInfo) {
         self.id = domain.id
-        self.loginId = domain.loginId
-        self.phoneNumber = domain.phoneNumber
         self.subscribeEmail = domain.subscribeEmail
         self.nickname = domain.nickname
         self.birthYear = domain.birthYear
@@ -62,8 +58,6 @@ private struct UserInfoDTO: Codable {
     func toDomain() -> UserInfo {
         UserInfo(
             id: id,
-            loginId: loginId,
-            phoneNumber: phoneNumber,
             subscribeEmail: subscribeEmail,
             nickname: nickname,
             birthYear: birthYear,

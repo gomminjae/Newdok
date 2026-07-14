@@ -90,20 +90,7 @@ public final class MypageViewModel: ErrorHandling {
             try await updateNicknameUseCase.execute(nickname)
 
             // UI 상태 업데이트
-            if let currentUser = user {
-                user = MypageUser(
-                    id: currentUser.id,
-                    loginId: currentUser.loginId,
-                    phoneNumber: currentUser.phoneNumber,
-                    subscribeEmail: currentUser.subscribeEmail,
-                    nickname: nickname,
-                    birthYear: currentUser.birthYear,
-                    gender: currentUser.gender,
-                    createdAt: currentUser.createdAt,
-                    industryId: currentUser.industryId,
-                    interests: currentUser.interests
-                )
-            }
+            user = user?.with(nickname: nickname)
 
             showNicknameSuccess = true
         }
@@ -119,20 +106,7 @@ public final class MypageViewModel: ErrorHandling {
             try await updateIndustryUseCase.execute(id)
 
             // UI 상태 업데이트
-            if let currentUser = user {
-                user = MypageUser(
-                    id: currentUser.id,
-                    loginId: currentUser.loginId,
-                    phoneNumber: currentUser.phoneNumber,
-                    subscribeEmail: currentUser.subscribeEmail,
-                    nickname: currentUser.nickname,
-                    birthYear: currentUser.birthYear,
-                    gender: currentUser.gender,
-                    createdAt: currentUser.createdAt,
-                    industryId: id,
-                    interests: currentUser.interests
-                )
-            }
+            user = user?.with(industryId: id)
 
             showIndustrySuccess = true
         }
@@ -148,21 +122,8 @@ public final class MypageViewModel: ErrorHandling {
             try await updateInterestsUseCase.execute(ids)
 
             // UI 상태 업데이트
-            if let currentUser = user {
-                let updatedInterests = ids.map { MypageInterest(id: $0, name: selectableItemStore.name(for: $0, in: .interest)) }
-                user = MypageUser(
-                    id: currentUser.id,
-                    loginId: currentUser.loginId,
-                    phoneNumber: currentUser.phoneNumber,
-                    subscribeEmail: currentUser.subscribeEmail,
-                    nickname: currentUser.nickname,
-                    birthYear: currentUser.birthYear,
-                    gender: currentUser.gender,
-                    createdAt: currentUser.createdAt,
-                    industryId: currentUser.industryId ?? 0,
-                    interests: updatedInterests
-                )
-            }
+            let updatedInterests = ids.map { MypageInterest(id: $0, name: selectableItemStore.name(for: $0, in: .interest)) }
+            user = user?.with(interests: updatedInterests)
 
             showInterestSuccess = true
         }

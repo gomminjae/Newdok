@@ -87,8 +87,6 @@ public final class AuthRepositoryImpl: AuthRepository {
     private func persistLocalUser(from user: AuthUser) {
         let userInfo = UserInfo(
             id: user.id,
-            loginId: "",
-            phoneNumber: "",
             subscribeEmail: user.subscribeEmail,
             nickname: user.nickname,
             birthYear: user.birthYear,

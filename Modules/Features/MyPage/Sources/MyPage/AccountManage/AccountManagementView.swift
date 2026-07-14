@@ -20,8 +20,6 @@ public struct AccountManagementView: View {
     private let appState: AppState
     private let onLogoutCleanup: () -> Void
     private let onBack: () -> Void
-    private let onUpdatePhone: () -> Void
-    private let onUpdatePassword: () -> Void
     private let onWithdraw: () -> Void
     private let onLoggedOut: () -> Void
 
@@ -31,8 +29,6 @@ public struct AccountManagementView: View {
         appState: AppState,
         onLogoutCleanup: @escaping () -> Void = {},
         onBack: @escaping () -> Void,
-        onUpdatePhone: @escaping () -> Void,
-        onUpdatePassword: @escaping () -> Void,
         onWithdraw: @escaping () -> Void,
         onLoggedOut: @escaping () -> Void
     ) {
@@ -41,32 +37,12 @@ public struct AccountManagementView: View {
         self.appState = appState
         self.onLogoutCleanup = onLogoutCleanup
         self.onBack = onBack
-        self.onUpdatePhone = onUpdatePhone
-        self.onUpdatePassword = onUpdatePassword
         self.onWithdraw = onWithdraw
         self.onLoggedOut = onLoggedOut
     }
 
     public var body: some View {
         VStack(alignment: .leading, spacing: 0) {
-            // 휴대폰 번호 변경
-            Button {
-                onUpdatePhone()
-            } label: {
-                rowLabel(title: "휴대폰 번호 변경")
-            }
-            .buttonStyle(.plain)
-            .padding(.vertical, 13)
-
-            // 비밀번호 변경
-            Button {
-                onUpdatePassword()
-            } label: {
-                rowLabel(title: "비밀번호 변경")
-            }
-            .buttonStyle(.plain)
-            .padding(.vertical, 13)
-
             // 로그아웃 버튼
             Button {
                 showLogoutPopup = true

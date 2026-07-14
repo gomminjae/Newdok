@@ -10,8 +10,6 @@ import Foundation
 
 public struct MypageUser {
     public let id: Int
-    public let loginId: String
-    public let phoneNumber: String
     public let subscribeEmail: String?
     public let nickname: String
     public let birthYear: String
@@ -22,8 +20,6 @@ public struct MypageUser {
 
     public init(
         id: Int,
-        loginId: String,
-        phoneNumber: String,
         subscribeEmail: String?,
         nickname: String,
         birthYear: String,
@@ -33,8 +29,6 @@ public struct MypageUser {
         interests: [MypageInterest]
     ) {
         self.id = id
-        self.loginId = loginId
-        self.phoneNumber = phoneNumber
         self.subscribeEmail = subscribeEmail
         self.nickname = nickname
         self.birthYear = birthYear
@@ -45,14 +39,14 @@ public struct MypageUser {
     }
 
     public func with(nickname: String) -> MypageUser {
-        MypageUser(id: id, loginId: loginId, phoneNumber: phoneNumber, subscribeEmail: subscribeEmail, nickname: nickname, birthYear: birthYear, gender: gender, createdAt: createdAt, industryId: industryId, interests: interests)
+        MypageUser(id: id, subscribeEmail: subscribeEmail, nickname: nickname, birthYear: birthYear, gender: gender, createdAt: createdAt, industryId: industryId, interests: interests)
     }
 
     public func with(industryId: Int) -> MypageUser {
-        MypageUser(id: id, loginId: loginId, phoneNumber: phoneNumber, subscribeEmail: subscribeEmail, nickname: nickname, birthYear: birthYear, gender: gender, createdAt: createdAt, industryId: industryId, interests: interests)
+        MypageUser(id: id, subscribeEmail: subscribeEmail, nickname: nickname, birthYear: birthYear, gender: gender, createdAt: createdAt, industryId: industryId, interests: interests)
     }
 
     public func with(interests: [MypageInterest]) -> MypageUser {
-        MypageUser(id: id, loginId: loginId, phoneNumber: phoneNumber, subscribeEmail: subscribeEmail, nickname: nickname, birthYear: birthYear, gender: gender, createdAt: createdAt, industryId: industryId, interests: interests)
+        MypageUser(id: id, subscribeEmail: subscribeEmail, nickname: nickname, birthYear: birthYear, gender: gender, createdAt: createdAt, industryId: industryId, interests: interests)
     }
 }
