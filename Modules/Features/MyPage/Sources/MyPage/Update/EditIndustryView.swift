@@ -10,15 +10,8 @@ import SwiftUI
 import DesignSystem
 import Shared
 
-extension String {
-    func ifEmpty(_ replacement: String) -> String {
-        return self.isEmpty ? replacement : self
-    }
-}
-
 public struct EditIndustryView: View {
     @State private var selectedId: Int?
-    @State private var isExpanded: Bool = false
 
     @Environment(MypageViewModel.self) private var viewModel
     private let onBack: () -> Void
@@ -34,61 +27,12 @@ public struct EditIndustryView: View {
                 .foregroundStyle(Color.captionNeutral)
                 .allowsHitTesting(false) // 터치 불가능하게 설정
 
-            Button(action: {
-                withAnimation { isExpanded.toggle() }
-            }) {
-                HStack {
-                    Text(
-                        viewModel.industryName(for: selectedId ?? -1)
-                            .ifEmpty("선택해주세요")
-                    )
-                    .font(.hanSansNeo(14, .medium))
-                    .foregroundColor(Color.captionStrong)
-
-                    Spacer()
-                    Image(asset: isExpanded ? DesignSystemAsset.lineUp : DesignSystemAsset.lineDown)
-                        .foregroundColor(Color.captionStrong)
-                }
-                .padding(.horizontal, 16)
-                .frame(height: 50)
-                .background(.white)
-                .cornerRadius(4)
-                .overlay(
-                    RoundedRectangle(cornerRadius: 4)
-                        .stroke(isExpanded ? Color.primaryNormal : Color.lineAlternative, lineWidth: 1)
-                )
-            }
-
-            if isExpanded {
-                ScrollView {
-                    VStack(spacing: 0) {
-                        ForEach(viewModel.industries, id: \.id) { item in
-                            Button {
-                                selectedId = item.id
-                                isExpanded = false
-                            } label: {
-                                HStack {
-                                    Text(item.name)
-                                        .foregroundColor(item.id == selectedId ? Color.primaryNormal : Color.captionStrong)
-                                        .font(.hanSansNeo(14, .medium))
-                                    Spacer()
-                                }
-                                .padding(.vertical, 14)
-                                .padding(.horizontal, 16)
-                                .background(
-                                    item.id == selectedId
-                                        ? Color.primaryBgLight
-                                        : Color.white
-                                )
-                            }
-                        }
-                    }
-                }
-                .frame(maxHeight: 240)
-                .background(Color.white)
-                .cornerRadius(4)
-                .shadow(color: Color.captionDark.opacity(0.12), radius: 20, x: 0, y: 0)
-            }
+            DropdownSelector(
+                placeholder: "선택해주세요",
+                options: viewModel.industries.map { DropdownOption(key: "\($0.id)", value: $0.name) },
+                onOptionSelected: { selectedId = Int($0.key) },
+                selectedKey: selectedId.map(String.init)
+            )
 
             Spacer()
 

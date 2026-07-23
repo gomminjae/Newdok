@@ -1,19 +1,23 @@
 //
-//  BirthYearDropdown.swift
-//  Signup
+//  DropdownSelector.swift
+//  DesignSystem
 //
 //  Created by 권민재 on 4/13/25.
 //  Copyright © 2025 Newdok. All rights reserved.
 //
 
 import SwiftUI
-import DesignSystem
 
-struct DropdownOption: Hashable {
-    let key: String
-    let value: String
+public struct DropdownOption: Hashable {
+    public let key: String
+    public let value: String
 
-    static func == (lhs: DropdownOption, rhs: DropdownOption) -> Bool {
+    public init(key: String, value: String) {
+        self.key = key
+        self.value = value
+    }
+
+    public static func == (lhs: DropdownOption, rhs: DropdownOption) -> Bool {
         return lhs.key == rhs.key
     }
 }
@@ -52,7 +56,7 @@ struct Dropdown: View {
             VStack(alignment: .leading, spacing: 0) {
                 ForEach(self.options, id: \.self) { option in
                     DropdownRow(
-                        option: option, 
+                        option: option,
                         isSelected: selectedKey == option.key,
                         onOptionSelected: self.onOptionSelected
                     )
@@ -64,11 +68,11 @@ struct Dropdown: View {
         .background(Color.white)
         .cornerRadius(4)
         .shadow(color: Color.captionDark.opacity(0.12), radius: 20, x: 0, y: 0)
-        // 보더 제거하고 그림자 추가
     }
 }
 
-struct DropdownSelector: View {
+/// 오버레이 방식 드롭다운 — 펼쳐도 아래 레이아웃이 밀리지 않고 옵션 리스트가 위에 뜬다.
+public struct DropdownSelector: View {
     @State private var shouldShowDropdown = false
     @State private var selectedOption: DropdownOption?
     var placeholder: String
@@ -77,7 +81,19 @@ struct DropdownSelector: View {
     var selectedKey: String?
     private let buttonHeight: CGFloat = 48
 
-    var body: some View {
+    public init(
+        placeholder: String,
+        options: [DropdownOption],
+        onOptionSelected: ((_ option: DropdownOption) -> Void)? = nil,
+        selectedKey: String? = nil
+    ) {
+        self.placeholder = placeholder
+        self.options = options
+        self.onOptionSelected = onOptionSelected
+        self.selectedKey = selectedKey
+    }
+
+    public var body: some View {
         ZStack(alignment: .topLeading) {
             Button(action: {
                 self.shouldShowDropdown.toggle()
@@ -130,35 +146,5 @@ struct DropdownSelector: View {
         }
         .frame(height: buttonHeight)
         .zIndex(1)
-    }
-}
-
-struct DropdownSelector_Previews: PreviewProvider {
-    @State private static var address: String = ""
-
-    static var uniqueKey: String {
-        UUID().uuidString
-    }
-
-    static let options: [DropdownOption] = [
-        DropdownOption(key: uniqueKey, value: "Sunday"),
-        DropdownOption(key: uniqueKey, value: "Monday"),
-        DropdownOption(key: uniqueKey, value: "Tuesday"),
-        DropdownOption(key: uniqueKey, value: "Wednesday"),
-        DropdownOption(key: uniqueKey, value: "Thursday"),
-        DropdownOption(key: uniqueKey, value: "Friday"),
-        DropdownOption(key: uniqueKey, value: "Saturday")
-    ]
-
-    static var previews: some View {
-        VStack(spacing: 20) {
-            DropdownSelector(
-                placeholder: "선택",
-                options: options,
-                onOptionSelected: { _ in
-                })
-            .padding(.horizontal)
-            .zIndex(1)
-        }
     }
 }
