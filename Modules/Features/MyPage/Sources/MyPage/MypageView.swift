@@ -15,32 +15,36 @@ public struct MypageView: View {
     @State private var showEmailAlert: Bool = false
     
     @State private var isCopy: Bool = false
-    
+    @State private var showLogoutPopup: Bool = false
+
     @State private var viewModel: MypageViewModel
 
     private let onEditProfile: () -> Void
-    private let onAccountManage: () -> Void
     private let onEditAlert: () -> Void
     private let onFAQ: () -> Void
     private let onFeedback: () -> Void
     private let onTermsMenu: () -> Void
+    private let onLogout: () -> Void
+    private let onWithdraw: () -> Void
 
     public init(
         viewModel: MypageViewModel,
         onEditProfile: @escaping () -> Void,
-        onAccountManage: @escaping () -> Void,
         onEditAlert: @escaping () -> Void,
         onFAQ: @escaping () -> Void,
         onFeedback: @escaping () -> Void,
-        onTermsMenu: @escaping () -> Void
+        onTermsMenu: @escaping () -> Void,
+        onLogout: @escaping () -> Void,
+        onWithdraw: @escaping () -> Void
     ) {
         self.viewModel = viewModel
         self.onEditProfile = onEditProfile
-        self.onAccountManage = onAccountManage
         self.onEditAlert = onEditAlert
         self.onFAQ = onFAQ
         self.onFeedback = onFeedback
         self.onTermsMenu = onTermsMenu
+        self.onLogout = onLogout
+        self.onWithdraw = onWithdraw
     }
 
     public var body: some View {
@@ -70,7 +74,6 @@ public struct MypageView: View {
                 // MARK: - 서비스 섹션
                 VStack(spacing: 0) {
                     sectionHeader(title: "서비스")
-                    MypageMenuRow(title: "계정 관리") { onAccountManage() }
                     MypageMenuRow(title: "알림 설정") { onEditAlert() }
                 }
                 .padding(.horizontal, 20)
@@ -97,6 +100,35 @@ public struct MypageView: View {
                 .padding(.horizontal, 20)
 
                 Spacer()
+
+                // MARK: - 로그아웃 / 회원탈퇴
+                VStack(alignment: .leading, spacing: 0) {
+                    Button {
+                        showLogoutPopup = true
+                    } label: {
+                        Text("로그아웃")
+                            .font(.hanSansNeo(16, .medium))
+                            .foregroundStyle(Color.captionStrong)
+                            .frame(height: 48)
+                            .contentShape(Rectangle())
+                    }
+                    .buttonStyle(.plain)
+
+                    Button {
+                        onWithdraw()
+                    } label: {
+                        Text("회원탈퇴")
+                            .font(.hanSansNeo(13, .regular))
+                            .foregroundColor(Color.captionNeutral)
+                            .underline()
+                            .frame(height: 44)
+                            .contentShape(Rectangle())
+                    }
+                    .buttonStyle(.plain)
+                }
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .padding(.horizontal, 20)
+                .padding(.bottom, 16)
         }
             .padding(.top, 20)
             .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -123,6 +155,23 @@ public struct MypageView: View {
                     .type(.default)
                     .position(.center)
                     .closeOnTapOutside(true)
+                    .backgroundColor(Color.black.opacity(0.3))
+            }
+            .popup(isPresented: $showLogoutPopup) {
+                LogoutPopupView(
+                    onCancel: { showLogoutPopup = false },
+                    onConfirm: {
+                        showLogoutPopup = false
+                        onLogout()
+                    }
+                )
+            } customize: {
+                $0
+                    .type(.default)
+                    .position(.center)
+                    .closeOnTapOutside(false)
+                    .closeOnTap(false)
+                    .allowTapThroughBG(false)
                     .backgroundColor(Color.black.opacity(0.3))
             }
             .popup(isPresented: $isCopy) {
@@ -152,5 +201,54 @@ public struct MypageView: View {
         }
         .padding(.top, 24)
         .padding(.bottom, 8)
+    }
+}
+
+private struct LogoutPopupView: View {
+    let onCancel: () -> Void
+    let onConfirm: () -> Void
+
+    var body: some View {
+        VStack(spacing: 20) {
+            Image(asset: DesignSystemAsset.warning)
+                .resizable()
+                .frame(width: 80, height: 80)
+                .foregroundColor(Color.grayMedium)
+
+            Text("로그아웃 할까요?")
+                .font(.hanSansNeo(20, .bold))
+                .foregroundColor(Color.captionHeavy)
+
+            HStack(spacing: 8) {
+                Button(action: onCancel) {
+                    Text("취소")
+                        .font(.hanSansNeo(14, .bold))
+                        .foregroundStyle(Color.captionNeutral)
+                        .frame(maxWidth: .infinity)
+                        .frame(height: 48)
+                        .background(Color.white)
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 4)
+                                .stroke(Color.lineNeutral)
+                        )
+                }
+
+                Button(action: onConfirm) {
+                    Text("로그아웃")
+                        .font(.hanSansNeo(14, .bold))
+                        .foregroundColor(.white)
+                        .frame(maxWidth: .infinity)
+                        .frame(height: 48)
+                        .background(Color.primaryNormal)
+                        .cornerRadius(4)
+                }
+            }
+            .padding(.bottom, 8)
+        }
+        .frame(maxWidth: .infinity)
+        .padding(20)
+        .background(Color.white)
+        .cornerRadius(12)
+        .padding(.horizontal, 20)
     }
 }

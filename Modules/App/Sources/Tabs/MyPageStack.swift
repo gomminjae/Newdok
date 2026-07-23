@@ -10,11 +10,12 @@ struct MyPageStack: View {
         NavigationStack(path: $router.path) {
             container.makeMypageView(
                 onEditProfile: { coordinator.mypageRouter.push(.editProfile) },
-                onAccountManage: { coordinator.mypageRouter.push(.accountManage) },
                 onEditAlert: { coordinator.mypageRouter.push(.editAlert) },
                 onFAQ: { coordinator.mypageRouter.push(.faq) },
                 onFeedback: { coordinator.mypageRouter.push(.feedback) },
-                onTermsMenu: { coordinator.mypageRouter.push(.termsMenu) }
+                onTermsMenu: { coordinator.mypageRouter.push(.termsMenu) },
+                onLoggedOut: { coordinator.logout(to: .login) },
+                onWithdraw: { coordinator.mypageRouter.push(.withdraw) }
             )
             .navigationDestination(for: MyPageRoute.self) { route in
                 destination(route)
@@ -38,12 +39,6 @@ struct MyPageStack: View {
             container.makeEditIndustryView(onBack: { coordinator.mypageRouter.pop() })
         case .editInterest:
             container.makeEditInterestView(onBack: { coordinator.mypageRouter.pop() })
-        case .accountManage:
-            container.makeAccountManageView(
-                onBack: { coordinator.mypageRouter.pop() },
-                onWithdraw: { coordinator.mypageRouter.push(.withdraw) },
-                onLoggedOut: { coordinator.logout(to: .login) }
-            )
         case .withdraw:
             container.makeWithdrawView(
                 onBack: { coordinator.mypageRouter.pop() },

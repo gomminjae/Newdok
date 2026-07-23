@@ -3,7 +3,6 @@ enum MyPageRoute: Hashable {
     case editNickname
     case editIndustry
     case editInterest
-    case accountManage
     case withdraw
     case editAlert
     case faq

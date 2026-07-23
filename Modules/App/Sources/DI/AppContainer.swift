@@ -208,19 +208,21 @@ final class AppContainer {
 
     func makeMypageView(
         onEditProfile: @escaping () -> Void,
-        onAccountManage: @escaping () -> Void,
         onEditAlert: @escaping () -> Void,
         onFAQ: @escaping () -> Void,
         onFeedback: @escaping () -> Void,
-        onTermsMenu: @escaping () -> Void
+        onTermsMenu: @escaping () -> Void,
+        onLoggedOut: @escaping () -> Void,
+        onWithdraw: @escaping () -> Void
     ) -> some View {
         mypageBuilder.makeMypageView(
             onEditProfile: onEditProfile,
-            onAccountManage: onAccountManage,
             onEditAlert: onEditAlert,
             onFAQ: onFAQ,
             onFeedback: onFeedback,
-            onTermsMenu: onTermsMenu
+            onTermsMenu: onTermsMenu,
+            onLoggedOut: onLoggedOut,
+            onWithdraw: onWithdraw
         )
     }
 
@@ -248,18 +250,6 @@ final class AppContainer {
 
     func makeEditInterestView(onBack: @escaping () -> Void) -> some View {
         mypageBuilder.makeEditInterestView(onBack: onBack)
-    }
-
-    func makeAccountManageView(
-        onBack: @escaping () -> Void,
-        onWithdraw: @escaping () -> Void,
-        onLoggedOut: @escaping () -> Void
-    ) -> some View {
-        mypageBuilder.makeAccountManageView(
-            onBack: onBack,
-            onWithdraw: onWithdraw,
-            onLoggedOut: onLoggedOut
-        )
     }
 
     func makeWithdrawView(

@@ -18,11 +18,12 @@ struct MypageExampleApp: App {
                 MypageView(
                     viewModel: makeViewModel(),
                     onEditProfile: {},
-                    onAccountManage: {},
                     onEditAlert: {},
                     onFAQ: {},
                     onFeedback: {},
-                    onTermsMenu: {}
+                    onTermsMenu: {},
+                    onLogout: {},
+                    onWithdraw: {}
                 )
             }
             .environment(AppState.shared)

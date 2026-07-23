@@ -62,21 +62,11 @@ final class MypageDIContainer {
 
     // MARK: - ViewModels
 
-    func makeAccountManagementView(
-        onLogoutCleanup: @escaping () -> Void,
-        onBack: @escaping () -> Void,
-        onWithdraw: @escaping () -> Void,
-        onLoggedOut: @escaping () -> Void
-    ) -> AccountManagementView {
-        AccountManagementView(
-            tokenStorage: tokenStorage,
-            userInfoStore: userInfoStore,
-            appState: appState,
-            onLogoutCleanup: onLogoutCleanup,
-            onBack: onBack,
-            onWithdraw: onWithdraw,
-            onLoggedOut: onLoggedOut
-        )
+    func logout() {
+        tokenStorage.clear()
+        userInfoStore.clear()
+        clearCache()
+        appState.logout()
     }
 
     func makeWithdrawViewModel(onCleanup: @escaping () -> Void) -> WithdrawViewModel {

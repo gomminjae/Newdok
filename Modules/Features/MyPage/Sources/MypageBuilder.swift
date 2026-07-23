@@ -24,21 +24,26 @@ public struct MypageBuilder: MypageBuildable {
 
     public func makeMypageView(
         onEditProfile: @escaping () -> Void,
-        onAccountManage: @escaping () -> Void,
         onEditAlert: @escaping () -> Void,
         onFAQ: @escaping () -> Void,
         onFeedback: @escaping () -> Void,
-        onTermsMenu: @escaping () -> Void
+        onTermsMenu: @escaping () -> Void,
+        onLoggedOut: @escaping () -> Void,
+        onWithdraw: @escaping () -> Void
     ) -> AnyView {
         AnyView(
             MypageView(
                 viewModel: container.sharedViewModel(),
                 onEditProfile: onEditProfile,
-                onAccountManage: onAccountManage,
                 onEditAlert: onEditAlert,
                 onFAQ: onFAQ,
                 onFeedback: onFeedback,
-                onTermsMenu: onTermsMenu
+                onTermsMenu: onTermsMenu,
+                onLogout: { [container] in
+                    container.logout()
+                    onLoggedOut()
+                },
+                onWithdraw: onWithdraw
             )
         )
     }
@@ -77,21 +82,6 @@ public struct MypageBuilder: MypageBuildable {
 
     public func makeEditInterestView(onBack: @escaping () -> Void) -> AnyView {
         AnyView(EditInterestView(onBack: onBack).environment(container.sharedViewModel()))
-    }
-
-    public func makeAccountManageView(
-        onBack: @escaping () -> Void,
-        onWithdraw: @escaping () -> Void,
-        onLoggedOut: @escaping () -> Void
-    ) -> AnyView {
-        AnyView(
-            container.makeAccountManagementView(
-                onLogoutCleanup: { [container] in container.clearCache() },
-                onBack: onBack,
-                onWithdraw: onWithdraw,
-                onLoggedOut: onLoggedOut
-            )
-        )
     }
 
     public func makeWithdrawView(
