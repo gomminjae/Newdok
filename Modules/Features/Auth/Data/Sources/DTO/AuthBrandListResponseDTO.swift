@@ -14,7 +14,7 @@ struct AuthRecommendedBrandDTO: Decodable, Sendable {
     let brandName: String
     let firstDescription: String
     let secondDescription: String
-    let publicationCycle: String
+    let publicationCycle: String?
     let subscribeUrl: String
     let imageUrl: String?
     let interests: [AuthInterestDTO]
@@ -24,7 +24,7 @@ struct AuthRecommendedBrandDTO: Decodable, Sendable {
             id: id,
             name: brandName,
             description: firstDescription,
-            cycle: publicationCycle,
+            cycle: publicationCycle ?? "",
             subscribeUrl: subscribeUrl,
             imageUrl: imageUrl ?? "",
             interests: interests.map { $0.toDomain() }

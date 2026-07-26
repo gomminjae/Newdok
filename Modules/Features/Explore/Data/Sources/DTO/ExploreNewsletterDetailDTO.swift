@@ -5,7 +5,7 @@ struct ExploreNewsletterDetailDTO: Decodable, Sendable {
     let brandName: String
     let firstDescription: String
     let secondDescription: String
-    let publicationCycle: String
+    let publicationCycle: String?
     let subscribeUrl: String
     let imageUrl: String?
     let createdAt: String
@@ -19,7 +19,7 @@ struct ExploreNewsletterDetailDTO: Decodable, Sendable {
             brandName: brandName,
             firstDescription: firstDescription,
             secondDescription: secondDescription,
-            publicationCycle: publicationCycle,
+            publicationCycle: publicationCycle ?? "",
             subscribeUrl: subscribeUrl,
             imageUrl: imageUrl,
             createdAt: createdAt,

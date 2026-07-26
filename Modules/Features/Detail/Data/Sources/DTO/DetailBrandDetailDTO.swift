@@ -9,7 +9,7 @@ public struct DetailBrandDetailDTO: Decodable, Sendable {
     public let brandId: Int
     public let brandName: String
     public let detailDescription: String?
-    public let publicationCycle: String
+    public let publicationCycle: String?
     public let subscribeUrl: String
     public let imageUrl: String?
     public let interests: [DetailInterestDTO]
@@ -22,7 +22,7 @@ public struct DetailBrandDetailDTO: Decodable, Sendable {
             brandId: brandId,
             brandName: brandName,
             detailDescription: detailDescription,
-            publicationCycle: publicationCycle,
+            publicationCycle: publicationCycle ?? "",
             subscribeUrl: subscribeUrl,
             imageUrl: imageUrl,
             interests: interests.map { $0.toDomain() },
