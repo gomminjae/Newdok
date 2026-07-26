@@ -144,7 +144,7 @@ public struct DropdownSelector: View {
                 .offset(y: buttonHeight + 8)
             }
         }
-        .frame(height: buttonHeight)
+        .frame(height: buttonHeight, alignment: .top)
         .zIndex(1)
     }
 }
