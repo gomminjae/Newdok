@@ -78,6 +78,9 @@ public struct MypageView: View {
                 }
                 .padding(.horizontal, 20)
 
+                Divider()
+                    .padding(.top, 24)
+
                 // MARK: - 고객센터 섹션
                 VStack(spacing: 0) {
                     sectionHeader(title: "고객센터")
@@ -89,7 +92,7 @@ public struct MypageView: View {
                             .font(.hanSansNeo(16, .medium))
                             .foregroundStyle(Color.captionStrong)
                         Spacer()
-                        Text("1.0.0")
+                        Text(Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "1.0.0")
                             .font(.hanSansNeo(14, .medium))
                             .foregroundColor(Color.captionAssistive)
                     }
@@ -101,18 +104,12 @@ public struct MypageView: View {
 
                 Spacer()
 
-                // MARK: - 로그아웃 / 회원탈퇴
-                VStack(alignment: .leading, spacing: 0) {
-                    Button {
-                        showLogoutPopup = true
-                    } label: {
-                        Text("로그아웃")
-                            .font(.hanSansNeo(16, .medium))
-                            .foregroundStyle(Color.captionStrong)
-                            .frame(height: 48)
-                            .contentShape(Rectangle())
-                    }
-                    .buttonStyle(.plain)
+                Divider()
+
+                // MARK: - 기타 (로그아웃 / 회원탈퇴)
+                VStack(spacing: 0) {
+                    sectionHeader(title: "기타")
+                    MypageMenuRow(title: "로그아웃") { showLogoutPopup = true }
 
                     Button {
                         onWithdraw()
@@ -125,8 +122,8 @@ public struct MypageView: View {
                             .contentShape(Rectangle())
                     }
                     .buttonStyle(.plain)
+                    .frame(maxWidth: .infinity, alignment: .trailing)
                 }
-                .frame(maxWidth: .infinity, alignment: .leading)
                 .padding(.horizontal, 20)
                 .padding(.bottom, 16)
         }
