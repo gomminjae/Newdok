@@ -175,15 +175,12 @@ public struct EditProfileView: View {
                 .frame(maxWidth: .infinity, alignment: .leading)
             }
         } else {
-            Button {
-                onEditInterest()
-            } label: {
-                EditableRow(
-                    title: "관심사",
-                    text: "",
-                    placeholder: "관심사를 선택해주세요."
-                )
-            }
+            EditableRow(
+                title: "관심사",
+                text: "",
+                placeholder: "관심사를 선택해주세요.",
+                onEdit: { onEditInterest() }
+            )
         }
     }
 }
