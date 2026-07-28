@@ -114,6 +114,7 @@ public struct EditInterestView: View {
             }
         }
         .navigationBarBackButtonHidden(true)
+        .navigationBarTitleDisplayMode(.inline)
         .toolbar {
             ToolbarItem(placement: .navigationBarLeading) {
                 Button { onBack() } label: {
