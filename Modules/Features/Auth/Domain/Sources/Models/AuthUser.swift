@@ -1,6 +1,6 @@
 import Foundation
 
-public struct AuthUser {
+public struct AuthUser: Sendable {
     public let id: Int
     public let subscribeEmail: String?
     public let nickname: String

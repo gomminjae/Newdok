@@ -1,29 +1,34 @@
 import Foundation
-import os
+import Synchronization
 
 public final class TokenStore: TokenStorageProtocol, Sendable {
     public static let shared = TokenStore()
 
-    private enum Key {
-        static let accessToken = "accessToken"
+    private enum State: Sendable {
+        case unloaded
+        case missing
+        case available(String)
     }
 
-    private struct State {
-        var loaded = false
-        var token: String?
-    }
-
-    private let lock = OSAllocatedUnfairLock(initialState: State())
+    private let state = Mutex<State>(.unloaded)
 
     private init() {}
 
     public var accessToken: String? {
-        lock.withLock { state in
-            if !state.loaded {
-                state.token = KeychainStorage.read(key: Key.accessToken)
-                state.loaded = true
+        state.withLock { state in
+            switch state {
+            case .unloaded:
+                guard let token = KeychainStorage.read(item: .accessToken) else {
+                    state = .missing
+                    return nil
+                }
+                state = .available(token)
+                return token
+            case .missing:
+                return nil
+            case let .available(token):
+                return token
             }
-            return state.token
         }
     }
 
@@ -37,22 +42,18 @@ public final class TokenStore: TokenStorageProtocol, Sendable {
     /// - Returns: Keychain 반영 성공 여부. 실패 시 콜러가 로그인 실패로 처리해야 한다.
     @discardableResult
     public func saveAccessToken(_ token: String?) -> Bool {
-        if let token {
-            let saved = KeychainStorage.save(token, key: Key.accessToken)
-            if saved {
-                lock.withLock { state in
-                    state.token = token
-                    state.loaded = true
+        state.withLock { state in
+            if let token {
+                guard KeychainStorage.save(token, item: .accessToken) else {
+                    return false
                 }
+                state = .available(token)
+                return true
             }
-            return saved
-        } else {
-            let deleted = KeychainStorage.delete(key: Key.accessToken)
+
+            let deleted = KeychainStorage.delete(item: .accessToken)
             // 로그아웃/삭제 시 보안상 인메모리는 항상 비운다 (Keychain 삭제 실패와 무관).
-            lock.withLock { state in
-                state.token = nil
-                state.loaded = true
-            }
+            state = .missing
             return deleted
         }
     }
@@ -62,9 +63,10 @@ public final class TokenStore: TokenStorageProtocol, Sendable {
     }
 
     public func migrateTokenIfNeeded() {
-        guard let legacyToken = UserDefaults.standard.string(forKey: Key.accessToken) else { return }
+        let legacyKey = KeychainItem.accessToken.rawValue
+        guard let legacyToken = UserDefaults.standard.string(forKey: legacyKey) else { return }
         saveAccessToken(legacyToken)
-        guard KeychainStorage.read(key: Key.accessToken) == legacyToken else { return }
-        UserDefaults.standard.removeObject(forKey: Key.accessToken)
+        guard KeychainStorage.read(item: .accessToken) == legacyToken else { return }
+        UserDefaults.standard.removeObject(forKey: legacyKey)
     }
 }
