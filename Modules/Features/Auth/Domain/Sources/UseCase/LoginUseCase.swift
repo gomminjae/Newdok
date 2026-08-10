@@ -1,5 +1,5 @@
 import Foundation
 
 public protocol LoginUseCase: Sendable {
-    func execute(provider: SocialProvider, idToken: String) async throws -> SocialLoginResultType
+    func execute(credential: SocialLoginCredential) async throws -> SocialLoginResultType
 }

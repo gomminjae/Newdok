@@ -5,6 +5,8 @@ public enum LoginError: Error, LocalizedError {
     case cancelled
     /// 소셜 SDK에서 idToken을 받지 못함
     case missingIDToken
+    /// Apple 인증 결과에서 authorizationCode를 받지 못함
+    case missingAuthorizationCode
     case networkError(Error)
     case tokenPersistenceFailed
 
@@ -14,6 +16,8 @@ public enum LoginError: Error, LocalizedError {
             return "로그인이 취소되었습니다"
         case .missingIDToken:
             return "소셜 로그인 정보를 가져오지 못했습니다"
+        case .missingAuthorizationCode:
+            return "Apple 로그인 정보를 가져오지 못했습니다. 다시 시도해주세요"
         case .networkError(let error):
             return "네트워크 오류: \(error.localizedDescription)"
         case .tokenPersistenceFailed:

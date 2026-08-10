@@ -325,11 +325,51 @@ struct LoginViewModelTests {
         // 내부 Task 완료 대기
         try? await Task.sleep(for: .milliseconds(50))
 
-        #expect(mock.executedProvider == .kakao)
-        #expect(mock.executedIDToken == "kakao-id-token")
+        #expect(mock.executedCredential == .kakao(idToken: "kakao-id-token"))
         #expect(successCalled == true)
         #expect(vm.currentError == nil)
         #expect(AppState.shared.authState == .authenticated)
+    }
+
+    @Test("애플 로그인 성공 시 authorizationCode를 함께 전달")
+    func appleLogin_passesAuthorizationCode() async {
+        let mock = MockLoginUseCase()
+        let apple = MockAppleAuthService()
+        apple.result = .success(
+            AppleAuthCredential(
+                idToken: "apple-id-token",
+                authorizationCode: "apple-auth-code"
+            )
+        )
+        let (vm, _, _, _) = makeSUT(loginUseCase: mock, appleAuthService: apple)
+        AppState.shared.logout()
+
+        var successCalled = false
+        vm.loginWithApple(onLoggedIn: { successCalled = true }, onNeedSignup: { _, _ in })
+
+        try? await Task.sleep(for: .milliseconds(50))
+
+        #expect(mock.executedCredential == .apple(
+            idToken: "apple-id-token",
+            authorizationCode: "apple-auth-code"
+        ))
+        #expect(successCalled == true)
+    }
+
+    @Test("Apple authorizationCode가 없으면 서버 로그인을 호출하지 않음")
+    func appleLogin_missingAuthorizationCodeDoesNotAuthenticate() async {
+        let mock = MockLoginUseCase()
+        let apple = MockAppleAuthService()
+        apple.result = .failure(LoginError.missingAuthorizationCode)
+        let (vm, _, _, _) = makeSUT(loginUseCase: mock, appleAuthService: apple)
+
+        vm.loginWithApple(onLoggedIn: {}, onNeedSignup: { _, _ in })
+
+        try? await Task.sleep(for: .milliseconds(50))
+
+        #expect(mock.executeCallCount == 0)
+        #expect(vm.currentError != nil)
+        #expect(vm.isLoading == false)
     }
 
     @Test("카카오 로그인 취소 시 에러 표시 없이 무시")

@@ -18,11 +18,25 @@ public final class AuthRepositoryImpl: AuthRepository {
         self.userInfoStore = userInfoStore
     }
 
-    public func login(provider: SocialProvider, idToken: String) async throws -> SocialLoginResultType {
+    public func login(credential: SocialLoginCredential) async throws -> SocialLoginResultType {
         do {
-            let response = try await network.request(
-                Login(provider: provider.rawValue, idToken: idToken)
-            )
+            let request: Login
+            switch credential {
+            case let .kakao(idToken):
+                request = Login(
+                    provider: SocialProvider.kakao.rawValue,
+                    idToken: idToken,
+                    authorizationCode: nil
+                )
+            case let .apple(idToken, authorizationCode):
+                request = Login(
+                    provider: SocialProvider.apple.rawValue,
+                    idToken: idToken,
+                    authorizationCode: authorizationCode
+                )
+            }
+
+            let response = try await network.request(request)
             let result = try response.toDomain()
 
             if case let .registered(user, accessToken) = result {

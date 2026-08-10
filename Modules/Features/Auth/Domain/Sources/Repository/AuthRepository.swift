@@ -1,7 +1,7 @@
 import Foundation
 
 public protocol AuthRepository: Sendable {
-    func login(provider: SocialProvider, idToken: String) async throws -> SocialLoginResultType
+    func login(credential: SocialLoginCredential) async throws -> SocialLoginResultType
     func signup(
         signupToken: String,
         nickname: String,

@@ -9,7 +9,7 @@ public final class LoginUseCaseImpl: LoginUseCase {
         self.authRepository = authRepository
     }
 
-    public func execute(provider: SocialProvider, idToken: String) async throws -> SocialLoginResultType {
-        try await authRepository.login(provider: provider, idToken: idToken)
+    public func execute(credential: SocialLoginCredential) async throws -> SocialLoginResultType {
+        try await authRepository.login(credential: credential)
     }
 }

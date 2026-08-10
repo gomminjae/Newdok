@@ -48,8 +48,7 @@ public final class LoginViewModel: ErrorHandling {
             do {
                 let idToken = try await kakaoAuthService.fetchIDToken()
                 try await authenticate(
-                    provider: .kakao,
-                    idToken: idToken,
+                    with: .kakao(idToken: idToken),
                     onLoggedIn: onLoggedIn,
                     onNeedSignup: onNeedSignup
                 )
@@ -70,10 +69,12 @@ public final class LoginViewModel: ErrorHandling {
 
         Task {
             do {
-                let idToken = try await appleAuthService.fetchIDToken()
+                let credential = try await appleAuthService.fetchCredential()
                 try await authenticate(
-                    provider: .apple,
-                    idToken: idToken,
+                    with: .apple(
+                        idToken: credential.idToken,
+                        authorizationCode: credential.authorizationCode
+                    ),
                     onLoggedIn: onLoggedIn,
                     onNeedSignup: onNeedSignup
                 )
@@ -85,13 +86,12 @@ public final class LoginViewModel: ErrorHandling {
     }
 
     private func authenticate(
-        provider: SocialProvider,
-        idToken: String,
+        with credential: SocialLoginCredential,
         onLoggedIn: @escaping () -> Void,
         onNeedSignup: @escaping (_ signupToken: String, _ suggestedNickname: String?) -> Void
     ) async throws {
         defer { isLoading = false }
-        let result = try await loginUseCase.execute(provider: provider, idToken: idToken)
+        let result = try await loginUseCase.execute(credential: credential)
         currentError = nil
 
         switch result {
@@ -110,6 +110,8 @@ public final class LoginViewModel: ErrorHandling {
             break
         case LoginError.missingIDToken:
             currentError = .userMessage(LoginError.missingIDToken.localizedDescription)
+        case LoginError.missingAuthorizationCode:
+            currentError = .userMessage(LoginError.missingAuthorizationCode.localizedDescription)
         case LoginError.networkError(let underlying):
             handleError(underlying, feature: "login", operation: "socialLogin")
         default:

@@ -7,7 +7,7 @@ import AuthenticationServices
 public struct AppleAuthService: AppleAuthServiceProtocol {
     public init() {}
 
-    public func fetchIDToken() async throws -> String {
+    public func fetchCredential() async throws -> AppleAuthCredential {
         try await withCheckedThrowingContinuation { continuation in
             // manager를 completion 클로저에서 강하게 잡아 콜백 시점까지 생존시킴
             let manager = AppleSignInManager()
@@ -15,10 +15,10 @@ public struct AppleAuthService: AppleAuthServiceProtocol {
                 _ = manager
                 switch result {
                 case .success(let authorization):
-                    if let idToken = Self.idToken(from: authorization) {
-                        continuation.resume(returning: idToken)
-                    } else {
-                        continuation.resume(throwing: LoginError.missingIDToken)
+                    do {
+                        continuation.resume(returning: try Self.credential(from: authorization))
+                    } catch {
+                        continuation.resume(throwing: error)
                     }
                 case .failure(let error):
                     continuation.resume(throwing: Self.map(error))
@@ -27,12 +27,22 @@ public struct AppleAuthService: AppleAuthServiceProtocol {
         }
     }
 
-    private static func idToken(from authorization: ASAuthorization) -> String? {
+    private static func credential(from authorization: ASAuthorization) throws -> AppleAuthCredential {
         guard
             let credential = authorization.credential as? ASAuthorizationAppleIDCredential,
-            let tokenData = credential.identityToken
-        else { return nil }
-        return String(data: tokenData, encoding: .utf8)
+            let tokenData = credential.identityToken,
+            let idToken = String(data: tokenData, encoding: .utf8)
+        else { throw LoginError.missingIDToken }
+
+        guard
+            let codeData = credential.authorizationCode,
+            let authorizationCode = String(data: codeData, encoding: .utf8)
+        else { throw LoginError.missingAuthorizationCode }
+
+        return AppleAuthCredential(
+            idToken: idToken,
+            authorizationCode: authorizationCode
+        )
     }
 
     private static func map(_ error: Error) -> LoginError {

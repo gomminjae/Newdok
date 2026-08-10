@@ -10,16 +10,14 @@ public final class MockLoginUseCase: LoginUseCase, @unchecked Sendable {
             accessToken: "mock-access-token"
         )
     )
-    public private(set) var executedProvider: SocialProvider?
-    public private(set) var executedIDToken: String?
+    public private(set) var executedCredential: SocialLoginCredential?
     public private(set) var executeCallCount = 0
 
     public init() {}
 
-    public func execute(provider: SocialProvider, idToken: String) async throws -> SocialLoginResultType {
+    public func execute(credential: SocialLoginCredential) async throws -> SocialLoginResultType {
         executeCallCount += 1
-        executedProvider = provider
-        executedIDToken = idToken
+        executedCredential = credential
         return try result.get()
     }
 }
@@ -37,11 +35,13 @@ public final class MockKakaoAuthService: KakaoAuthServiceProtocol {
 
 @MainActor
 public final class MockAppleAuthService: AppleAuthServiceProtocol {
-    public var result: Result<String, Error> = .success("apple-id-token")
+    public var result: Result<AppleAuthCredential, Error> = .success(
+        AppleAuthCredential(idToken: "apple-id-token", authorizationCode: "apple-authorization-code")
+    )
 
     public nonisolated init() {}
 
-    public func fetchIDToken() async throws -> String {
+    public func fetchCredential() async throws -> AppleAuthCredential {
         try result.get()
     }
 }

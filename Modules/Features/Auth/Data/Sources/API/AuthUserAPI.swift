@@ -10,12 +10,18 @@ struct Login: APIRequest {
     typealias Response = AuthSocialLoginResponseDTO
     let provider: String
     let idToken: String
+    let authorizationCode: String?
     var baseURL: URL { AuthBaseURL.auth }
     var path: String { "/social-login" }
     var method: HTTPMethod { .post }
     var emitsUnauthorizedEvent: Bool { false }
     var task: RequestTask {
-        .jsonBody(LoginRequest(provider: provider, platform: "IOS", idToken: idToken))
+        .jsonBody(LoginRequest(
+            provider: provider,
+            platform: "IOS",
+            idToken: idToken,
+            authorizationCode: authorizationCode
+        ))
     }
 }
 
