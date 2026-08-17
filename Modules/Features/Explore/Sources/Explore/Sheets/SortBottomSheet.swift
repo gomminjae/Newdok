@@ -59,9 +59,11 @@ struct SortBottomSheet: View {
                         }
                         .padding(.horizontal, 24)
                         .frame(height: 56)
+                        .contentShape(Rectangle())
                     }
                     .accessibilityLabel("\(option.displayText)\(orderOpt == option ? ", 선택됨" : "")")
                     .accessibilityIdentifier("sort_option_\(option.rawValue)")
+                    .buttonStyle(.plain)
 
                     if option != ExploreOrderOption.allCases.last {
                         Divider()

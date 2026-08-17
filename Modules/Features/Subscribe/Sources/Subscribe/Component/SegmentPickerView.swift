@@ -51,7 +51,9 @@ public struct CustomSegmentedSlider: View {
                                 .minimumScaleFactor(0.8)
                                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                                 .padding(.horizontal, 2)
+                                .contentShape(Rectangle())
                         }
+                        .buttonStyle(.plain)
                         .accessibilityLabel(titles[index])
                         .accessibilityIdentifier("subscribe_picker_\(index)")
                         .accessibilityAddTraits(selectedIndex == index ? .isSelected : [])

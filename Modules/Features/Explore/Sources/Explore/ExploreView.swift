@@ -211,7 +211,9 @@ public struct ExploreView: View {
                 .foregroundColor(viewModel.selectedTab == index ? Color.captionStrong : Color.captionAlternative)
                 .frame(maxWidth: .infinity)
                 .padding(.vertical, 12)
+                .contentShape(Rectangle())
         }
+        .buttonStyle(.plain)
         .accessibilityLabel(title)
         .accessibilityIdentifier("explore_tab_\(index)")
         .accessibilityAddTraits(viewModel.selectedTab == index ? .isSelected : [])

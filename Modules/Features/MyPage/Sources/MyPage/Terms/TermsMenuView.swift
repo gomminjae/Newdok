@@ -33,7 +33,9 @@ public struct TermsMenuView: View {
                 .padding(.top, 16)
                 .padding(.horizontal, 24)
                 .frame(height: 48)
+                .contentShape(Rectangle())
             }
+            .buttonStyle(.plain)
 
             NavigationLink {
                 WebLinkView(title: "개인정보 처리방침", urlString: "https://newdok.notion.site/82ef5aea46d84623b7b19bb951b6043c?pvs=4")
@@ -48,7 +50,9 @@ public struct TermsMenuView: View {
                 }
                 .padding(.horizontal, 24)
                 .frame(height: 48)
+                .contentShape(Rectangle())
             }
+            .buttonStyle(.plain)
 
             Spacer()
         }
