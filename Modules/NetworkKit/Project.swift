@@ -6,5 +6,6 @@ let project = Project.module(
     dependencies: [
         .external(name: "Moya"),
         .shared
-    ]
+    ],
+    hasTests: true
 )

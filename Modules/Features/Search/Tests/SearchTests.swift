@@ -64,6 +64,38 @@ struct SearchViewModelTests {
         #expect(vm.searchResults.isEmpty)
     }
 
+    @Test("늦게 끝난 이전 검색 결과를 무시")
+    func searchNewsletters_latestRequestWins() async {
+        let controlled = ControlledSearchUseCase()
+        let vm = SearchViewModel(
+            searchNewslettersUseCase: controlled,
+            fetchPopularKeywordsUseCase: MockFetchPopularKeywordsUseCase()
+        )
+
+        vm.searchText = "이전"
+        let previousTask = Task { await vm.searchNewsletters() }
+        await controlled.waitUntilRequested("이전")
+
+        vm.searchText = "최신"
+        let latestTask = Task { await vm.searchNewsletters() }
+        await controlled.waitUntilRequested("최신")
+
+        await controlled.succeed(
+            "최신",
+            with: [SearchedNewsletter(id: "new", brandName: "최신", firstDescription: "", imageUrl: "")]
+        )
+        await latestTask.value
+
+        await controlled.succeed(
+            "이전",
+            with: [SearchedNewsletter(id: "old", brandName: "이전", firstDescription: "", imageUrl: "")]
+        )
+        await previousTask.value
+
+        #expect(vm.searchResults.map(\.id) == ["new"])
+        #expect(vm.isLoading == false)
+    }
+
     // MARK: - loadPopularKeywords
 
     @Test("인기 키워드 로드 성공")
@@ -159,5 +191,26 @@ struct SearchViewModelTests {
         #expect(vm.searchText == "경제")
         #expect(mock.executedBrandName == "경제")
         #expect(vm.searchResults.count == 1)
+    }
+}
+
+private actor ControlledSearchUseCase: SearchNewslettersUseCase {
+    private var requests: [String: CheckedContinuation<[SearchedNewsletter], Error>] = [:]
+    private var requestWaiters: [String: CheckedContinuation<Void, Never>] = [:]
+
+    func execute(brandName: String) async throws -> [SearchedNewsletter] {
+        try await withCheckedThrowingContinuation { continuation in
+            requests[brandName] = continuation
+            requestWaiters.removeValue(forKey: brandName)?.resume()
+        }
+    }
+
+    func waitUntilRequested(_ brandName: String) async {
+        if requests[brandName] != nil { return }
+        await withCheckedContinuation { requestWaiters[brandName] = $0 }
+    }
+
+    func succeed(_ brandName: String, with results: [SearchedNewsletter]) {
+        requests.removeValue(forKey: brandName)?.resume(returning: results)
     }
 }

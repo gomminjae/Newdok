@@ -14,6 +14,7 @@ import Kingfisher
 public struct SearchView: View {
     @Environment(\.dismiss) private var dismiss
     @State private var viewModel: SearchViewModel
+    @State private var searchRequestID = 0
 
     private let onBack: () -> Void
     private let onBrandTap: (String) -> Void
@@ -47,7 +48,7 @@ public struct SearchView: View {
                     TextField("검색어를 입력하세요", text: $viewModel.searchText)
                         .submitLabel(.search)
                         .onSubmit {
-                            Task { await viewModel.searchNewsletters() }
+                            searchRequestID += 1
                         }
                         .font(.hanSansNeo(14, .regular))
                         .disableAutocorrection(true)
@@ -56,7 +57,8 @@ public struct SearchView: View {
 
                     if !viewModel.searchText.isEmpty {
                         Button(action: {
-                            viewModel.searchText = ""
+                            viewModel.clearSearchResults()
+                            searchRequestID += 1
                         }) {
                             Image(systemName: "xmark.circle.fill")
                                 .resizable()
@@ -73,7 +75,7 @@ public struct SearchView: View {
 
                 .cornerRadius(10)
                 Button(action: {
-                    Task { await viewModel.searchNewsletters() }
+                    searchRequestID += 1
                 }) {
                     Image(asset: DesignSystemAsset.lineSearch)
                         .resizable()
@@ -128,6 +130,10 @@ public struct SearchView: View {
         .navigationBarHidden(true)
         .task {
             await viewModel.loadPopularKeywords()
+        }
+        .task(id: searchRequestID) {
+            guard searchRequestID > 0 else { return }
+            await viewModel.searchNewsletters()
         }
         .serverErrorPopup(
             error: $viewModel.currentError,
@@ -194,7 +200,8 @@ public struct SearchView: View {
         .padding(.vertical, 4)
         .contentShape(Rectangle())
         .onTapGesture {
-            Task { await viewModel.selectPopularKeyword(keyword.keyword) }
+            viewModel.searchText = keyword.keyword
+            searchRequestID += 1
         }
         .accessibilityElement(children: .combine)
         .accessibilityLabel("\(keyword.rank)위, \(keyword.keyword)")
@@ -253,4 +260,3 @@ public struct SearchView: View {
         .frame(maxWidth: .infinity)
     }
 }
-

@@ -23,7 +23,7 @@ private final class StubUserInfoStore: UserInfoStoreProtocol, @unchecked Sendabl
 
 private extension UserInfo {
     static let stub = UserInfo(
-        id: 1, loginId: "test", phoneNumber: "010",
+        id: 1,
         subscribeEmail: "test@example.com", nickname: "테스터",
         birthYear: "2000", gender: "M", createdAt: "2025-01-01",
         industryId: 1, interestIds: []

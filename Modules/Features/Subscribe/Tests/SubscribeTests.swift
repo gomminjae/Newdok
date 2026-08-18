@@ -44,7 +44,7 @@ struct SubscribeViewModelTests {
         #expect(vm.initialLoaded)
     }
 
-    @Test("초기 로드 실패 시 에러 처리")
+    @Test("초기 로드 실패 시 재시도 가능")
     func loadInitial_failure() async {
         let activeMock = MockFetchActiveSubscriptionUseCase()
         activeMock.result = .failure(NSError(domain: "test", code: -1))
@@ -53,8 +53,29 @@ struct SubscribeViewModelTests {
         await vm.loadInitial()
 
         #expect(vm.activeNewsletters.isEmpty)
-        #expect(vm.initialLoaded)
+        #expect(!vm.initialLoaded)
         #expect(vm.currentError != nil)
+
+        activeMock.result = .success([makeNewsletter()])
+        await vm.loadInitial()
+
+        #expect(activeMock.executeCallCount == 2)
+        #expect(vm.initialLoaded)
+        #expect(vm.currentError == nil)
+    }
+
+    @Test("초기 로드 취소 시 미로드 상태 유지")
+    func loadInitial_cancellation() async {
+        let activeMock = MockFetchActiveSubscriptionUseCase()
+        activeMock.result = .failure(CancellationError())
+        let vm = makeSUT(active: activeMock)
+
+        await vm.loadInitial()
+
+        #expect(!vm.initialLoaded)
+        #expect(!vm.isLoadingActive)
+        #expect(!vm.isLoadingPaused)
+        #expect(vm.currentError == nil)
     }
 
     @Test("초기 로드 중복 호출 방지")

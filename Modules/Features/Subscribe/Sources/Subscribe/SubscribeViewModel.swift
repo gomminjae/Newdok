@@ -87,6 +87,10 @@ public final class SubscribeViewModel: ErrorHandling {
         guard !isLoadingActive && !isLoadingPaused else { return }
         isLoadingActive = true
         isLoadingPaused = true
+        defer {
+            isLoadingActive = false
+            isLoadingPaused = false
+        }
 
         do {
             async let active = fetchActiveUseCase.execute()
@@ -94,13 +98,14 @@ public final class SubscribeViewModel: ErrorHandling {
 
             activeNewsletters = try await active
             pausedNewsletters = try await paused
+            initialLoaded = true
+            currentError = nil
+        } catch is CancellationError {
+            return
         } catch {
+            guard !Task.isCancelled else { return }
             handleError(error, feature: "subscribe", operation: "loadInitial")
         }
-
-        initialLoaded = true
-        isLoadingActive = false
-        isLoadingPaused = false
     }
 
     public func refresh(tab: Int) async {

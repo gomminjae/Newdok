@@ -26,6 +26,8 @@ public final class SearchViewModel: ErrorHandling {
     public var popularError: AppError?
     public var currentError: AppError?
 
+    private var searchGeneration = 0
+
     public init(
         searchNewslettersUseCase: SearchNewslettersUseCase,
         fetchPopularKeywordsUseCase: FetchPopularKeywordsUseCase
@@ -35,41 +37,56 @@ public final class SearchViewModel: ErrorHandling {
     }
 
     public func clearSearchResults() {
+        searchGeneration += 1
         searchText = ""
         searchResults = []
         searchError = nil
+        isLoading = false
     }
 
     public func loadPopularKeywords(force: Bool = false) async {
         if isPopularLoading { return }
         if !force, popularKeywords != nil { return }
         isPopularLoading = true
+        defer { isPopularLoading = false }
         popularError = nil
         do {
             let response = try await fetchPopularKeywordsUseCase.execute()
             self.popularKeywords = response
+        } catch is CancellationError {
+            return
         } catch {
+            guard !Task.isCancelled else { return }
             handleError(error, feature: "search", operation: "loadPopularKeywords")
             self.popularError = currentError
         }
-        isPopularLoading = false
     }
 
     public func searchNewsletters() async {
         guard !searchText.isEmpty else { return }
-        guard !isLoading else { return }
 
+        searchGeneration += 1
+        let generation = searchGeneration
         isLoading = true
+        defer {
+            if generation == searchGeneration {
+                isLoading = false
+            }
+        }
+
         let query = searchText
         searchError = nil
         do {
             let results = try await searchNewslettersUseCase.execute(brandName: query)
+            guard generation == searchGeneration, !Task.isCancelled else { return }
             self.searchResults = results
+        } catch is CancellationError {
+            return
         } catch {
+            guard generation == searchGeneration, !Task.isCancelled else { return }
             handleError(error, feature: "search", operation: "searchNewsletters")
             self.searchError = currentError
         }
-        isLoading = false
     }
 
     public func selectPopularKeyword(_ keyword: String) async {
