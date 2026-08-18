@@ -65,7 +65,7 @@ public struct InterestSelectionView: View {
                     if viewModel.isCurationLoading {
                         LoadingDotsView()
                     } else {
-                        Text("뉴스레터추천받기")
+                        Text("뉴스레터 추천받기")
                             .font(.hanSansNeo(14, .bold))
                     }
                 }
