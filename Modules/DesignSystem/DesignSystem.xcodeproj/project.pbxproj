@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		07AB90021A70B1D55E233DDA /* NoDataView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AF6A52DBE12C84500829BA2 /* NoDataView.swift */; };
+		09DF36C6A49A147223AA6611 /* DropdownSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76F852806906A3149A59CCE6 /* DropdownSelector.swift */; };
 		10CD774838BC725239E13F32 /* ServerErrorPopupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB10DEC593FE87C6FF2F2CEF /* ServerErrorPopupView.swift */; };
 		17F1EA7C9E3FF456C6E7A249 /* DesignToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = 492AE22B6B053E92F864EFAD /* DesignToken.swift */; };
 		1A358594D74B1F60E1BF9612 /* SubscribeCheckPopupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 470F5079EDDB033641E50DED /* SubscribeCheckPopupView.swift */; };
@@ -51,7 +52,6 @@
 		E581A24F3469865C4F8CB742 /* SpoqaHanSansNeo-Thin.otf in Resources */ = {isa = PBXBuildFile; fileRef = 1EAA4A417D2996F4DF2DED40 /* SpoqaHanSansNeo-Thin.otf */; };
 		E76992BBB4AB0B14426864B0 /* OverlayRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8C517C8B4DCEC79C458B727 /* OverlayRootView.swift */; };
 		EA14ADB3FF1DCA11D8B9D962 /* ColorPalette.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFD516035027585AFC53F053 /* ColorPalette.swift */; };
-		EBF8A05ADDF1FF48833C370E /* BirthYearPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B7519630D4BA8D550F1D471 /* BirthYearPickerView.swift */; };
 		F6018B5F7748E322214C52D6 /* TuistBundle+DesignSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE4AD9735556ECA8C8008FEC /* TuistBundle+DesignSystem.swift */; };
 		F69B0539C8191095A861614C /* SubscribeStatePopupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCE4C52744BC5AEDA5913B79 /* SubscribeStatePopupView.swift */; };
 		F8D28129A82E22B7978D772C /* SpoqaHanSansNeo-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 1CFCDF29DFB293A9C3F9D6D9 /* SpoqaHanSansNeo-Bold.otf */; };
@@ -119,7 +119,6 @@
 		480127A043369072FC6A4A0E /* PullToRefreshView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PullToRefreshView.swift; sourceTree = "<group>"; };
 		48854A6B16F3CFBA5DA0F0AD /* load.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = load.gif; sourceTree = "<group>"; };
 		492AE22B6B053E92F864EFAD /* DesignToken.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DesignToken.swift; sourceTree = "<group>"; };
-		4B7519630D4BA8D550F1D471 /* BirthYearPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BirthYearPickerView.swift; sourceTree = "<group>"; };
 		4F6AF114A38FDBD9663A6B1B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		531101C9CF4F7EADA8C4F207 /* LoadingDotsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingDotsView.swift; sourceTree = "<group>"; };
 		56A7772AA0518B04428BE5C5 /* Shared.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Shared.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -129,6 +128,7 @@
 		71BC3474A53F2F77D7EB19EC /* SwipeBackHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipeBackHandler.swift; sourceTree = "<group>"; };
 		72E2C18DBF37D6CEFC146ADE /* UpdateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateView.swift; sourceTree = "<group>"; };
 		743901F00E06BB210FBD1E5B /* CalendarPopupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarPopupView.swift; sourceTree = "<group>"; };
+		76F852806906A3149A59CCE6 /* DropdownSelector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropdownSelector.swift; sourceTree = "<group>"; };
 		84DEFF305135085B93F19593 /* VerificationButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerificationButtonStyle.swift; sourceTree = "<group>"; };
 		86103BCC821FCC1FE2B9F3CD /* BackButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackButton.swift; sourceTree = "<group>"; };
 		8937FA9427EEA938B58C5B3E /* DesignSystem-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "DesignSystem-Info.plist"; sourceTree = "<group>"; };
@@ -212,8 +212,8 @@
 		1D7DAFC035EC8A7E2AAE52AE /* Component */ = {
 			isa = PBXGroup;
 			children = (
-				4B7519630D4BA8D550F1D471 /* BirthYearPickerView.swift */,
 				743901F00E06BB210FBD1E5B /* CalendarPopupView.swift */,
+				76F852806906A3149A59CCE6 /* DropdownSelector.swift */,
 				531101C9CF4F7EADA8C4F207 /* LoadingDotsView.swift */,
 				9ED3D8DA640FE3624B7ACF45 /* LoadingView.swift */,
 				F249E8F2A7648435125CF681 /* LottieView.swift */,
@@ -502,8 +502,8 @@
 				963BD2E45D7172CE4BF69364 /* VerificationButtonStyle.swift in Sources */,
 				4D1C8FAC5AA3A85D2B2BFAAF /* Color+Extension.swift in Sources */,
 				EA14ADB3FF1DCA11D8B9D962 /* ColorPalette.swift in Sources */,
-				EBF8A05ADDF1FF48833C370E /* BirthYearPickerView.swift in Sources */,
 				D748D56D7CAC703E51B32DD4 /* CalendarPopupView.swift in Sources */,
+				09DF36C6A49A147223AA6611 /* DropdownSelector.swift in Sources */,
 				AB862E59C188B650427CF4E2 /* LoadingDotsView.swift in Sources */,
 				3C49F77F8ACF1FC3BD37A181 /* LoadingView.swift in Sources */,
 				70C7D51B82F95045C9DDF2D0 /* LottieView.swift in Sources */,

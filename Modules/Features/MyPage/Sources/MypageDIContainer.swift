@@ -79,6 +79,7 @@ final class MypageDIContainer {
             withdrawUseCase: MypageWithdrawUseCaseImpl(repository: userRepository),
             tokenStorage: tokenStorage,
             userInfoStore: userInfoStore,
+            appState: appState,
             onCleanup: onCleanup
         )
     }

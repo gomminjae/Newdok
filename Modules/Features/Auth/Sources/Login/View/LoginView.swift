@@ -50,7 +50,9 @@ public struct LoginView: View {
             VStack(spacing: 12) {
                 kakaoButton
                     .overlay(alignment: .top) {
-                        startBadge.offset(y: -30)
+                        startBadge
+                            .offset(y: -30)
+                            .allowsHitTesting(false)
                     }
 
                 appleButton

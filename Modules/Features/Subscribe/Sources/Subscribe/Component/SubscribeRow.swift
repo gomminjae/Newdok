@@ -29,7 +29,7 @@ public struct SubscribeRow: View {
     }
 
     public var body: some View {
-        HStack(alignment: .center, spacing: 8) {
+        HStack(alignment: .center, spacing: 0) {
             Button {
                 onNavigate?()
             } label: {
@@ -83,12 +83,15 @@ public struct SubscribeRow: View {
                                 .foregroundColor(Color.captionAssistive)
                         }
                     }
+
+                    Spacer(minLength: 0)
                 }
+                .padding(.leading, 16)
+                .padding(.vertical, 12)
+                .frame(maxWidth: .infinity, alignment: .leading)
                 .contentShape(Rectangle())
             }
             .buttonStyle(.plain)
-
-            Spacer()
 
             Button(action: {
                 guard !isPerformingAction else { return }
@@ -109,13 +112,15 @@ public struct SubscribeRow: View {
                         RoundedRectangle(cornerRadius: 4)
                             .stroke(isSubscribed ? Color.lineNeutral : Color.primaryNormal, lineWidth: 1)
                     )
+                    .padding(.leading, 8)
+                    .padding(.trailing, 16)
+                    .frame(minHeight: 80)
+                    .contentShape(Rectangle())
             }
             .accessibilityLabel(isSubscribed ? "구독 중지" : "구독 재개")
             .accessibilityIdentifier("subscribe_toggle_\(newsletter.id ?? 0)")
             .disabled(isPerformingAction)
         }
-        .padding(.horizontal, 16)
-        .padding(.vertical, 12)
         .background(Color.white)
         .clipShape(RoundedRectangle(cornerRadius: 12))
         .overlay(

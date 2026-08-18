@@ -132,7 +132,8 @@ struct WithdrawViewModelTests {
             fetchArticleCountUseCase: fetchArticleCount,
             withdrawUseCase: withdraw,
             tokenStorage: StubTokenStorage(),
-            userInfoStore: StubUserInfoStore()
+            userInfoStore: StubUserInfoStore(),
+            appState: AppState.shared
         )
         return (vm, fetchProfile, fetchSubCount, fetchArticleCount, withdraw)
     }
@@ -154,11 +155,24 @@ struct WithdrawViewModelTests {
 
     @Test func withdraw_success() async {
         let (vm, _, _, _, withdraw) = makeSUT()
+        AppState.shared.login()
 
         await vm.withdraw()
 
         #expect(withdraw.executeCallCount == 1)
         #expect(vm.withdrawSuccess == true)
+        #expect(AppState.shared.authState == .guest)
+    }
+
+    @Test func withdraw_failure_keepsAuthenticatedState() async {
+        let (vm, _, _, _, withdraw) = makeSUT()
+        withdraw.result = .failure(NSError(domain: "test", code: -1))
+        AppState.shared.login()
+
+        await vm.withdraw()
+
+        #expect(withdraw.executeCallCount == 1)
+        #expect(vm.withdrawSuccess == false)
+        #expect(AppState.shared.authState == .authenticated)
     }
 }
-

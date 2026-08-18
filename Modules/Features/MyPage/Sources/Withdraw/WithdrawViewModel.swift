@@ -29,6 +29,7 @@ public final class WithdrawViewModel: ErrorHandling {
     private let withdrawUseCase: MypageWithdrawUseCase
     private let tokenStorage: TokenStorageProtocol
     private let userInfoStore: UserInfoStoreProtocol
+    private let appState: AppState
     private let onCleanup: @MainActor () -> Void
 
     public init(
@@ -38,6 +39,7 @@ public final class WithdrawViewModel: ErrorHandling {
         withdrawUseCase: MypageWithdrawUseCase,
         tokenStorage: TokenStorageProtocol,
         userInfoStore: UserInfoStoreProtocol,
+        appState: AppState,
         onCleanup: @escaping @MainActor () -> Void = {}
     ) {
         self.fetchProfileUseCase = fetchProfileUseCase
@@ -46,6 +48,7 @@ public final class WithdrawViewModel: ErrorHandling {
         self.withdrawUseCase = withdrawUseCase
         self.tokenStorage = tokenStorage
         self.userInfoStore = userInfoStore
+        self.appState = appState
         self.onCleanup = onCleanup
     }
 
@@ -85,6 +88,9 @@ public final class WithdrawViewModel: ErrorHandling {
 
         // UserInfo 삭제
         userInfoStore.clear()
+
+        // 메모리에 유지되는 인증 상태도 즉시 로그아웃으로 전환
+        appState.logout()
 
         // UserDefaults의 모든 사용자 관련 데이터 삭제
         let userDefaults = UserDefaults.standard

@@ -130,6 +130,7 @@
 		B0F5FC2CBE0632DF445A58CC /* BookmarkRoute.swift in Sources */ = {isa = PBXBuildFile; fileRef = F583B421B451B7D4ACF64E4A /* BookmarkRoute.swift */; };
 		B1AB58CEEE97101BB03E214A /* GoogleUtilities_GoogleUtilities_Network.bundle in Dependencies */ = {isa = PBXBuildFile; fileRef = 39BF2D18DFB89E880E42645F /* GoogleUtilities_GoogleUtilities_Network.bundle */; };
 		B202306A3AFE89A5BDBFB17A /* KakaoSDKUser.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D38B74E3880A33963F2FC652 /* KakaoSDKUser.framework */; };
+		B6E92F20426C132A57419C43 /* SwipeBackEnabler.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4F5A2B24A2815139092A666 /* SwipeBackEnabler.swift */; };
 		BA0821813F9EFEC96108F29C /* FirebaseSessions.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 235BA3CECEDCE6AB843915C7 /* FirebaseSessions.framework */; };
 		BC4240217A601EA172B9234C /* Firebase_FirebaseCoreInternal.bundle in Dependencies */ = {isa = PBXBuildFile; fileRef = EFE2491E32CAC50F848EF255 /* Firebase_FirebaseCoreInternal.bundle */; };
 		C3589A70DFF400CA5B499F90 /* AppRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81B1B1045BA33FE4E4B7B2BE /* AppRootView.swift */; };
@@ -345,6 +346,7 @@
 		F0D118266653E3D17C69D780 /* Detail_Detail.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Detail_Detail.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
 		F260309AD89688149AD615B2 /* Promises_Promises.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Promises_Promises.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
 		F29FA5D3B936B1F16BFF75CD /* MyPageRoute.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageRoute.swift; sourceTree = "<group>"; };
+		F4F5A2B24A2815139092A666 /* SwipeBackEnabler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipeBackEnabler.swift; sourceTree = "<group>"; };
 		F583B421B451B7D4ACF64E4A /* BookmarkRoute.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkRoute.swift; sourceTree = "<group>"; };
 		F64687C01E47DB17FF48B3F0 /* GoogleUtilities_GoogleUtilities_NSData.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GoogleUtilities_GoogleUtilities_NSData.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
 		F8F861BEFA693139AC601928 /* BookmarkDomain.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = BookmarkDomain.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -556,6 +558,7 @@
 				F29FA5D3B936B1F16BFF75CD /* MyPageRoute.swift */,
 				85DB091534BC4A342165F84D /* Router.swift */,
 				EA4616639497709FF78B11EC /* SubscribeRoute.swift */,
+				F4F5A2B24A2815139092A666 /* SwipeBackEnabler.swift */,
 			);
 			path = Navigation;
 			sourceTree = "<group>";
@@ -818,6 +821,7 @@
 				0F8046F0C49F3F5E27E44E16 /* MyPageRoute.swift in Sources */,
 				A9FE5F68F85E5B7109D5A150 /* Router.swift in Sources */,
 				6F454DB6DF4C752D7E218FFF /* SubscribeRoute.swift in Sources */,
+				B6E92F20426C132A57419C43 /* SwipeBackEnabler.swift in Sources */,
 				79CC342CF73CCAAFEF0E7A8A /* NewdokApp.swift in Sources */,
 				C3589A70DFF400CA5B499F90 /* AppRootView.swift in Sources */,
 				65C48DAD150D3041D0A25442 /* VersionCheckService.swift in Sources */,
@@ -962,7 +966,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 5;
 				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = AU24ZRJ649;
@@ -976,7 +980,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MARKETING_VERSION = 1.0.1;
+				MARKETING_VERSION = 1.1.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 6.0;
@@ -1112,7 +1116,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 5;
 				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = AU24ZRJ649;
@@ -1132,7 +1136,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MARKETING_VERSION = 1.0.1;
+				MARKETING_VERSION = 1.1.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";

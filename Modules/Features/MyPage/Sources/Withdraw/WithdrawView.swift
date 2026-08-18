@@ -79,36 +79,44 @@ public struct WithdrawView: View {
             Divider()
             
             if tabSelection == 0 {
-                Button("계속하기") {
+                Button {
                     withAnimation { tabSelection = 1 }
+                } label: {
+                    Text("계속하기")
+                        .font(.hanSansNeo(14, .bold))
+                        .frame(maxWidth: .infinity)
+                        .frame(height: 48)
+                        .background(isChecked ? Color.primaryNormal : Color.lineNeutral)
+                        .foregroundColor(isChecked ? .white : Color.grayLight)
+                        .cornerRadius(4)
+                        .contentShape(Rectangle())
                 }
-                .font(.hanSansNeo(14, .bold))
-                .frame(maxWidth: .infinity)
-                .frame(height: 48)
-                .background(isChecked ? Color.primaryNormal : Color.lineNeutral)
-                .foregroundColor(isChecked ? .white : Color.grayLight)
-                .cornerRadius(4)
+                .buttonStyle(.plain)
                 .disabled(!isChecked)
             } else {
-                Button("탈퇴완료") {
+                Button {
                     Task {
                         await viewModel.withdraw()
                     }
+                } label: {
+                    Text("탈퇴완료")
+                        .font(.hanSansNeo(14, .bold))
+                        .frame(maxWidth: .infinity)
+                        .frame(height: 48)
+                        .background(
+                            withdrawReasons.contains(true)
+                                ? Color.primaryNormal
+                                : Color.lineNeutral
+                        )
+                        .foregroundColor(
+                            withdrawReasons.contains(true)
+                                ? .white
+                                : Color.gray
+                        )
+                        .cornerRadius(4)
+                        .contentShape(Rectangle())
                 }
-                .font(.hanSansNeo(14, .bold))
-                .frame(maxWidth: .infinity)
-                .frame(height: 48)
-                .background(
-                    withdrawReasons.contains(true)
-                        ? Color.primaryNormal
-                        : Color.lineNeutral
-                )
-                .foregroundColor(
-                    withdrawReasons.contains(true)
-                        ? .white
-                        : Color.gray
-                )
-                .cornerRadius(4)
+                .buttonStyle(.plain)
                 .disabled(!withdrawReasons.contains(true) || viewModel.isWithdrawing)
             }
         }
@@ -161,24 +169,25 @@ public struct WithdrawView: View {
                 .padding(.horizontal, 24)
                 
                 // 체크박스 + 안내문
-                HStack(alignment: .top, spacing: 8) {
-                    Button { isChecked.toggle() } label: {
+                Button { isChecked.toggle() } label: {
+                    HStack(alignment: .top, spacing: 8) {
                         Image(asset: isChecked
                               ? DesignSystemAsset.allcheck
                               : DesignSystemAsset.uncheck)
                             .resizable()
                             .frame(width: 20, height: 20)
+
+                        Text("탈퇴하시면 등록한 정보는 모두 삭제되어 복구할 수 없습니다.")
+                            .font(.hanSansNeo(14, .medium))
+                            .foregroundStyle(Color.captionHeavy)
+                            .multilineTextAlignment(.leading)
+                            .fixedSize(horizontal: false, vertical: true)
+                            .layoutPriority(1)
+                            .frame(maxWidth: .infinity, alignment: .leading)
                     }
-                    .buttonStyle(.plain)
-                    
-                    Text("탈퇴하시면 등록한 정보는 모두 삭제되어 복구할 수 없습니다.")
-                        .font(.hanSansNeo(14, .medium))
-                        .foregroundStyle(Color.captionHeavy)
-                        .multilineTextAlignment(.leading)
-                        .fixedSize(horizontal: false, vertical: true)
-                        .layoutPriority(1)
-                        .frame(maxWidth: .infinity, alignment: .leading)
+                    .contentShape(Rectangle())
                 }
+                .buttonStyle(.plain)
                 .padding(.top, 56)
                 .padding(.horizontal, 24)
                 
@@ -211,21 +220,22 @@ public struct WithdrawView: View {
                 
                 // 사유 리스트
                 ForEach(reasonTexts.indices, id: \.self) { idx in
-                    HStack(spacing: 12) {
-                        Button { withdrawReasons[idx].toggle() } label: {
+                    Button { withdrawReasons[idx].toggle() } label: {
+                        HStack(spacing: 12) {
                             Image(asset: withdrawReasons[idx]
                                   ? DesignSystemAsset.allcheck
                                   : DesignSystemAsset.uncheck)
                                 .resizable()
                                 .frame(width: 24, height: 24)
+                            Text(reasonTexts[idx])
+                                .font(.hanSansNeo(14, .medium))
+                                .foregroundStyle(Color.captionHeavy)
+                            Spacer()
                         }
-                        .buttonStyle(.plain)
-                        Text(reasonTexts[idx])
-                            .font(.hanSansNeo(14, .medium))
-                            .foregroundStyle(Color.captionHeavy)
-                        Spacer()
+                        .frame(height: 48)
+                        .contentShape(Rectangle())
                     }
-                    .padding(.vertical, 12)
+                    .buttonStyle(.plain)
                     .padding(.horizontal, 24)
                 }
                 

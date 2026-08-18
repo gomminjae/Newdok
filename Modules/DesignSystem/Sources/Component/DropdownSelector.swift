@@ -39,10 +39,13 @@ struct DropdownRow: View {
                     .foregroundColor(isSelected ? Color.primaryNormal : Color.black)
                 Spacer()
             }
+            .padding(.horizontal, 16)
+            .frame(maxWidth: .infinity)
+            .frame(height: 48)
+            .background(isSelected ? Color.primaryBgLight : Color.clear)
+            .contentShape(Rectangle())
         }
-        .frame(height: 48)
-        .padding(.horizontal, 16)
-        .background(isSelected ? Color.primaryBgLight : Color.clear)
+        .buttonStyle(.plain)
     }
 }
 
@@ -124,16 +127,19 @@ public struct DropdownSelector: View {
                     Image(asset: self.shouldShowDropdown ? DesignSystemAsset.lineUp : DesignSystemAsset.lineDown)
                         .foregroundColor(Color.captionStrong)
                 }
+                .padding(.horizontal)
+                .frame(maxWidth: .infinity)
+                .frame(height: 48)
+                .background(
+                    RoundedRectangle(cornerRadius: 4).fill(Color.white)
+                )
+                .overlay(
+                    RoundedRectangle(cornerRadius: 4)
+                        .stroke(shouldShowDropdown ? Color.primaryNormal : Color.lineAlternative, lineWidth: 1)
+                )
+                .contentShape(Rectangle())
             }
-            .frame(height: 48)
-            .padding(.horizontal)
-            .background(
-                RoundedRectangle(cornerRadius: 4).fill(Color.white)
-            )
-            .overlay(
-                RoundedRectangle(cornerRadius: 4)
-                    .stroke(shouldShowDropdown ? Color.primaryNormal : Color.lineAlternative, lineWidth: 1)
-            )
+            .buttonStyle(.plain)
 
             if shouldShowDropdown {
                 Dropdown(options: self.options, selectedKey: selectedKey, onOptionSelected: { option in

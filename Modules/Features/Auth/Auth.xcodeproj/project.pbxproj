@@ -67,7 +67,6 @@
 		A0136FA014429C88E340055B /* DesignSystem_DesignSystem.bundle in Dependencies */ = {isa = PBXBuildFile; fileRef = 053F11E926A414E7E0C9D2C3 /* DesignSystem_DesignSystem.bundle */; };
 		A47F3F9CC80909D5A826ED2E /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6061C08937A7986D4F7D042 /* LoginView.swift */; };
 		A5D92D5C6F4866C1716747F6 /* FoundationKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 29FA6C20A6564CB1A65D83B5 /* FoundationKit.framework */; };
-		A873D6E66ACC7A15AE540405 /* BirthYearDropdown.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59EBC0CC5D916C5A4CB83108 /* BirthYearDropdown.swift */; };
 		AD16ADE5EA0A857DC8FCA049 /* AuthSocialLoginResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DA3D0897326D379FB89FB89 /* AuthSocialLoginResponseDTO.swift */; };
 		AD2E02356CD05728AF7F6BED /* FoundationKit.framework in Dependencies */ = {isa = PBXBuildFile; fileRef = 29FA6C20A6564CB1A65D83B5 /* FoundationKit.framework */; };
 		ADD5AC589E22E51E680E9367 /* DesignSystem.framework in Dependencies */ = {isa = PBXBuildFile; fileRef = 45A8BB59B621EFC832DCFE0F /* DesignSystem.framework */; };
@@ -304,7 +303,6 @@
 		4F6F33418EB25913880BECBA /* AuthInterface-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "AuthInterface-Info.plist"; sourceTree = "<group>"; };
 		529EEA7B499B7A83B7C62D3A /* IndustrySurveyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IndustrySurveyView.swift; sourceTree = "<group>"; };
 		5642BA06A94EBFDDB6B192CB /* AuthTesting.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = AuthTesting.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		59EBC0CC5D916C5A4CB83108 /* BirthYearDropdown.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BirthYearDropdown.swift; sourceTree = "<group>"; };
 		5E5E69594651E831F6B39550 /* AuthInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthInterface.swift; sourceTree = "<group>"; };
 		62778DFF53ACB46ECC6F5F35 /* NetworkKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = NetworkKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6B7EBA8D7806B48F8D71D29A /* AuthDIContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthDIContainer.swift; sourceTree = "<group>"; };
@@ -597,7 +595,6 @@
 		77B63C55C648DF49784CA541 /* Popup */ = {
 			isa = PBXGroup;
 			children = (
-				59EBC0CC5D916C5A4CB83108 /* BirthYearDropdown.swift */,
 				0CC431E5DC117F84221E3049 /* PolicyWebSheetView.swift */,
 			);
 			path = Popup;
@@ -1007,7 +1004,6 @@
 				70FD0520699A99F87E907143 /* IndustrySurveyView.swift in Sources */,
 				253D4AA2306E9959F5F5B082 /* MyIndustryView.swift in Sources */,
 				8E1720B8F639A95ABC17313B /* SignupCurationSkeletonView.swift in Sources */,
-				A873D6E66ACC7A15AE540405 /* BirthYearDropdown.swift in Sources */,
 				452C194C93875A657D1EF472 /* PolicyWebSheetView.swift in Sources */,
 				DAB7DF3408A8935171BD2FAB /* SignupView.swift in Sources */,
 				684614D8E6FDC6F7CF4C413F /* SignupViewModel.swift in Sources */,

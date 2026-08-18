@@ -40,15 +40,19 @@ public struct CheckIsSubscribeView: View {
                     .multilineTextAlignment(.center)
                     .fixedSize(horizontal: false, vertical: true)
 
-                Button("메일 확인하기") {
+                Button {
                     checkMailbox()
+                } label: {
+                    Text("메일 확인하기")
+                        .font(.hanSansNeo(14, .bold))
+                        .foregroundStyle(Color.white)
+                        .frame(maxWidth: .infinity)
+                        .frame(height: 48)
+                        .background(Color.primaryNormal)
+                        .cornerRadius(4)
+                        .contentShape(Rectangle())
                 }
-                .font(.hanSansNeo(14, .bold))
-                .foregroundStyle(Color.white)
-                .frame(maxWidth: .infinity)
-                .frame(height: 48)
-                .background(Color.primaryNormal)
-                .cornerRadius(4)
+                .buttonStyle(.plain)
                 .accessibilityLabel("메일 확인하기")
                 .accessibilityIdentifier("check_is_subscribe_confirm_button")
                 .padding(.top, 18)
