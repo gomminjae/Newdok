@@ -12,7 +12,7 @@ import KakaoSDKAuth
 @main
 struct NewdokApp: App {
     @State private var showUpdatePopup = false
-    @State private var coordinator = AppCoordinator()
+    @State private var appRouter = AppRouter()
     private let container: AppContainer
 
     init() {
@@ -36,7 +36,7 @@ struct NewdokApp: App {
     var body: some Scene {
         WindowGroup {
             OverlayRootView {
-                AppRootView(container: container, coordinator: coordinator)
+                AppRootView(container: container, appRouter: appRouter)
             }
             .hideKeyboardOnTap()
             .overlay(

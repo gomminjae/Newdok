@@ -127,20 +127,21 @@ final class AppContainer {
         onSearch: @escaping () -> Void,
         onSignup: @escaping () -> Void,
         onLogin: @escaping () -> Void,
-        onGoToExplore: @escaping (Int?, Int) -> Void
+        onExploreRecommendations: @escaping () -> Void,
+        onExploreAllNewsletters: @escaping (Int?) -> Void
     ) -> some View {
         homeBuilder.makeHomeView(
             onArticleTap: onArticleTap,
             onSearch: onSearch,
             onSignup: onSignup,
             onLogin: onLogin,
-            onGoToExplore: onGoToExplore
+            onExploreRecommendations: onExploreRecommendations,
+            onExploreAllNewsletters: onExploreAllNewsletters
         )
     }
 
     func makeExploreView(
-        exploreTrigger: UUID,
-        onConsumePending: @escaping () -> (day: Int?, tab: Int)?,
+        landing: ExploreLanding?,
         onSearch: @escaping () -> Void,
         onSignup: @escaping () -> Void,
         onLogin: @escaping () -> Void,
@@ -148,8 +149,7 @@ final class AppContainer {
         onBrandTap: @escaping (String) -> Void
     ) -> some View {
         exploreBuilder.makeExploreView(
-            exploreTrigger: exploreTrigger,
-            onConsumePending: onConsumePending,
+            landing: landing,
             onSearch: onSearch,
             onSignup: onSignup,
             onLogin: onLogin,

@@ -1,14 +1,14 @@
 import SwiftUI
 import DesignSystem
 import ExploreDomain
+import ExploreInterface
 import Shared
 
 public struct ExploreView: View {
     @State private var viewModel: ExploreViewModel
     @State private var currentPage: Int = 0
 
-    private let exploreTrigger: UUID
-    private let onConsumePending: () -> (day: Int?, tab: Int)?
+    private let landing: ExploreLanding?
     private let onSearch: () -> Void
     private let onSignup: () -> Void
     private let onLogin: () -> Void
@@ -19,8 +19,7 @@ public struct ExploreView: View {
 
     public init(
         viewModel: ExploreViewModel,
-        exploreTrigger: UUID,
-        onConsumePending: @escaping () -> (day: Int?, tab: Int)?,
+        landing: ExploreLanding?,
         onSearch: @escaping () -> Void,
         onSignup: @escaping () -> Void,
         onLogin: @escaping () -> Void,
@@ -28,8 +27,7 @@ public struct ExploreView: View {
         onBrandTap: @escaping (String) -> Void
     ) {
         self.viewModel = viewModel
-        self.exploreTrigger = exploreTrigger
-        self.onConsumePending = onConsumePending
+        self.landing = landing
         self.onSearch = onSearch
         self.onSignup = onSignup
         self.onLogin = onLogin
@@ -55,15 +53,14 @@ public struct ExploreView: View {
             .onChange(of: AppState.shared.authState) {
                 Task { await viewModel.reloadOnAuthChanged() }
             }
-            .onChange(of: exploreTrigger) {
-                guard let params = onConsumePending() else { return }
-                applyExploreParams(params)
-                Task { await viewModel.reloadOnTrigger() }
-            }
-            .onAppear {
-                if let params = onConsumePending() { applyExploreParams(params) }
+            .task(id: landing) {
                 viewModel.reloadUserInfo()
-                Task { await viewModel.loadInitial() }
+                if let landing {
+                    currentPage = 0
+                    await viewModel.activate(landing)
+                } else {
+                    await viewModel.loadInitial()
+                }
             }
             .onReceive(NotificationCenter.default.publisher(for: UIApplication.willEnterForegroundNotification)) { _ in
                 viewModel.reloadUserInfo()
@@ -219,14 +216,6 @@ public struct ExploreView: View {
         .accessibilityAddTraits(viewModel.selectedTab == index ? .isSelected : [])
     }
 
-    private func applyExploreParams(_ params: (day: Int?, tab: Int)) {
-        if let day = params.day, viewModel.day != [day] {
-            viewModel.day = [day]
-        }
-        if viewModel.selectedTab != params.tab {
-            viewModel.selectedTab = params.tab
-        }
-    }
 }
 
 extension Array {

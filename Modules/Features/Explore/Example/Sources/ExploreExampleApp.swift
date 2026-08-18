@@ -16,8 +16,7 @@ struct ExploreExampleApp: App {
             NavigationStack {
                 ExploreView(
                     viewModel: makeViewModel(),
-                    exploreTrigger: UUID(),
-                    onConsumePending: { nil },
+                    landing: nil,
                     onSearch: {},
                     onSignup: {},
                     onLogin: {},

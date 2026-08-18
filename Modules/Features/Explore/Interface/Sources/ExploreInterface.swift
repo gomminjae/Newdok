@@ -1,10 +1,14 @@
 import SwiftUI
 
+public enum ExploreLanding: Hashable, Sendable {
+    case recommendations
+    case allNewsletters(day: Int?)
+}
+
 @MainActor
 public protocol ExploreBuildable {
     func makeExploreView(
-        exploreTrigger: UUID,
-        onConsumePending: @escaping () -> (day: Int?, tab: Int)?,
+        landing: ExploreLanding?,
         onSearch: @escaping () -> Void,
         onSignup: @escaping () -> Void,
         onLogin: @escaping () -> Void,

@@ -3,19 +3,18 @@ import DesignSystem
 
 struct ExploreStack: View {
     let container: AppContainer
-    let coordinator: AppCoordinator
+    let appRouter: AppRouter
 
     var body: some View {
-        @Bindable var router = coordinator.exploreRouter
-        NavigationStack(path: $router.path) {
+        @Bindable var appRouter = appRouter
+        NavigationStack(path: $appRouter.explorePath) {
             container.makeExploreView(
-                exploreTrigger: coordinator.exploreTrigger,
-                onConsumePending: { coordinator.consumeExploreParams() },
-                onSearch: { coordinator.exploreRouter.push(.search) },
-                onSignup: { coordinator.presentAuth(.login) },
-                onLogin: { coordinator.presentAuth(.login) },
-                onEditProfile: { coordinator.openEditProfile() },
-                onBrandTap: { coordinator.exploreRouter.push(.brandDetail(id: $0)) }
+                landing: appRouter.exploreLanding,
+                onSearch: { appRouter.explorePath.append(.search) },
+                onSignup: { appRouter.navigate(to: .auth(.login)) },
+                onLogin: { appRouter.navigate(to: .auth(.login)) },
+                onEditProfile: { appRouter.navigate(to: .editProfile) },
+                onBrandTap: { appRouter.explorePath.append(.brandDetail(id: $0)) }
             )
             .navigationDestination(for: ExploreRoute.self) { route in
                 destination(route)
@@ -28,25 +27,25 @@ struct ExploreStack: View {
         switch route {
         case .search:
             container.makeSearchView(
-                onBack: { coordinator.exploreRouter.pop() },
-                onBrandTap: { coordinator.exploreRouter.push(.brandDetail(id: $0)) },
-                onFeedback: { coordinator.exploreRouter.push(.feedback) }
+                onBack: { _ = appRouter.explorePath.popLast() },
+                onBrandTap: { appRouter.explorePath.append(.brandDetail(id: $0)) },
+                onFeedback: { appRouter.explorePath.append(.feedback) }
             )
         case let .brandDetail(id):
             container.makeBrandDetailView(
                 id: id,
-                onBack: { coordinator.exploreRouter.pop() },
-                onSignup: { coordinator.presentAuth(.login) },
-                onGoHome: { coordinator.goHome() },
-                onArticleTap: { coordinator.exploreRouter.push(.articleDetail(id: $0, isPast: true)) }
+                onBack: { _ = appRouter.explorePath.popLast() },
+                onSignup: { appRouter.navigate(to: .auth(.login)) },
+                onGoHome: { appRouter.navigate(to: .home) },
+                onArticleTap: { appRouter.explorePath.append(.articleDetail(id: $0, isPast: true)) }
             )
             .enableSwipeBack()
         case let .articleDetail(id, isPast):
-            container.makeArticleDetailView(id: id, isPast: isPast, onBack: { coordinator.exploreRouter.pop() })
+            container.makeArticleDetailView(id: id, isPast: isPast, onBack: { _ = appRouter.explorePath.popLast() })
                 .enableSwipeBack()
                 .swipeBackFullWidthDisabled(true)
         case .feedback:
-            container.makeFeedbackView(onBack: { coordinator.exploreRouter.pop() })
+            container.makeFeedbackView(onBack: { _ = appRouter.explorePath.popLast() })
         }
     }
 }

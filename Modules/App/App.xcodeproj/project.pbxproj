@@ -37,7 +37,7 @@
 		326C0B3CADC173970CDF3EAF /* Auth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 709ECB981BF7FB2A9D697179 /* Auth.framework */; };
 		33E81FC86F95AFABE4A4C1CE /* HomeDomain.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A384F9952484B3EE82AEEEB0 /* HomeDomain.framework */; };
 		352FA513E7B4EF4FF9C5A9A0 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 80E02385EF041EF7C0B15DA4 /* CoreTelephony.framework */; };
-		390C981C40F4FEC12F19402B /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B0685C94FE185B23B0219AB /* AppCoordinator.swift */; };
+		390C981C40F4FEC12F19402B /* AppRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B0685C94FE185B23B0219AB /* AppRouter.swift */; };
 		3924822A85CCB856CF6D53E7 /* Firebase_FirebaseInstallations.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 21B8EE4A1F0458879F0B90F2 /* Firebase_FirebaseInstallations.bundle */; };
 		3B197E4B3C8EC9C0A91A7459 /* FBLPromises.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A04862A34120F5891A8E63BD /* FBLPromises.framework */; };
 		3B8CD8CA059DB727F00BFCFD /* KakaoSDKCommon.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 07A64FDDEF0AA8332A7C2E8F /* KakaoSDKCommon.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -121,7 +121,6 @@
 		A76F97E3ED283C3131700469 /* KakaoSDKCommon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 07A64FDDEF0AA8332A7C2E8F /* KakaoSDKCommon.framework */; };
 		A8803D05021CCCE4EBB5B150 /* AuthRoute.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B1CAF05B8E3BD379195EB98 /* AuthRoute.swift */; };
 		A92C683605E31D18E761A10D /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9FE0ECF9910AB356967B5279 /* SystemConfiguration.framework */; };
-		A9FE5F68F85E5B7109D5A150 /* Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85DB091534BC4A342165F84D /* Router.swift */; };
 		AA253D8AD1A1D49463E18C89 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 0BE35C6E44DDB3DC2EAFA79F /* libz.tbd */; };
 		AA6B4867B53B4ACECC7EC473 /* GoogleAdsOnDeviceConversion.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 03093B9870F2D113F9FA3696 /* GoogleAdsOnDeviceConversion.xcframework */; };
 		AB34FB6F6DB90E6EABE7E0D3 /* FirebaseAnalyticsWrapper.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9FBB016895105DD820FB961E /* FirebaseAnalyticsWrapper.framework */; };
@@ -282,7 +281,7 @@
 		76E66C32BAE4D2C1EE4C64CB /* Home.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Home.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		77D69EAF942AA87F8A9468BF /* Kingfisher.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Kingfisher.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		78CD79CD69E90D94B6A94553 /* ExploreInterface.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ExploreInterface.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		7B0685C94FE185B23B0219AB /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
+		7B0685C94FE185B23B0219AB /* AppRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppRouter.swift; sourceTree = "<group>"; };
 		7D4C1070D34B90B47363412F /* PopupView.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = PopupView.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7DC4BECC212699120AF58DCF /* NetworkErrorAppMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkErrorAppMapper.swift; sourceTree = "<group>"; };
 		7DFD84ECD2039208E4B5D331 /* Promises_FBLPromises.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Promises_FBLPromises.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -293,7 +292,6 @@
 		81B1B1045BA33FE4E4B7B2BE /* AppRootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppRootView.swift; sourceTree = "<group>"; };
 		839C7785F67E3906215F67C8 /* NewDokTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewDokTabView.swift; sourceTree = "<group>"; };
 		84FBE2452C04B4D7AC7749E0 /* Bookmark.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Bookmark.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		85DB091534BC4A342165F84D /* Router.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Router.swift; sourceTree = "<group>"; };
 		86C4E404056697A170B2B575 /* DetailInterface.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = DetailInterface.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		87508572DAF45259CFBDF271 /* Debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Debug.xcconfig; sourceTree = "<group>"; };
 		8C9623594413736EB5B5E46F /* VersionCheckService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VersionCheckService.swift; sourceTree = "<group>"; };
@@ -549,14 +547,13 @@
 		8AC9F4DD50DF77A19E05992E /* Navigation */ = {
 			isa = PBXGroup;
 			children = (
-				7B0685C94FE185B23B0219AB /* AppCoordinator.swift */,
+				7B0685C94FE185B23B0219AB /* AppRouter.swift */,
 				B6E6B457B0A45148B574F626 /* AuthFlow.swift */,
 				4B1CAF05B8E3BD379195EB98 /* AuthRoute.swift */,
 				F583B421B451B7D4ACF64E4A /* BookmarkRoute.swift */,
 				9A0C78488ACCB4EC45CD33F3 /* ExploreRoute.swift */,
 				35DEB0BB71823B6387131290 /* HomeRoute.swift */,
 				F29FA5D3B936B1F16BFF75CD /* MyPageRoute.swift */,
-				85DB091534BC4A342165F84D /* Router.swift */,
 				EA4616639497709FF78B11EC /* SubscribeRoute.swift */,
 				F4F5A2B24A2815139092A666 /* SwipeBackEnabler.swift */,
 			);
@@ -812,14 +809,13 @@
 				C4B75090C0B2C8C29DCB5A6C /* AppContainer.swift in Sources */,
 				0C267D12DF8888A49CDF7F4C /* AppDependencies.swift in Sources */,
 				60BAC7B09140821CE84C3573 /* NetworkErrorAppMapper.swift in Sources */,
-				390C981C40F4FEC12F19402B /* AppCoordinator.swift in Sources */,
+				390C981C40F4FEC12F19402B /* AppRouter.swift in Sources */,
 				4B145EC4CCB33E190DBB4467 /* AuthFlow.swift in Sources */,
 				A8803D05021CCCE4EBB5B150 /* AuthRoute.swift in Sources */,
 				B0F5FC2CBE0632DF445A58CC /* BookmarkRoute.swift in Sources */,
 				4AF6277B6AD48D9FB004CA49 /* ExploreRoute.swift in Sources */,
 				3C5F34441E5BE18D3A80FB67 /* HomeRoute.swift in Sources */,
 				0F8046F0C49F3F5E27E44E16 /* MyPageRoute.swift in Sources */,
-				A9FE5F68F85E5B7109D5A150 /* Router.swift in Sources */,
 				6F454DB6DF4C752D7E218FFF /* SubscribeRoute.swift in Sources */,
 				B6E92F20426C132A57419C43 /* SwipeBackEnabler.swift in Sources */,
 				79CC342CF73CCAAFEF0E7A8A /* NewdokApp.swift in Sources */,

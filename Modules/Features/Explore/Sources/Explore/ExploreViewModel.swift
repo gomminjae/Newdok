@@ -7,6 +7,7 @@
 //
 import Shared
 import ExploreDomain
+import ExploreInterface
 import SwiftUI
 import Observation
 
@@ -197,6 +198,26 @@ public final class ExploreViewModel: ErrorHandling {
             await fetchRecommendation()
             await fetchAllNewsletters()
         }
+    }
+
+    public func activate(_ landing: ExploreLanding) async {
+        orderOpt = .popular
+        industry = nil
+        isShowFilterSheet = false
+        isShowSortSheet = false
+        shouldScrollToTop = true
+
+        switch landing {
+        case .recommendations:
+            selectedTab = isGuest ? 1 : 0
+            day = nil
+        case let .allNewsletters(selectedDay):
+            selectedTab = isGuest ? 0 : 1
+            day = selectedDay.map { [$0] }
+        }
+
+        await reloadOnTrigger()
+        isInitialLoaded = true
     }
 
     public func retryLoad() async {

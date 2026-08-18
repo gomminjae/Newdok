@@ -3,15 +3,15 @@ import DesignSystem
 
 struct SubscribeStack: View {
     let container: AppContainer
-    let coordinator: AppCoordinator
+    let appRouter: AppRouter
 
     var body: some View {
-        @Bindable var router = coordinator.subscribeRouter
-        NavigationStack(path: $router.path) {
+        @Bindable var appRouter = appRouter
+        NavigationStack(path: $appRouter.subscribePath) {
             container.makeSubscribeView(
-                onSearch: { coordinator.subscribeRouter.push(.search) },
-                onLogin: { coordinator.presentAuth(.login) },
-                onBrandTap: { coordinator.subscribeRouter.push(.brandDetail(id: $0)) }
+                onSearch: { appRouter.subscribePath.append(.search) },
+                onLogin: { appRouter.navigate(to: .auth(.login)) },
+                onBrandTap: { appRouter.subscribePath.append(.brandDetail(id: $0)) }
             )
             .navigationDestination(for: SubscribeRoute.self) { route in
                 destination(route)
@@ -24,25 +24,25 @@ struct SubscribeStack: View {
         switch route {
         case .search:
             container.makeSearchView(
-                onBack: { coordinator.subscribeRouter.pop() },
-                onBrandTap: { coordinator.subscribeRouter.push(.brandDetail(id: $0)) },
-                onFeedback: { coordinator.subscribeRouter.push(.feedback) }
+                onBack: { _ = appRouter.subscribePath.popLast() },
+                onBrandTap: { appRouter.subscribePath.append(.brandDetail(id: $0)) },
+                onFeedback: { appRouter.subscribePath.append(.feedback) }
             )
         case let .brandDetail(id):
             container.makeBrandDetailView(
                 id: id,
-                onBack: { coordinator.subscribeRouter.pop() },
-                onSignup: { coordinator.presentAuth(.login) },
-                onGoHome: { coordinator.goHome() },
-                onArticleTap: { coordinator.subscribeRouter.push(.articleDetail(id: $0, isPast: true)) }
+                onBack: { _ = appRouter.subscribePath.popLast() },
+                onSignup: { appRouter.navigate(to: .auth(.login)) },
+                onGoHome: { appRouter.navigate(to: .home) },
+                onArticleTap: { appRouter.subscribePath.append(.articleDetail(id: $0, isPast: true)) }
             )
             .enableSwipeBack()
         case let .articleDetail(id, isPast):
-            container.makeArticleDetailView(id: id, isPast: isPast, onBack: { coordinator.subscribeRouter.pop() })
+            container.makeArticleDetailView(id: id, isPast: isPast, onBack: { _ = appRouter.subscribePath.popLast() })
                 .enableSwipeBack()
                 .swipeBackFullWidthDisabled(true)
         case .feedback:
-            container.makeFeedbackView(onBack: { coordinator.subscribeRouter.pop() })
+            container.makeFeedbackView(onBack: { _ = appRouter.subscribePath.popLast() })
         }
     }
 }

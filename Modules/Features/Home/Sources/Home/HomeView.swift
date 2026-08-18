@@ -20,7 +20,8 @@ public struct HomeView: View {
     private let onSearch: () -> Void
     private let onSignup: () -> Void
     private let onLogin: () -> Void
-    private let onGoToExplore: (Int?, Int) -> Void
+    private let onExploreRecommendations: () -> Void
+    private let onExploreAllNewsletters: (Int?) -> Void
 
     private var isGuest: Bool { AppState.shared.authState == .guest }
 
@@ -30,14 +31,16 @@ public struct HomeView: View {
         onSearch: @escaping () -> Void,
         onSignup: @escaping () -> Void,
         onLogin: @escaping () -> Void,
-        onGoToExplore: @escaping (Int?, Int) -> Void
+        onExploreRecommendations: @escaping () -> Void,
+        onExploreAllNewsletters: @escaping (Int?) -> Void
     ) {
         self.viewModel = viewModel
         self.onArticleTap = onArticleTap
         self.onSearch = onSearch
         self.onSignup = onSignup
         self.onLogin = onLogin
-        self.onGoToExplore = onGoToExplore
+        self.onExploreRecommendations = onExploreRecommendations
+        self.onExploreAllNewsletters = onExploreAllNewsletters
     }
 
     public var body: some View {
@@ -180,7 +183,7 @@ public struct HomeView: View {
             NoDataView(
                 type: .noSubscriptions,
                 buttonAction: {
-                    onGoToExplore(nil, 0)
+                    onExploreRecommendations()
                 },
                 refreshAction: { Task { await viewModel.loadToday() } }
             )
@@ -190,7 +193,7 @@ public struct HomeView: View {
                 buttonAction: {
                     let weekday = Calendar.current.component(.weekday, from: viewModel.selectedDate)
                     let dayIndex = convertWeekdayToExploreIndex(weekday)
-                    onGoToExplore(dayIndex, 1)
+                    onExploreAllNewsletters(dayIndex)
                 },
                 refreshAction: { Task { await viewModel.loadToday() } },
                 selectedDate: viewModel.selectedDate

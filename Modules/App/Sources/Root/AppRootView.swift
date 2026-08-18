@@ -4,7 +4,7 @@ import DesignSystem
 
 struct AppRootView: View {
     let container: AppContainer
-    @Bindable var coordinator: AppCoordinator
+    @Bindable var appRouter: AppRouter
 
     @State private var launched = false
     @State private var showSessionExpiredPopup = false
@@ -19,12 +19,12 @@ struct AppRootView: View {
                     .zIndex(1)
             }
 
-            NewDokTabView(container: container, coordinator: coordinator)
+            NewDokTabView(container: container, appRouter: appRouter)
                 .opacity(launched ? 1 : 0)
                 .animation(.easeInOut(duration: 0.3), value: launched)
         }
-        .fullScreenCover(item: $coordinator.authRoute) { route in
-            AuthFlow(container: container, coordinator: coordinator, root: route)
+        .fullScreenCover(item: $appRouter.authRoute) { route in
+            AuthFlow(container: container, appRouter: appRouter, root: route)
         }
         .task {
             do {
@@ -42,7 +42,7 @@ struct AppRootView: View {
             if TokenStore.shared.hasValidToken {
                 AppState.shared.login()
             } else {
-                coordinator.presentAuth(.onboarding)
+                appRouter.navigate(to: .auth(.onboarding))
             }
 
             withAnimation(.easeInOut(duration: AppConstants.Animation.default)) {
@@ -55,7 +55,7 @@ struct AppRootView: View {
             showSessionExpiredPopup = true
         }
         .sessionExpiredPopup(isPresented: $showSessionExpiredPopup) {
-            coordinator.presentAuth(.login)
+            appRouter.navigate(to: .auth(.login))
         }
     }
 }

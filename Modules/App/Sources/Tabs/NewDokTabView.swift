@@ -125,14 +125,14 @@ struct TabContentView<Content: View>: View {
 
 struct NewDokTabView: View {
     let container: AppContainer
-    @Bindable var coordinator: AppCoordinator
+    @Bindable var appRouter: AppRouter
 
     @AppStorage("userId") private var userId: Int = 0
 
     var body: some View {
-        TabView(selection: $coordinator.selectedTab) {
+        TabView(selection: $appRouter.selectedTab) {
             TabContentView {
-                ExploreStack(container: container, coordinator: coordinator)
+                ExploreStack(container: container, appRouter: appRouter)
             }
             .tabItem {
                 Image(asset: DesignSystemAsset.lineNewsletter)
@@ -142,7 +142,7 @@ struct NewDokTabView: View {
             .tag(NewDokTab.explore)
 
             TabContentView {
-                SubscribeStack(container: container, coordinator: coordinator)
+                SubscribeStack(container: container, appRouter: appRouter)
             }
             .tabItem {
                 Image(asset: DesignSystemAsset.lineMailbox)
@@ -152,7 +152,7 @@ struct NewDokTabView: View {
             .tag(NewDokTab.subscribe)
 
             TabContentView {
-                HomeStack(container: container, coordinator: coordinator)
+                HomeStack(container: container, appRouter: appRouter)
             }
             .tabItem {
                 Image(asset: DesignSystemAsset.lineHome)
@@ -162,7 +162,7 @@ struct NewDokTabView: View {
             .tag(NewDokTab.home)
 
             TabContentView {
-                BookmarkStack(container: container, coordinator: coordinator)
+                BookmarkStack(container: container, appRouter: appRouter)
             }
             .tabItem {
                 Image(asset: DesignSystemAsset.lineBookmark)
@@ -172,7 +172,7 @@ struct NewDokTabView: View {
             .tag(NewDokTab.bookmark)
 
             TabContentView {
-                MyPageStack(container: container, coordinator: coordinator)
+                MyPageStack(container: container, appRouter: appRouter)
             }
             .tabItem {
                 Image(asset: DesignSystemAsset.lineUser)
@@ -182,10 +182,10 @@ struct NewDokTabView: View {
             .tag(NewDokTab.profile)
         }
         .id(userId == 0 ? "guest" : "user_\(userId)")
-        .onChange(of: coordinator.selectedTab) { _, newTab in
+        .onChange(of: appRouter.selectedTab) { _, newTab in
             if AppState.shared.authState == .guest && newTab == .profile {
-                coordinator.selectedTab = .home
-                coordinator.presentAuth(.login)
+                appRouter.navigate(to: .tab(.home))
+                appRouter.navigate(to: .auth(.login))
             }
         }
         .navigationBarHidden(true)

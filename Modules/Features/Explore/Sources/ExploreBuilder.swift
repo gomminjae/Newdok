@@ -19,8 +19,7 @@ public struct ExploreBuilder: ExploreBuildable {
     }
 
     public func makeExploreView(
-        exploreTrigger: UUID,
-        onConsumePending: @escaping () -> (day: Int?, tab: Int)?,
+        landing: ExploreLanding?,
         onSearch: @escaping () -> Void,
         onSignup: @escaping () -> Void,
         onLogin: @escaping () -> Void,
@@ -30,8 +29,7 @@ public struct ExploreBuilder: ExploreBuildable {
         AnyView(
             ExploreView(
                 viewModel: container.makeViewModel(),
-                exploreTrigger: exploreTrigger,
-                onConsumePending: onConsumePending,
+                landing: landing,
                 onSearch: onSearch,
                 onSignup: onSignup,
                 onLogin: onLogin,

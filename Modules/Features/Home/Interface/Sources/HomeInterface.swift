@@ -7,6 +7,7 @@ public protocol HomeBuildable {
         onSearch: @escaping () -> Void,
         onSignup: @escaping () -> Void,
         onLogin: @escaping () -> Void,
-        onGoToExplore: @escaping (Int?, Int) -> Void
+        onExploreRecommendations: @escaping () -> Void,
+        onExploreAllNewsletters: @escaping (Int?) -> Void
     ) -> AnyView
 }

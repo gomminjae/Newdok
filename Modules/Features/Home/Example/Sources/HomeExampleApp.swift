@@ -20,7 +20,8 @@ struct HomeExampleApp: App {
                     onSearch: {},
                     onSignup: {},
                     onLogin: {},
-                    onGoToExplore: { _, _ in }
+                    onExploreRecommendations: {},
+                    onExploreAllNewsletters: { _ in }
                 )
             }
             .environment(AppState.shared)

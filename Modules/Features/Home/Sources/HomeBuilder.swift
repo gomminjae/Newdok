@@ -24,7 +24,8 @@ public struct HomeBuilder: HomeBuildable {
         onSearch: @escaping () -> Void,
         onSignup: @escaping () -> Void,
         onLogin: @escaping () -> Void,
-        onGoToExplore: @escaping (Int?, Int) -> Void
+        onExploreRecommendations: @escaping () -> Void,
+        onExploreAllNewsletters: @escaping (Int?) -> Void
     ) -> AnyView {
         AnyView(
             HomeView(
@@ -33,7 +34,8 @@ public struct HomeBuilder: HomeBuildable {
                 onSearch: onSearch,
                 onSignup: onSignup,
                 onLogin: onLogin,
-                onGoToExplore: onGoToExplore
+                onExploreRecommendations: onExploreRecommendations,
+                onExploreAllNewsletters: onExploreAllNewsletters
             )
         )
     }

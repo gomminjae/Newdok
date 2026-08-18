@@ -2,13 +2,13 @@ import SwiftUI
 
 struct AuthFlow: View {
     let container: AppContainer
-    let coordinator: AppCoordinator
+    let appRouter: AppRouter
     let root: AuthRoute
 
-    @State private var router = Router<AuthRoute>()
+    @State private var path: [AuthRoute] = []
 
     var body: some View {
-        NavigationStack(path: $router.path) {
+        NavigationStack(path: $path) {
             routeView(root)
                 .navigationDestination(for: AuthRoute.self) { route in
                     routeView(route)
@@ -22,26 +22,26 @@ struct AuthFlow: View {
         case .onboarding:
             // 소셜 로그인: 직접 회원가입 진입 없음 — 회원가입 버튼도 로그인 화면으로
             container.makeOnboardingView(
-                onSignup: { router.push(.login) },
-                onLogin: { router.push(.login) }
+                onSignup: { path.append(.login) },
+                onLogin: { path.append(.login) }
             )
         case .login:
             container.makeLoginView(
-                canGoBack: !router.path.isEmpty,
-                onBack: { router.pop() },
-                onSignup: { router.push(.login) },
+                canGoBack: !path.isEmpty,
+                onBack: { _ = path.popLast() },
+                onSignup: { path.append(.login) },
                 onNeedSignup: { token, nickname in
-                    router.push(.signup(signupToken: token, nickname: nickname))
+                    path.append(.signup(signupToken: token, nickname: nickname))
                 },
-                onAuthenticated: { coordinator.finishAuth() }
+                onAuthenticated: { appRouter.finishAuthentication() }
             )
         case let .signup(token, nickname):
             container.makeSignupView(
                 signupToken: token,
                 nickname: nickname,
-                onBack: { router.pop() },
-                onLogin: { router.push(.login) },
-                onAuthenticated: { coordinator.finishAuth() }
+                onBack: { _ = path.popLast() },
+                onLogin: { path.append(.login) },
+                onAuthenticated: { appRouter.finishAuthentication() }
             )
         }
     }

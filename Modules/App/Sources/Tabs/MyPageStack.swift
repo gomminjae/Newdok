@@ -3,19 +3,19 @@ import DesignSystem
 
 struct MyPageStack: View {
     let container: AppContainer
-    let coordinator: AppCoordinator
+    let appRouter: AppRouter
 
     var body: some View {
-        @Bindable var router = coordinator.mypageRouter
-        NavigationStack(path: $router.path) {
+        @Bindable var appRouter = appRouter
+        NavigationStack(path: $appRouter.myPagePath) {
             container.makeMypageView(
-                onEditProfile: { coordinator.mypageRouter.push(.editProfile) },
-                onEditAlert: { coordinator.mypageRouter.push(.editAlert) },
-                onFAQ: { coordinator.mypageRouter.push(.faq) },
-                onFeedback: { coordinator.mypageRouter.push(.feedback) },
-                onTermsMenu: { coordinator.mypageRouter.push(.termsMenu) },
-                onLoggedOut: { coordinator.logout(to: .login) },
-                onWithdraw: { coordinator.mypageRouter.push(.withdraw) }
+                onEditProfile: { appRouter.myPagePath.append(.editProfile) },
+                onEditAlert: { appRouter.myPagePath.append(.editAlert) },
+                onFAQ: { appRouter.myPagePath.append(.faq) },
+                onFeedback: { appRouter.myPagePath.append(.feedback) },
+                onTermsMenu: { appRouter.myPagePath.append(.termsMenu) },
+                onLoggedOut: { appRouter.handleLogout(presenting: .login) },
+                onWithdraw: { appRouter.myPagePath.append(.withdraw) }
             )
             .navigationDestination(for: MyPageRoute.self) { route in
                 destination(route)
@@ -28,32 +28,32 @@ struct MyPageStack: View {
         switch route {
         case .editProfile:
             container.makeEditProfileView(
-                onBack: { coordinator.mypageRouter.pop() },
-                onEditNickname: { coordinator.mypageRouter.push(.editNickname) },
-                onEditIndustry: { coordinator.mypageRouter.push(.editIndustry) },
-                onEditInterest: { coordinator.mypageRouter.push(.editInterest) }
+                onBack: { _ = appRouter.myPagePath.popLast() },
+                onEditNickname: { appRouter.myPagePath.append(.editNickname) },
+                onEditIndustry: { appRouter.myPagePath.append(.editIndustry) },
+                onEditInterest: { appRouter.myPagePath.append(.editInterest) }
             )
         case .editNickname:
-            container.makeEditNicknameView(onBack: { coordinator.mypageRouter.pop() })
+            container.makeEditNicknameView(onBack: { _ = appRouter.myPagePath.popLast() })
         case .editIndustry:
-            container.makeEditIndustryView(onBack: { coordinator.mypageRouter.pop() })
+            container.makeEditIndustryView(onBack: { _ = appRouter.myPagePath.popLast() })
         case .editInterest:
-            container.makeEditInterestView(onBack: { coordinator.mypageRouter.pop() })
+            container.makeEditInterestView(onBack: { _ = appRouter.myPagePath.popLast() })
         case .withdraw:
             container.makeWithdrawView(
-                onBack: { coordinator.mypageRouter.pop() },
-                onWithdrawn: { coordinator.logout(to: .onboarding) }
+                onBack: { _ = appRouter.myPagePath.popLast() },
+                onWithdrawn: { appRouter.handleLogout(presenting: .onboarding) }
             )
         case .editAlert:
-            container.makeEditAlertView(onBack: { coordinator.mypageRouter.pop() })
+            container.makeEditAlertView(onBack: { _ = appRouter.myPagePath.popLast() })
         case .faq:
-            container.makeFAQView(onBack: { coordinator.mypageRouter.pop() })
+            container.makeFAQView(onBack: { _ = appRouter.myPagePath.popLast() })
         case .feedback:
-            container.makeFeedbackView(onBack: { coordinator.mypageRouter.pop() })
+            container.makeFeedbackView(onBack: { _ = appRouter.myPagePath.popLast() })
         case .termsMenu:
-            container.makeTermsMenuView(onBack: { coordinator.mypageRouter.pop() })
+            container.makeTermsMenuView(onBack: { _ = appRouter.myPagePath.popLast() })
         case .version:
-            container.makeVersionView(onBack: { coordinator.mypageRouter.pop() })
+            container.makeVersionView(onBack: { _ = appRouter.myPagePath.popLast() })
         }
     }
 }
