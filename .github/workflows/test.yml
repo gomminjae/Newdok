@@ -1,20 +1,12 @@
 name: Test
 
-# 비용 방어: develop 대상 PR에서 코드가 실제로 바뀐 경우에만 실행.
-# (main PR은 deploy가 어차피 빌드하므로 제외, 문서/설정 변경은 paths로 스킵)
+# GitHub Free의 macOS 러너 비용을 피하기 위해 수동 실행만 허용한다.
+# 일상 검증은 모듈별 test.sh 또는 루트 scripts/test.sh로 수행한다.
 on:
-  pull_request:
-    branches: [develop]
-    paths:
-      - '**/*.swift'
-      - '**/Project.swift'
-      - 'Workspace.swift'
-      - 'Tuist/**'
-      - '.github/workflows/test.yml'
   workflow_dispatch:
 
 concurrency:
-  group: test-${{ github.event.pull_request.number || github.ref }}
+  group: test-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
@@ -73,6 +65,4 @@ jobs:
       - name: Run tests
         # tuist test: 모든 모듈의 테스트 타깃을 빌드·실행하고 시뮬레이터도 자동 선택.
         # (Newdok 스킴엔 testAction이 없어 xcodebuild test는 못 씀)
-        run: |
-          tuist install
-          tuist test --platform ios
+        run: ./scripts/test.sh
