@@ -23,7 +23,10 @@ jobs:
       - name: Setup Ruby
         uses: ruby/setup-ruby@v1
         with:
-          bundler-cache: true
+          ruby-version: "3.3"
+
+      - name: Install Fastlane
+        run: gem install fastlane --version 2.228.0 --no-document
 
       - name: Cache Tuist & SPM dependencies
         uses: actions/cache@v4
@@ -82,4 +85,4 @@ jobs:
           MATCH_GIT_URL: ${{ secrets.MATCH_GIT_URL }}
           MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
           MATCH_GIT_BASIC_AUTHORIZATION: ${{ secrets.MATCH_GIT_BASIC_AUTHORIZATION }}
-        run: bundle exec fastlane beta
+        run: fastlane release

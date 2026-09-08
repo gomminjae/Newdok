@@ -10,7 +10,7 @@ iOS 뉴스레터 앱. SwiftUI + Tuist로 생성되는 모듈러 워크스페이�
   tuist install && tuist generate --no-open
   ```
 - 워크스페이스 `Newdok.xcworkspace`, 스킴 `Newdok` (타깃 `App`, run = Debug).
-- CI 빌드만: `bundle exec fastlane build`.
+- CI 빌드만: `fastlane build`.
 - **`*.xcodeproj/project.pbxproj`는 절대 손으로 수정하지 말 것** — Tuist 생성물이다. 해당 모듈의 `Project.swift`를 고치고 `tuist generate`를 다시 돌린다. (이 파일의 서명/버전 diff는 Xcode가 만드는 노이즈이므로 커밋 대상 아님.)
 
 ## Deploy (fastlane)

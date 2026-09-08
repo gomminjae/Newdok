@@ -11,7 +11,7 @@ SwiftUI와 Tuist를 사용하는 모듈형 iOS 뉴스레터 앱.
   mise exec -- tuist generate --no-open
   ```
 - 워크스페이스는 `Newdok.xcworkspace`, 앱 스킴은 `Newdok`다.
-- Release 빌드 검증은 `bundle exec fastlane build`를 사용한다.
+- Release 빌드 검증은 `fastlane build`를 사용한다.
 - `*.xcodeproj/project.pbxproj`는 Tuist 생성물이므로 직접 수정하거나 생성 diff를 커밋하지 않는다. 변경은 manifest와 helper에서 한다.
 
 ## Architecture
@@ -73,10 +73,10 @@ SwiftUI와 Tuist를 사용하는 모듈형 iOS 뉴스레터 앱.
 ## Deploy
 
 - 빌드·테스트 요청은 배포 권한을 포함하지 않는다. TestFlight 업로드, 인증서 변경, 외부 저장소 변경은 사용자가 명시적으로 요청한 경우에만 수행한다.
-- 개발 TestFlight: `bundle exec fastlane dev` (`com.newdok.test`, Debug)
-- 상용 TestFlight: `bundle exec fastlane release` (`com.newdok.app`, Release)
-- 동시 배포: `bundle exec fastlane all`
-- 인증서 동기화: `bundle exec fastlane certs`
+- 개발 TestFlight: `fastlane dev` (`com.newdok.test`, Debug)
+- 상용 TestFlight: `fastlane release` (`com.newdok.app`, Release)
+- 동시 배포: `fastlane all`
+- 인증서 동기화: `fastlane certs`
 
 ## Generated Files & Secrets
 

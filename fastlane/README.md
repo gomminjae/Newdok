@@ -18,7 +18,7 @@ For _fastlane_ installation instructions, see [Installing _fastlane_](https://do
 ### ios certs
 
 ```sh
-[bundle exec] fastlane ios certs
+fastlane certs
 ```
 
 인증서/프로비저닝 프로파일 동기화
@@ -26,7 +26,7 @@ For _fastlane_ installation instructions, see [Installing _fastlane_](https://do
 ### ios release
 
 ```sh
-[bundle exec] fastlane ios release
+fastlane release
 ```
 
 상용 TestFlight 배포
@@ -34,7 +34,7 @@ For _fastlane_ installation instructions, see [Installing _fastlane_](https://do
 ### ios dev
 
 ```sh
-[bundle exec] fastlane ios dev
+fastlane dev
 ```
 
 테섭 TestFlight 배포
@@ -42,7 +42,7 @@ For _fastlane_ installation instructions, see [Installing _fastlane_](https://do
 ### ios all
 
 ```sh
-[bundle exec] fastlane ios all
+fastlane all
 ```
 
 상용 + 테섭 동시 TestFlight 배포
@@ -50,7 +50,7 @@ For _fastlane_ installation instructions, see [Installing _fastlane_](https://do
 ### ios build
 
 ```sh
-[bundle exec] fastlane ios build
+fastlane build
 ```
 
 빌드만 (CI용)
