@@ -39,7 +39,7 @@ jobs:
           mkdir -p Configurations
           cat <<'XCCONFIG' > Configurations/env.xcconfig
           DEV_BASE_URL = http:/$()//3.38.79.19
-          BASE_URL = https:/$()//newdok.shop
+          BASE_URL = https:/$()/api.newdok.store
           XCCONFIG
 
           cat <<'XCCONFIG' > Configurations/Debug.xcconfig
