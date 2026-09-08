@@ -58,6 +58,7 @@ public struct ArticleDetailView: View {
         .background(Color.white.ignoresSafeArea(edges: .top))
         .navigationBarTitleDisplayMode(.inline)
         .toolbar(.hidden, for: .navigationBar)
+        .toolbar(.hidden, for: .tabBar)
         .onChange(of: viewModel.detail) { _, detail in
             if detail != nil { isViewReady = true }
         }
