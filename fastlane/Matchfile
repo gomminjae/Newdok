@@ -1,4 +1,5 @@
-git_url("https://github.com/gomminjae/certificates")
+match_git_url = ENV["MATCH_GIT_URL"].to_s
+git_url(match_git_url.empty? ? "git@github.com:gomminjae/certificates.git" : match_git_url)
 git_branch("newdok")
 storage_mode("git")
 type("appstore")
