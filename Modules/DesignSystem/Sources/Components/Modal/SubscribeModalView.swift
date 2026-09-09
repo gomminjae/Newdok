@@ -104,6 +104,8 @@ struct WebViewWrapper: UIViewRepresentable {
                 }
 
                 var emailSelectors = [
+                    // 메일리는 숨겨진 로그인 폼보다 구독 폼의 이메일을 우선한다.
+                    'input[name="subscription[email]"]',
                     'input[type="email"]',
                     'input[name="email"]', 'input[name="Email"]', 'input[name="EMAIL"]',
                     'input[name="e-mail"]', 'input[name="E-mail"]',
@@ -121,6 +123,7 @@ struct WebViewWrapper: UIViewRepresentable {
                 ];
 
                 var nameSelectors = [
+                    'input[name="subscription[name]"]',
                     'input[name="name"]', 'input[name="Name"]', 'input[name="NAME"]',
                     'input[name="user_name"]', 'input[name="user-name"]', 'input[name="userName"]',
                     'input[name="username"]', 'input[name="Username"]',
