@@ -27,9 +27,7 @@ public struct NewsletterRow: View {
                 KFImage(URL(string: newsletter.imageUrl ?? ""))
                     .setProcessor(DownsamplingImageProcessor(size: CGSize(width: 56 * displayScale, height: 56 * displayScale)))
                     .placeholder {
-                        RoundedRectangle(cornerRadius: 10)
-                            .fill(Color.gray.opacity(0.2))
-                            .frame(width: 56, height: 56)
+                        NewsletterImagePlaceholder()
                     }
                     .resizable()
                     .aspectRatio(contentMode: .fill)

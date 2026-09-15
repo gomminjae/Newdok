@@ -12,7 +12,7 @@ struct SearchNewsletterRow: View {
             KFImage(URL(string: result.imageUrl))
                 .setProcessor(DownsamplingImageProcessor(size: CGSize(width: 56 * displayScale, height: 56 * displayScale)))
                 .placeholder {
-                    Color.gray.opacity(0.2)
+                    NewsletterImagePlaceholder()
                 }
                 .resizable()
                 .aspectRatio(contentMode: .fill)

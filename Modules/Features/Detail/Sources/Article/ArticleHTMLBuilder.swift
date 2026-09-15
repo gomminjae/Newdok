@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import DesignSystem
 
 /// 아티클 HTML 템플릿을 생성하는 빌더
 struct ArticleHTMLBuilder {
@@ -18,6 +19,21 @@ struct ArticleHTMLBuilder {
     let savedHighlights: [[String: String]]
     let fontSize: CGFloat
     var disableHighlight: Bool = false
+
+    private static let placeholderImageURL: String = {
+        guard let data = DesignSystemAsset.emptyCase.image.pngData() else { return "" }
+        return "data:image/png;base64,\(data.base64EncodedString())"
+    }()
+
+    private var headerImageSource: String {
+        guard let url = URL(string: headerImageUrl.trimmingCharacters(in: .whitespacesAndNewlines)),
+              let scheme = url.scheme?.lowercased(),
+              ["http", "https"].contains(scheme),
+              url.host != nil else { return Self.placeholderImageURL }
+        return url.absoluteString
+            .replacingOccurrences(of: "&", with: "&amp;")
+            .replacingOccurrences(of: "\"", with: "&quot;")
+    }
 
     // MARK: - Build
 
@@ -65,7 +81,7 @@ struct ArticleHTMLBuilder {
         </head>
         <body>
             <div class="header">
-                <img class="header-image" src="\(headerImageUrl)" alt="">
+                <img class="header-image" src="\(headerImageSource)" alt="" onerror="this.onerror=null;this.src='\(Self.placeholderImageURL)';">
                 <div class="header-overlay"></div>
                 <div class="header-text">
                     <div class="header-title">\(escapedTitle)</div>

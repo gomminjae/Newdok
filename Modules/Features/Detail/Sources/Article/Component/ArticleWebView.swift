@@ -33,6 +33,7 @@ struct ArticleWebView: UIViewRepresentable {
     @Binding var fontSize: CGFloat
     @Binding var showScrollToTop: Bool
     @Binding var pendingActions: [ArticleWebViewAction]
+    @Binding var isLoading: Bool
     var disableHighlight: Bool = false
     var renderer: WebViewHighlightRenderer?
 
@@ -134,7 +135,24 @@ struct ArticleWebView: UIViewRepresentable {
             self.parent = parent
         }
 
+        func webView(_ webView: WKWebView, didStartProvisionalNavigation navigation: WKNavigation!) {
+            parent.isLoading = true
+        }
+
+        func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
+            parent.isLoading = false
+        }
+
+        func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {
+            parent.isLoading = webView.isLoading
+        }
+
+        func webView(_ webView: WKWebView, didFailProvisionalNavigation navigation: WKNavigation!, withError error: Error) {
+            parent.isLoading = webView.isLoading
+        }
+
         func webViewWebContentProcessDidTerminate(_ webView: WKWebView) {
+            parent.isLoading = false
             needsReload = true
             lastContentKey = nil
         }

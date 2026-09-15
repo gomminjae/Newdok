@@ -17,7 +17,6 @@ public struct SubscribeRow: View {
     public let onNavigate: (() -> Void)?
     public let onTap: () async -> Void
 
-    @State private var imageLoadFailed = false
     @State private var isPerformingAction = false
 
     @Environment(\.displayScale) private var displayScale
@@ -34,34 +33,13 @@ public struct SubscribeRow: View {
                 onNavigate?()
             } label: {
                 HStack(alignment: .center, spacing: 8) {
-                    Group {
-                        if imageLoadFailed {
-                            Image(systemName: "photo")
-                                .font(.system(size: 24))
-                                .foregroundColor(Color.gray.opacity(0.5))
-                                .frame(width: 56, height: 56)
-                                .background(Color.gray.opacity(0.1))
-                                .clipShape(RoundedRectangle(cornerRadius: 10))
-                        } else {
-                            KFImage(URL(string: newsletter.imageUrl))
-                                .setProcessor(DownsamplingImageProcessor(size: CGSize(width: 56 * displayScale, height: 56 * displayScale)))
-                                .placeholder {
-                                    RoundedRectangle(cornerRadius: 10)
-                                        .fill(Color.gray.opacity(0.2))
-                                        .frame(width: 56, height: 56)
-                                }
-                                .onFailure { _ in
-                                    imageLoadFailed = true
-                                }
-                                .resizable()
-                                .aspectRatio(contentMode: .fill)
-                                .frame(width: 56, height: 56)
-                                .clipShape(RoundedRectangle(cornerRadius: 10))
-                        }
-                    }
-                    .onChange(of: newsletter.imageUrl) { _, _ in
-                        imageLoadFailed = false
-                    }
+                    KFImage(URL(string: newsletter.imageUrl))
+                        .setProcessor(DownsamplingImageProcessor(size: CGSize(width: 56 * displayScale, height: 56 * displayScale)))
+                        .placeholder { NewsletterImagePlaceholder() }
+                        .resizable()
+                        .aspectRatio(contentMode: .fill)
+                        .frame(width: 56, height: 56)
+                        .clipShape(RoundedRectangle(cornerRadius: 10))
                     .overlay(
                         RoundedRectangle(cornerRadius: 10)
                             .stroke(Color.lineNeutral, lineWidth: 1)

@@ -5,6 +5,7 @@ import ExploreInterface
 import Shared
 
 public struct ExploreView: View {
+    @Environment(\.scenePhase) private var scenePhase
     @State private var viewModel: ExploreViewModel
     @State private var currentPage: Int = 0
 
@@ -16,6 +17,11 @@ public struct ExploreView: View {
     private let onBrandTap: (String) -> Void
 
     private var isGuest: Bool { AppState.shared.authState == .guest }
+
+    private struct LoadTrigger: Equatable {
+        let landing: ExploreLanding?
+        let scenePhase: ScenePhase
+    }
 
     public init(
         viewModel: ExploreViewModel,
@@ -53,7 +59,8 @@ public struct ExploreView: View {
             .onChange(of: AppState.shared.authState) {
                 Task { await viewModel.reloadOnAuthChanged() }
             }
-            .task(id: landing) {
+            .task(id: LoadTrigger(landing: landing, scenePhase: scenePhase)) {
+                guard scenePhase == .active else { return }
                 viewModel.reloadUserInfo()
                 if let landing {
                     currentPage = 0
@@ -61,9 +68,6 @@ public struct ExploreView: View {
                 } else {
                     await viewModel.loadInitial()
                 }
-            }
-            .onReceive(NotificationCenter.default.publisher(for: UIApplication.willEnterForegroundNotification)) { _ in
-                viewModel.reloadUserInfo()
             }
             .serverErrorPopup(
                 error: $viewModel.currentError,
@@ -146,7 +150,10 @@ public struct ExploreView: View {
     private var loggedInContent: some View {
         if viewModel.selectedTab == 0 {
             if !viewModel.isInitialLoaded {
-                EmptyView()
+                ProgressView()
+                    .tint(Color.primaryNormal)
+                    .accessibilityLabel("로딩 중")
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
             } else if !viewModel.hasUserProfile {
                 ExploreNoProfileSection(
                     nickname: viewModel.nickname,

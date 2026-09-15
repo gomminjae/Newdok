@@ -48,7 +48,8 @@ final class HomeDIContainer {
             saveReadIds: SaveReadArticleIdsUseCaseImpl(repository: articleRepo),
             extractArticleDays: ExtractArticleDaysUseCaseImpl(),
             mergeDayArticleSummary: MergeDayArticleSummaryUseCaseImpl(),
-            appState: appState
+            appState: appState,
+            userInfoStore: UserInfoStore.shared
         )
     }
 }

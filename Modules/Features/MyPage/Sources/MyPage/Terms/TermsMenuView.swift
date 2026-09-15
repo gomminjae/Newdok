@@ -90,6 +90,7 @@ public struct WebLinkView: View {
 
     public var body: some View {
         WebView(urlString: urlString)
+            .enableSwipeBack()
             .ignoresSafeArea(edges: .bottom)
             .navigationBarBackButtonHidden(true)
             .navigationBarTitleDisplayMode(.inline)

@@ -27,13 +27,14 @@ struct BrandHeroSection: View {
                 GeometryReader { geo in
                     KFImage(url)
                         .setProcessor(DownsamplingImageProcessor(size: CGSize(width: geo.size.width * displayScale, height: geo.size.height * displayScale)))
+                        .placeholder { NewsletterImagePlaceholder() }
                         .resizable()
                         .scaledToFill()
                         .frame(width: geo.size.width, height: geo.size.height)
                         .clipped()
                 }
             } else {
-                Color.lineSoft
+                NewsletterImagePlaceholder()
             }
         }
         .frame(maxWidth: .infinity)

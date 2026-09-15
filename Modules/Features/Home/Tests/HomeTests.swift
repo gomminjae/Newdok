@@ -1,10 +1,22 @@
 import Testing
 import Foundation
+import Synchronization
 import HomeDomain
 import HomeTesting
 import Shared
 
 @testable import Home
+
+private final class StubHomeUserInfoStore: UserInfoStoreProtocol {
+    private let user = Mutex<UserInfo?>(nil)
+    func save(_ value: UserInfo) { user.withLock { $0 = value } }
+    func load() -> UserInfo? { user.withLock { $0 } }
+    func clear() { user.withLock { $0 = nil } }
+    var hasProfile: Bool {
+        guard let value = load() else { return false }
+        return !value.nickname.isEmpty && value.industryId != nil && !value.interestIds.isEmpty
+    }
+}
 
 @Suite("HomeViewModel Tests")
 @MainActor
@@ -18,8 +30,8 @@ struct HomeViewModelTests {
     private let loadReadIds = MockLoadReadArticleIdsUseCase()
     private let saveReadIds = MockSaveReadArticleIdsUseCase()
 
-    private func makeSUT() -> HomeViewModel {
-        let appState = AppState.shared
+    private func makeSUT(userInfoStore: UserInfoStoreProtocol = StubHomeUserInfoStore()) -> HomeViewModel {
+        let appState = AppState()
         appState.authState = .authenticated
         return HomeViewModel(
             fetchTodayArticles: fetchTodayArticles,
@@ -32,7 +44,8 @@ struct HomeViewModelTests {
             saveReadIds: saveReadIds,
             extractArticleDays: ExtractArticleDaysUseCaseImpl(),
             mergeDayArticleSummary: MergeDayArticleSummaryUseCaseImpl(),
-            appState: appState
+            appState: appState,
+            userInfoStore: userInfoStore
         )
     }
 
@@ -71,7 +84,7 @@ struct HomeViewModelTests {
 
     @Test("loadToday sets guest state for guest user")
     func loadTodayGuest() async {
-        let appState = AppState.shared
+        let appState = AppState()
         appState.authState = .guest
         let sut = HomeViewModel(
             fetchTodayArticles: fetchTodayArticles,
@@ -84,7 +97,8 @@ struct HomeViewModelTests {
             saveReadIds: saveReadIds,
             extractArticleDays: ExtractArticleDaysUseCaseImpl(),
             mergeDayArticleSummary: MergeDayArticleSummaryUseCaseImpl(),
-            appState: appState
+            appState: appState,
+            userInfoStore: StubHomeUserInfoStore()
         )
 
         await sut.loadToday()
@@ -149,6 +163,43 @@ struct HomeViewModelTests {
         let sut = makeSUT()
         let result = await sut.shouldReloadToday()
         #expect(result)
+    }
+
+    @Test("프로필 편집 후 같은 날 홈으로 돌아와도 다시 로딩한다")
+    func shouldReloadTodayAfterProfileEdit() async {
+        setupSuccessScenario()
+        let store = StubHomeUserInfoStore()
+        var profile = UserInfo(id: 1, nickname: "테스터", birthYear: "2000", gender: "M", createdAt: "2025-01-01", industryId: 1, interestIds: [1])
+        store.save(profile)
+        let sut = makeSUT(userInfoStore: store)
+        await sut.loadToday()
+        #expect(await sut.shouldReloadToday() == false)
+
+        profile.interestIds = [2, 3]
+        store.save(profile)
+        #expect(await sut.shouldReloadToday())
+        await sut.loadToday()
+
+        #expect(fetchTodayArticles.executeCallCount == 2)
+        #expect(fetchNewsletters.executeCallCount == 2)
+        #expect(await sut.shouldReloadToday() == false)
+    }
+
+    @Test("프로필 재조회 실패 후에도 다음 홈 복귀에서 다시 시도한다")
+    func profileReloadFailure_keepsReloadNeeded() async {
+        setupSuccessScenario()
+        let store = StubHomeUserInfoStore()
+        var profile = UserInfo(id: 1, nickname: "테스터", birthYear: "2000", gender: "M", createdAt: "2025-01-01", industryId: 1, interestIds: [1])
+        store.save(profile)
+        let sut = makeSUT(userInfoStore: store)
+        await sut.loadToday()
+
+        profile.industryId = 2
+        store.save(profile)
+        fetchTodayArticles.result = .failure(NSError(domain: "test", code: -1))
+        await sut.loadToday()
+
+        #expect(await sut.shouldReloadToday())
     }
 
     @Test("refreshHighlights updates highlight counts")

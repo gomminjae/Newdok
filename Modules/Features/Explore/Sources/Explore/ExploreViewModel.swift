@@ -22,6 +22,8 @@ public final class ExploreViewModel: ErrorHandling {
     // 캐시된 데이터 (메모리 최적화)
     private var cachedRecommendation: ExploreRecommendedNewsletter?
     private var lastFetchTime: Date?
+    private var userInfo: UserInfo?
+    private var recommendationRequestID: UUID?
 
     public var allNewsletters: [ExploreBrand] = []
 
@@ -47,12 +49,25 @@ public final class ExploreViewModel: ErrorHandling {
 
     private var isGuest: Bool { appState.authState == .guest }
 
-    var hasUserProfile: Bool {
-        return userInfoStore.hasProfile
-    }
+    private(set) var hasUserProfile = false
 
     public func reloadUserInfo() {
-        nickname = userInfoStore.load()?.nickname ?? ""
+        let latestUserInfo = userInfoStore.load()
+        if userInfo != latestUserInfo {
+            cachedRecommendation = nil
+            lastFetchTime = nil
+            recommendationRequestID = nil
+            isRefreshingRecommendation = false
+            myRecommendation = []
+            unionRecommendation = []
+            fixedMyRecommendation = []
+            fixedUnionRecommendation = []
+            isInitialLoaded = false
+            currentError = nil
+        }
+        userInfo = latestUserInfo
+        nickname = latestUserInfo?.nickname ?? ""
+        hasUserProfile = userInfoStore.hasProfile
     }
 
     public var industryText: String {
@@ -107,7 +122,7 @@ public final class ExploreViewModel: ErrorHandling {
         self.userInfoStore = userInfoStore
         self.selectableItemStore = selectableItemStore
         self.appState = appState
-        self.nickname = userInfoStore.load()?.nickname ?? ""
+        reloadUserInfo()
     }
 
     var industries: [SelectableItem] {
@@ -119,6 +134,8 @@ public final class ExploreViewModel: ErrorHandling {
     }
 
     public func fetchRecommendation(forceRefresh: Bool = false) async {
+        guard !Task.isCancelled else { return }
+        reloadUserInfo()
         // 캐시된 데이터가 있고 5분 이내라면 캐시 사용 (강제 새로고침 제외)
         if !forceRefresh,
            let cached = cachedRecommendation,
@@ -128,14 +145,34 @@ public final class ExploreViewModel: ErrorHandling {
             return
         }
 
-        await performAsync(feature: "explore", operation: "fetchRecommendation", loadingBinding: \.isRefreshingRecommendation) {
+        let requestID = UUID()
+        let requestedUserInfo = userInfo
+        recommendationRequestID = requestID
+        isRefreshingRecommendation = true
+        defer {
+            if recommendationRequestID == requestID {
+                isRefreshingRecommendation = false
+                recommendationRequestID = nil
+            }
+        }
+
+        do {
             let response = try await fetchRecommendationUseCase.execute()
+            try Task.checkCancellation()
+            guard recommendationRequestID == requestID,
+                  requestedUserInfo == userInfoStore.load() else { return }
 
             // 캐시 업데이트
             cachedRecommendation = response
             lastFetchTime = Date()
 
             updateRecommendationData(from: response)
+            currentError = nil
+        } catch {
+            guard !Task.isCancelled,
+                  recommendationRequestID == requestID,
+                  requestedUserInfo == userInfoStore.load() else { return }
+            handleError(error, feature: "explore", operation: "fetchRecommendation")
         }
     }
 
@@ -147,6 +184,7 @@ public final class ExploreViewModel: ErrorHandling {
         let result = transformRecommendationUseCase.execute(response: response, userInterestIds: userInterestIds)
         fixedMyRecommendation = result.carousel
         fixedUnionRecommendation = result.prioritizedUnion
+        isInitialLoaded = true
     }
 
     public func prioritizeInterestsForNewsletter(_ newsletter: ExploreNewsletterDetail) -> [ExploreInterest] {
@@ -157,6 +195,7 @@ public final class ExploreViewModel: ErrorHandling {
     public func fetchAllNewsletters() async {
         await performAsync(feature: "explore", operation: "fetchAllNewsletters", loadingBinding: \.isRefreshingAllNewsletters) {
             let response = try await fetchNewslettersUseCase.execute(orderOpt: orderOpt, industry: industry, day: day)
+            try Task.checkCancellation()
             allNewsletters = response
         }
     }
@@ -164,16 +203,19 @@ public final class ExploreViewModel: ErrorHandling {
     public func fetchGuestAllNewsletters() async {
         await performAsync(feature: "explore", operation: "fetchGuestAllNewsletters") {
             let response = try await fetchGuestNewslettersUseCase.execute(orderOpt: orderOpt, industry: industry, day: day)
+            try Task.checkCancellation()
             allNewsletters = response
         }
     }
 
     public func loadInitial() async {
+        reloadUserInfo()
         if isGuest {
             await fetchGuestAllNewsletters()
             isInitialLoaded = true
         } else {
             await fetchRecommendation()
+            guard !Task.isCancelled else { return }
             isInitialLoaded = true
             await fetchAllNewsletters()
         }
@@ -217,6 +259,7 @@ public final class ExploreViewModel: ErrorHandling {
         }
 
         await reloadOnTrigger()
+        guard !Task.isCancelled else { return }
         isInitialLoaded = true
     }
 
@@ -254,6 +297,9 @@ public final class ExploreViewModel: ErrorHandling {
 
     // 로그아웃 시 데이터 초기화
     func clearData() {
+        recommendationRequestID = nil
+        isRefreshingRecommendation = false
+        isInitialLoaded = false
         myRecommendation = []
         unionRecommendation = []
         fixedMyRecommendation = []

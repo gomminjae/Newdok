@@ -20,7 +20,7 @@ public final class AppState {
     
     public static let shared = AppState()
     
-    private init() {}
+    public init() {}
     
     // 로그아웃 시 호출
     public func logout() {

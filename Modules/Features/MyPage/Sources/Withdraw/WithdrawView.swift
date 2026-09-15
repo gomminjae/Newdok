@@ -24,14 +24,13 @@ public struct WithdrawView: View {
     }
     
     public var body: some View {
-        TabView(selection: $tabSelection) {
-            pageOne
-                .tag(0)
-            
-            pageTwo
-                .tag(1)
+        Group {
+            if tabSelection == 0 {
+                pageOne
+            } else {
+                pageTwo
+            }
         }
-        .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .safeAreaInset(edge: .bottom) { bottomBar }   // 하단 고정 버튼
         .navigationBarBackButtonHidden(true)

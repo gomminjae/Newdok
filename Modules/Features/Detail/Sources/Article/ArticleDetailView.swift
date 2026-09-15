@@ -13,7 +13,7 @@ public struct ArticleDetailView: View {
     @State private var showHighlightList: Bool = false
     @State private var pendingHighlightRemovals: [String] = []
     @State private var showScrollToTop: Bool = false
-    @State private var isViewReady: Bool = false
+    @State private var isWebViewLoading: Bool = false
     @State private var webViewActions: [ArticleWebViewAction] = []
     @State private var renderer = WebViewHighlightRenderer()
 
@@ -42,6 +42,7 @@ public struct ArticleDetailView: View {
                         fontSize: $viewModel.fontSize,
                         showScrollToTop: $showScrollToTop,
                         pendingActions: $webViewActions,
+                        isLoading: $isWebViewLoading,
                         disableHighlight: isPastArticle,
                         renderer: isPastArticle ? nil : renderer
                     )
@@ -51,17 +52,21 @@ public struct ArticleDetailView: View {
                 if showScrollToTop {
                     scrollToTopButton
                 }
+
+                if viewModel.isLoading || isWebViewLoading {
+                    ProgressView()
+                        .tint(Color.primaryNormal)
+                        .accessibilityLabel("로딩 중")
+                        .frame(maxWidth: .infinity, maxHeight: .infinity)
+                        .background(Color.white)
+                }
             }
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
         }
-        .opacity(isViewReady ? 1 : 0)
-        .animation(.easeIn(duration: 0.2), value: isViewReady)
         .background(Color.white.ignoresSafeArea(edges: .top))
         .navigationBarTitleDisplayMode(.inline)
         .toolbar(.hidden, for: .navigationBar)
         .toolbar(.hidden, for: .tabBar)
-        .onChange(of: viewModel.detail) { _, detail in
-            if detail != nil { isViewReady = true }
-        }
         .task { await viewModel.fetch() }
         .task { await viewModel.bind(renderer: renderer) }
         .popup(isPresented: $showBookmarkToast) {

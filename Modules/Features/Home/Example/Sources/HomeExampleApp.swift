@@ -57,7 +57,8 @@ struct HomeExampleApp: App {
             saveReadIds: MockSaveReadArticleIdsUseCase(),
             extractArticleDays: ExtractArticleDaysUseCaseImpl(),
             mergeDayArticleSummary: MergeDayArticleSummaryUseCaseImpl(),
-            appState: AppState.shared
+            appState: AppState.shared,
+            userInfoStore: UserInfoStore.shared
         )
     }
 }

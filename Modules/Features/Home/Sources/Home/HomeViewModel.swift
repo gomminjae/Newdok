@@ -51,6 +51,7 @@ public final class HomeViewModel: ErrorHandling {
     private let extractArticleDaysUseCase: ExtractArticleDaysUseCase
     private let mergeDayArticleSummaryUseCase: MergeDayArticleSummaryUseCase
     private let appState: AppState
+    private let userInfoStore: UserInfoStoreProtocol
 
     // MARK: - Published State
     private var isBatchUpdating = false
@@ -83,6 +84,7 @@ public final class HomeViewModel: ErrorHandling {
     private var inFlightPrefetch: Set<String> = []
     private var readArticleIds: Set<Int> = []
     private var lastLoadedDate: Date?
+    private var lastLoadedUserInfo: UserInfo?
     private var isTodayLoading = false
     private var isLoaded = false
     private var latestMonthRequestKey: String?
@@ -101,7 +103,8 @@ public final class HomeViewModel: ErrorHandling {
         saveReadIds: SaveReadArticleIdsUseCase,
         extractArticleDays: ExtractArticleDaysUseCase,
         mergeDayArticleSummary: MergeDayArticleSummaryUseCase,
-        appState: AppState
+        appState: AppState,
+        userInfoStore: UserInfoStoreProtocol
     ) {
         self.fetchTodayArticlesUseCase = fetchTodayArticles
         self.fetchMonthArticlesUseCase = fetchMonthArticles
@@ -114,6 +117,7 @@ public final class HomeViewModel: ErrorHandling {
         self.extractArticleDaysUseCase = extractArticleDays
         self.mergeDayArticleSummaryUseCase = mergeDayArticleSummary
         self.appState = appState
+        self.userInfoStore = userInfoStore
         self.calendarState = CalendarState()
         self.readArticleIds = loadReadIds.execute()
     }
@@ -152,7 +156,10 @@ public final class HomeViewModel: ErrorHandling {
         defer { isTodayLoading = false }
 
         latestDateSelectionKey = nil
-        if homeState == .idle { homeState = .loading }
+        let requestedUserInfo = userInfoStore.load()
+        if homeState == .idle || lastLoadedUserInfo != requestedUserInfo {
+            homeState = .loading
+        }
 
         do {
             async let articlesTask = fetchTodayArticlesUseCase.execute()
@@ -177,6 +184,7 @@ public final class HomeViewModel: ErrorHandling {
             await updateFilteredArticles(for: today)
             isLoaded = true
             lastLoadedDate = today
+            lastLoadedUserInfo = requestedUserInfo
             homeState = resolveState()
         } catch {
             handleError(error, feature: "home", operation: "loadToday")
@@ -272,6 +280,7 @@ public final class HomeViewModel: ErrorHandling {
         inFlightPrefetch.removeAll()
         readArticleIds.removeAll()
         lastLoadedDate = nil
+        lastLoadedUserInfo = nil
         isTodayLoading = false
         isLoaded = false
         latestMonthRequestKey = nil
@@ -295,6 +304,7 @@ public final class HomeViewModel: ErrorHandling {
 
     public func shouldReloadToday(currentDate: Date = Date()) async -> Bool {
         if !isLoaded { return true }
+        if lastLoadedUserInfo != userInfoStore.load() { return true }
         guard let lastLoadedDate else { return true }
         return !Calendar.current.isDate(lastLoadedDate, inSameDayAs: currentDate)
     }

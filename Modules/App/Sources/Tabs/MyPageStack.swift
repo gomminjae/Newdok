@@ -19,6 +19,7 @@ struct MyPageStack: View {
             )
             .navigationDestination(for: MyPageRoute.self) { route in
                 destination(route)
+                    .enableSwipeBack()
             }
         }
     }

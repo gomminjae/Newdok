@@ -48,87 +48,91 @@ public struct MypageView: View {
     }
 
     public var body: some View {
-        VStack(spacing: 0) {
-                // MARK: - 상단 프로필 영역
-                MypageProfileSection(
-                    nickname: viewModel.displayNickname,
-                    subscribeEmail: viewModel.displaySubscribeEmail,
-                    onEditProfile: {
-                        onEditProfile()
-                    },
-                    onCopyEmail: {
-                        viewModel.copySubscribeEmail()
-                        isCopy = true
-                        Task {
-                            try await Task.sleep(for: .seconds(2.1))
-                            withAnimation {
-                                isCopy = false
+        GeometryReader { geometry in
+            ScrollView {
+                VStack(spacing: 0) {
+                    // MARK: - 상단 프로필 영역
+                    MypageProfileSection(
+                        nickname: viewModel.displayNickname,
+                        subscribeEmail: viewModel.displaySubscribeEmail,
+                        onEditProfile: {
+                            onEditProfile()
+                        },
+                        onCopyEmail: {
+                            viewModel.copySubscribeEmail()
+                            isCopy = true
+                            Task {
+                                try await Task.sleep(for: .seconds(2.1))
+                                withAnimation {
+                                    isCopy = false
+                                }
                             }
+                        },
+                        onShowEmailInfo: {
+                            showEmailAlert = true
                         }
-                    },
-                    onShowEmailInfo: {
-                        showEmailAlert = true
+                    )
+
+                    // MARK: - 서비스 섹션
+                    VStack(spacing: 0) {
+                        sectionHeader(title: "서비스")
+                        MypageMenuRow(title: "알림 설정") { onEditAlert() }
                     }
-                )
+                    .padding(.horizontal, 20)
 
-                // MARK: - 서비스 섹션
-                VStack(spacing: 0) {
-                    sectionHeader(title: "서비스")
-                    MypageMenuRow(title: "알림 설정") { onEditAlert() }
-                }
-                .padding(.horizontal, 20)
+                    Divider()
+                        .padding(.top, 24)
 
-                Divider()
-                    .padding(.top, 24)
-
-                // MARK: - 고객센터 섹션
-                VStack(spacing: 0) {
-                    sectionHeader(title: "고객센터")
-                    MypageMenuRow(title: "FAQ") { onFAQ() }
-                    MypageMenuRow(title: "서비스 피드백") { onFeedback() }
-                    MypageMenuRow(title: "약관 및 정책") { onTermsMenu() }
-                    HStack {
-                        Text("버전")
-                            .font(.hanSansNeo(16, .medium))
-                            .foregroundStyle(Color.captionStrong)
-                        Spacer()
-                        Text(Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "1.0.0")
-                            .font(.hanSansNeo(14, .medium))
-                            .foregroundColor(Color.captionAssistive)
+                    // MARK: - 고객센터 섹션
+                    VStack(spacing: 0) {
+                        sectionHeader(title: "고객센터")
+                        MypageMenuRow(title: "FAQ") { onFAQ() }
+                        MypageMenuRow(title: "서비스 피드백") { onFeedback() }
+                        MypageMenuRow(title: "약관 및 정책") { onTermsMenu() }
+                        HStack {
+                            Text("버전")
+                                .font(.hanSansNeo(16, .medium))
+                                .foregroundStyle(Color.captionStrong)
+                            Spacer()
+                            Text(Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "1.0.0")
+                                .font(.hanSansNeo(14, .medium))
+                                .foregroundColor(Color.captionAssistive)
+                        }
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .frame(height: 48)
+                        .background(Color.white)
                     }
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                    .frame(height: 48)
-                    .background(Color.white)
-                }
-                .padding(.horizontal, 20)
+                    .padding(.horizontal, 20)
 
-                Spacer()
+                    Spacer()
 
-                Divider()
+                    Divider()
 
-                // MARK: - 기타 (로그아웃 / 회원탈퇴)
-                VStack(spacing: 0) {
-                    sectionHeader(title: "기타")
-                    MypageMenuRow(title: "로그아웃") { showLogoutPopup = true }
+                    // MARK: - 기타 (로그아웃 / 회원탈퇴)
+                    VStack(spacing: 0) {
+                        sectionHeader(title: "기타")
+                        MypageMenuRow(title: "로그아웃") { showLogoutPopup = true }
 
-                    Button {
-                        onWithdraw()
-                    } label: {
-                        Text("회원탈퇴")
-                            .font(.hanSansNeo(13, .regular))
-                            .foregroundColor(Color.captionNeutral)
-                            .underline()
-                            .frame(height: 44)
-                            .contentShape(Rectangle())
+                        Button {
+                            onWithdraw()
+                        } label: {
+                            Text("회원탈퇴")
+                                .font(.hanSansNeo(13, .regular))
+                                .foregroundColor(Color.captionNeutral)
+                                .underline()
+                                .frame(height: 44)
+                                .contentShape(Rectangle())
+                        }
+                        .buttonStyle(.plain)
+                        .frame(maxWidth: .infinity, alignment: .trailing)
                     }
-                    .buttonStyle(.plain)
-                    .frame(maxWidth: .infinity, alignment: .trailing)
+                    .padding(.horizontal, 20)
+                    .padding(.bottom, 16)
                 }
-                .padding(.horizontal, 20)
-                .padding(.bottom, 16)
+                .padding(.top, 20)
+                .frame(minHeight: geometry.size.height)
+            }
         }
-            .padding(.top, 20)
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
             .navigationTitle("마이페이지")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {

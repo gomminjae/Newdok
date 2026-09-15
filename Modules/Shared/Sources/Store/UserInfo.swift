@@ -5,7 +5,7 @@
 //  Created by 권민재 on 5/9/25.
 //
 
-public struct UserInfo: Sendable {
+public struct UserInfo: Sendable, Equatable {
     public var id: Int
     public var subscribeEmail: String?
     public var nickname: String
