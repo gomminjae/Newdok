@@ -59,6 +59,7 @@ SwiftUI와 Tuist를 사용하는 모듈형 iOS 뉴스레터 앱.
 
 ## Product & Code Conventions
 
+- 배포 앱은 iPhone 전용이다. `Modules/App/Project.swift`의 `destinations: [.iPhone]`을 유지하고, 사용자의 명시적 요청 없이 iPad 지원을 추가하거나 공통 `.iOS` 설정으로 되돌리지 않는다.
 - 로그인 진입점은 Apple·Kakao 소셜 로그인만 지원한다. 별도 승인 없이 ID/비밀번호 로그인을 다시 추가하지 않는다.
 - SwiftUI 컨트롤은 보이는 전체 영역이 hit-test 가능해야 한다. 투명하거나 확장된 영역은 크기 지정 뒤 `contentShape`를 적용하고 접근성 label·trait를 보존한다.
 - base/default 브랜치와 PR 대상은 `develop`이다.

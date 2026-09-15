@@ -31,7 +31,7 @@ let project = Project(
     targets: [
         .target(
             name: "App",
-            destinations: ProjectConfig.destinations,
+            destinations: [.iPhone],
             product: .app,
             bundleId: "$(PRODUCT_BUNDLE_IDENTIFIER)",
             deploymentTargets: ProjectConfig.deploymentTarget,
