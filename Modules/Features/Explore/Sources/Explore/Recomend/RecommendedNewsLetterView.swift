@@ -19,7 +19,11 @@ struct RecommendedNewsLetterView: View {
         VStack(spacing: 0) {
             KFImage(URL(string: recommendation.imageUrl ?? ""))
                 .setProcessor(DownsamplingImageProcessor(size: CGSize(width: 320 * displayScale, height: 210 * displayScale)))
-                .placeholder { NewsletterImagePlaceholder() }
+                .placeholder {
+                    if recommendation.imageUrl?.isEmpty != false {
+                        NewsletterImagePlaceholder()
+                    }
+                }
                 .resizable()
                 .scaledToFill()
                 .frame(height: 210)

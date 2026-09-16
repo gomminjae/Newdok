@@ -71,7 +71,9 @@ struct NewsletterDetailRow: View {
                 KFImage(URL(string: brand.imageUrl ?? ""))
                     .setProcessor(DownsamplingImageProcessor(size: CGSize(width: 56 * displayScale, height: 56 * displayScale)))
                     .placeholder {
-                        NewsletterImagePlaceholder()
+                        if brand.imageUrl?.isEmpty != false {
+                            NewsletterImagePlaceholder()
+                        }
                     }
                     .resizable()
                     .aspectRatio(contentMode: .fill)

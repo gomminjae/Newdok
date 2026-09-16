@@ -33,7 +33,11 @@ struct BookmarkCard: View {
                 HStack(spacing: 4) {
                     KFImage(URL(string: article.imageURL))
                         .setProcessor(DownsamplingImageProcessor(size: CGSize(width: 20 * displayScale, height: 20 * displayScale)))
-                        .placeholder { NewsletterImagePlaceholder() }
+                        .placeholder {
+                            if article.imageURL.isEmpty {
+                                NewsletterImagePlaceholder()
+                            }
+                        }
                         .resizable()
                         .scaledToFill()
                         .frame(width: 20, height: 20)

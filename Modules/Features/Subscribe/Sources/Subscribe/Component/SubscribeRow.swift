@@ -35,7 +35,11 @@ public struct SubscribeRow: View {
                 HStack(alignment: .center, spacing: 8) {
                     KFImage(URL(string: newsletter.imageUrl))
                         .setProcessor(DownsamplingImageProcessor(size: CGSize(width: 56 * displayScale, height: 56 * displayScale)))
-                        .placeholder { NewsletterImagePlaceholder() }
+                        .placeholder {
+                            if newsletter.imageUrl.isEmpty {
+                                NewsletterImagePlaceholder()
+                            }
+                        }
                         .resizable()
                         .aspectRatio(contentMode: .fill)
                         .frame(width: 56, height: 56)
