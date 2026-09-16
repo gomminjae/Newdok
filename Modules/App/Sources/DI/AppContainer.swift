@@ -7,6 +7,7 @@ import Auth
 import AuthInterface
 import Home
 import HomeInterface
+import HomeDomain
 import Explore
 import ExploreInterface
 import Subscribe
@@ -25,6 +26,13 @@ import Launch
 final class AppContainer {
     private let deps: AppDependencies
 
+    private lazy var widgetHomeSummaryPublisher: TodayWidgetSummaryPublishing? = {
+        guard let appGroupID = Bundle.main.object(forInfoDictionaryKey: "APP_GROUP_ID") as? String,
+              let store = AppGroupWidgetHomeSummaryStore(appGroupID: appGroupID)
+        else { return nil }
+        return WidgetHomeSummaryPublisher(store: store)
+    }()
+
     private lazy var authBuilder: AuthBuildable = AuthBuilder(
         networkProvider: deps.networkProvider,
         tokenStorage: deps.tokenStorage,
@@ -37,7 +45,8 @@ final class AppContainer {
     private lazy var homeBuilder: HomeBuildable = HomeBuilder(
         networkProvider: deps.networkProvider,
         highlightDataSource: deps.highlightDataSource,
-        appState: deps.appState
+        appState: deps.appState,
+        widgetSummaryPublisher: widgetHomeSummaryPublisher
     )
 
     private lazy var exploreBuilder: ExploreBuildable = ExploreBuilder(
@@ -69,10 +78,14 @@ final class AppContainer {
 
     init(deps: AppDependencies) {
         self.deps = deps
+        if !deps.tokenStorage.hasValidToken {
+            widgetHomeSummaryPublisher?.clearTodaySummary()
+        }
     }
 
     func signOut() async {
         await authBuilder.signOut()
+        widgetHomeSummaryPublisher?.clearTodaySummary()
     }
 
     func loadExploreOptions() async throws {

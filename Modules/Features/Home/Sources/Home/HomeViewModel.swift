@@ -52,6 +52,7 @@ public final class HomeViewModel: ErrorHandling {
     private let mergeDayArticleSummaryUseCase: MergeDayArticleSummaryUseCase
     private let appState: AppState
     private let userInfoStore: UserInfoStoreProtocol
+    private let widgetSummaryPublisher: TodayWidgetSummaryPublishing?
 
     // MARK: - Published State
     private var isBatchUpdating = false
@@ -104,7 +105,8 @@ public final class HomeViewModel: ErrorHandling {
         extractArticleDays: ExtractArticleDaysUseCase,
         mergeDayArticleSummary: MergeDayArticleSummaryUseCase,
         appState: AppState,
-        userInfoStore: UserInfoStoreProtocol
+        userInfoStore: UserInfoStoreProtocol,
+        widgetSummaryPublisher: TodayWidgetSummaryPublishing? = nil
     ) {
         self.fetchTodayArticlesUseCase = fetchTodayArticles
         self.fetchMonthArticlesUseCase = fetchMonthArticles
@@ -118,6 +120,7 @@ public final class HomeViewModel: ErrorHandling {
         self.mergeDayArticleSummaryUseCase = mergeDayArticleSummary
         self.appState = appState
         self.userInfoStore = userInfoStore
+        self.widgetSummaryPublisher = widgetSummaryPublisher
         self.calendarState = CalendarState()
         self.readArticleIds = loadReadIds.execute()
     }
@@ -148,6 +151,7 @@ public final class HomeViewModel: ErrorHandling {
 
     public func loadToday() async {
         guard !isGuest else {
+            widgetSummaryPublisher?.clearTodaySummary()
             homeState = .guest
             return
         }
@@ -182,6 +186,10 @@ public final class HomeViewModel: ErrorHandling {
 
             await loadMonthInternal(for: today, forceReload: true)
             await updateFilteredArticles(for: today)
+            publishTodayWidgetSummary(
+                for: today,
+                articles: cachedArticles(for: today) ?? processedArticles
+            )
             isLoaded = true
             lastLoadedDate = today
             lastLoadedUserInfo = requestedUserInfo
@@ -269,9 +277,14 @@ public final class HomeViewModel: ErrorHandling {
             await updateFilteredArticles(for: targetDate)
         }
         homeState = resolveState()
+
+        if let todayArticles = cachedArticles(for: targetDate) {
+            publishTodayWidgetSummary(for: targetDate, articles: todayArticles)
+        }
     }
 
     public func resetForAuthChange() async {
+        widgetSummaryPublisher?.clearTodaySummary()
         homeState = .loading
         dataDaysCache.removeAll()
         monthlyCache.removeAll()
@@ -429,6 +442,21 @@ public final class HomeViewModel: ErrorHandling {
 
     private func decorateArticles(_ articles: [HomeArticle], refreshHighlightCounts: Bool = true) async -> [HomeArticle] {
         await decorateArticlesUseCase.execute(articles: articles, readIds: readArticleIds, refreshHighlightCounts: refreshHighlightCounts)
+    }
+
+    private func publishTodayWidgetSummary(for date: Date, articles: [HomeArticle]) {
+        guard Calendar.current.isDate(date, inSameDayAs: Date()) else { return }
+
+        let unreadCount = articles.reduce(into: 0) { count, article in
+            if !article.status.isRead {
+                count += 1
+            }
+        }
+        widgetSummaryPublisher?.publishTodaySummary(
+            totalCount: articles.count,
+            unreadCount: unreadCount,
+            date: strippedDate(date)
+        )
     }
 
     // MARK: - Private: Cache Management

@@ -3,6 +3,7 @@ import NetworkKit
 import DatabaseKit
 import Shared
 import HomeInterface
+import HomeDomain
 
 public struct HomeBuilder: HomeBuildable {
     private let container: HomeDIContainer
@@ -10,12 +11,14 @@ public struct HomeBuilder: HomeBuildable {
     public init(
         networkProvider: NetworkProviding,
         highlightDataSource: HighlightLocalDataSource,
-        appState: AppState
+        appState: AppState,
+        widgetSummaryPublisher: TodayWidgetSummaryPublishing? = nil
     ) {
         self.container = HomeDIContainer(
             networkProvider: networkProvider,
             highlightDataSource: highlightDataSource,
-            appState: appState
+            appState: appState,
+            widgetSummaryPublisher: widgetSummaryPublisher
         )
     }
 

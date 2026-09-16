@@ -38,6 +38,7 @@ let project = Project(
             infoPlist: .extendingDefault(
                 with: [
                     "API_BASE_URL": "$(API_BASE_URL)",
+                    "APP_GROUP_ID": "$(APP_GROUP_ID)",
                     "KAKAO_NATIVE_APP_KEY": "$(KAKAO_NATIVE_APP_KEY)",
                     "CFBundleDisplayName": "$(APP_DISPLAY_NAME)",
                     "CFBundleName": "$(APP_DISPLAY_NAME)",
@@ -94,6 +95,7 @@ let project = Project(
                 .designSystem,
                 .shared,
                 .databaseKit,
+                .project(target: "NewdokWidget", path: .relativeToRoot("Modules/NewdokWidget")),
                 // Feature Interfaces
                 .featureInterface("Auth"),
                 .featureInterface("Home"),

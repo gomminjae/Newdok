@@ -9,15 +9,18 @@ final class HomeDIContainer {
     private let network: any NetworkService
     private let highlightDataSource: HighlightLocalDataSource
     private let appState: AppState
+    private let widgetSummaryPublisher: TodayWidgetSummaryPublishing?
 
     init(
         networkProvider: NetworkProviding,
         highlightDataSource: HighlightLocalDataSource,
-        appState: AppState
+        appState: AppState,
+        widgetSummaryPublisher: TodayWidgetSummaryPublishing? = nil
     ) {
         self.network = networkProvider.makeService()
         self.highlightDataSource = highlightDataSource
         self.appState = appState
+        self.widgetSummaryPublisher = widgetSummaryPublisher
     }
 
     func makeArticleRepository() -> HomeArticleRepository {
@@ -49,7 +52,8 @@ final class HomeDIContainer {
             extractArticleDays: ExtractArticleDaysUseCaseImpl(),
             mergeDayArticleSummary: MergeDayArticleSummaryUseCaseImpl(),
             appState: appState,
-            userInfoStore: UserInfoStore.shared
+            userInfoStore: UserInfoStore.shared,
+            widgetSummaryPublisher: widgetSummaryPublisher
         )
     }
 }

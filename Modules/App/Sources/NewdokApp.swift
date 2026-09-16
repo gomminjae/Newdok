@@ -52,6 +52,11 @@ struct NewdokApp: App {
             .onOpenURL { url in
                 if AuthApi.isKakaoTalkLoginUrl(url) {
                     _ = AuthController.handleOpenUrl(url: url)
+                    return
+                }
+
+                if url.scheme == "newdok", url.host == "home" {
+                    appRouter.navigate(to: .home)
                 }
             }
         }

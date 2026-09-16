@@ -18,6 +18,41 @@ private final class StubHomeUserInfoStore: UserInfoStoreProtocol {
     }
 }
 
+private struct PublishedWidgetSummary: Equatable, Sendable {
+    let totalCount: Int
+    let unreadCount: Int
+    let date: Date
+}
+
+private final class MockTodayWidgetSummaryPublisher: TodayWidgetSummaryPublishing, @unchecked Sendable {
+    private let summaries = Mutex<[PublishedWidgetSummary]>([])
+    private let clearCallCount = Mutex(0)
+
+    var publishedSummaries: [PublishedWidgetSummary] {
+        summaries.withLock { $0 }
+    }
+
+    var clearCount: Int {
+        clearCallCount.withLock { $0 }
+    }
+
+    func publishTodaySummary(totalCount: Int, unreadCount: Int, date: Date) {
+        summaries.withLock {
+            $0.append(
+                PublishedWidgetSummary(
+                    totalCount: totalCount,
+                    unreadCount: unreadCount,
+                    date: date
+                )
+            )
+        }
+    }
+
+    func clearTodaySummary() {
+        clearCallCount.withLock { $0 += 1 }
+    }
+}
+
 @Suite("HomeViewModel Tests")
 @MainActor
 struct HomeViewModelTests {
@@ -30,7 +65,10 @@ struct HomeViewModelTests {
     private let loadReadIds = MockLoadReadArticleIdsUseCase()
     private let saveReadIds = MockSaveReadArticleIdsUseCase()
 
-    private func makeSUT(userInfoStore: UserInfoStoreProtocol = StubHomeUserInfoStore()) -> HomeViewModel {
+    private func makeSUT(
+        userInfoStore: UserInfoStoreProtocol = StubHomeUserInfoStore(),
+        widgetSummaryPublisher: TodayWidgetSummaryPublishing? = nil
+    ) -> HomeViewModel {
         let appState = AppState()
         appState.authState = .authenticated
         return HomeViewModel(
@@ -45,7 +83,8 @@ struct HomeViewModelTests {
             extractArticleDays: ExtractArticleDaysUseCaseImpl(),
             mergeDayArticleSummary: MergeDayArticleSummaryUseCaseImpl(),
             appState: appState,
-            userInfoStore: userInfoStore
+            userInfoStore: userInfoStore,
+            widgetSummaryPublisher: widgetSummaryPublisher
         )
     }
 
@@ -72,7 +111,8 @@ struct HomeViewModelTests {
     func loadTodaySuccess() async {
         setupSuccessScenario()
 
-        let sut = makeSUT()
+        let widgetPublisher = MockTodayWidgetSummaryPublisher()
+        let sut = makeSUT(widgetSummaryPublisher: widgetPublisher)
         await sut.loadToday()
 
         #expect(sut.homeState == .articles)
@@ -80,6 +120,8 @@ struct HomeViewModelTests {
         #expect(sut.subscribedNewsletters.count == 1)
         #expect(fetchTodayArticles.executeCallCount == 1)
         #expect(fetchNewsletters.executeCallCount == 1)
+        #expect(widgetPublisher.publishedSummaries.last?.totalCount == 2)
+        #expect(widgetPublisher.publishedSummaries.last?.unreadCount == 2)
     }
 
     @Test("loadToday sets guest state for guest user")
@@ -112,7 +154,8 @@ struct HomeViewModelTests {
         fetchTodayArticles.result = .failure(NSError(domain: "test", code: -1))
         fetchNewsletters.result = .success([])
 
-        let sut = makeSUT()
+        let widgetPublisher = MockTodayWidgetSummaryPublisher()
+        let sut = makeSUT(widgetSummaryPublisher: widgetPublisher)
         await sut.loadToday()
 
         #expect(sut.filteredArticles.isEmpty)
@@ -131,7 +174,8 @@ struct HomeViewModelTests {
             }
         }
 
-        let sut = makeSUT()
+        let widgetPublisher = MockTodayWidgetSummaryPublisher()
+        let sut = makeSUT(widgetSummaryPublisher: widgetPublisher)
         await sut.loadToday()
         #expect(sut.filteredArticles.count == 2)
 
@@ -141,13 +185,34 @@ struct HomeViewModelTests {
         #expect(saveReadIds.savedIds?.contains(10) == true)
         let readArticle = sut.filteredArticles.first(where: { $0.articleId == 10 })
         #expect(readArticle?.status == .read)
+        #expect(widgetPublisher.publishedSummaries.last?.unreadCount == 1)
+    }
+
+    @Test("과거 날짜의 읽음 처리는 오늘 위젯 요약을 변경하지 않는다")
+    func markPastArticleDoesNotUpdateWidget() async {
+        setupSuccessScenario()
+
+        let widgetPublisher = MockTodayWidgetSummaryPublisher()
+        let sut = makeSUT(widgetSummaryPublisher: widgetPublisher)
+        await sut.loadToday()
+        let publishCount = widgetPublisher.publishedSummaries.count
+
+        guard let yesterday = Calendar.current.date(byAdding: .day, value: -1, to: Date()) else {
+            Issue.record("어제 날짜 생성 실패")
+            return
+        }
+        sut.selectedDate = yesterday
+        await sut.markArticleAsRead(articleId: 10)
+
+        #expect(widgetPublisher.publishedSummaries.count == publishCount)
     }
 
     @Test("resetForAuthChange clears all state")
     func resetForAuthChange() async {
         setupSuccessScenario()
 
-        let sut = makeSUT()
+        let widgetPublisher = MockTodayWidgetSummaryPublisher()
+        let sut = makeSUT(widgetSummaryPublisher: widgetPublisher)
         await sut.loadToday()
         #expect(!sut.filteredArticles.isEmpty)
 
@@ -156,6 +221,7 @@ struct HomeViewModelTests {
         #expect(sut.filteredArticles.isEmpty)
         #expect(sut.subscribedNewsletters.isEmpty)
         #expect(sut.articlesByMonth.isEmpty)
+        #expect(widgetPublisher.clearCount == 1)
     }
 
     @Test("shouldReloadToday returns true when not loaded")
