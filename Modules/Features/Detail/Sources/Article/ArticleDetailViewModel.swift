@@ -14,7 +14,9 @@ import Observation
 @MainActor
 public final class ArticleDetailViewModel: ErrorHandling {
     var detail: DetailArticleDetail?
-    var isLoading: Bool = false
+    private var isFetching = false
+    private var isWebContentLoading = false
+    var isLoading: Bool { isFetching || isWebContentLoading }
     var isBookmarking: Bool = false
     public var currentError: AppError?
 
@@ -37,6 +39,8 @@ public final class ArticleDetailViewModel: ErrorHandling {
     private let fetchDetailUseCase: FetchArticleDetailUseCase
     private let toggleBookmarkUseCase: ToggleArticleBookmarkUseCase
     private let highlightRepository: DetailHighlightRepository
+    private let articleActivityPublisher: (any ArticleActivityPublishing)?
+    private let isPastArticle: Bool
 
     // MARK: - Computed Properties
 
@@ -51,26 +55,59 @@ public final class ArticleDetailViewModel: ErrorHandling {
         id: String,
         fetchDetailUseCase: FetchArticleDetailUseCase,
         toggleBookmarkUseCase: ToggleArticleBookmarkUseCase,
-        highlightRepository: DetailHighlightRepository
+        highlightRepository: DetailHighlightRepository,
+        articleActivityPublisher: (any ArticleActivityPublishing)? = nil,
+        isPastArticle: Bool = false
     ) {
         self.id = id
         self.fetchDetailUseCase = fetchDetailUseCase
         self.toggleBookmarkUseCase = toggleBookmarkUseCase
         self.highlightRepository = highlightRepository
+        self.articleActivityPublisher = articleActivityPublisher
+        self.isPastArticle = isPastArticle
     }
 
     // MARK: - Article Actions
 
     public func fetch() async {
-        await performAsync(feature: "articleDetail", operation: "fetch", loadingBinding: \.isLoading) {
-            let result = try await fetchDetailUseCase.execute(articleId: id)
-
-            // 하이라이트 로드
-            highlights = await highlightRepository.highlights(articleId: result.articleId)
-
-            // detail 설정
-            detail = result.detail
+        guard !isFetching, !Task.isCancelled else { return }
+        if detail != nil {
+            await startArticleActivityIfAvailable()
+            return
         }
+
+        isFetching = true
+        defer { isFetching = false }
+        let didFetch: Bool? = await performAsync(feature: "articleDetail", operation: "fetch") {
+            let result = try await fetchDetailUseCase.execute(articleId: id)
+            try Task.checkCancellation()
+            let loadedHighlights = await highlightRepository.highlights(articleId: result.articleId)
+            try Task.checkCancellation()
+            highlights = loadedHighlights
+            // API 로딩을 해제하기 전에 웹뷰 렌더링 대기를 시작한다.
+            isWebContentLoading = true
+            detail = result.detail
+            return true
+        }
+
+        isFetching = false
+        guard didFetch == true, !Task.isCancelled else { return }
+        await startArticleActivityIfAvailable()
+    }
+
+    func setWebContentLoading(_ isLoading: Bool) {
+        isWebContentLoading = isLoading
+    }
+
+    public func startArticleActivityIfAvailable() async {
+        guard !Task.isCancelled, let detail else { return }
+        await articleActivityPublisher?.startArticleActivity(
+            articleId: String(detail.articleId),
+            brandName: detail.brandName,
+            articleTitle: detail.articleTitle,
+            brandImageURL: detail.brandImageUrl,
+            isPastArticle: isPastArticle
+        )
     }
 
     public func bookmark() async {

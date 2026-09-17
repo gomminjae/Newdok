@@ -6,6 +6,7 @@ import FoundationKit
 
 public struct ArticleDetailView: View {
     @State private var viewModel: ArticleDetailViewModel
+    @Environment(\.scenePhase) private var scenePhase
 
     @State private var showBookmarkToast: Bool = false
     @State private var bookmarkToastMessage: String = ""
@@ -13,7 +14,6 @@ public struct ArticleDetailView: View {
     @State private var showHighlightList: Bool = false
     @State private var pendingHighlightRemovals: [String] = []
     @State private var showScrollToTop: Bool = false
-    @State private var isWebViewLoading: Bool = false
     @State private var webViewActions: [ArticleWebViewAction] = []
     @State private var renderer = WebViewHighlightRenderer()
 
@@ -42,7 +42,7 @@ public struct ArticleDetailView: View {
                         fontSize: $viewModel.fontSize,
                         showScrollToTop: $showScrollToTop,
                         pendingActions: $webViewActions,
-                        isLoading: $isWebViewLoading,
+                        onLoadingChanged: viewModel.setWebContentLoading,
                         disableHighlight: isPastArticle,
                         renderer: isPastArticle ? nil : renderer
                     )
@@ -53,7 +53,7 @@ public struct ArticleDetailView: View {
                     scrollToTopButton
                 }
 
-                if viewModel.isLoading || isWebViewLoading {
+                if viewModel.isLoading {
                     ProgressView()
                         .tint(Color.primaryNormal)
                         .accessibilityLabel("로딩 중")
@@ -67,7 +67,10 @@ public struct ArticleDetailView: View {
         .navigationBarTitleDisplayMode(.inline)
         .toolbar(.hidden, for: .navigationBar)
         .toolbar(.hidden, for: .tabBar)
-        .task { await viewModel.fetch() }
+        .task(id: scenePhase) {
+            guard scenePhase == .active else { return }
+            await viewModel.fetch()
+        }
         .task { await viewModel.bind(renderer: renderer) }
         .popup(isPresented: $showBookmarkToast) {
             ToastView(message: bookmarkToastMessage).padding(.bottom, 50)

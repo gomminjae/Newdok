@@ -16,6 +16,7 @@ import Bookmark
 import BookmarkInterface
 import Detail
 import DetailInterface
+import DetailDomain
 import Search
 import SearchInterface
 import Mypage
@@ -32,6 +33,8 @@ final class AppContainer {
         else { return nil }
         return WidgetHomeSummaryPublisher(store: store)
     }()
+
+    private let articleActivityPublisher = ArticleLiveActivityPublisher()
 
     private lazy var authBuilder: AuthBuildable = AuthBuilder(
         networkProvider: deps.networkProvider,
@@ -63,7 +66,8 @@ final class AppContainer {
         networkProvider: deps.networkProvider,
         highlightDataSource: deps.highlightDataSource,
         userInfoStore: deps.userInfoStore,
-        subscribePopupPreference: deps.subscribePopupPreference
+        subscribePopupPreference: deps.subscribePopupPreference,
+        articleActivityPublisher: articleActivityPublisher
     )
 
     private lazy var searchBuilder: SearchBuildable = SearchBuilder(networkProvider: deps.networkProvider)
@@ -84,8 +88,13 @@ final class AppContainer {
     }
 
     func signOut() async {
+        await articleActivityPublisher.endArticleActivities()
         await authBuilder.signOut()
         widgetHomeSummaryPublisher?.clearTodaySummary()
+    }
+
+    func selectArticleActivity(articleID: String?) {
+        articleActivityPublisher.selectArticle(articleID)
     }
 
     func loadExploreOptions() async throws {

@@ -10,17 +10,20 @@ final class DetailDIContainer {
     private let highlightDataSource: HighlightLocalDataSource
     private let userInfoStore: UserInfoStoreProtocol
     private let subscribePopupPreference: SubscribePopupStorable
+    private let articleActivityPublisher: (any ArticleActivityPublishing)?
 
     init(
         networkProvider: NetworkProviding,
         highlightDataSource: HighlightLocalDataSource,
         userInfoStore: UserInfoStoreProtocol,
-        subscribePopupPreference: SubscribePopupStorable
+        subscribePopupPreference: SubscribePopupStorable,
+        articleActivityPublisher: (any ArticleActivityPublishing)? = nil
     ) {
         self.network = networkProvider.makeService()
         self.highlightDataSource = highlightDataSource
         self.userInfoStore = userInfoStore
         self.subscribePopupPreference = subscribePopupPreference
+        self.articleActivityPublisher = articleActivityPublisher
     }
 
     func makeArticleRepository() -> DetailArticleRepository {
@@ -39,13 +42,15 @@ final class DetailDIContainer {
         BrandDetailViewModel(id: id, brandRepository: makeBrandRepository(), popupPreference: subscribePopupPreference, userInfoStore: userInfoStore)
     }
 
-    func makeArticleDetailViewModel(id: String) -> ArticleDetailViewModel {
+    func makeArticleDetailViewModel(id: String, isPast: Bool) -> ArticleDetailViewModel {
         let articleRepo = makeArticleRepository()
         return ArticleDetailViewModel(
             id: id,
             fetchDetailUseCase: FetchArticleDetailUseCaseImpl(articleRepository: articleRepo),
             toggleBookmarkUseCase: ToggleArticleBookmarkUseCaseImpl(articleRepository: articleRepo),
-            highlightRepository: makeHighlightRepository()
+            highlightRepository: makeHighlightRepository(),
+            articleActivityPublisher: articleActivityPublisher,
+            isPastArticle: isPast
         )
     }
 }

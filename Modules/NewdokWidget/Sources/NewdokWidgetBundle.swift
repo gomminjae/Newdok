@@ -5,5 +5,6 @@ import WidgetKit
 struct NewdokWidgetBundle: WidgetBundle {
     var body: some Widget {
         TodayWidget()
+        ArticleLiveActivityWidget()
     }
 }

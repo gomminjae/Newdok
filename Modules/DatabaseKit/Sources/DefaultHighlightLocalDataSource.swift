@@ -54,7 +54,10 @@ public final class DefaultHighlightLocalDataSource: HighlightLocalDataSource {
 
         if let disk = try? ModelContainer(
             for: schema,
-            configurations: ModelConfiguration(isStoredInMemoryOnly: false)
+            configurations: ModelConfiguration(
+                isStoredInMemoryOnly: false,
+                groupContainer: .none
+            )
         ) {
             self.context = ModelContext(disk)
             self.isPersistent = true

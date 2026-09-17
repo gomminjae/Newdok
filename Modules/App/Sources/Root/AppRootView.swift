@@ -54,6 +54,9 @@ struct AppRootView: View {
             AppState.shared.logout()
             showSessionExpiredPopup = true
         }
+        .onChange(of: appRouter.currentArticleID, initial: true) { _, articleID in
+            container.selectArticleActivity(articleID: articleID)
+        }
         .sessionExpiredPopup(isPresented: $showSessionExpiredPopup) {
             appRouter.navigate(to: .auth(.login))
         }

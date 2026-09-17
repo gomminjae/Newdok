@@ -40,6 +40,7 @@ let project = Project(
                     "CFBundleShortVersionString": "$(MARKETING_VERSION)",
                     "CFBundleVersion": "$(CURRENT_PROJECT_VERSION)",
                     "APP_GROUP_ID": "$(APP_GROUP_ID)",
+                    "NSSupportsLiveActivities": true,
                     "NSExtension": [
                         "NSExtensionPointIdentifier": "com.apple.widgetkit-extension"
                     ]

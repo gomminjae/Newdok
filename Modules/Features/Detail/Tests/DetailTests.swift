@@ -30,9 +30,64 @@ private extension UserInfo {
     )
 }
 
+@MainActor
+private final class StubArticleActivityPublisher: ArticleActivityPublishing {
+    private(set) var startedArticle: (id: String, brandName: String, title: String, imageURL: String?)?
+    private(set) var startCallCount = 0
+    private(set) var startedPastArticle = false
+
+    func startArticleActivity(
+        articleId: String,
+        brandName: String,
+        articleTitle: String,
+        brandImageURL: String?,
+        isPastArticle: Bool
+    ) async {
+        startCallCount += 1
+        startedPastArticle = isPastArticle
+        startedArticle = (articleId, brandName, articleTitle, brandImageURL)
+    }
+
+    func endArticleActivities() async {}
+}
+
+private actor SuspendedArticleFetch: FetchArticleDetailUseCase {
+    private var continuation: CheckedContinuation<Void, Never>?
+    private var startedWaiter: CheckedContinuation<Void, Never>?
+    private(set) var callCount = 0
+
+    func execute(articleId: String) async throws -> DetailArticleDetailResult {
+        callCount += 1
+        await withCheckedContinuation { continuation in
+            self.continuation = continuation
+            startedWaiter?.resume()
+            startedWaiter = nil
+        }
+        // 취소를 무시하고 응답하는 서비스도 ViewModel에서 차단해야 한다.
+        return DetailArticleDetailResult(detail: .sample, articleId: articleId)
+    }
+
+    func waitUntilStarted() async {
+        guard callCount == 0 else { return }
+        await withCheckedContinuation { startedWaiter = $0 }
+    }
+
+    func finish() {
+        continuation?.resume()
+        continuation = nil
+    }
+}
+
 @Suite("ArticleDetailViewModel Tests")
 @MainActor
 struct ArticleDetailViewModelTests {
+    @Test func existingActivity_decodesWithoutPastFlag() throws {
+        let data = Data(#"{"articleId":"42","brandName":"브랜드","articleTitle":"기존 활동"}"#.utf8)
+        let attributes = try JSONDecoder().decode(ArticleLiveActivityAttributes.self, from: data)
+        #expect(!attributes.isPastArticle)
+        #expect(attributes.deepLinkURL?.absoluteString == "newdok://article/42")
+    }
+
     private func makeSUT(id: String = "1") -> (
         vm: ArticleDetailViewModel,
         fetchDetail: MockFetchArticleDetailUseCase,
@@ -60,7 +115,7 @@ struct ArticleDetailViewModelTests {
             brandId: 1,
             brandName: "브랜드",
             articleHTML: "<p>내용</p>",
-            brandImageUrl: "",
+            brandImageUrl: "https://cdn.example.com/newsletter.png",
             isBookmarked: false
         )
         fetchDetail.result = .success(DetailArticleDetailResult(detail: detail, articleId: "42"))
@@ -70,6 +125,123 @@ struct ArticleDetailViewModelTests {
         #expect(fetchDetail.executedArticleId == "42")
         #expect(vm.detail?.articleTitle == "테스트 제목")
         #expect(vm.detail?.isBookmarked == false)
+    }
+
+    @Test(arguments: [false, true])
+    func fetch_success_startsArticleActivity(isPast: Bool) async {
+        let fetchDetail = MockFetchArticleDetailUseCase()
+        let activityPublisher = StubArticleActivityPublisher()
+        let vm = ArticleDetailViewModel(
+            id: "42",
+            fetchDetailUseCase: fetchDetail,
+            toggleBookmarkUseCase: MockToggleArticleBookmarkUseCase(),
+            highlightRepository: MockDetailHighlightRepository(),
+            articleActivityPublisher: activityPublisher,
+            isPastArticle: isPast
+        )
+        let detail = DetailArticleDetail(
+            articleTitle: "테스트 제목",
+            articleId: 42,
+            date: "2025-01-01",
+            brandId: 1,
+            brandName: "브랜드",
+            articleHTML: "<p>내용</p>",
+            brandImageUrl: "https://cdn.example.com/newsletter.png",
+            isBookmarked: false
+        )
+        fetchDetail.result = .success(DetailArticleDetailResult(detail: detail, articleId: "42"))
+
+        await vm.fetch()
+
+        #expect(activityPublisher.startedArticle?.id == "42")
+        #expect(activityPublisher.startedArticle?.brandName == "브랜드")
+        #expect(activityPublisher.startedArticle?.title == "테스트 제목")
+        #expect(activityPublisher.startedArticle?.imageURL == "https://cdn.example.com/newsletter.png")
+        #expect(activityPublisher.startedPastArticle == isPast)
+    }
+
+    @Test func fetch_reappearing_reusesDetailAndRestartsActivity() async {
+        let fetchDetail = MockFetchArticleDetailUseCase()
+        let activityPublisher = StubArticleActivityPublisher()
+        let vm = ArticleDetailViewModel(
+            id: "42",
+            fetchDetailUseCase: fetchDetail,
+            toggleBookmarkUseCase: MockToggleArticleBookmarkUseCase(),
+            highlightRepository: MockDetailHighlightRepository(),
+            articleActivityPublisher: activityPublisher
+        )
+        await vm.fetch()
+        vm.setWebContentLoading(false)
+        let previousDetail = vm.detail
+        fetchDetail.result = .failure(NSError(domain: "unexpected-refetch", code: 1))
+
+        await vm.fetch()
+
+        #expect(vm.detail == previousDetail)
+        #expect(vm.currentError == nil)
+        #expect(!vm.isLoading)
+        #expect(activityPublisher.startCallCount == 2)
+    }
+
+    @Test func loading_continuesFromAPIUntilWebViewFinishes() async {
+        let fetchDetail = SuspendedArticleFetch()
+        let vm = ArticleDetailViewModel(
+            id: "1",
+            fetchDetailUseCase: fetchDetail,
+            toggleBookmarkUseCase: MockToggleArticleBookmarkUseCase(),
+            highlightRepository: MockDetailHighlightRepository()
+        )
+        let task = Task { await vm.fetch() }
+        await fetchDetail.waitUntilStarted()
+        #expect(vm.isLoading)
+        #expect(vm.detail == nil)
+
+        await vm.fetch()
+        #expect(await fetchDetail.callCount == 1)
+        await fetchDetail.finish()
+        await task.value
+        #expect(vm.detail != nil)
+        #expect(vm.isLoading)
+
+        vm.setWebContentLoading(false)
+        #expect(!vm.isLoading)
+    }
+
+    @Test func fetch_cancelledResponseDoesNotPublishDetailOrActivity() async {
+        let fetchDetail = SuspendedArticleFetch()
+        let publisher = StubArticleActivityPublisher()
+        let vm = ArticleDetailViewModel(
+            id: "1",
+            fetchDetailUseCase: fetchDetail,
+            toggleBookmarkUseCase: MockToggleArticleBookmarkUseCase(),
+            highlightRepository: MockDetailHighlightRepository(),
+            articleActivityPublisher: publisher
+        )
+        let task = Task { await vm.fetch() }
+        await fetchDetail.waitUntilStarted()
+        task.cancel()
+        await fetchDetail.finish()
+        await task.value
+
+        #expect(vm.detail == nil)
+        #expect(vm.currentError == nil)
+        #expect(!vm.isLoading)
+        #expect(publisher.startCallCount == 0)
+    }
+
+    @Test func fetch_failureCanRetryWithoutStuckLoading() async {
+        let (vm, fetchDetail, _, _) = makeSUT()
+        fetchDetail.result = .failure(NSError(domain: "test", code: -1))
+        await vm.fetch()
+        #expect(!vm.isLoading)
+
+        fetchDetail.result = .success(DetailArticleDetailResult(detail: .sample, articleId: "1"))
+        await vm.fetch()
+        #expect(vm.detail != nil)
+        #expect(vm.currentError == nil)
+        #expect(vm.isLoading)
+        vm.setWebContentLoading(false)
+        #expect(!vm.isLoading)
     }
 
     @Test func fetch_failure() async {

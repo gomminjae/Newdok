@@ -2,6 +2,7 @@ import SwiftUI
 import NetworkKit
 import DatabaseKit
 import Shared
+import DetailDomain
 import DetailInterface
 
 public struct DetailBuilder: DetailBuildable {
@@ -11,13 +12,15 @@ public struct DetailBuilder: DetailBuildable {
         networkProvider: NetworkProviding,
         highlightDataSource: HighlightLocalDataSource,
         userInfoStore: UserInfoStoreProtocol,
-        subscribePopupPreference: SubscribePopupStorable
+        subscribePopupPreference: SubscribePopupStorable,
+        articleActivityPublisher: (any ArticleActivityPublishing)? = nil
     ) {
         self.container = DetailDIContainer(
             networkProvider: networkProvider,
             highlightDataSource: highlightDataSource,
             userInfoStore: userInfoStore,
-            subscribePopupPreference: subscribePopupPreference
+            subscribePopupPreference: subscribePopupPreference,
+            articleActivityPublisher: articleActivityPublisher
         )
     }
 
@@ -46,7 +49,7 @@ public struct DetailBuilder: DetailBuildable {
     ) -> AnyView {
         AnyView(
             ArticleDetailView(
-                viewModel: container.makeArticleDetailViewModel(id: id),
+                viewModel: container.makeArticleDetailViewModel(id: id, isPast: isPast),
                 isPastArticle: isPast,
                 onBack: onBack
             )

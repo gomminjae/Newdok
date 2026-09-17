@@ -3,7 +3,7 @@
 //  DetailDomain
 //
 
-public struct DetailArticleDetail: Equatable {
+public struct DetailArticleDetail: Equatable, Sendable {
     public let articleTitle: String
     public let articleId: Int
     public let date: String

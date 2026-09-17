@@ -33,7 +33,7 @@ struct ArticleWebView: UIViewRepresentable {
     @Binding var fontSize: CGFloat
     @Binding var showScrollToTop: Bool
     @Binding var pendingActions: [ArticleWebViewAction]
-    @Binding var isLoading: Bool
+    let onLoadingChanged: (Bool) -> Void
     var disableHighlight: Bool = false
     var renderer: WebViewHighlightRenderer?
 
@@ -111,7 +111,7 @@ struct ArticleWebView: UIViewRepresentable {
                 disableHighlight: disableHighlight
             )
 
-            uiView.loadHTMLString(htmlBuilder.build(), baseURL: nil)
+            context.coordinator.currentNavigation = uiView.loadHTMLString(htmlBuilder.build(), baseURL: nil)
         } else if context.coordinator.lastFontSize != fontSize {
             context.coordinator.lastFontSize = fontSize
             uiView.evaluateJavaScript("adjustFontSize(\(fontSize));") { _, error in
@@ -130,29 +130,34 @@ struct ArticleWebView: UIViewRepresentable {
         var lastFontSize: CGFloat?
         var lastHighlightCount: Int = 0
         var needsReload: Bool = false
+        var currentNavigation: WKNavigation?
 
         init(_ parent: ArticleWebView) {
             self.parent = parent
         }
 
         func webView(_ webView: WKWebView, didStartProvisionalNavigation navigation: WKNavigation!) {
-            parent.isLoading = true
+            currentNavigation = navigation
+            parent.onLoadingChanged(true)
         }
 
         func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
-            parent.isLoading = false
+            guard navigation === currentNavigation else { return }
+            parent.onLoadingChanged(false)
         }
 
         func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {
-            parent.isLoading = webView.isLoading
+            guard navigation === currentNavigation else { return }
+            parent.onLoadingChanged(false)
         }
 
         func webView(_ webView: WKWebView, didFailProvisionalNavigation navigation: WKNavigation!, withError error: Error) {
-            parent.isLoading = webView.isLoading
+            guard navigation === currentNavigation else { return }
+            parent.onLoadingChanged(false)
         }
 
         func webViewWebContentProcessDidTerminate(_ webView: WKWebView) {
-            parent.isLoading = false
+            parent.onLoadingChanged(false)
             needsReload = true
             lastContentKey = nil
         }

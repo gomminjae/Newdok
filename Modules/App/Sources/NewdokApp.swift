@@ -57,6 +57,16 @@ struct NewdokApp: App {
 
                 if url.scheme == "newdok", url.host == "home" {
                     appRouter.navigate(to: .home)
+                    return
+                }
+
+                if url.scheme == "newdok", url.host == "article",
+                   let articleID = url.pathComponents.dropFirst().first,
+                   !articleID.isEmpty,
+                   let numericID = Int(articleID), numericID > 0 {
+                    let isPast = URLComponents(url: url, resolvingAgainstBaseURL: false)?
+                        .queryItems?.first(where: { $0.name == "past" })?.value == "true"
+                    appRouter.navigate(to: .articleDetail(id: String(numericID), isPast: isPast))
                 }
             }
         }

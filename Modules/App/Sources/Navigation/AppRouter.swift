@@ -5,6 +5,7 @@ import Shared
 enum AppRoute {
     case tab(NewDokTab)
     case home
+    case articleDetail(id: String, isPast: Bool = false)
     case explore(ExploreLanding)
     case editProfile
     case auth(AuthRoute)
@@ -24,12 +25,33 @@ final class AppRouter {
 
     private(set) var exploreLanding: ExploreLanding?
 
+    var currentArticleID: String? {
+        guard authRoute == nil else { return nil }
+        switch selectedTab {
+        case .home:
+            if case let .articleDetail(id, _) = homePath.last { return id }
+        case .explore:
+            if case let .articleDetail(id, _) = explorePath.last { return id }
+        case .subscribe:
+            if case let .articleDetail(id, _) = subscribePath.last { return id }
+        case .bookmark:
+            if case let .articleDetail(id, _) = bookmarkPath.last { return id }
+        case .profile:
+            break
+        }
+        return nil
+    }
+
     func navigate(to route: AppRoute) {
         switch route {
         case let .tab(tab):
             selectedTab = tab
         case .home:
             homePath.removeAll()
+            selectedTab = .home
+        case let .articleDetail(id, isPast):
+            guard currentArticleID != id else { return }
+            homePath = [.articleDetail(id: id, isPast: isPast)]
             selectedTab = .home
         case let .explore(landing):
             explorePath.removeAll()

@@ -39,6 +39,7 @@ let project = Project(
                 with: [
                     "API_BASE_URL": "$(API_BASE_URL)",
                     "APP_GROUP_ID": "$(APP_GROUP_ID)",
+                    "NSSupportsLiveActivities": true,
                     "KAKAO_NATIVE_APP_KEY": "$(KAKAO_NATIVE_APP_KEY)",
                     "CFBundleDisplayName": "$(APP_DISPLAY_NAME)",
                     "CFBundleName": "$(APP_DISPLAY_NAME)",
