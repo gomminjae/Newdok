@@ -57,6 +57,12 @@ SwiftUI와 Tuist를 사용하는 모듈형 iOS 뉴스레터 앱.
 - 단위 테스트는 Swift Testing을 기본으로 사용한다. XCUI 기반 UI 테스트처럼 지원되지 않는 경우에만 XCTest를 사용한다.
 - 새로 만들거나 수정하는 비동기 테스트는 실제 네트워크, 임의의 sleep, 실행 순서, 공유 전역 상태에 의존하지 않는다. 필요한 이벤트 순서는 actor나 continuation으로 제어한다.
 
+## Code Intelligence
+
+- 코드 관계 탐색은 프로젝트 로컬 CodeGraph를 활용한다. 설정·비교 절차는 `docs/code-intelligence.md`를 따른다.
+- 그래프의 누락·모호한 호출·오래된 응답은 원문과 Builder/DI에서 확인한다. 그래프 결과만으로 미사용 코드를 삭제하거나 테스트를 생략하지 않는다.
+- 모듈을 추가하면 `codegraph.json`의 포함 경로를 갱신하고 `python3 scripts/check-codegraph.py`로 Swift 소스 누락·중복과 제외 경로를 검증한다.
+
 ## Product & Code Conventions
 
 - 배포 앱은 iPhone 전용이다. `Modules/App/Project.swift`의 `destinations: [.iPhone]`을 유지하고, 사용자의 명시적 요청 없이 iPad 지원을 추가하거나 공통 `.iOS` 설정으로 되돌리지 않는다.

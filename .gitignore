@@ -39,3 +39,10 @@ fastlane/test_output
 *.mobileprovision
 *.p12
 fastlane/.env
+
+# Local code intelligence indexes, caches, and logs (configuration stays tracked)
+.codegraph/
+.codegraph-*/
+.codebase-memory/
+.serena/*
+!.serena/project.yml

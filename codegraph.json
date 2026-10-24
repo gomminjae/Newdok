@@ -1,0 +1,39 @@
+{
+  "include": [
+    "Modules/App/",
+    "Modules/NetworkKit/",
+    "Modules/DesignSystem/",
+    "Modules/Shared/",
+    "Modules/FoundationKit/",
+    "Modules/DatabaseKit/",
+    "Modules/Features/Auth/",
+    "Modules/Features/Home/",
+    "Modules/Features/Launch/",
+    "Modules/Features/MyPage/",
+    "Modules/Features/Explore/",
+    "Modules/Features/Bookmark/",
+    "Modules/Features/Search/",
+    "Modules/Features/Subscribe/",
+    "Modules/Features/Detail/"
+  ],
+  "exclude": [
+    ".claude/",
+    ".omc/",
+    ".serena/",
+    ".codebase-memory/",
+    "Configurations/",
+    "Modules/App/Configs/",
+    "private_keys/",
+    "**/Derived/",
+    "**/.build/",
+    "**/build/",
+    "**/*.xcodeproj/",
+    "**/*.xcworkspace/",
+    "**/*.xcconfig",
+    "**/.env*",
+    "**/*.p8",
+    "**/*.p12",
+    "**/*.cer",
+    "**/*.mobileprovision"
+  ]
+}

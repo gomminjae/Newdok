@@ -1,0 +1,34 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "mcp": {
+    "servers": {
+      "codegraph": {
+        "type": "local",
+        "command": ["mise", "exec", "--", "codegraph", "serve", "--mcp"],
+        "cwd": ".",
+        "environment": {
+          "CODEGRAPH_TELEMETRY": "0",
+          "DO_NOT_TRACK": "1"
+        },
+        "codemode": false,
+        "disabled": false
+      },
+      "serena": {
+        "type": "local",
+        "command": ["sh", "./scripts/serena-mcp.sh"],
+        "cwd": ".",
+        "disabled": true,
+        "timeout": { "startup": 120000 }
+      },
+      "codebase-memory": {
+        "type": "local",
+        "command": ["mise", "exec", "--", "codebase-memory-mcp", "--tool-profile=analysis"],
+        "cwd": ".",
+        "environment": {
+          "CBM_ALLOWED_ROOT": "."
+        },
+        "disabled": true
+      }
+    }
+  }
+}
