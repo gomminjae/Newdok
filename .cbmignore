@@ -1,0 +1,21 @@
+# Keep the comparison index scoped to first-party code and documentation.
+.claude/
+.omc/
+.serena/
+.codegraph/
+.codegraph-*/
+.codebase-memory/
+Configurations/
+Modules/App/Configs/
+private_keys/
+**/Derived/
+**/.build/
+**/build/
+**/*.xcodeproj/
+**/*.xcworkspace/
+**/*.xcconfig
+**/.env*
+**/*.p8
+**/*.p12
+**/*.cer
+**/*.mobileprovision
