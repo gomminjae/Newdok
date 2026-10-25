@@ -191,6 +191,8 @@ public struct ExploreView: View {
             dayText: viewModel.dayText,
             industries: viewModel.industries,
             days: viewModel.days,
+            optionsLoadState: viewModel.optionsLoadState,
+            onLoadOptions: viewModel.loadOptions,
             newsletters: viewModel.allNewsletters,
             onSort: {
                 await viewModel.handleSort()

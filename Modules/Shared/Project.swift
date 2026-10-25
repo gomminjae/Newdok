@@ -1,4 +1,4 @@
 import ProjectDescription
 import ProjectDescriptionHelpers
 
-let project = Project.module(name: "Shared")
+let project = Project.module(name: "Shared", hasTests: true)

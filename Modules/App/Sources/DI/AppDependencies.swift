@@ -18,7 +18,7 @@ final class AppDependencies {
         networkProvider: NetworkProviding = NetworkProvider(),
         highlightDataSource: HighlightLocalDataSource = DefaultHighlightLocalDataSource.shared,
         userInfoStore: UserInfoStoreProtocol = UserInfoStore.shared,
-        selectableItemStore: SelectableItemStoreProtocol = SelectableItemStore.shared,
+        selectableItemStore: SelectableItemStoreProtocol? = nil,
         tokenStorage: TokenStorageProtocol = TokenStore.shared,
         appState: AppState = .shared,
         subscribePopupPreference: SubscribePopupStorable = SubscribePopupPreference.shared,
@@ -27,7 +27,9 @@ final class AppDependencies {
         self.networkProvider = networkProvider
         self.highlightDataSource = highlightDataSource
         self.userInfoStore = userInfoStore
-        self.selectableItemStore = selectableItemStore
+        self.selectableItemStore = selectableItemStore ?? SelectableItemStore(
+            fetchOptionsUseCase: FetchSelectableOptionsUseCaseImpl(network: networkProvider.makeService())
+        )
         self.tokenStorage = tokenStorage
         self.appState = appState
         self.subscribePopupPreference = subscribePopupPreference

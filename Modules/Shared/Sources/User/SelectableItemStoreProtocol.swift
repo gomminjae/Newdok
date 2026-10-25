@@ -9,11 +9,12 @@ import Foundation
 
 @MainActor
 public protocol SelectableItemStoreProtocol: Sendable {
+    var loadState: SelectableOptionsLoadState { get }
     var interests: [SelectableItem] { get }
     var industries: [SelectableItem] { get }
     var days: [SelectableItem] { get }
 
-    func loadOptions(interests: [SelectableItem], industries: [SelectableItem], days: [SelectableItem])
+    func loadIfNeeded() async throws
     func list(for category: SelectableCategoryType) -> [SelectableItem]
     func name(for id: Int, in category: SelectableCategoryType) -> String
     func id(for name: String, in category: SelectableCategoryType) -> Int?

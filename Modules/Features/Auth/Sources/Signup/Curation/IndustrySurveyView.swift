@@ -10,14 +10,6 @@ import DesignSystem
 import AuthDomain
 
 public struct InterestSelectionView: View {
-    let interestMap: [String: String] = [
-        "1": "경제·시사", "2": "비즈니스", "3": "과학·기술", "4": "트렌드", "5": "재테크",
-        "6": "콘텐츠", "7": "라이프스타일", "8": "취미·자기계발", "9": "건강·의학", "10": "멘탈케어",
-        "11": "푸드·드링크", "12": "자연·환경", "13": "리빙·인테리어", "14": "미술·디자인", "15": "음악",
-        "16": "게임·스포츠", "17": "콘서트·공연", "18": "문화", "19": "문학·도서", "20": "언어",
-        "21": "영화", "22": "지역·여행", "23": "가족", "24": "쇼핑", "25": "반려동물", "26": "사회공헌"
-    ]
-
     let columns = [
         GridItem(.flexible(), spacing: 12),
         GridItem(.flexible(), spacing: 12)
@@ -40,23 +32,28 @@ public struct InterestSelectionView: View {
                 .foregroundColor(Color.captionNeutral)
                 .padding(.top, 8)
 
-            ScrollView {
-                LazyVGrid(columns: columns, spacing: 12) {
-                    ForEach(interestMap.sorted(by: { $0.key < $1.key }), id: \.key) { key, value in
-                        InterestButton(
-                            title: value,
-                            isSelected: viewModel.selectedInterests.contains(key)
-                        ) {
-                            withAnimation {
-                                viewModel.toggleInterest(key)
+            if viewModel.optionsLoadState == .loaded && !viewModel.interests.isEmpty {
+                ScrollView {
+                    LazyVGrid(columns: columns, spacing: 12) {
+                        ForEach(viewModel.interests) { item in
+                            InterestButton(
+                                title: item.name,
+                                isSelected: viewModel.selectedInterests.contains(String(item.id))
+                            ) {
+                                withAnimation {
+                                    viewModel.toggleInterest(String(item.id))
+                                }
                             }
+                            .animation(.easeInOut, value: viewModel.selectedInterests)
                         }
-                        .animation(.easeInOut, value: viewModel.selectedInterests)
                     }
+                    .padding(.top, 32)
                 }
-                .padding(.top, 32)
+                .scrollIndicators(.hidden)
+            } else {
+                SelectableOptionsStatusView(state: viewModel.optionsLoadState, onRetry: viewModel.loadOptions)
+                Spacer()
             }
-            .scrollIndicators(.hidden)
 
             Button(action: {
                 viewModel.submitInterests()
@@ -74,16 +71,17 @@ public struct InterestSelectionView: View {
                 .background(
                     viewModel.isCurationLoading
                         ? Color.primaryBgSubtle
-                        : (viewModel.selectedInterests.count >= 3 ? Color.primaryNormal : Color.lineNeutral)
+                        : (viewModel.canSubmitInterests ? Color.primaryNormal : Color.lineNeutral)
                 )
-                .foregroundColor(viewModel.selectedInterests.count >= 3 ? .white : Color.grayLight)
+                .foregroundColor(viewModel.canSubmitInterests ? .white : Color.grayLight)
                 .cornerRadius(4)
             }
-            .disabled(viewModel.selectedInterests.count < 3 || viewModel.isCurationLoading)
+            .disabled(!viewModel.canSubmitInterests)
             .padding(.top, 34)
             .padding(.bottom, 20)
         }
         .padding(.horizontal, 24)
+        .task { try? await viewModel.loadOptions() }
     }
 }
 

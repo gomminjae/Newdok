@@ -15,8 +15,12 @@ public struct EditInterestView: View {
     private let onBack: () -> Void
 
     @State private var selectedIds: Set<Int> = []
+    @State private var hasInitializedSelection = false
 
     private var interests: [SelectableItem] { viewModel.interests }
+    private var unavailableIds: [Int] {
+        selectedIds.subtracting(Set(interests.map(\.id))).sorted()
+    }
     private let columns = [
         GridItem(.flexible(), spacing: 12),
         GridItem(.flexible(), spacing: 12)
@@ -45,28 +49,44 @@ public struct EditInterestView: View {
             .padding(.top, 24)
             .padding(.bottom, 28)
 
-            ScrollView {
-                LazyVGrid(columns: columns, spacing: 12) {
-                    ForEach(interests, id: \.id) { item in
-                        Button(action: {
-                            toggle(id: item.id)
-                        }) {
-                            Text(item.name)
-                                .font(.hanSansNeo(14, .medium))
-                                .frame(maxWidth: .infinity)
-                                .frame(height: 48)
-                                .background(Color.white)
-                                .foregroundColor(selectedIds.contains(item.id) ? Color.primaryNormal : Color.captionNeutral)
-                                .overlay(
-                                    RoundedRectangle(cornerRadius: 4)
-                                        .stroke(selectedIds.contains(item.id) ? Color.primaryNormal : Color.lineNeutral)
-                                )
-                                .cornerRadius(4)
+            if viewModel.optionsLoadState == .loaded && !interests.isEmpty {
+                ScrollView {
+                    LazyVGrid(columns: columns, spacing: 12) {
+                        ForEach(interests, id: \.id) { item in
+                            Button(action: {
+                                toggle(id: item.id)
+                            }) {
+                                Text(item.name)
+                                    .font(.hanSansNeo(14, .medium))
+                                    .frame(maxWidth: .infinity)
+                                    .frame(height: 48)
+                                    .background(Color.white)
+                                    .foregroundColor(selectedIds.contains(item.id) ? Color.primaryNormal : Color.captionNeutral)
+                                    .overlay(
+                                        RoundedRectangle(cornerRadius: 4)
+                                            .stroke(selectedIds.contains(item.id) ? Color.primaryNormal : Color.lineNeutral)
+                                    )
+                                    .cornerRadius(4)
+                            }
+                        }
+                        ForEach(unavailableIds, id: \.self) { id in
+                            Button {
+                                toggle(id: id)
+                            } label: {
+                                Text("이전 관심사 \(id) · 선택 해제")
+                                    .font(.hanSansNeo(14, .medium))
+                                    .frame(maxWidth: .infinity, minHeight: 48)
+                                    .contentShape(Rectangle())
+                            }
+                            .accessibilityLabel("현재 목록에 없는 관심사 \(id) 선택 해제")
                         }
                     }
+                    .padding(.horizontal, 24)
+                    .padding(.bottom, 100) // 버튼 공간 확보
                 }
-                .padding(.horizontal, 24)
-                .padding(.bottom, 100) // 버튼 공간 확보
+            } else {
+                SelectableOptionsStatusView(state: viewModel.optionsLoadState, onRetry: viewModel.loadOptions)
+                Spacer()
             }
 
             Button(action: {
@@ -92,26 +112,24 @@ public struct EditInterestView: View {
                 .background(
                     viewModel.isInterestUpdating
                         ? Color.primaryBgSubtle
-                        : (selectedIds.count >= 3 ? Color.primaryNormal : Color.bgTertiary)
+                        : (viewModel.canUpdateInterests(ids: selectedIds) ? Color.primaryNormal : Color.bgTertiary)
                 )
-                .foregroundColor(selectedIds.count >= 3 ? .white : Color.graySubtle)
+                .foregroundColor(viewModel.canUpdateInterests(ids: selectedIds) ? .white : Color.graySubtle)
                 .cornerRadius(4)
                 .padding(.horizontal, 20)
                 .padding(.vertical, 12)
             }
-            .disabled(selectedIds.count < 3 || viewModel.isInterestUpdating)
+            .disabled(!viewModel.canUpdateInterests(ids: selectedIds))
         }
-        .onAppear {
-            if let userInterests = viewModel.user?.interests {
-                selectedIds = Set(userInterests.map { $0.id })
-            } else {
-                Task {
-                    await viewModel.fetchuserInfo()
-                    if let userInterests = viewModel.user?.interests {
-                        selectedIds = Set(userInterests.map { $0.id })
-                    }
-                }
+        .task { try? await viewModel.loadOptions() }
+        .task {
+            guard !hasInitializedSelection else { return }
+            if viewModel.user == nil {
+                await viewModel.fetchuserInfo()
             }
+            guard !Task.isCancelled, !hasInitializedSelection else { return }
+            selectedIds = Set(viewModel.user?.interests.map(\.id) ?? [])
+            hasInitializedSelection = true
         }
         .navigationBarBackButtonHidden(true)
         .navigationBarTitleDisplayMode(.inline)
@@ -140,6 +158,7 @@ public struct EditInterestView: View {
     }
 
     private func toggle(id: Int) {
+        hasInitializedSelection = true
         if selectedIds.contains(id) {
             selectedIds.remove(id)
         } else {

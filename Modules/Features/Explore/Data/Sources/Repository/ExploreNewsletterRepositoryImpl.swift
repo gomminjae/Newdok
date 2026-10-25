@@ -29,9 +29,4 @@ public final class ExploreNewsletterRepositoryImpl: ExploreNewsletterRepository 
         let dto = ExploreRecommendedNewsletterDTO(union: union, intersection: intersection)
         return dto.toDomain()
     }
-
-    public func fetchOptionList() async throws -> ExploreOptionList {
-        let response = try await network.request(FetchExploreOptionList())
-        return response.toDomain()
-    }
 }

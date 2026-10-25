@@ -67,7 +67,27 @@ public final class SignupViewModel: ErrorHandling {
         selectableItemStore.list(for: .industry)
     }
 
+    var interests: [SelectableItem] {
+        selectableItemStore.list(for: .interest)
+    }
+
+    var optionsLoadState: SelectableOptionsLoadState { selectableItemStore.loadState }
+
+    func loadOptions() async throws {
+        try await selectableItemStore.loadIfNeeded()
+    }
+
+    var canContinueIndustry: Bool {
+        optionsLoadState == .loaded && industries.contains { String($0.id) == myIndustry }
+    }
+
+    var canSubmitInterests: Bool {
+        canContinueIndustry && !isCurationLoading && selectedInterests.count >= 3
+            && selectedInterests.isSubset(of: Set(interests.map { String($0.id) }))
+    }
+
     public func goToNextStep() {
+        if currentStep == .myIndustry && !canContinueIndustry { return }
         if let next = SignupStep(rawValue: currentStep.rawValue + 1) {
             currentStep = next
         }
@@ -89,6 +109,7 @@ public final class SignupViewModel: ErrorHandling {
     }
 
     func submitInterests() {
+        guard canSubmitInterests else { return }
         isCurationLoading = true
         recommendedPost = []
         goToNextStep()

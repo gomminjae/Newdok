@@ -47,7 +47,17 @@ struct ExploreExampleApp: App {
             transformRecommendationUseCase: TransformExploreRecommendationUseCaseImpl(),
             prioritizeInterestsUseCase: PrioritizeInterestsUseCaseImpl(),
             userInfoStore: UserInfoStore.shared,
-            selectableItemStore: SelectableItemStore.shared
+            selectableItemStore: SelectableItemStore(fetchOptionsUseCase: ExampleOptionsFetcher())
+        )
+    }
+}
+
+private struct ExampleOptionsFetcher: FetchSelectableOptionsUseCase {
+    func execute() async throws -> SelectableOptions {
+        SelectableOptions(
+            interests: [.init(id: 1, name: "과학·기술")],
+            industries: [.init(id: 1, name: "IT")],
+            days: [.init(id: 1, name: "월요일"), .init(id: 2, name: "화요일")]
         )
     }
 }

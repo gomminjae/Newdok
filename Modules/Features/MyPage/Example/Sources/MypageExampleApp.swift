@@ -41,7 +41,7 @@ struct MypageExampleApp: App {
             updateNicknameUseCase: MockUpdateMypageNicknameUseCase(),
             updateInterestsUseCase: MockUpdateMypageInterestsUseCase(),
             updateIndustryUseCase: MockUpdateMypageIndustryUseCase(),
-            selectableItemStore: SelectableItemStore.shared,
+            selectableItemStore: SelectableItemStore(fetchOptionsUseCase: ExampleOptionsFetcher()),
             userInfoStore: UserInfoStore.shared
         )
     }
@@ -58,4 +58,14 @@ private extension UserInfo {
         industryId: 1,
         interestIds: [1, 2, 3]
     )
+}
+
+private struct ExampleOptionsFetcher: FetchSelectableOptionsUseCase {
+    func execute() async throws -> SelectableOptions {
+        SelectableOptions(
+            interests: [.init(id: 1, name: "경제·시사"), .init(id: 2, name: "비즈니스"), .init(id: 3, name: "과학·기술")],
+            industries: [.init(id: 1, name: "IT")],
+            days: [.init(id: 1, name: "월요일")]
+        )
+    }
 }

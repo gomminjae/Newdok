@@ -84,6 +84,11 @@ struct FilterBottomSheet: View {
                     .padding(.bottom, L.titleToChips)
 
                 // ⬇️ Layout 컨테이너는 callAsFunction로 호출해야 View가 됩니다.
+                if industries.isEmpty {
+                    Text("선택 가능한 산업이 없습니다.")
+                        .font(.hanSansNeo(14, .medium))
+                        .foregroundStyle(Color.captionNeutral)
+                }
                 FlowRowsLayout(spacing: L.chipRowSpacing).callAsFunction {
                     ForEach(industries, id: \.id) { item in
                         SelectableChip(
@@ -106,6 +111,11 @@ struct FilterBottomSheet: View {
                     .foregroundColor(Color.captionNeutral)
                     .padding(.bottom, L.titleToChips)
 
+                if weekdays.isEmpty {
+                    Text("선택 가능한 발행요일이 없습니다.")
+                        .font(.hanSansNeo(14, .medium))
+                        .foregroundStyle(Color.captionNeutral)
+                }
                 FlowRowsLayout(spacing: L.chipRowSpacing).callAsFunction {
                     ForEach(weekdays) { item in
                         SelectableChip(

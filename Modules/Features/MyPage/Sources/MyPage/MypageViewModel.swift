@@ -98,7 +98,7 @@ public final class MypageViewModel: ErrorHandling {
     }
 
     public func updateIndustry(id: Int) async -> Bool {
-        guard !isIndustryUpdating else { return false }
+        guard canUpdateIndustry(id: id) else { return false }
         isIndustryUpdating = true
         defer { isIndustryUpdating = false }
 
@@ -114,7 +114,7 @@ public final class MypageViewModel: ErrorHandling {
     }
 
     public func updateInterests(ids: [Int]) async -> Bool {
-        guard !isInterestUpdating else { return false }
+        guard canUpdateInterests(ids: Set(ids)) else { return false }
         isInterestUpdating = true
         defer { isInterestUpdating = false }
 
@@ -144,5 +144,20 @@ public final class MypageViewModel: ErrorHandling {
 
     var interests: [SelectableItem] {
         selectableItemStore.list(for: .interest)
+    }
+
+    var optionsLoadState: SelectableOptionsLoadState { selectableItemStore.loadState }
+
+    func loadOptions() async throws {
+        try await selectableItemStore.loadIfNeeded()
+    }
+
+    func canUpdateIndustry(id: Int?) -> Bool {
+        optionsLoadState == .loaded && !isIndustryUpdating && industries.contains { $0.id == id }
+    }
+
+    func canUpdateInterests(ids: Set<Int>) -> Bool {
+        optionsLoadState == .loaded && !isInterestUpdating && ids.count >= 3
+            && ids.isSubset(of: Set(interests.map(\.id)))
     }
 }

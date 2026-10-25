@@ -38,13 +38,17 @@ struct MyIndustryView: View {
                 .foregroundStyle(Color.captionNeutral)
                 .padding(.top, 42)
             
-            DropdownSelector(
-                placeholder: "산업군을 선택하세요", 
-                options: industryOptions, 
-                onOptionSelected: { selected in
-                    viewModel.myIndustry = selected.key
-                }, selectedKey: viewModel.myIndustry.isEmpty ? nil : viewModel.myIndustry
-            )
+            if viewModel.optionsLoadState == .loaded && !industryOptions.isEmpty {
+                DropdownSelector(
+                    placeholder: "산업군을 선택하세요",
+                    options: industryOptions,
+                    onOptionSelected: { selected in
+                        viewModel.myIndustry = selected.key
+                    }, selectedKey: viewModel.myIndustry.isEmpty ? nil : viewModel.myIndustry
+                )
+            } else {
+                SelectableOptionsStatusView(state: viewModel.optionsLoadState, onRetry: viewModel.loadOptions)
+            }
 
             Spacer()
             
@@ -53,14 +57,15 @@ struct MyIndustryView: View {
                     .font(.hanSansNeo(14, .bold))
                     .frame(maxWidth: .infinity)
                     .frame(height: 48)
-                    .foregroundColor(viewModel.myIndustry == "" ? Color.grayLight : .white)
-                    .background(viewModel.myIndustry == "" ? Color.lineNeutral : Color.primaryNormal)
+                    .foregroundColor(viewModel.canContinueIndustry ? .white : Color.grayLight)
+                    .background(viewModel.canContinueIndustry ? Color.primaryNormal : Color.lineNeutral)
                     .cornerRadius(4)
             }
-            .disabled(viewModel.myIndustry == "")
+            .disabled(!viewModel.canContinueIndustry)
             .padding(.bottom, 20)
         }
         .padding(.horizontal, 24)
+        .task { try? await viewModel.loadOptions() }
     }
 }
 

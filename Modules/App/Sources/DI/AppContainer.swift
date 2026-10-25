@@ -75,10 +75,6 @@ final class AppContainer {
         await authBuilder.signOut()
     }
 
-    func loadExploreOptions() async throws {
-        try await exploreBuilder.loadOptions()
-    }
-
     func makeSplashView() -> some View {
         SplashView()
     }

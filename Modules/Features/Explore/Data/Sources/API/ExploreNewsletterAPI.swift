@@ -4,7 +4,6 @@ import ExploreDomain
 
 private enum ExploreBaseURL {
     static var newsletters: URL { URL(string: "\(APIEnvironment.baseURL)/newsletters")! }
-    static var options: URL { URL(string: "\(APIEnvironment.baseURL)/options")! }
 }
 
 struct FetchExploreRecommendUnion: APIRequest {
@@ -45,14 +44,6 @@ struct FetchGuestExploreAllNewsletterBrands: APIRequest {
     var path: String { "/non-member" }
     var method: HTTPMethod { .get }
     var task: RequestTask { .query(brandQuery(orderOpt: orderOpt, industry: industry, day: day)) }
-}
-
-struct FetchExploreOptionList: APIRequest {
-    typealias Response = ExploreOptionListDTO
-    var baseURL: URL { ExploreBaseURL.options }
-    var path: String { "" }
-    var method: HTTPMethod { .get }
-    var task: RequestTask { .plain }
 }
 
 private func brandQuery(orderOpt: ExploreOrderOption, industry: [Int]?, day: [Int]?) -> [String: String] {

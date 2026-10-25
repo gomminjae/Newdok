@@ -15,6 +15,8 @@ struct ExploreAllNewsletterSection: View {
     let dayText: String
     let industries: [SelectableItem]
     let days: [SelectableItem]
+    let optionsLoadState: SelectableOptionsLoadState
+    let onLoadOptions: () async throws -> Void
     let newsletters: [ExploreBrand]
     let onSort: () async -> Void
     let onFilter: () async -> Void
@@ -34,6 +36,8 @@ struct ExploreAllNewsletterSection: View {
                     dayText: dayText,
                     industries: industries,
                     days: days,
+                    optionsLoadState: optionsLoadState,
+                    onLoadOptions: onLoadOptions,
                     onSort: onSort,
                     onFilter: onFilter,
                     onReset: onReset

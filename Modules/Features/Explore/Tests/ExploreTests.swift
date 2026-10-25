@@ -21,11 +21,13 @@ private final class StubUserInfoStore: UserInfoStoreProtocol {
     }
 }
 
-private final class StubSelectableItemStore: SelectableItemStoreProtocol, @unchecked Sendable {
+@MainActor
+private final class StubSelectableItemStore: SelectableItemStoreProtocol {
+    var loadState: SelectableOptionsLoadState { .loaded }
     var interests: [SelectableItem] { [] }
     var industries: [SelectableItem] { [] }
     var days: [SelectableItem] { [] }
-    func loadOptions(interests: [SelectableItem], industries: [SelectableItem], days: [SelectableItem]) {}
+    func loadIfNeeded() async throws {}
     func list(for category: SelectableCategoryType) -> [SelectableItem] { [] }
     func name(for id: Int, in category: SelectableCategoryType) -> String { "" }
     func id(for name: String, in category: SelectableCategoryType) -> Int? { nil }
@@ -40,7 +42,8 @@ struct ExploreViewModelTests {
 
     private func makeSUT(
         userInfoStore: StubUserInfoStore = .init(),
-        recommendationUseCase: (any FetchExploreRecommendationUseCase)? = nil
+        recommendationUseCase: (any FetchExploreRecommendationUseCase)? = nil,
+        selectableItemStore: (any SelectableItemStoreProtocol)? = nil
     ) -> (
         vm: ExploreViewModel,
         fetchNewsletters: MockFetchExploreNewslettersUseCase,
@@ -59,10 +62,50 @@ struct ExploreViewModelTests {
             transformRecommendationUseCase: MockTransformExploreRecommendationUseCase(),
             prioritizeInterestsUseCase: MockPrioritizeInterestsUseCase(),
             userInfoStore: userInfoStore,
-            selectableItemStore: StubSelectableItemStore(),
+            selectableItemStore: selectableItemStore ?? StubSelectableItemStore(),
             appState: appState
         )
         return (vm, fetchNewsletters, fetchGuest, fetchRecommendation)
+    }
+
+    @Test("뉴스레터 조회는 옵션 준비를 기다리거나 시작하지 않는다")
+    func newslettersDoNotDependOnOptions() async {
+        let fetcher = ExploreOptionsFetcher(result: .failure(ExploreOptionsTestError.failed))
+        let options = SelectableItemStore(fetchOptionsUseCase: fetcher)
+        let (vm, newsletters, _, _) = makeSUT(selectableItemStore: options)
+
+        await vm.loadInitial()
+
+        #expect(newsletters.executeCallCount == 1)
+        #expect(vm.isInitialLoaded)
+        #expect(vm.optionsLoadState == .idle)
+        #expect(fetcher.executeCallCount == 0)
+    }
+
+    @Test("필터 목록 오류·재시도는 목록 상태나 선택 필터를 초기화하지 않는다")
+    func optionFailureDoesNotResetContentOrFilters() async throws {
+        let fetcher = ExploreOptionsFetcher(result: .failure(ExploreOptionsTestError.failed))
+        let options = SelectableItemStore(fetchOptionsUseCase: fetcher)
+        let (vm, newsletters, _, _) = makeSUT(selectableItemStore: options)
+        newsletters.result = .success(SampleExploreBrands.mixed)
+        await vm.fetchAllNewsletters()
+        vm.industry = [5]
+        vm.day = [2]
+
+        await #expect(throws: ExploreOptionsTestError.self) { try await vm.loadOptions() }
+        #expect(vm.optionsLoadState == .failed)
+        #expect(vm.currentError == nil)
+        #expect(!vm.allNewsletters.isEmpty)
+
+        fetcher.setResult(.success(SelectableOptions(
+            interests: [], industries: [.init(id: 5, name: "IT")], days: [.init(id: 2, name: "화요일")]
+        )))
+        try await vm.loadOptions()
+        #expect(vm.industry == [5])
+        #expect(vm.day == [2])
+        #expect(vm.industryText == "IT")
+        #expect(vm.dayText == "화요일")
+        #expect(fetcher.executeCallCount == 2)
     }
 
     @Test func fetchAllNewsletters_success() async {

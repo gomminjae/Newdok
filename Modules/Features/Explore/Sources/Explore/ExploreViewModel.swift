@@ -133,6 +133,12 @@ public final class ExploreViewModel: ErrorHandling {
         selectableItemStore.list(for: .day)
     }
 
+    var optionsLoadState: SelectableOptionsLoadState { selectableItemStore.loadState }
+
+    func loadOptions() async throws {
+        try await selectableItemStore.loadIfNeeded()
+    }
+
     public func fetchRecommendation(forceRefresh: Bool = false) async {
         guard !Task.isCancelled else { return }
         reloadUserInfo()

@@ -38,8 +38,4 @@ public struct ExploreBuilder: ExploreBuildable {
             )
         )
     }
-
-    public func loadOptions() async throws {
-        try await container.loadOptions()
-    }
 }

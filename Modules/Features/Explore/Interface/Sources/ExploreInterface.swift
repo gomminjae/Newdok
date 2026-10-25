@@ -15,5 +15,4 @@ public protocol ExploreBuildable {
         onEditProfile: @escaping () -> Void,
         onBrandTap: @escaping (String) -> Void
     ) -> AnyView
-    func loadOptions() async throws
 }

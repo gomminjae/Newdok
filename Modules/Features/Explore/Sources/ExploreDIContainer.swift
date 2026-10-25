@@ -39,13 +39,6 @@ struct ExploreDIContainer {
         FetchExploreRecommendationUseCaseImpl(repository: makeRepository())
     }
 
-    private func makeLoadOptionsUseCase() -> LoadOptionsUseCase {
-        LoadOptionsUseCaseImpl(
-            repository: makeRepository(),
-            selectableItemStore: selectableItemStore
-        )
-    }
-
     // MARK: - ViewModel
 
     @MainActor
@@ -59,11 +52,5 @@ struct ExploreDIContainer {
             userInfoStore: userInfoStore,
             selectableItemStore: selectableItemStore
         )
-    }
-
-    // MARK: - Side Effect
-
-    func loadOptions() async throws {
-        try await makeLoadOptionsUseCase().execute()
     }
 }

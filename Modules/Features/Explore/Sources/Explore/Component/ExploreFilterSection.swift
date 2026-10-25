@@ -14,6 +14,8 @@ struct ExploreFilterSection: View {
     let dayText: String
     let industries: [SelectableItem]
     let days: [SelectableItem]
+    let optionsLoadState: SelectableOptionsLoadState
+    let onLoadOptions: () async throws -> Void
     let onSort: () async -> Void
     let onFilter: () async -> Void
     let onReset: () async -> Void
@@ -44,10 +46,18 @@ struct ExploreFilterSection: View {
             .presentationDragIndicator(.hidden)
         }
         .sheet(isPresented: $isShowFilterSheet) {
-            FilterBottomSheet(industries: industries, weekdays: days, industry: $industry, day: $day) {
-                await onFilter()
+            Group {
+                if optionsLoadState == .loaded {
+                    FilterBottomSheet(industries: industries, weekdays: days, industry: $industry, day: $day) {
+                        await onFilter()
+                    }
+                } else {
+                    SelectableOptionsStatusView(state: optionsLoadState, onRetry: onLoadOptions)
+                        .presentationDetents([.medium])
+                }
             }
         }
+        .task { try? await onLoadOptions() }
     }
 
     private var sortButton: some View {

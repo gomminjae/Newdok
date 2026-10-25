@@ -12,6 +12,7 @@ import Shared
 
 public struct EditIndustryView: View {
     @State private var selectedId: Int?
+    @State private var hasInitializedSelection = false
 
     @Environment(MypageViewModel.self) private var viewModel
     private let onBack: () -> Void
@@ -27,12 +28,23 @@ public struct EditIndustryView: View {
                 .foregroundStyle(Color.captionNeutral)
                 .allowsHitTesting(false) // 터치 불가능하게 설정
 
-            DropdownSelector(
-                placeholder: "선택해주세요",
-                options: viewModel.industries.map { DropdownOption(key: "\($0.id)", value: $0.name) },
-                onOptionSelected: { selectedId = Int($0.key) },
-                selectedKey: selectedId.map(String.init)
-            )
+            if viewModel.optionsLoadState == .loaded && !viewModel.industries.isEmpty {
+                DropdownSelector(
+                    placeholder: "선택해주세요",
+                    options: viewModel.industries.map { DropdownOption(key: "\($0.id)", value: $0.name) },
+                    onOptionSelected: {
+                        hasInitializedSelection = true
+                        selectedId = Int($0.key)
+                    },
+                    selectedKey: selectedId.map(String.init)
+                )
+                if let selectedId, !viewModel.industries.contains(where: { $0.id == selectedId }) {
+                    Text("기존 산업이 목록에 없습니다. 새로운 산업을 선택해주세요.")
+                        .font(.hanSansNeo(14, .medium))
+                }
+            } else {
+                SelectableOptionsStatusView(state: viewModel.optionsLoadState, onRetry: viewModel.loadOptions)
+            }
 
             Spacer()
 
@@ -63,18 +75,17 @@ public struct EditIndustryView: View {
                     )
                     .cornerRadius(4)
             }
-            .disabled(selectedId == viewModel.user?.industryId || viewModel.isIndustryUpdating)
+            .disabled(selectedId == viewModel.user?.industryId || !viewModel.canUpdateIndustry(id: selectedId))
         }
-        .onAppear {
-            // 싱글톤 VM에 이미 user 데이터가 있으면 바로 사용
-            if viewModel.user != nil {
-                selectedId = viewModel.user?.industryId
-            } else {
-                Task {
-                    await viewModel.fetchuserInfo()
-                    selectedId = viewModel.user?.industryId
-                }
+        .task { try? await viewModel.loadOptions() }
+        .task {
+            guard !hasInitializedSelection else { return }
+            if viewModel.user == nil {
+                await viewModel.fetchuserInfo()
             }
+            guard !Task.isCancelled, !hasInitializedSelection else { return }
+            selectedId = viewModel.user?.industryId
+            hasInitializedSelection = true
         }
         .padding(20)
         .navigationBarTitleDisplayMode(.inline)

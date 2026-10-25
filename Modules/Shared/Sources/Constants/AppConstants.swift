@@ -9,9 +9,6 @@ import Foundation
 
 public enum AppConstants {
     public enum Duration {
-        /// Splash 화면 표시 시간
-        public static let splash: TimeInterval = 1.5
-
         /// Toast 메시지 자동 숨김 시간
         public static let toast: TimeInterval = 2.5
     }

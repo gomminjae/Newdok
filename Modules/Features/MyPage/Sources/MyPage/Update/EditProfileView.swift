@@ -47,30 +47,30 @@ public struct EditProfileView: View {
                 }
             )
 
-            // MARK: 종사산업
-            let industryName = getIndustryName()
-            EditableRow(
-                title: "종사산업",
-                text: industryName,
-                placeholder: "산업군을 선택해주세요.",
-                onEdit: {
-                    onEditIndustry()
-                }
-            )
-            .padding(.top, 24)
-
-            interestSection
+            if viewModel.optionsLoadState == .loaded {
+                EditableRow(
+                    title: "종사산업",
+                    text: getIndustryName(),
+                    placeholder: "산업군을 선택해주세요.",
+                    onEdit: { onEditIndustry() }
+                )
                 .padding(.top, 24)
+
+                interestSection
+                    .padding(.top, 24)
+            } else {
+                SelectableOptionsStatusView(state: viewModel.optionsLoadState, onRetry: viewModel.loadOptions)
+            }
 
             Spacer()
         }
-        .onAppear {
+        .task { try? await viewModel.loadOptions() }
+        .task {
             userInfo = viewModel.loadUserInfo()
             if viewModel.user == nil {
-                Task {
-                    await viewModel.fetchuserInfo()
-                    userInfo = viewModel.loadUserInfo()
-                }
+                await viewModel.fetchuserInfo()
+                guard !Task.isCancelled else { return }
+                userInfo = viewModel.loadUserInfo()
             }
         }
         .onReceive(NotificationCenter.default.publisher(for: .init("RefreshProfile"))) { _ in
@@ -108,13 +108,9 @@ public struct EditProfileView: View {
 
     // MARK: - Helper
     private func getIndustryName() -> String {
-        if let id = viewModel.user?.industryId {
-            return viewModel.industryName(for: id)
-        }
-        if let id = userInfo?.industryId {
-            return viewModel.industryName(for: id)
-        }
-        return ""
+        guard let id = viewModel.user?.industryId ?? userInfo?.industryId else { return "" }
+        let name = viewModel.industryName(for: id)
+        return name.isEmpty ? "산업 정보를 확인할 수 없습니다." : name
     }
 
     private var resolvedInterestNames: [String]? {
@@ -127,10 +123,12 @@ public struct EditProfileView: View {
             return nil
         }
 
-        let names = interestIds.compactMap {
-            viewModel.interestName(for: $0)
-        }.filter { !$0.isEmpty }
-        return names.isEmpty ? nil : names
+        return interestIds.map { id in
+            let name = viewModel.interestName(for: id)
+            if !name.isEmpty { return name }
+            return viewModel.user?.interests.first(where: { $0.id == id })?.name
+                ?? "확인할 수 없는 관심사 (\(id))"
+        }
     }
 
     @ViewBuilder

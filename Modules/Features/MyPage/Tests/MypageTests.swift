@@ -5,14 +5,28 @@ import Shared
 @testable import MypageTesting
 @testable import MypageDomain
 
-private final class StubSelectableItemStore: SelectableItemStoreProtocol, @unchecked Sendable {
-    var interests: [SelectableItem] { [] }
-    var industries: [SelectableItem] { [] }
+@MainActor
+private final class StubSelectableItemStore: SelectableItemStoreProtocol {
+    var loadState: SelectableOptionsLoadState { .loaded }
+    var interests: [SelectableItem] {
+        [.init(id: 1, name: "경제"), .init(id: 2, name: "과학"), .init(id: 3, name: "문화")]
+    }
+    var industries: [SelectableItem] { [.init(id: 5, name: "IT")] }
     var days: [SelectableItem] { [] }
-    func loadOptions(interests: [SelectableItem], industries: [SelectableItem], days: [SelectableItem]) {}
-    func list(for category: SelectableCategoryType) -> [SelectableItem] { [] }
-    func name(for id: Int, in category: SelectableCategoryType) -> String { "" }
-    func id(for name: String, in category: SelectableCategoryType) -> Int? { nil }
+    func loadIfNeeded() async throws {}
+    func list(for category: SelectableCategoryType) -> [SelectableItem] {
+        switch category {
+        case .interest: return interests
+        case .industry: return industries
+        case .day: return days
+        }
+    }
+    func name(for id: Int, in category: SelectableCategoryType) -> String {
+        list(for: category).first(where: { $0.id == id })?.name ?? ""
+    }
+    func id(for name: String, in category: SelectableCategoryType) -> Int? {
+        list(for: category).first(where: { $0.name == name })?.id
+    }
 }
 
 private final class StubUserInfoStore: UserInfoStoreProtocol, @unchecked Sendable {
@@ -35,7 +49,7 @@ private final class StubTokenStorage: TokenStorageProtocol, @unchecked Sendable 
 @Suite("MypageViewModel Tests")
 @MainActor
 struct MypageViewModelTests {
-    private func makeSUT() -> (
+    private func makeSUT(selectableItemStore: (any SelectableItemStoreProtocol)? = nil) -> (
         vm: MypageViewModel,
         fetchProfile: MockFetchMypageProfileUseCase,
         updateNickname: MockUpdateMypageNicknameUseCase,
@@ -51,10 +65,48 @@ struct MypageViewModelTests {
             updateNicknameUseCase: updateNickname,
             updateInterestsUseCase: updateInterests,
             updateIndustryUseCase: updateIndustry,
-            selectableItemStore: StubSelectableItemStore(),
+            selectableItemStore: selectableItemStore ?? StubSelectableItemStore(),
             userInfoStore: StubUserInfoStore()
         )
         return (vm, fetchProfile, updateNickname, updateInterests, updateIndustry)
+    }
+
+    @Test("준비되지 않은 옵션으로는 프로필 변경을 제출하지 않는다")
+    func blocksUpdatesBeforeOptionsLoad() async {
+        let options = SelectableItemStore(fetchOptionsUseCase: MypageOptionsFetcher(result: .failure(MypageOptionsTestError.failed)))
+        let (vm, _, _, updateInterests, updateIndustry) = makeSUT(selectableItemStore: options)
+
+        #expect(await vm.updateIndustry(id: 5) == false)
+        #expect(await vm.updateInterests(ids: [1, 2, 3]) == false)
+        #expect(updateIndustry.executedId == nil)
+        #expect(updateInterests.executedIds == nil)
+    }
+
+    @Test("옵션 실패·재시도가 저장된 프로필과 다른 오류 상태를 지우지 않는다")
+    func optionsRetryPreservesProfile() async throws {
+        let fetcher = MypageOptionsFetcher(result: .failure(MypageOptionsTestError.failed))
+        let options = SelectableItemStore(fetchOptionsUseCase: fetcher)
+        let (vm, _, _, _, _) = makeSUT(selectableItemStore: options)
+        vm.user = MypageUser(id: 1, subscribeEmail: nil, nickname: "기존 닉네임", birthYear: "2000", gender: "M", createdAt: "2025-01-01", industryId: 5, interests: [])
+        vm.currentError = .userMessage("다른 작업 오류")
+
+        await #expect(throws: MypageOptionsTestError.self) { try await vm.loadOptions() }
+        #expect(vm.optionsLoadState == .failed)
+        #expect(vm.user?.industryId == 5)
+
+        fetcher.setResult(.success(SelectableOptions(
+            interests: [.init(id: 1, name: "경제"), .init(id: 2, name: "과학"), .init(id: 3, name: "문화")],
+            industries: [.init(id: 5, name: "IT")], days: []
+        )))
+        try await vm.loadOptions()
+
+        #expect(vm.optionsLoadState == .loaded)
+        #expect(vm.industryName(for: 5) == "IT")
+        #expect(vm.user?.nickname == "기존 닉네임")
+        #expect(vm.currentError == .userMessage("다른 작업 오류"))
+        #expect(!vm.canUpdateIndustry(id: 999))
+        #expect(!vm.canUpdateInterests(ids: [1, 2, 999]))
+        #expect(vm.canUpdateInterests(ids: [1, 2, 3]))
     }
 
     @Test func fetchUserInfo_success() async {
@@ -110,6 +162,16 @@ struct MypageViewModelTests {
         #expect(vm.showInterestSuccess == true)
     }
 
+}
+
+private enum MypageOptionsTestError: Error { case failed }
+
+@MainActor
+private final class MypageOptionsFetcher: FetchSelectableOptionsUseCase {
+    private var result: Result<SelectableOptions, Error>
+    init(result: Result<SelectableOptions, Error>) { self.result = result }
+    func execute() async throws -> SelectableOptions { try result.get() }
+    func setResult(_ result: Result<SelectableOptions, Error>) { self.result = result }
 }
 
 @Suite("WithdrawViewModel Tests")
