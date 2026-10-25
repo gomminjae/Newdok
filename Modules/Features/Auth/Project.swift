@@ -10,6 +10,6 @@ let project = Project.feature(
         .external(name: "KakaoSDKUser")
     ],
     featureDependencies: [.foundationKit, .featureData("Auth"), .networkKit],
-    testDependencies: [.foundationKit],
+    testDependencies: [.foundationKit, .featureData("Auth")],
     hasInterface: true
 )
