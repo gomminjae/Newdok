@@ -1,6 +1,7 @@
 import Foundation
 import ExploreDomain
 
+@MainActor
 public final class MockFetchExploreNewslettersUseCase: FetchExploreNewslettersUseCase {
     public var result: Result<[ExploreBrand], Error> = .success([])
     public private(set) var executeCallCount = 0

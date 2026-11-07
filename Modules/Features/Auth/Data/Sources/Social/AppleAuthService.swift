@@ -8,23 +8,30 @@ public struct AppleAuthService: AppleAuthServiceProtocol {
     public init() {}
 
     public func fetchCredential() async throws -> AppleAuthCredential {
-        try await withCheckedThrowingContinuation { continuation in
-            // manager를 completion 클로저에서 강하게 잡아 콜백 시점까지 생존시킴
-            let manager = AppleSignInManager()
-            manager.request { result in
-                _ = manager
-                switch result {
-                case .success(let authorization):
-                    do {
-                        continuation.resume(returning: try Self.credential(from: authorization))
-                    } catch {
-                        continuation.resume(throwing: error)
+        let manager = AppleSignInManager()
+        let credential: AppleAuthCredential = try await withTaskCancellationHandler {
+            try Task.checkCancellation()
+            return try await withCheckedThrowingContinuation { continuation in
+                // completion이 manager를 보유하고 finish가 이를 먼저 해제한다.
+                manager.request { result in
+                    _ = manager
+                    switch result {
+                    case .success(let authorization):
+                        do {
+                            continuation.resume(returning: try Self.credential(from: authorization))
+                        } catch {
+                            continuation.resume(throwing: error)
+                        }
+                    case .failure(let error):
+                        continuation.resume(throwing: error is CancellationError ? error : Self.map(error))
                     }
-                case .failure(let error):
-                    continuation.resume(throwing: Self.map(error))
                 }
             }
+        } onCancel: {
+            Task { @MainActor in manager.cancel() }
         }
+        try Task.checkCancellation()
+        return credential
     }
 
     private static func credential(from authorization: ASAuthorization) throws -> AppleAuthCredential {
@@ -54,6 +61,7 @@ public struct AppleAuthService: AppleAuthServiceProtocol {
 }
 
 /// ASAuthorizationController를 async로 감싸기 위한 델리게이트 래퍼
+@MainActor
 private final class AppleSignInManager: NSObject {
     private var completion: ((Result<ASAuthorization, Error>) -> Void)?
     private var controller: ASAuthorizationController?
@@ -70,9 +78,16 @@ private final class AppleSignInManager: NSObject {
     }
 
     private func finish(_ result: Result<ASAuthorization, Error>) {
-        completion?(result)
-        completion = nil
+        let completion = self.completion
+        self.completion = nil
         controller = nil
+        completion?(result)
+    }
+
+    func cancel() {
+        let controller = self.controller
+        finish(.failure(CancellationError()))
+        controller?.cancel()
     }
 }
 
@@ -94,12 +109,9 @@ extension AppleSignInManager: ASAuthorizationControllerDelegate {
 
 extension AppleSignInManager: ASAuthorizationControllerPresentationContextProviding {
     func presentationAnchor(for controller: ASAuthorizationController) -> ASPresentationAnchor {
-        // ponytail: 델리게이트는 메인 스레드 콜백 — assumeIsolated로 keyWindow 조회
-        MainActor.assumeIsolated {
-            UIApplication.shared.connectedScenes
-                .compactMap { $0 as? UIWindowScene }
-                .flatMap(\.windows)
-                .first(where: \.isKeyWindow) ?? ASPresentationAnchor()
-        }
+        UIApplication.shared.connectedScenes
+            .compactMap { $0 as? UIWindowScene }
+            .flatMap(\.windows)
+            .first(where: \.isKeyWindow) ?? ASPresentationAnchor()
     }
 }

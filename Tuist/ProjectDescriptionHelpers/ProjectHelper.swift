@@ -8,6 +8,11 @@ public enum ProjectConfig {
     public static let deploymentTarget: DeploymentTargets = .iOS("18.0")
     public static let destinations: Destinations = .iOS
 
+    public static let languageSettings: SettingsDictionary = [
+        "SWIFT_VERSION": "6.0",
+        "SWIFT_STRICT_CONCURRENCY": "complete"
+    ]
+
     public static let baseSettings: SettingsDictionary = [
         "SKIP_INSTALL": "YES",
         "SWIFT_STRICT_CONCURRENCY": "complete",
@@ -255,6 +260,7 @@ public extension Project {
         return Project(
             name: name,
             organizationName: ProjectConfig.organizationName,
+            settings: .settings(base: ProjectConfig.languageSettings),
             targets: targets,
             schemes: schemes
         )
@@ -300,6 +306,7 @@ public extension Project {
         return Project(
             name: name,
             organizationName: ProjectConfig.organizationName,
+            settings: .settings(base: ProjectConfig.languageSettings),
             targets: targets,
             resourceSynthesizers: resourceSynthesizers.isEmpty ? .default : resourceSynthesizers
         )

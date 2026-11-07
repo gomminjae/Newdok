@@ -5,7 +5,7 @@
 //  Created by 권민재 on 4/11/25.
 //
 
-public struct MonthlyBookmark: Identifiable {
+public struct MonthlyBookmark: Identifiable, Sendable {
     public var id: String { month }
     public let month: String
     public let bookmark: [BookmarkItem]

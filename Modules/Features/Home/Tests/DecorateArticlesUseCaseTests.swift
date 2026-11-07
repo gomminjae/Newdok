@@ -4,6 +4,7 @@ import HomeTesting
 @testable import Home
 
 @Suite("DecorateArticlesUseCase Tests")
+@MainActor
 struct DecorateArticlesUseCaseTests {
     private func makeSUT(counts: [Int: Int] = [:]) -> (DecorateArticlesUseCaseImpl, MockFetchHomeHighlightCountsUseCase) {
         let mock = MockFetchHomeHighlightCountsUseCase()

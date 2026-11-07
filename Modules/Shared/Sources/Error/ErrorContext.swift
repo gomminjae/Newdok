@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Synchronization
 
 public struct ErrorContext: Sendable {
     public let underlyingError: Error
@@ -51,19 +52,13 @@ public protocol ErrorLogging: Sendable {
 }
 
 public enum ErrorLoggerRegistry {
-    private static let lock = NSLock()
-    // lock으로 직렬화 보장. ErrorLogging은 Sendable이라 reference 자체는 안전.
-    nonisolated(unsafe) private static var _logger: ErrorLogging?
+    private static let logger = Mutex<(any ErrorLogging)?>(nil)
 
     public static func register(_ logger: ErrorLogging) {
-        lock.lock()
-        _logger = logger
-        lock.unlock()
+        self.logger.withLock { $0 = logger }
     }
 
     public static var shared: ErrorLogging? {
-        lock.lock()
-        defer { lock.unlock() }
-        return _logger
+        logger.withLock { $0 }
     }
 }

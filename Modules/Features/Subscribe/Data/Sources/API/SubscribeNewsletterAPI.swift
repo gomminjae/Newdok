@@ -1,7 +1,7 @@
 import Foundation
 import NetworkKit
 
-private var subscribeBaseURL: URL { URL(string: "\(APIEnvironment.baseURL)/newsletters")! }
+private var subscribeBaseURL: URL { APIEnvironment.baseURL.appendingPathComponent("newsletters") }
 
 struct FetchActiveNewsletters: APIRequest {
     typealias Response = [SubscribeNewsletterDTO]

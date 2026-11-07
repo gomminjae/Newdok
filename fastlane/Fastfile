@@ -5,9 +5,10 @@ REPOSITORY_ROOT = File.expand_path("..", __dir__)
 
 platform :ios do
   before_all do
-    Dir.chdir(REPOSITORY_ROOT)
-    sh("mise", "exec", "--", "tuist", "install")
-    sh("mise", "exec", "--", "tuist", "generate", "--no-open")
+    Dir.chdir(REPOSITORY_ROOT) do
+      sh("mise", "exec", "--", "tuist", "install")
+      sh("mise", "exec", "--", "tuist", "generate", "--no-open")
+    end
   end
 
   desc "App Store Connect API Key 설정"

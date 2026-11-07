@@ -1,5 +1,6 @@
 import Testing
 import Foundation
+import Synchronization
 import Shared
 import FoundationKit
 @testable import Auth
@@ -266,13 +267,26 @@ struct NewdokVerificationTimerFormatStyleTests {
 
 // MARK: - LoginViewModel Tests
 
-private final class StubTokenStorage: TokenStorageProtocol, @unchecked Sendable {
-    var accessToken: String?
+private final class StubTokenStorage: TokenStorageProtocol {
+    private struct State {
+        var accessToken: String?
+        var clearCalled = false
+    }
+    private let state = Mutex(State())
+    var accessToken: String? {
+        get { state.withLock { $0.accessToken } }
+        set { state.withLock { $0.accessToken = newValue } }
+    }
     var hasValidToken: Bool { accessToken != nil }
-    private(set) var clearCalled = false
+    var clearCalled: Bool { state.withLock { $0.clearCalled } }
     @discardableResult
     func saveAccessToken(_ token: String?) -> Bool { accessToken = token; return true }
-    func clear() { clearCalled = true; accessToken = nil }
+    func clear() {
+        state.withLock {
+            $0.clearCalled = true
+            $0.accessToken = nil
+        }
+    }
     func migrateTokenIfNeeded() {}
 }
 
@@ -282,7 +296,8 @@ struct LoginViewModelTests {
     private func makeSUT(
         loginUseCase: MockLoginUseCase = .init(),
         kakaoAuthService: MockKakaoAuthService = .init(),
-        appleAuthService: MockAppleAuthService = .init()
+        appleAuthService: MockAppleAuthService = .init(),
+        appState: AppState = AppState()
     ) -> (vm: LoginViewModel, login: MockLoginUseCase, kakao: MockKakaoAuthService, tokenStorage: StubTokenStorage) {
         let tokenStorage = StubTokenStorage()
         let vm = LoginViewModel(
@@ -290,7 +305,7 @@ struct LoginViewModelTests {
             kakaoAuthService: kakaoAuthService,
             appleAuthService: appleAuthService,
             tokenStorage: tokenStorage,
-            appState: AppState.shared
+            appState: appState
         )
         return (vm, loginUseCase, kakaoAuthService, tokenStorage)
     }
@@ -299,14 +314,15 @@ struct LoginViewModelTests {
 
     @Test("게스트 로그인 시 토큰 클리어 및 로그아웃")
     func loginAsGuest_clearsTokenAndLogsOut() {
-        let (vm, _, _, tokenStorage) = makeSUT()
-        AppState.shared.login()
+        let appState = AppState()
+        let (vm, _, _, tokenStorage) = makeSUT(appState: appState)
+        appState.login()
         tokenStorage.accessToken = "some-token"
 
         vm.loginAsGuest()
 
         #expect(tokenStorage.clearCalled == true)
-        #expect(AppState.shared.authState == .guest)
+        #expect(appState.authState == .guest)
     }
 
     // MARK: - loginWithKakao
@@ -316,19 +332,17 @@ struct LoginViewModelTests {
         let mock = MockLoginUseCase()
         let kakao = MockKakaoAuthService()
         kakao.result = .success("kakao-id-token")
-        let (vm, _, _, _) = makeSUT(loginUseCase: mock, kakaoAuthService: kakao)
-        AppState.shared.logout()
+        let appState = AppState()
+        let (vm, _, _, _) = makeSUT(loginUseCase: mock, kakaoAuthService: kakao, appState: appState)
+        appState.logout()
 
         var successCalled = false
-        vm.loginWithKakao(onLoggedIn: { successCalled = true }, onNeedSignup: { _, _ in })
-
-        // 내부 Task 완료 대기
-        try? await Task.sleep(for: .milliseconds(50))
+        await vm.loginWithKakao(onLoggedIn: { successCalled = true }, onNeedSignup: { _, _ in })
 
         #expect(mock.executedCredential == .kakao(idToken: "kakao-id-token"))
         #expect(successCalled == true)
         #expect(vm.currentError == nil)
-        #expect(AppState.shared.authState == .authenticated)
+        #expect(appState.authState == .authenticated)
     }
 
     @Test("애플 로그인 성공 시 authorizationCode를 함께 전달")
@@ -341,13 +355,12 @@ struct LoginViewModelTests {
                 authorizationCode: "apple-auth-code"
             )
         )
-        let (vm, _, _, _) = makeSUT(loginUseCase: mock, appleAuthService: apple)
-        AppState.shared.logout()
+        let appState = AppState()
+        let (vm, _, _, _) = makeSUT(loginUseCase: mock, appleAuthService: apple, appState: appState)
+        appState.logout()
 
         var successCalled = false
-        vm.loginWithApple(onLoggedIn: { successCalled = true }, onNeedSignup: { _, _ in })
-
-        try? await Task.sleep(for: .milliseconds(50))
+        await vm.loginWithApple(onLoggedIn: { successCalled = true }, onNeedSignup: { _, _ in })
 
         #expect(mock.executedCredential == .apple(
             idToken: "apple-id-token",
@@ -363,9 +376,7 @@ struct LoginViewModelTests {
         apple.result = .failure(LoginError.missingAuthorizationCode)
         let (vm, _, _, _) = makeSUT(loginUseCase: mock, appleAuthService: apple)
 
-        vm.loginWithApple(onLoggedIn: {}, onNeedSignup: { _, _ in })
-
-        try? await Task.sleep(for: .milliseconds(50))
+        await vm.loginWithApple(onLoggedIn: {}, onNeedSignup: { _, _ in })
 
         #expect(mock.executeCallCount == 0)
         #expect(vm.currentError != nil)
@@ -379,9 +390,7 @@ struct LoginViewModelTests {
         let (vm, _, _, _) = makeSUT(kakaoAuthService: kakao)
 
         var successCalled = false
-        vm.loginWithKakao(onLoggedIn: { successCalled = true }, onNeedSignup: { _, _ in })
-
-        try? await Task.sleep(for: .milliseconds(50))
+        await vm.loginWithKakao(onLoggedIn: { successCalled = true }, onNeedSignup: { _, _ in })
 
         #expect(successCalled == false)
         #expect(vm.currentError == nil)
@@ -396,9 +405,7 @@ struct LoginViewModelTests {
         kakao.result = .success("kakao-id-token")
         let (vm, _, _, _) = makeSUT(loginUseCase: mock, kakaoAuthService: kakao)
 
-        vm.loginWithKakao(onLoggedIn: { }, onNeedSignup: { _, _ in })
-
-        try? await Task.sleep(for: .milliseconds(50))
+        await vm.loginWithKakao(onLoggedIn: { }, onNeedSignup: { _, _ in })
 
         #expect(vm.currentError != nil)
         #expect(vm.isLoading == false)
@@ -409,9 +416,7 @@ struct LoginViewModelTests {
         let (vm, mock, _, _) = makeSUT()
         vm.isLoading = true
 
-        vm.loginWithKakao(onLoggedIn: { }, onNeedSignup: { _, _ in })
-
-        try? await Task.sleep(for: .milliseconds(50))
+        await vm.loginWithKakao(onLoggedIn: { }, onNeedSignup: { _, _ in })
 
         #expect(mock.executeCallCount == 0)
     }

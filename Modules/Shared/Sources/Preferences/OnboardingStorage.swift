@@ -1,6 +1,6 @@
 import Foundation
 
-public final class OnboardingStorage: OnboardingStorable, @unchecked Sendable {
+public final class OnboardingStorage: OnboardingStorable {
     public static let shared = OnboardingStorage()
 
     private enum Key {

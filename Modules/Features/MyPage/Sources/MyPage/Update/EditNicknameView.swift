@@ -72,7 +72,7 @@ public struct EditNicknameView: View {
                     guard didUpdate else { return }
                     await viewModel.fetchuserInfo()
                     onBack()
-                    try await Task.sleep(nanoseconds: 150_000_000)
+                    do { try await Task.sleep(for: .milliseconds(150)) } catch { return }
                     ToastCenter.shared.show("닉네임이 변경되었습니다.")
                 }
             }) {
@@ -120,12 +120,10 @@ public struct EditNicknameView: View {
         }
 
         .ignoresSafeArea(.keyboard)
-        .onAppear {
-            // 닉네임 필드에 자동 포커스
-            Task {
-                try await Task.sleep(for: .seconds(0.5))
-                isFocused = true
-            }
+        .task {
+            // 화면이 사라지면 자동 포커스 작업도 취소한다.
+            do { try await Task.sleep(for: .milliseconds(500)) } catch { return }
+            isFocused = true
         }
     }
     

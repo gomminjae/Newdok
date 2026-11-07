@@ -1,7 +1,7 @@
 import Foundation
 import NetworkKit
 
-private var mypageUserBaseURL: URL { URL(string: "\(APIEnvironment.baseURL)/users")! }
+private var mypageUserBaseURL: URL { APIEnvironment.baseURL.appendingPathComponent("users") }
 
 struct UpdateNickname: APIRequest {
     typealias Response = MypageNicknameResponseDTO

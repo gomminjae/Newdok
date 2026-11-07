@@ -35,8 +35,16 @@ struct WebViewWrapper: UIViewRepresentable {
         Coordinator(email: email, name: name)
     }
 
+    static func dismantleUIView(_ uiView: WKWebView, coordinator: Coordinator) {
+        coordinator.cancelAutoFill()
+        uiView.navigationDelegate = nil
+        uiView.uiDelegate = nil
+    }
+
+    @MainActor
     class Coordinator: NSObject, WKUIDelegate, WKNavigationDelegate {
         private var popupWebView: WKWebView?
+        private var autoFillTask: Task<Void, Never>?
         let email: String
         let name: String
 
@@ -65,15 +73,27 @@ struct WebViewWrapper: UIViewRepresentable {
         }
 
         // MARK: - 페이지 로드 완료 후 자동 입력
+        func webView(_ webView: WKWebView, didStartProvisionalNavigation navigation: WKNavigation!) {
+            cancelAutoFill()
+        }
+
+        func cancelAutoFill() {
+            autoFillTask?.cancel()
+            autoFillTask = nil
+        }
+
         func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
+            cancelAutoFill()
             let js = autoFillScript()
             // 즉시 1회 + SPA 렌더링 대비 지연 재시도
-            Task { @MainActor in
-                webView.evaluateJavaScript(js, completionHandler: nil)
-                try await Task.sleep(for: .seconds(1.0))
-                webView.evaluateJavaScript(js, completionHandler: nil)
-                try await Task.sleep(for: .seconds(1.5))
-                webView.evaluateJavaScript(js, completionHandler: nil)
+            autoFillTask = Task { @MainActor [weak webView] in
+                guard let webView else { return }
+                // 외부 구독 페이지의 DOM 준비 실패는 다음 시도에서 다시 확인한다.
+                _ = try? await webView.evaluateJavaScript(js)
+                do { try await Task.sleep(for: .seconds(1)) } catch { return }
+                _ = try? await webView.evaluateJavaScript(js)
+                do { try await Task.sleep(for: .milliseconds(1500)) } catch { return }
+                _ = try? await webView.evaluateJavaScript(js)
             }
         }
 
@@ -226,10 +246,6 @@ public struct SubscribeModalView: View {
             if !email.isEmpty {
                 UIPasteboard.general.string = email
                 showToast = true
-                Task {
-                    try await Task.sleep(for: .seconds(1.5))
-                    showToast = false
-                }
             }
         }
         .popup(isPresented: $showToast) {

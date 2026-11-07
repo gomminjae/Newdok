@@ -1,6 +1,7 @@
 import Foundation
 import BookmarkDomain
 
+@MainActor
 public final class MockFetchBookmarkedInterestsUseCase: FetchBookmarkedInterestsUseCase {
     public var result: Result<[BookmarkInterest], Error> = .success([])
     public private(set) var executeCallCount = 0

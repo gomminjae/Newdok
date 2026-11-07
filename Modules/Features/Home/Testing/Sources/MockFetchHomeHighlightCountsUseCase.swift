@@ -1,6 +1,7 @@
 import Foundation
 import HomeDomain
 
+@MainActor
 public final class MockFetchHomeHighlightCountsUseCase: FetchHomeHighlightCountsUseCase {
     public var result: [Int: Int] = [:]
     public private(set) var executeCallCount = 0

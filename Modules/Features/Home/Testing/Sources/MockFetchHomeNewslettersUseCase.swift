@@ -1,6 +1,7 @@
 import Foundation
 import HomeDomain
 
+@MainActor
 public final class MockFetchHomeNewslettersUseCase: FetchHomeNewslettersUseCase {
     public var result: Result<[HomeNewsletter], Error> = .success([])
     public private(set) var executeCallCount = 0

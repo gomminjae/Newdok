@@ -39,23 +39,14 @@ private enum NewdokDateFormatters {
 }
 
 private enum NewdokISODateParsers {
-    static let withFractionalSeconds: ISO8601DateFormatter = {
-        let formatter = ISO8601DateFormatter()
-        formatter.formatOptions = [.withInternetDateTime, .withFractionalSeconds]
-        return formatter
-    }()
-
-    static let internetDateTime: ISO8601DateFormatter = {
-        let formatter = ISO8601DateFormatter()
-        formatter.formatOptions = [.withInternetDateTime]
-        return formatter
-    }()
+    static let withFractionalSeconds = Date.ISO8601FormatStyle(includingFractionalSeconds: true)
+    static let internetDateTime = Date.ISO8601FormatStyle()
 }
 
 public extension String {
     var newdokISODate: Date? {
-        NewdokISODateParsers.withFractionalSeconds.date(from: self)
-            ?? NewdokISODateParsers.internetDateTime.date(from: self)
+        (try? NewdokISODateParsers.withFractionalSeconds.parse(self))
+            ?? (try? NewdokISODateParsers.internetDateTime.parse(self))
     }
 }
 

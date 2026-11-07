@@ -1,8 +1,14 @@
 import Foundation
 import HomeDomain
+import Synchronization
 
 public final class MockLoadReadArticleIdsUseCase: LoadReadArticleIdsUseCase {
-    public var result: Set<Int> = []
+    private let storedResult = Mutex<Set<Int>>([])
+
+    public var result: Set<Int> {
+        get { storedResult.withLock { $0 } }
+        set { storedResult.withLock { $0 = newValue } }
+    }
 
     public init() {}
 

@@ -8,6 +8,6 @@
 import Foundation
 
 public protocol BookmarkRepository: Sendable {
-    func fetchBookmarkArticles(interest: String?, sortBy: BookmarkSortOption) async throws -> BookmarkedArticles
+    func fetchBookmarkArticles(interest: Int?, sortBy: BookmarkSortOption) async throws -> BookmarkedArticles
     func fetchBookmarkedInterest() async throws -> [BookmarkInterest]
 }

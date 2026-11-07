@@ -1,6 +1,7 @@
 import Foundation
 import DetailDomain
 
+@MainActor
 public final class MockToggleArticleBookmarkUseCase: ToggleArticleBookmarkUseCase {
     public var result: Result<Void, Error> = .success(())
     public private(set) var executedArticleId: String?

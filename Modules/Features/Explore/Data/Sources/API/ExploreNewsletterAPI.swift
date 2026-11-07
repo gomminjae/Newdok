@@ -3,7 +3,7 @@ import NetworkKit
 import ExploreDomain
 
 private enum ExploreBaseURL {
-    static var newsletters: URL { URL(string: "\(APIEnvironment.baseURL)/newsletters")! }
+    static var newsletters: URL { APIEnvironment.baseURL.appendingPathComponent("newsletters") }
 }
 
 struct FetchExploreRecommendUnion: APIRequest {

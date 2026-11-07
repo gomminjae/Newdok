@@ -39,7 +39,7 @@ private struct StubResponse: Decodable, Sendable {
     let value: Int
 }
 
-private enum StubTarget: TargetType {
+private enum StubTarget: TargetType, Sendable {
     case success
 
     var baseURL: URL { URL(fileURLWithPath: "/") }

@@ -1,4 +1,4 @@
-public struct ExploreInterest: Identifiable {
+public struct ExploreInterest: Identifiable, Sendable {
     public let id: Int
     public let name: String
 

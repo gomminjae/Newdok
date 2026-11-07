@@ -6,7 +6,7 @@
 //  Copyright © 2025 Newdok. All rights reserved.
 //
 
-public struct PopularKeyword: Identifiable {
+public struct PopularKeyword: Identifiable, Sendable {
     public let rank: Int
     public let keyword: String
 
@@ -18,7 +18,7 @@ public struct PopularKeyword: Identifiable {
     }
 }
 
-public struct PopularKeywordList {
+public struct PopularKeywordList: Sendable {
     public let updatedDate: String
     public let keywords: [PopularKeyword]
 

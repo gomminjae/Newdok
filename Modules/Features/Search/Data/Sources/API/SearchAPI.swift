@@ -1,7 +1,7 @@
 import Foundation
 import NetworkKit
 
-private var searchBaseURL: URL { URL(string: "\(APIEnvironment.baseURL)/search")! }
+private var searchBaseURL: URL { APIEnvironment.baseURL.appendingPathComponent("search") }
 
 struct SearchNewslettersRequest: APIRequest {
     typealias Response = [SearchedNewsletterDTO]

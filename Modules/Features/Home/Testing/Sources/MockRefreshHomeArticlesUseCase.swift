@@ -1,6 +1,7 @@
 import Foundation
 import HomeDomain
 
+@MainActor
 public final class MockRefreshHomeArticlesUseCase: RefreshHomeArticlesUseCase {
     public var error: Error?
     public private(set) var executeCallCount = 0

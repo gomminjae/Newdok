@@ -1,11 +1,11 @@
 import Foundation
 import Moya
 
-struct MoyaTarget: Moya.TargetType {
+struct MoyaTarget: Moya.TargetType, Sendable {
     let baseURL: URL
     let path: String
     let method: Moya.Method
-    let task: Moya.Task
+    private let requestTask: RequestTask
     let headers: [String: String]?
     let sampleData: Data
     let emitsUnauthorizedEvent: Bool
@@ -25,16 +25,22 @@ struct MoyaTarget: Moya.TargetType {
         case .delete: method = .delete
         }
 
-        switch request.task {
+        requestTask = request.task
+    }
+
+    // Moya.Task erases payloads to Any/Encodable. Keep the stored request Sendable
+    // and create the SDK representation only when Moya asks for it.
+    var task: Moya.Task {
+        switch requestTask {
         case .plain:
-            task = .requestPlain
+            return .requestPlain
         case .query(let params):
-            task = .requestParameters(parameters: params, encoding: URLEncoding.default)
+            return .requestParameters(parameters: params, encoding: URLEncoding.default)
         case .queryArray(let params):
             let encoding = URLEncoding(destination: .queryString, arrayEncoding: .noBrackets, boolEncoding: .literal)
-            task = .requestParameters(parameters: params.mapValues { $0 as Any }, encoding: encoding)
+            return .requestParameters(parameters: params.mapValues { $0 as Any }, encoding: encoding)
         case .jsonBody(let body):
-            task = .requestJSONEncodable(body)
+            return .requestJSONEncodable(body)
         }
     }
 }

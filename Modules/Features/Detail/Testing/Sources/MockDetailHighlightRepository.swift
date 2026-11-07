@@ -1,6 +1,7 @@
 import Foundation
 import DetailDomain
 
+@MainActor
 public final class MockDetailHighlightRepository: DetailHighlightRepository {
     public var highlightsResult: [DetailHighlight] = []
     public var highlightResult: DetailHighlight?

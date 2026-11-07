@@ -79,7 +79,7 @@ public struct SubscribeView: View {
                             guard didPause else { return }
                             await viewModel.refresh(tab: selectedTab)
                             showPauseToast = true
-                            try await Task.sleep(for: .seconds(2))
+                            do { try await Task.sleep(for: .seconds(2)) } catch { return }
                             showPauseToast = false
                         }
                     }
@@ -164,7 +164,7 @@ public struct SubscribeView: View {
                         await viewModel.refresh(tab: 1)
                         showSubscribeToast = true
                         Task {
-                            try await Task.sleep(for: .seconds(2))
+                            do { try await Task.sleep(for: .seconds(2)) } catch { return }
                             showSubscribeToast = false
                         }
                     }

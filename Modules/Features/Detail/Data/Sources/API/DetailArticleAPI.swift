@@ -1,7 +1,7 @@
 import Foundation
 import NetworkKit
 
-private var articleBaseURL: URL { URL(string: "\(APIEnvironment.baseURL)/articles")! }
+private var articleBaseURL: URL { APIEnvironment.baseURL.appendingPathComponent("articles") }
 
 struct FetchArticleDetail: APIRequest {
     typealias Response = DetailArticleDetailDTO

@@ -19,7 +19,7 @@ protocol BookmarkViewModelBindable {
 @Observable
 @MainActor
 public final class BookmarkViewModel: BookmarkViewModelBindable, ErrorHandling {
-    public var interest: String = ""
+    public var interest: Int?
     public var interests: [BookmarkInterest] = []
 
     public var bookmarks: BookmarkedArticles?
@@ -82,7 +82,7 @@ public final class BookmarkViewModel: BookmarkViewModelBindable, ErrorHandling {
 
     // 로그아웃 시 데이터 초기화
     func clearData() {
-        interest = ""
+        interest = nil
         interests = []
         bookmarks = nil
         sortOrder = .bookmarkDate

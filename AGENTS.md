@@ -22,7 +22,7 @@ SwiftUI와 Tuist를 사용하는 모듈형 iOS 뉴스레터 앱.
 - TMA Feature는 필요에 따라 `{Feature}Interface`, `{Feature}Domain`, `{Feature}Data`, `{Feature}`, `{Feature}Testing`, `{Feature}Tests`, `{Feature}Example` 타깃으로 구성한다.
 - View와 ViewModel은 Domain 프로토콜에 의존한다. Data 구현과 NetworkKit 접근은 Data 또는 Builder/DI 조립 경계에 둔다.
 - 새 타깃이나 의존성을 직접 반복 정의하기 전에 `Project.feature`, `Project.module`, `TargetDependency` shortcut을 재사용한다.
-- 최소 지원 버전은 iOS 18.0이다. 모든 모듈은 strict concurrency `complete`이며 App 타깃은 Swift 6.0을 명시한다.
+- 최소 지원 버전은 iOS 18.0이다. 모든 자체 타깃은 Swift 6.0 언어 모드와 strict concurrency `complete`를 사용한다. Feature의 Testing·Tests·Example도 공통 설정을 상속하며 Swift 5로 되돌리지 않는다.
 
 ## Engineering Principles
 

@@ -1,6 +1,7 @@
 import Foundation
 import MypageDomain
 
+@MainActor
 public final class MockUpdateMypageInterestsUseCase: UpdateMypageInterestsUseCase {
     public var result: Result<Void, Error> = .success(())
     public private(set) var executedIds: [Int]?

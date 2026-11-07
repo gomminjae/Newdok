@@ -1,6 +1,6 @@
 import Foundation
 
-public struct AuthInterest: Identifiable {
+public struct AuthInterest: Identifiable, Sendable {
     public let id: Int
     public let name: String
 
@@ -10,7 +10,7 @@ public struct AuthInterest: Identifiable {
     }
 }
 
-public struct AuthRecommendedBrand {
+public struct AuthRecommendedBrand: Sendable {
     public let id: Int
     public let name: String
     public let description: String

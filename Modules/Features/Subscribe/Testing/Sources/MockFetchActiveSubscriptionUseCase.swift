@@ -1,6 +1,7 @@
 import Foundation
 import SubscribeDomain
 
+@MainActor
 public final class MockFetchActiveSubscriptionUseCase: FetchActiveSubscriptionUseCase {
     public var result: Result<[SubscribeNewsletter], Error> = .success([])
     public private(set) var executeCallCount = 0

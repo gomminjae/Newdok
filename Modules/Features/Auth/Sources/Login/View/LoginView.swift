@@ -115,10 +115,12 @@ public struct LoginView: View {
                 .frame(width: 16, height: 16)
                 .foregroundColor(Color.black.opacity(0.85))
         } action: {
-            viewModel.loginWithKakao {
-                onAuthenticated()
-            } onNeedSignup: { signupToken, nickname in
-                onNeedSignup(signupToken, nickname)
+            Task {
+                await viewModel.loginWithKakao {
+                    onAuthenticated()
+                } onNeedSignup: { signupToken, nickname in
+                    onNeedSignup(signupToken, nickname)
+                }
             }
         }
     }
@@ -133,10 +135,12 @@ public struct LoginView: View {
                 .font(.system(size: 20))
                 .foregroundColor(.white)
         } action: {
-            viewModel.loginWithApple {
-                onAuthenticated()
-            } onNeedSignup: { signupToken, nickname in
-                onNeedSignup(signupToken, nickname)
+            Task {
+                await viewModel.loginWithApple {
+                    onAuthenticated()
+                } onNeedSignup: { signupToken, nickname in
+                    onNeedSignup(signupToken, nickname)
+                }
             }
         }
     }

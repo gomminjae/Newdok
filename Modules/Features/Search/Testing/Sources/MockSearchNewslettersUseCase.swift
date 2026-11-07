@@ -2,6 +2,7 @@ import Foundation
 import SearchDomain
 import Shared
 
+@MainActor
 public final class MockSearchNewslettersUseCase: SearchNewslettersUseCase {
     public var result: Result<[SearchedNewsletter], Error> = .success([])
     public private(set) var executedBrandName: String?

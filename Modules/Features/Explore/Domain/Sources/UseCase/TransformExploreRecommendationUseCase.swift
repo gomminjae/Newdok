@@ -1,6 +1,6 @@
 import Foundation
 
-public struct ExploreRecommendationResult {
+public struct ExploreRecommendationResult: Sendable {
     public let carousel: [ExploreNewsletterDetail]
     public let prioritizedUnion: [ExploreNewsletterDetail]
 

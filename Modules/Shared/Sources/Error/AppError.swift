@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Synchronization
 
 public enum AppError: Error, Equatable {
     case noInternet
@@ -54,19 +55,14 @@ public protocol AppErrorMapping: Sendable {
 }
 
 public enum AppErrorMapperRegistry {
-    private static let lock = NSLock()
-    nonisolated(unsafe) private static var _mappers: [AppErrorMapping] = []
+    private static let registeredMappers = Mutex<[any AppErrorMapping]>([])
 
     public static func register(_ mapper: AppErrorMapping) {
-        lock.lock()
-        _mappers.append(mapper)
-        lock.unlock()
+        registeredMappers.withLock { $0.append(mapper) }
     }
 
     public static func map(_ error: Error) -> AppError? {
-        lock.lock()
-        let mappers = _mappers
-        lock.unlock()
+        let mappers = registeredMappers.withLock { $0 }
         for mapper in mappers {
             if let appError = mapper.map(error) {
                 return appError

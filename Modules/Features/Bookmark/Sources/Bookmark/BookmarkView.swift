@@ -135,7 +135,7 @@ public struct BookmarkView: View {
                             selectedCategory = name
                         }
                         Task {
-                            viewModel.interest = id != nil ? "\(id!)" : ""
+                            viewModel.interest = id
                             await viewModel.fetchUserBookmarks()
                         }
                     }) {

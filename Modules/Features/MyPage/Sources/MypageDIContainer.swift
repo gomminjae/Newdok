@@ -69,7 +69,7 @@ final class MypageDIContainer {
         appState.logout()
     }
 
-    func makeWithdrawViewModel(onCleanup: @escaping () -> Void) -> WithdrawViewModel {
+    func makeWithdrawViewModel(onCleanup: @escaping @MainActor () -> Void) -> WithdrawViewModel {
         let userRepository = makeUserRepository()
         let statsRepository = makeStatsRepository()
         return WithdrawViewModel(

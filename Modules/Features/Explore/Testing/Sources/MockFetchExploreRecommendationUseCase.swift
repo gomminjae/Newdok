@@ -1,6 +1,7 @@
 import Foundation
 import ExploreDomain
 
+@MainActor
 public final class MockFetchExploreRecommendationUseCase: FetchExploreRecommendationUseCase {
     public var result: Result<ExploreRecommendedNewsletter, Error> = .success(
         ExploreRecommendedNewsletter(union: [], intersection: [])

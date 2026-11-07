@@ -8,7 +8,7 @@
 
 import Foundation
 
-public struct MypageNicknameResponse {
+public struct MypageNicknameResponse: Sendable {
     public let id: Int
     public let nickname: String
 

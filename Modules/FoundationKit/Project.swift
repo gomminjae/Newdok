@@ -1,4 +1,4 @@
 import ProjectDescription
 import ProjectDescriptionHelpers
 
-let project = Project.module(name: "FoundationKit")
+let project = Project.module(name: "FoundationKit", hasTests: true)

@@ -2,7 +2,7 @@ import Foundation
 import NetworkKit
 
 private enum HomeNewsletterBaseURL {
-    static var newsletters: URL { URL(string: "\(APIEnvironment.baseURL)/newsletters")! }
+    static var newsletters: URL { APIEnvironment.baseURL.appendingPathComponent("newsletters") }
 }
 
 struct FetchHomeActiveNewsletters: APIRequest {

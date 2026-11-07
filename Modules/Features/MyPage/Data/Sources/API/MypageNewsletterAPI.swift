@@ -1,7 +1,7 @@
 import Foundation
 import NetworkKit
 
-private var mypageNewsletterBaseURL: URL { URL(string: "\(APIEnvironment.baseURL)/newsletters")! }
+private var mypageNewsletterBaseURL: URL { APIEnvironment.baseURL.appendingPathComponent("newsletters") }
 
 struct FetchMypageSubscriptionCount: APIRequest {
     typealias Response = MypageNewslettersCountDTO

@@ -3,7 +3,7 @@
 //  DetailDomain
 //
 
-public struct DetailInterest: Identifiable {
+public struct DetailInterest: Identifiable, Sendable {
     public let id: Int
     public let name: String
 

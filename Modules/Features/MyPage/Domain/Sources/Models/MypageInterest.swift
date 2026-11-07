@@ -8,7 +8,7 @@
 
 import Foundation
 
-public struct MypageInterest: Identifiable {
+public struct MypageInterest: Identifiable, Sendable {
     public let id: Int
     public let name: String
 

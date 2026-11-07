@@ -6,9 +6,7 @@ struct FetchSelectableOptionsUseCaseImpl: FetchSelectableOptionsUseCase {
     let network: any NetworkService
 
     func execute() async throws -> SelectableOptions {
-        guard let url = URL(string: "\(APIEnvironment.baseURL)/options") else {
-            throw URLError(.badURL)
-        }
+        let url = APIEnvironment.baseURL.appendingPathComponent("options")
         let response = try await network.request(FetchSelectableOptions(baseURL: url))
         return SelectableOptions(
             interests: response.interests,

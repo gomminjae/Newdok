@@ -1,6 +1,6 @@
 import Foundation
 
-public struct AuthSignupRequest {
+public struct AuthSignupRequest: Sendable {
     public let signupToken: String
     public let nickname: String
     public let birthYear: String

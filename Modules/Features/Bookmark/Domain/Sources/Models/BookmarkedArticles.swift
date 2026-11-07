@@ -5,7 +5,7 @@
 //  Created by 권민재 on 4/11/25.
 //
 
-public struct BookmarkedArticles {
+public struct BookmarkedArticles: Sendable {
     public let totalAmount: Int
     public let bookmarkForMonth: [MonthlyBookmark]
 

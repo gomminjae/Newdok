@@ -59,18 +59,6 @@ public enum NewdokPhoneNumberValidationError: Error {
     }
 }
 
-private enum NewdokValidationPatterns {
-    static let nicknameAllowed = try! NSRegularExpression(pattern: #"^[a-zA-Z0-9가-힣]+$"#)
-    static let asciiLetter = try! NSRegularExpression(pattern: "[a-zA-Z]")
-    static let digit = try! NSRegularExpression(pattern: "[0-9]")
-}
-
-private extension NSRegularExpression {
-    func hasMatch(in string: String) -> Bool {
-        firstMatch(in: string, range: NSRange(string.startIndex..., in: string)) != nil
-    }
-}
-
 public enum NewdokInputValidator {
     public static func validateID(_ id: String) -> NewdokIDValidationError? {
         let isValidLength = (6...12).contains(id.count)
@@ -102,12 +90,12 @@ public enum NewdokInputValidator {
     }
 
     public static func containsOnlyNicknameCharacters(_ nickname: String) -> Bool {
-        NewdokValidationPatterns.nicknameAllowed.hasMatch(in: nickname)
+        nickname.wholeMatch(of: /[a-zA-Z0-9가-힣]+/.matchingSemantics(.unicodeScalar)) != nil
     }
 
     public static func validatePassword(_ password: String) -> NewdokPasswordValidationError? {
-        let hasLetter = NewdokValidationPatterns.asciiLetter.hasMatch(in: password)
-        let hasDigit = NewdokValidationPatterns.digit.hasMatch(in: password)
+        let hasLetter = password.firstMatch(of: /[a-zA-Z]/.matchingSemantics(.unicodeScalar)) != nil
+        let hasDigit = password.firstMatch(of: /[0-9]/.matchingSemantics(.unicodeScalar)) != nil
         let isValidLength = (8...20).contains(password.count)
 
         if !isValidLength { return .tooShort }

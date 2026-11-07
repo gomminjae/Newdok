@@ -8,7 +8,7 @@
 
 import Foundation
 
-public struct MypageUser {
+public struct MypageUser: Sendable {
     public let id: Int
     public let subscribeEmail: String?
     public let nickname: String

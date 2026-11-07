@@ -89,6 +89,16 @@ struct BookmarkViewModelTests {
 
     // MARK: - clearData
 
+    @Test("관심사 필터는 정수 ID와 전체 선택을 전달한다", arguments: [nil, 7] as [Int?])
+    func fetchUserBookmarks_interest(interest: Int?) async {
+        let (vm, articles, _) = makeSUT()
+        vm.interest = interest
+
+        await vm.fetchUserBookmarks()
+
+        #expect(articles.executedInterest == interest)
+    }
+
     @Test("데이터 초기화")
     func clearData() async {
         let articlesMock = MockFetchBookmarkedArticlesUseCase()
@@ -101,7 +111,7 @@ struct BookmarkViewModelTests {
         await vm.fetchUserBookmarks()
         vm.clearData()
 
-        #expect(vm.interest.isEmpty)
+        #expect(vm.interest == nil)
         #expect(vm.interests.isEmpty)
         #expect(vm.bookmarks == nil)
         #expect(vm.sortOrder == .bookmarkDate)

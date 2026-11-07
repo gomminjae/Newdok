@@ -1,7 +1,8 @@
 import Foundation
 import DetailDomain
 
-public final class MockDetailBrandRepository: DetailBrandRepository, @unchecked Sendable {
+@MainActor
+public final class MockDetailBrandRepository: DetailBrandRepository {
     public var brandResult: Result<DetailBrandDetail, Error>
     public var guestBrandResult: Result<DetailBrandDetail, Error>
     public var pauseResult: Result<Void, Error> = .success(())

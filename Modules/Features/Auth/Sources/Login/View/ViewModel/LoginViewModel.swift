@@ -40,22 +40,21 @@ public final class LoginViewModel: ErrorHandling {
     public func loginWithKakao(
         onLoggedIn: @escaping () -> Void,
         onNeedSignup: @escaping (_ signupToken: String, _ suggestedNickname: String?) -> Void
-    ) {
-        guard !isLoading else { return }
+    ) async {
+        guard !isLoading, !Task.isCancelled else { return }
         isLoading = true
+        defer { isLoading = false }
 
-        Task {
-            do {
-                let idToken = try await kakaoAuthService.fetchIDToken()
-                try await authenticate(
-                    with: .kakao(idToken: idToken),
-                    onLoggedIn: onLoggedIn,
-                    onNeedSignup: onNeedSignup
-                )
-            } catch {
-                isLoading = false
-                handle(error)
-            }
+        do {
+            let idToken = try await kakaoAuthService.fetchIDToken()
+            try Task.checkCancellation()
+            try await authenticate(
+                with: .kakao(idToken: idToken),
+                onLoggedIn: onLoggedIn,
+                onNeedSignup: onNeedSignup
+            )
+        } catch {
+            handle(error)
         }
     }
 
@@ -63,25 +62,24 @@ public final class LoginViewModel: ErrorHandling {
     public func loginWithApple(
         onLoggedIn: @escaping () -> Void,
         onNeedSignup: @escaping (_ signupToken: String, _ suggestedNickname: String?) -> Void
-    ) {
-        guard !isLoading else { return }
+    ) async {
+        guard !isLoading, !Task.isCancelled else { return }
         isLoading = true
+        defer { isLoading = false }
 
-        Task {
-            do {
-                let credential = try await appleAuthService.fetchCredential()
-                try await authenticate(
-                    with: .apple(
-                        idToken: credential.idToken,
-                        authorizationCode: credential.authorizationCode
-                    ),
-                    onLoggedIn: onLoggedIn,
-                    onNeedSignup: onNeedSignup
-                )
-            } catch {
-                isLoading = false
-                handle(error)
-            }
+        do {
+            let credential = try await appleAuthService.fetchCredential()
+            try Task.checkCancellation()
+            try await authenticate(
+                with: .apple(
+                    idToken: credential.idToken,
+                    authorizationCode: credential.authorizationCode
+                ),
+                onLoggedIn: onLoggedIn,
+                onNeedSignup: onNeedSignup
+            )
+        } catch {
+            handle(error)
         }
     }
 
@@ -90,8 +88,8 @@ public final class LoginViewModel: ErrorHandling {
         onLoggedIn: @escaping () -> Void,
         onNeedSignup: @escaping (_ signupToken: String, _ suggestedNickname: String?) -> Void
     ) async throws {
-        defer { isLoading = false }
         let result = try await loginUseCase.execute(credential: credential)
+        try Task.checkCancellation()
         currentError = nil
 
         switch result {
@@ -104,6 +102,7 @@ public final class LoginViewModel: ErrorHandling {
     }
 
     private func handle(_ error: Error) {
+        guard !Task.isCancelled, !(error is CancellationError) else { return }
         switch error {
         case LoginError.cancelled:
             // 사용자가 취소 — 조용히 무시

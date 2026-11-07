@@ -5,7 +5,7 @@
 //  Created by 권민재 on 4/11/25.
 //
 
-public struct BookmarkItem: Identifiable {
+public struct BookmarkItem: Identifiable, Sendable {
     public var id: Int { articleId }
     public let brandName: String
     public let brandId: Int

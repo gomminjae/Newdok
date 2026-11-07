@@ -6,7 +6,7 @@
 //  Copyright © 2025 Newdok. All rights reserved.
 //
 
-public struct SearchedNewsletter {
+public struct SearchedNewsletter: Sendable {
     public let id: String
     public let brandName: String
     public let firstDescription: String

@@ -1,5 +1,6 @@
 import Testing
 import Foundation
+import Synchronization
 import Shared
 @testable import Mypage
 @testable import MypageTesting
@@ -29,16 +30,24 @@ private final class StubSelectableItemStore: SelectableItemStoreProtocol {
     }
 }
 
-private final class StubUserInfoStore: UserInfoStoreProtocol, @unchecked Sendable {
-    var storedUser: UserInfo?
+private final class StubUserInfoStore: UserInfoStoreProtocol {
+    private let storage = Mutex<UserInfo?>(nil)
+    var storedUser: UserInfo? {
+        get { storage.withLock { $0 } }
+        set { storage.withLock { $0 = newValue } }
+    }
     func save(_ user: UserInfo) { storedUser = user }
     func load() -> UserInfo? { storedUser }
     func clear() { storedUser = nil }
     var hasProfile: Bool { storedUser?.industryId != nil }
 }
 
-private final class StubTokenStorage: TokenStorageProtocol, @unchecked Sendable {
-    var accessToken: String?
+private final class StubTokenStorage: TokenStorageProtocol {
+    private let token = Mutex<String?>(nil)
+    var accessToken: String? {
+        get { token.withLock { $0 } }
+        set { token.withLock { $0 = newValue } }
+    }
     var hasValidToken: Bool { accessToken != nil }
     @discardableResult
     func saveAccessToken(_ token: String?) -> Bool { accessToken = token; return true }
@@ -177,7 +186,7 @@ private final class MypageOptionsFetcher: FetchSelectableOptionsUseCase {
 @Suite("WithdrawViewModel Tests")
 @MainActor
 struct WithdrawViewModelTests {
-    private func makeSUT() -> (
+    private func makeSUT(appState: AppState = AppState()) -> (
         vm: WithdrawViewModel,
         fetchProfile: MockFetchMypageProfileUseCase,
         fetchSubCount: MockFetchMypageSubscriptionCountUseCase,
@@ -195,7 +204,7 @@ struct WithdrawViewModelTests {
             withdrawUseCase: withdraw,
             tokenStorage: StubTokenStorage(),
             userInfoStore: StubUserInfoStore(),
-            appState: AppState.shared
+            appState: appState
         )
         return (vm, fetchProfile, fetchSubCount, fetchArticleCount, withdraw)
     }
@@ -216,25 +225,27 @@ struct WithdrawViewModelTests {
     }
 
     @Test func withdraw_success() async {
-        let (vm, _, _, _, withdraw) = makeSUT()
-        AppState.shared.login()
+        let appState = AppState()
+        let (vm, _, _, _, withdraw) = makeSUT(appState: appState)
+        appState.login()
 
         await vm.withdraw()
 
         #expect(withdraw.executeCallCount == 1)
         #expect(vm.withdrawSuccess == true)
-        #expect(AppState.shared.authState == .guest)
+        #expect(appState.authState == .guest)
     }
 
     @Test func withdraw_failure_keepsAuthenticatedState() async {
-        let (vm, _, _, _, withdraw) = makeSUT()
+        let appState = AppState()
+        let (vm, _, _, _, withdraw) = makeSUT(appState: appState)
         withdraw.result = .failure(NSError(domain: "test", code: -1))
-        AppState.shared.login()
+        appState.login()
 
         await vm.withdraw()
 
         #expect(withdraw.executeCallCount == 1)
         #expect(vm.withdrawSuccess == false)
-        #expect(AppState.shared.authState == .authenticated)
+        #expect(appState.authState == .authenticated)
     }
 }

@@ -56,20 +56,17 @@ private struct GIFImageView: UIViewRepresentable {
     }
 }
 
-/// 싱글톤 캐시로, 한 번만 GIF를 디코딩하고 재사용 (NSLock으로 thread-safe)
-private final class GIFCache: @unchecked Sendable {
+/// UIKit 이미지의 생성과 캐시 접근은 UIViewRepresentable과 같은 MainActor에서 수행한다.
+@MainActor
+private final class GIFCache {
     static let shared = GIFCache()
     private var cache: [String: (frames: [UIImage], duration: TimeInterval)] = [:]
-    private let lock = NSLock()
     private init() {}
 
     func framesAndDuration(for name: String) -> (frames: [UIImage], duration: TimeInterval)? {
-        lock.lock()
         if let entry = cache[name] {
-            lock.unlock()
             return entry
         }
-        lock.unlock()
 
         guard
             let url = Bundle.module.url(forResource: name, withExtension: "gif"),
@@ -90,9 +87,7 @@ private final class GIFCache: @unchecked Sendable {
         }
 
         let entry = (frames: frames, duration: total)
-        lock.lock()
         cache[name] = entry
-        lock.unlock()
         return entry
     }
 

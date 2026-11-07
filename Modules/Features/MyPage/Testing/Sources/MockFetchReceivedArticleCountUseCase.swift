@@ -1,6 +1,7 @@
 import Foundation
 import MypageDomain
 
+@MainActor
 public final class MockFetchReceivedArticleCountUseCase: FetchReceivedArticleCountUseCase {
     public var result: Result<Int, Error> = .success(10)
     public private(set) var executeCallCount = 0

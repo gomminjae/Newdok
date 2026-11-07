@@ -2,8 +2,8 @@ import Foundation
 import NetworkKit
 
 private enum AuthBaseURL {
-    static var users: URL { URL(string: "\(APIEnvironment.baseURL)/users")! }
-    static var auth: URL { URL(string: "\(APIEnvironment.baseURL)/auth")! }
+    static var users: URL { APIEnvironment.baseURL.appendingPathComponent("users") }
+    static var auth: URL { APIEnvironment.baseURL.appendingPathComponent("auth") }
 }
 
 struct Login: APIRequest {

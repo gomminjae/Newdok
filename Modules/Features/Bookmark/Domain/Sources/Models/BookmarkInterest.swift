@@ -5,7 +5,7 @@
 //  Created by 권민재 on 4/11/25.
 //
 
-public struct BookmarkInterest: Identifiable {
+public struct BookmarkInterest: Identifiable, Sendable {
     public let id: Int
     public let name: String
 

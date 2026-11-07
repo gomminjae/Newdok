@@ -1,7 +1,8 @@
 import Foundation
 import AuthDomain
 
-public final class MockLoginUseCase: LoginUseCase, @unchecked Sendable {
+@MainActor
+public final class MockLoginUseCase: LoginUseCase {
     public var result: Result<SocialLoginResultType, Error> = .success(
         .registered(
             AuthUser(id: 1, subscribeEmail: nil,

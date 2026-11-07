@@ -70,11 +70,11 @@ struct ExploreAllNewsletterSection: View {
                 .onChange(of: shouldScrollToTop) { _, shouldScroll in
                     guard shouldScroll else { return }
                     Task {
-                        try await Task.sleep(for: .seconds(0.1))
+                        do { try await Task.sleep(for: .seconds(0.1)) } catch { return }
                         withAnimation(.easeInOut(duration: 0.5)) {
                             proxy.scrollTo("top", anchor: .top)
                         }
-                        try await Task.sleep(for: .seconds(0.6))
+                        do { try await Task.sleep(for: .seconds(0.6)) } catch { return }
                         shouldScrollToTop = false
                     }
                 }

@@ -62,7 +62,7 @@ public struct MypageView: View {
                             viewModel.copySubscribeEmail()
                             isCopy = true
                             Task {
-                                try await Task.sleep(for: .seconds(2.1))
+                                do { try await Task.sleep(for: .seconds(2.1)) } catch { return }
                                 withAnimation {
                                     isCopy = false
                                 }

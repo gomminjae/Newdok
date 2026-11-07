@@ -1,6 +1,7 @@
 import Foundation
 import DetailDomain
 
+@MainActor
 public final class MockFetchArticleDetailUseCase: FetchArticleDetailUseCase {
     public var result: Result<DetailArticleDetailResult, Error> = .success(
         DetailArticleDetailResult(

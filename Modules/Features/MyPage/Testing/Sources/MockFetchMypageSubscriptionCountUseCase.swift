@@ -1,6 +1,7 @@
 import Foundation
 import MypageDomain
 
+@MainActor
 public final class MockFetchMypageSubscriptionCountUseCase: FetchMypageSubscriptionCountUseCase {
     public var result: Result<Int, Error> = .success(5)
     public private(set) var executeCallCount = 0

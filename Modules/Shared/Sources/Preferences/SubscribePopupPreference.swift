@@ -1,6 +1,6 @@
 import Foundation
 
-public final class SubscribePopupPreference: SubscribePopupStorable, @unchecked Sendable {
+public final class SubscribePopupPreference: SubscribePopupStorable {
     public static let shared = SubscribePopupPreference()
 
     private enum Key {

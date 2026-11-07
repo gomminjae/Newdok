@@ -1,4 +1,4 @@
-public struct ExploreRecommendedNewsletter {
+public struct ExploreRecommendedNewsletter: Sendable {
     public let union: [ExploreNewsletterDetail]
     public let intersection: [ExploreNewsletterDetail]
 

@@ -1,6 +1,7 @@
 import Foundation
 import SubscribeDomain
 
+@MainActor
 public final class MockResumeSubscriptionUseCase: ResumeSubscriptionUseCase {
     public var result: Result<Void, Error> = .success(())
     public private(set) var executedNewsletterId: String?

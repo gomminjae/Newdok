@@ -2,6 +2,7 @@ import Foundation
 import SearchDomain
 import Shared
 
+@MainActor
 public final class MockFetchPopularKeywordsUseCase: FetchPopularKeywordsUseCase {
     public var result: Result<PopularKeywordList, Error> = .success(
         PopularKeywordList(updatedDate: "", keywords: [])

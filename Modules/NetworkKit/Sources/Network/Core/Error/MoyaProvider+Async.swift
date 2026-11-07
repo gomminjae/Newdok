@@ -15,7 +15,7 @@ extension JSONDecoder {
     static let newdokShared = JSONDecoder()
 }
 
-public extension MoyaProvider {
+public extension MoyaProvider where Target: Sendable {
     func asyncRequest<T: Decodable & Sendable>(
         _ target: Target,
         decodeTo type: T.Type = T.self
@@ -56,11 +56,11 @@ public extension MoyaProvider {
     }
 }
 
-private extension MoyaProvider {
+private extension MoyaProvider where Target: Sendable {
     func asyncResponse(_ target: Target) async throws -> Response {
         let requestState = CancellableContinuation<Response>()
 
-        return try await withTaskCancellationHandler {
+        return try await withTaskCancellationHandler { @Sendable in
             try await withCheckedThrowingContinuation { continuation in
                 guard requestState.install(continuation) else { return }
 

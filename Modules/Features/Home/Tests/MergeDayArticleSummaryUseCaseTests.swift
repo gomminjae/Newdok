@@ -20,7 +20,7 @@ struct MergeDayArticleSummaryUseCaseTests {
     }
 
     @Test("기존 날짜는 교체된다 (totalCount/unreadCount 재계산)")
-    func replacesExisting() {
+    func replacesExisting() throws {
         let sut = MergeDayArticleSummaryUseCaseImpl()
         let result = sut.execute(
             day: 1,
@@ -28,7 +28,7 @@ struct MergeDayArticleSummaryUseCaseTests {
             into: [summary(1)]
         )
         #expect(result.count == 1)
-        let entry = try! #require(result.first)
+        let entry = try #require(result.first)
         #expect(entry.publishDate == 1)
         #expect(entry.totalCount == 2)
         #expect(entry.unreadCount == 1)
@@ -36,9 +36,9 @@ struct MergeDayArticleSummaryUseCaseTests {
     }
 
     @Test("빈 아티클이면 hasArticles=false, 카운트 0")
-    func emptyDay() {
+    func emptyDay() throws {
         let result = MergeDayArticleSummaryUseCaseImpl().execute(day: 5, dayArticles: [], into: [])
-        let entry = try! #require(result.first)
+        let entry = try #require(result.first)
         #expect(entry.hasArticles == false)
         #expect(entry.totalCount == 0)
         #expect(entry.unreadCount == 0)

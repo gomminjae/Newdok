@@ -2,19 +2,19 @@ import Foundation
 import NetworkKit
 import BookmarkDomain
 
-private var bookmarkBaseURL: URL { URL(string: "\(APIEnvironment.baseURL)/articles")! }
+private var bookmarkBaseURL: URL { APIEnvironment.baseURL.appendingPathComponent("articles") }
 
 struct FetchBookmarkArticles: APIRequest {
     typealias Response = BookmarkArticlesResponse
-    let interest: String?
+    let interest: Int?
     let sortBy: BookmarkSortOption
     var baseURL: URL { bookmarkBaseURL }
     var path: String { "/bookmark" }
     var method: HTTPMethod { .get }
     var task: RequestTask {
         var parameters: [String: String] = [:]
-        if let interest, !interest.isEmpty {
-            parameters["interestId"] = interest
+        if let interest {
+            parameters["interestId"] = String(interest)
         }
         parameters["sortBy"] = sortBy.rawValue
         return .query(parameters)

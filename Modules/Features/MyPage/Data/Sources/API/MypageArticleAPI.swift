@@ -1,7 +1,7 @@
 import Foundation
 import NetworkKit
 
-private var mypageArticleBaseURL: URL { URL(string: "\(APIEnvironment.baseURL)/articles")! }
+private var mypageArticleBaseURL: URL { APIEnvironment.baseURL.appendingPathComponent("articles") }
 
 struct FetchReceivedArticleCount: APIRequest {
     typealias Response = MypageArticlesCountDTO

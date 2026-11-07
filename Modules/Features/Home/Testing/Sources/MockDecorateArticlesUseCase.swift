@@ -1,6 +1,7 @@
 import Foundation
 import HomeDomain
 
+@MainActor
 public final class MockDecorateArticlesUseCase: DecorateArticlesUseCase {
     public var handler: (([HomeArticle], Set<Int>) -> [HomeArticle])?
     public private(set) var executeCallCount = 0

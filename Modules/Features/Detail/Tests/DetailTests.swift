@@ -1,5 +1,6 @@
 import Testing
 import Foundation
+import Synchronization
 import Shared
 @testable import Detail
 @testable import DetailTesting
@@ -8,13 +9,25 @@ import Shared
 // MARK: - Test Helpers
 
 private final class StubPopupPreference: SubscribePopupStorable {
-    var shouldShow: Bool = true
-    private(set) var hideForTodayCalled = false
-    func hideForToday() { hideForTodayCalled = true }
+    private struct State {
+        var shouldShow = true
+        var hideForTodayCalled = false
+    }
+    private let state = Mutex(State())
+    var shouldShow: Bool {
+        get { state.withLock { $0.shouldShow } }
+        set { state.withLock { $0.shouldShow = newValue } }
+    }
+    var hideForTodayCalled: Bool { state.withLock { $0.hideForTodayCalled } }
+    func hideForToday() { state.withLock { $0.hideForTodayCalled = true } }
 }
 
-private final class StubUserInfoStore: UserInfoStoreProtocol, @unchecked Sendable {
-    var storedUser: UserInfo?
+private final class StubUserInfoStore: UserInfoStoreProtocol {
+    private let storage = Mutex<UserInfo?>(nil)
+    var storedUser: UserInfo? {
+        get { storage.withLock { $0 } }
+        set { storage.withLock { $0 = newValue } }
+    }
     func save(_ user: UserInfo) { storedUser = user }
     func load() -> UserInfo? { storedUser }
     func clear() { storedUser = nil }

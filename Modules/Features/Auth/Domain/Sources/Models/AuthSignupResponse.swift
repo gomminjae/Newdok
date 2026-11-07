@@ -1,6 +1,6 @@
 import Foundation
 
-public struct AuthSignupResponse {
+public struct AuthSignupResponse: Sendable {
     public let user: AuthUser
     public let accessToken: String
 

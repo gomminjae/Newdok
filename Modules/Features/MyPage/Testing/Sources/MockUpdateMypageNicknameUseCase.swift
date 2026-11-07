@@ -1,6 +1,7 @@
 import Foundation
 import MypageDomain
 
+@MainActor
 public final class MockUpdateMypageNicknameUseCase: UpdateMypageNicknameUseCase {
     public var result: Result<Void, Error> = .success(())
     public private(set) var executedNickname: String?

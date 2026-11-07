@@ -95,7 +95,7 @@ public struct EditInterestView: View {
                     guard didUpdate else { return }
                     await viewModel.fetchuserInfo()
                     onBack()
-                    try await Task.sleep(nanoseconds: 150_000_000)
+                    do { try await Task.sleep(for: .milliseconds(150)) } catch { return }
                     ToastCenter.shared.show("관심사가 변경되었습니다.")
                 }
             }) {

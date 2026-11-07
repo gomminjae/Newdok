@@ -1,4 +1,4 @@
-public struct ExploreNewsletterDetail {
+public struct ExploreNewsletterDetail: Sendable {
     public let id: Int
     public let brandName: String
     public let firstDescription: String
