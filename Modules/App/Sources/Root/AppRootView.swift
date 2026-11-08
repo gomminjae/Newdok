@@ -13,6 +13,7 @@ struct AppRootView: View {
         ZStack {
             if launched {
                 NewDokTabView(container: container, appRouter: appRouter)
+                    .analyticsVisibility(appRouter.authRoute == nil && !showSessionExpiredPopup)
                     .transition(.opacity)
             } else {
                 container.makeSplashView()

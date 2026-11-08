@@ -5,6 +5,7 @@ import ExploreData
 
 @MainActor
 struct ExploreDIContainer {
+    private let analytics: AnalyticsClient
     private let network: any NetworkService
     private let userInfoStore: UserInfoStoreProtocol
     private let selectableItemStore: SelectableItemStoreProtocol
@@ -12,8 +13,10 @@ struct ExploreDIContainer {
     init(
         networkProvider: NetworkProviding,
         userInfoStore: UserInfoStoreProtocol,
-        selectableItemStore: SelectableItemStoreProtocol
+        selectableItemStore: SelectableItemStoreProtocol,
+        analytics: AnalyticsClient
     ) {
+        self.analytics = analytics
         self.network = networkProvider.makeService()
         self.userInfoStore = userInfoStore
         self.selectableItemStore = selectableItemStore
@@ -50,7 +53,8 @@ struct ExploreDIContainer {
             transformRecommendationUseCase: TransformExploreRecommendationUseCaseImpl(),
             prioritizeInterestsUseCase: PrioritizeInterestsUseCaseImpl(),
             userInfoStore: userInfoStore,
-            selectableItemStore: selectableItemStore
+            selectableItemStore: selectableItemStore,
+            analytics: analytics
         )
     }
 }

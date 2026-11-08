@@ -1,10 +1,11 @@
 import SwiftUI
+import Shared
 
 @MainActor
 public protocol SubscribeBuildable {
     func makeSubscribeView(
-        onSearch: @escaping () -> Void,
+        onSearch: (() -> Void)?,
         onLogin: @escaping () -> Void,
-        onBrandTap: @escaping (String) -> Void
+        onBrandTap: @escaping (String, AnalyticsListContext) -> Void
     ) -> AnyView
 }

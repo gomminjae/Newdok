@@ -38,6 +38,8 @@ struct NewdokApp: App {
             OverlayRootView {
                 AppRootView(container: container, appRouter: appRouter)
             }
+            .environment(\.analyticsClient, container.analyticsClient)
+            .analyticsVisibility(!showUpdatePopup)
             .hideKeyboardOnTap()
             .overlay(
                 AppToastHost()

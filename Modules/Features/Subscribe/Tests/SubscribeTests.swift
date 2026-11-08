@@ -15,11 +15,14 @@ struct SubscribeViewModelTests {
         pause: MockPauseSubscriptionUseCase = .init(),
         resume: MockResumeSubscriptionUseCase = .init()
     ) -> SubscribeViewModel {
-        SubscribeViewModel(
+        let appState = AppState()
+        appState.login()
+        return SubscribeViewModel(
             fetchActiveUseCase: active,
             fetchPausedUseCase: paused,
             pauseUseCase: pause,
-            resumeUseCase: resume
+            resumeUseCase: resume,
+            appState: appState
         )
     }
 
@@ -90,6 +93,15 @@ struct SubscribeViewModelTests {
         #expect(activeMock.executeCallCount == 1)
     }
 
+    @Test("빈 구독 중지 목록은 활성 구독 없음과 다르게 기록한다")
+    func emptyListSemantics() async {
+        let vm = makeSUT()
+        await vm.loadInitial()
+        #expect(vm.analyticsState(tab: 0) == .noSubscriptions)
+        #expect(vm.analyticsState(tab: 1) == .noResults)
+        #expect(vm.analyticsList(tab: 1).list == .pausedNewsletters)
+    }
+
     // MARK: - refresh
 
     @Test("탭 0 새로고침 시 active만 갱신")
@@ -112,6 +124,21 @@ struct SubscribeViewModelTests {
         await vm.refresh(tab: 1)
 
         #expect(vm.pausedNewsletters.count == 1)
+    }
+
+    @Test("구독 재조회 실패는 기존 카드와 실패한 요청을 별도 문맥으로 유지한다")
+    func failedRefreshPreservesDisplayedList() async {
+        let active = MockFetchActiveSubscriptionUseCase()
+        active.result = .success([makeNewsletter()])
+        let vm = makeSUT(active: active)
+        await vm.loadInitial()
+        let displayed = vm.analyticsList(tab: 0)
+        active.result = .failure(SubscribeAnalyticsServerFailure())
+        await vm.refresh(tab: 0)
+        #expect(vm.activeNewsletters.count == 1)
+        #expect(vm.analyticsList(tab: 0) == displayed)
+        #expect(vm.analyticsState(tab: 0) == .failed)
+        #expect(vm.analyticsStateList(tab: 0) != displayed)
     }
 
     // MARK: - pause / resume
@@ -150,4 +177,8 @@ struct SubscribeViewModelTests {
         let second = await vm.pause(newsletterId: "123")
         #expect(second)
     }
+}
+
+private struct SubscribeAnalyticsServerFailure: Error, AppErrorConvertible {
+    func toAppError() -> AppError { .serverError }
 }

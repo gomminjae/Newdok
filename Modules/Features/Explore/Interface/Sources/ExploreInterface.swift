@@ -1,4 +1,5 @@
 import SwiftUI
+import Shared
 
 public enum ExploreLanding: Hashable, Sendable {
     case recommendations
@@ -9,10 +10,10 @@ public enum ExploreLanding: Hashable, Sendable {
 public protocol ExploreBuildable {
     func makeExploreView(
         landing: ExploreLanding?,
-        onSearch: @escaping () -> Void,
+        onSearch: (() -> Void)?,
         onSignup: @escaping () -> Void,
         onLogin: @escaping () -> Void,
         onEditProfile: @escaping () -> Void,
-        onBrandTap: @escaping (String) -> Void
+        onBrandTap: @escaping (String, AnalyticsListContext) -> Void
     ) -> AnyView
 }

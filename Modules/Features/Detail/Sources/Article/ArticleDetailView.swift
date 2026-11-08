@@ -5,6 +5,9 @@ import DesignSystem
 import FoundationKit
 
 public struct ArticleDetailView: View {
+    @Environment(\.analyticsIsVisible) private var analyticsVisible
+    @Environment(\.scenePhase) private var scenePhase
+    @State private var appeared = false
     @State private var viewModel: ArticleDetailViewModel
 
     @State private var showBookmarkToast: Bool = false
@@ -28,8 +31,6 @@ public struct ArticleDetailView: View {
 
     public var body: some View {
         VStack(spacing: 0) {
-            navigationBar
-
             ZStack {
                 if let detail = viewModel.detail {
                     ArticleWebView(
@@ -44,7 +45,10 @@ public struct ArticleDetailView: View {
                         pendingActions: $webViewActions,
                         isLoading: $isWebViewLoading,
                         disableHighlight: isPastArticle,
-                        renderer: isPastArticle ? nil : renderer
+                        renderer: isPastArticle ? nil : renderer,
+                        onLoadStarted: { viewModel.renderStarted() },
+                        onLoadSucceeded: { viewModel.rendered(visible: articleVisible) },
+                        onLoadFailed: { viewModel.renderFailed($0) }
                     )
                     .ignoresSafeArea(edges: .bottom)
                 }
@@ -64,9 +68,25 @@ public struct ArticleDetailView: View {
             .frame(maxWidth: .infinity, maxHeight: .infinity)
         }
         .background(Color.white.ignoresSafeArea(edges: .top))
+        .navigationTitle(viewModel.detail?.brandName ?? "")
         .navigationBarTitleDisplayMode(.inline)
-        .toolbar(.hidden, for: .navigationBar)
+        .navigationBarBackButtonHidden(true)
+        .toolbar(.visible, for: .navigationBar)
         .toolbar(.hidden, for: .tabBar)
+        .toolbar { articleToolbar }
+        .analyticsScreen(.articleDetail, from: viewModel.analyticsContext.source.entryPoint)
+        .onAppear { appeared = true; if analyticsVisible { viewModel.opened() } }
+        .onDisappear { appeared = false; viewModel.setReadingActive(false) }
+        .onChange(of: analyticsVisible) { _, visible in if visible && appeared { viewModel.opened() } }
+        .onChange(of: readingEligible) { _, active in viewModel.setReadingActive(active) }
+        .onChange(of: AppState.shared.authState) { _, _ in viewModel.invalidateMeasurement() }
+        .task(id: readingEligible) {
+            guard readingEligible else { viewModel.setReadingActive(false); return }
+            viewModel.setReadingActive(true)
+            do { try await ContinuousClock().sleep(for: viewModel.remainingReadingTime) } catch { return }
+            guard !Task.isCancelled else { return }
+            viewModel.qualifyReading()
+        }
         .task { await viewModel.fetch() }
         .task { await viewModel.bind(renderer: renderer) }
         .popup(isPresented: $showBookmarkToast) {
@@ -102,61 +122,74 @@ public struct ArticleDetailView: View {
         )
     }
 
-    // MARK: - Navigation Bar
+    private var articleVisible: Bool {
+        appeared && analyticsVisible && scenePhase == .active && !viewModel.isLoading
+            && !showFontSizeControl && !showHighlightList && !viewModel.isReadingBlockedByError
+    }
 
-    private var navigationBar: some View {
-        HStack(spacing: 0) {
+    private var readingEligible: Bool {
+        articleVisible && viewModel.isArticleRendered && !isWebViewLoading
+    }
+
+    // MARK: - Navigation Toolbar
+
+    @ToolbarContentBuilder
+    private var articleToolbar: some ToolbarContent {
+        ToolbarItem(placement: .topBarLeading) {
             Button { onBack() } label: {
                 Image(asset: DesignSystemAsset.back)
                     .foregroundColor(Color.captionHeavy)
                     .frame(width: 28, height: 28)
+                    .frame(width: 44, height: 44)
+                    .contentShape(Rectangle())
             }
-            Text(viewModel.detail?.brandName ?? "")
-                .font(.hanSansNeo(16, .bold))
-                .foregroundColor(Color.captionHeavy)
-                .lineLimit(1)
-                .padding(.leading, 8)
-            Spacer()
-            HStack(spacing: 12) {
-                if !isPastArticle {
-                    Button { showHighlightList = true } label: {
-                        Image(asset: DesignSystemAsset.highlight)
-                            .renderingMode(.template)
-                            .foregroundColor(Color.captionHeavy)
-                            .frame(width: 28, height: 28)
-                    }
-                }
-                Button { showFontSizeControl = true } label: {
-                    Image(asset: DesignSystemAsset.font)
+            .accessibilityLabel("뒤로")
+        }
+        ToolbarItemGroup(placement: .topBarTrailing) {
+            if !isPastArticle {
+                Button { showHighlightList = true } label: {
+                    Image(asset: DesignSystemAsset.highlight)
                         .renderingMode(.template)
                         .foregroundColor(Color.captionHeavy)
                         .frame(width: 28, height: 28)
+                        .frame(width: 44, height: 44)
+                        .contentShape(Rectangle())
                 }
-                if !isPastArticle {
-                    Button {
-                        Task {
-                            let wasBookmarked = viewModel.detail?.isBookmarked ?? false
-                            await viewModel.bookmark()
-                            bookmarkToastMessage = wasBookmarked
-                                ? "북마크가 해제되었습니다."
-                                : "북마크함에 아티클을 저장했어요."
-                            showBookmarkToast = true
-                        }
-                    } label: {
-                        Image(
-                            asset: viewModel.detail?.isBookmarked == true
-                                ? DesignSystemAsset.bookmarked
-                                : DesignSystemAsset.lineBookmark
-                        )
-                        .frame(width: 28, height: 28)
+                .accessibilityLabel("하이라이트 목록")
+            }
+            Button { showFontSizeControl = true } label: {
+                Image(asset: DesignSystemAsset.font)
+                    .renderingMode(.template)
+                    .foregroundColor(Color.captionHeavy)
+                    .frame(width: 28, height: 28)
+                    .frame(width: 44, height: 44)
+                    .contentShape(Rectangle())
+            }
+            .accessibilityLabel("글자 크기")
+            if !isPastArticle {
+                Button {
+                    Task {
+                        let wasBookmarked = viewModel.detail?.isBookmarked ?? false
+                        guard await viewModel.bookmark() else { return }
+                        bookmarkToastMessage = wasBookmarked
+                            ? "북마크가 해제되었습니다."
+                            : "북마크함에 아티클을 저장했어요."
+                        showBookmarkToast = true
                     }
-                    .disabled(viewModel.isBookmarking)
+                } label: {
+                    Image(
+                        asset: viewModel.detail?.isBookmarked == true
+                            ? DesignSystemAsset.bookmarked
+                            : DesignSystemAsset.lineBookmark
+                    )
+                    .frame(width: 28, height: 28)
+                    .frame(width: 44, height: 44)
+                    .contentShape(Rectangle())
                 }
+                .disabled(viewModel.isBookmarking)
+                .accessibilityLabel(viewModel.detail?.isBookmarked == true ? "북마크 해제" : "북마크 저장")
             }
         }
-        .padding(.horizontal, 20)
-        .frame(height: 44)
-        .background(Color.white)
     }
 
     // MARK: - Scroll To Top

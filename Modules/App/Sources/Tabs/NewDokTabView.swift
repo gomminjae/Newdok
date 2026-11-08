@@ -131,55 +131,68 @@ struct NewDokTabView: View {
 
     var body: some View {
         TabView(selection: $appRouter.selectedTab) {
-            TabContentView {
-                ExploreStack(container: container, appRouter: appRouter)
-            }
-            .tabItem {
+            Tab(value: NewDokTab.explore) {
+                TabContentView {
+                    ExploreStack(container: container, appRouter: appRouter)
+                        .analyticsVisibility(appRouter.selectedTab == .explore)
+                }
+            } label: {
                 Image(asset: DesignSystemAsset.lineNewsletter)
                     .renderingMode(.template)
                 Text("둘러보기")
             }
-            .tag(NewDokTab.explore)
-
-            TabContentView {
-                SubscribeStack(container: container, appRouter: appRouter)
-            }
-            .tabItem {
+            Tab(value: NewDokTab.subscribe) {
+                TabContentView {
+                    SubscribeStack(container: container, appRouter: appRouter)
+                        .analyticsVisibility(appRouter.selectedTab == .subscribe)
+                }
+            } label: {
                 Image(asset: DesignSystemAsset.lineMailbox)
                     .renderingMode(.template)
                 Text("구독관리")
             }
-            .tag(NewDokTab.subscribe)
-
-            TabContentView {
-                HomeStack(container: container, appRouter: appRouter)
-            }
-            .tabItem {
+            Tab(value: NewDokTab.home) {
+                TabContentView {
+                    HomeStack(container: container, appRouter: appRouter)
+                        .analyticsVisibility(appRouter.selectedTab == .home)
+                }
+            } label: {
                 Image(asset: DesignSystemAsset.lineHome)
                     .renderingMode(.template)
                 Text("홈")
             }
-            .tag(NewDokTab.home)
-
-            TabContentView {
-                BookmarkStack(container: container, appRouter: appRouter)
-            }
-            .tabItem {
+            Tab(value: NewDokTab.bookmark) {
+                TabContentView {
+                    BookmarkStack(container: container, appRouter: appRouter)
+                        .analyticsVisibility(appRouter.selectedTab == .bookmark)
+                }
+            } label: {
                 Image(asset: DesignSystemAsset.lineBookmark)
                     .renderingMode(.template)
                 Text("북마크함")
             }
-            .tag(NewDokTab.bookmark)
-
-            TabContentView {
-                MyPageStack(container: container, appRouter: appRouter)
-            }
-            .tabItem {
+            Tab(value: NewDokTab.profile) {
+                TabContentView {
+                    MyPageStack(container: container, appRouter: appRouter)
+                        .analyticsVisibility(appRouter.selectedTab == .profile)
+                }
+            } label: {
                 Image(asset: DesignSystemAsset.lineUser)
                     .renderingMode(.template)
                 Text("마이페이지")
             }
-            .tag(NewDokTab.profile)
+            if #available(iOS 27.0, *) {
+                Tab(value: NewDokTab.search, role: .prominent) {
+                    TabContentView {
+                        SearchStack(container: container, appRouter: appRouter)
+                            .analyticsVisibility(appRouter.selectedTab == .search)
+                    }
+                } label: {
+                    Image(asset: DesignSystemAsset.lineSearch)
+                        .renderingMode(.template)
+                    Text("검색")
+                }
+            }
         }
         .id(userId == 0 ? "guest" : "user_\(userId)")
         .onChange(of: appRouter.selectedTab) { _, newTab in

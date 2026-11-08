@@ -46,7 +46,7 @@ private extension UserInfo {
 @Suite("ArticleDetailViewModel Tests")
 @MainActor
 struct ArticleDetailViewModelTests {
-    private func makeSUT(id: String = "1") -> (
+    private func makeSUT(id: String = "1", analytics: AnalyticsClient = .disabled) -> (
         vm: ArticleDetailViewModel,
         fetchDetail: MockFetchArticleDetailUseCase,
         toggleBookmark: MockToggleArticleBookmarkUseCase,
@@ -59,7 +59,8 @@ struct ArticleDetailViewModelTests {
             id: id,
             fetchDetailUseCase: fetchDetail,
             toggleBookmarkUseCase: toggleBookmark,
-            highlightRepository: highlightRepo
+            highlightRepository: highlightRepo,
+            analytics: analytics
         )
         return (vm, fetchDetail, toggleBookmark, highlightRepo)
     }
@@ -157,6 +158,104 @@ struct ArticleDetailViewModelTests {
         #expect(json.first?["text"] == "하이라이트")
         #expect(json.first?["type"] == "yellow")
     }
+    @Test("API 응답은 본문 표시가 아니며 재로드는 같은 조회를 중복 집계하지 않는다")
+    func renderAndReadingMeasurement() async {
+        let recorder = DetailAnalyticsRecorder()
+        let (vm, fetch, _, _) = makeSUT(analytics: recorder.client)
+        fetch.result = .success(.init(detail: .init(articleTitle: "보내면 안 되는 제목", articleId: 1, date: "", brandId: 2, brandName: "공개 브랜드", articleHTML: "본문", brandImageUrl: "", isBookmarked: false), articleId: "1"))
+        vm.opened()
+        vm.opened()
+        await vm.fetch()
+        #expect(recorder.payloads.map(\.name) == ["article_opened"])
+        vm.rendered()
+        vm.rendered()
+        let start = ContinuousClock.now
+        vm.setReadingActive(true, at: start)
+        vm.setReadingActive(false, at: start.advanced(by: .seconds(15)))
+        vm.qualifyReading(at: start.advanced(by: .seconds(100)))
+        vm.setReadingActive(true, at: start.advanced(by: .seconds(100)))
+        vm.qualifyReading(at: start.advanced(by: .seconds(115)))
+        vm.qualifyReading(at: start.advanced(by: .seconds(116)))
+        #expect(recorder.payloads.map(\.name) == ["article_opened", "article_rendered", "article_engaged"])
+        #expect(recorder.payloads.last?.parameters["active_visible_ms"] == .integer(30_000))
+        #expect(recorder.payloads.last?.parameters["newsletter_id"] == .string("2"))
+        #expect(recorder.payloads.last?.parameters["article_title"] == nil)
+    }
+
+    @Test("북마크 실패는 변경 성공으로 세지 않고 재시도 성공만 집계한다")
+    func bookmarkMeasurement() async {
+        let recorder = DetailAnalyticsRecorder()
+        let (vm, _, toggle, _) = makeSUT(analytics: recorder.client)
+        vm.detail = .init(articleTitle: "", articleId: 1, date: "", brandId: 2, brandName: "공개 브랜드", articleHTML: "", brandImageUrl: "", isBookmarked: false)
+        toggle.result = .failure(URLError(.timedOut))
+        #expect(await vm.bookmark() == false)
+        toggle.result = .success(())
+        #expect(await vm.bookmark())
+        #expect(await vm.bookmark())
+        #expect(recorder.payloads.map(\.name) == ["operation_failed", "bookmark_changed", "bookmark_changed"])
+        #expect(recorder.payloads[1].parameters["action"] == .string("added"))
+        #expect(recorder.payloads[2].parameters["action"] == .string("removed"))
+    }
+
+    @Test("하이라이트는 저장 성공만 집계하고 선택 원문을 보내지 않는다")
+    func highlightMeasurement() async {
+        let recorder = DetailAnalyticsRecorder()
+        let (vm, _, _, repository) = makeSUT(analytics: recorder.client)
+        vm.detail = .init(articleTitle: "민감한 제목", articleId: 1, date: "", brandId: 2, brandName: "브랜드", articleHTML: "", brandImageUrl: "", isBookmarked: false)
+        repository.addResult = .failure(URLError(.timedOut))
+        await vm.persistHighlight(text: "개인 선택 원문", style: .yellow)
+        repository.addResult = .success(())
+        await vm.persistHighlight(text: "개인 선택 원문", style: .yellow)
+        #expect(recorder.payloads.map(\.name) == ["operation_failed", "highlight_applied"])
+        #expect(recorder.payloads.last?.parameters["selected_text"] == nil)
+        #expect(recorder.payloads.last?.parameters["article_title"] == nil)
+    }
+
+    @Test("가려진 화면의 렌더 성공은 돌아와 실제로 표시될 때 기록한다")
+    func hiddenRender() {
+        let recorder = DetailAnalyticsRecorder()
+        let (vm, _, _, _) = makeSUT(analytics: recorder.client)
+        vm.detail = .init(articleTitle: "", articleId: 1, date: "", brandId: 2, brandName: "브랜드", articleHTML: "", brandImageUrl: "", isBookmarked: false)
+        vm.rendered(visible: false)
+        #expect(recorder.payloads.isEmpty)
+        vm.setReadingActive(true)
+        #expect(recorder.payloads.map(\.name) == ["article_rendered"])
+    }
+
+    @Test("가리지 않는 오류는 읽기를 계속하고 실제 오류 팝업만 멈춘다")
+    func errorVisibilityControlsReading() {
+        let recorder = DetailAnalyticsRecorder()
+        let (vm, _, _, _) = makeSUT(analytics: recorder.client)
+        vm.detail = .init(articleTitle: "", articleId: 1, date: "", brandId: 2, brandName: "브랜드", articleHTML: "", brandImageUrl: "", isBookmarked: false)
+        vm.rendered()
+        let start = ContinuousClock.now
+        vm.currentError = .serverError
+        #expect(vm.isReadingBlockedByError)
+        vm.setReadingActive(true, at: start)
+        vm.qualifyReading(at: start.advanced(by: .seconds(100)))
+        #expect(recorder.payloads.map(\.name) == ["article_rendered"])
+
+        vm.currentError = .userMessage("저장 실패")
+        #expect(!vm.isReadingBlockedByError)
+        vm.setReadingActive(true, at: start.advanced(by: .seconds(100)))
+        vm.qualifyReading(at: start.advanced(by: .seconds(130)))
+        #expect(recorder.payloads.map(\.name) == ["article_rendered", "article_engaged"])
+        #expect(recorder.payloads.last?.parameters["active_visible_ms"] == .integer(30_000))
+    }
+
+    @Test("계정 문맥이 끝나면 뒤늦은 렌더와 읽기를 기록하지 않는다")
+    func accountInvalidation() {
+        let recorder = DetailAnalyticsRecorder()
+        let (vm, _, _, _) = makeSUT(analytics: recorder.client)
+        vm.detail = .init(articleTitle: "", articleId: 1, date: "", brandId: 2, brandName: "브랜드", articleHTML: "", brandImageUrl: "", isBookmarked: false)
+        vm.invalidateMeasurement()
+        vm.opened()
+        vm.rendered()
+        vm.setReadingActive(true)
+        vm.qualifyReading(at: ContinuousClock.now.advanced(by: .seconds(60)))
+        #expect(recorder.payloads.isEmpty)
+    }
+
 }
 
 // MARK: - BrandDetailViewModel Tests
@@ -373,5 +472,14 @@ struct BrandDetailViewModelTests {
         vm.hideSubscribeStatePopupForToday()
 
         #expect(popup.hideForTodayCalled == true)
+    }
+}
+
+@MainActor private final class DetailAnalyticsRecorder {
+    var payloads: [AnalyticsPayload] = []
+    var client: AnalyticsClient {
+        AnalyticsClient { [self] event, source in
+            if let payload = event.payload(common: .init(environment: .development, build: "1", authState: .authenticated), from: source) { payloads.append(payload) }
+        }
     }
 }

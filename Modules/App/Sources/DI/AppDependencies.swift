@@ -13,6 +13,7 @@ final class AppDependencies {
     let appState: AppState
     let subscribePopupPreference: SubscribePopupStorable
     let onboardingStorage: OnboardingStorable
+    let analyticsClient: AnalyticsClient
 
     init(
         networkProvider: NetworkProviding = NetworkProvider(),
@@ -32,6 +33,7 @@ final class AppDependencies {
         )
         self.tokenStorage = tokenStorage
         self.appState = appState
+        self.analyticsClient = FirebaseAnalyticsRecorder(appState: appState).client
         self.subscribePopupPreference = subscribePopupPreference
         self.onboardingStorage = onboardingStorage
     }

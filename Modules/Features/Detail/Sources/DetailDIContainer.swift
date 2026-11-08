@@ -6,6 +6,7 @@ import DetailData
 
 @MainActor
 final class DetailDIContainer {
+    private let analytics: AnalyticsClient
     private let network: any NetworkService
     private let highlightDataSource: HighlightLocalDataSource
     private let userInfoStore: UserInfoStoreProtocol
@@ -15,8 +16,10 @@ final class DetailDIContainer {
         networkProvider: NetworkProviding,
         highlightDataSource: HighlightLocalDataSource,
         userInfoStore: UserInfoStoreProtocol,
-        subscribePopupPreference: SubscribePopupStorable
+        subscribePopupPreference: SubscribePopupStorable,
+        analytics: AnalyticsClient
     ) {
+        self.analytics = analytics
         self.network = networkProvider.makeService()
         self.highlightDataSource = highlightDataSource
         self.userInfoStore = userInfoStore
@@ -35,17 +38,20 @@ final class DetailDIContainer {
         DetailHighlightRepositoryImpl(dataSource: highlightDataSource)
     }
 
-    func makeBrandDetailViewModel(id: String) -> BrandDetailViewModel {
-        BrandDetailViewModel(id: id, brandRepository: makeBrandRepository(), popupPreference: subscribePopupPreference, userInfoStore: userInfoStore)
+    func makeBrandDetailViewModel(id: String, source: AnalyticsContentSource) -> BrandDetailViewModel {
+        BrandDetailViewModel(id: id, brandRepository: makeBrandRepository(), popupPreference: subscribePopupPreference, userInfoStore: userInfoStore, source: source, analytics: analytics)
     }
 
-    func makeArticleDetailViewModel(id: String) -> ArticleDetailViewModel {
+    func makeArticleDetailViewModel(id: String, kind: AnalyticsArticleKind, source: AnalyticsContentSource) -> ArticleDetailViewModel {
         let articleRepo = makeArticleRepository()
         return ArticleDetailViewModel(
             id: id,
+            kind: kind,
+            source: source,
             fetchDetailUseCase: FetchArticleDetailUseCaseImpl(articleRepository: articleRepo),
             toggleBookmarkUseCase: ToggleArticleBookmarkUseCaseImpl(articleRepository: articleRepo),
-            highlightRepository: makeHighlightRepository()
+            highlightRepository: makeHighlightRepository(),
+            analytics: analytics
         )
     }
 }

@@ -11,26 +11,29 @@ public struct DetailBuilder: DetailBuildable {
         networkProvider: NetworkProviding,
         highlightDataSource: HighlightLocalDataSource,
         userInfoStore: UserInfoStoreProtocol,
-        subscribePopupPreference: SubscribePopupStorable
+        subscribePopupPreference: SubscribePopupStorable,
+        analytics: AnalyticsClient
     ) {
         self.container = DetailDIContainer(
             networkProvider: networkProvider,
             highlightDataSource: highlightDataSource,
             userInfoStore: userInfoStore,
-            subscribePopupPreference: subscribePopupPreference
+            subscribePopupPreference: subscribePopupPreference,
+            analytics: analytics
         )
     }
 
     public func makeBrandDetailView(
         id: String,
+        source: AnalyticsContentSource = .unknown,
         onBack: @escaping () -> Void,
         onSignup: @escaping () -> Void,
         onGoHome: @escaping () -> Void,
-        onArticleTap: @escaping (String) -> Void
+        onArticleTap: @escaping (String, AnalyticsListContext) -> Void
     ) -> AnyView {
         AnyView(
             BrandDetailView(
-                viewModel: container.makeBrandDetailViewModel(id: id),
+                viewModel: container.makeBrandDetailViewModel(id: id, source: source),
                 onBack: onBack,
                 onSignup: onSignup,
                 onGoHome: onGoHome,
@@ -41,12 +44,13 @@ public struct DetailBuilder: DetailBuildable {
 
     public func makeArticleDetailView(
         id: String,
+        source: AnalyticsContentSource = .unknown,
         isPast: Bool,
         onBack: @escaping () -> Void
     ) -> AnyView {
         AnyView(
             ArticleDetailView(
-                viewModel: container.makeArticleDetailViewModel(id: id),
+                viewModel: container.makeArticleDetailViewModel(id: id, kind: isPast ? .past : .current, source: source),
                 isPastArticle: isPast,
                 onBack: onBack
             )

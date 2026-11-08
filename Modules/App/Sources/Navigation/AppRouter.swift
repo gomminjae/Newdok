@@ -1,4 +1,5 @@
 import Observation
+import Foundation
 import ExploreInterface
 import Shared
 
@@ -13,14 +14,41 @@ enum AppRoute {
 @Observable
 @MainActor
 final class AppRouter {
-    var selectedTab: NewDokTab = .home
+    var selectedTab: NewDokTab = .home {
+        willSet {
+            if newValue == .search, selectedTab != .search {
+                searchPreviousTab = selectedTab
+                searchEntryPoint = analyticsEntryPoint
+            }
+        }
+    }
+    static var supportsSystemSearchTab: Bool {
+        if #available(iOS 27.0, *) { return true }
+        return false
+    }
+    private(set) var searchPreviousTab: NewDokTab = .home
+    private(set) var searchEntryPoint: AnalyticsEntryPoint = .unknown
     var authRoute: AuthRoute?
+    var firstHomeAuthFlowID: UUID?
+    var firstHomeEntryPoint: AnalyticsEntryPoint = .home
 
     var homePath: [HomeRoute] = []
     var explorePath: [ExploreRoute] = []
     var subscribePath: [SubscribeRoute] = []
     var bookmarkPath: [BookmarkRoute] = []
     var myPagePath: [MyPageRoute] = []
+    var searchPath: [SearchRoute] = []
+
+    var analyticsEntryPoint: AnalyticsEntryPoint {
+        switch selectedTab {
+        case .home: homePath.last?.analyticsEntryPoint ?? .home
+        case .explore: explorePath.last?.analyticsEntryPoint ?? .unknown
+        case .subscribe: subscribePath.last?.analyticsEntryPoint ?? .subscriptions
+        case .bookmark: bookmarkPath.last?.analyticsEntryPoint ?? .bookmarks
+        case .profile: .mypage
+        case .search: searchPath.last?.analyticsEntryPoint ?? .search
+        }
+    }
 
     private(set) var exploreLanding: ExploreLanding?
 
@@ -43,7 +71,9 @@ final class AppRouter {
         }
     }
 
-    func finishAuthentication() {
+    func finishAuthentication(flowID: UUID? = nil, from source: AnalyticsEntryPoint = .login) {
+        firstHomeAuthFlowID = flowID
+        firstHomeEntryPoint = source
         resetTabNavigation()
         authRoute = nil
     }
@@ -53,12 +83,19 @@ final class AppRouter {
         authRoute = route
     }
 
+    func leaveSearch() {
+        selectedTab = searchPreviousTab
+    }
+
     private func resetTabNavigation() {
         homePath.removeAll()
         explorePath.removeAll()
         subscribePath.removeAll()
         bookmarkPath.removeAll()
         myPagePath.removeAll()
+        searchPath.removeAll()
+        searchPreviousTab = .home
+        searchEntryPoint = .unknown
         exploreLanding = nil
         selectedTab = .home
     }

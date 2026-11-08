@@ -1,11 +1,14 @@
+import Shared
 import NetworkKit
 import SubscribeDomain
 import SubscribeData
 
 struct SubscribeDIContainer {
+    private let analytics: AnalyticsClient
     private let network: any NetworkService
 
-    init(networkProvider: NetworkProviding) {
+    init(networkProvider: NetworkProviding, analytics: AnalyticsClient) {
+        self.analytics = analytics
         self.network = networkProvider.makeService()
     }
 
@@ -41,7 +44,8 @@ struct SubscribeDIContainer {
             fetchActiveUseCase: makeFetchActiveUseCase(),
             fetchPausedUseCase: makeFetchPausedUseCase(),
             pauseUseCase: makePauseUseCase(),
-            resumeUseCase: makeResumeUseCase()
+            resumeUseCase: makeResumeUseCase(),
+            analytics: analytics
         )
     }
 }

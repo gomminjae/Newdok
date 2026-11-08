@@ -87,6 +87,20 @@ struct BookmarkViewModelTests {
         #expect(vm.currentError != nil)
     }
 
+    @Test("북마크 재조회 실패가 기존 카드의 목록 ID를 바꾸지 않는다")
+    func failedReloadPreservesDisplayedList() async {
+        let mock = MockFetchBookmarkedArticlesUseCase()
+        mock.result = .success(.init(totalAmount: 3, bookmarkForMonth: []))
+        let (vm, _, _) = makeSUT(articles: mock)
+        await vm.fetchUserBookmarks()
+        let displayed = vm.analyticsList
+        mock.result = .failure(BookmarkAnalyticsServerFailure())
+        await vm.fetchUserBookmarks()
+        #expect(vm.bookmarks?.totalAmount == 3)
+        #expect(vm.analyticsList == displayed)
+        #expect(vm.analyticsStateList != displayed)
+    }
+
     // MARK: - clearData
 
     @Test("관심사 필터는 정수 ID와 전체 선택을 전달한다", arguments: [nil, 7] as [Int?])
@@ -116,4 +130,8 @@ struct BookmarkViewModelTests {
         #expect(vm.bookmarks == nil)
         #expect(vm.sortOrder == .bookmarkDate)
     }
+}
+
+private struct BookmarkAnalyticsServerFailure: Error, AppErrorConvertible {
+    func toAppError() -> AppError { .serverError }
 }

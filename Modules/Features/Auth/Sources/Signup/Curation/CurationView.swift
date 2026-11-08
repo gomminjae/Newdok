@@ -27,6 +27,7 @@ public struct CurationView: View {
                 loadedContent
             }
         }
+        .analyticsContentState(viewModel.isCurationLoading ? nil : viewModel.currentError == .serverError ? .failed : viewModel.recommendedPost.isEmpty ? .noResults : .ready, list: viewModel.curationList, isVisible: viewModel.subscriptionSession == nil)
         .padding(.horizontal, 24)
     }
 }

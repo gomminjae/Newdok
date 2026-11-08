@@ -25,39 +25,45 @@ import Launch
 final class AppContainer {
     private let deps: AppDependencies
 
+    var analyticsClient: AnalyticsClient { deps.analyticsClient }
+
     private lazy var authBuilder: AuthBuildable = AuthBuilder(
         networkProvider: deps.networkProvider,
         tokenStorage: deps.tokenStorage,
         userInfoStore: deps.userInfoStore,
         selectableItemStore: deps.selectableItemStore,
         appState: deps.appState,
-        onboardingStorage: deps.onboardingStorage
+        onboardingStorage: deps.onboardingStorage,
+        analytics: deps.analyticsClient
     )
 
     private lazy var homeBuilder: HomeBuildable = HomeBuilder(
         networkProvider: deps.networkProvider,
         highlightDataSource: deps.highlightDataSource,
-        appState: deps.appState
+        appState: deps.appState,
+        analytics: deps.analyticsClient
     )
 
     private lazy var exploreBuilder: ExploreBuildable = ExploreBuilder(
         networkProvider: deps.networkProvider,
         userInfoStore: deps.userInfoStore,
-        selectableItemStore: deps.selectableItemStore
+        selectableItemStore: deps.selectableItemStore,
+        analytics: deps.analyticsClient
     )
 
-    private lazy var subscribeBuilder: SubscribeBuildable = SubscribeBuilder(networkProvider: deps.networkProvider)
+    private lazy var subscribeBuilder: SubscribeBuildable = SubscribeBuilder(networkProvider: deps.networkProvider, analytics: deps.analyticsClient)
 
-    private lazy var bookmarkBuilder: BookmarkBuildable = BookmarkBuilder(networkProvider: deps.networkProvider)
+    private lazy var bookmarkBuilder: BookmarkBuildable = BookmarkBuilder(networkProvider: deps.networkProvider, analytics: deps.analyticsClient)
 
     private lazy var detailBuilder: DetailBuildable = DetailBuilder(
         networkProvider: deps.networkProvider,
         highlightDataSource: deps.highlightDataSource,
         userInfoStore: deps.userInfoStore,
-        subscribePopupPreference: deps.subscribePopupPreference
+        subscribePopupPreference: deps.subscribePopupPreference,
+        analytics: deps.analyticsClient
     )
 
-    private lazy var searchBuilder: SearchBuildable = SearchBuilder(networkProvider: deps.networkProvider)
+    private lazy var searchBuilder: SearchBuildable = SearchBuilder(networkProvider: deps.networkProvider, analytics: deps.analyticsClient)
 
     private lazy var mypageBuilder: MypageBuildable = MypageBuilder(
         networkProvider: deps.networkProvider,
@@ -80,13 +86,15 @@ final class AppContainer {
     }
 
     func makeOnboardingView(
+        context: AuthAnalyticsContext = AuthAnalyticsContext(),
         onSignup: @escaping () -> Void,
         onLogin: @escaping () -> Void
     ) -> some View {
-        authBuilder.makeOnboardingView(onSignup: onSignup, onLogin: onLogin)
+        authBuilder.makeOnboardingView(context: context, onSignup: onSignup, onLogin: onLogin)
     }
 
     func makeLoginView(
+        context: AuthAnalyticsContext = AuthAnalyticsContext(),
         canGoBack: Bool,
         onBack: @escaping () -> Void,
         onSignup: @escaping () -> Void,
@@ -94,6 +102,7 @@ final class AppContainer {
         onAuthenticated: @escaping () -> Void
     ) -> some View {
         authBuilder.makeLoginView(
+            context: context,
             canGoBack: canGoBack,
             onBack: onBack,
             onSignup: onSignup,
@@ -103,6 +112,7 @@ final class AppContainer {
     }
 
     func makeSignupView(
+        context: AuthAnalyticsContext = AuthAnalyticsContext(),
         signupToken: String,
         nickname: String?,
         onBack: @escaping () -> Void,
@@ -110,6 +120,7 @@ final class AppContainer {
         onAuthenticated: @escaping () -> Void
     ) -> some View {
         authBuilder.makeSignupView(
+            context: context,
             signupToken: signupToken,
             nickname: nickname,
             onBack: onBack,
@@ -119,8 +130,8 @@ final class AppContainer {
     }
 
     func makeHomeView(
-        onArticleTap: @escaping (String) -> Void,
-        onSearch: @escaping () -> Void,
+        onArticleTap: @escaping (String, AnalyticsListContext) -> Void,
+        onSearch: (() -> Void)?,
         onSignup: @escaping () -> Void,
         onLogin: @escaping () -> Void,
         onExploreRecommendations: @escaping () -> Void,
@@ -138,11 +149,11 @@ final class AppContainer {
 
     func makeExploreView(
         landing: ExploreLanding?,
-        onSearch: @escaping () -> Void,
+        onSearch: (() -> Void)?,
         onSignup: @escaping () -> Void,
         onLogin: @escaping () -> Void,
         onEditProfile: @escaping () -> Void,
-        onBrandTap: @escaping (String) -> Void
+        onBrandTap: @escaping (String, AnalyticsListContext) -> Void
     ) -> some View {
         exploreBuilder.makeExploreView(
             landing: landing,
@@ -155,30 +166,32 @@ final class AppContainer {
     }
 
     func makeSubscribeView(
-        onSearch: @escaping () -> Void,
+        onSearch: (() -> Void)?,
         onLogin: @escaping () -> Void,
-        onBrandTap: @escaping (String) -> Void
+        onBrandTap: @escaping (String, AnalyticsListContext) -> Void
     ) -> some View {
         subscribeBuilder.makeSubscribeView(onSearch: onSearch, onLogin: onLogin, onBrandTap: onBrandTap)
     }
 
     func makeBookmarkView(
-        onSearch: @escaping () -> Void,
+        onSearch: (() -> Void)?,
         onLogin: @escaping () -> Void,
-        onArticleTap: @escaping (String) -> Void
+        onArticleTap: @escaping (String, AnalyticsListContext) -> Void
     ) -> some View {
         bookmarkBuilder.makeBookmarkView(onSearch: onSearch, onLogin: onLogin, onArticleTap: onArticleTap)
     }
 
     func makeBrandDetailView(
         id: String,
+        source: AnalyticsContentSource = .unknown,
         onBack: @escaping () -> Void,
         onSignup: @escaping () -> Void,
         onGoHome: @escaping () -> Void,
-        onArticleTap: @escaping (String) -> Void
+        onArticleTap: @escaping (String, AnalyticsListContext) -> Void
     ) -> some View {
         detailBuilder.makeBrandDetailView(
             id: id,
+            source: source,
             onBack: onBack,
             onSignup: onSignup,
             onGoHome: onGoHome,
@@ -188,18 +201,20 @@ final class AppContainer {
 
     func makeArticleDetailView(
         id: String,
+        source: AnalyticsContentSource = .unknown,
         isPast: Bool,
         onBack: @escaping () -> Void
     ) -> some View {
-        detailBuilder.makeArticleDetailView(id: id, isPast: isPast, onBack: onBack)
+        detailBuilder.makeArticleDetailView(id: id, source: source, isPast: isPast, onBack: onBack)
     }
 
     func makeSearchView(
+        entryPoint: AnalyticsEntryPoint = .unknown,
         onBack: @escaping () -> Void,
-        onBrandTap: @escaping (String) -> Void,
+        onBrandTap: @escaping (String, AnalyticsListContext) -> Void,
         onFeedback: @escaping () -> Void
     ) -> some View {
-        searchBuilder.makeSearchView(onBack: onBack, onBrandTap: onBrandTap, onFeedback: onFeedback)
+        searchBuilder.makeSearchView(entryPoint: entryPoint, onBack: onBack, onBrandTap: onBrandTap, onFeedback: onFeedback)
     }
 
     func makeMypageView(

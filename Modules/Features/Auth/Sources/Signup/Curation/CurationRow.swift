@@ -56,6 +56,7 @@ struct CurationRow: View {
                 Spacer()
 
                 Button(action: {
+                    guard let brand, viewModel.startSubscription(brand) else { return }
                     // 사용자의 구독 이메일 복사
                     if let userEmail = viewModel.user?.subscribeEmail {
                         UIPasteboard.general.string = userEmail
@@ -103,18 +104,28 @@ struct CurationRow: View {
         .sheet(isPresented: Binding(
             get: { showSubscribeSheet && brand?.id != 321 },
             set: { showSubscribeSheet = $0 }
-        )) {
-            SubscribeModalView(title: brand?.name ?? "", url: brand?.subscribeUrl ?? "", email: viewModel.user?.subscribeEmail ?? "", name: viewModel.user?.nickname ?? "")
+        ), onDismiss: { viewModel.closeSubscription() }) {
+            subscriptionModal
                 .presentationDetents([.large])
                 .presentationDragIndicator(.hidden)
         }
         .fullScreenCover(isPresented: Binding(
             get: { showSubscribeSheet && brand?.id == 321 },
             set: { showSubscribeSheet = $0 }
-        )) {
-            SubscribeModalView(title: brand?.name ?? "", url: brand?.subscribeUrl ?? "", email: viewModel.user?.subscribeEmail ?? "", name: viewModel.user?.nickname ?? "")
+        ), onDismiss: { viewModel.closeSubscription() }) {
+            subscriptionModal
         }
     }
+    private var subscriptionModal: some View {
+        let session = viewModel.subscriptionSession
+        return SubscribeModalView(
+            title: brand?.name ?? "", url: brand?.subscribeUrl ?? "",
+            email: viewModel.user?.subscribeEmail ?? "", name: viewModel.user?.nickname ?? "",
+            onPageLoaded: { session?.pageLoaded() }, onPageFailed: { session?.pageFailed($0) }
+        )
+        .analyticsScreen(.subscribeWeb, from: .signupCuration)
+    }
+
 }
 
 struct TagView: View {

@@ -10,6 +10,8 @@ import Shared
 
 
 public struct OnboardingView: View {
+    @Environment(\.analyticsClient) private var analytics
+    private let context: AuthAnalyticsContext
     @State private var currentPage = 0
     let totalPages = 3
 
@@ -18,10 +20,12 @@ public struct OnboardingView: View {
     private let onLogin: () -> Void
 
     public init(
+        context: AuthAnalyticsContext = AuthAnalyticsContext(),
         onboardingStorage: OnboardingStorable,
         onSignup: @escaping () -> Void,
         onLogin: @escaping () -> Void
     ) {
+        self.context = context
         self.onboardingStorage = onboardingStorage
         self.onSignup = onSignup
         self.onLogin = onLogin
@@ -58,6 +62,7 @@ public struct OnboardingView: View {
                 VStack(spacing: 0) {
                     Button(action: {
                         onboardingStorage.markCompleted()
+                        analytics.record(.onboardingCompleted(flowID: context.flowID, next: .signup), from: .onboarding)
                         onSignup()
                     }) {
                         Text("회원가입")
@@ -78,6 +83,7 @@ public struct OnboardingView: View {
 
                         Button(action: {
                             onboardingStorage.markCompleted()
+                            analytics.record(.onboardingCompleted(flowID: context.flowID, next: .login), from: .onboarding)
                             onLogin()
                         }) {
                             Text("로그인")
@@ -110,5 +116,6 @@ public struct OnboardingView: View {
             }
             .zIndex(1) // z축으로 앞에 배치
         }
+        .analyticsScreen(.onboarding, from: .launch, step: currentPage == 0 ? .intro1 : currentPage == 1 ? .intro2 : .intro3, flowID: context.flowID)
     }
 }

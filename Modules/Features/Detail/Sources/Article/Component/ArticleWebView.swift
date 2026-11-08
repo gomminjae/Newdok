@@ -36,6 +36,9 @@ struct ArticleWebView: UIViewRepresentable {
     @Binding var isLoading: Bool
     var disableHighlight: Bool = false
     var renderer: WebViewHighlightRenderer?
+    var onLoadStarted: () -> Void = {}
+    var onLoadSucceeded: () -> Void = {}
+    var onLoadFailed: (Error) -> Void = { _ in }
 
     func makeCoordinator() -> Coordinator {
         Coordinator(self)
@@ -111,7 +114,7 @@ struct ArticleWebView: UIViewRepresentable {
                 disableHighlight: disableHighlight
             )
 
-            uiView.loadHTMLString(htmlBuilder.build(), baseURL: nil)
+            context.coordinator.articleNavigation = uiView.loadHTMLString(htmlBuilder.build(), baseURL: nil)
         } else if context.coordinator.lastFontSize != fontSize {
             context.coordinator.lastFontSize = fontSize
             uiView.evaluateJavaScript("adjustFontSize(\(fontSize));") { _, error in
@@ -130,6 +133,7 @@ struct ArticleWebView: UIViewRepresentable {
         var lastFontSize: CGFloat?
         var lastHighlightCount: Int = 0
         var needsReload: Bool = false
+        var articleNavigation: WKNavigation?
 
         init(_ parent: ArticleWebView) {
             self.parent = parent
@@ -137,22 +141,27 @@ struct ArticleWebView: UIViewRepresentable {
 
         func webView(_ webView: WKWebView, didStartProvisionalNavigation navigation: WKNavigation!) {
             parent.isLoading = true
+            parent.onLoadStarted()
         }
 
         func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
             parent.isLoading = false
+            if navigation === articleNavigation { parent.onLoadSucceeded() }
         }
 
         func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {
             parent.isLoading = webView.isLoading
+            if navigation === articleNavigation { parent.onLoadFailed(error) }
         }
 
         func webView(_ webView: WKWebView, didFailProvisionalNavigation navigation: WKNavigation!, withError error: Error) {
             parent.isLoading = webView.isLoading
+            if navigation === articleNavigation { parent.onLoadFailed(error) }
         }
 
         func webViewWebContentProcessDidTerminate(_ webView: WKWebView) {
             parent.isLoading = false
+            parent.onLoadFailed(URLError(.cannotLoadFromNetwork))
             needsReload = true
             lastContentKey = nil
         }

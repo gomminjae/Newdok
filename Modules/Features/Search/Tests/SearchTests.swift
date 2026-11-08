@@ -66,10 +66,12 @@ struct SearchViewModelTests {
 
     @Test("늦게 끝난 이전 검색 결과를 무시")
     func searchNewsletters_latestRequestWins() async {
+        let recorder = SearchAnalyticsRecorder()
         let controlled = ControlledSearchUseCase()
         let vm = SearchViewModel(
             searchNewslettersUseCase: controlled,
-            fetchPopularKeywordsUseCase: MockFetchPopularKeywordsUseCase()
+            fetchPopularKeywordsUseCase: MockFetchPopularKeywordsUseCase(),
+            analytics: recorder.client
         )
 
         vm.searchText = "이전"
@@ -92,6 +94,9 @@ struct SearchViewModelTests {
         )
         await previousTask.value
 
+        #expect(recorder.payloads.map(\.name) == ["newsletter_search_started", "newsletter_search_started", "newsletter_search_finished"])
+        #expect(recorder.payloads.last?.parameters["list_view_id"] == .string(vm.analyticsList.id.uuidString.lowercased()))
+        #expect(recorder.payloads.allSatisfy { $0.parameters["query"] == nil && $0.parameters["search_text"] == nil })
         #expect(vm.searchResults.map(\.id) == ["new"])
         #expect(vm.isLoading == false)
     }
@@ -192,6 +197,64 @@ struct SearchViewModelTests {
         #expect(mock.executedBrandName == "경제")
         #expect(vm.searchResults.count == 1)
     }
+    @Test("새 검색이 취소되면 기존 결과의 선택 문맥을 보존한다")
+    func cancelledReplacementPreservesDisplayedList() async {
+        let controlled = ControlledSearchUseCase()
+        let recorder = SearchAnalyticsRecorder()
+        let vm = SearchViewModel(searchNewslettersUseCase: controlled, fetchPopularKeywordsUseCase: MockFetchPopularKeywordsUseCase(), analytics: recorder.client)
+        vm.searchText = "첫 검색"
+        let first = Task { await vm.searchNewsletters() }
+        await controlled.waitUntilRequested("첫 검색")
+        await controlled.succeed("첫 검색", with: [.init(id: "1", brandName: "이전 목록", firstDescription: "", imageUrl: "")])
+        await first.value
+        let displayed = vm.analyticsList
+
+        vm.searchText = "다음 검색"
+        let replacement = Task { await vm.searchNewsletters() }
+        await controlled.waitUntilRequested("다음 검색")
+        #expect(vm.analyticsList == displayed)
+        #expect(vm.analyticsState == nil)
+        replacement.cancel()
+        await controlled.succeed("다음 검색", with: [])
+        await replacement.value
+
+        #expect(vm.searchResults.map(\.id) == ["1"])
+        #expect(vm.analyticsList == displayed)
+        #expect(vm.analyticsState == .ready)
+        #expect(recorder.payloads.map(\.name) == ["newsletter_search_started", "newsletter_search_finished", "newsletter_search_started"])
+    }
+
+    @Test("실패 노출은 실패한 요청에, 기존 결과 선택은 기존 목록에 연결한다")
+    func failedRequestHasSeparateDisplayContext() async {
+        let search = MockSearchNewslettersUseCase()
+        search.result = .success([.init(id: "1", brandName: "이전 결과", firstDescription: "", imageUrl: "")])
+        let vm = SearchViewModel(searchNewslettersUseCase: search, fetchPopularKeywordsUseCase: MockFetchPopularKeywordsUseCase())
+        vm.searchText = "첫 검색"
+        await vm.searchNewsletters()
+        let displayed = vm.analyticsList
+        search.result = .failure(URLError(.timedOut))
+        await vm.searchNewsletters()
+        #expect(vm.analyticsState == .failed)
+        #expect(vm.analyticsStateList != displayed)
+        #expect(vm.analyticsList == displayed)
+        search.result = .failure(CancellationError())
+        await vm.searchNewsletters()
+        #expect(vm.analyticsState == .ready)
+        #expect(vm.analyticsStateList == displayed)
+    }
+
+    @Test("취소는 검색 성공이나 실패로 기록하지 않는다")
+    func cancelledSearchMeasurement() async {
+        let recorder = SearchAnalyticsRecorder()
+        let search = MockSearchNewslettersUseCase()
+        search.result = .failure(CancellationError())
+        let vm = SearchViewModel(searchNewslettersUseCase: search, fetchPopularKeywordsUseCase: MockFetchPopularKeywordsUseCase(), analytics: recorder.client)
+        vm.searchText = "개인 입력"
+        await vm.searchNewsletters()
+        #expect(recorder.payloads.map(\.name) == ["newsletter_search_started"])
+        #expect(vm.analyticsState == nil)
+    }
+
 }
 
 private actor ControlledSearchUseCase: SearchNewslettersUseCase {
@@ -212,5 +275,14 @@ private actor ControlledSearchUseCase: SearchNewslettersUseCase {
 
     func succeed(_ brandName: String, with results: [SearchedNewsletter]) {
         requests.removeValue(forKey: brandName)?.resume(returning: results)
+    }
+}
+
+@MainActor private final class SearchAnalyticsRecorder {
+    var payloads: [AnalyticsPayload] = []
+    var client: AnalyticsClient {
+        AnalyticsClient { [self] event, source in
+            if let payload = event.payload(common: .init(environment: .development, build: "1", authState: .authenticated), from: source) { payloads.append(payload) }
+        }
     }
 }

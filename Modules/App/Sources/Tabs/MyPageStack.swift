@@ -1,5 +1,6 @@
 import SwiftUI
 import DesignSystem
+import Shared
 
 struct MyPageStack: View {
     let container: AppContainer
@@ -17,6 +18,8 @@ struct MyPageStack: View {
                 onLoggedOut: { appRouter.handleLogout(presenting: .login) },
                 onWithdraw: { appRouter.myPagePath.append(.withdraw) }
             )
+            .analyticsScreen(.mypage, from: .mypage)
+            .analyticsVisibility(appRouter.myPagePath.isEmpty)
             .navigationDestination(for: MyPageRoute.self) { route in
                 destination(route)
                     .enableSwipeBack()

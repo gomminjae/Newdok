@@ -1,3 +1,4 @@
+import Shared
 import SwiftUI
 import NetworkKit
 import BookmarkInterface
@@ -5,14 +6,14 @@ import BookmarkInterface
 public struct BookmarkBuilder: BookmarkBuildable {
     private let container: BookmarkDIContainer
 
-    public init(networkProvider: NetworkProviding) {
-        self.container = BookmarkDIContainer(networkProvider: networkProvider)
+    public init(networkProvider: NetworkProviding, analytics: AnalyticsClient) {
+        self.container = BookmarkDIContainer(networkProvider: networkProvider, analytics: analytics)
     }
 
     public func makeBookmarkView(
-        onSearch: @escaping () -> Void,
+        onSearch: (() -> Void)?,
         onLogin: @escaping () -> Void,
-        onArticleTap: @escaping (String) -> Void
+        onArticleTap: @escaping (String, AnalyticsListContext) -> Void
     ) -> AnyView {
         AnyView(
             BookmarkView(

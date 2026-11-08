@@ -32,7 +32,7 @@ private struct DetailExampleMenuView: View {
                         onBack: {},
                         onSignup: {},
                         onGoHome: {},
-                        onArticleTap: { _ in }
+                        onArticleTap: { _, _ in }
                     )
                 }
                 NavigationLink("Weekly Design (미구독)") {
@@ -41,7 +41,7 @@ private struct DetailExampleMenuView: View {
                         onBack: {},
                         onSignup: {},
                         onGoHome: {},
-                        onArticleTap: { _ in }
+                        onArticleTap: { _, _ in }
                     )
                 }
             }

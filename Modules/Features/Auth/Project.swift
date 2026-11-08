@@ -3,6 +3,7 @@ import ProjectDescriptionHelpers
 
 let project = Project.feature(
     name: "Auth",
+    interfaceDependencies: [.shared],
     domainDependencies: [.foundationKit],
     dataDependencies: [
         .external(name: "KakaoSDKCommon"),

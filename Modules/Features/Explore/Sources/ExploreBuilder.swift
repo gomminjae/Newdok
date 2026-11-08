@@ -9,22 +9,24 @@ public struct ExploreBuilder: ExploreBuildable {
     public init(
         networkProvider: NetworkProviding,
         userInfoStore: UserInfoStoreProtocol,
-        selectableItemStore: SelectableItemStoreProtocol
+        selectableItemStore: SelectableItemStoreProtocol,
+        analytics: AnalyticsClient
     ) {
         self.container = ExploreDIContainer(
             networkProvider: networkProvider,
             userInfoStore: userInfoStore,
-            selectableItemStore: selectableItemStore
+            selectableItemStore: selectableItemStore,
+            analytics: analytics
         )
     }
 
     public func makeExploreView(
         landing: ExploreLanding?,
-        onSearch: @escaping () -> Void,
+        onSearch: (() -> Void)?,
         onSignup: @escaping () -> Void,
         onLogin: @escaping () -> Void,
         onEditProfile: @escaping () -> Void,
-        onBrandTap: @escaping (String) -> Void
+        onBrandTap: @escaping (String, AnalyticsListContext) -> Void
     ) -> AnyView {
         AnyView(
             ExploreView(

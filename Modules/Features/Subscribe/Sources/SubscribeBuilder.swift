@@ -1,3 +1,4 @@
+import Shared
 import SwiftUI
 import NetworkKit
 import SubscribeInterface
@@ -5,14 +6,14 @@ import SubscribeInterface
 public struct SubscribeBuilder: SubscribeBuildable {
     private let container: SubscribeDIContainer
 
-    public init(networkProvider: NetworkProviding) {
-        self.container = SubscribeDIContainer(networkProvider: networkProvider)
+    public init(networkProvider: NetworkProviding, analytics: AnalyticsClient) {
+        self.container = SubscribeDIContainer(networkProvider: networkProvider, analytics: analytics)
     }
 
     public func makeSubscribeView(
-        onSearch: @escaping () -> Void,
+        onSearch: (() -> Void)?,
         onLogin: @escaping () -> Void,
-        onBrandTap: @escaping (String) -> Void
+        onBrandTap: @escaping (String, AnalyticsListContext) -> Void
     ) -> AnyView {
         let viewModel = container.makeViewModel()
         return AnyView(

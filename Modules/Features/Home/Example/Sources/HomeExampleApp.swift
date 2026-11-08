@@ -16,7 +16,7 @@ struct HomeExampleApp: App {
             NavigationStack {
                 HomeView(
                     viewModel: makeViewModel(),
-                    onArticleTap: { _ in },
+                    onArticleTap: { _, _ in },
                     onSearch: {},
                     onSignup: {},
                     onLogin: {},

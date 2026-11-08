@@ -38,6 +38,31 @@ public enum HomeState {
 @Observable
 @MainActor
 public final class HomeViewModel: ErrorHandling {
+    public private(set) var analyticsDate = Date()
+    private var analyticsDateLoading = false
+    private var dataSessionID = UUID()
+    public private(set) var analyticsList = AnalyticsListContext(.homeArticles)
+    private var failedList: AnalyticsListContext?
+    var analyticsStateList: AnalyticsListContext {
+        currentError == .serverError ? failedList ?? analyticsList : analyticsList
+    }
+    public var analyticsState: AnalyticsContentState? {
+        if currentError == .serverError { return .failed }
+        guard !isTodayLoading, !analyticsDateLoading else { return nil }
+        switch homeState {
+        case .idle, .loading: return nil
+        case .guest: return .guest
+        case .noSubscriptions: return .noSubscriptions
+        case .noArticles: return .noArticlesOnDate
+        case .articles: return .ready
+        }
+    }
+    func trackAction(_ action: AnalyticsHomeAction, state explicitState: AnalyticsContentState? = nil) {
+        guard let state = explicitState ?? analyticsState else { return }
+        analytics.record(.homeActionSelected(state: state, action: action, date: .init(date: selectedDate)), from: .home)
+    }
+    public let analytics: AnalyticsClient
+
     public var currentError: AppError?
     // MARK: - Dependencies
     private let fetchTodayArticlesUseCase: FetchTodayArticlesUseCase
@@ -88,7 +113,7 @@ public final class HomeViewModel: ErrorHandling {
     private var isTodayLoading = false
     private var isLoaded = false
     private var latestMonthRequestKey: String?
-    private var latestDateSelectionKey: String?
+    private var latestDateSelectionID: UUID?
 
     private var isGuest: Bool { appState.authState == .guest }
 
@@ -104,8 +129,10 @@ public final class HomeViewModel: ErrorHandling {
         extractArticleDays: ExtractArticleDaysUseCase,
         mergeDayArticleSummary: MergeDayArticleSummaryUseCase,
         appState: AppState,
-        userInfoStore: UserInfoStoreProtocol
+        userInfoStore: UserInfoStoreProtocol,
+        analytics: AnalyticsClient = .disabled
     ) {
+        self.analytics = analytics
         self.fetchTodayArticlesUseCase = fetchTodayArticles
         self.fetchMonthArticlesUseCase = fetchMonthArticles
         self.fetchDayArticlesUseCase = fetchDayArticles
@@ -152,10 +179,13 @@ public final class HomeViewModel: ErrorHandling {
             return
         }
         if isTodayLoading { return }
+        let context = AnalyticsListContext(.homeArticles)
+        let session = dataSessionID
         isTodayLoading = true
-        defer { isTodayLoading = false }
+        defer { if session == dataSessionID { isTodayLoading = false } }
 
-        latestDateSelectionKey = nil
+        analyticsDateLoading = false
+        latestDateSelectionID = nil
         let requestedUserInfo = userInfoStore.load()
         if homeState == .idle || lastLoadedUserInfo != requestedUserInfo {
             homeState = .loading
@@ -171,6 +201,8 @@ public final class HomeViewModel: ErrorHandling {
             let month = startOfMonth(today)
             let processedArticles = await decorateArticles(articles)
 
+            try Task.checkCancellation()
+            guard requestedUserInfo == userInfoStore.load(), session == dataSessionID else { return }
             subscribedNewsletters = newsletters
             storeArticles(processedArticles, for: today)
             clearMonthlyCache(for: today)
@@ -182,11 +214,18 @@ public final class HomeViewModel: ErrorHandling {
 
             await loadMonthInternal(for: today, forceReload: true)
             await updateFilteredArticles(for: today)
+            guard session == dataSessionID, !Task.isCancelled else { return }
             isLoaded = true
             lastLoadedDate = today
             lastLoadedUserInfo = requestedUserInfo
+            analyticsList = context
+            failedList = nil
+            analyticsDate = today
             homeState = resolveState()
         } catch {
+            guard !Task.isCancelled, !(error is CancellationError), requestedUserInfo == userInfoStore.load(), session == dataSessionID else { return }
+            failedList = context
+            analytics.record(.operationFailed(.list(context), category: .init(error: error)), from: .home)
             handleError(error, feature: "home", operation: "loadToday")
             isLoaded = true
             calendarState.isLoading = false
@@ -204,10 +243,13 @@ public final class HomeViewModel: ErrorHandling {
     }
 
     public func selectDateWithMonthGuarantee(_ date: Date) {
+        if !Calendar.current.isDate(date, inSameDayAs: analyticsDate) { trackAction(.changeDate) }
+        let context = Calendar.current.isDate(date, inSameDayAs: analyticsDate) ? analyticsList : AnalyticsListContext(.homeArticles)
+        analyticsDateLoading = true
         calendarState.selectedDate = date
-        let selectionKey = dayKey(for: date)
-        latestDateSelectionKey = selectionKey
+        latestDateSelectionID = context.id
         guard !isGuest else {
+            analyticsDateLoading = false
             homeState = .guest
             return
         }
@@ -217,7 +259,10 @@ public final class HomeViewModel: ErrorHandling {
                 await loadMonthInternal(for: date)
             }
             await updateFilteredArticles(for: date)
-            guard latestDateSelectionKey == selectionKey else { return }
+            guard latestDateSelectionID == context.id, !Task.isCancelled else { return }
+            analyticsList = context
+            analyticsDate = date
+            analyticsDateLoading = false
             homeState = resolveState()
         }
     }
@@ -232,7 +277,7 @@ public final class HomeViewModel: ErrorHandling {
             homeState = .guest
             return
         }
-        latestDateSelectionKey = nil
+        latestDateSelectionID = nil
         do {
             try await refreshArticlesUseCase.execute()
         } catch {
@@ -272,6 +317,10 @@ public final class HomeViewModel: ErrorHandling {
     }
 
     public func resetForAuthChange() async {
+        dataSessionID = UUID()
+        failedList = nil
+        analyticsDateLoading = false
+        analyticsList = .init(.homeArticles)
         homeState = .loading
         dataDaysCache.removeAll()
         monthlyCache.removeAll()
@@ -284,7 +333,7 @@ public final class HomeViewModel: ErrorHandling {
         isTodayLoading = false
         isLoaded = false
         latestMonthRequestKey = nil
-        latestDateSelectionKey = nil
+        latestDateSelectionID = nil
 
         let today = Date()
         batchUpdate {
@@ -357,6 +406,7 @@ public final class HomeViewModel: ErrorHandling {
     }
 
     private func loadMonthInternal(for date: Date, forceReload: Bool = false) async {
+        let session = dataSessionID
         let key = monthKey(for: date)
         let month = startOfMonth(date)
 
@@ -379,6 +429,7 @@ public final class HomeViewModel: ErrorHandling {
                 year: formatYear(date),
                 publicationMonth: formatMonth(date)
             )
+            guard session == dataSessionID, !Task.isCancelled else { return }
             batchUpdate {
                 calendarState.displayedMonth = month
             }
@@ -390,7 +441,7 @@ public final class HomeViewModel: ErrorHandling {
             calendarState.isLoading = false
             prefetchAdjacent(from: month)
         } catch {
-            if Task.isCancelled { return }
+            guard session == dataSessionID, !Task.isCancelled, !(error is CancellationError) else { return }
             handleError(error, feature: "home", operation: "loadMonthData")
             calendarState.isLoading = false
         }
@@ -400,7 +451,9 @@ public final class HomeViewModel: ErrorHandling {
 
     private func updateFilteredArticles(for date: Date? = nil) async {
         let target = date ?? calendarState.selectedDate
+        let session = dataSessionID
         let articles = await loadArticles(for: target)
+        guard session == dataSessionID, !Task.isCancelled, dayKey(for: target) == dayKey(for: selectedDate) else { return }
         withAnimation(.easeInOut(duration: 0.25)) {
             filteredArticles = articles
         }
@@ -408,6 +461,7 @@ public final class HomeViewModel: ErrorHandling {
     }
 
     private func loadArticles(for date: Date) async -> [HomeArticle] {
+        let session = dataSessionID
         if let cached = cachedArticles(for: date) {
             return cached
         }
@@ -419,9 +473,11 @@ public final class HomeViewModel: ErrorHandling {
                 publicationDate: formatDay(date)
             )
             let decorated = await decorateArticles(fetched)
+            guard session == dataSessionID, !Task.isCancelled else { return [] }
             storeArticles(decorated, for: date)
             return decorated
         } catch {
+            guard session == dataSessionID, !Task.isCancelled, !(error is CancellationError) else { return [] }
             handleError(error, feature: "home", operation: "loadArticles")
             return []
         }
@@ -510,17 +566,20 @@ public final class HomeViewModel: ErrorHandling {
 
     @discardableResult
     private func fetchDataDays(for date: Date) async -> Set<Int> {
+        let session = dataSessionID
         let key = monthKey(for: date)
         do {
             let monthly = try await fetchMonthArticlesUseCase.execute(
                 year: formatYear(date),
                 publicationMonth: formatMonth(date)
             )
+            guard session == dataSessionID, !Task.isCancelled else { return [] }
             monthlyCache[key] = monthly
             let days = extractArticleDaysUseCase.execute(from: monthly)
             storeDataDays(days, for: date)
             return days
         } catch {
+            guard session == dataSessionID, !Task.isCancelled, !(error is CancellationError) else { return [] }
             handleError(error, feature: "home", operation: "fetchDataDays")
             return []
         }

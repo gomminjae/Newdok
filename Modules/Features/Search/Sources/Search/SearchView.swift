@@ -16,16 +16,19 @@ public struct SearchView: View {
     @State private var viewModel: SearchViewModel
     @State private var searchRequestID = 0
 
+    private let entryPoint: AnalyticsEntryPoint
     private let onBack: () -> Void
-    private let onBrandTap: (String) -> Void
+    private let onBrandTap: (String, AnalyticsListContext) -> Void
     private let onFeedback: () -> Void
 
     public init(
+        entryPoint: AnalyticsEntryPoint = .unknown,
         viewModel: SearchViewModel,
         onBack: @escaping () -> Void,
-        onBrandTap: @escaping (String) -> Void,
+        onBrandTap: @escaping (String, AnalyticsListContext) -> Void,
         onFeedback: @escaping () -> Void
     ) {
+        self.entryPoint = entryPoint
         self.viewModel = viewModel
         self.onBack = onBack
         self.onBrandTap = onBrandTap
@@ -48,6 +51,7 @@ public struct SearchView: View {
                     TextField("검색어를 입력하세요", text: $viewModel.searchText)
                         .submitLabel(.search)
                         .onSubmit {
+                            viewModel.querySource = .typed
                             searchRequestID += 1
                         }
                         .font(.hanSansNeo(14, .regular))
@@ -75,6 +79,7 @@ public struct SearchView: View {
 
                 .cornerRadius(10)
                 Button(action: {
+                    viewModel.querySource = .typed
                     searchRequestID += 1
                 }) {
                     Image(asset: DesignSystemAsset.lineSearch)
@@ -126,6 +131,8 @@ public struct SearchView: View {
             Spacer()
         }
 
+        .analyticsScreen(.search, from: entryPoint)
+        .analyticsContentState(viewModel.analyticsState, list: viewModel.analyticsStateList)
         .navigationBarBackButtonHidden(true)
         .navigationBarHidden(true)
         .task {
@@ -200,6 +207,7 @@ public struct SearchView: View {
         .padding(.vertical, 4)
         .contentShape(Rectangle())
         .onTapGesture {
+            viewModel.querySource = .popularKeyword
             viewModel.searchText = keyword.keyword
             searchRequestID += 1
         }
@@ -219,7 +227,8 @@ public struct SearchView: View {
                     .font(.hanSansNeo(16, .medium))
                 ForEach(viewModel.searchResults, id: \.id) { result in
                     Button(action: {
-                        onBrandTap(result.id)
+                        viewModel.analytics.record(.contentSelected(.newsletter(.init(id: result.id, name: result.brandName)), list: viewModel.analyticsList), from: .search)
+                        onBrandTap(result.id, viewModel.analyticsList)
                     }) {
                         SearchNewsletterRow(result: result)
                     }

@@ -12,7 +12,8 @@ public struct AuthBuilder: AuthBuildable {
         userInfoStore: UserInfoStoreProtocol,
         selectableItemStore: SelectableItemStoreProtocol,
         appState: AppState,
-        onboardingStorage: OnboardingStorable
+        onboardingStorage: OnboardingStorable,
+        analytics: AnalyticsClient
     ) {
         self.container = AuthDIContainer(
             networkProvider: networkProvider,
@@ -20,16 +21,19 @@ public struct AuthBuilder: AuthBuildable {
             userInfoStore: userInfoStore,
             selectableItemStore: selectableItemStore,
             appState: appState,
-            onboardingStorage: onboardingStorage
+            onboardingStorage: onboardingStorage,
+            analytics: analytics
         )
     }
 
     public func makeOnboardingView(
+        context: AuthAnalyticsContext = AuthAnalyticsContext(),
         onSignup: @escaping () -> Void,
         onLogin: @escaping () -> Void
     ) -> AnyView {
         AnyView(
             OnboardingView(
+                context: context,
                 onboardingStorage: container.onboardingStorage,
                 onSignup: onSignup,
                 onLogin: onLogin
@@ -38,6 +42,7 @@ public struct AuthBuilder: AuthBuildable {
     }
 
     public func makeLoginView(
+        context: AuthAnalyticsContext = AuthAnalyticsContext(),
         canGoBack: Bool,
         onBack: @escaping () -> Void,
         onSignup: @escaping () -> Void,
@@ -46,7 +51,7 @@ public struct AuthBuilder: AuthBuildable {
     ) -> AnyView {
         AnyView(
             LoginView(
-                viewModel: container.makeLoginViewModel(),
+                viewModel: container.makeLoginViewModel(context: context),
                 canGoBack: canGoBack,
                 onBack: onBack,
                 onNeedSignup: onNeedSignup,
@@ -56,6 +61,7 @@ public struct AuthBuilder: AuthBuildable {
     }
 
     public func makeSignupView(
+        context: AuthAnalyticsContext = AuthAnalyticsContext(),
         signupToken: String,
         nickname: String?,
         onBack: @escaping () -> Void,
@@ -64,7 +70,7 @@ public struct AuthBuilder: AuthBuildable {
     ) -> AnyView {
         AnyView(
             SignupView(
-                viewModel: container.makeSignupViewModel(signupToken: signupToken, nickname: nickname),
+                viewModel: container.makeSignupViewModel(context: context, signupToken: signupToken, nickname: nickname),
                 onBack: onBack,
                 onLogin: onLogin,
                 onAuthenticated: onAuthenticated

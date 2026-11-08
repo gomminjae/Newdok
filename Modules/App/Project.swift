@@ -9,17 +9,19 @@ let project = Project(
             "DEVELOPMENT_TEAM": "AU24ZRJ649",
             "SWIFT_VERSION": "6.0",
             "SWIFT_STRICT_CONCURRENCY": "complete",
-            "MARKETING_VERSION": "1.1.1",
+            "MARKETING_VERSION": "1.1.2",
             "CURRENT_PROJECT_VERSION": "1",
             "CODE_SIGN_STYLE": "Automatic"
         ],
         configurations: [
             .debug(
                 name: "Debug",
+                settings: ["ANALYTICS_COLLECTION_DEACTIVATED": "YES"],
                 xcconfig: "../../Configurations/Debug.xcconfig"
             ),
             .release(
                 name: "Release",
+                settings: ["ANALYTICS_COLLECTION_DEACTIVATED": "NO"],
                 xcconfig: "../../Configurations/Release.xcconfig"
             )
         ],
@@ -44,6 +46,9 @@ let project = Project(
                     "CFBundleName": "$(APP_DISPLAY_NAME)",
                     "CFBundleShortVersionString": "$(MARKETING_VERSION)",
                     "CFBundleVersion": "$(CURRENT_PROJECT_VERSION)",
+                    "FIREBASE_ANALYTICS_COLLECTION_ENABLED": false,
+                    "FIREBASE_ANALYTICS_COLLECTION_DEACTIVATED": "$(ANALYTICS_COLLECTION_DEACTIVATED)",
+                    "FirebaseAutomaticScreenReportingEnabled": false,
                     "UILaunchScreen": [
                         "UIColorName": "AccentColor",
                         "UIImageName": ""

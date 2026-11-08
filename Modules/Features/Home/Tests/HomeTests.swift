@@ -82,6 +82,20 @@ struct HomeViewModelTests {
         #expect(fetchNewsletters.executeCallCount == 1)
     }
 
+    @Test("홈 재조회 실패 후 남아 있는 카드는 이전 표시 ID를 유지한다")
+    func failedReloadPreservesDisplayedList() async {
+        setupSuccessScenario()
+        let vm = makeSUT()
+        await vm.loadToday()
+        let displayed = vm.analyticsList
+        fetchTodayArticles.result = .failure(HomeAnalyticsServerFailure())
+        await vm.loadToday()
+        #expect(vm.filteredArticles.count == 2)
+        #expect(vm.analyticsList == displayed)
+        #expect(vm.analyticsState == .failed)
+        #expect(vm.analyticsStateList != displayed)
+    }
+
     @Test("loadToday sets guest state for guest user")
     func loadTodayGuest() async {
         let appState = AppState()
@@ -233,4 +247,8 @@ struct HomeViewModelTests {
 
         #expect(sut.homeState == .noSubscriptions)
     }
+}
+
+private struct HomeAnalyticsServerFailure: Error, AppErrorConvertible {
+    func toAppError() -> AppError { .serverError }
 }

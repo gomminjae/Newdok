@@ -13,6 +13,13 @@ import Observation
 @Observable
 @MainActor
 public final class BrandDetailViewModel: ErrorHandling {
+    let analyticsViewID = UUID()
+    let analyticsSource: AnalyticsContentSource
+    private(set) var articleList = AnalyticsListContext(.newsletterArticles)
+    private var didViewDetail = false
+    private(set) var subscriptionSession: SubscriptionAnalyticsSession?
+    public let analytics: AnalyticsClient
+
     var detail: DetailBrandDetail?
     var isLoading: Bool = false
     var isSubscriptionMutating: Bool = false
@@ -27,8 +34,12 @@ public final class BrandDetailViewModel: ErrorHandling {
         id: String,
         brandRepository: DetailBrandRepository,
         popupPreference: SubscribePopupStorable,
-        userInfoStore: UserInfoStoreProtocol
+        userInfoStore: UserInfoStoreProtocol,
+        source: AnalyticsContentSource = .unknown,
+        analytics: AnalyticsClient = .disabled
     ) {
+        self.analyticsSource = source
+        self.analytics = analytics
         self.id = id
         self.brandRepository = brandRepository
         self.popupPreference = popupPreference
@@ -55,15 +66,40 @@ public final class BrandDetailViewModel: ErrorHandling {
         popupPreference.hideForToday()
     }
 
-    public func fetch() async {
-        await performAsync(feature: "brandDetail", operation: "fetch", loadingBinding: \.isLoading) {
-            detail = try await brandRepository.fetchNewsletterBrand(id: id)
-        }
+    func detailViewed() {
+        guard !didViewDetail, !isLoading, let detail else { return }
+        didViewDetail = true
+        analytics.record(.newsletterDetailViewed(.init(id: String(detail.brandId), name: detail.brandName), viewID: analyticsViewID, source: analyticsSource, status: detail.subscriptionStatus.analyticsStatus), from: analyticsSource.entryPoint)
     }
 
-    public func guestFetch() async {
-        await performAsync(feature: "brandDetail", operation: "guestFetch", loadingBinding: \.isLoading) {
-            detail = try await brandRepository.fetchGuestNewsletterBrand(id: id)
+    func startSubscription() -> Bool {
+        guard let detail, subscriptionSession == nil else { return false }
+        subscriptionSession = SubscriptionAnalyticsSession(newsletter: .init(id: String(detail.brandId), name: detail.brandName), url: detail.subscribeUrl, client: analytics, from: .newsletterDetail, viewID: analyticsViewID, status: detail.subscriptionStatus.analyticsStatus)
+        return subscriptionSession != nil
+    }
+
+    func closeSubscription() {
+        subscriptionSession?.pageClosed()
+        subscriptionSession = nil
+    }
+
+    public func fetch() async { await load(guest: false) }
+    public func guestFetch() async { await load(guest: true) }
+
+    private func load(guest: Bool) async {
+        guard !isLoading else { return }
+        isLoading = true
+        defer { isLoading = false }
+        do {
+            let response = try await (guest ? brandRepository.fetchGuestNewsletterBrand(id: id) : brandRepository.fetchNewsletterBrand(id: id))
+            try Task.checkCancellation()
+            detail = response
+            articleList = .init(.newsletterArticles)
+            currentError = nil
+        } catch {
+            guard !Task.isCancelled, !(error is CancellationError) else { return }
+            analytics.record(.operationFailed(.newsletter(id: id, viewID: analyticsViewID), category: .init(error: error)), from: analyticsSource.entryPoint)
+            handleError(error, feature: "brandDetail", operation: "fetch")
         }
     }
 
@@ -102,6 +138,18 @@ public final class BrandDetailViewModel: ErrorHandling {
         } catch {
             handleError(error, feature: "brandDetail", operation: "pause")
             return false
+        }
+    }
+}
+
+extension SubscriptionStatus {
+    var analyticsStatus: AnalyticsSubscriptionStatus {
+        switch self {
+        case .initial: .initial
+        case .check: .check
+        case .confirmed: .confirmed
+        case .paused: .paused
+        case .unknown: .unknown
         }
     }
 }

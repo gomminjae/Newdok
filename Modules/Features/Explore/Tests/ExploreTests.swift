@@ -43,6 +43,8 @@ struct ExploreViewModelTests {
     private func makeSUT(
         userInfoStore: StubUserInfoStore = .init(),
         recommendationUseCase: (any FetchExploreRecommendationUseCase)? = nil,
+        allUseCase: (any FetchExploreNewslettersUseCase)? = nil,
+        analytics: AnalyticsClient = .disabled,
         selectableItemStore: (any SelectableItemStoreProtocol)? = nil
     ) -> (
         vm: ExploreViewModel,
@@ -56,14 +58,15 @@ struct ExploreViewModelTests {
         let appState = AppState()
         appState.login()
         let vm = ExploreViewModel(
-            fetchNewslettersUseCase: fetchNewsletters,
+            fetchNewslettersUseCase: allUseCase ?? fetchNewsletters,
             fetchGuestNewslettersUseCase: fetchGuest,
             fetchRecommendationUseCase: recommendationUseCase ?? fetchRecommendation,
             transformRecommendationUseCase: MockTransformExploreRecommendationUseCase(),
             prioritizeInterestsUseCase: MockPrioritizeInterestsUseCase(),
             userInfoStore: userInfoStore,
             selectableItemStore: selectableItemStore ?? StubSelectableItemStore(),
-            appState: appState
+            appState: appState,
+            analytics: analytics
         )
         return (vm, fetchNewsletters, fetchGuest, fetchRecommendation)
     }
@@ -279,6 +282,49 @@ struct ExploreViewModelTests {
         #expect(vm.myRecommendation.map(\.id) == [2])
     }
 
+    @Test("전체 목록 갱신 중 기존 카드 선택은 기존 목록 ID에 귀속한다")
+    func allListIdentityFollowsAdoptedData() async {
+        let controlled = ControlledAllNewsletterUseCase()
+        let recorder = ExploreAnalyticsRecorder()
+        let (vm, _, _, _) = makeSUT(allUseCase: controlled, analytics: recorder.client)
+        let first = Task { await vm.fetchAllNewsletters() }
+        await controlled.requests.waitUntilRequested(1)
+        await controlled.requests.finish(1)
+        await first.value
+        let displayed = vm.allList
+
+        let replacement = Task { await vm.fetchAllNewsletters() }
+        await controlled.requests.waitUntilRequested(2)
+        #expect(vm.allList == displayed)
+        vm.selectNewsletter(1, list: vm.allList)
+        #expect(recorder.payloads.last?.parameters["list_view_id"] == .string(displayed.id.uuidString.lowercased()))
+        await controlled.requests.finish(2)
+        await replacement.value
+        #expect(vm.allNewsletters.map(\.id) == [2])
+        #expect(vm.allList != displayed)
+    }
+
+    @Test("추천의 취소는 표시 중인 목록 ID를 바꾸지 않는다")
+    func cancelledRecommendationPreservesListIdentity() async {
+        let store = StubUserInfoStore()
+        store.save(Self.profile)
+        let controlled = ControlledRecommendationUseCase()
+        let (vm, _, _, _) = makeSUT(userInfoStore: store, recommendationUseCase: controlled)
+        let first = Task { await vm.fetchRecommendation() }
+        await controlled.requests.waitUntilRequested(1)
+        await controlled.requests.finish(1)
+        await first.value
+        let displayed = vm.recommendedList
+        let replacement = Task { await vm.fetchRecommendation(forceRefresh: true) }
+        await controlled.requests.waitUntilRequested(2)
+        #expect(vm.recommendedList == displayed)
+        replacement.cancel()
+        await controlled.requests.finish(2)
+        await replacement.value
+        #expect(vm.recommendedList == displayed)
+        #expect(vm.myRecommendation.map(\.id) == [1])
+    }
+
     @Test func resetFilters_clearsState() async {
         let (vm, _, _, _) = makeSUT()
         vm.day = [1, 2]
@@ -343,5 +389,22 @@ private actor RecommendationRequests {
 
     func finish(_ id: Int) {
         pending.removeValue(forKey: id)?.resume()
+    }
+}
+
+private struct ControlledAllNewsletterUseCase: FetchExploreNewslettersUseCase {
+    let requests = RecommendationRequests()
+    func execute(orderOpt: ExploreOrderOption, industry: [Int]?, day: [Int]?) async throws -> [ExploreBrand] {
+        let id = await requests.start()
+        return [.init(brandId: id, brandName: "뉴스레터 \(id)", imageUrl: nil, interests: [], isSubscribed: nil, shortDescription: "", subscriptionCount: nil)]
+    }
+}
+
+@MainActor private final class ExploreAnalyticsRecorder {
+    var payloads: [AnalyticsPayload] = []
+    var client: AnalyticsClient {
+        AnalyticsClient { [self] event, source in
+            if let payload = event.payload(common: .init(environment: .development, build: "1", authState: .authenticated), from: source) { payloads.append(payload) }
+        }
     }
 }

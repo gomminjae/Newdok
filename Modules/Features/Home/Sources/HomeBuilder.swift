@@ -10,18 +10,20 @@ public struct HomeBuilder: HomeBuildable {
     public init(
         networkProvider: NetworkProviding,
         highlightDataSource: HighlightLocalDataSource,
-        appState: AppState
+        appState: AppState,
+        analytics: AnalyticsClient
     ) {
         self.container = HomeDIContainer(
             networkProvider: networkProvider,
             highlightDataSource: highlightDataSource,
-            appState: appState
+            appState: appState,
+            analytics: analytics
         )
     }
 
     public func makeHomeView(
-        onArticleTap: @escaping (String) -> Void,
-        onSearch: @escaping () -> Void,
+        onArticleTap: @escaping (String, AnalyticsListContext) -> Void,
+        onSearch: (() -> Void)?,
         onSignup: @escaping () -> Void,
         onLogin: @escaping () -> Void,
         onExploreRecommendations: @escaping () -> Void,

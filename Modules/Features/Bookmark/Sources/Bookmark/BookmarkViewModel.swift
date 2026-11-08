@@ -19,6 +19,20 @@ protocol BookmarkViewModelBindable {
 @Observable
 @MainActor
 public final class BookmarkViewModel: BookmarkViewModelBindable, ErrorHandling {
+    public private(set) var analyticsList = AnalyticsListContext(.bookmarkedArticles)
+    private var failedList: AnalyticsListContext?
+    var analyticsStateList: AnalyticsListContext {
+        currentError == .serverError ? failedList ?? analyticsList : analyticsList
+    }
+    private var requestID: UUID?
+    var analyticsState: AnalyticsContentState? {
+        if AppState.shared.authState == .guest { return .guest }
+        if currentError == .serverError { return .failed }
+        guard !isLoading, bookmarks != nil else { return nil }
+        return isBookmarkEmpty ? .noResults : .ready
+    }
+    public let analytics: AnalyticsClient
+
     public var interest: Int?
     public var interests: [BookmarkInterest] = []
 
@@ -31,8 +45,10 @@ public final class BookmarkViewModel: BookmarkViewModelBindable, ErrorHandling {
 
     public init(
         fetchArticlesUseCase: FetchBookmarkedArticlesUseCase,
-        fetchInterestsUseCase: FetchBookmarkedInterestsUseCase
+        fetchInterestsUseCase: FetchBookmarkedInterestsUseCase,
+        analytics: AnalyticsClient = .disabled
     ) {
+        self.analytics = analytics
         self.fetchArticlesUseCase = fetchArticlesUseCase
         self.fetchInterestsUseCase = fetchInterestsUseCase
     }
@@ -61,8 +77,23 @@ public final class BookmarkViewModel: BookmarkViewModelBindable, ErrorHandling {
     }
 
     func fetchUserBookmarks() async {
-        await performAsync(feature: "bookmark", operation: "fetchUserBookmarks") {
-            bookmarks = try await fetchArticlesUseCase.execute(interest: interest, sortBy: sortOrder)
+        let context = AnalyticsListContext(.bookmarkedArticles)
+        requestID = context.id
+        isLoading = true
+        defer { if requestID == context.id { isLoading = false } }
+        do {
+            let result = try await fetchArticlesUseCase.execute(interest: interest, sortBy: sortOrder)
+            try Task.checkCancellation()
+            guard requestID == context.id else { return }
+            bookmarks = result
+            analyticsList = context
+            failedList = nil
+            currentError = nil
+        } catch {
+            guard requestID == context.id, !Task.isCancelled, !(error is CancellationError) else { return }
+            failedList = context
+            analytics.record(.operationFailed(.list(context), category: .init(error: error)), from: .bookmarks)
+            handleError(error, feature: "bookmark", operation: "fetchUserBookmarks")
         }
     }
 
@@ -71,17 +102,17 @@ public final class BookmarkViewModel: BookmarkViewModelBindable, ErrorHandling {
     func loadInitial() {
         cancelLoads()
         loadTask = Task { @MainActor in
-            await performAsync(feature: "bookmark", operation: "loadInitial", loadingBinding: \.isLoading) {
-                async let fetchedInterests = fetchInterestsUseCase.execute()
-                async let fetchedArticles = fetchArticlesUseCase.execute(interest: interest, sortBy: sortOrder)
-                self.interests = try await fetchedInterests
-                self.bookmarks = try await fetchedArticles
-            }
+            async let options: Void = fetchUserInterests()
+            await fetchUserBookmarks()
+            await options
         }
     }
 
     // 로그아웃 시 데이터 초기화
     func clearData() {
+        failedList = nil
+        requestID = nil
+        analyticsList = .init(.bookmarkedArticles)
         interest = nil
         interests = []
         bookmarks = nil

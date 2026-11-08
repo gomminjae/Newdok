@@ -21,7 +21,7 @@ struct ExploreExampleApp: App {
                     onSignup: {},
                     onLogin: {},
                     onEditProfile: {},
-                    onBrandTap: { _ in }
+                    onBrandTap: { _, _ in }
                 )
             }
             .environment(AppState.shared)

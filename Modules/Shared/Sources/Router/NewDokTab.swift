@@ -4,4 +4,5 @@ public enum NewDokTab: Int, CaseIterable {
     case home
     case bookmark
     case profile
+    case search
 }

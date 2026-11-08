@@ -14,11 +14,14 @@ struct WebViewWrapper: UIViewRepresentable {
     let urlString: String
     let email: String
     let name: String
+    let onPageLoaded: () -> Void
+    let onPageFailed: (Error) -> Void
 
     func makeUIView(context: Context) -> WKWebView {
         let config = WKWebViewConfiguration()
         config.preferences.javaScriptCanOpenWindowsAutomatically = true
         let webView = WKWebView(frame: .zero, configuration: config)
+        context.coordinator.rootWebView = webView
         webView.uiDelegate = context.coordinator
         webView.navigationDelegate = context.coordinator
         webView.scrollView.isScrollEnabled = true
@@ -32,7 +35,7 @@ struct WebViewWrapper: UIViewRepresentable {
     func updateUIView(_ uiView: WKWebView, context: Context) {}
 
     func makeCoordinator() -> Coordinator {
-        Coordinator(email: email, name: name)
+        Coordinator(email: email, name: name, onPageLoaded: onPageLoaded, onPageFailed: onPageFailed)
     }
 
     static func dismantleUIView(_ uiView: WKWebView, coordinator: Coordinator) {
@@ -43,12 +46,18 @@ struct WebViewWrapper: UIViewRepresentable {
 
     @MainActor
     class Coordinator: NSObject, WKUIDelegate, WKNavigationDelegate {
+        weak var rootWebView: WKWebView?
+        private var rootNavigation: WKNavigation?
+        private let onPageLoaded: () -> Void
+        private let onPageFailed: (Error) -> Void
         private var popupWebView: WKWebView?
         private var autoFillTask: Task<Void, Never>?
         let email: String
         let name: String
 
-        init(email: String, name: String) {
+        init(email: String, name: String, onPageLoaded: @escaping () -> Void, onPageFailed: @escaping (Error) -> Void) {
+            self.onPageLoaded = onPageLoaded
+            self.onPageFailed = onPageFailed
             self.email = email
             self.name = name
         }
@@ -75,6 +84,7 @@ struct WebViewWrapper: UIViewRepresentable {
         // MARK: - 페이지 로드 완료 후 자동 입력
         func webView(_ webView: WKWebView, didStartProvisionalNavigation navigation: WKNavigation!) {
             cancelAutoFill()
+            if webView === rootWebView { rootNavigation = navigation }
         }
 
         func cancelAutoFill() {
@@ -83,6 +93,8 @@ struct WebViewWrapper: UIViewRepresentable {
         }
 
         func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
+            if webView === rootWebView, navigation === rootNavigation,
+               ["http", "https"].contains(webView.url?.scheme?.lowercased() ?? "") { onPageLoaded() }
             cancelAutoFill()
             let js = autoFillScript()
             // 즉시 1회 + SPA 렌더링 대비 지연 재시도
@@ -95,6 +107,14 @@ struct WebViewWrapper: UIViewRepresentable {
                 do { try await Task.sleep(for: .milliseconds(1500)) } catch { return }
                 _ = try? await webView.evaluateJavaScript(js)
             }
+        }
+
+        func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {
+            if webView === rootWebView, navigation === rootNavigation { onPageFailed(error) }
+        }
+
+        func webView(_ webView: WKWebView, didFailProvisionalNavigation navigation: WKNavigation!, withError error: Error) {
+            if webView === rootWebView, navigation === rootNavigation { onPageFailed(error) }
         }
 
         private func autoFillScript() -> String {
@@ -200,9 +220,14 @@ public struct SubscribeModalView: View {
     public let email: String
     public let name: String
 
+    private let onPageLoaded: () -> Void
+    private let onPageFailed: (Error) -> Void
+
     @State private var showToast: Bool = false
 
-    public init(title: String, url: String, email: String = "", name: String = "") {
+    public init(title: String, url: String, email: String = "", name: String = "", onPageLoaded: @escaping () -> Void = {}, onPageFailed: @escaping (Error) -> Void = { _ in }) {
+        self.onPageLoaded = onPageLoaded
+        self.onPageFailed = onPageFailed
         self.title = title
         self.url = url
         self.email = email
@@ -239,7 +264,7 @@ public struct SubscribeModalView: View {
             .background(Color.white)
 
             // 웹뷰 영역
-            WebViewWrapper(urlString: url, email: email, name: name)
+            WebViewWrapper(urlString: url, email: email, name: name, onPageLoaded: onPageLoaded, onPageFailed: onPageFailed)
                 .ignoresSafeArea(edges: .bottom)
         }
         .onAppear {

@@ -1,12 +1,15 @@
+import Shared
 import NetworkKit
 import SearchDomain
 import SearchData
 
 @MainActor
 final class SearchDIContainer {
+    private let analytics: AnalyticsClient
     private let network: any NetworkService
 
-    init(networkProvider: NetworkProviding) {
+    init(networkProvider: NetworkProviding, analytics: AnalyticsClient) {
+        self.analytics = analytics
         self.network = networkProvider.makeService()
     }
 
@@ -18,7 +21,8 @@ final class SearchDIContainer {
         let repository = makeRepository()
         return SearchViewModel(
             searchNewslettersUseCase: SearchNewslettersUseCaseImpl(repository: repository),
-            fetchPopularKeywordsUseCase: FetchPopularKeywordsUseCaseImpl(repository: repository)
+            fetchPopularKeywordsUseCase: FetchPopularKeywordsUseCaseImpl(repository: repository),
+            analytics: analytics
         )
     }
 }

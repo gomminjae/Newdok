@@ -68,6 +68,7 @@ public struct LoginView: View {
             .padding(.horizontal, 24)
             .padding(.bottom, 56)
         }
+        .analyticsScreen(.login, from: viewModel.context.entryPoint, flowID: viewModel.context.flowID)
         .ignoresSafeArea(.keyboard)
         .navigationBarTitleDisplayMode(.inline)
         .navigationBarBackButtonHidden(true)

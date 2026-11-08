@@ -92,6 +92,8 @@ public struct SignupView: View {
             }
             .animation(.easeInOut(duration: 0.3), value: viewModel.currentStep)
         }
+        .analyticsScreen(.signup, from: .login, step: viewModel.currentStep.analyticsStep, flowID: viewModel.context.flowID, isVisible: viewModel.subscriptionSession == nil)
+        .onDisappear { viewModel.cancelPendingWork() }
         .ignoresSafeArea(.keyboard)
         .serverErrorPopup(
             error: $viewModel.currentError,
@@ -141,6 +143,7 @@ public struct SignupView: View {
                 if viewModel.currentStep == .recommend {
                     Button(action: {
                         withAnimation(.easeInOut) {
+                            viewModel.skipProfile()
                             onAuthenticated()
                         }
                     }) {
@@ -177,5 +180,19 @@ public struct SignupView: View {
         .onAppear {
         }
         .navigationBarHidden(true)
+    }
+}
+
+extension SignupStep {
+    var analyticsStep: AnalyticsStep {
+        switch self {
+        case .enterProfile: .profile
+        case .agreeTerms: .terms
+        case .complete: .accountComplete
+        case .recommend: .recommendIntro
+        case .myIndustry: .industry
+        case .industryList: .interests
+        case .curation: .curation
+        }
     }
 }

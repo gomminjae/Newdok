@@ -17,17 +17,17 @@ public struct BookmarkView: View {
     
     @State private var viewModel: BookmarkViewModel
 
-    private let onSearch: () -> Void
+    private let onSearch: (() -> Void)?
     private let onLogin: () -> Void
-    private let onArticleTap: (String) -> Void
+    private let onArticleTap: (String, AnalyticsListContext) -> Void
 
     private var isGuest: Bool { AppState.shared.authState == .guest }
 
     public init(
         viewModel: BookmarkViewModel,
-        onSearch: @escaping () -> Void,
+        onSearch: (() -> Void)?,
         onLogin: @escaping () -> Void,
-        onArticleTap: @escaping (String) -> Void
+        onArticleTap: @escaping (String, AnalyticsListContext) -> Void
     ) {
         self.viewModel = viewModel
         self.onSearch = onSearch
@@ -99,6 +99,8 @@ public struct BookmarkView: View {
                 viewModel.loadInitial()
             }
         }
+        .analyticsScreen(.bookmarks, from: .bookmarks)
+        .analyticsContentState(viewModel.analyticsState, list: viewModel.analyticsStateList)
         .onDisappear { viewModel.cancelLoads() }
         .serverErrorPopup(
             error: $viewModel.currentError,
@@ -112,14 +114,16 @@ public struct BookmarkView: View {
                 .font(.hanSansNeo(18, .bold))
                 .foregroundStyle(Color.captionHeavy)
             Spacer()
-            Button {
-                onSearch()
-            } label: {
-                Image(asset: DesignSystemAsset.lineSearch)
-                    .padding(.trailing, 12)
+            if let onSearch {
+                Button {
+                    onSearch()
+                } label: {
+                    Image(asset: DesignSystemAsset.lineSearch)
+                        .padding(.trailing, 12)
+                }
+                .accessibilityLabel("검색")
+                .accessibilityIdentifier("bookmark_search_button")
             }
-            .accessibilityLabel("검색")
-            .accessibilityIdentifier("bookmark_search_button")
         }
         .padding(.horizontal, 20)
         .padding(.vertical, 17)
@@ -202,7 +206,8 @@ public struct BookmarkView: View {
                     .padding(.bottom, 8)
                     .contentShape(Rectangle())
                     .onTapGesture {
-                        onArticleTap("\(article.id)")
+                        viewModel.analytics.record(.contentSelected(.article(id: "\(article.id)"), list: viewModel.analyticsList), from: .bookmarks)
+                        onArticleTap("\(article.id)", viewModel.analyticsList)
                     }
             }
         }

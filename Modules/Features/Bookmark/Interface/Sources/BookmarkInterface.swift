@@ -1,10 +1,11 @@
 import SwiftUI
+import Shared
 
 @MainActor
 public protocol BookmarkBuildable {
     func makeBookmarkView(
-        onSearch: @escaping () -> Void,
+        onSearch: (() -> Void)?,
         onLogin: @escaping () -> Void,
-        onArticleTap: @escaping (String) -> Void
+        onArticleTap: @escaping (String, AnalyticsListContext) -> Void
     ) -> AnyView
 }

@@ -297,7 +297,8 @@ struct LoginViewModelTests {
         loginUseCase: MockLoginUseCase = .init(),
         kakaoAuthService: MockKakaoAuthService = .init(),
         appleAuthService: MockAppleAuthService = .init(),
-        appState: AppState = AppState()
+        appState: AppState = AppState(),
+        analytics: AnalyticsClient = .disabled
     ) -> (vm: LoginViewModel, login: MockLoginUseCase, kakao: MockKakaoAuthService, tokenStorage: StubTokenStorage) {
         let tokenStorage = StubTokenStorage()
         let vm = LoginViewModel(
@@ -305,7 +306,8 @@ struct LoginViewModelTests {
             kakaoAuthService: kakaoAuthService,
             appleAuthService: appleAuthService,
             tokenStorage: tokenStorage,
-            appState: appState
+            appState: appState,
+            analytics: analytics
         )
         return (vm, loginUseCase, kakaoAuthService, tokenStorage)
     }
@@ -419,5 +421,38 @@ struct LoginViewModelTests {
         await vm.loginWithKakao(onLoggedIn: { }, onNeedSignup: { _, _ in })
 
         #expect(mock.executeCallCount == 0)
+    }
+    @Test("기존 계정 성공은 login만, 신규 계정 분기는 signup_required만 기록한다")
+    func authOutcomes() async {
+        let recorder = AuthAnalyticsRecorder()
+        let (vm, login, _, _) = makeSUT(analytics: recorder.client)
+        await vm.loginWithKakao(onLoggedIn: {}, onNeedSignup: { _, _ in })
+        login.result = .success(.newUser(signupToken: "전송 금지 토큰", suggestedNickname: "전송 금지 이름"))
+        await vm.loginWithKakao(onLoggedIn: {}, onNeedSignup: { _, _ in })
+        #expect(recorder.payloads.map(\.name) == ["auth_attempt_started", "login", "auth_attempt_started", "auth_attempt_finished"])
+        #expect(recorder.payloads.last?.parameters["outcome"] == .string("signup_required"))
+        #expect(recorder.payloads.allSatisfy { $0.parameters["token"] == nil && $0.parameters["nickname"] == nil })
+    }
+
+    @Test("소셜 취소는 실패나 성공이 아닌 cancelled 한 번으로 끝난다")
+    func cancelledAttemptMeasurement() async {
+        let recorder = AuthAnalyticsRecorder()
+        let kakao = MockKakaoAuthService()
+        kakao.result = .failure(LoginError.cancelled)
+        let (vm, _, _, _) = makeSUT(kakaoAuthService: kakao, analytics: recorder.client)
+        await vm.loginWithKakao(onLoggedIn: {}, onNeedSignup: { _, _ in })
+        #expect(recorder.payloads.map(\.name) == ["auth_attempt_started", "auth_attempt_finished"])
+        #expect(recorder.payloads.last?.parameters["outcome"] == .string("cancelled"))
+        #expect(vm.context.attemptID == nil)
+    }
+
+}
+
+@MainActor private final class AuthAnalyticsRecorder {
+    var payloads: [AnalyticsPayload] = []
+    var client: AnalyticsClient {
+        AnalyticsClient { [self] event, source in
+            if let payload = event.payload(common: .init(environment: .development, build: "1", authState: .guest), from: source) { payloads.append(payload) }
+        }
     }
 }

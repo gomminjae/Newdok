@@ -14,6 +14,29 @@ import Observation
 @Observable
 @MainActor
 public final class ExploreViewModel: ErrorHandling {
+    public private(set) var recommendedList = AnalyticsListContext(.exploreRecommended)
+    public private(set) var allList = AnalyticsListContext(.exploreAll)
+    private var allRequestID: UUID?
+    private var failedList: AnalyticsListContext?
+    var analyticsStateList: AnalyticsListContext {
+        currentError == .serverError ? failedList ?? analyticsList : analyticsList
+    }
+    var analyticsList: AnalyticsListContext { isGuest || selectedTab == 1 ? allList : recommendedList }
+    var analyticsState: AnalyticsContentState? {
+        if currentError == .serverError { return .failed }
+        guard isInitialLoaded, !isRefreshingAllNewsletters, !isRefreshingRecommendation else { return nil }
+        if isGuest || selectedTab == 1 { return allNewsletters.isEmpty ? .noResults : .ready }
+        guard hasUserProfile else { return nil }
+        return fixedMyRecommendation.isEmpty && fixedUnionRecommendation.isEmpty ? .noResults : .ready
+    }
+    func selectNewsletter(_ id: Int, list: AnalyticsListContext) {
+        let name: String?
+        if list.list == .exploreAll { name = allNewsletters.first { $0.id == id }?.brandName }
+        else { name = (fixedMyRecommendation + fixedUnionRecommendation).first { $0.id == id }?.brandName }
+        analytics.record(.contentSelected(.newsletter(.init(id: String(id), name: name)), list: list), from: list.list.entryPoint)
+    }
+    public let analytics: AnalyticsClient
+
     public var myRecommendation: [ExploreNewsletterDetail] = []
     public var unionRecommendation: [ExploreNewsletterDetail] = []
     public var fixedMyRecommendation: [ExploreNewsletterDetail] = []
@@ -112,8 +135,10 @@ public final class ExploreViewModel: ErrorHandling {
         prioritizeInterestsUseCase: PrioritizeInterestsUseCase,
         userInfoStore: UserInfoStoreProtocol,
         selectableItemStore: SelectableItemStoreProtocol,
-        appState: AppState = .shared
+        appState: AppState = .shared,
+        analytics: AnalyticsClient = .disabled
     ) {
+        self.analytics = analytics
         self.fetchNewslettersUseCase = fetchNewslettersUseCase
         self.fetchGuestNewslettersUseCase = fetchGuestNewslettersUseCase
         self.fetchRecommendationUseCase = fetchRecommendationUseCase
@@ -151,7 +176,8 @@ public final class ExploreViewModel: ErrorHandling {
             return
         }
 
-        let requestID = UUID()
+        let context = AnalyticsListContext(.exploreRecommended)
+        let requestID = context.id
         let requestedUserInfo = userInfo
         recommendationRequestID = requestID
         isRefreshingRecommendation = true
@@ -173,11 +199,15 @@ public final class ExploreViewModel: ErrorHandling {
             lastFetchTime = Date()
 
             updateRecommendationData(from: response)
+            recommendedList = context
+            failedList = nil
             currentError = nil
         } catch {
-            guard !Task.isCancelled,
+            guard !Task.isCancelled, !(error is CancellationError),
                   recommendationRequestID == requestID,
                   requestedUserInfo == userInfoStore.load() else { return }
+            failedList = context
+            analytics.record(.operationFailed(.list(context), category: .init(error: error)), from: .exploreRecommended)
             handleError(error, feature: "explore", operation: "fetchRecommendation")
         }
     }
@@ -198,19 +228,30 @@ public final class ExploreViewModel: ErrorHandling {
         return prioritizeInterestsUseCase.execute(newsletter: newsletter, userInterestIds: userInterestIds)
     }
 
-    public func fetchAllNewsletters() async {
-        await performAsync(feature: "explore", operation: "fetchAllNewsletters", loadingBinding: \.isRefreshingAllNewsletters) {
-            let response = try await fetchNewslettersUseCase.execute(orderOpt: orderOpt, industry: industry, day: day)
-            try Task.checkCancellation()
-            allNewsletters = response
-        }
-    }
+    public func fetchAllNewsletters() async { await loadAll(guest: false) }
+    public func fetchGuestAllNewsletters() async { await loadAll(guest: true) }
 
-    public func fetchGuestAllNewsletters() async {
-        await performAsync(feature: "explore", operation: "fetchGuestAllNewsletters") {
-            let response = try await fetchGuestNewslettersUseCase.execute(orderOpt: orderOpt, industry: industry, day: day)
+    private func loadAll(guest: Bool) async {
+        let requestedAuthState = appState.authState
+        let context = AnalyticsListContext(.exploreAll)
+        allRequestID = context.id
+        isRefreshingAllNewsletters = true
+        defer { if allRequestID == context.id { isRefreshingAllNewsletters = false } }
+        do {
+            let response: [ExploreBrand]
+            if guest { response = try await fetchGuestNewslettersUseCase.execute(orderOpt: orderOpt, industry: industry, day: day) }
+            else { response = try await fetchNewslettersUseCase.execute(orderOpt: orderOpt, industry: industry, day: day) }
             try Task.checkCancellation()
+            guard allRequestID == context.id, requestedAuthState == appState.authState else { return }
             allNewsletters = response
+            allList = context
+            failedList = nil
+            currentError = nil
+        } catch {
+            guard allRequestID == context.id, requestedAuthState == appState.authState, !Task.isCancelled, !(error is CancellationError) else { return }
+            failedList = context
+            analytics.record(.operationFailed(.list(context), category: .init(error: error)), from: .exploreAll)
+            handleError(error, feature: "explore", operation: "fetchAllNewsletters")
         }
     }
 
@@ -303,6 +344,10 @@ public final class ExploreViewModel: ErrorHandling {
 
     // 로그아웃 시 데이터 초기화
     func clearData() {
+        failedList = nil
+        allRequestID = nil
+        allList = .init(.exploreAll)
+        recommendedList = .init(.exploreRecommended)
         recommendationRequestID = nil
         isRefreshingRecommendation = false
         isInitialLoaded = false

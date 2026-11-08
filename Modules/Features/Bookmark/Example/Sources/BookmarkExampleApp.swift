@@ -18,7 +18,7 @@ struct BookmarkExampleApp: App {
                     viewModel: makeViewModel(),
                     onSearch: {},
                     onLogin: {},
-                    onArticleTap: { _ in }
+                    onArticleTap: { _, _ in }
                 )
             }
             .environment(AppState.shared)

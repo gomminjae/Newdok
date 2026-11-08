@@ -14,7 +14,7 @@ struct SubscribeExampleApp: App {
                     viewModel: makeViewModel(),
                     onSearch: {},
                     onLogin: {},
-                    onBrandTap: { _ in }
+                    onBrandTap: { _, _ in }
                 )
             }
             .environment(AppState.shared)

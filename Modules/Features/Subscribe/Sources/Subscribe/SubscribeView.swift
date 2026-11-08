@@ -20,15 +20,15 @@ public struct SubscribeView: View {
     @State private var showSubscribeToast: Bool = false
     @State private var showPauseToast: Bool = false
 
-    private let onSearch: () -> Void
+    private let onSearch: (() -> Void)?
     private let onLogin: () -> Void
-    private let onBrandTap: (String) -> Void
+    private let onBrandTap: (String, AnalyticsListContext) -> Void
 
     public init(
         viewModel: SubscribeViewModel,
-        onSearch: @escaping () -> Void,
+        onSearch: (() -> Void)?,
         onLogin: @escaping () -> Void,
-        onBrandTap: @escaping (String) -> Void
+        onBrandTap: @escaping (String, AnalyticsListContext) -> Void
     ) {
         self.viewModel = viewModel
         self.onSearch = onSearch
@@ -48,7 +48,12 @@ public struct SubscribeView: View {
             contentSection
                 .background(Color.bgSystem)
         }
-        .task { await viewModel.loadInitial() }
+        .analyticsScreen(.subscriptions, from: .subscriptions)
+        .analyticsContentState(viewModel.analyticsState(tab: selectedTab), list: viewModel.analyticsStateList(tab: selectedTab))
+        .task(id: AppState.shared.authState) {
+            viewModel.resetForAuthChange()
+            await viewModel.loadInitial()
+        }
         .onChange(of: selectedTab) { _, newTab in
             Task {
                 await viewModel.refresh(tab: newTab)
@@ -152,7 +157,10 @@ public struct SubscribeView: View {
 
             ForEach(Array(subscriptions.enumerated()), id: \.element.id) { index, newsletter in
                 SubscribeRow(newsletter: newsletter, isSubscribed: selectedTab == 0, onNavigate: {
-                    onBrandTap("\(newsletter.id ?? 0)")
+                    guard let id = newsletter.id, id > 0 else { return }
+                    let list = viewModel.analyticsList(tab: selectedTab)
+                    viewModel.analytics.record(.contentSelected(.newsletter(.init(id: String(id), name: newsletter.brandName)), list: list), from: .subscriptions)
+                    onBrandTap(String(id), list)
                 }) {
                     if selectedTab == 0 {
                         selectedNewsletter = newsletter
@@ -184,14 +192,16 @@ public struct SubscribeView: View {
                 .font(.hanSansNeo(18, .bold))
                 .foregroundStyle(Color.captionHeavy)
             Spacer()
-            Button {
-                onSearch()
-            } label: {
-                Image(asset: DesignSystemAsset.lineSearch)
-                    .padding(.trailing, 12)
+            if let onSearch {
+                Button {
+                    onSearch()
+                } label: {
+                    Image(asset: DesignSystemAsset.lineSearch)
+                        .padding(.trailing, 12)
+                }
+                .accessibilityLabel("검색")
+                .accessibilityIdentifier("subscribe_search_button")
             }
-            .accessibilityLabel("검색")
-            .accessibilityIdentifier("subscribe_search_button")
         }
         .padding(.horizontal, 20)
         .padding(.vertical, 17)

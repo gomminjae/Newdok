@@ -36,12 +36,14 @@ extension SubscriptionStatus {
 
 public struct BrandDetailView: View {
     @State private var viewModel: BrandDetailViewModel
+    @Environment(\.analyticsIsVisible) private var analyticsVisible
+    @Environment(\.scenePhase) private var phase
     @Environment(\.displayScale) private var displayScale
 
     private let onBack: () -> Void
     private let onSignup: () -> Void
     private let onGoHome: () -> Void
-    private let onArticleTap: (String) -> Void
+    private let onArticleTap: (String, AnalyticsListContext) -> Void
 
     @State private var isShowPauseAlert: Bool = false
     @State private var isShowGuestAlert: Bool = false
@@ -60,7 +62,7 @@ public struct BrandDetailView: View {
         onBack: @escaping () -> Void,
         onSignup: @escaping () -> Void,
         onGoHome: @escaping () -> Void,
-        onArticleTap: @escaping (String) -> Void
+        onArticleTap: @escaping (String, AnalyticsListContext) -> Void
     ) {
         self.viewModel = viewModel
         self.onBack = onBack
@@ -82,6 +84,10 @@ public struct BrandDetailView: View {
                     .padding()
             }
         }
+        .analyticsScreen(.newsletterDetail, from: viewModel.analyticsSource.entryPoint, isVisible: !showSubscribeSheet)
+        .onChange(of: viewModel.isLoading) { _, loading in if !loading && analyticsVisible && phase == .active { viewModel.detailViewed() } }
+        .onChange(of: analyticsVisible) { _, visible in if visible && phase == .active { viewModel.detailViewed() } }
+        .onChange(of: phase) { _, phase in if phase == .active && analyticsVisible { viewModel.detailViewed() } }
         .background(Color.bgSystem)
         .onAppear {
             if viewModel.detail == nil {
@@ -152,7 +158,7 @@ public struct BrandDetailView: View {
                 },
                 subscribe: {
                     showCheckSubscribePopup = false
-                    showSubscribeSheet = true
+                    if viewModel.startSubscription() { showSubscribeSheet = true }
                 }
             )
         } customize: {
@@ -164,7 +170,7 @@ public struct BrandDetailView: View {
             SignupRequiredPopupView(
                 onSignup: {
                     showSignupRequiredPopup = false
-                    showSubscribeSheet = true
+                    if viewModel.startSubscription() { showSubscribeSheet = true }
                 },
                 onDismiss: { showSignupRequiredPopup = false }
             )
@@ -208,22 +214,24 @@ public struct BrandDetailView: View {
             BrandArticleListSection(
                 articles: detail.brandArticleList,
                 onArticleTap: { id in
-                    onArticleTap(id)
+                    viewModel.analytics.record(.contentSelected(.article(id: id), list: viewModel.articleList), from: .newsletterDetail)
+                    onArticleTap(id, viewModel.articleList)
                 }
             )
+            .analyticsContentState(detail.brandArticleList.isEmpty ? nil : .ready, list: viewModel.articleList, isVisible: !showSubscribeSheet)
             .sheet(isPresented: Binding(
                 get: { showSubscribeSheet && !viewModel.requiresSpecialSubscribeFlow },
                 set: { showSubscribeSheet = $0 }
-            )) {
-                SubscribeModalView(title: viewModel.detail?.brandName ?? "", url: viewModel.detail?.subscribeUrl ?? "", email: viewModel.subscribeEmail, name: viewModel.userNickname)
+            ), onDismiss: { viewModel.closeSubscription() }) {
+                subscriptionModal
                     .presentationDetents([.large])
                     .presentationDragIndicator(.hidden)
             }
             .fullScreenCover(isPresented: Binding(
                 get: { showSubscribeSheet && viewModel.requiresSpecialSubscribeFlow },
                 set: { showSubscribeSheet = $0 }
-            )) {
-                SubscribeModalView(title: viewModel.detail?.brandName ?? "", url: viewModel.detail?.subscribeUrl ?? "", email: viewModel.subscribeEmail, name: viewModel.userNickname)
+            ), onDismiss: { viewModel.closeSubscription() }) {
+                subscriptionModal
             }
             .onChange(of: showSubscribeSheet) { _, newValue in
                 if !newValue {
@@ -247,8 +255,19 @@ public struct BrandDetailView: View {
             }
         }
         .onAppear {
+            if analyticsVisible && phase == .active { viewModel.detailViewed() }
             presentCheckSubscribePopupIfNeeded(for: detail)
         }
+    }
+
+    private var subscriptionModal: some View {
+        let session = viewModel.subscriptionSession
+        return SubscribeModalView(
+            title: viewModel.detail?.brandName ?? "", url: viewModel.detail?.subscribeUrl ?? "",
+            email: viewModel.subscribeEmail, name: viewModel.userNickname,
+            onPageLoaded: { session?.pageLoaded() }, onPageFailed: { session?.pageFailed($0) }
+        )
+        .analyticsScreen(.subscribeWeb, from: .newsletterDetail)
     }
 
     // MARK: - Actions
@@ -263,7 +282,7 @@ public struct BrandDetailView: View {
             if viewModel.requiresSpecialSubscribeFlow {
                 showSignupRequiredPopup = true
             } else {
-                showSubscribeSheet = true
+                if viewModel.startSubscription() { showSubscribeSheet = true }
             }
         case .check:
             showCheckSubscribePopup = true

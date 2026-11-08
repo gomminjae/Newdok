@@ -10,11 +10,11 @@ public struct ExploreView: View {
     @State private var currentPage: Int = 0
 
     private let landing: ExploreLanding?
-    private let onSearch: () -> Void
+    private let onSearch: (() -> Void)?
     private let onSignup: () -> Void
     private let onLogin: () -> Void
     private let onEditProfile: () -> Void
-    private let onBrandTap: (String) -> Void
+    private let onBrandTap: (String, AnalyticsListContext) -> Void
 
     private var isGuest: Bool { AppState.shared.authState == .guest }
 
@@ -26,11 +26,11 @@ public struct ExploreView: View {
     public init(
         viewModel: ExploreViewModel,
         landing: ExploreLanding?,
-        onSearch: @escaping () -> Void,
+        onSearch: (() -> Void)?,
         onSignup: @escaping () -> Void,
         onLogin: @escaping () -> Void,
         onEditProfile: @escaping () -> Void,
-        onBrandTap: @escaping (String) -> Void
+        onBrandTap: @escaping (String, AnalyticsListContext) -> Void
     ) {
         self.viewModel = viewModel
         self.landing = landing
@@ -69,6 +69,8 @@ public struct ExploreView: View {
                     await viewModel.loadInitial()
                 }
             }
+            .analyticsScreen(.explore, from: viewModel.analyticsList.list.entryPoint)
+            .analyticsContentState(viewModel.analyticsState, list: viewModel.analyticsStateList)
             .serverErrorPopup(
                 error: $viewModel.currentError,
                 onRetry: {
@@ -86,14 +88,16 @@ public struct ExploreView: View {
                 .font(.hanSansNeo(18, .bold))
                 .foregroundStyle(Color.captionHeavy)
             Spacer()
-            Button {
-                onSearch()
-            } label: {
-                Image(asset: DesignSystemAsset.lineSearch)
-                    .padding(.trailing, 12)
+            if let onSearch {
+                Button {
+                    onSearch()
+                } label: {
+                    Image(asset: DesignSystemAsset.lineSearch)
+                        .padding(.trailing, 12)
+                }
+                .accessibilityLabel("검색")
+                .accessibilityIdentifier("explore_search_button")
             }
-            .accessibilityLabel("검색")
-            .accessibilityIdentifier("explore_search_button")
         }
         .padding(.horizontal, 20)
         .padding(.vertical, 17)
@@ -166,7 +170,10 @@ public struct ExploreView: View {
                     unionRecommendation: viewModel.fixedUnionRecommendation,
                     isRefreshing: viewModel.isRefreshingRecommendation,
                     prioritizedInterests: viewModel.prioritizeInterestsForNewsletter,
-                    onBrandTap: { id in onBrandTap("\(id)") },
+                    onBrandTap: { id in
+                        viewModel.selectNewsletter(id, list: viewModel.analyticsList)
+                        onBrandTap("\(id)", viewModel.analyticsList)
+                    },
                     onRefresh: { Task { await viewModel.fetchRecommendation(forceRefresh: true) } },
                     currentPage: $currentPage
                 )
@@ -203,7 +210,10 @@ public struct ExploreView: View {
             onReset: {
                 await viewModel.handleReset()
             },
-            onBrandTap: { id in onBrandTap("\(id)") }
+            onBrandTap: { id in
+                        viewModel.selectNewsletter(id, list: viewModel.analyticsList)
+                        onBrandTap("\(id)", viewModel.analyticsList)
+                    }
         )
     }
 

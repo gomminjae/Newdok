@@ -1,5 +1,6 @@
 import Foundation
 import Testing
+import Synchronization
 import Shared
 import AuthDomain
 @testable import Auth
@@ -94,6 +95,71 @@ struct SignupOptionsTests {
         #expect(vm.nickname == "작성 중")
         #expect(vm.currentStep == .myIndustry)
     }
+    @Test("회원가입 성공은 한 번만 기록하며 프로필 건너뛰기와 별도로 연결한다")
+    func accountCreationMeasurement() async {
+        let recorder = SignupAnalyticsRecorder()
+        let context = AuthAnalyticsContext()
+        let attempt = context.beginAttempt(method: .apple)
+        context.finishAttempt(attempt)
+        let vm = SignupViewModel(
+            signupToken: "전송 금지 토큰", suggestedNickname: "개인 이름",
+            authRepository: UnusedAuthRepository(), signupUseCase: SuccessfulSignupUseCase(),
+            userInfoStore: EmptyUserInfoStore(),
+            selectableItemStore: SelectableItemStore(fetchOptionsUseCase: SignupOptionsFetcher(result: .success(Self.options))),
+            appState: AppState(), context: context, analytics: recorder.client
+        )
+        vm.currentStep = .agreeTerms
+        vm.signup()
+        await vm.signupTask?.value
+        vm.signup()
+        await vm.signupTask?.value
+        vm.skipProfile()
+        vm.skipProfile()
+        #expect(recorder.payloads.map(\.name) == ["sign_up", "profile_setup_finished"])
+        #expect(recorder.payloads.last?.parameters["outcome"] == .string("skipped"))
+        #expect(recorder.payloads.allSatisfy { $0.parameters["auth_flow_id"] == .string(context.flowID.uuidString.lowercased()) })
+    }
+
+    @Test("프로필 저장 성공 뒤에만 완료하며 추천 목록이 비어도 완료를 유지한다")
+    func profileCommitMeasurement() async throws {
+        let recorder = SignupAnalyticsRecorder()
+        let store = SignupUserStore()
+        let vm = SignupViewModel(
+            signupToken: "token", suggestedNickname: nil,
+            authRepository: SuccessfulProfileRepository(), signupUseCase: UnusedSignupUseCase(),
+            userInfoStore: store,
+            selectableItemStore: SelectableItemStore(fetchOptionsUseCase: SignupOptionsFetcher(result: .success(Self.options))),
+            appState: AppState(), analytics: recorder.client
+        )
+        try await vm.loadOptions()
+        vm.currentStep = .industryList
+        vm.myIndustry = "8"
+        vm.selectedInterests = ["10", "20", "30"]
+        vm.submitInterests()
+        await vm.interestsTask?.value
+        #expect(store.load()?.industryId == 8)
+        #expect(vm.recommendedPost.isEmpty)
+        #expect(recorder.payloads.map(\.name) == ["profile_setup_finished"])
+        #expect(recorder.payloads.last?.parameters["outcome"] == .string("completed"))
+    }
+
+    @Test("취소된 가입은 성공과 오류로 기록하지 않고 다시 시도할 수 있다")
+    func cancelledSignupMeasurement() async {
+        let recorder = SignupAnalyticsRecorder()
+        let vm = SignupViewModel(
+            signupToken: "token", suggestedNickname: nil,
+            authRepository: UnusedAuthRepository(), signupUseCase: CancelledSignupUseCase(),
+            userInfoStore: EmptyUserInfoStore(),
+            selectableItemStore: SelectableItemStore(fetchOptionsUseCase: SignupOptionsFetcher(result: .success(Self.options))),
+            appState: AppState(), analytics: recorder.client
+        )
+        vm.signup()
+        await vm.signupTask?.value
+        #expect(recorder.payloads.isEmpty)
+        #expect(!vm.isLoading)
+        #expect(vm.currentError == nil)
+    }
+
 }
 
 private enum OptionsTestError: Error { case failed }
@@ -130,4 +196,34 @@ private struct UnusedAuthRepository: AuthRepository {
         throw OptionsTestError.failed
     }
     func signOut() async {}
+}
+
+private struct SuccessfulSignupUseCase: SignupUseCase {
+    func execute(request: AuthSignupRequest) async throws -> AuthUser {
+        AuthUser(id: 1, subscribeEmail: nil, nickname: "개인 이름", birthYear: "2000", gender: "", createdAt: "", industryId: nil, interestIds: [])
+    }
+}
+private struct CancelledSignupUseCase: SignupUseCase {
+    func execute(request: AuthSignupRequest) async throws -> AuthUser { throw CancellationError() }
+}
+private struct SuccessfulProfileRepository: AuthRepository {
+    func login(credential: SocialLoginCredential) async throws -> SocialLoginResultType { throw OptionsTestError.failed }
+    func signup(signupToken: String, nickname: String, birthYear: String, gender: String, agreements: [AuthAgreement]) async throws -> AuthSignupResponse { throw OptionsTestError.failed }
+    func preInvestigate(industryId: String, interestIds: [String]) async throws -> [AuthRecommendedBrand] { [] }
+    func signOut() async {}
+}
+private final class SignupUserStore: UserInfoStoreProtocol {
+    private let storage = Mutex<UserInfo?>(UserInfo(id: 1, subscribeEmail: "private@example.com", nickname: "이름", birthYear: "", gender: "", createdAt: "", interestIds: []))
+    func save(_ user: UserInfo) { storage.withLock { $0 = user } }
+    func load() -> UserInfo? { storage.withLock { $0 } }
+    func clear() { storage.withLock { $0 = nil } }
+    var hasProfile: Bool { load()?.industryId != nil }
+}
+@MainActor private final class SignupAnalyticsRecorder {
+    var payloads: [AnalyticsPayload] = []
+    var client: AnalyticsClient {
+        AnalyticsClient { [self] event, source in
+            if let payload = event.payload(common: .init(environment: .development, build: "1", authState: .authenticated), from: source) { payloads.append(payload) }
+        }
+    }
 }

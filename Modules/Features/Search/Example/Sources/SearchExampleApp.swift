@@ -17,7 +17,7 @@ struct SearchExampleApp: App {
                 SearchView(
                     viewModel: makeViewModel(),
                     onBack: {},
-                    onBrandTap: { _ in },
+                    onBrandTap: { _, _ in },
                     onFeedback: {}
                 )
             }
